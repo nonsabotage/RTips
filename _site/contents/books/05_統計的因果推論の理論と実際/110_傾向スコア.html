@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips - 傾向スコア</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/books/05_統計的因果推論の理論と実際/111_傾向スコアマッチング.html" rel="next">
+<link href="../../../contents/books/05_統計的因果推論の理論と実際/109_交互作用項のある共分散分析.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">libs</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">統計的因果推論の理論と実際</a></li><li class="breadcrumb-item"><a href="../../../contents/books/05_統計的因果推論の理論と実際/110_傾向スコア.html">傾向スコア</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Rによる実証分析2e</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch01_回帰分析の目的.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 回帰分析の目的</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch02_統計の基礎知識.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 統計の基礎知識</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch03_確率論の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 確率論の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch04_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch05_推測統計の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 推測統計の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch06_相関関係と因果関係.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 相関関係と因果関係</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch07_外生変数と内生変数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 内生変数と外生変数</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch08_ランダム化実験.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch08 ランダム化実験</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch09_マッチング法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch09 マッチング法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch10_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch10 回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch11_操作変数法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch11 操作変数法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch12_パネルデータ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch12 パネルデータ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">因果推論ミックステープ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch01_導入.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 導入</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch02_確率と回帰の概要.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 確率と回帰の概要</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch03_非巡回的有向グラフ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 非巡回的有向グラフ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch04_潜在アウトカム因果モデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 潜在アウトカム因果モデル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch05_マッチングと層別化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 マッチングと層別化</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch06_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch07_操作変数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 操作変数</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch08_パネルデータ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch08 パネルデータ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch09_差分の差デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch09 差分の差デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch10_合成コントロール法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch10 合成コントロール</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch11_結論.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch11 結論</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch01_本書の狙い.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 本書のねらい</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch02_プログラミングの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 プログラミングの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch03_乱数生成シミュレーションの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 乱数生成シミュレーションの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch04_母数の推定のシミュレーション.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 母数の推定</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch05_統計検定の論理とエラー確率のコントロール - コピー (2).html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 統計検定の論理</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch06_適切な検定のためのサンプルサイズ設計.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 サンプルサイズ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch07_回帰分析とシミュレーション.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 回帰分析</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">統計的因果推論の理論と実際</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/101_統計的因果推論の基礎の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">基礎の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/102_潜在的結果変数の枠組み.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">潜在的結果変数の枠組み</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/103_統計的因果推論における重要な仮定.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">重要な仮定</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/104_推測統計の基礎：標準誤差と信頼区間.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">標準誤差と信頼区間</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/105_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/106_図で理解する重回帰モデルの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">重回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/107_最小二乗法による重回帰モデルの仮定と診断1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">最小二乗法の仮定と診断1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/108_最小二乗法による重回帰モデルの仮定と診断2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">最小二乗法の仮定と診断2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/109_交互作用項のある共分散分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交互作用項のある共分散分析</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/110_傾向スコア.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">傾向スコア</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/111_傾向スコアマッチング.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコアマッチング</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/112_傾向スコアによる層化解析法および重み付き法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコアによる層化解析法および重み付き法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/113_操作変数法の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">操作変数法の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/114_操作変数法による非遵守への対処.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">操作変数の非遵守への対処</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/115_回帰不連続デザインの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/119_欠測データ処理の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">欠損データ処理</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#傾向スコア" id="toc-傾向スコア" class="nav-link active" data-scroll-target="#傾向スコア"><span class="header-section-number">1</span> 傾向スコア</a>
+  <ul class="collapse">
+  <li><a href="#バランシングスコア" id="toc-バランシングスコア" class="nav-link" data-scroll-target="#バランシングスコア"><span class="header-section-number">1.1</span> バランシングスコア</a></li>
+  <li><a href="#傾向スコア-1" id="toc-傾向スコア-1" class="nav-link" data-scroll-target="#傾向スコア-1"><span class="header-section-number">1.2</span> 傾向スコア</a></li>
+  <li><a href="#傾向スコア定理" id="toc-傾向スコア定理" class="nav-link" data-scroll-target="#傾向スコア定理"><span class="header-section-number">1.3</span> 傾向スコア定理</a></li>
+  <li><a href="#傾向スコアのモデル化" id="toc-傾向スコアのモデル化" class="nav-link" data-scroll-target="#傾向スコアのモデル化"><span class="header-section-number">1.4</span> 傾向スコアのモデル化</a></li>
+  <li><a href="#傾向スコアの算出例" id="toc-傾向スコアの算出例" class="nav-link" data-scroll-target="#傾向スコアの算出例"><span class="header-section-number">1.5</span> 傾向スコアの算出例</a></li>
+  <li><a href="#rパッケージによる傾向スコアのモデル化" id="toc-rパッケージによる傾向スコアのモデル化" class="nav-link" data-scroll-target="#rパッケージによる傾向スコアのモデル化"><span class="header-section-number">1.6</span> Rパッケージによる傾向スコアのモデル化</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">統計的因果推論の理論と実際</a></li><li class="breadcrumb-item"><a href="../../../contents/books/05_統計的因果推論の理論と実際/110_傾向スコア.html">傾向スコア</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">傾向スコア</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">December 11, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="傾向スコア" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 傾向スコア</h1>
+<p>実験研究がよいのは，処置の有無を無作為に割り付けられることで， 共変量の分布が確率的に同じになることにより， 交絡が発生しないことである．</p>
+<p>観察研究における因果推論が難しいのは，処置群と統制群が傾向的に異なっている可能性のためである．</p>
+<p>傾向スコアによる分析は「準実験」と呼ばれる． 処置の無作為な割り付けが出来ない場合でも， 割り付けや比較対象の集団について研究者が何らかの統制を行うことで 無作為化をマネすデザインのことをいう．</p>
+<p>傾向スコアマッチングとは傾向スコアが同じペアを同一だと見なし， 処置群の処置効果を測るための手法とするものである. 共変量で調整されていれば，結果の違いは，共変量以外の要因からなり， それは主として処置効果からくるものと考えられる． この考え方の妥当性は，これまでと同じように条件付き独立性が満たされるという考え方になる.</p>
+<p><span class="math display">\[
+\{Y(1), Y(0)\} \perp T |X
+\]</span> 上記のマッチングがうまく出来れば, 本来観測不可能である「処置群の処置効果(ATT)」を推定することが可能となる．傾向スコアによりATEを推定するには，スコアごとの層別解析をなんらかの方法で平均すればよい.</p>
+<p><span class="math display">\[
+\tau_{ATT}=E[Y_i(1)-Y_i(0)|T_i=1]=E[Y_i(1)|T_i=1]-E[T_i(0)|T_i=1]
+\]</span> なお，これまで調べていたのは「処置の平均効果(ATE)」である．これは，処置と結果変数を独立となるようにすることで，推定が行える.</p>
+<p><span class="math display">\[
+\tau_{ATE}=E[Y_i(1)-Y_i(0)|T_i]=E[Y_i(1)|T_i]-E[T_i(0)|T_i]=E[Y_i(1)]-E[T_i(0)]
+\]</span></p>
+<p>とはいえ，まずは<strong>ATTとATEは異なる</strong>ということをまずは知っておく必要がある．</p>
+<section id="バランシングスコア" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="バランシングスコア"><span class="header-section-number">1.1</span> バランシングスコア</h2>
+<p>共変量が単変量の場合には共分散分析により解析することが出来た． しかし，通常共変量は多変量である．これに対して傾向スコアが開発された． 傾向スコアとはバランシングスコアの１つであり， 観測される共変量<span class="math inline">\(X\)</span>の関数<span class="math inline">\(b(X)\)</span>が与えられたときの<span class="math inline">\(X\)</span>の条件つき分布が， 処置群と統制群において同じとなる関数である.</p>
+<p>とにかくバランシングスコアを見るようにして，バランシングスコアが悪いときに，マッチングを使ったATT推定を行ってはならない. マッチしたからといってどの程度マッチに意味があるかは，別であるよね，という話だと理解した．</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>data10a <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./causality/data10a.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># 平均処置効果</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">with</span>(data10a, {</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="fu">print</span>(<span class="fu">mean</span>(y1t) <span class="sc">-</span> <span class="fu">mean</span>(y0t))</span>
+<span id="cb1-6"><a href="#cb1-6"></a>})</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; [1] 9.95</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># 処置群の平均処置効果</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">with</span>(data10a, {</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="fu">print</span>(<span class="fu">mean</span>(y1t[t1<span class="sc">==</span><span class="dv">1</span>])<span class="sc">-</span><span class="fu">mean</span>(y0t[t1<span class="sc">==</span><span class="dv">1</span>]))   </span>
+<span id="cb1-12"><a href="#cb1-12"></a>})</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; [1] 9.090909</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># ナイーブな平均処置効果</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="fu">with</span>(data10a, {</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="fu">print</span>(<span class="fu">mean</span>(y1t[t1<span class="sc">==</span><span class="dv">1</span>])<span class="sc">-</span><span class="fu">mean</span>(y0t[t1<span class="sc">==</span><span class="dv">0</span>]))   </span>
+<span id="cb1-18"><a href="#cb1-18"></a>})</span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; [1] 17.39394</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>ナイーブな平均処置結果が使えないことがよくわかる.</p>
+<p>このような結果が起こるのは共変量の分布が異なることによる. 処置群と統制群で平均値や分散が同じになることを指して「バランスが取れている」ということになる．</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>data10a <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="fu">group_by</span>(t1) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="fu">summarise</span>(<span class="at">quantile =</span> <span class="fu">list</span>(<span class="fu">stack</span>(<span class="fu">quantile</span>(x1)))) <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="fu">unnest</span>(quantile) <span class="sc">|&gt;</span> </span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> t1, <span class="at">names_from =</span> <span class="st">"ind"</span>, <span class="at">values_from =</span> <span class="st">"values"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; # A tibble: 2 × 6</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt;      t1  `0%` `25%` `50%` `75%` `100%`</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 1     0    66  70      74    78     88</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; 2     1    73  77.5    83    89     92</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="傾向スコア-1" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="傾向スコア-1"><span class="header-section-number">1.2</span> 傾向スコア</h2>
+<p>共変量が多変量である場合を考える. 多変量である場合には上記のように 共変量の分布が同一であるのかを確認することは容易ではない．</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>data10b <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./causality/data10b.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">print</span>(data10b <span class="sc">|&gt;</span> <span class="fu">head</span>())</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; # A tibble: 6 × 8</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;     y0t   y1t    t1     y    x1    x2    x3   ps1</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 1    63    74     0    63    66    76    75  0.12</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 2    55    70     0    55    70    75    55  0.05</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 3    59    69     0    59    70    60    73  0.19</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; 4    71    77     1    77    73    76    82  0.43</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; 5    73    78     0    73    73    79    78  0.35</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; 6    66    77     0    66    74    72    79  0.41</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>そこで傾向スコアを考える．傾向スコアとは，共変量<span class="math inline">\(X\)</span>が与えられたとき， 処置に割り付けらあれる確率と定義される．</p>
+<p><span class="math display">\[
+e(X) = \text{Pr}(T_i=1|X)
+\]</span></p>
+<p>傾向スコアは最も粗いバランシングスコアである． ここで粗いとは，共変量の情報を一つの値に集約しているという意味である． 最も細かいバランシングスコアは共変量が取り得る値の組合せになる.</p>
+<p>傾向スコアが同程度で異なる処置がされたデータの組合せを選び， 処置群の処置群の平均処置効果を求めることになる</p>
+</section>
+<section id="傾向スコア定理" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="傾向スコア定理"><span class="header-section-number">1.3</span> 傾向スコア定理</h2>
+<blockquote class="blockquote">
+<p>定理１（バランシング）：処置の割り付け<span class="math inline">\(T\)</span>を観測された共変量<span class="math inline">\(X\)</span>は，傾向スコア<span class="math inline">\(e(X)\)</span>が和えられたとき条件付き独立である．すなわち傾向スコアが<span class="math inline">\(e(X)\)</span>が同じであれば処置群と統制群で共変量の分布は同じである.</p>
+</blockquote>
+<p><span class="math display">\[
+X \perp T|e(X)
+\]</span></p>
+<blockquote class="blockquote">
+<p>定理２（条件付き独立）：傾向スコア<span class="math inline">\(e(X)\)</span>が与えられれば潜在的結果変数<span class="math inline">\({Y(1), Y(2)}\)</span>と割り付け変数<span class="math inline">\(T\)</span>は条件付き独立である．すなわり傾向スコアが同じ個体であれば，処置への割り付けえは無作為と見なせる</p>
+</blockquote>
+<p><span class="math display">\[
+\{Y(0), Y(1)\} \perp T|e(X)
+\]</span></p>
+<p>上記の定理はこれまでに使っていた条件付き独立性（無交絡性）と条件付き正直性である．</p>
+<p><span class="math display">\[
+\{Y(1), Y(0)\} \perp T|X\\
+0 &lt; \text{Pr}(T_i=1|X) &lt; 1
+\]</span></p>
+<p>条件付き独立性が述べているのは観測された共変量のみが処置の割り付けに影響を与えている ということであり，潜在的結果変数とは独立ということである. 二つ目の式で述べていることは実用的には傾向スコアが０になっても１になってもいけない ということである．処置群と統制群のどちらにも観測値があるということを意味している．</p>
+<p>何がいいたいのかというと<strong>観測されない共変量</strong><span class="math inline">\(\mathcal{U}\)</span>がないという想定だし， それが合った場合にどのような結果となるのかは何もいえない. それを調べる場合には別のモデルを使う必要がある.</p>
+</section>
+<section id="傾向スコアのモデル化" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="傾向スコアのモデル化"><span class="header-section-number">1.4</span> 傾向スコアのモデル化</h2>
+<p>省略</p>
+</section>
+<section id="傾向スコアの算出例" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="傾向スコアの算出例"><span class="header-section-number">1.5</span> 傾向スコアの算出例</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>data03 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./causality/data03.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">summary</span>(data03)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;        x1              y3              t1           y0t             y1t       </span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;  Min.   :70.00   Min.   :63.00   Min.   :0.0   Min.   :62.00   Min.   :71.00  </span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;  1st Qu.:73.75   1st Qu.:73.75   1st Qu.:0.0   1st Qu.:66.50   1st Qu.:75.50  </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;  Median :80.00   Median :77.00   Median :0.5   Median :71.00   Median :81.50  </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;  Mean   :80.00   Mean   :77.25   Mean   :0.5   Mean   :72.20   Mean   :82.00  </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  3rd Qu.:86.25   3rd Qu.:82.00   3rd Qu.:1.0   3rd Qu.:78.75   3rd Qu.:88.75  </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;  Max.   :90.00   Max.   :91.00   Max.   :1.0   Max.   :82.00   Max.   :92.00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># 傾向スコア</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>psmodel <span class="ot">&lt;-</span> <span class="fu">glm</span>(t1 <span class="sc">~</span> x1, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>), <span class="at">data =</span> data03)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>ps3 <span class="ot">&lt;-</span> <span class="fu">round</span>(psmodel<span class="sc">$</span>fitted.values, <span class="dv">4</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>ps4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(.<span class="dv">8</span>, <span class="dv">5</span>), <span class="fu">rep</span>(.<span class="dv">6</span>, <span class="dv">5</span>), <span class="fu">rep</span>(.<span class="dv">4</span>, <span class="dv">5</span>), <span class="fu">rep</span>(.<span class="dv">2</span>, <span class="dv">5</span>))</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>n1 <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n1, <span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>e1 <span class="ot">&lt;-</span> <span class="fu">rlogis</span>(n1, <span class="at">location =</span> <span class="dv">0</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a>tstar <span class="ot">&lt;-</span> .<span class="dv">5</span> <span class="sc">+</span> <span class="fl">1.1</span> <span class="sc">*</span> x1 <span class="sc">+</span> e1</span>
+<span id="cb5-10"><a href="#cb5-10"></a>t1 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>t1[tstar <span class="sc">&gt;</span>  <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>t1[tstar <span class="sc">&lt;=</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14"></a></span>
+<span id="cb5-15"><a href="#cb5-15"></a>df2 <span class="ot">&lt;-</span> <span class="fu">with</span>(data03, <span class="fu">data.frame</span>(x1, y3, t1, ps3, ps4))</span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="fu">print</span>(df2)</span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;    x1 y3 t1    ps3 ps4</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; 1  70 74  1 0.7751 0.8</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt; 2  70 63  0 0.7751 0.8</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt; 3  70 73  1 0.7751 0.8</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; 4  70 71  1 0.7751 0.8</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 5  70 74  1 0.7751 0.8</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; 6  75 67  0 0.6499 0.6</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; 7  75 77  1 0.6499 0.6</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; 8  75 68  0 0.6499 0.6</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; 9  75 77  1 0.6499 0.6</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; 10 75 78  1 0.6499 0.6</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 11 85 88  1 0.3501 0.4</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; 12 85 77  0 0.3501 0.4</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; 13 85 76  0 0.3501 0.4</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; 14 85 86  1 0.3501 0.4</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt; 15 85 78  0 0.3501 0.4</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt; 16 90 81  0 0.2249 0.2</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#&gt; 17 90 91  1 0.2249 0.2</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#&gt; 18 90 82  0 0.2249 0.2</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="co">#&gt; 19 90 82  0 0.2249 0.2</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt; 20 90 82  0 0.2249 0.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="rパッケージによる傾向スコアのモデル化" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="rパッケージによる傾向スコアのモデル化"><span class="header-section-number">1.6</span> Rパッケージによる傾向スコアのモデル化</h2>
+<p>傾向スコアとは，共変量<span class="math inline">\(X\)</span>が与えられたときに処置に割り付けられる確率であり， ロジスティック回帰モデルによる確率の予測値である。 実務ではもろもろ処理をパッケージで済ます．</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(MatchIt)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; Warning: package 'MatchIt' was built under R version 4.3.2</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>m.out <span class="ot">&lt;-</span> <span class="fu">matchit</span>(t1 <span class="sc">~</span> x1, <span class="at">data =</span> data03)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>ps5 <span class="ot">&lt;-</span> m.out<span class="sc">$</span>model<span class="sc">$</span>fitted.values</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="fu">summary</span>(ps3)</span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;  0.2249  0.3188  0.5000  0.5000  0.6812  0.7751</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="fu">summary</span>(ps5)</span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  0.2249  0.3188  0.5000  0.5000  0.6812  0.7751</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="fu">cor</span>(ps3, ps5)</span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>パッケージで算出した傾向スコアとロジスティックス回帰モデルで算出した傾向スコアが 一致していることがわかる.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../contents/books/05_統計的因果推論の理論と実際/109_交互作用項のある共分散分析.html" class="pagination-link  aria-label=" 交互作用項のある共分散分析"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">交互作用項のある共分散分析</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../contents/books/05_統計的因果推論の理論と実際/111_傾向スコアマッチング.html" class="pagination-link" aria-label="傾向スコアマッチング">
+        <span class="nav-page-text">傾向スコアマッチング</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="an">title:</span><span class="co"> "傾向スコア"</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">  cache: true</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="an">filters:</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">---</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="in">```{r}</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#| echo: false</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#| warning: false</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#| message: false</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a></span>
+<span id="cb7-19"><a href="#cb7-19"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb7-20"><a href="#cb7-20"></a></span>
+<span id="cb7-21"><a href="#cb7-21"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/books/05_統計的因果推論の理論と実装"</span>)</span>
+<span id="cb7-22"><a href="#cb7-22"></a></span>
+<span id="cb7-23"><a href="#cb7-23"></a></span>
+<span id="cb7-24"><a href="#cb7-24"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
+<span id="cb7-25"><a href="#cb7-25"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans JP"</span>)</span>
+<span id="cb7-26"><a href="#cb7-26"></a></span>
+<span id="cb7-27"><a href="#cb7-27"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb7-28"><a href="#cb7-28"></a>    tidyverse, </span>
+<span id="cb7-29"><a href="#cb7-29"></a>    here, </span>
+<span id="cb7-30"><a href="#cb7-30"></a>    broom</span>
+<span id="cb7-31"><a href="#cb7-31"></a>)</span>
+<span id="cb7-32"><a href="#cb7-32"></a></span>
+<span id="cb7-33"><a href="#cb7-33"></a><span class="in">```</span></span>
+<span id="cb7-34"><a href="#cb7-34"></a></span>
+<span id="cb7-35"><a href="#cb7-35"></a><span class="fu"># 傾向スコア</span></span>
+<span id="cb7-36"><a href="#cb7-36"></a></span>
+<span id="cb7-37"><a href="#cb7-37"></a></span>
+<span id="cb7-38"><a href="#cb7-38"></a>実験研究がよいのは，処置の有無を無作為に割り付けられることで，</span>
+<span id="cb7-39"><a href="#cb7-39"></a>共変量の分布が確率的に同じになることにより，</span>
+<span id="cb7-40"><a href="#cb7-40"></a>交絡が発生しないことである．</span>
+<span id="cb7-41"><a href="#cb7-41"></a></span>
+<span id="cb7-42"><a href="#cb7-42"></a>観察研究における因果推論が難しいのは，処置群と統制群が傾向的に異なっている可能性のためである．</span>
+<span id="cb7-43"><a href="#cb7-43"></a></span>
+<span id="cb7-44"><a href="#cb7-44"></a>傾向スコアによる分析は「準実験」と呼ばれる．</span>
+<span id="cb7-45"><a href="#cb7-45"></a>処置の無作為な割り付けが出来ない場合でも，</span>
+<span id="cb7-46"><a href="#cb7-46"></a>割り付けや比較対象の集団について研究者が何らかの統制を行うことで</span>
+<span id="cb7-47"><a href="#cb7-47"></a>無作為化をマネすデザインのことをいう．</span>
+<span id="cb7-48"><a href="#cb7-48"></a></span>
+<span id="cb7-49"><a href="#cb7-49"></a></span>
+<span id="cb7-50"><a href="#cb7-50"></a>傾向スコアマッチングとは傾向スコアが同じペアを同一だと見なし，</span>
+<span id="cb7-51"><a href="#cb7-51"></a>処置群の処置効果を測るための手法とするものである. </span>
+<span id="cb7-52"><a href="#cb7-52"></a>共変量で調整されていれば，結果の違いは，共変量以外の要因からなり，</span>
+<span id="cb7-53"><a href="#cb7-53"></a>それは主として処置効果からくるものと考えられる．</span>
+<span id="cb7-54"><a href="#cb7-54"></a>この考え方の妥当性は，これまでと同じように条件付き独立性が満たされるという考え方になる. </span>
+<span id="cb7-55"><a href="#cb7-55"></a></span>
+<span id="cb7-56"><a href="#cb7-56"></a>$$</span>
+<span id="cb7-57"><a href="#cb7-57"></a><span class="sc">\{</span>Y(1), Y(0)<span class="sc">\}</span> \perp T |X</span>
+<span id="cb7-58"><a href="#cb7-58"></a>$$</span>
+<span id="cb7-59"><a href="#cb7-59"></a>上記のマッチングがうまく出来れば, 本来観測不可能である「処置群の処置効果(ATT)」を推定することが可能となる．傾向スコアによりATEを推定するには，スコアごとの層別解析をなんらかの方法で平均すればよい. </span>
+<span id="cb7-60"><a href="#cb7-60"></a></span>
+<span id="cb7-61"><a href="#cb7-61"></a>$$</span>
+<span id="cb7-62"><a href="#cb7-62"></a>\tau_{ATT}=E<span class="co">[</span><span class="ot">Y_i(1)-Y_i(0)|T_i=1</span><span class="co">]</span>=E<span class="co">[</span><span class="ot">Y_i(1)|T_i=1</span><span class="co">]</span>-E<span class="co">[</span><span class="ot">T_i(0)|T_i=1</span><span class="co">]</span></span>
+<span id="cb7-63"><a href="#cb7-63"></a>$$</span>
+<span id="cb7-64"><a href="#cb7-64"></a>なお，これまで調べていたのは「処置の平均効果(ATE)」である．これは，処置と結果変数を独立となるようにすることで，推定が行える. </span>
+<span id="cb7-65"><a href="#cb7-65"></a></span>
+<span id="cb7-66"><a href="#cb7-66"></a>$$</span>
+<span id="cb7-67"><a href="#cb7-67"></a>\tau_{ATE}=E<span class="co">[</span><span class="ot">Y_i(1)-Y_i(0)|T_i</span><span class="co">]</span>=E<span class="co">[</span><span class="ot">Y_i(1)|T_i</span><span class="co">]</span>-E<span class="co">[</span><span class="ot">T_i(0)|T_i</span><span class="co">]</span>=E<span class="co">[</span><span class="ot">Y_i(1)</span><span class="co">]</span>-E<span class="co">[</span><span class="ot">T_i(0)</span><span class="co">]</span></span>
+<span id="cb7-68"><a href="#cb7-68"></a>$$</span>
+<span id="cb7-69"><a href="#cb7-69"></a></span>
+<span id="cb7-70"><a href="#cb7-70"></a>とはいえ，まずは**ATTとATEは異なる**ということをまずは知っておく必要がある．</span>
+<span id="cb7-71"><a href="#cb7-71"></a></span>
+<span id="cb7-72"><a href="#cb7-72"></a><span class="fu">## バランシングスコア</span></span>
+<span id="cb7-73"><a href="#cb7-73"></a></span>
+<span id="cb7-74"><a href="#cb7-74"></a>共変量が単変量の場合には共分散分析により解析することが出来た．</span>
+<span id="cb7-75"><a href="#cb7-75"></a>しかし，通常共変量は多変量である．これに対して傾向スコアが開発された．</span>
+<span id="cb7-76"><a href="#cb7-76"></a>傾向スコアとはバランシングスコアの１つであり，</span>
+<span id="cb7-77"><a href="#cb7-77"></a>観測される共変量$X$の関数$b(X)$が与えられたときの$X$の条件つき分布が，</span>
+<span id="cb7-78"><a href="#cb7-78"></a>処置群と統制群において同じとなる関数である. </span>
+<span id="cb7-79"><a href="#cb7-79"></a></span>
+<span id="cb7-80"><a href="#cb7-80"></a>とにかくバランシングスコアを見るようにして，バランシングスコアが悪いときに，マッチングを使ったATT推定を行ってはならない. マッチしたからといってどの程度マッチに意味があるかは，別であるよね，という話だと理解した．</span>
+<span id="cb7-81"><a href="#cb7-81"></a></span>
+<span id="cb7-82"><a href="#cb7-82"></a></span>
+<span id="cb7-85"><a href="#cb7-85"></a><span class="in">```{r}</span></span>
+<span id="cb7-86"><a href="#cb7-86"></a>data10a <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./causality/data10a.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-87"><a href="#cb7-87"></a></span>
+<span id="cb7-88"><a href="#cb7-88"></a><span class="co"># 平均処置効果</span></span>
+<span id="cb7-89"><a href="#cb7-89"></a><span class="fu">with</span>(data10a, {</span>
+<span id="cb7-90"><a href="#cb7-90"></a>    <span class="fu">print</span>(<span class="fu">mean</span>(y1t) <span class="sc">-</span> <span class="fu">mean</span>(y0t))</span>
+<span id="cb7-91"><a href="#cb7-91"></a>})</span>
+<span id="cb7-92"><a href="#cb7-92"></a></span>
+<span id="cb7-93"><a href="#cb7-93"></a><span class="co"># 処置群の平均処置効果</span></span>
+<span id="cb7-94"><a href="#cb7-94"></a><span class="fu">with</span>(data10a, {</span>
+<span id="cb7-95"><a href="#cb7-95"></a>    <span class="fu">print</span>(<span class="fu">mean</span>(y1t[t1<span class="sc">==</span><span class="dv">1</span>])<span class="sc">-</span><span class="fu">mean</span>(y0t[t1<span class="sc">==</span><span class="dv">1</span>]))   </span>
+<span id="cb7-96"><a href="#cb7-96"></a>})</span>
+<span id="cb7-97"><a href="#cb7-97"></a></span>
+<span id="cb7-98"><a href="#cb7-98"></a><span class="co"># ナイーブな平均処置効果</span></span>
+<span id="cb7-99"><a href="#cb7-99"></a><span class="fu">with</span>(data10a, {</span>
+<span id="cb7-100"><a href="#cb7-100"></a>    <span class="fu">print</span>(<span class="fu">mean</span>(y1t[t1<span class="sc">==</span><span class="dv">1</span>])<span class="sc">-</span><span class="fu">mean</span>(y0t[t1<span class="sc">==</span><span class="dv">0</span>]))   </span>
+<span id="cb7-101"><a href="#cb7-101"></a>})</span>
+<span id="cb7-102"><a href="#cb7-102"></a><span class="in">```</span></span>
+<span id="cb7-103"><a href="#cb7-103"></a>ナイーブな平均処置結果が使えないことがよくわかる. </span>
+<span id="cb7-104"><a href="#cb7-104"></a></span>
+<span id="cb7-105"><a href="#cb7-105"></a></span>
+<span id="cb7-106"><a href="#cb7-106"></a>このような結果が起こるのは共変量の分布が異なることによる. </span>
+<span id="cb7-107"><a href="#cb7-107"></a>処置群と統制群で平均値や分散が同じになることを指して「バランスが取れている」ということになる．</span>
+<span id="cb7-108"><a href="#cb7-108"></a></span>
+<span id="cb7-111"><a href="#cb7-111"></a><span class="in">```{r}</span></span>
+<span id="cb7-112"><a href="#cb7-112"></a>data10a <span class="sc">|&gt;</span> </span>
+<span id="cb7-113"><a href="#cb7-113"></a>    <span class="fu">group_by</span>(t1) <span class="sc">|&gt;</span></span>
+<span id="cb7-114"><a href="#cb7-114"></a>    <span class="fu">summarise</span>(<span class="at">quantile =</span> <span class="fu">list</span>(<span class="fu">stack</span>(<span class="fu">quantile</span>(x1)))) <span class="sc">|&gt;</span> </span>
+<span id="cb7-115"><a href="#cb7-115"></a>    <span class="fu">unnest</span>(quantile) <span class="sc">|&gt;</span> </span>
+<span id="cb7-116"><a href="#cb7-116"></a>    <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> t1, <span class="at">names_from =</span> <span class="st">"ind"</span>, <span class="at">values_from =</span> <span class="st">"values"</span>)</span>
+<span id="cb7-117"><a href="#cb7-117"></a><span class="in">```</span></span>
+<span id="cb7-118"><a href="#cb7-118"></a></span>
+<span id="cb7-119"><a href="#cb7-119"></a><span class="fu">## 傾向スコア</span></span>
+<span id="cb7-120"><a href="#cb7-120"></a></span>
+<span id="cb7-121"><a href="#cb7-121"></a>共変量が多変量である場合を考える. 多変量である場合には上記のように</span>
+<span id="cb7-122"><a href="#cb7-122"></a>共変量の分布が同一であるのかを確認することは容易ではない．</span>
+<span id="cb7-123"><a href="#cb7-123"></a></span>
+<span id="cb7-124"><a href="#cb7-124"></a></span>
+<span id="cb7-127"><a href="#cb7-127"></a><span class="in">```{r}</span></span>
+<span id="cb7-128"><a href="#cb7-128"></a>data10b <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./causality/data10b.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-129"><a href="#cb7-129"></a><span class="fu">print</span>(data10b <span class="sc">|&gt;</span> <span class="fu">head</span>())</span>
+<span id="cb7-130"><a href="#cb7-130"></a><span class="in">```</span></span>
+<span id="cb7-131"><a href="#cb7-131"></a></span>
+<span id="cb7-132"><a href="#cb7-132"></a>そこで傾向スコアを考える．傾向スコアとは，共変量$X$が与えられたとき，</span>
+<span id="cb7-133"><a href="#cb7-133"></a>処置に割り付けらあれる確率と定義される．</span>
+<span id="cb7-134"><a href="#cb7-134"></a></span>
+<span id="cb7-135"><a href="#cb7-135"></a>$$</span>
+<span id="cb7-136"><a href="#cb7-136"></a>e(X) = \text{Pr}(T_i=1|X)</span>
+<span id="cb7-137"><a href="#cb7-137"></a>$$</span>
+<span id="cb7-138"><a href="#cb7-138"></a></span>
+<span id="cb7-139"><a href="#cb7-139"></a>傾向スコアは最も粗いバランシングスコアである．</span>
+<span id="cb7-140"><a href="#cb7-140"></a>ここで粗いとは，共変量の情報を一つの値に集約しているという意味である．</span>
+<span id="cb7-141"><a href="#cb7-141"></a>最も細かいバランシングスコアは共変量が取り得る値の組合せになる. </span>
+<span id="cb7-142"><a href="#cb7-142"></a></span>
+<span id="cb7-143"><a href="#cb7-143"></a>傾向スコアが同程度で異なる処置がされたデータの組合せを選び，</span>
+<span id="cb7-144"><a href="#cb7-144"></a>処置群の処置群の平均処置効果を求めることになる</span>
+<span id="cb7-145"><a href="#cb7-145"></a></span>
+<span id="cb7-146"><a href="#cb7-146"></a><span class="fu">## 傾向スコア定理</span></span>
+<span id="cb7-147"><a href="#cb7-147"></a></span>
+<span id="cb7-148"><a href="#cb7-148"></a><span class="at">&gt; 定理１（バランシング）：処置の割り付け$T$を観測された共変量$X$は，傾向スコア$e(X)$が和えられたとき条件付き独立である．すなわち傾向スコアが$e(X)$が同じであれば処置群と統制群で共変量の分布は同じである. </span></span>
+<span id="cb7-149"><a href="#cb7-149"></a></span>
+<span id="cb7-150"><a href="#cb7-150"></a>$$</span>
+<span id="cb7-151"><a href="#cb7-151"></a>X \perp T|e(X)</span>
+<span id="cb7-152"><a href="#cb7-152"></a>$$</span>
+<span id="cb7-153"><a href="#cb7-153"></a></span>
+<span id="cb7-154"><a href="#cb7-154"></a><span class="at">&gt; 定理２（条件付き独立）：傾向スコア$e(X)$が与えられれば潜在的結果変数${Y(1), Y(2)}$と割り付け変数$T$は条件付き独立である．すなわり傾向スコアが同じ個体であれば，処置への割り付けえは無作為と見なせる</span></span>
+<span id="cb7-155"><a href="#cb7-155"></a></span>
+<span id="cb7-156"><a href="#cb7-156"></a>$$</span>
+<span id="cb7-157"><a href="#cb7-157"></a><span class="sc">\{</span>Y(0), Y(1)<span class="sc">\}</span> \perp T|e(X)</span>
+<span id="cb7-158"><a href="#cb7-158"></a>$$</span>
+<span id="cb7-159"><a href="#cb7-159"></a></span>
+<span id="cb7-160"><a href="#cb7-160"></a>上記の定理はこれまでに使っていた条件付き独立性（無交絡性）と条件付き正直性である．</span>
+<span id="cb7-161"><a href="#cb7-161"></a></span>
+<span id="cb7-162"><a href="#cb7-162"></a>$$</span>
+<span id="cb7-163"><a href="#cb7-163"></a><span class="sc">\{</span>Y(1), Y(0)<span class="sc">\}</span> \perp T|X<span class="sc">\\</span></span>
+<span id="cb7-164"><a href="#cb7-164"></a>0 &lt; \text{Pr}(T_i=1|X) &lt; 1</span>
+<span id="cb7-165"><a href="#cb7-165"></a>$$</span>
+<span id="cb7-166"><a href="#cb7-166"></a></span>
+<span id="cb7-167"><a href="#cb7-167"></a>条件付き独立性が述べているのは観測された共変量のみが処置の割り付けに影響を与えている</span>
+<span id="cb7-168"><a href="#cb7-168"></a>ということであり，潜在的結果変数とは独立ということである. </span>
+<span id="cb7-169"><a href="#cb7-169"></a>二つ目の式で述べていることは実用的には傾向スコアが０になっても１になってもいけない</span>
+<span id="cb7-170"><a href="#cb7-170"></a>ということである．処置群と統制群のどちらにも観測値があるということを意味している．</span>
+<span id="cb7-171"><a href="#cb7-171"></a></span>
+<span id="cb7-172"><a href="#cb7-172"></a>何がいいたいのかというと**観測されない共変量**$\mathcal{U}$がないという想定だし，</span>
+<span id="cb7-173"><a href="#cb7-173"></a>それが合った場合にどのような結果となるのかは何もいえない. </span>
+<span id="cb7-174"><a href="#cb7-174"></a>それを調べる場合には別のモデルを使う必要がある. </span>
+<span id="cb7-175"><a href="#cb7-175"></a></span>
+<span id="cb7-176"><a href="#cb7-176"></a><span class="fu">## 傾向スコアのモデル化</span></span>
+<span id="cb7-177"><a href="#cb7-177"></a></span>
+<span id="cb7-178"><a href="#cb7-178"></a>省略</span>
+<span id="cb7-179"><a href="#cb7-179"></a></span>
+<span id="cb7-180"><a href="#cb7-180"></a><span class="fu">## 傾向スコアの算出例</span></span>
+<span id="cb7-181"><a href="#cb7-181"></a></span>
+<span id="cb7-184"><a href="#cb7-184"></a><span class="in">```{r}</span></span>
+<span id="cb7-185"><a href="#cb7-185"></a>data03 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./causality/data03.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-186"><a href="#cb7-186"></a><span class="fu">summary</span>(data03)</span>
+<span id="cb7-187"><a href="#cb7-187"></a><span class="in">```</span></span>
+<span id="cb7-188"><a href="#cb7-188"></a></span>
+<span id="cb7-189"><a href="#cb7-189"></a></span>
+<span id="cb7-190"><a href="#cb7-190"></a></span>
+<span id="cb7-191"><a href="#cb7-191"></a></span>
+<span id="cb7-192"><a href="#cb7-192"></a></span>
+<span id="cb7-193"><a href="#cb7-193"></a></span>
+<span id="cb7-196"><a href="#cb7-196"></a><span class="in">```{r}</span></span>
+<span id="cb7-197"><a href="#cb7-197"></a><span class="co"># 傾向スコア</span></span>
+<span id="cb7-198"><a href="#cb7-198"></a>psmodel <span class="ot">&lt;-</span> <span class="fu">glm</span>(t1 <span class="sc">~</span> x1, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>), <span class="at">data =</span> data03)</span>
+<span id="cb7-199"><a href="#cb7-199"></a>ps3 <span class="ot">&lt;-</span> <span class="fu">round</span>(psmodel<span class="sc">$</span>fitted.values, <span class="dv">4</span>)</span>
+<span id="cb7-200"><a href="#cb7-200"></a>ps4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(.<span class="dv">8</span>, <span class="dv">5</span>), <span class="fu">rep</span>(.<span class="dv">6</span>, <span class="dv">5</span>), <span class="fu">rep</span>(.<span class="dv">4</span>, <span class="dv">5</span>), <span class="fu">rep</span>(.<span class="dv">2</span>, <span class="dv">5</span>))</span>
+<span id="cb7-201"><a href="#cb7-201"></a></span>
+<span id="cb7-202"><a href="#cb7-202"></a>n1 <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb7-203"><a href="#cb7-203"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n1, <span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb7-204"><a href="#cb7-204"></a>e1 <span class="ot">&lt;-</span> <span class="fu">rlogis</span>(n1, <span class="at">location =</span> <span class="dv">0</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb7-205"><a href="#cb7-205"></a>tstar <span class="ot">&lt;-</span> .<span class="dv">5</span> <span class="sc">+</span> <span class="fl">1.1</span> <span class="sc">*</span> x1 <span class="sc">+</span> e1</span>
+<span id="cb7-206"><a href="#cb7-206"></a>t1 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-207"><a href="#cb7-207"></a>t1[tstar <span class="sc">&gt;</span>  <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb7-208"><a href="#cb7-208"></a>t1[tstar <span class="sc">&lt;=</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb7-209"><a href="#cb7-209"></a></span>
+<span id="cb7-210"><a href="#cb7-210"></a></span>
+<span id="cb7-211"><a href="#cb7-211"></a>df2 <span class="ot">&lt;-</span> <span class="fu">with</span>(data03, <span class="fu">data.frame</span>(x1, y3, t1, ps3, ps4))</span>
+<span id="cb7-212"><a href="#cb7-212"></a><span class="fu">print</span>(df2)</span>
+<span id="cb7-213"><a href="#cb7-213"></a><span class="in">```</span></span>
+<span id="cb7-214"><a href="#cb7-214"></a></span>
+<span id="cb7-215"><a href="#cb7-215"></a></span>
+<span id="cb7-216"><a href="#cb7-216"></a></span>
+<span id="cb7-217"><a href="#cb7-217"></a><span class="fu">## Rパッケージによる傾向スコアのモデル化</span></span>
+<span id="cb7-218"><a href="#cb7-218"></a></span>
+<span id="cb7-219"><a href="#cb7-219"></a>傾向スコアとは，共変量$X$が与えられたときに処置に割り付けられる確率であり，</span>
+<span id="cb7-220"><a href="#cb7-220"></a>ロジスティック回帰モデルによる確率の予測値である。</span>
+<span id="cb7-221"><a href="#cb7-221"></a>実務ではもろもろ処理をパッケージで済ます．</span>
+<span id="cb7-222"><a href="#cb7-222"></a></span>
+<span id="cb7-225"><a href="#cb7-225"></a><span class="in">```{r}</span></span>
+<span id="cb7-226"><a href="#cb7-226"></a><span class="fu">library</span>(MatchIt)</span>
+<span id="cb7-227"><a href="#cb7-227"></a></span>
+<span id="cb7-228"><a href="#cb7-228"></a>m.out <span class="ot">&lt;-</span> <span class="fu">matchit</span>(t1 <span class="sc">~</span> x1, <span class="at">data =</span> data03)</span>
+<span id="cb7-229"><a href="#cb7-229"></a>ps5 <span class="ot">&lt;-</span> m.out<span class="sc">$</span>model<span class="sc">$</span>fitted.values</span>
+<span id="cb7-230"><a href="#cb7-230"></a><span class="fu">summary</span>(ps3)</span>
+<span id="cb7-231"><a href="#cb7-231"></a><span class="fu">summary</span>(ps5)</span>
+<span id="cb7-232"><a href="#cb7-232"></a><span class="fu">cor</span>(ps3, ps5)</span>
+<span id="cb7-233"><a href="#cb7-233"></a><span class="in">```</span></span>
+<span id="cb7-234"><a href="#cb7-234"></a></span>
+<span id="cb7-235"><a href="#cb7-235"></a></span>
+<span id="cb7-236"><a href="#cb7-236"></a>パッケージで算出した傾向スコアとロジスティックス回帰モデルで算出した傾向スコアが</span>
+<span id="cb7-237"><a href="#cb7-237"></a>一致していることがわかる. </span>
+<span id="cb7-238"><a href="#cb7-238"></a></span>
+<span id="cb7-239"><a href="#cb7-239"></a></span>
+<span id="cb7-240"><a href="#cb7-240"></a></span>
+<span id="cb7-241"><a href="#cb7-241"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

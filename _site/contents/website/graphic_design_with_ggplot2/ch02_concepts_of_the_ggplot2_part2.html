@@ -1,0 +1,2561 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips - Concepts of the ggplot2 Packages pt 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/website/graphic_design_with_ggplot2/ch03_data_communication.html" rel="next">
+<link href="../../../contents/website/graphic_design_with_ggplot2/ch01_concepts_of_the_ggplot2_packages.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">libs</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch02_concepts_of_the_ggplot2_part2.html">Concepts of the ggplot2 Packages pt 2</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">R for Data Science 2e</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/r4ds2e/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Import</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/r4ds2e/Import/ch23_arrow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23 Arrow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Leaflet for R</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch01_map_object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Map Widget</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch02_basemaps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basemap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch03_markers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch04_popups_and_shapes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Popups and Shapes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch05_lines_and_shapes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lines and Shapes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch06_geojson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with GeoJSON and TopoJSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch07_raster_images.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raster Images</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch08_shiny_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shiny Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch09_Colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch10_Legends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Legends</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch11_show_hide_layers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Show/Hide Layers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch12_choropleths.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choropleths</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch13_projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projections</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Analyzing US Census Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/ch06_mapping_census_data_with_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mapping Census data with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/ch07_spatial_analysis_with_us_census_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spatial analysis with US Census data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Graphic Design with ggplot2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch01_concepts_of_the_ggplot2_packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Concepts of the ggplot2 Packages pt 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch02_concepts_of_the_ggplot2_part2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Concepts of the ggplot2 Packages pt 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch03_data_communication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Communication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch04_working_with_labels_and_annotations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Labels and Annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch06_working_with_colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch07_working_with_layouts_and_composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Layouts and Composition</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
+  <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets"><span class="header-section-number">2</span> Facets</a></li>
+  <li><a href="#scales" id="toc-scales" class="nav-link" data-scroll-target="#scales"><span class="header-section-number">3</span> Scales</a></li>
+  <li><a href="#coordinates-systems" id="toc-coordinates-systems" class="nav-link" data-scroll-target="#coordinates-systems"><span class="header-section-number">4</span> Coordinates Systems</a></li>
+  <li><a href="#spaital-coordiate" id="toc-spaital-coordiate" class="nav-link" data-scroll-target="#spaital-coordiate"><span class="header-section-number">5</span> Spaital Coordiate</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch02_concepts_of_the_ggplot2_part2.html">Concepts of the ggplot2 Packages pt 2</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Concepts of the ggplot2 Packages pt 2</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 5, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/website/graphic_design_with_ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="st">"tidyverse"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="st">"ggplot2"</span>, <span class="st">"readr"</span>, <span class="st">"tibble"</span>, <span class="st">"tidyr"</span>, <span class="st">"forcats"</span>, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="st">"stringr"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="st">"lubridate"</span>, <span class="st">"here"</span>, <span class="st">"systemfonts"</span>, <span class="st">"magick"</span>, </span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="st">"scales"</span>, <span class="st">"grid"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="st">"grDevices"</span>, <span class="st">"colorspace"</span>, <span class="st">"viridis"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="st">"RColorBrewer"</span>, <span class="st">"rcartocolor"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="st">"scico"</span>, <span class="st">"ggsci"</span>, <span class="st">"ggthemes"</span>, <span class="st">"nord"</span>, </span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="st">"MetBrewer"</span>, <span class="st">"ggrepel"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="st">"ggforce"</span>, <span class="st">"ggtext"</span>, <span class="st">"ggdist"</span>, <span class="st">"ggbeeswarm"</span>, </span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="st">"gghalves"</span>, <span class="st">"patchwork"</span>, </span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="st">"palmerpenguins"</span>, <span class="st">"rnaturalearth"</span>, <span class="st">"sf"</span>, <span class="st">"rmapshaper"</span>, <span class="st">"devtools"</span>, </span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="st">"extrafont"</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>) <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">library</span>(x, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="fu">library</span>(colorblindr)</span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="setup" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>bikes <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  here<span class="sc">::</span><span class="fu">here</span>(cur_dir, <span class="st">"ggplot2-course-data"</span>, <span class="st">"london-bikes-custom.csv"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="at">col_types =</span> <span class="st">"Dcfffilllddddc"</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>bikes<span class="sc">$</span>season <span class="ot">&lt;-</span> forcats<span class="sc">::</span><span class="fu">fct_inorder</span>(bikes<span class="sc">$</span>season)</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>(<span class="at">base_size =</span> <span class="dv">14</span>, <span class="at">base_family =</span> <span class="st">"Noto Sans"</span>))</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="fu">theme_update</span>(</span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>)</span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="fu">invisible</span>(<span class="fu">Sys.setlocale</span>(<span class="st">"LC_TIME"</span>, <span class="st">"C"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>g <span class="ot">&lt;-</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    bikes,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>        <span class="at">color =</span> season,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>        <span class="at">group =</span> day_night)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb4-12"><a href="#cb4-12"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="facets" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Facets</h1>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>g <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">facet_wrap</span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="sc">~</span> is_workday <span class="sc">+</span> day_night</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  )</span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>g <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">facet_wrap</span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="sc">~</span> day_night,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">strip.position =</span> <span class="st">"bottom"</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  )</span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>g <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    day_night <span class="sc">~</span> is_workday,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="at">scales =</span> <span class="st">"free"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>    <span class="at">switch =</span> <span class="st">"y"</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  ) <span class="sc">+</span> </span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">position =</span> <span class="st">"right"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>g <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="at">rows =</span> <span class="fu">vars</span>(day_night),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="at">cols =</span> <span class="fu">vars</span>(is_workday)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>  )</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>g <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb9-3"><a href="#cb9-3"></a>    day_night <span class="sc">~</span> is_workday, </span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="at">scales =</span> <span class="fu">c</span>(<span class="st">"free_y"</span>), </span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="at">space =</span> <span class="fu">c</span>(<span class="st">"free_y"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>  )</span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    diamonds,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)</span>
+<span id="cb10-4"><a href="#cb10-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb10-6"><a href="#cb10-6"></a>    <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb10-10"><a href="#cb10-10"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11"></a>    <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    <span class="at">color =</span> <span class="st">"dodgerblue"</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb10-15"><a href="#cb10-15"></a>    cut <span class="sc">~</span> clarity,</span>
+<span id="cb10-16"><a href="#cb10-16"></a>    <span class="at">space =</span> <span class="st">"free_x"</span>,</span>
+<span id="cb10-17"><a href="#cb10-17"></a>    <span class="at">scales =</span> <span class="st">"free_x"</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a>  ) <span class="sc">+</span> </span>
+<span id="cb10-19"><a href="#cb10-19"></a>  <span class="fu">theme_dark</span>()</span>
+<span id="cb10-20"><a href="#cb10-20"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="scales" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Scales</h1>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb11-2"><a href="#cb11-2"></a>    bikes,</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>        <span class="at">color =</span> season)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">scale_x_date</span>(</span>
+<span id="cb11-8"><a href="#cb11-8"></a>        <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb11-9"><a href="#cb11-9"></a>        <span class="at">date_breaks =</span> <span class="st">"6 months"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10"></a>        <span class="at">date_labels =</span> <span class="st">"%b '%y"</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb11-13"><a href="#cb11-13"></a>      <span class="at">trans =</span> <span class="st">"log10"</span>, </span>
+<span id="cb11-14"><a href="#cb11-14"></a>      <span class="at">name =</span> <span class="st">"Reported bike shares"</span>, </span>
+<span id="cb11-15"><a href="#cb11-15"></a>      <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">60000</span>, <span class="at">by =</span> <span class="dv">15000</span>), </span>
+<span id="cb11-16"><a href="#cb11-16"></a>      <span class="at">labels =</span> \(x) <span class="fu">paste0</span>(x, <span class="st">" bikes"</span>), </span>
+<span id="cb11-17"><a href="#cb11-17"></a>      <span class="at">limits =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">60000</span>), </span>
+<span id="cb11-18"><a href="#cb11-18"></a>      <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="co"># add, mult</span></span>
+<span id="cb11-19"><a href="#cb11-19"></a>      <span class="co"># guide = "none"</span></span>
+<span id="cb11-20"><a href="#cb11-20"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-21"><a href="#cb11-21"></a>  <span class="fu">scale_color_discrete</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb12-2"><a href="#cb12-2"></a>    bikes,</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> count)</span>
+<span id="cb12-4"><a href="#cb12-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">scale_x_discrete</span>(</span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="at">name =</span> <span class="st">"Period"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Dec-Feb"</span>, <span class="st">"Mar-May"</span>, <span class="st">"Jun-Aug"</span>, <span class="st">"Sep-Nov"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb13-2"><a href="#cb13-2"></a>    bikes,</span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb13-4"><a href="#cb13-4"></a>        <span class="at">color =</span> season)</span>
+<span id="cb13-5"><a href="#cb13-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>  <span class="fu">scale_color_discrete</span>(</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    <span class="at">name =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9"></a>    <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"#69b0d4"</span>, <span class="st">"#00CB79"</span>, <span class="st">"#F7B01B"</span>, <span class="st">"#a78f5f"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>色についても<code>scale_color</code>の中でマニュアルで指定することが可能である.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>my_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="st">`</span><span class="at">winter</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#3c89d9"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="st">`</span><span class="at">spring</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#1ec99b"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="st">`</span><span class="at">summer</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#F7B01B"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="st">`</span><span class="at">autumn</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#a26e7c"</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a>)</span>
+<span id="cb14-7"><a href="#cb14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="fu">ggplot</span>(</span>
+<span id="cb14-9"><a href="#cb14-9"></a>    bikes,</span>
+<span id="cb14-10"><a href="#cb14-10"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb14-11"><a href="#cb14-11"></a>        <span class="at">color =</span> season)</span>
+<span id="cb14-12"><a href="#cb14-12"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a>  <span class="fu">scale_color_discrete</span>(</span>
+<span id="cb14-15"><a href="#cb14-15"></a>    <span class="at">name =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16"></a>    <span class="at">type =</span> my_colors</span>
+<span id="cb14-17"><a href="#cb14-17"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>NAは別の値で決めることができる. パステルカラーにブラックはよくわかるので良さそうである.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb15-2"><a href="#cb15-2"></a>    bikes,</span>
+<span id="cb15-3"><a href="#cb15-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb15-4"><a href="#cb15-4"></a>        <span class="at">color =</span> weather_type)</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb15-8"><a href="#cb15-8"></a>    <span class="at">name =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="at">values =</span> <span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">6</span>, <span class="at">name =</span> <span class="st">"Pastel1"</span>),</span>
+<span id="cb15-10"><a href="#cb15-10"></a>    <span class="at">na.value =</span> <span class="st">"black"</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>    bikes,</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>        <span class="at">color =</span> weather_type)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>  rcartocolor<span class="sc">::</span><span class="fu">scale_color_carto_d</span>(</span>
+<span id="cb16-8"><a href="#cb16-8"></a>    <span class="at">name =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9"></a>    <span class="at">palette =</span> <span class="st">"Pastel"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10"></a>    <span class="at">na.value =</span> <span class="st">"black"</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>facet <span class="ot">&lt;-</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb17-3"><a href="#cb17-3"></a>    diamonds,</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)</span>
+<span id="cb17-5"><a href="#cb17-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb17-7"><a href="#cb17-7"></a>    <span class="at">alpha =</span> .<span class="dv">3</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb17-10"><a href="#cb17-10"></a>    <span class="fu">aes</span>(<span class="at">color =</span> cut),</span>
+<span id="cb17-11"><a href="#cb17-11"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb17-12"><a href="#cb17-12"></a>    <span class="at">se =</span> <span class="cn">FALSE</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb17-15"><a href="#cb17-15"></a>    cut <span class="sc">~</span> clarity,</span>
+<span id="cb17-16"><a href="#cb17-16"></a>    <span class="at">space =</span> <span class="st">"free_x"</span>,</span>
+<span id="cb17-17"><a href="#cb17-17"></a>    <span class="at">scales =</span> <span class="st">"free_x"</span></span>
+<span id="cb17-18"><a href="#cb17-18"></a>  )</span>
+<span id="cb17-19"><a href="#cb17-19"></a></span>
+<span id="cb17-20"><a href="#cb17-20"></a>facet <span class="sc">+</span> </span>
+<span id="cb17-21"><a href="#cb17-21"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb17-22"><a href="#cb17-22"></a>    <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb17-23"><a href="#cb17-23"></a>        <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30000</span>), </span>
+<span id="cb17-24"><a href="#cb17-24"></a>        <span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">*</span> <span class="dv">10000</span>, </span>
+<span id="cb17-25"><a href="#cb17-25"></a>        <span class="at">labels =</span> \(x) <span class="fu">paste0</span>(<span class="st">"$"</span>, <span class="fu">format</span>(x, <span class="at">big.mark =</span> <span class="st">","</span>, <span class="at">trim =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb17-26"><a href="#cb17-26"></a>    ) <span class="sc">+</span> </span>
+<span id="cb17-27"><a href="#cb17-27"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>) <span class="sc">+</span> </span>
+<span id="cb17-28"><a href="#cb17-28"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb17-29"><a href="#cb17-29"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span>
+<span id="cb17-30"><a href="#cb17-30"></a><span class="co">#&gt; Warning: Removed 131 rows containing missing values (`geom_smooth()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="coordinates-systems" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Coordinates Systems</h1>
+<p>線形の座標系は次である.</p>
+<ul>
+<li>coord_cartesian()</li>
+<li>coord_fixed()</li>
+<li>coord_flip()</li>
+</ul>
+<p>非線形の座標系として次がある.</p>
+<ul>
+<li>coord_polar()</li>
+<li>coord_map()</li>
+<li>coord_sf()</li>
+<li>coord_trans()</li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb18-2"><a href="#cb18-2"></a>    bikes,</span>
+<span id="cb18-3"><a href="#cb18-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> count)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb18-7"><a href="#cb18-7"></a>      <span class="at">ylim =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">15000</span>)</span>
+<span id="cb18-8"><a href="#cb18-8"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb19-2"><a href="#cb19-2"></a>    bikes,</span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> count)</span>
+<span id="cb19-4"><a href="#cb19-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb19-7"><a href="#cb19-7"></a>      <span class="at">limits =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">15000</span>)</span>
+<span id="cb19-8"><a href="#cb19-8"></a>  )</span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co">#&gt; Warning: Removed 575 rows containing non-finite values (`stat_boxplot()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><code>clip = "off"</code>を使うとpanel領域をはみ出してグラフを記述することが出来る.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb20-2"><a href="#cb20-2"></a>    bikes,</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> count)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb20-7"><a href="#cb20-7"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">15000</span>),</span>
+<span id="cb20-8"><a href="#cb20-8"></a>    <span class="at">clip =</span> <span class="st">"off"</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb21-2"><a href="#cb21-2"></a>    <span class="fu">filter</span>(bikes, is_holiday <span class="sc">==</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-3"><a href="#cb21-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb21-7"><a href="#cb21-7"></a>    <span class="fu">aes</span>(<span class="at">label =</span> season),</span>
+<span id="cb21-8"><a href="#cb21-8"></a>    <span class="at">nudge_x =</span> .<span class="dv">3</span>,</span>
+<span id="cb21-9"><a href="#cb21-9"></a>    <span class="at">hjust =</span> <span class="dv">0</span>, </span>
+<span id="cb21-10"><a href="#cb21-10"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb21-13"><a href="#cb21-13"></a>    <span class="at">clip =</span> <span class="st">"off"</span></span>
+<span id="cb21-14"><a href="#cb21-14"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>パディングをすべて消すことも可能である.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb22-2"><a href="#cb22-2"></a>    bikes,</span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count)</span>
+<span id="cb22-4"><a href="#cb22-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb22-7"><a href="#cb22-7"></a>    <span class="at">expand =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-8"><a href="#cb22-8"></a>    <span class="at">clip =</span> <span class="st">"off"</span></span>
+<span id="cb22-9"><a href="#cb22-9"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb23-2"><a href="#cb23-2"></a>    bikes,</span>
+<span id="cb23-3"><a href="#cb23-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> temp)</span>
+<span id="cb23-4"><a href="#cb23-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb24-2"><a href="#cb24-2"></a>    bikes,</span>
+<span id="cb24-3"><a href="#cb24-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> temp)</span>
+<span id="cb24-4"><a href="#cb24-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">4</span>) <span class="co"># y / x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb25-2"><a href="#cb25-2"></a>    bikes,</span>
+<span id="cb25-3"><a href="#cb25-3"></a>    <span class="fu">aes</span>(<span class="at">y =</span> weather_type)</span>
+<span id="cb25-4"><a href="#cb25-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">coord_cartesian</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>reorderすることも出来る.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb26-2"><a href="#cb26-2"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb26-3"><a href="#cb26-3"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_rev</span>(<span class="fu">fct_infreq</span>(weather_type)))</span>
+<span id="cb26-4"><a href="#cb26-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb27-2"><a href="#cb27-2"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb27-3"><a href="#cb27-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> weather_type,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>        <span class="at">fill =</span> weather_type)</span>
+<span id="cb27-5"><a href="#cb27-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-27-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb28-2"><a href="#cb28-2"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb28-3"><a href="#cb28-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(weather_type),</span>
+<span id="cb28-4"><a href="#cb28-4"></a>        <span class="at">fill =</span> weather_type)</span>
+<span id="cb28-5"><a href="#cb28-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a>  <span class="fu">coord_polar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-28-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb29-2"><a href="#cb29-2"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb29-3"><a href="#cb29-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(weather_type),</span>
+<span id="cb29-4"><a href="#cb29-4"></a>        <span class="at">fill =</span> weather_type)</span>
+<span id="cb29-5"><a href="#cb29-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a>  <span class="fu">coord_cartesian</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-29-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb30-2"><a href="#cb30-2"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb30-3"><a href="#cb30-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">fill =</span> weather_type)</span>
+<span id="cb30-4"><a href="#cb30-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-30-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb31-2"><a href="#cb31-2"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb31-3"><a href="#cb31-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">fill =</span> weather_type)</span>
+<span id="cb31-4"><a href="#cb31-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a>  <span class="fu">coord_cartesian</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-31-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb32-2"><a href="#cb32-2"></a>    bikes,</span>
+<span id="cb32-3"><a href="#cb32-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp, <span class="at">y =</span> count,</span>
+<span id="cb32-4"><a href="#cb32-4"></a>        <span class="at">group =</span> day_night)</span>
+<span id="cb32-5"><a href="#cb32-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8"></a>  <span class="fu">coord_trans</span>(<span class="at">y =</span> <span class="st">"log10"</span>)</span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-32-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb33-2"><a href="#cb33-2"></a>    bikes,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp, <span class="at">y =</span> count,</span>
+<span id="cb33-4"><a href="#cb33-4"></a>        <span class="at">group =</span> day_night)</span>
+<span id="cb33-5"><a href="#cb33-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8"></a>  <span class="fu">scale_y_log10</span>()</span>
+<span id="cb33-9"><a href="#cb33-9"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-33-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="spaital-coordiate" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Spaital Coordiate</h1>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>countries <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(</span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="at">returnclass =</span> <span class="st">"sf"</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>)</span>
+<span id="cb34-4"><a href="#cb34-4"></a></span>
+<span id="cb34-5"><a href="#cb34-5"></a></span>
+<span id="cb34-6"><a href="#cb34-6"></a></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a>  <span class="fu">geom_sf</span>(</span>
+<span id="cb34-9"><a href="#cb34-9"></a>    <span class="at">data =</span> countries,</span>
+<span id="cb34-10"><a href="#cb34-10"></a>    <span class="at">color =</span> <span class="st">"#79dfbd"</span>,</span>
+<span id="cb34-11"><a href="#cb34-11"></a>    <span class="at">fill =</span> <span class="st">"#28a87d"</span>,</span>
+<span id="cb34-12"><a href="#cb34-12"></a>    <span class="at">size =</span> .<span class="dv">3</span></span>
+<span id="cb34-13"><a href="#cb34-13"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-14"><a href="#cb34-14"></a>  <span class="fu">coord_sf</span>(</span>
+<span id="cb34-15"><a href="#cb34-15"></a>    <span class="at">crs =</span> <span class="st">"+proj=moll"</span></span>
+<span id="cb34-16"><a href="#cb34-16"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-34-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>oceans <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_download</span>(</span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="at">category =</span> <span class="st">"physical"</span>, <span class="at">type =</span> <span class="st">"ocean"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>)</span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a>  <span class="fu">geom_sf</span>(</span>
+<span id="cb35-6"><a href="#cb35-6"></a>    <span class="at">data =</span> oceans,</span>
+<span id="cb35-7"><a href="#cb35-7"></a>    <span class="at">fill =</span> <span class="st">"#d8f1f6"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a>  ) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a>  <span class="fu">geom_sf</span>(</span>
+<span id="cb35-11"><a href="#cb35-11"></a>    <span class="at">data =</span> countries,</span>
+<span id="cb35-12"><a href="#cb35-12"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> economy),</span>
+<span id="cb35-13"><a href="#cb35-13"></a>    <span class="at">color =</span> <span class="st">"white"</span>,</span>
+<span id="cb35-14"><a href="#cb35-14"></a>    <span class="at">size =</span> .<span class="dv">3</span></span>
+<span id="cb35-15"><a href="#cb35-15"></a>  ) <span class="sc">+</span></span>
+<span id="cb35-16"><a href="#cb35-16"></a>  <span class="fu">coord_sf</span>(</span>
+<span id="cb35-17"><a href="#cb35-17"></a>    <span class="at">crs =</span> <span class="st">"+proj=bonne +lat_1=10"</span></span>
+<span id="cb35-18"><a href="#cb35-18"></a>  ) <span class="sc">+</span></span>
+<span id="cb35-19"><a href="#cb35-19"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"magma"</span>) <span class="sc">+</span></span>
+<span id="cb35-20"><a href="#cb35-20"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb35-21"><a href="#cb35-21"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-35-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-31"><img src="ch02_concepts_of_the_ggplot2_part2_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../contents/website/graphic_design_with_ggplot2/ch01_concepts_of_the_ggplot2_packages.html" class="pagination-link  aria-label=" concepts="" of="" the="" ggplot2="" packages="" pt="" 1"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Concepts of the ggplot2 Packages pt 1</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../contents/website/graphic_design_with_ggplot2/ch03_data_communication.html" class="pagination-link" aria-label="Data Communication">
+        <span class="nav-page-text">Data Communication</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb36" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1"></a><span class="co">---</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="an">title:</span><span class="co"> "Concepts of the ggplot2 Packages pt 2"</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="co">  cache: true</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="an">filters:</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb36-8"><a href="#cb36-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb36-9"><a href="#cb36-9"></a><span class="co">---</span></span>
+<span id="cb36-10"><a href="#cb36-10"></a></span>
+<span id="cb36-13"><a href="#cb36-13"></a><span class="in">```{r}</span></span>
+<span id="cb36-14"><a href="#cb36-14"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb36-15"><a href="#cb36-15"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/website/graphic_design_with_ggplot2"</span>)</span>
+<span id="cb36-16"><a href="#cb36-16"></a><span class="in">```</span></span>
+<span id="cb36-17"><a href="#cb36-17"></a></span>
+<span id="cb36-20"><a href="#cb36-20"></a><span class="in">```{r}</span></span>
+<span id="cb36-21"><a href="#cb36-21"></a><span class="co">#| warning: false</span></span>
+<span id="cb36-22"><a href="#cb36-22"></a><span class="co">#| message: false</span></span>
+<span id="cb36-23"><a href="#cb36-23"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb36-24"><a href="#cb36-24"></a>  <span class="st">"tidyverse"</span>, </span>
+<span id="cb36-25"><a href="#cb36-25"></a>  <span class="st">"ggplot2"</span>, <span class="st">"readr"</span>, <span class="st">"tibble"</span>, <span class="st">"tidyr"</span>, <span class="st">"forcats"</span>, </span>
+<span id="cb36-26"><a href="#cb36-26"></a>  <span class="st">"stringr"</span>,</span>
+<span id="cb36-27"><a href="#cb36-27"></a>  <span class="st">"lubridate"</span>, <span class="st">"here"</span>, <span class="st">"systemfonts"</span>, <span class="st">"magick"</span>, </span>
+<span id="cb36-28"><a href="#cb36-28"></a>  <span class="st">"scales"</span>, <span class="st">"grid"</span>,</span>
+<span id="cb36-29"><a href="#cb36-29"></a>  <span class="st">"grDevices"</span>, <span class="st">"colorspace"</span>, <span class="st">"viridis"</span>, </span>
+<span id="cb36-30"><a href="#cb36-30"></a>  <span class="st">"RColorBrewer"</span>, <span class="st">"rcartocolor"</span>,</span>
+<span id="cb36-31"><a href="#cb36-31"></a>  <span class="st">"scico"</span>, <span class="st">"ggsci"</span>, <span class="st">"ggthemes"</span>, <span class="st">"nord"</span>, </span>
+<span id="cb36-32"><a href="#cb36-32"></a>  <span class="st">"MetBrewer"</span>, <span class="st">"ggrepel"</span>,</span>
+<span id="cb36-33"><a href="#cb36-33"></a>  <span class="st">"ggforce"</span>, <span class="st">"ggtext"</span>, <span class="st">"ggdist"</span>, <span class="st">"ggbeeswarm"</span>, </span>
+<span id="cb36-34"><a href="#cb36-34"></a>  <span class="st">"gghalves"</span>, <span class="st">"patchwork"</span>, </span>
+<span id="cb36-35"><a href="#cb36-35"></a>  <span class="st">"palmerpenguins"</span>, <span class="st">"rnaturalearth"</span>, <span class="st">"sf"</span>, <span class="st">"rmapshaper"</span>, <span class="st">"devtools"</span>, </span>
+<span id="cb36-36"><a href="#cb36-36"></a>  <span class="st">"extrafont"</span></span>
+<span id="cb36-37"><a href="#cb36-37"></a>) <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">library</span>(x, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb36-38"><a href="#cb36-38"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb36-39"><a href="#cb36-39"></a><span class="fu">library</span>(colorblindr)</span>
+<span id="cb36-40"><a href="#cb36-40"></a></span>
+<span id="cb36-41"><a href="#cb36-41"></a></span>
+<span id="cb36-42"><a href="#cb36-42"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb36-43"><a href="#cb36-43"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb36-44"><a href="#cb36-44"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb36-45"><a href="#cb36-45"></a><span class="in">```</span></span>
+<span id="cb36-46"><a href="#cb36-46"></a></span>
+<span id="cb36-47"><a href="#cb36-47"></a></span>
+<span id="cb36-48"><a href="#cb36-48"></a><span class="fu"># Setup</span></span>
+<span id="cb36-49"><a href="#cb36-49"></a></span>
+<span id="cb36-52"><a href="#cb36-52"></a><span class="in">```{r}</span></span>
+<span id="cb36-53"><a href="#cb36-53"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-54"><a href="#cb36-54"></a></span>
+<span id="cb36-55"><a href="#cb36-55"></a>bikes <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb36-56"><a href="#cb36-56"></a>  here<span class="sc">::</span><span class="fu">here</span>(cur_dir, <span class="st">"ggplot2-course-data"</span>, <span class="st">"london-bikes-custom.csv"</span>),</span>
+<span id="cb36-57"><a href="#cb36-57"></a>  <span class="at">col_types =</span> <span class="st">"Dcfffilllddddc"</span></span>
+<span id="cb36-58"><a href="#cb36-58"></a>)</span>
+<span id="cb36-59"><a href="#cb36-59"></a></span>
+<span id="cb36-60"><a href="#cb36-60"></a>bikes<span class="sc">$</span>season <span class="ot">&lt;-</span> forcats<span class="sc">::</span><span class="fu">fct_inorder</span>(bikes<span class="sc">$</span>season)</span>
+<span id="cb36-61"><a href="#cb36-61"></a></span>
+<span id="cb36-62"><a href="#cb36-62"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>(<span class="at">base_size =</span> <span class="dv">14</span>, <span class="at">base_family =</span> <span class="st">"Noto Sans"</span>))</span>
+<span id="cb36-63"><a href="#cb36-63"></a></span>
+<span id="cb36-64"><a href="#cb36-64"></a><span class="fu">theme_update</span>(</span>
+<span id="cb36-65"><a href="#cb36-65"></a>  <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb36-66"><a href="#cb36-66"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb36-67"><a href="#cb36-67"></a>  <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb36-68"><a href="#cb36-68"></a>  <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb36-69"><a href="#cb36-69"></a>)</span>
+<span id="cb36-70"><a href="#cb36-70"></a></span>
+<span id="cb36-71"><a href="#cb36-71"></a><span class="fu">invisible</span>(<span class="fu">Sys.setlocale</span>(<span class="st">"LC_TIME"</span>, <span class="st">"C"</span>))</span>
+<span id="cb36-72"><a href="#cb36-72"></a></span>
+<span id="cb36-73"><a href="#cb36-73"></a><span class="in">```</span></span>
+<span id="cb36-74"><a href="#cb36-74"></a></span>
+<span id="cb36-77"><a href="#cb36-77"></a><span class="in">```{r}</span></span>
+<span id="cb36-78"><a href="#cb36-78"></a>g <span class="ot">&lt;-</span></span>
+<span id="cb36-79"><a href="#cb36-79"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb36-80"><a href="#cb36-80"></a>    bikes,</span>
+<span id="cb36-81"><a href="#cb36-81"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count,</span>
+<span id="cb36-82"><a href="#cb36-82"></a>        <span class="at">color =</span> season,</span>
+<span id="cb36-83"><a href="#cb36-83"></a>        <span class="at">group =</span> day_night)</span>
+<span id="cb36-84"><a href="#cb36-84"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-85"><a href="#cb36-85"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb36-86"><a href="#cb36-86"></a>    <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb36-87"><a href="#cb36-87"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-88"><a href="#cb36-88"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb36-89"><a href="#cb36-89"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb36-90"><a href="#cb36-90"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb36-91"><a href="#cb36-91"></a>  )</span>
+<span id="cb36-92"><a href="#cb36-92"></a></span>
+<span id="cb36-93"><a href="#cb36-93"></a><span class="in">```</span></span>
+<span id="cb36-94"><a href="#cb36-94"></a></span>
+<span id="cb36-95"><a href="#cb36-95"></a></span>
+<span id="cb36-96"><a href="#cb36-96"></a></span>
+<span id="cb36-97"><a href="#cb36-97"></a></span>
+<span id="cb36-98"><a href="#cb36-98"></a><span class="fu"># Facets</span></span>
+<span id="cb36-99"><a href="#cb36-99"></a></span>
+<span id="cb36-102"><a href="#cb36-102"></a><span class="in">```{r}</span></span>
+<span id="cb36-103"><a href="#cb36-103"></a>g <span class="sc">+</span></span>
+<span id="cb36-104"><a href="#cb36-104"></a>  <span class="fu">facet_wrap</span>(</span>
+<span id="cb36-105"><a href="#cb36-105"></a>    <span class="sc">~</span> is_workday <span class="sc">+</span> day_night</span>
+<span id="cb36-106"><a href="#cb36-106"></a>  )</span>
+<span id="cb36-107"><a href="#cb36-107"></a><span class="in">```</span></span>
+<span id="cb36-108"><a href="#cb36-108"></a></span>
+<span id="cb36-109"><a href="#cb36-109"></a></span>
+<span id="cb36-112"><a href="#cb36-112"></a><span class="in">```{r}</span></span>
+<span id="cb36-113"><a href="#cb36-113"></a>g <span class="sc">+</span></span>
+<span id="cb36-114"><a href="#cb36-114"></a>  <span class="fu">facet_wrap</span>(</span>
+<span id="cb36-115"><a href="#cb36-115"></a>    <span class="sc">~</span> day_night,</span>
+<span id="cb36-116"><a href="#cb36-116"></a>    <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb36-117"><a href="#cb36-117"></a>    <span class="at">strip.position =</span> <span class="st">"bottom"</span></span>
+<span id="cb36-118"><a href="#cb36-118"></a>  )</span>
+<span id="cb36-119"><a href="#cb36-119"></a><span class="in">```</span></span>
+<span id="cb36-120"><a href="#cb36-120"></a></span>
+<span id="cb36-121"><a href="#cb36-121"></a></span>
+<span id="cb36-124"><a href="#cb36-124"></a><span class="in">```{r}</span></span>
+<span id="cb36-125"><a href="#cb36-125"></a>g <span class="sc">+</span></span>
+<span id="cb36-126"><a href="#cb36-126"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb36-127"><a href="#cb36-127"></a>    day_night <span class="sc">~</span> is_workday,</span>
+<span id="cb36-128"><a href="#cb36-128"></a>    <span class="at">scales =</span> <span class="st">"free"</span>,</span>
+<span id="cb36-129"><a href="#cb36-129"></a>    <span class="at">switch =</span> <span class="st">"y"</span></span>
+<span id="cb36-130"><a href="#cb36-130"></a>  ) <span class="sc">+</span> </span>
+<span id="cb36-131"><a href="#cb36-131"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">position =</span> <span class="st">"right"</span>)</span>
+<span id="cb36-132"><a href="#cb36-132"></a></span>
+<span id="cb36-133"><a href="#cb36-133"></a><span class="in">```</span></span>
+<span id="cb36-134"><a href="#cb36-134"></a></span>
+<span id="cb36-135"><a href="#cb36-135"></a></span>
+<span id="cb36-136"><a href="#cb36-136"></a></span>
+<span id="cb36-139"><a href="#cb36-139"></a><span class="in">```{r}</span></span>
+<span id="cb36-140"><a href="#cb36-140"></a>g <span class="sc">+</span></span>
+<span id="cb36-141"><a href="#cb36-141"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb36-142"><a href="#cb36-142"></a>    <span class="at">rows =</span> <span class="fu">vars</span>(day_night),</span>
+<span id="cb36-143"><a href="#cb36-143"></a>    <span class="at">cols =</span> <span class="fu">vars</span>(is_workday)</span>
+<span id="cb36-144"><a href="#cb36-144"></a>  )</span>
+<span id="cb36-145"><a href="#cb36-145"></a><span class="in">```</span></span>
+<span id="cb36-146"><a href="#cb36-146"></a></span>
+<span id="cb36-147"><a href="#cb36-147"></a></span>
+<span id="cb36-150"><a href="#cb36-150"></a><span class="in">```{r}</span></span>
+<span id="cb36-151"><a href="#cb36-151"></a>g <span class="sc">+</span></span>
+<span id="cb36-152"><a href="#cb36-152"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb36-153"><a href="#cb36-153"></a>    day_night <span class="sc">~</span> is_workday, </span>
+<span id="cb36-154"><a href="#cb36-154"></a>    <span class="at">scales =</span> <span class="fu">c</span>(<span class="st">"free_y"</span>), </span>
+<span id="cb36-155"><a href="#cb36-155"></a>    <span class="at">space =</span> <span class="fu">c</span>(<span class="st">"free_y"</span>)</span>
+<span id="cb36-156"><a href="#cb36-156"></a>  )</span>
+<span id="cb36-157"><a href="#cb36-157"></a><span class="in">```</span></span>
+<span id="cb36-158"><a href="#cb36-158"></a></span>
+<span id="cb36-161"><a href="#cb36-161"></a><span class="in">```{r}</span></span>
+<span id="cb36-162"><a href="#cb36-162"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-163"><a href="#cb36-163"></a>    diamonds,</span>
+<span id="cb36-164"><a href="#cb36-164"></a>    <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)</span>
+<span id="cb36-165"><a href="#cb36-165"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-166"><a href="#cb36-166"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb36-167"><a href="#cb36-167"></a>    <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
+<span id="cb36-168"><a href="#cb36-168"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb36-169"><a href="#cb36-169"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-170"><a href="#cb36-170"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb36-171"><a href="#cb36-171"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb36-172"><a href="#cb36-172"></a>    <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb36-173"><a href="#cb36-173"></a>    <span class="at">color =</span> <span class="st">"dodgerblue"</span></span>
+<span id="cb36-174"><a href="#cb36-174"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-175"><a href="#cb36-175"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb36-176"><a href="#cb36-176"></a>    cut <span class="sc">~</span> clarity,</span>
+<span id="cb36-177"><a href="#cb36-177"></a>    <span class="at">space =</span> <span class="st">"free_x"</span>,</span>
+<span id="cb36-178"><a href="#cb36-178"></a>    <span class="at">scales =</span> <span class="st">"free_x"</span></span>
+<span id="cb36-179"><a href="#cb36-179"></a>  ) <span class="sc">+</span> </span>
+<span id="cb36-180"><a href="#cb36-180"></a>  <span class="fu">theme_dark</span>()</span>
+<span id="cb36-181"><a href="#cb36-181"></a></span>
+<span id="cb36-182"><a href="#cb36-182"></a><span class="in">```</span></span>
+<span id="cb36-183"><a href="#cb36-183"></a></span>
+<span id="cb36-184"><a href="#cb36-184"></a></span>
+<span id="cb36-185"><a href="#cb36-185"></a></span>
+<span id="cb36-186"><a href="#cb36-186"></a><span class="fu"># Scales</span></span>
+<span id="cb36-187"><a href="#cb36-187"></a></span>
+<span id="cb36-190"><a href="#cb36-190"></a><span class="in">```{r}</span></span>
+<span id="cb36-191"><a href="#cb36-191"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-192"><a href="#cb36-192"></a>    bikes,</span>
+<span id="cb36-193"><a href="#cb36-193"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb36-194"><a href="#cb36-194"></a>        <span class="at">color =</span> season)</span>
+<span id="cb36-195"><a href="#cb36-195"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-196"><a href="#cb36-196"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-197"><a href="#cb36-197"></a>  <span class="fu">scale_x_date</span>(</span>
+<span id="cb36-198"><a href="#cb36-198"></a>        <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb36-199"><a href="#cb36-199"></a>        <span class="at">date_breaks =</span> <span class="st">"6 months"</span>,</span>
+<span id="cb36-200"><a href="#cb36-200"></a>        <span class="at">date_labels =</span> <span class="st">"%b '%y"</span></span>
+<span id="cb36-201"><a href="#cb36-201"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-202"><a href="#cb36-202"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb36-203"><a href="#cb36-203"></a>      <span class="at">trans =</span> <span class="st">"log10"</span>, </span>
+<span id="cb36-204"><a href="#cb36-204"></a>      <span class="at">name =</span> <span class="st">"Reported bike shares"</span>, </span>
+<span id="cb36-205"><a href="#cb36-205"></a>      <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">60000</span>, <span class="at">by =</span> <span class="dv">15000</span>), </span>
+<span id="cb36-206"><a href="#cb36-206"></a>      <span class="at">labels =</span> \(x) <span class="fu">paste0</span>(x, <span class="st">" bikes"</span>), </span>
+<span id="cb36-207"><a href="#cb36-207"></a>      <span class="at">limits =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">60000</span>), </span>
+<span id="cb36-208"><a href="#cb36-208"></a>      <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="co"># add, mult</span></span>
+<span id="cb36-209"><a href="#cb36-209"></a>      <span class="co"># guide = "none"</span></span>
+<span id="cb36-210"><a href="#cb36-210"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-211"><a href="#cb36-211"></a>  <span class="fu">scale_color_discrete</span>()</span>
+<span id="cb36-212"><a href="#cb36-212"></a><span class="in">```</span></span>
+<span id="cb36-213"><a href="#cb36-213"></a></span>
+<span id="cb36-214"><a href="#cb36-214"></a></span>
+<span id="cb36-217"><a href="#cb36-217"></a><span class="in">```{r}</span></span>
+<span id="cb36-218"><a href="#cb36-218"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-219"><a href="#cb36-219"></a>    bikes,</span>
+<span id="cb36-220"><a href="#cb36-220"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> count)</span>
+<span id="cb36-221"><a href="#cb36-221"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-222"><a href="#cb36-222"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb36-223"><a href="#cb36-223"></a>  <span class="fu">scale_x_discrete</span>(</span>
+<span id="cb36-224"><a href="#cb36-224"></a>    <span class="at">name =</span> <span class="st">"Period"</span>,</span>
+<span id="cb36-225"><a href="#cb36-225"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Dec-Feb"</span>, <span class="st">"Mar-May"</span>, <span class="st">"Jun-Aug"</span>, <span class="st">"Sep-Nov"</span>)</span>
+<span id="cb36-226"><a href="#cb36-226"></a>  )</span>
+<span id="cb36-227"><a href="#cb36-227"></a></span>
+<span id="cb36-228"><a href="#cb36-228"></a><span class="in">```</span></span>
+<span id="cb36-229"><a href="#cb36-229"></a></span>
+<span id="cb36-232"><a href="#cb36-232"></a><span class="in">```{r}</span></span>
+<span id="cb36-233"><a href="#cb36-233"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-234"><a href="#cb36-234"></a>    bikes,</span>
+<span id="cb36-235"><a href="#cb36-235"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb36-236"><a href="#cb36-236"></a>        <span class="at">color =</span> season)</span>
+<span id="cb36-237"><a href="#cb36-237"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-238"><a href="#cb36-238"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-239"><a href="#cb36-239"></a>  <span class="fu">scale_color_discrete</span>(</span>
+<span id="cb36-240"><a href="#cb36-240"></a>    <span class="at">name =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb36-241"><a href="#cb36-241"></a>    <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"#69b0d4"</span>, <span class="st">"#00CB79"</span>, <span class="st">"#F7B01B"</span>, <span class="st">"#a78f5f"</span>)</span>
+<span id="cb36-242"><a href="#cb36-242"></a>  )</span>
+<span id="cb36-243"><a href="#cb36-243"></a><span class="in">```</span></span>
+<span id="cb36-244"><a href="#cb36-244"></a></span>
+<span id="cb36-245"><a href="#cb36-245"></a></span>
+<span id="cb36-246"><a href="#cb36-246"></a>色についても<span class="in">`scale_color`</span>の中でマニュアルで指定することが可能である. </span>
+<span id="cb36-247"><a href="#cb36-247"></a></span>
+<span id="cb36-250"><a href="#cb36-250"></a><span class="in">```{r}</span></span>
+<span id="cb36-251"><a href="#cb36-251"></a>my_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb36-252"><a href="#cb36-252"></a>  <span class="st">`</span><span class="at">winter</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#3c89d9"</span>,</span>
+<span id="cb36-253"><a href="#cb36-253"></a>  <span class="st">`</span><span class="at">spring</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#1ec99b"</span>,</span>
+<span id="cb36-254"><a href="#cb36-254"></a>  <span class="st">`</span><span class="at">summer</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#F7B01B"</span>,</span>
+<span id="cb36-255"><a href="#cb36-255"></a>  <span class="st">`</span><span class="at">autumn</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#a26e7c"</span></span>
+<span id="cb36-256"><a href="#cb36-256"></a>)</span>
+<span id="cb36-257"><a href="#cb36-257"></a></span>
+<span id="cb36-258"><a href="#cb36-258"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-259"><a href="#cb36-259"></a>    bikes,</span>
+<span id="cb36-260"><a href="#cb36-260"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb36-261"><a href="#cb36-261"></a>        <span class="at">color =</span> season)</span>
+<span id="cb36-262"><a href="#cb36-262"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-263"><a href="#cb36-263"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-264"><a href="#cb36-264"></a>  <span class="fu">scale_color_discrete</span>(</span>
+<span id="cb36-265"><a href="#cb36-265"></a>    <span class="at">name =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb36-266"><a href="#cb36-266"></a>    <span class="at">type =</span> my_colors</span>
+<span id="cb36-267"><a href="#cb36-267"></a>  )</span>
+<span id="cb36-268"><a href="#cb36-268"></a></span>
+<span id="cb36-269"><a href="#cb36-269"></a></span>
+<span id="cb36-270"><a href="#cb36-270"></a><span class="in">```</span></span>
+<span id="cb36-271"><a href="#cb36-271"></a></span>
+<span id="cb36-272"><a href="#cb36-272"></a></span>
+<span id="cb36-273"><a href="#cb36-273"></a>NAは別の値で決めることができる. </span>
+<span id="cb36-274"><a href="#cb36-274"></a>パステルカラーにブラックはよくわかるので良さそうである. </span>
+<span id="cb36-275"><a href="#cb36-275"></a></span>
+<span id="cb36-278"><a href="#cb36-278"></a><span class="in">```{R}</span></span>
+<span id="cb36-279"><a href="#cb36-279"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-280"><a href="#cb36-280"></a>    bikes,</span>
+<span id="cb36-281"><a href="#cb36-281"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb36-282"><a href="#cb36-282"></a>        <span class="at">color =</span> weather_type)</span>
+<span id="cb36-283"><a href="#cb36-283"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-284"><a href="#cb36-284"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-285"><a href="#cb36-285"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb36-286"><a href="#cb36-286"></a>    <span class="at">name =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb36-287"><a href="#cb36-287"></a>    <span class="at">values =</span> <span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">6</span>, <span class="at">name =</span> <span class="st">"Pastel1"</span>),</span>
+<span id="cb36-288"><a href="#cb36-288"></a>    <span class="at">na.value =</span> <span class="st">"black"</span></span>
+<span id="cb36-289"><a href="#cb36-289"></a>  )</span>
+<span id="cb36-290"><a href="#cb36-290"></a><span class="in">```</span></span>
+<span id="cb36-291"><a href="#cb36-291"></a></span>
+<span id="cb36-294"><a href="#cb36-294"></a><span class="in">```{r}</span></span>
+<span id="cb36-295"><a href="#cb36-295"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-296"><a href="#cb36-296"></a>    bikes,</span>
+<span id="cb36-297"><a href="#cb36-297"></a>    <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count,</span>
+<span id="cb36-298"><a href="#cb36-298"></a>        <span class="at">color =</span> weather_type)</span>
+<span id="cb36-299"><a href="#cb36-299"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-300"><a href="#cb36-300"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-301"><a href="#cb36-301"></a>  rcartocolor<span class="sc">::</span><span class="fu">scale_color_carto_d</span>(</span>
+<span id="cb36-302"><a href="#cb36-302"></a>    <span class="at">name =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb36-303"><a href="#cb36-303"></a>    <span class="at">palette =</span> <span class="st">"Pastel"</span>,</span>
+<span id="cb36-304"><a href="#cb36-304"></a>    <span class="at">na.value =</span> <span class="st">"black"</span></span>
+<span id="cb36-305"><a href="#cb36-305"></a>  )</span>
+<span id="cb36-306"><a href="#cb36-306"></a></span>
+<span id="cb36-307"><a href="#cb36-307"></a><span class="in">```</span></span>
+<span id="cb36-308"><a href="#cb36-308"></a></span>
+<span id="cb36-309"><a href="#cb36-309"></a></span>
+<span id="cb36-312"><a href="#cb36-312"></a><span class="in">```{r}</span></span>
+<span id="cb36-313"><a href="#cb36-313"></a>facet <span class="ot">&lt;-</span></span>
+<span id="cb36-314"><a href="#cb36-314"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb36-315"><a href="#cb36-315"></a>    diamonds,</span>
+<span id="cb36-316"><a href="#cb36-316"></a>    <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)</span>
+<span id="cb36-317"><a href="#cb36-317"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-318"><a href="#cb36-318"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb36-319"><a href="#cb36-319"></a>    <span class="at">alpha =</span> .<span class="dv">3</span></span>
+<span id="cb36-320"><a href="#cb36-320"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-321"><a href="#cb36-321"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb36-322"><a href="#cb36-322"></a>    <span class="fu">aes</span>(<span class="at">color =</span> cut),</span>
+<span id="cb36-323"><a href="#cb36-323"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb36-324"><a href="#cb36-324"></a>    <span class="at">se =</span> <span class="cn">FALSE</span></span>
+<span id="cb36-325"><a href="#cb36-325"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-326"><a href="#cb36-326"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb36-327"><a href="#cb36-327"></a>    cut <span class="sc">~</span> clarity,</span>
+<span id="cb36-328"><a href="#cb36-328"></a>    <span class="at">space =</span> <span class="st">"free_x"</span>,</span>
+<span id="cb36-329"><a href="#cb36-329"></a>    <span class="at">scales =</span> <span class="st">"free_x"</span></span>
+<span id="cb36-330"><a href="#cb36-330"></a>  )</span>
+<span id="cb36-331"><a href="#cb36-331"></a></span>
+<span id="cb36-332"><a href="#cb36-332"></a>facet <span class="sc">+</span> </span>
+<span id="cb36-333"><a href="#cb36-333"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb36-334"><a href="#cb36-334"></a>    <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb36-335"><a href="#cb36-335"></a>        <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30000</span>), </span>
+<span id="cb36-336"><a href="#cb36-336"></a>        <span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">*</span> <span class="dv">10000</span>, </span>
+<span id="cb36-337"><a href="#cb36-337"></a>        <span class="at">labels =</span> \(x) <span class="fu">paste0</span>(<span class="st">"$"</span>, <span class="fu">format</span>(x, <span class="at">big.mark =</span> <span class="st">","</span>, <span class="at">trim =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb36-338"><a href="#cb36-338"></a>    ) <span class="sc">+</span> </span>
+<span id="cb36-339"><a href="#cb36-339"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>) <span class="sc">+</span> </span>
+<span id="cb36-340"><a href="#cb36-340"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb36-341"><a href="#cb36-341"></a></span>
+<span id="cb36-342"><a href="#cb36-342"></a><span class="in">```</span></span>
+<span id="cb36-343"><a href="#cb36-343"></a></span>
+<span id="cb36-344"><a href="#cb36-344"></a></span>
+<span id="cb36-345"><a href="#cb36-345"></a></span>
+<span id="cb36-346"><a href="#cb36-346"></a><span class="fu"># Coordinates Systems</span></span>
+<span id="cb36-347"><a href="#cb36-347"></a></span>
+<span id="cb36-348"><a href="#cb36-348"></a>線形の座標系は次である. </span>
+<span id="cb36-349"><a href="#cb36-349"></a></span>
+<span id="cb36-350"><a href="#cb36-350"></a><span class="ss">- </span>coord_cartesian()</span>
+<span id="cb36-351"><a href="#cb36-351"></a><span class="ss">- </span>coord_fixed()</span>
+<span id="cb36-352"><a href="#cb36-352"></a><span class="ss">- </span>coord_flip()</span>
+<span id="cb36-353"><a href="#cb36-353"></a></span>
+<span id="cb36-354"><a href="#cb36-354"></a>非線形の座標系として次がある. </span>
+<span id="cb36-355"><a href="#cb36-355"></a></span>
+<span id="cb36-356"><a href="#cb36-356"></a><span class="ss">- </span>coord_polar()</span>
+<span id="cb36-357"><a href="#cb36-357"></a><span class="ss">- </span>coord_map()</span>
+<span id="cb36-358"><a href="#cb36-358"></a><span class="ss">- </span>coord_sf()</span>
+<span id="cb36-359"><a href="#cb36-359"></a><span class="ss">- </span>coord_trans()</span>
+<span id="cb36-360"><a href="#cb36-360"></a></span>
+<span id="cb36-361"><a href="#cb36-361"></a></span>
+<span id="cb36-362"><a href="#cb36-362"></a>::::{.columns}</span>
+<span id="cb36-363"><a href="#cb36-363"></a></span>
+<span id="cb36-364"><a href="#cb36-364"></a>:::{.column}</span>
+<span id="cb36-365"><a href="#cb36-365"></a></span>
+<span id="cb36-368"><a href="#cb36-368"></a><span class="in">```{r}</span></span>
+<span id="cb36-369"><a href="#cb36-369"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-370"><a href="#cb36-370"></a>    bikes,</span>
+<span id="cb36-371"><a href="#cb36-371"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> count)</span>
+<span id="cb36-372"><a href="#cb36-372"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-373"><a href="#cb36-373"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb36-374"><a href="#cb36-374"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb36-375"><a href="#cb36-375"></a>      <span class="at">ylim =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">15000</span>)</span>
+<span id="cb36-376"><a href="#cb36-376"></a>  )</span>
+<span id="cb36-377"><a href="#cb36-377"></a><span class="in">```</span></span>
+<span id="cb36-378"><a href="#cb36-378"></a>:::</span>
+<span id="cb36-379"><a href="#cb36-379"></a></span>
+<span id="cb36-380"><a href="#cb36-380"></a>:::{.column}</span>
+<span id="cb36-383"><a href="#cb36-383"></a><span class="in">```{r}</span></span>
+<span id="cb36-384"><a href="#cb36-384"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-385"><a href="#cb36-385"></a>    bikes,</span>
+<span id="cb36-386"><a href="#cb36-386"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> count)</span>
+<span id="cb36-387"><a href="#cb36-387"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-388"><a href="#cb36-388"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb36-389"><a href="#cb36-389"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb36-390"><a href="#cb36-390"></a>      <span class="at">limits =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">15000</span>)</span>
+<span id="cb36-391"><a href="#cb36-391"></a>  )</span>
+<span id="cb36-392"><a href="#cb36-392"></a><span class="in">```</span></span>
+<span id="cb36-393"><a href="#cb36-393"></a>:::</span>
+<span id="cb36-394"><a href="#cb36-394"></a></span>
+<span id="cb36-395"><a href="#cb36-395"></a>::::</span>
+<span id="cb36-396"><a href="#cb36-396"></a></span>
+<span id="cb36-397"><a href="#cb36-397"></a></span>
+<span id="cb36-398"><a href="#cb36-398"></a></span>
+<span id="cb36-399"><a href="#cb36-399"></a></span>
+<span id="cb36-400"><a href="#cb36-400"></a><span class="in">`clip = "off"`</span>を使うとpanel領域をはみ出してグラフを記述することが出来る. </span>
+<span id="cb36-401"><a href="#cb36-401"></a></span>
+<span id="cb36-402"><a href="#cb36-402"></a></span>
+<span id="cb36-405"><a href="#cb36-405"></a><span class="in">```{r}</span></span>
+<span id="cb36-406"><a href="#cb36-406"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-407"><a href="#cb36-407"></a>    bikes,</span>
+<span id="cb36-408"><a href="#cb36-408"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> count)</span>
+<span id="cb36-409"><a href="#cb36-409"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-410"><a href="#cb36-410"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb36-411"><a href="#cb36-411"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb36-412"><a href="#cb36-412"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">15000</span>),</span>
+<span id="cb36-413"><a href="#cb36-413"></a>    <span class="at">clip =</span> <span class="st">"off"</span></span>
+<span id="cb36-414"><a href="#cb36-414"></a>  )</span>
+<span id="cb36-415"><a href="#cb36-415"></a><span class="in">```</span></span>
+<span id="cb36-416"><a href="#cb36-416"></a></span>
+<span id="cb36-417"><a href="#cb36-417"></a></span>
+<span id="cb36-420"><a href="#cb36-420"></a><span class="in">```{r}</span></span>
+<span id="cb36-421"><a href="#cb36-421"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-422"><a href="#cb36-422"></a>    <span class="fu">filter</span>(bikes, is_holiday <span class="sc">==</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-423"><a href="#cb36-423"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count)</span>
+<span id="cb36-424"><a href="#cb36-424"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-425"><a href="#cb36-425"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-426"><a href="#cb36-426"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb36-427"><a href="#cb36-427"></a>    <span class="fu">aes</span>(<span class="at">label =</span> season),</span>
+<span id="cb36-428"><a href="#cb36-428"></a>    <span class="at">nudge_x =</span> .<span class="dv">3</span>,</span>
+<span id="cb36-429"><a href="#cb36-429"></a>    <span class="at">hjust =</span> <span class="dv">0</span>, </span>
+<span id="cb36-430"><a href="#cb36-430"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb36-431"><a href="#cb36-431"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-432"><a href="#cb36-432"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb36-433"><a href="#cb36-433"></a>    <span class="at">clip =</span> <span class="st">"off"</span></span>
+<span id="cb36-434"><a href="#cb36-434"></a>  )</span>
+<span id="cb36-435"><a href="#cb36-435"></a></span>
+<span id="cb36-436"><a href="#cb36-436"></a><span class="in">```</span></span>
+<span id="cb36-437"><a href="#cb36-437"></a></span>
+<span id="cb36-438"><a href="#cb36-438"></a>パディングをすべて消すことも可能である. </span>
+<span id="cb36-439"><a href="#cb36-439"></a></span>
+<span id="cb36-442"><a href="#cb36-442"></a><span class="in">```{r}</span></span>
+<span id="cb36-443"><a href="#cb36-443"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-444"><a href="#cb36-444"></a>    bikes,</span>
+<span id="cb36-445"><a href="#cb36-445"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count)</span>
+<span id="cb36-446"><a href="#cb36-446"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-447"><a href="#cb36-447"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-448"><a href="#cb36-448"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb36-449"><a href="#cb36-449"></a>    <span class="at">expand =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb36-450"><a href="#cb36-450"></a>    <span class="at">clip =</span> <span class="st">"off"</span></span>
+<span id="cb36-451"><a href="#cb36-451"></a>  )</span>
+<span id="cb36-452"><a href="#cb36-452"></a><span class="in">```</span></span>
+<span id="cb36-453"><a href="#cb36-453"></a></span>
+<span id="cb36-454"><a href="#cb36-454"></a>::::{.columns}</span>
+<span id="cb36-455"><a href="#cb36-455"></a></span>
+<span id="cb36-456"><a href="#cb36-456"></a>:::{.column}</span>
+<span id="cb36-459"><a href="#cb36-459"></a><span class="in">```{r}</span></span>
+<span id="cb36-460"><a href="#cb36-460"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-461"><a href="#cb36-461"></a>    bikes,</span>
+<span id="cb36-462"><a href="#cb36-462"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> temp)</span>
+<span id="cb36-463"><a href="#cb36-463"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-464"><a href="#cb36-464"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-465"><a href="#cb36-465"></a>  <span class="fu">coord_fixed</span>()</span>
+<span id="cb36-466"><a href="#cb36-466"></a><span class="in">```</span></span>
+<span id="cb36-467"><a href="#cb36-467"></a>:::</span>
+<span id="cb36-468"><a href="#cb36-468"></a></span>
+<span id="cb36-469"><a href="#cb36-469"></a>:::{.column}</span>
+<span id="cb36-472"><a href="#cb36-472"></a><span class="in">```{r}</span></span>
+<span id="cb36-473"><a href="#cb36-473"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-474"><a href="#cb36-474"></a>    bikes,</span>
+<span id="cb36-475"><a href="#cb36-475"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> temp)</span>
+<span id="cb36-476"><a href="#cb36-476"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-477"><a href="#cb36-477"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-478"><a href="#cb36-478"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">4</span>) <span class="co"># y / x</span></span>
+<span id="cb36-479"><a href="#cb36-479"></a><span class="in">```</span></span>
+<span id="cb36-480"><a href="#cb36-480"></a>:::</span>
+<span id="cb36-481"><a href="#cb36-481"></a></span>
+<span id="cb36-482"><a href="#cb36-482"></a>::::</span>
+<span id="cb36-483"><a href="#cb36-483"></a></span>
+<span id="cb36-484"><a href="#cb36-484"></a></span>
+<span id="cb36-487"><a href="#cb36-487"></a><span class="in">```{r}</span></span>
+<span id="cb36-488"><a href="#cb36-488"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-489"><a href="#cb36-489"></a>    bikes,</span>
+<span id="cb36-490"><a href="#cb36-490"></a>    <span class="fu">aes</span>(<span class="at">y =</span> weather_type)</span>
+<span id="cb36-491"><a href="#cb36-491"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-492"><a href="#cb36-492"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb36-493"><a href="#cb36-493"></a>  <span class="fu">coord_cartesian</span>()</span>
+<span id="cb36-494"><a href="#cb36-494"></a><span class="in">```</span></span>
+<span id="cb36-495"><a href="#cb36-495"></a></span>
+<span id="cb36-496"><a href="#cb36-496"></a></span>
+<span id="cb36-497"><a href="#cb36-497"></a>reorderすることも出来る. </span>
+<span id="cb36-498"><a href="#cb36-498"></a></span>
+<span id="cb36-501"><a href="#cb36-501"></a><span class="in">```{r}</span></span>
+<span id="cb36-502"><a href="#cb36-502"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-503"><a href="#cb36-503"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb36-504"><a href="#cb36-504"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_rev</span>(<span class="fu">fct_infreq</span>(weather_type)))</span>
+<span id="cb36-505"><a href="#cb36-505"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-506"><a href="#cb36-506"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb36-507"><a href="#cb36-507"></a><span class="in">```</span></span>
+<span id="cb36-508"><a href="#cb36-508"></a></span>
+<span id="cb36-511"><a href="#cb36-511"></a><span class="in">```{r}</span></span>
+<span id="cb36-512"><a href="#cb36-512"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-513"><a href="#cb36-513"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb36-514"><a href="#cb36-514"></a>    <span class="fu">aes</span>(<span class="at">x =</span> weather_type,</span>
+<span id="cb36-515"><a href="#cb36-515"></a>        <span class="at">fill =</span> weather_type)</span>
+<span id="cb36-516"><a href="#cb36-516"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-517"><a href="#cb36-517"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb36-518"><a href="#cb36-518"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>)</span>
+<span id="cb36-519"><a href="#cb36-519"></a><span class="in">```</span></span>
+<span id="cb36-520"><a href="#cb36-520"></a></span>
+<span id="cb36-521"><a href="#cb36-521"></a></span>
+<span id="cb36-522"><a href="#cb36-522"></a></span>
+<span id="cb36-523"><a href="#cb36-523"></a>::::{.columns}</span>
+<span id="cb36-524"><a href="#cb36-524"></a></span>
+<span id="cb36-525"><a href="#cb36-525"></a>:::{.column}</span>
+<span id="cb36-526"><a href="#cb36-526"></a></span>
+<span id="cb36-529"><a href="#cb36-529"></a><span class="in">```{r}</span></span>
+<span id="cb36-530"><a href="#cb36-530"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-531"><a href="#cb36-531"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb36-532"><a href="#cb36-532"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(weather_type),</span>
+<span id="cb36-533"><a href="#cb36-533"></a>        <span class="at">fill =</span> weather_type)</span>
+<span id="cb36-534"><a href="#cb36-534"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-535"><a href="#cb36-535"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb36-536"><a href="#cb36-536"></a>  <span class="fu">coord_polar</span>()</span>
+<span id="cb36-537"><a href="#cb36-537"></a><span class="in">```</span></span>
+<span id="cb36-538"><a href="#cb36-538"></a></span>
+<span id="cb36-539"><a href="#cb36-539"></a>:::</span>
+<span id="cb36-540"><a href="#cb36-540"></a></span>
+<span id="cb36-541"><a href="#cb36-541"></a></span>
+<span id="cb36-542"><a href="#cb36-542"></a>:::{.column}</span>
+<span id="cb36-543"><a href="#cb36-543"></a></span>
+<span id="cb36-546"><a href="#cb36-546"></a><span class="in">```{r}</span></span>
+<span id="cb36-547"><a href="#cb36-547"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-548"><a href="#cb36-548"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb36-549"><a href="#cb36-549"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(weather_type),</span>
+<span id="cb36-550"><a href="#cb36-550"></a>        <span class="at">fill =</span> weather_type)</span>
+<span id="cb36-551"><a href="#cb36-551"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-552"><a href="#cb36-552"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb36-553"><a href="#cb36-553"></a>  <span class="fu">coord_cartesian</span>()</span>
+<span id="cb36-554"><a href="#cb36-554"></a><span class="in">```</span></span>
+<span id="cb36-555"><a href="#cb36-555"></a></span>
+<span id="cb36-556"><a href="#cb36-556"></a>:::</span>
+<span id="cb36-557"><a href="#cb36-557"></a></span>
+<span id="cb36-558"><a href="#cb36-558"></a></span>
+<span id="cb36-559"><a href="#cb36-559"></a></span>
+<span id="cb36-560"><a href="#cb36-560"></a>::::</span>
+<span id="cb36-561"><a href="#cb36-561"></a></span>
+<span id="cb36-562"><a href="#cb36-562"></a></span>
+<span id="cb36-563"><a href="#cb36-563"></a></span>
+<span id="cb36-564"><a href="#cb36-564"></a></span>
+<span id="cb36-565"><a href="#cb36-565"></a>::::{.columns}</span>
+<span id="cb36-566"><a href="#cb36-566"></a></span>
+<span id="cb36-567"><a href="#cb36-567"></a>:::{.column}</span>
+<span id="cb36-568"><a href="#cb36-568"></a></span>
+<span id="cb36-571"><a href="#cb36-571"></a><span class="in">```{r}</span></span>
+<span id="cb36-572"><a href="#cb36-572"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-573"><a href="#cb36-573"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb36-574"><a href="#cb36-574"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">fill =</span> weather_type)</span>
+<span id="cb36-575"><a href="#cb36-575"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-576"><a href="#cb36-576"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span></span>
+<span id="cb36-577"><a href="#cb36-577"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) </span>
+<span id="cb36-578"><a href="#cb36-578"></a><span class="in">```</span></span>
+<span id="cb36-579"><a href="#cb36-579"></a></span>
+<span id="cb36-580"><a href="#cb36-580"></a>:::</span>
+<span id="cb36-581"><a href="#cb36-581"></a></span>
+<span id="cb36-582"><a href="#cb36-582"></a></span>
+<span id="cb36-583"><a href="#cb36-583"></a>:::{.column}</span>
+<span id="cb36-584"><a href="#cb36-584"></a></span>
+<span id="cb36-587"><a href="#cb36-587"></a><span class="in">```{r}</span></span>
+<span id="cb36-588"><a href="#cb36-588"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-589"><a href="#cb36-589"></a>    <span class="fu">filter</span>(bikes, <span class="sc">!</span><span class="fu">is.na</span>(weather_type)),</span>
+<span id="cb36-590"><a href="#cb36-590"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">fill =</span> weather_type)</span>
+<span id="cb36-591"><a href="#cb36-591"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-592"><a href="#cb36-592"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span></span>
+<span id="cb36-593"><a href="#cb36-593"></a>  <span class="fu">coord_cartesian</span>() </span>
+<span id="cb36-594"><a href="#cb36-594"></a><span class="in">```</span></span>
+<span id="cb36-595"><a href="#cb36-595"></a></span>
+<span id="cb36-596"><a href="#cb36-596"></a>:::</span>
+<span id="cb36-597"><a href="#cb36-597"></a></span>
+<span id="cb36-598"><a href="#cb36-598"></a></span>
+<span id="cb36-599"><a href="#cb36-599"></a></span>
+<span id="cb36-600"><a href="#cb36-600"></a>::::</span>
+<span id="cb36-601"><a href="#cb36-601"></a></span>
+<span id="cb36-602"><a href="#cb36-602"></a></span>
+<span id="cb36-603"><a href="#cb36-603"></a></span>
+<span id="cb36-604"><a href="#cb36-604"></a>::::{.columns}</span>
+<span id="cb36-605"><a href="#cb36-605"></a></span>
+<span id="cb36-606"><a href="#cb36-606"></a>:::{.column}</span>
+<span id="cb36-607"><a href="#cb36-607"></a></span>
+<span id="cb36-610"><a href="#cb36-610"></a><span class="in">```{r}</span></span>
+<span id="cb36-611"><a href="#cb36-611"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-612"><a href="#cb36-612"></a>    bikes,</span>
+<span id="cb36-613"><a href="#cb36-613"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp, <span class="at">y =</span> count,</span>
+<span id="cb36-614"><a href="#cb36-614"></a>        <span class="at">group =</span> day_night)</span>
+<span id="cb36-615"><a href="#cb36-615"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-616"><a href="#cb36-616"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-617"><a href="#cb36-617"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb36-618"><a href="#cb36-618"></a>  <span class="fu">coord_trans</span>(<span class="at">y =</span> <span class="st">"log10"</span>)</span>
+<span id="cb36-619"><a href="#cb36-619"></a><span class="in">```</span></span>
+<span id="cb36-620"><a href="#cb36-620"></a></span>
+<span id="cb36-621"><a href="#cb36-621"></a>:::</span>
+<span id="cb36-622"><a href="#cb36-622"></a></span>
+<span id="cb36-623"><a href="#cb36-623"></a></span>
+<span id="cb36-624"><a href="#cb36-624"></a>:::{.column}</span>
+<span id="cb36-625"><a href="#cb36-625"></a></span>
+<span id="cb36-628"><a href="#cb36-628"></a><span class="in">```{r}</span></span>
+<span id="cb36-629"><a href="#cb36-629"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-630"><a href="#cb36-630"></a>    bikes,</span>
+<span id="cb36-631"><a href="#cb36-631"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp, <span class="at">y =</span> count,</span>
+<span id="cb36-632"><a href="#cb36-632"></a>        <span class="at">group =</span> day_night)</span>
+<span id="cb36-633"><a href="#cb36-633"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-634"><a href="#cb36-634"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-635"><a href="#cb36-635"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb36-636"><a href="#cb36-636"></a>  <span class="fu">scale_y_log10</span>()</span>
+<span id="cb36-637"><a href="#cb36-637"></a><span class="in">```</span></span>
+<span id="cb36-638"><a href="#cb36-638"></a></span>
+<span id="cb36-639"><a href="#cb36-639"></a>:::</span>
+<span id="cb36-640"><a href="#cb36-640"></a></span>
+<span id="cb36-641"><a href="#cb36-641"></a>::::</span>
+<span id="cb36-642"><a href="#cb36-642"></a></span>
+<span id="cb36-643"><a href="#cb36-643"></a></span>
+<span id="cb36-644"><a href="#cb36-644"></a><span class="fu"># Spaital Coordiate</span></span>
+<span id="cb36-645"><a href="#cb36-645"></a></span>
+<span id="cb36-648"><a href="#cb36-648"></a><span class="in">```{r}</span></span>
+<span id="cb36-649"><a href="#cb36-649"></a>countries <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(</span>
+<span id="cb36-650"><a href="#cb36-650"></a>  <span class="at">returnclass =</span> <span class="st">"sf"</span></span>
+<span id="cb36-651"><a href="#cb36-651"></a>)</span>
+<span id="cb36-652"><a href="#cb36-652"></a></span>
+<span id="cb36-653"><a href="#cb36-653"></a></span>
+<span id="cb36-654"><a href="#cb36-654"></a></span>
+<span id="cb36-655"><a href="#cb36-655"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-656"><a href="#cb36-656"></a>  <span class="fu">geom_sf</span>(</span>
+<span id="cb36-657"><a href="#cb36-657"></a>    <span class="at">data =</span> countries,</span>
+<span id="cb36-658"><a href="#cb36-658"></a>    <span class="at">color =</span> <span class="st">"#79dfbd"</span>,</span>
+<span id="cb36-659"><a href="#cb36-659"></a>    <span class="at">fill =</span> <span class="st">"#28a87d"</span>,</span>
+<span id="cb36-660"><a href="#cb36-660"></a>    <span class="at">size =</span> .<span class="dv">3</span></span>
+<span id="cb36-661"><a href="#cb36-661"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-662"><a href="#cb36-662"></a>  <span class="fu">coord_sf</span>(</span>
+<span id="cb36-663"><a href="#cb36-663"></a>    <span class="at">crs =</span> <span class="st">"+proj=moll"</span></span>
+<span id="cb36-664"><a href="#cb36-664"></a>  )</span>
+<span id="cb36-665"><a href="#cb36-665"></a><span class="in">```</span></span>
+<span id="cb36-666"><a href="#cb36-666"></a></span>
+<span id="cb36-667"><a href="#cb36-667"></a></span>
+<span id="cb36-670"><a href="#cb36-670"></a><span class="in">```{r}</span></span>
+<span id="cb36-671"><a href="#cb36-671"></a>oceans <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_download</span>(</span>
+<span id="cb36-672"><a href="#cb36-672"></a>  <span class="at">category =</span> <span class="st">"physical"</span>, <span class="at">type =</span> <span class="st">"ocean"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span></span>
+<span id="cb36-673"><a href="#cb36-673"></a>)</span>
+<span id="cb36-674"><a href="#cb36-674"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-675"><a href="#cb36-675"></a>  <span class="fu">geom_sf</span>(</span>
+<span id="cb36-676"><a href="#cb36-676"></a>    <span class="at">data =</span> oceans,</span>
+<span id="cb36-677"><a href="#cb36-677"></a>    <span class="at">fill =</span> <span class="st">"#d8f1f6"</span>,</span>
+<span id="cb36-678"><a href="#cb36-678"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb36-679"><a href="#cb36-679"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-680"><a href="#cb36-680"></a>  <span class="fu">geom_sf</span>(</span>
+<span id="cb36-681"><a href="#cb36-681"></a>    <span class="at">data =</span> countries,</span>
+<span id="cb36-682"><a href="#cb36-682"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> economy),</span>
+<span id="cb36-683"><a href="#cb36-683"></a>    <span class="at">color =</span> <span class="st">"white"</span>,</span>
+<span id="cb36-684"><a href="#cb36-684"></a>    <span class="at">size =</span> .<span class="dv">3</span></span>
+<span id="cb36-685"><a href="#cb36-685"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-686"><a href="#cb36-686"></a>  <span class="fu">coord_sf</span>(</span>
+<span id="cb36-687"><a href="#cb36-687"></a>    <span class="at">crs =</span> <span class="st">"+proj=bonne +lat_1=10"</span></span>
+<span id="cb36-688"><a href="#cb36-688"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-689"><a href="#cb36-689"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"magma"</span>) <span class="sc">+</span></span>
+<span id="cb36-690"><a href="#cb36-690"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb36-691"><a href="#cb36-691"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
+<span id="cb36-692"><a href="#cb36-692"></a><span class="in">```</span></span>
+<span id="cb36-693"><a href="#cb36-693"></a></span>
+<span id="cb36-694"><a href="#cb36-694"></a></span>
+<span id="cb36-695"><a href="#cb36-695"></a></span>
+<span id="cb36-696"><a href="#cb36-696"></a></span>
+<span id="cb36-697"><a href="#cb36-697"></a></span>
+<span id="cb36-698"><a href="#cb36-698"></a></span>
+<span id="cb36-699"><a href="#cb36-699"></a></span>
+<span id="cb36-700"><a href="#cb36-700"></a></span>
+<span id="cb36-701"><a href="#cb36-701"></a></span>
+<span id="cb36-702"><a href="#cb36-702"></a></span>
+<span id="cb36-703"><a href="#cb36-703"></a></span>
+<span id="cb36-704"><a href="#cb36-704"></a></span>
+<span id="cb36-705"><a href="#cb36-705"></a></span>
+<span id="cb36-706"><a href="#cb36-706"></a></span>
+<span id="cb36-707"><a href="#cb36-707"></a></span>
+<span id="cb36-708"><a href="#cb36-708"></a></span>
+<span id="cb36-709"><a href="#cb36-709"></a></span>
+<span id="cb36-710"><a href="#cb36-710"></a></span>
+<span id="cb36-711"><a href="#cb36-711"></a></span>
+<span id="cb36-712"><a href="#cb36-712"></a></span>
+<span id="cb36-713"><a href="#cb36-713"></a></span>
+<span id="cb36-714"><a href="#cb36-714"></a></span>
+<span id="cb36-715"><a href="#cb36-715"></a></span>
+<span id="cb36-716"><a href="#cb36-716"></a></span>
+<span id="cb36-717"><a href="#cb36-717"></a></span>
+<span id="cb36-718"><a href="#cb36-718"></a></span>
+<span id="cb36-719"><a href="#cb36-719"></a></span>
+<span id="cb36-720"><a href="#cb36-720"></a></span>
+<span id="cb36-721"><a href="#cb36-721"></a></span>
+<span id="cb36-722"><a href="#cb36-722"></a></span>
+<span id="cb36-723"><a href="#cb36-723"></a></span>
+<span id="cb36-724"><a href="#cb36-724"></a></span>
+<span id="cb36-725"><a href="#cb36-725"></a></span>
+<span id="cb36-726"><a href="#cb36-726"></a></span>
+<span id="cb36-727"><a href="#cb36-727"></a></span>
+<span id="cb36-728"><a href="#cb36-728"></a></span>
+<span id="cb36-729"><a href="#cb36-729"></a></span>
+<span id="cb36-730"><a href="#cb36-730"></a></span>
+<span id="cb36-731"><a href="#cb36-731"></a></span>
+<span id="cb36-732"><a href="#cb36-732"></a></span>
+<span id="cb36-733"><a href="#cb36-733"></a></span>
+<span id="cb36-734"><a href="#cb36-734"></a></span>
+<span id="cb36-735"><a href="#cb36-735"></a></span>
+<span id="cb36-736"><a href="#cb36-736"></a></span>
+<span id="cb36-737"><a href="#cb36-737"></a></span>
+<span id="cb36-738"><a href="#cb36-738"></a></span>
+<span id="cb36-739"><a href="#cb36-739"></a></span>
+<span id="cb36-740"><a href="#cb36-740"></a></span>
+<span id="cb36-741"><a href="#cb36-741"></a></span>
+<span id="cb36-742"><a href="#cb36-742"></a></span>
+<span id="cb36-743"><a href="#cb36-743"></a></span>
+<span id="cb36-744"><a href="#cb36-744"></a></span>
+<span id="cb36-745"><a href="#cb36-745"></a></span>
+<span id="cb36-746"><a href="#cb36-746"></a></span>
+<span id="cb36-747"><a href="#cb36-747"></a></span>
+<span id="cb36-748"><a href="#cb36-748"></a></span>
+<span id="cb36-749"><a href="#cb36-749"></a></span>
+<span id="cb36-750"><a href="#cb36-750"></a></span>
+<span id="cb36-751"><a href="#cb36-751"></a></span>
+<span id="cb36-752"><a href="#cb36-752"></a></span>
+<span id="cb36-753"><a href="#cb36-753"></a></span>
+<span id="cb36-754"><a href="#cb36-754"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false,"openEffect":"zoom"});</script>
+
+
+
+
+</body></html>

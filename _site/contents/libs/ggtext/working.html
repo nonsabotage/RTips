@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips - ggtext</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/libs/ggfittext/working.html" rel="next">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">libs</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../contents/libs/ggtext/working.html">libs</a></li><li class="breadcrumb-item"><a href="../../../contents/libs/ggtext/working.html">ggtext</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">libs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/ggtext/working.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">ggtext</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/ggfittext/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggfittext</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/gganimate/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">gganimate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/ggmosaic/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggmosaic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/treemapify/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">treemapify</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/GGally/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GGally</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/ComplexHeatmap/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ComplexHeatmap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/sf/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sf</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  <li><a href="#チュートリアル" id="toc-チュートリアル" class="nav-link" data-scroll-target="#チュートリアル"><span class="header-section-number">2</span> チュートリアル</a>
+  <ul class="collapse">
+  <li><a href="#markdown-in-theme-elements" id="toc-markdown-in-theme-elements" class="nav-link" data-scroll-target="#markdown-in-theme-elements"><span class="header-section-number">2.1</span> Markdown in theme elements</a></li>
+  <li><a href="#geoms" id="toc-geoms" class="nav-link" data-scroll-target="#geoms"><span class="header-section-number">2.2</span> Geoms</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../contents/libs/ggtext/working.html">libs</a></li><li class="breadcrumb-item"><a href="../../../contents/libs/ggtext/working.html">ggtext</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">ggtext</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 11, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-1_47b897cfa7171af1cb674d5e156d994c">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/ggtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-2_e4d86d4a1ed795af8384136e6373a17c">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="st">"tidyverse"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="st">"magick"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="st">"ggplot2"</span>, </span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="st">"readr"</span>, </span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="st">"tibble"</span>, </span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="st">"tidyr"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="st">"forcats"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="st">"stringr"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="st">"lubridate"</span>, </span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="st">"here"</span>, </span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="st">"systemfonts"</span>, </span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="st">"magick"</span>, </span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="st">"scales"</span>, </span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="st">"grid"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>  <span class="st">"grDevices"</span>, </span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="st">"colorspace"</span>, </span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="st">"viridis"</span>, </span>
+<span id="cb2-19"><a href="#cb2-19"></a>  <span class="st">"RColorBrewer"</span>, </span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="st">"rcartocolor"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="st">"scico"</span>, </span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="st">"ggsci"</span>, </span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="st">"ggthemes"</span>, </span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="st">"nord"</span>, </span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="st">"MetBrewer"</span>, </span>
+<span id="cb2-26"><a href="#cb2-26"></a>  <span class="st">"ggrepel"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>  <span class="st">"ggforce"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28"></a>  <span class="st">"ggtext"</span>, </span>
+<span id="cb2-29"><a href="#cb2-29"></a>  <span class="st">"ggdist"</span>, </span>
+<span id="cb2-30"><a href="#cb2-30"></a>  <span class="st">"ggbeeswarm"</span>, </span>
+<span id="cb2-31"><a href="#cb2-31"></a>  <span class="st">"gghalves"</span>, </span>
+<span id="cb2-32"><a href="#cb2-32"></a>  <span class="st">"patchwork"</span>, </span>
+<span id="cb2-33"><a href="#cb2-33"></a>  <span class="st">"palmerpenguins"</span>, </span>
+<span id="cb2-34"><a href="#cb2-34"></a>  <span class="st">"rnaturalearth"</span>, </span>
+<span id="cb2-35"><a href="#cb2-35"></a>  <span class="st">"sf"</span>, </span>
+<span id="cb2-36"><a href="#cb2-36"></a>  <span class="st">"rmapshaper"</span>, </span>
+<span id="cb2-37"><a href="#cb2-37"></a>  <span class="st">"devtools"</span>, </span>
+<span id="cb2-38"><a href="#cb2-38"></a>  <span class="st">"extrafont"</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>) <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">library</span>(x, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="fu">library</span>(colorblindr)</span>
+<span id="cb2-42"><a href="#cb2-42"></a></span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb2-46"><a href="#cb2-46"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
+<p>ggtextはtext要素の拡張である。<code>markdown</code>形式が使えるようになるので、よりリッチな表現が可能となる。 ただし画像にしたときに同様の表現が可能であるのかは、やってみないとわからないので注意する。</p>
+<p><a href="https://github.com/wilkelab/ggtext">github</a>が開発サイトである。</p>
+</section>
+<section id="チュートリアル" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> チュートリアル</h1>
+<section id="markdown-in-theme-elements" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="markdown-in-theme-elements"><span class="header-section-number">2.1</span> Markdown in theme elements</h2>
+<p>themeでelementを指定することで、html要素を使うことが可能となる。 たとえば<code>&lt;br&gt;</code>で改行したり、<code>i</code>タグでCSSを当てたりすることができる.</p>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-3_a5931803a939f55062b70410eebf3e5c">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">library</span>(glue)</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="at">bactname =</span> <span class="fu">c</span>(<span class="st">"Staphylococcaceae"</span>, <span class="st">"Moraxella"</span>, <span class="st">"Streptococcus"</span>, <span class="st">"Acinetobacter"</span>),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="at">OTUname =</span> <span class="fu">c</span>(<span class="st">"OTU 1"</span>, <span class="st">"OTU 2"</span>, <span class="st">"OTU 3"</span>, <span class="st">"OTU 4"</span>),</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a>data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb3-12"><a href="#cb3-12"></a>  <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"#009E73"</span>, <span class="st">"#D55E00"</span>, <span class="st">"#0072B2"</span>, <span class="st">"#000000"</span>),</span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="at">name =</span> <span class="fu">glue</span>(<span class="st">"&lt;i style='color:{color}'&gt;{bactname}&lt;/i&gt; ({OTUname})"</span>),</span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="at">name =</span> <span class="fu">fct_reorder</span>(name, value)</span>
+<span id="cb3-15"><a href="#cb3-15"></a>)  <span class="sc">%&gt;%</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, name, <span class="at">fill =</span> color)) <span class="sc">+</span> </span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb3-18"><a href="#cb3-18"></a>  <span class="fu">scale_fill_identity</span>() <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Example posted on **stackoverflow.com**&lt;br&gt;(using made-up data)"</span>) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_markdown</span>(),</span>
+<span id="cb3-22"><a href="#cb3-22"></a>    <span class="at">plot.caption =</span> <span class="fu">element_markdown</span>(<span class="at">lineheight =</span> <span class="fl">1.2</span>)</span>
+<span id="cb3-23"><a href="#cb3-23"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="working_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>img</code>タグを使うことも可能である。</p>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-4_f249fd3b98007bcf1265a93db564e2ba">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="at">setosa =</span> <span class="st">"&lt;img src='unnamed-chunk-6-1.png'</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">    width='100' /&gt;&lt;br&gt;*I. setosa*"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="at">virginica =</span> <span class="st">"&lt;img src='unnamed-chunk-4-1.png'</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">    width='100' /&gt;&lt;br&gt;*I. virginica*"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="at">versicolor =</span> <span class="st">"&lt;img src='unnamed-chunk-5-1.png'</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">    width='100' /&gt;&lt;br&gt;*I. versicolor*"</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Species, Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>  <span class="fu">scale_x_discrete</span>(</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-14"><a href="#cb4-14"></a>    <span class="at">labels =</span> labels</span>
+<span id="cb4-15"><a href="#cb4-15"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_markdown</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">11</span>)</span>
+<span id="cb4-18"><a href="#cb4-18"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="working_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>geom_textbox_simple</code>などでは、直接マークダウン要素を使うことが可能である。</p>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-5_ff79fa5f4c942a6d80a0409ce130aab6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(disp, mpg)) <span class="sc">+</span> </span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="at">title =</span> <span class="st">"&lt;b&gt;Fuel economy vs. engine displacement&lt;/b&gt;&lt;br&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">    &lt;span style = 'font-size:10pt'&gt;Lorem ipsum *dolor sit amet,*</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">    consectetur adipiscing elit, **sed do eiusmod tempor incididunt** ut</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="st">    labore et dolore magna aliqua. &lt;span style = 'color:red;'&gt;Ut enim</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="st">    ad minim veniam,&lt;/span&gt; quis nostrud exercitation ullamco laboris nisi</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="st">    ut aliquip ex ea commodo consequat.&lt;/span&gt;"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="at">x =</span> <span class="st">"displacement (in&lt;sup&gt;3&lt;/sup&gt;)"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="at">y =</span> <span class="st">"Miles per gallon (mpg)&lt;br&gt;&lt;span style = 'font-size:8pt'&gt;A measure of</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="st">    the car's fuel efficiency.&lt;/span&gt;"</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-15"><a href="#cb5-15"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16"></a>    <span class="at">plot.title =</span> <span class="fu">element_textbox_simple</span>(</span>
+<span id="cb5-17"><a href="#cb5-17"></a>      <span class="at">size =</span> <span class="dv">13</span>,</span>
+<span id="cb5-18"><a href="#cb5-18"></a>      <span class="at">lineheight =</span> <span class="dv">1</span>,</span>
+<span id="cb5-19"><a href="#cb5-19"></a>      <span class="at">padding =</span> <span class="fu">margin</span>(<span class="fl">5.5</span>, <span class="fl">5.5</span>, <span class="fl">5.5</span>, <span class="fl">5.5</span>),</span>
+<span id="cb5-20"><a href="#cb5-20"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">5.5</span>, <span class="dv">0</span>),</span>
+<span id="cb5-21"><a href="#cb5-21"></a>      <span class="at">fill =</span> <span class="st">"cornsilk"</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a>    ),</span>
+<span id="cb5-23"><a href="#cb5-23"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_textbox_simple</span>(</span>
+<span id="cb5-24"><a href="#cb5-24"></a>      <span class="at">width =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-25"><a href="#cb5-25"></a>      <span class="at">padding =</span> <span class="fu">margin</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb5-26"><a href="#cb5-26"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb5-27"><a href="#cb5-27"></a>      <span class="at">linetype =</span> <span class="dv">1</span>,</span>
+<span id="cb5-28"><a href="#cb5-28"></a>      <span class="at">r =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">8</span>, <span class="st">"pt"</span>),</span>
+<span id="cb5-29"><a href="#cb5-29"></a>      <span class="at">fill =</span> <span class="st">"azure1"</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a>    ),</span>
+<span id="cb5-31"><a href="#cb5-31"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_textbox_simple</span>(</span>
+<span id="cb5-32"><a href="#cb5-32"></a>      <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb5-33"><a href="#cb5-33"></a>      <span class="at">orientation =</span> <span class="st">"left-rotated"</span>,</span>
+<span id="cb5-34"><a href="#cb5-34"></a>      <span class="at">minwidth =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"in"</span>),</span>
+<span id="cb5-35"><a href="#cb5-35"></a>      <span class="at">maxwidth =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"in"</span>),</span>
+<span id="cb5-36"><a href="#cb5-36"></a>      <span class="at">padding =</span> <span class="fu">margin</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">4</span>),</span>
+<span id="cb5-37"><a href="#cb5-37"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>),</span>
+<span id="cb5-38"><a href="#cb5-38"></a>      <span class="at">fill =</span> <span class="st">"lightsteelblue1"</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a>    )</span>
+<span id="cb5-40"><a href="#cb5-40"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="working_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>facet</code>のラベルにも使うことが可能である。</p>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-6_74dd58dc462099681df6f29ba8f97e80">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(cty, hwy)) <span class="sc">+</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>class) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">theme_half_open</span>(<span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">background_grid</span>() <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">theme</span>(</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    <span class="at">strip.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    <span class="at">strip.text =</span> <span class="fu">element_textbox</span>(</span>
+<span id="cb6-12"><a href="#cb6-12"></a>      <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb6-13"><a href="#cb6-13"></a>      <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">fill =</span> <span class="st">"#5D729D"</span>, <span class="at">box.color =</span> <span class="st">"#4A618C"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14"></a>      <span class="at">halign =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="fu">unit</span>(<span class="dv">5</span>, <span class="st">"pt"</span>), <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"npc"</span>),</span>
+<span id="cb6-15"><a href="#cb6-15"></a>      <span class="at">padding =</span> <span class="fu">margin</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb6-16"><a href="#cb6-16"></a>    )</span>
+<span id="cb6-17"><a href="#cb6-17"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="working_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#&gt; Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; Please use the `linewidth` argument instead.</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; Please use the `linewidth` argument instead.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="geoms" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="geoms"><span class="header-section-number">2.2</span> Geoms</h2>
+<p><code>geom_richtext</code>を使うとテキストボックスの加工が色々と可能となる。</p>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-7_7375c79c1343b7a7ef610905b8901d5f">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="st">"Some text **in bold.**"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="st">"Linebreaks&lt;br&gt;Linebreaks&lt;br&gt;Linebreaks"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>    <span class="st">"*x*&lt;sup&gt;2&lt;/sup&gt; + 5*x* + *C*&lt;sub&gt;*i*&lt;/sub&gt;"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="st">"Some &lt;span style='color:blue'&gt;blue text **in bold.**&lt;/span&gt;&lt;br&gt;And *italics text.*&lt;br&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">    And some &lt;span style='font-size:18pt; color:black'&gt;large&lt;/span&gt; text."</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  ),</span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="at">x =</span> <span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">1</span>, .<span class="dv">5</span>, .<span class="dv">9</span>),</span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="at">y =</span> <span class="fu">c</span>(.<span class="dv">8</span>, .<span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">5</span>),</span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="at">hjust =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="at">vjust =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="at">angle =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">45</span>, <span class="sc">-</span><span class="dv">45</span>),</span>
+<span id="cb8-14"><a href="#cb8-14"></a>  <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span>, <span class="st">"red"</span>),</span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"cornsilk"</span>, <span class="st">"white"</span>, <span class="st">"lightblue1"</span>, <span class="st">"white"</span>)</span>
+<span id="cb8-16"><a href="#cb8-16"></a>)</span>
+<span id="cb8-17"><a href="#cb8-17"></a></span>
+<span id="cb8-18"><a href="#cb8-18"></a></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a>  <span class="fu">aes</span>(</span>
+<span id="cb8-21"><a href="#cb8-21"></a>    x, y, <span class="at">label =</span> label, <span class="at">angle =</span> angle, <span class="at">color =</span> color, <span class="at">fill =</span> fill,</span>
+<span id="cb8-22"><a href="#cb8-22"></a>    <span class="at">hjust =</span> hjust, <span class="at">vjust =</span> vjust</span>
+<span id="cb8-23"><a href="#cb8-23"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a>  <span class="fu">geom_richtext</span>() <span class="sc">+</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a>  <span class="fu">scale_color_identity</span>() <span class="sc">+</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a>  <span class="fu">scale_fill_identity</span>() <span class="sc">+</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="working_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-8_6ac4a4e2bc12dd8009fc091bdb30c28b">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">aes</span>(</span>
+<span id="cb9-3"><a href="#cb9-3"></a>    x, y, <span class="at">label =</span> label, <span class="at">angle =</span> angle, <span class="at">color =</span> color,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="at">hjust =</span> hjust, <span class="at">vjust =</span> vjust</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">geom_richtext</span>(</span>
+<span id="cb9-7"><a href="#cb9-7"></a>    <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">label.color =</span> <span class="cn">NA</span>, <span class="co"># remove background and outline</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>    <span class="at">label.padding =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>), <span class="st">"pt"</span>) <span class="co"># remove padding</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>  <span class="fu">scale_color_identity</span>() <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="working_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>geom_textbox</code>は、word wrapさせることも可能である。ただし、回転角度についてはサポートされれていない。</p>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-9_e292e178f3bebd10d279951c58e07dc5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="at">label =</span> <span class="fu">rep</span>(<span class="st">"Lorem ipsum dolor **sit amet,** consectetur adipiscing elit,</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="st">    sed do *eiusmod tempor incididunt* ut labore et dolore magna</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="st">    aliqua."</span>, <span class="dv">2</span>),</span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">6</span>),</span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span>, .<span class="dv">6</span>),</span>
+<span id="cb10-8"><a href="#cb10-8"></a>  <span class="at">hjust =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb10-9"><a href="#cb10-9"></a>  <span class="at">vjust =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb10-10"><a href="#cb10-10"></a>  <span class="at">orientation =</span> <span class="fu">c</span>(<span class="st">"upright"</span>, <span class="st">"right-rotated"</span>),</span>
+<span id="cb10-11"><a href="#cb10-11"></a>  <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb10-12"><a href="#cb10-12"></a>  <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"cornsilk"</span>, <span class="st">"white"</span>)</span>
+<span id="cb10-13"><a href="#cb10-13"></a>)</span>
+<span id="cb10-14"><a href="#cb10-14"></a></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a>  <span class="fu">aes</span>(</span>
+<span id="cb10-17"><a href="#cb10-17"></a>    x, y, <span class="at">label =</span> label, <span class="at">color =</span> color, <span class="at">fill =</span> fill,</span>
+<span id="cb10-18"><a href="#cb10-18"></a>    <span class="at">hjust =</span> hjust, <span class="at">vjust =</span> vjust,</span>
+<span id="cb10-19"><a href="#cb10-19"></a>    <span class="at">orientation =</span> orientation</span>
+<span id="cb10-20"><a href="#cb10-20"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-21"><a href="#cb10-21"></a>  <span class="fu">geom_textbox</span>(<span class="at">width =</span> <span class="fu">unit</span>(<span class="fl">0.4</span>, <span class="st">"npc"</span>)) <span class="sc">+</span></span>
+<span id="cb10-22"><a href="#cb10-22"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb10-23"><a href="#cb10-23"></a>  <span class="fu">scale_discrete_identity</span>(<span class="at">aesthetics =</span> <span class="fu">c</span>(<span class="st">"color"</span>, <span class="st">"fill"</span>, <span class="st">"orientation"</span>)) <span class="sc">+</span></span>
+<span id="cb10-24"><a href="#cb10-24"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="working_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../contents/libs/ggfittext/working.html" class="pagination-link" aria-label="ggfittext">
+        <span class="nav-page-text">ggfittext</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">---</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="an">title:</span><span class="co"> "ggtext"</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">  cache: true</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="an">filters:</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">---</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="in">```{r}</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb11-15"><a href="#cb11-15"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/ggtext"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="in">```</span></span>
+<span id="cb11-17"><a href="#cb11-17"></a></span>
+<span id="cb11-20"><a href="#cb11-20"></a><span class="in">```{r}</span></span>
+<span id="cb11-21"><a href="#cb11-21"></a><span class="co">#| warning: false</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a><span class="co">#| message: false</span></span>
+<span id="cb11-23"><a href="#cb11-23"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb11-24"><a href="#cb11-24"></a>  <span class="st">"tidyverse"</span>, </span>
+<span id="cb11-25"><a href="#cb11-25"></a>  <span class="st">"magick"</span>,</span>
+<span id="cb11-26"><a href="#cb11-26"></a>  <span class="st">"ggplot2"</span>, </span>
+<span id="cb11-27"><a href="#cb11-27"></a>  <span class="st">"readr"</span>, </span>
+<span id="cb11-28"><a href="#cb11-28"></a>  <span class="st">"tibble"</span>, </span>
+<span id="cb11-29"><a href="#cb11-29"></a>  <span class="st">"tidyr"</span>, </span>
+<span id="cb11-30"><a href="#cb11-30"></a>  <span class="st">"forcats"</span>, </span>
+<span id="cb11-31"><a href="#cb11-31"></a>  <span class="st">"stringr"</span>,</span>
+<span id="cb11-32"><a href="#cb11-32"></a>  <span class="st">"lubridate"</span>, </span>
+<span id="cb11-33"><a href="#cb11-33"></a>  <span class="st">"here"</span>, </span>
+<span id="cb11-34"><a href="#cb11-34"></a>  <span class="st">"systemfonts"</span>, </span>
+<span id="cb11-35"><a href="#cb11-35"></a>  <span class="st">"magick"</span>, </span>
+<span id="cb11-36"><a href="#cb11-36"></a>  <span class="st">"scales"</span>, </span>
+<span id="cb11-37"><a href="#cb11-37"></a>  <span class="st">"grid"</span>,</span>
+<span id="cb11-38"><a href="#cb11-38"></a>  <span class="st">"grDevices"</span>, </span>
+<span id="cb11-39"><a href="#cb11-39"></a>  <span class="st">"colorspace"</span>, </span>
+<span id="cb11-40"><a href="#cb11-40"></a>  <span class="st">"viridis"</span>, </span>
+<span id="cb11-41"><a href="#cb11-41"></a>  <span class="st">"RColorBrewer"</span>, </span>
+<span id="cb11-42"><a href="#cb11-42"></a>  <span class="st">"rcartocolor"</span>,</span>
+<span id="cb11-43"><a href="#cb11-43"></a>  <span class="st">"scico"</span>, </span>
+<span id="cb11-44"><a href="#cb11-44"></a>  <span class="st">"ggsci"</span>, </span>
+<span id="cb11-45"><a href="#cb11-45"></a>  <span class="st">"ggthemes"</span>, </span>
+<span id="cb11-46"><a href="#cb11-46"></a>  <span class="st">"nord"</span>, </span>
+<span id="cb11-47"><a href="#cb11-47"></a>  <span class="st">"MetBrewer"</span>, </span>
+<span id="cb11-48"><a href="#cb11-48"></a>  <span class="st">"ggrepel"</span>,</span>
+<span id="cb11-49"><a href="#cb11-49"></a>  <span class="st">"ggforce"</span>,</span>
+<span id="cb11-50"><a href="#cb11-50"></a>  <span class="st">"ggtext"</span>, </span>
+<span id="cb11-51"><a href="#cb11-51"></a>  <span class="st">"ggdist"</span>, </span>
+<span id="cb11-52"><a href="#cb11-52"></a>  <span class="st">"ggbeeswarm"</span>, </span>
+<span id="cb11-53"><a href="#cb11-53"></a>  <span class="st">"gghalves"</span>, </span>
+<span id="cb11-54"><a href="#cb11-54"></a>  <span class="st">"patchwork"</span>, </span>
+<span id="cb11-55"><a href="#cb11-55"></a>  <span class="st">"palmerpenguins"</span>, </span>
+<span id="cb11-56"><a href="#cb11-56"></a>  <span class="st">"rnaturalearth"</span>, </span>
+<span id="cb11-57"><a href="#cb11-57"></a>  <span class="st">"sf"</span>, </span>
+<span id="cb11-58"><a href="#cb11-58"></a>  <span class="st">"rmapshaper"</span>, </span>
+<span id="cb11-59"><a href="#cb11-59"></a>  <span class="st">"devtools"</span>, </span>
+<span id="cb11-60"><a href="#cb11-60"></a>  <span class="st">"extrafont"</span></span>
+<span id="cb11-61"><a href="#cb11-61"></a>) <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">library</span>(x, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb11-62"><a href="#cb11-62"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb11-63"><a href="#cb11-63"></a><span class="fu">library</span>(colorblindr)</span>
+<span id="cb11-64"><a href="#cb11-64"></a></span>
+<span id="cb11-65"><a href="#cb11-65"></a></span>
+<span id="cb11-66"><a href="#cb11-66"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb11-67"><a href="#cb11-67"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb11-68"><a href="#cb11-68"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb11-69"><a href="#cb11-69"></a><span class="in">```</span></span>
+<span id="cb11-70"><a href="#cb11-70"></a></span>
+<span id="cb11-71"><a href="#cb11-71"></a></span>
+<span id="cb11-72"><a href="#cb11-72"></a><span class="fu"># はじめに</span></span>
+<span id="cb11-73"><a href="#cb11-73"></a></span>
+<span id="cb11-74"><a href="#cb11-74"></a>ggtextはtext要素の拡張である。<span class="in">`markdown`</span>形式が使えるようになるので、よりリッチな表現が可能となる。</span>
+<span id="cb11-75"><a href="#cb11-75"></a>ただし画像にしたときに同様の表現が可能であるのかは、やってみないとわからないので注意する。</span>
+<span id="cb11-76"><a href="#cb11-76"></a></span>
+<span id="cb11-77"><a href="#cb11-77"></a></span>
+<span id="cb11-78"><a href="#cb11-78"></a><span class="co">[</span><span class="ot">github</span><span class="co">](https://github.com/wilkelab/ggtext)</span>が開発サイトである。</span>
+<span id="cb11-79"><a href="#cb11-79"></a></span>
+<span id="cb11-80"><a href="#cb11-80"></a></span>
+<span id="cb11-81"><a href="#cb11-81"></a><span class="fu"># チュートリアル</span></span>
+<span id="cb11-82"><a href="#cb11-82"></a></span>
+<span id="cb11-83"><a href="#cb11-83"></a><span class="fu">## Markdown in theme elements</span></span>
+<span id="cb11-84"><a href="#cb11-84"></a></span>
+<span id="cb11-85"><a href="#cb11-85"></a>themeでelementを指定することで、html要素を使うことが可能となる。</span>
+<span id="cb11-86"><a href="#cb11-86"></a>たとえば<span class="in">`&lt;br&gt;`</span>で改行したり、<span class="in">`i`</span>タグでCSSを当てたりすることができる. </span>
+<span id="cb11-87"><a href="#cb11-87"></a></span>
+<span id="cb11-90"><a href="#cb11-90"></a><span class="in">```{r}</span></span>
+<span id="cb11-91"><a href="#cb11-91"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-92"><a href="#cb11-92"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb11-93"><a href="#cb11-93"></a><span class="fu">library</span>(glue)</span>
+<span id="cb11-94"><a href="#cb11-94"></a></span>
+<span id="cb11-95"><a href="#cb11-95"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-96"><a href="#cb11-96"></a>  <span class="at">bactname =</span> <span class="fu">c</span>(<span class="st">"Staphylococcaceae"</span>, <span class="st">"Moraxella"</span>, <span class="st">"Streptococcus"</span>, <span class="st">"Acinetobacter"</span>),</span>
+<span id="cb11-97"><a href="#cb11-97"></a>  <span class="at">OTUname =</span> <span class="fu">c</span>(<span class="st">"OTU 1"</span>, <span class="st">"OTU 2"</span>, <span class="st">"OTU 3"</span>, <span class="st">"OTU 4"</span>),</span>
+<span id="cb11-98"><a href="#cb11-98"></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb11-99"><a href="#cb11-99"></a>)</span>
+<span id="cb11-100"><a href="#cb11-100"></a></span>
+<span id="cb11-101"><a href="#cb11-101"></a>data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb11-102"><a href="#cb11-102"></a>  <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"#009E73"</span>, <span class="st">"#D55E00"</span>, <span class="st">"#0072B2"</span>, <span class="st">"#000000"</span>),</span>
+<span id="cb11-103"><a href="#cb11-103"></a>  <span class="at">name =</span> <span class="fu">glue</span>(<span class="st">"&lt;i style='color:{color}'&gt;{bactname}&lt;/i&gt; ({OTUname})"</span>),</span>
+<span id="cb11-104"><a href="#cb11-104"></a>  <span class="at">name =</span> <span class="fu">fct_reorder</span>(name, value)</span>
+<span id="cb11-105"><a href="#cb11-105"></a>)  <span class="sc">%&gt;%</span></span>
+<span id="cb11-106"><a href="#cb11-106"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, name, <span class="at">fill =</span> color)) <span class="sc">+</span> </span>
+<span id="cb11-107"><a href="#cb11-107"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb11-108"><a href="#cb11-108"></a>  <span class="fu">scale_fill_identity</span>() <span class="sc">+</span></span>
+<span id="cb11-109"><a href="#cb11-109"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Example posted on **stackoverflow.com**&lt;br&gt;(using made-up data)"</span>) <span class="sc">+</span></span>
+<span id="cb11-110"><a href="#cb11-110"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-111"><a href="#cb11-111"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_markdown</span>(),</span>
+<span id="cb11-112"><a href="#cb11-112"></a>    <span class="at">plot.caption =</span> <span class="fu">element_markdown</span>(<span class="at">lineheight =</span> <span class="fl">1.2</span>)</span>
+<span id="cb11-113"><a href="#cb11-113"></a>  )</span>
+<span id="cb11-114"><a href="#cb11-114"></a><span class="in">```</span></span>
+<span id="cb11-115"><a href="#cb11-115"></a></span>
+<span id="cb11-116"><a href="#cb11-116"></a></span>
+<span id="cb11-117"><a href="#cb11-117"></a><span class="in">`img`</span>タグを使うことも可能である。</span>
+<span id="cb11-118"><a href="#cb11-118"></a></span>
+<span id="cb11-121"><a href="#cb11-121"></a><span class="in">```{r}</span></span>
+<span id="cb11-122"><a href="#cb11-122"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb11-123"><a href="#cb11-123"></a>  <span class="at">setosa =</span> <span class="st">"&lt;img src='unnamed-chunk-6-1.png'</span></span>
+<span id="cb11-124"><a href="#cb11-124"></a><span class="st">    width='100' /&gt;&lt;br&gt;*I. setosa*"</span>,</span>
+<span id="cb11-125"><a href="#cb11-125"></a>  <span class="at">virginica =</span> <span class="st">"&lt;img src='unnamed-chunk-4-1.png'</span></span>
+<span id="cb11-126"><a href="#cb11-126"></a><span class="st">    width='100' /&gt;&lt;br&gt;*I. virginica*"</span>,</span>
+<span id="cb11-127"><a href="#cb11-127"></a>  <span class="at">versicolor =</span> <span class="st">"&lt;img src='unnamed-chunk-5-1.png'</span></span>
+<span id="cb11-128"><a href="#cb11-128"></a><span class="st">    width='100' /&gt;&lt;br&gt;*I. versicolor*"</span></span>
+<span id="cb11-129"><a href="#cb11-129"></a>)</span>
+<span id="cb11-130"><a href="#cb11-130"></a></span>
+<span id="cb11-131"><a href="#cb11-131"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Species, Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb11-132"><a href="#cb11-132"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb11-133"><a href="#cb11-133"></a>  <span class="fu">scale_x_discrete</span>(</span>
+<span id="cb11-134"><a href="#cb11-134"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb11-135"><a href="#cb11-135"></a>    <span class="at">labels =</span> labels</span>
+<span id="cb11-136"><a href="#cb11-136"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-137"><a href="#cb11-137"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-138"><a href="#cb11-138"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_markdown</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">11</span>)</span>
+<span id="cb11-139"><a href="#cb11-139"></a>  )</span>
+<span id="cb11-140"><a href="#cb11-140"></a><span class="in">```</span></span>
+<span id="cb11-141"><a href="#cb11-141"></a></span>
+<span id="cb11-142"><a href="#cb11-142"></a></span>
+<span id="cb11-143"><a href="#cb11-143"></a><span class="in">`geom_textbox_simple`</span>などでは、直接マークダウン要素を使うことが可能である。</span>
+<span id="cb11-144"><a href="#cb11-144"></a></span>
+<span id="cb11-145"><a href="#cb11-145"></a></span>
+<span id="cb11-146"><a href="#cb11-146"></a></span>
+<span id="cb11-149"><a href="#cb11-149"></a><span class="in">```{r}</span></span>
+<span id="cb11-150"><a href="#cb11-150"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(disp, mpg)) <span class="sc">+</span> </span>
+<span id="cb11-151"><a href="#cb11-151"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-152"><a href="#cb11-152"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-153"><a href="#cb11-153"></a>    <span class="at">title =</span> <span class="st">"&lt;b&gt;Fuel economy vs. engine displacement&lt;/b&gt;&lt;br&gt;</span></span>
+<span id="cb11-154"><a href="#cb11-154"></a><span class="st">    &lt;span style = 'font-size:10pt'&gt;Lorem ipsum *dolor sit amet,*</span></span>
+<span id="cb11-155"><a href="#cb11-155"></a><span class="st">    consectetur adipiscing elit, **sed do eiusmod tempor incididunt** ut</span></span>
+<span id="cb11-156"><a href="#cb11-156"></a><span class="st">    labore et dolore magna aliqua. &lt;span style = 'color:red;'&gt;Ut enim</span></span>
+<span id="cb11-157"><a href="#cb11-157"></a><span class="st">    ad minim veniam,&lt;/span&gt; quis nostrud exercitation ullamco laboris nisi</span></span>
+<span id="cb11-158"><a href="#cb11-158"></a><span class="st">    ut aliquip ex ea commodo consequat.&lt;/span&gt;"</span>,</span>
+<span id="cb11-159"><a href="#cb11-159"></a>    <span class="at">x =</span> <span class="st">"displacement (in&lt;sup&gt;3&lt;/sup&gt;)"</span>,</span>
+<span id="cb11-160"><a href="#cb11-160"></a>    <span class="at">y =</span> <span class="st">"Miles per gallon (mpg)&lt;br&gt;&lt;span style = 'font-size:8pt'&gt;A measure of</span></span>
+<span id="cb11-161"><a href="#cb11-161"></a><span class="st">    the car's fuel efficiency.&lt;/span&gt;"</span></span>
+<span id="cb11-162"><a href="#cb11-162"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-163"><a href="#cb11-163"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-164"><a href="#cb11-164"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb11-165"><a href="#cb11-165"></a>    <span class="at">plot.title =</span> <span class="fu">element_textbox_simple</span>(</span>
+<span id="cb11-166"><a href="#cb11-166"></a>      <span class="at">size =</span> <span class="dv">13</span>,</span>
+<span id="cb11-167"><a href="#cb11-167"></a>      <span class="at">lineheight =</span> <span class="dv">1</span>,</span>
+<span id="cb11-168"><a href="#cb11-168"></a>      <span class="at">padding =</span> <span class="fu">margin</span>(<span class="fl">5.5</span>, <span class="fl">5.5</span>, <span class="fl">5.5</span>, <span class="fl">5.5</span>),</span>
+<span id="cb11-169"><a href="#cb11-169"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">5.5</span>, <span class="dv">0</span>),</span>
+<span id="cb11-170"><a href="#cb11-170"></a>      <span class="at">fill =</span> <span class="st">"cornsilk"</span></span>
+<span id="cb11-171"><a href="#cb11-171"></a>    ),</span>
+<span id="cb11-172"><a href="#cb11-172"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_textbox_simple</span>(</span>
+<span id="cb11-173"><a href="#cb11-173"></a>      <span class="at">width =</span> <span class="cn">NULL</span>,</span>
+<span id="cb11-174"><a href="#cb11-174"></a>      <span class="at">padding =</span> <span class="fu">margin</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb11-175"><a href="#cb11-175"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb11-176"><a href="#cb11-176"></a>      <span class="at">linetype =</span> <span class="dv">1</span>,</span>
+<span id="cb11-177"><a href="#cb11-177"></a>      <span class="at">r =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">8</span>, <span class="st">"pt"</span>),</span>
+<span id="cb11-178"><a href="#cb11-178"></a>      <span class="at">fill =</span> <span class="st">"azure1"</span></span>
+<span id="cb11-179"><a href="#cb11-179"></a>    ),</span>
+<span id="cb11-180"><a href="#cb11-180"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_textbox_simple</span>(</span>
+<span id="cb11-181"><a href="#cb11-181"></a>      <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb11-182"><a href="#cb11-182"></a>      <span class="at">orientation =</span> <span class="st">"left-rotated"</span>,</span>
+<span id="cb11-183"><a href="#cb11-183"></a>      <span class="at">minwidth =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"in"</span>),</span>
+<span id="cb11-184"><a href="#cb11-184"></a>      <span class="at">maxwidth =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"in"</span>),</span>
+<span id="cb11-185"><a href="#cb11-185"></a>      <span class="at">padding =</span> <span class="fu">margin</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">4</span>),</span>
+<span id="cb11-186"><a href="#cb11-186"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>),</span>
+<span id="cb11-187"><a href="#cb11-187"></a>      <span class="at">fill =</span> <span class="st">"lightsteelblue1"</span></span>
+<span id="cb11-188"><a href="#cb11-188"></a>    )</span>
+<span id="cb11-189"><a href="#cb11-189"></a>  )</span>
+<span id="cb11-190"><a href="#cb11-190"></a></span>
+<span id="cb11-191"><a href="#cb11-191"></a><span class="in">```</span></span>
+<span id="cb11-192"><a href="#cb11-192"></a></span>
+<span id="cb11-193"><a href="#cb11-193"></a></span>
+<span id="cb11-194"><a href="#cb11-194"></a><span class="in">`facet`</span>のラベルにも使うことが可能である。</span>
+<span id="cb11-195"><a href="#cb11-195"></a></span>
+<span id="cb11-196"><a href="#cb11-196"></a></span>
+<span id="cb11-199"><a href="#cb11-199"></a><span class="in">```{r}</span></span>
+<span id="cb11-200"><a href="#cb11-200"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb11-201"><a href="#cb11-201"></a></span>
+<span id="cb11-202"><a href="#cb11-202"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(cty, hwy)) <span class="sc">+</span> </span>
+<span id="cb11-203"><a href="#cb11-203"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-204"><a href="#cb11-204"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>class) <span class="sc">+</span></span>
+<span id="cb11-205"><a href="#cb11-205"></a>  <span class="fu">theme_half_open</span>(<span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb11-206"><a href="#cb11-206"></a>  <span class="fu">background_grid</span>() <span class="sc">+</span></span>
+<span id="cb11-207"><a href="#cb11-207"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-208"><a href="#cb11-208"></a>    <span class="at">strip.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-209"><a href="#cb11-209"></a>    <span class="at">strip.text =</span> <span class="fu">element_textbox</span>(</span>
+<span id="cb11-210"><a href="#cb11-210"></a>      <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb11-211"><a href="#cb11-211"></a>      <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">fill =</span> <span class="st">"#5D729D"</span>, <span class="at">box.color =</span> <span class="st">"#4A618C"</span>,</span>
+<span id="cb11-212"><a href="#cb11-212"></a>      <span class="at">halign =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="fu">unit</span>(<span class="dv">5</span>, <span class="st">"pt"</span>), <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"npc"</span>),</span>
+<span id="cb11-213"><a href="#cb11-213"></a>      <span class="at">padding =</span> <span class="fu">margin</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb11-214"><a href="#cb11-214"></a>    )</span>
+<span id="cb11-215"><a href="#cb11-215"></a>  )</span>
+<span id="cb11-216"><a href="#cb11-216"></a><span class="co">#&gt; Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.</span></span>
+<span id="cb11-217"><a href="#cb11-217"></a><span class="co">#&gt; Please use the `linewidth` argument instead.</span></span>
+<span id="cb11-218"><a href="#cb11-218"></a><span class="co">#&gt; Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.</span></span>
+<span id="cb11-219"><a href="#cb11-219"></a><span class="co">#&gt; Please use the `linewidth` argument instead.</span></span>
+<span id="cb11-220"><a href="#cb11-220"></a><span class="in">```</span></span>
+<span id="cb11-221"><a href="#cb11-221"></a></span>
+<span id="cb11-222"><a href="#cb11-222"></a><span class="fu">## Geoms</span></span>
+<span id="cb11-223"><a href="#cb11-223"></a></span>
+<span id="cb11-224"><a href="#cb11-224"></a></span>
+<span id="cb11-225"><a href="#cb11-225"></a><span class="in">`geom_richtext`</span>を使うとテキストボックスの加工が色々と可能となる。</span>
+<span id="cb11-226"><a href="#cb11-226"></a></span>
+<span id="cb11-229"><a href="#cb11-229"></a><span class="in">```{r}</span></span>
+<span id="cb11-230"><a href="#cb11-230"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-231"><a href="#cb11-231"></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb11-232"><a href="#cb11-232"></a>    <span class="st">"Some text **in bold.**"</span>,</span>
+<span id="cb11-233"><a href="#cb11-233"></a>    <span class="st">"Linebreaks&lt;br&gt;Linebreaks&lt;br&gt;Linebreaks"</span>,</span>
+<span id="cb11-234"><a href="#cb11-234"></a>    <span class="st">"*x*&lt;sup&gt;2&lt;/sup&gt; + 5*x* + *C*&lt;sub&gt;*i*&lt;/sub&gt;"</span>,</span>
+<span id="cb11-235"><a href="#cb11-235"></a>    <span class="st">"Some &lt;span style='color:blue'&gt;blue text **in bold.**&lt;/span&gt;&lt;br&gt;And *italics text.*&lt;br&gt;</span></span>
+<span id="cb11-236"><a href="#cb11-236"></a><span class="st">    And some &lt;span style='font-size:18pt; color:black'&gt;large&lt;/span&gt; text."</span></span>
+<span id="cb11-237"><a href="#cb11-237"></a>  ),</span>
+<span id="cb11-238"><a href="#cb11-238"></a>  <span class="at">x =</span> <span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">1</span>, .<span class="dv">5</span>, .<span class="dv">9</span>),</span>
+<span id="cb11-239"><a href="#cb11-239"></a>  <span class="at">y =</span> <span class="fu">c</span>(.<span class="dv">8</span>, .<span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">5</span>),</span>
+<span id="cb11-240"><a href="#cb11-240"></a>  <span class="at">hjust =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb11-241"><a href="#cb11-241"></a>  <span class="at">vjust =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb11-242"><a href="#cb11-242"></a>  <span class="at">angle =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">45</span>, <span class="sc">-</span><span class="dv">45</span>),</span>
+<span id="cb11-243"><a href="#cb11-243"></a>  <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span>, <span class="st">"red"</span>),</span>
+<span id="cb11-244"><a href="#cb11-244"></a>  <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"cornsilk"</span>, <span class="st">"white"</span>, <span class="st">"lightblue1"</span>, <span class="st">"white"</span>)</span>
+<span id="cb11-245"><a href="#cb11-245"></a>)</span>
+<span id="cb11-246"><a href="#cb11-246"></a></span>
+<span id="cb11-247"><a href="#cb11-247"></a></span>
+<span id="cb11-248"><a href="#cb11-248"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
+<span id="cb11-249"><a href="#cb11-249"></a>  <span class="fu">aes</span>(</span>
+<span id="cb11-250"><a href="#cb11-250"></a>    x, y, <span class="at">label =</span> label, <span class="at">angle =</span> angle, <span class="at">color =</span> color, <span class="at">fill =</span> fill,</span>
+<span id="cb11-251"><a href="#cb11-251"></a>    <span class="at">hjust =</span> hjust, <span class="at">vjust =</span> vjust</span>
+<span id="cb11-252"><a href="#cb11-252"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-253"><a href="#cb11-253"></a>  <span class="fu">geom_richtext</span>() <span class="sc">+</span></span>
+<span id="cb11-254"><a href="#cb11-254"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-255"><a href="#cb11-255"></a>  <span class="fu">scale_color_identity</span>() <span class="sc">+</span></span>
+<span id="cb11-256"><a href="#cb11-256"></a>  <span class="fu">scale_fill_identity</span>() <span class="sc">+</span></span>
+<span id="cb11-257"><a href="#cb11-257"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb11-258"><a href="#cb11-258"></a><span class="in">```</span></span>
+<span id="cb11-259"><a href="#cb11-259"></a></span>
+<span id="cb11-262"><a href="#cb11-262"></a><span class="in">```{r}</span></span>
+<span id="cb11-263"><a href="#cb11-263"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
+<span id="cb11-264"><a href="#cb11-264"></a>  <span class="fu">aes</span>(</span>
+<span id="cb11-265"><a href="#cb11-265"></a>    x, y, <span class="at">label =</span> label, <span class="at">angle =</span> angle, <span class="at">color =</span> color,</span>
+<span id="cb11-266"><a href="#cb11-266"></a>    <span class="at">hjust =</span> hjust, <span class="at">vjust =</span> vjust</span>
+<span id="cb11-267"><a href="#cb11-267"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-268"><a href="#cb11-268"></a>  <span class="fu">geom_richtext</span>(</span>
+<span id="cb11-269"><a href="#cb11-269"></a>    <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">label.color =</span> <span class="cn">NA</span>, <span class="co"># remove background and outline</span></span>
+<span id="cb11-270"><a href="#cb11-270"></a>    <span class="at">label.padding =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>), <span class="st">"pt"</span>) <span class="co"># remove padding</span></span>
+<span id="cb11-271"><a href="#cb11-271"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-272"><a href="#cb11-272"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-273"><a href="#cb11-273"></a>  <span class="fu">scale_color_identity</span>() <span class="sc">+</span></span>
+<span id="cb11-274"><a href="#cb11-274"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb11-275"><a href="#cb11-275"></a><span class="in">```</span></span>
+<span id="cb11-276"><a href="#cb11-276"></a></span>
+<span id="cb11-277"><a href="#cb11-277"></a><span class="in">`geom_textbox`</span>は、word wrapさせることも可能である。ただし、回転角度についてはサポートされれていない。</span>
+<span id="cb11-278"><a href="#cb11-278"></a></span>
+<span id="cb11-281"><a href="#cb11-281"></a><span class="in">```{r}</span></span>
+<span id="cb11-282"><a href="#cb11-282"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-283"><a href="#cb11-283"></a>  <span class="at">label =</span> <span class="fu">rep</span>(<span class="st">"Lorem ipsum dolor **sit amet,** consectetur adipiscing elit,</span></span>
+<span id="cb11-284"><a href="#cb11-284"></a><span class="st">    sed do *eiusmod tempor incididunt* ut labore et dolore magna</span></span>
+<span id="cb11-285"><a href="#cb11-285"></a><span class="st">    aliqua."</span>, <span class="dv">2</span>),</span>
+<span id="cb11-286"><a href="#cb11-286"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">6</span>),</span>
+<span id="cb11-287"><a href="#cb11-287"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span>, .<span class="dv">6</span>),</span>
+<span id="cb11-288"><a href="#cb11-288"></a>  <span class="at">hjust =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb11-289"><a href="#cb11-289"></a>  <span class="at">vjust =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb11-290"><a href="#cb11-290"></a>  <span class="at">orientation =</span> <span class="fu">c</span>(<span class="st">"upright"</span>, <span class="st">"right-rotated"</span>),</span>
+<span id="cb11-291"><a href="#cb11-291"></a>  <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb11-292"><a href="#cb11-292"></a>  <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"cornsilk"</span>, <span class="st">"white"</span>)</span>
+<span id="cb11-293"><a href="#cb11-293"></a>)</span>
+<span id="cb11-294"><a href="#cb11-294"></a></span>
+<span id="cb11-295"><a href="#cb11-295"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
+<span id="cb11-296"><a href="#cb11-296"></a>  <span class="fu">aes</span>(</span>
+<span id="cb11-297"><a href="#cb11-297"></a>    x, y, <span class="at">label =</span> label, <span class="at">color =</span> color, <span class="at">fill =</span> fill,</span>
+<span id="cb11-298"><a href="#cb11-298"></a>    <span class="at">hjust =</span> hjust, <span class="at">vjust =</span> vjust,</span>
+<span id="cb11-299"><a href="#cb11-299"></a>    <span class="at">orientation =</span> orientation</span>
+<span id="cb11-300"><a href="#cb11-300"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-301"><a href="#cb11-301"></a>  <span class="fu">geom_textbox</span>(<span class="at">width =</span> <span class="fu">unit</span>(<span class="fl">0.4</span>, <span class="st">"npc"</span>)) <span class="sc">+</span></span>
+<span id="cb11-302"><a href="#cb11-302"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-303"><a href="#cb11-303"></a>  <span class="fu">scale_discrete_identity</span>(<span class="at">aesthetics =</span> <span class="fu">c</span>(<span class="st">"color"</span>, <span class="st">"fill"</span>, <span class="st">"orientation"</span>)) <span class="sc">+</span></span>
+<span id="cb11-304"><a href="#cb11-304"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb11-305"><a href="#cb11-305"></a><span class="in">```</span></span>
+<span id="cb11-306"><a href="#cb11-306"></a></span>
+<span id="cb11-307"><a href="#cb11-307"></a></span>
+<span id="cb11-308"><a href="#cb11-308"></a></span>
+<span id="cb11-309"><a href="#cb11-309"></a></span>
+<span id="cb11-310"><a href="#cb11-310"></a></span>
+<span id="cb11-311"><a href="#cb11-311"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom","loop":false,"selector":".lightbox"});</script>
+
+
+
+
+</body></html>

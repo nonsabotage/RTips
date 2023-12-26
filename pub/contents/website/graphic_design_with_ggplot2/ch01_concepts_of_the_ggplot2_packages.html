@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips - Concepts of the ggplot2 Packages pt 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/website/graphic_design_with_ggplot2/ch02_concepts_of_the_ggplot2_part2.html" rel="next">
+<link href="../../../contents/website/graphic_design_with_ggplot2/index.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">libs</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch01_concepts_of_the_ggplot2_packages.html">Concepts of the ggplot2 Packages pt 1</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">R for Data Science 2e</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/r4ds2e/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Import</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/r4ds2e/Import/ch23_arrow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23 Arrow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Leaflet for R</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch01_map_object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Map Widget</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch02_basemaps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basemap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch03_markers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch04_popups_and_shapes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Popups and Shapes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch05_lines_and_shapes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lines and Shapes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch06_geojson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with GeoJSON and TopoJSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch07_raster_images.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raster Images</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch08_shiny_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shiny Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch09_Colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch10_Legends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Legends</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch11_show_hide_layers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Show/Hide Layers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch12_choropleths.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choropleths</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch13_projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projections</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Analyzing US Census Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/ch06_mapping_census_data_with_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mapping Census data with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/ch07_spatial_analysis_with_us_census_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spatial analysis with US Census data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Graphic Design with ggplot2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch01_concepts_of_the_ggplot2_packages.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Concepts of the ggplot2 Packages pt 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch02_concepts_of_the_ggplot2_part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Concepts of the ggplot2 Packages pt 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch03_data_communication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Communication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch04_working_with_labels_and_annotations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Labels and Annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch06_working_with_colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch07_working_with_layouts_and_composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Layouts and Composition</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-basic-ggplot-example" id="toc-a-basic-ggplot-example" class="nav-link active" data-scroll-target="#a-basic-ggplot-example"><span class="header-section-number">1</span> A Basic ggplot Example</a>
+  <ul class="collapse">
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">1.1</span> the data</a></li>
+  <li><a href="#the-group" id="toc-the-group" class="nav-link" data-scroll-target="#the-group"><span class="header-section-number">1.2</span> the group</a></li>
+  <li><a href="#stat-geom" id="toc-stat-geom" class="nav-link" data-scroll-target="#stat-geom"><span class="header-section-number">1.3</span> stat, geom</a></li>
+  <li><a href="#statisitical-summarys" id="toc-statisitical-summarys" class="nav-link" data-scroll-target="#statisitical-summarys"><span class="header-section-number">1.4</span> Statisitical Summarys</a></li>
+  </ul></li>
+  <li><a href="#extending-ggplot" id="toc-extending-ggplot" class="nav-link" data-scroll-target="#extending-ggplot"><span class="header-section-number">2</span> Extending ggplot</a></li>
+  <li><a href="#a-polished-ggplot-example" id="toc-a-polished-ggplot-example" class="nav-link" data-scroll-target="#a-polished-ggplot-example"><span class="header-section-number">3</span> A Polished ggplot Example</a>
+  <ul class="collapse">
+  <li><a href="#system-fonts" id="toc-system-fonts" class="nav-link" data-scroll-target="#system-fonts"><span class="header-section-number">3.0.1</span> System fonts</a></li>
+  <li><a href="#how-to-work-with-aspect-ratios" id="toc-how-to-work-with-aspect-ratios" class="nav-link" data-scroll-target="#how-to-work-with-aspect-ratios"><span class="header-section-number">3.1</span> How to Work with Aspect Ratios</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch01_concepts_of_the_ggplot2_packages.html">Concepts of the ggplot2 Packages pt 1</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Concepts of the ggplot2 Packages pt 1</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 5, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/website/graphic_design_with_ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="st">"tidyverse"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="st">"ggplot2"</span>, <span class="st">"readr"</span>, <span class="st">"tibble"</span>, <span class="st">"tidyr"</span>, <span class="st">"forcats"</span>, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="st">"stringr"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="st">"lubridate"</span>, <span class="st">"here"</span>, <span class="st">"systemfonts"</span>, <span class="st">"magick"</span>, </span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="st">"scales"</span>, <span class="st">"grid"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="st">"grDevices"</span>, <span class="st">"colorspace"</span>, <span class="st">"viridis"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="st">"RColorBrewer"</span>, <span class="st">"rcartocolor"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="st">"scico"</span>, <span class="st">"ggsci"</span>, <span class="st">"ggthemes"</span>, <span class="st">"nord"</span>, </span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="st">"MetBrewer"</span>, <span class="st">"ggrepel"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="st">"ggforce"</span>, <span class="st">"ggtext"</span>, <span class="st">"ggdist"</span>, <span class="st">"ggbeeswarm"</span>, </span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="st">"gghalves"</span>, <span class="st">"patchwork"</span>, </span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="st">"palmerpenguins"</span>, <span class="st">"rnaturalearth"</span>, <span class="st">"sf"</span>, <span class="st">"rmapshaper"</span>, <span class="st">"devtools"</span>, </span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="st">"extrafont"</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>) <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">library</span>(x, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="fu">library</span>(colorblindr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="a-basic-ggplot-example" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> A Basic ggplot Example</h1>
+<section id="the-data" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-data"><span class="header-section-number">1.1</span> the data</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>bikes <span class="ot">&lt;-</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="fu">read_csv</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>        <span class="fu">here</span>(</span>
+<span id="cb3-4"><a href="#cb3-4"></a>            cur_dir, </span>
+<span id="cb3-5"><a href="#cb3-5"></a>            <span class="st">"ggplot2-course-data"</span>, </span>
+<span id="cb3-6"><a href="#cb3-6"></a>            <span class="st">"london-bikes-custom.csv"</span>),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>        <span class="at">col_types =</span> <span class="st">"Dcfffilllddddc"</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    )</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a>bikes<span class="sc">$</span>season <span class="ot">&lt;-</span> forcats<span class="sc">::</span><span class="fu">fct_inorder</span>(bikes<span class="sc">$</span>season)</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a>bikes <span class="sc">|&gt;</span> </span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-15"><a href="#cb3-15"></a>    rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["date"],"align":["right"]},{"label":["day_night"],"name":[2],"type":["chr"],"align":["left"]},{"label":["year"],"name":[3],"type":["fct"],"align":["left"]},{"label":["month"],"name":[4],"type":["fct"],"align":["left"]},{"label":["season"],"name":[5],"type":["fct"],"align":["left"]},{"label":["count"],"name":[6],"type":["int"],"align":["right"]},{"label":["is_workday"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["is_weekend"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["is_holiday"],"name":[9],"type":["lgl"],"align":["right"]},{"label":["temp"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["temp_feel"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["humidity"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["wind_speed"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["weather_type"],"name":[14],"type":["chr"],"align":["left"]}],"data":[{"1":"2015-01-04","2":"day","3":"2015","4":"1","5":"winter","6":"6830","7":"FALSE","8":"TRUE","9":"FALSE","10":"2.166667","11":"-0.750000","12":"95.16667","13":"10.416667","14":"broken clouds"},{"1":"2015-01-04","2":"night","3":"2015","4":"1","5":"winter","6":"2404","7":"FALSE","8":"TRUE","9":"FALSE","10":"2.791667","11":"2.041667","12":"93.37500","13":"4.583333","14":"clear"},{"1":"2015-01-05","2":"day","3":"2015","4":"1","5":"winter","6":"14763","7":"TRUE","8":"FALSE","9":"FALSE","10":"8.958333","11":"7.708333","12":"81.08333","13":"8.666667","14":"broken clouds"},{"1":"2015-01-05","2":"night","3":"2015","4":"1","5":"winter","6":"5609","7":"TRUE","8":"FALSE","9":"FALSE","10":"7.125000","11":"5.708333","12":"79.54167","13":"9.041667","14":"cloudy"},{"1":"2015-01-06","2":"day","3":"2015","4":"1","5":"winter","6":"14501","7":"TRUE","8":"FALSE","9":"FALSE","10":"9.000000","11":"6.458333","12":"80.20833","13":"19.208333","14":"broken clouds"},{"1":"2015-01-06","2":"night","3":"2015","4":"1","5":"winter","6":"6112","7":"TRUE","8":"FALSE","9":"FALSE","10":"6.708333","11":"4.208333","12":"77.58333","13":"12.791667","14":"clear"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="the-group" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="the-group"><span class="header-section-number">1.2</span> the group</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>bikes <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count)) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> season), <span class="at">alpah =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="fu">geom_smooth</span>(</span>
+<span id="cb4-5"><a href="#cb4-5"></a>        <span class="fu">aes</span>(<span class="at">group =</span> day_night), </span>
+<span id="cb4-6"><a href="#cb4-6"></a>        <span class="at">method =</span> <span class="st">"lm"</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    )</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; Warning in geom_point(aes(color = season), alpah = 0.5): Ignoring unknown</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; parameters: `alpah`</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="stat-geom" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="stat-geom"><span class="header-section-number">1.3</span> stat, geom</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(<span class="at">x =</span> season)) <span class="sc">+</span> </span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="fu">stat_count</span>(<span class="at">geom =</span> <span class="st">"bar"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(<span class="at">x =</span> season)) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp_feel)) <span class="sc">+</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="fu">stat_identity</span>(<span class="at">geom =</span> <span class="st">"point"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp_feel)) <span class="sc">+</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="fu">geom_point</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="statisitical-summarys" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="statisitical-summarys"><span class="header-section-number">1.4</span> Statisitical Summarys</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    bikes, </span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season , <span class="at">y =</span> temp_feel)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>) <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="fu">stat_summary</span>(</span>
+<span id="cb9-7"><a href="#cb9-7"></a>        <span class="at">fun =</span> mean, </span>
+<span id="cb9-8"><a href="#cb9-8"></a>        <span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb9-9"><a href="#cb9-9"></a>        <span class="at">color =</span> <span class="st">"#28a87d"</span>, </span>
+<span id="cb9-10"><a href="#cb9-10"></a>        <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    bikes, </span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> temp_feel)</span>
+<span id="cb10-4"><a href="#cb10-4"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">stat_summary</span>(</span>
+<span id="cb10-6"><a href="#cb10-6"></a>    <span class="at">fun =</span> mean, </span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="at">fun.max =</span> <span class="cf">function</span>(y) <span class="fu">mean</span>(y) <span class="sc">+</span> <span class="fu">sd</span>(y), </span>
+<span id="cb10-8"><a href="#cb10-8"></a>    <span class="at">fun.min =</span> <span class="cf">function</span>(y) <span class="fu">mean</span>(y) <span class="sc">-</span> <span class="fu">sd</span>(y) </span>
+<span id="cb10-9"><a href="#cb10-9"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="extending-ggplot" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Extending ggplot</h1>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>g <span class="ot">&lt;-</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    bikes,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count,</span>
+<span id="cb11-5"><a href="#cb11-5"></a>        <span class="at">color =</span> season,</span>
+<span id="cb11-6"><a href="#cb11-6"></a>        <span class="at">group =</span> day_night)</span>
+<span id="cb11-7"><a href="#cb11-7"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb11-9"><a href="#cb11-9"></a>    <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb11-12"><a href="#cb11-12"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a>  )</span>
+<span id="cb11-15"><a href="#cb11-15"></a></span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="fu">class</span>(g)</span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co">#&gt; [1] "gg"     "ggplot"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>g<span class="sc">$</span>data <span class="sc">|&gt;</span> <span class="fu">head</span>() <span class="sc">|&gt;</span> rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["date"],"align":["right"]},{"label":["day_night"],"name":[2],"type":["chr"],"align":["left"]},{"label":["year"],"name":[3],"type":["fct"],"align":["left"]},{"label":["month"],"name":[4],"type":["fct"],"align":["left"]},{"label":["season"],"name":[5],"type":["fct"],"align":["left"]},{"label":["count"],"name":[6],"type":["int"],"align":["right"]},{"label":["is_workday"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["is_weekend"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["is_holiday"],"name":[9],"type":["lgl"],"align":["right"]},{"label":["temp"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["temp_feel"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["humidity"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["wind_speed"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["weather_type"],"name":[14],"type":["chr"],"align":["left"]}],"data":[{"1":"2015-01-04","2":"day","3":"2015","4":"1","5":"winter","6":"6830","7":"FALSE","8":"TRUE","9":"FALSE","10":"2.166667","11":"-0.750000","12":"95.16667","13":"10.416667","14":"broken clouds"},{"1":"2015-01-04","2":"night","3":"2015","4":"1","5":"winter","6":"2404","7":"FALSE","8":"TRUE","9":"FALSE","10":"2.791667","11":"2.041667","12":"93.37500","13":"4.583333","14":"clear"},{"1":"2015-01-05","2":"day","3":"2015","4":"1","5":"winter","6":"14763","7":"TRUE","8":"FALSE","9":"FALSE","10":"8.958333","11":"7.708333","12":"81.08333","13":"8.666667","14":"broken clouds"},{"1":"2015-01-05","2":"night","3":"2015","4":"1","5":"winter","6":"5609","7":"TRUE","8":"FALSE","9":"FALSE","10":"7.125000","11":"5.708333","12":"79.54167","13":"9.041667","14":"cloudy"},{"1":"2015-01-06","2":"day","3":"2015","4":"1","5":"winter","6":"14501","7":"TRUE","8":"FALSE","9":"FALSE","10":"9.000000","11":"6.458333","12":"80.20833","13":"19.208333","14":"broken clouds"},{"1":"2015-01-06","2":"night","3":"2015","4":"1","5":"winter","6":"6112","7":"TRUE","8":"FALSE","9":"FALSE","10":"6.708333","11":"4.208333","12":"77.58333","13":"12.791667","14":"clear"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>g <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>    <span class="fu">geom_rug</span>(</span>
+<span id="cb13-3"><a href="#cb13-3"></a>        <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>    ) <span class="sc">+</span> </span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="fu">labs</span>(</span>
+<span id="cb13-6"><a href="#cb13-6"></a>       <span class="at">x =</span> <span class="st">"Feels-like temperature (°F)"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7"></a>       <span class="at">y =</span> <span class="st">"Reported bike shares"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8"></a>       <span class="at">title =</span> <span class="st">"TfL bike sharing trends"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9"></a>       <span class="at">subtitle =</span> <span class="st">"Reported bike rents versus feels-like temp   erature in London"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10"></a>       <span class="at">caption =</span> <span class="st">"Data: TfL"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11"></a>       <span class="at">color =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12"></a>       <span class="at">tag =</span> <span class="st">"Fig. 1"</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a>    )</span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="a-polished-ggplot-example" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> A Polished ggplot Example</h1>
+<p>ベースセッティング.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>extrafont<span class="sc">::</span><span class="fu">font_import</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>extrafont<span class="sc">::</span><span class="fu">loadfonts</span>(<span class="at">device =</span> <span class="st">"win"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; Agency FB already registered with windowsFonts().</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; Algerian already registered with windowsFonts().</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; Arial Black already registered with windowsFonts().</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; Arial already registered with windowsFonts().</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; Arial Narrow already registered with windowsFonts().</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; Arial Rounded MT Bold already registered with windowsFonts().</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; Arvo already registered with windowsFonts().</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; Bahnschrift already registered with windowsFonts().</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt; BankGothic Lt BT already registered with windowsFonts().</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt; BankGothic Md BT already registered with windowsFonts().</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt; Baskerville Old Face already registered with windowsFonts().</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt; Bauhaus 93 already registered with windowsFonts().</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt; Bell MT already registered with windowsFonts().</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt; Berlin Sans FB already registered with windowsFonts().</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt; Berlin Sans FB Demi already registered with windowsFonts().</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt; Bernard MT Condensed already registered with windowsFonts().</span></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt; Blackadder ITC already registered with windowsFonts().</span></span>
+<span id="cb15-19"><a href="#cb15-19"></a><span class="co">#&gt; Bodoni MT already registered with windowsFonts().</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a><span class="co">#&gt; Bodoni MT Black already registered with windowsFonts().</span></span>
+<span id="cb15-21"><a href="#cb15-21"></a><span class="co">#&gt; Bodoni MT Condensed already registered with windowsFonts().</span></span>
+<span id="cb15-22"><a href="#cb15-22"></a><span class="co">#&gt; Bodoni MT Poster Compressed already registered with windowsFonts().</span></span>
+<span id="cb15-23"><a href="#cb15-23"></a><span class="co">#&gt; Book Antiqua already registered with windowsFonts().</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a><span class="co">#&gt; Bookman Old Style already registered with windowsFonts().</span></span>
+<span id="cb15-25"><a href="#cb15-25"></a><span class="co">#&gt; Bookshelf Symbol 7 already registered with windowsFonts().</span></span>
+<span id="cb15-26"><a href="#cb15-26"></a><span class="co">#&gt; Bradley Hand ITC already registered with windowsFonts().</span></span>
+<span id="cb15-27"><a href="#cb15-27"></a><span class="co">#&gt; Britannic Bold already registered with windowsFonts().</span></span>
+<span id="cb15-28"><a href="#cb15-28"></a><span class="co">#&gt; Broadway already registered with windowsFonts().</span></span>
+<span id="cb15-29"><a href="#cb15-29"></a><span class="co">#&gt; Brush Script MT already registered with windowsFonts().</span></span>
+<span id="cb15-30"><a href="#cb15-30"></a><span class="co">#&gt; Calibri already registered with windowsFonts().</span></span>
+<span id="cb15-31"><a href="#cb15-31"></a><span class="co">#&gt; Calibri Light already registered with windowsFonts().</span></span>
+<span id="cb15-32"><a href="#cb15-32"></a><span class="co">#&gt; Californian FB already registered with windowsFonts().</span></span>
+<span id="cb15-33"><a href="#cb15-33"></a><span class="co">#&gt; Calisto MT already registered with windowsFonts().</span></span>
+<span id="cb15-34"><a href="#cb15-34"></a><span class="co">#&gt; Cambria already registered with windowsFonts().</span></span>
+<span id="cb15-35"><a href="#cb15-35"></a><span class="co">#&gt; Candara already registered with windowsFonts().</span></span>
+<span id="cb15-36"><a href="#cb15-36"></a><span class="co">#&gt; Candara Light already registered with windowsFonts().</span></span>
+<span id="cb15-37"><a href="#cb15-37"></a><span class="co">#&gt; Castellar already registered with windowsFonts().</span></span>
+<span id="cb15-38"><a href="#cb15-38"></a><span class="co">#&gt; Centaur already registered with windowsFonts().</span></span>
+<span id="cb15-39"><a href="#cb15-39"></a><span class="co">#&gt; Century already registered with windowsFonts().</span></span>
+<span id="cb15-40"><a href="#cb15-40"></a><span class="co">#&gt; Century Gothic already registered with windowsFonts().</span></span>
+<span id="cb15-41"><a href="#cb15-41"></a><span class="co">#&gt; Century Schoolbook already registered with windowsFonts().</span></span>
+<span id="cb15-42"><a href="#cb15-42"></a><span class="co">#&gt; Chiller already registered with windowsFonts().</span></span>
+<span id="cb15-43"><a href="#cb15-43"></a><span class="co">#&gt; CityBlueprint already registered with windowsFonts().</span></span>
+<span id="cb15-44"><a href="#cb15-44"></a><span class="co">#&gt; Colonna MT already registered with windowsFonts().</span></span>
+<span id="cb15-45"><a href="#cb15-45"></a><span class="co">#&gt; Comic Sans MS already registered with windowsFonts().</span></span>
+<span id="cb15-46"><a href="#cb15-46"></a><span class="co">#&gt; CommercialPi BT already registered with windowsFonts().</span></span>
+<span id="cb15-47"><a href="#cb15-47"></a><span class="co">#&gt; CommercialScript BT already registered with windowsFonts().</span></span>
+<span id="cb15-48"><a href="#cb15-48"></a><span class="co">#&gt; Complex already registered with windowsFonts().</span></span>
+<span id="cb15-49"><a href="#cb15-49"></a><span class="co">#&gt; Consolas already registered with windowsFonts().</span></span>
+<span id="cb15-50"><a href="#cb15-50"></a><span class="co">#&gt; Constantia already registered with windowsFonts().</span></span>
+<span id="cb15-51"><a href="#cb15-51"></a><span class="co">#&gt; Cooper Black already registered with windowsFonts().</span></span>
+<span id="cb15-52"><a href="#cb15-52"></a><span class="co">#&gt; Copperplate Gothic Bold already registered with windowsFonts().</span></span>
+<span id="cb15-53"><a href="#cb15-53"></a><span class="co">#&gt; Copperplate Gothic Light already registered with windowsFonts().</span></span>
+<span id="cb15-54"><a href="#cb15-54"></a><span class="co">#&gt; Corbel already registered with windowsFonts().</span></span>
+<span id="cb15-55"><a href="#cb15-55"></a><span class="co">#&gt; Corbel Light already registered with windowsFonts().</span></span>
+<span id="cb15-56"><a href="#cb15-56"></a><span class="co">#&gt; CountryBlueprint already registered with windowsFonts().</span></span>
+<span id="cb15-57"><a href="#cb15-57"></a><span class="co">#&gt; Courier New already registered with windowsFonts().</span></span>
+<span id="cb15-58"><a href="#cb15-58"></a><span class="co">#&gt; Curlz MT already registered with windowsFonts().</span></span>
+<span id="cb15-59"><a href="#cb15-59"></a><span class="co">#&gt; Droid Serif already registered with windowsFonts().</span></span>
+<span id="cb15-60"><a href="#cb15-60"></a><span class="co">#&gt; Dubai already registered with windowsFonts().</span></span>
+<span id="cb15-61"><a href="#cb15-61"></a><span class="co">#&gt; Dubai Light already registered with windowsFonts().</span></span>
+<span id="cb15-62"><a href="#cb15-62"></a><span class="co">#&gt; Dubai Medium already registered with windowsFonts().</span></span>
+<span id="cb15-63"><a href="#cb15-63"></a><span class="co">#&gt; Dutch801 Rm BT already registered with windowsFonts().</span></span>
+<span id="cb15-64"><a href="#cb15-64"></a><span class="co">#&gt; Dutch801 XBd BT already registered with windowsFonts().</span></span>
+<span id="cb15-65"><a href="#cb15-65"></a><span class="co">#&gt; Ebrima already registered with windowsFonts().</span></span>
+<span id="cb15-66"><a href="#cb15-66"></a><span class="co">#&gt; Edwardian Script ITC already registered with windowsFonts().</span></span>
+<span id="cb15-67"><a href="#cb15-67"></a><span class="co">#&gt; Elephant already registered with windowsFonts().</span></span>
+<span id="cb15-68"><a href="#cb15-68"></a><span class="co">#&gt; Engravers MT already registered with windowsFonts().</span></span>
+<span id="cb15-69"><a href="#cb15-69"></a><span class="co">#&gt; Eras Bold ITC already registered with windowsFonts().</span></span>
+<span id="cb15-70"><a href="#cb15-70"></a><span class="co">#&gt; Eras Demi ITC already registered with windowsFonts().</span></span>
+<span id="cb15-71"><a href="#cb15-71"></a><span class="co">#&gt; Eras Light ITC already registered with windowsFonts().</span></span>
+<span id="cb15-72"><a href="#cb15-72"></a><span class="co">#&gt; Eras Medium ITC already registered with windowsFonts().</span></span>
+<span id="cb15-73"><a href="#cb15-73"></a><span class="co">#&gt; ESRI AMFM Electric already registered with windowsFonts().</span></span>
+<span id="cb15-74"><a href="#cb15-74"></a><span class="co">#&gt; ESRI AMFM Gas already registered with windowsFonts().</span></span>
+<span id="cb15-75"><a href="#cb15-75"></a><span class="co">#&gt; ESRI AMFM Sewer already registered with windowsFonts().</span></span>
+<span id="cb15-76"><a href="#cb15-76"></a><span class="co">#&gt; ESRI AMFM Water already registered with windowsFonts().</span></span>
+<span id="cb15-77"><a href="#cb15-77"></a><span class="co">#&gt; ESRI ArcPad already registered with windowsFonts().</span></span>
+<span id="cb15-78"><a href="#cb15-78"></a><span class="co">#&gt; ESRI Arrowhead already registered with windowsFonts().</span></span>
+<span id="cb15-79"><a href="#cb15-79"></a><span class="co">#&gt; ESRI Business already registered with windowsFonts().</span></span>
+<span id="cb15-80"><a href="#cb15-80"></a><span class="co">#&gt; ESRI Cartography already registered with windowsFonts().</span></span>
+<span id="cb15-81"><a href="#cb15-81"></a><span class="co">#&gt; ESRI Caves 1 already registered with windowsFonts().</span></span>
+<span id="cb15-82"><a href="#cb15-82"></a><span class="co">#&gt; ESRI Caves 2 already registered with windowsFonts().</span></span>
+<span id="cb15-83"><a href="#cb15-83"></a><span class="co">#&gt; ESRI Caves 3 already registered with windowsFonts().</span></span>
+<span id="cb15-84"><a href="#cb15-84"></a><span class="co">#&gt; ESRI Climate &amp; Precipitation already registered with windowsFonts().</span></span>
+<span id="cb15-85"><a href="#cb15-85"></a><span class="co">#&gt; ESRI Commodities already registered with windowsFonts().</span></span>
+<span id="cb15-86"><a href="#cb15-86"></a><span class="co">#&gt; ESRI Conservation already registered with windowsFonts().</span></span>
+<span id="cb15-87"><a href="#cb15-87"></a><span class="co">#&gt; ESRI Crime Analysis already registered with windowsFonts().</span></span>
+<span id="cb15-88"><a href="#cb15-88"></a><span class="co">#&gt; ESRI Default Marker already registered with windowsFonts().</span></span>
+<span id="cb15-89"><a href="#cb15-89"></a><span class="co">#&gt; ESRI Dimensioning already registered with windowsFonts().</span></span>
+<span id="cb15-90"><a href="#cb15-90"></a><span class="co">#&gt; ESRI Elements already registered with windowsFonts().</span></span>
+<span id="cb15-91"><a href="#cb15-91"></a><span class="co">#&gt; ESRI Enviro Hazard Analysis already registered with windowsFonts().</span></span>
+<span id="cb15-92"><a href="#cb15-92"></a><span class="co">#&gt; ESRI Enviro Hazard Incident already registered with windowsFonts().</span></span>
+<span id="cb15-93"><a href="#cb15-93"></a><span class="co">#&gt; ESRI Enviro Hazard Sites already registered with windowsFonts().</span></span>
+<span id="cb15-94"><a href="#cb15-94"></a><span class="co">#&gt; ESRI Environmental &amp; Icons already registered with windowsFonts().</span></span>
+<span id="cb15-95"><a href="#cb15-95"></a><span class="co">#&gt; ESRI ERS Infrastructures S1 already registered with windowsFonts().</span></span>
+<span id="cb15-96"><a href="#cb15-96"></a><span class="co">#&gt; ESRI ERS Operations S1 already registered with windowsFonts().</span></span>
+<span id="cb15-97"><a href="#cb15-97"></a><span class="co">#&gt; ESRI Fire Incident NFPA already registered with windowsFonts().</span></span>
+<span id="cb15-98"><a href="#cb15-98"></a><span class="co">#&gt; ESRI Geology already registered with windowsFonts().</span></span>
+<span id="cb15-99"><a href="#cb15-99"></a><span class="co">#&gt; ESRI Geology AGSO 1 already registered with windowsFonts().</span></span>
+<span id="cb15-100"><a href="#cb15-100"></a><span class="co">#&gt; ESRI Geology USGS 95-525 already registered with windowsFonts().</span></span>
+<span id="cb15-101"><a href="#cb15-101"></a><span class="co">#&gt; ESRI Geometric Symbols already registered with windowsFonts().</span></span>
+<span id="cb15-102"><a href="#cb15-102"></a><span class="co">#&gt; ESRI Hazardous Materials already registered with windowsFonts().</span></span>
+<span id="cb15-103"><a href="#cb15-103"></a><span class="co">#&gt; ESRI Hydrants already registered with windowsFonts().</span></span>
+<span id="cb15-104"><a href="#cb15-104"></a><span class="co">#&gt; ESRI IGL Font16 already registered with windowsFonts().</span></span>
+<span id="cb15-105"><a href="#cb15-105"></a><span class="co">#&gt; ESRI IGL Font20 already registered with windowsFonts().</span></span>
+<span id="cb15-106"><a href="#cb15-106"></a><span class="co">#&gt; ESRI IGL Font21 already registered with windowsFonts().</span></span>
+<span id="cb15-107"><a href="#cb15-107"></a><span class="co">#&gt; ESRI IGL Font22 already registered with windowsFonts().</span></span>
+<span id="cb15-108"><a href="#cb15-108"></a><span class="co">#&gt; ESRI IGL Font23 already registered with windowsFonts().</span></span>
+<span id="cb15-109"><a href="#cb15-109"></a><span class="co">#&gt; ESRI IGL Font24 already registered with windowsFonts().</span></span>
+<span id="cb15-110"><a href="#cb15-110"></a><span class="co">#&gt; ESRI IGL Font25 already registered with windowsFonts().</span></span>
+<span id="cb15-111"><a href="#cb15-111"></a><span class="co">#&gt; ESRI Meteorological 01 already registered with windowsFonts().</span></span>
+<span id="cb15-112"><a href="#cb15-112"></a><span class="co">#&gt; ESRI Mil2525C Modifiers already registered with windowsFonts().</span></span>
+<span id="cb15-113"><a href="#cb15-113"></a><span class="co">#&gt; ESRI MilMod 01 already registered with windowsFonts().</span></span>
+<span id="cb15-114"><a href="#cb15-114"></a><span class="co">#&gt; ESRI MilMod 02 already registered with windowsFonts().</span></span>
+<span id="cb15-115"><a href="#cb15-115"></a><span class="co">#&gt; ESRI MilRed 01 already registered with windowsFonts().</span></span>
+<span id="cb15-116"><a href="#cb15-116"></a><span class="co">#&gt; ESRI MilSym 01 already registered with windowsFonts().</span></span>
+<span id="cb15-117"><a href="#cb15-117"></a><span class="co">#&gt; ESRI MilSym 02 already registered with windowsFonts().</span></span>
+<span id="cb15-118"><a href="#cb15-118"></a><span class="co">#&gt; ESRI MilSym 03 already registered with windowsFonts().</span></span>
+<span id="cb15-119"><a href="#cb15-119"></a><span class="co">#&gt; ESRI MilSym 04 already registered with windowsFonts().</span></span>
+<span id="cb15-120"><a href="#cb15-120"></a><span class="co">#&gt; ESRI MilSym 05 already registered with windowsFonts().</span></span>
+<span id="cb15-121"><a href="#cb15-121"></a><span class="co">#&gt; ESRI NIMA City Graphic LN already registered with windowsFonts().</span></span>
+<span id="cb15-122"><a href="#cb15-122"></a><span class="co">#&gt; ESRI NIMA City Graphic PT already registered with windowsFonts().</span></span>
+<span id="cb15-123"><a href="#cb15-123"></a><span class="co">#&gt; ESRI NIMA DNC LN already registered with windowsFonts().</span></span>
+<span id="cb15-124"><a href="#cb15-124"></a><span class="co">#&gt; ESRI NIMA DNC PT already registered with windowsFonts().</span></span>
+<span id="cb15-125"><a href="#cb15-125"></a><span class="co">#&gt; ESRI NIMA VMAP1&amp;2 LN already registered with windowsFonts().</span></span>
+<span id="cb15-126"><a href="#cb15-126"></a><span class="co">#&gt; ESRI NIMA VMAP1&amp;2 PT already registered with windowsFonts().</span></span>
+<span id="cb15-127"><a href="#cb15-127"></a><span class="co">#&gt; ESRI North already registered with windowsFonts().</span></span>
+<span id="cb15-128"><a href="#cb15-128"></a><span class="co">#&gt; ESRI Oil, Gas, &amp; Water already registered with windowsFonts().</span></span>
+<span id="cb15-129"><a href="#cb15-129"></a><span class="co">#&gt; ESRI Ordnance Survey already registered with windowsFonts().</span></span>
+<span id="cb15-130"><a href="#cb15-130"></a><span class="co">#&gt; ESRI Pipeline US 1 already registered with windowsFonts().</span></span>
+<span id="cb15-131"><a href="#cb15-131"></a><span class="co">#&gt; ESRI Public1 already registered with windowsFonts().</span></span>
+<span id="cb15-132"><a href="#cb15-132"></a><span class="co">#&gt; ESRI SDS 1.95 1 already registered with windowsFonts().</span></span>
+<span id="cb15-133"><a href="#cb15-133"></a><span class="co">#&gt; ESRI SDS 1.95 2 already registered with windowsFonts().</span></span>
+<span id="cb15-134"><a href="#cb15-134"></a><span class="co">#&gt; ESRI SDS 2.00 1 already registered with windowsFonts().</span></span>
+<span id="cb15-135"><a href="#cb15-135"></a><span class="co">#&gt; ESRI SDS 2.00 2 already registered with windowsFonts().</span></span>
+<span id="cb15-136"><a href="#cb15-136"></a><span class="co">#&gt; ESRI Shields already registered with windowsFonts().</span></span>
+<span id="cb15-137"><a href="#cb15-137"></a><span class="co">#&gt; ESRI Surveyor already registered with windowsFonts().</span></span>
+<span id="cb15-138"><a href="#cb15-138"></a><span class="co">#&gt; ESRI Telecom already registered with windowsFonts().</span></span>
+<span id="cb15-139"><a href="#cb15-139"></a><span class="co">#&gt; ESRI Transportation &amp; Civic already registered with windowsFonts().</span></span>
+<span id="cb15-140"><a href="#cb15-140"></a><span class="co">#&gt; ESRI US Forestry 1 already registered with windowsFonts().</span></span>
+<span id="cb15-141"><a href="#cb15-141"></a><span class="co">#&gt; ESRI US MUTCD 1 already registered with windowsFonts().</span></span>
+<span id="cb15-142"><a href="#cb15-142"></a><span class="co">#&gt; ESRI US MUTCD 2 already registered with windowsFonts().</span></span>
+<span id="cb15-143"><a href="#cb15-143"></a><span class="co">#&gt; ESRI US MUTCD 3 already registered with windowsFonts().</span></span>
+<span id="cb15-144"><a href="#cb15-144"></a><span class="co">#&gt; ESRI Weather already registered with windowsFonts().</span></span>
+<span id="cb15-145"><a href="#cb15-145"></a><span class="co">#&gt; EuroRoman already registered with windowsFonts().</span></span>
+<span id="cb15-146"><a href="#cb15-146"></a><span class="co">#&gt; Felix Titling already registered with windowsFonts().</span></span>
+<span id="cb15-147"><a href="#cb15-147"></a><span class="co">#&gt; Flaticon already registered with windowsFonts().</span></span>
+<span id="cb15-148"><a href="#cb15-148"></a><span class="co">#&gt; FontAwesome already registered with windowsFonts().</span></span>
+<span id="cb15-149"><a href="#cb15-149"></a><span class="co">#&gt; Footlight MT Light already registered with windowsFonts().</span></span>
+<span id="cb15-150"><a href="#cb15-150"></a><span class="co">#&gt; Forte already registered with windowsFonts().</span></span>
+<span id="cb15-151"><a href="#cb15-151"></a><span class="co">#&gt; Franklin Gothic Book already registered with windowsFonts().</span></span>
+<span id="cb15-152"><a href="#cb15-152"></a><span class="co">#&gt; Franklin Gothic Demi already registered with windowsFonts().</span></span>
+<span id="cb15-153"><a href="#cb15-153"></a><span class="co">#&gt; Franklin Gothic Demi Cond already registered with windowsFonts().</span></span>
+<span id="cb15-154"><a href="#cb15-154"></a><span class="co">#&gt; Franklin Gothic Heavy already registered with windowsFonts().</span></span>
+<span id="cb15-155"><a href="#cb15-155"></a><span class="co">#&gt; Franklin Gothic Medium already registered with windowsFonts().</span></span>
+<span id="cb15-156"><a href="#cb15-156"></a><span class="co">#&gt; Franklin Gothic Medium Cond already registered with windowsFonts().</span></span>
+<span id="cb15-157"><a href="#cb15-157"></a><span class="co">#&gt; Freestyle Script already registered with windowsFonts().</span></span>
+<span id="cb15-158"><a href="#cb15-158"></a><span class="co">#&gt; French Script MT already registered with windowsFonts().</span></span>
+<span id="cb15-159"><a href="#cb15-159"></a><span class="co">#&gt; Gabriola already registered with windowsFonts().</span></span>
+<span id="cb15-160"><a href="#cb15-160"></a><span class="co">#&gt; Gadugi already registered with windowsFonts().</span></span>
+<span id="cb15-161"><a href="#cb15-161"></a><span class="co">#&gt; Garamond already registered with windowsFonts().</span></span>
+<span id="cb15-162"><a href="#cb15-162"></a><span class="co">#&gt; GDT already registered with windowsFonts().</span></span>
+<span id="cb15-163"><a href="#cb15-163"></a><span class="co">#&gt; Georgia already registered with windowsFonts().</span></span>
+<span id="cb15-164"><a href="#cb15-164"></a><span class="co">#&gt; Gigi already registered with windowsFonts().</span></span>
+<span id="cb15-165"><a href="#cb15-165"></a><span class="co">#&gt; Gill Sans Ultra Bold already registered with windowsFonts().</span></span>
+<span id="cb15-166"><a href="#cb15-166"></a><span class="co">#&gt; Gill Sans Ultra Bold Condensed already registered with windowsFonts().</span></span>
+<span id="cb15-167"><a href="#cb15-167"></a><span class="co">#&gt; Gill Sans MT already registered with windowsFonts().</span></span>
+<span id="cb15-168"><a href="#cb15-168"></a><span class="co">#&gt; Gill Sans MT Condensed already registered with windowsFonts().</span></span>
+<span id="cb15-169"><a href="#cb15-169"></a><span class="co">#&gt; Gill Sans MT Ext Condensed Bold already registered with windowsFonts().</span></span>
+<span id="cb15-170"><a href="#cb15-170"></a><span class="co">#&gt; Gloucester MT Extra Condensed already registered with windowsFonts().</span></span>
+<span id="cb15-171"><a href="#cb15-171"></a><span class="co">#&gt; GothicE already registered with windowsFonts().</span></span>
+<span id="cb15-172"><a href="#cb15-172"></a><span class="co">#&gt; GothicG already registered with windowsFonts().</span></span>
+<span id="cb15-173"><a href="#cb15-173"></a><span class="co">#&gt; GothicI already registered with windowsFonts().</span></span>
+<span id="cb15-174"><a href="#cb15-174"></a><span class="co">#&gt; Goudy Old Style already registered with windowsFonts().</span></span>
+<span id="cb15-175"><a href="#cb15-175"></a><span class="co">#&gt; Goudy Stout already registered with windowsFonts().</span></span>
+<span id="cb15-176"><a href="#cb15-176"></a><span class="co">#&gt; GreekC already registered with windowsFonts().</span></span>
+<span id="cb15-177"><a href="#cb15-177"></a><span class="co">#&gt; GreekS already registered with windowsFonts().</span></span>
+<span id="cb15-178"><a href="#cb15-178"></a><span class="co">#&gt; Haettenschweiler already registered with windowsFonts().</span></span>
+<span id="cb15-179"><a href="#cb15-179"></a><span class="co">#&gt; Harlow Solid Italic already registered with windowsFonts().</span></span>
+<span id="cb15-180"><a href="#cb15-180"></a><span class="co">#&gt; Harrington already registered with windowsFonts().</span></span>
+<span id="cb15-181"><a href="#cb15-181"></a><span class="co">#&gt; HGMaruGothicMPRO already registered with windowsFonts().</span></span>
+<span id="cb15-182"><a href="#cb15-182"></a><span class="co">#&gt; HGSeikaishotaiPRO already registered with windowsFonts().</span></span>
+<span id="cb15-183"><a href="#cb15-183"></a><span class="co">#&gt; High Tower Text already registered with windowsFonts().</span></span>
+<span id="cb15-184"><a href="#cb15-184"></a><span class="co">#&gt; HoloLens MDL2 Assets already registered with windowsFonts().</span></span>
+<span id="cb15-185"><a href="#cb15-185"></a><span class="co">#&gt; Impact already registered with windowsFonts().</span></span>
+<span id="cb15-186"><a href="#cb15-186"></a><span class="co">#&gt; Imprint MT Shadow already registered with windowsFonts().</span></span>
+<span id="cb15-187"><a href="#cb15-187"></a><span class="co">#&gt; Indie Flower already registered with windowsFonts().</span></span>
+<span id="cb15-188"><a href="#cb15-188"></a><span class="co">#&gt; Informal Roman already registered with windowsFonts().</span></span>
+<span id="cb15-189"><a href="#cb15-189"></a><span class="co">#&gt; Ink Free already registered with windowsFonts().</span></span>
+<span id="cb15-190"><a href="#cb15-190"></a><span class="co">#&gt; IPAexGothic already registered with windowsFonts().</span></span>
+<span id="cb15-191"><a href="#cb15-191"></a><span class="co">#&gt; ISOCP already registered with windowsFonts().</span></span>
+<span id="cb15-192"><a href="#cb15-192"></a><span class="co">#&gt; ISOCP2 already registered with windowsFonts().</span></span>
+<span id="cb15-193"><a href="#cb15-193"></a><span class="co">#&gt; ISOCP3 already registered with windowsFonts().</span></span>
+<span id="cb15-194"><a href="#cb15-194"></a><span class="co">#&gt; ISOCPEUR already registered with windowsFonts().</span></span>
+<span id="cb15-195"><a href="#cb15-195"></a><span class="co">#&gt; ISOCT already registered with windowsFonts().</span></span>
+<span id="cb15-196"><a href="#cb15-196"></a><span class="co">#&gt; ISOCT2 already registered with windowsFonts().</span></span>
+<span id="cb15-197"><a href="#cb15-197"></a><span class="co">#&gt; ISOCT3 already registered with windowsFonts().</span></span>
+<span id="cb15-198"><a href="#cb15-198"></a><span class="co">#&gt; ISOCTEUR already registered with windowsFonts().</span></span>
+<span id="cb15-199"><a href="#cb15-199"></a><span class="co">#&gt; Italic already registered with windowsFonts().</span></span>
+<span id="cb15-200"><a href="#cb15-200"></a><span class="co">#&gt; ItalicC already registered with windowsFonts().</span></span>
+<span id="cb15-201"><a href="#cb15-201"></a><span class="co">#&gt; ItalicT already registered with windowsFonts().</span></span>
+<span id="cb15-202"><a href="#cb15-202"></a><span class="co">#&gt; Javanese Text already registered with windowsFonts().</span></span>
+<span id="cb15-203"><a href="#cb15-203"></a><span class="co">#&gt; Jokerman already registered with windowsFonts().</span></span>
+<span id="cb15-204"><a href="#cb15-204"></a><span class="co">#&gt; Juice ITC already registered with windowsFonts().</span></span>
+<span id="cb15-205"><a href="#cb15-205"></a><span class="co">#&gt; Kristen ITC already registered with windowsFonts().</span></span>
+<span id="cb15-206"><a href="#cb15-206"></a><span class="co">#&gt; Kunstler Script already registered with windowsFonts().</span></span>
+<span id="cb15-207"><a href="#cb15-207"></a><span class="co">#&gt; Wide Latin already registered with windowsFonts().</span></span>
+<span id="cb15-208"><a href="#cb15-208"></a><span class="co">#&gt; Leelawadee already registered with windowsFonts().</span></span>
+<span id="cb15-209"><a href="#cb15-209"></a><span class="co">#&gt; Leelawadee UI already registered with windowsFonts().</span></span>
+<span id="cb15-210"><a href="#cb15-210"></a><span class="co">#&gt; Leelawadee UI Semilight already registered with windowsFonts().</span></span>
+<span id="cb15-211"><a href="#cb15-211"></a><span class="co">#&gt; LineAwesome already registered with windowsFonts().</span></span>
+<span id="cb15-212"><a href="#cb15-212"></a><span class="co">#&gt; Lobster already registered with windowsFonts().</span></span>
+<span id="cb15-213"><a href="#cb15-213"></a><span class="co">#&gt; Lucida Bright already registered with windowsFonts().</span></span>
+<span id="cb15-214"><a href="#cb15-214"></a><span class="co">#&gt; Lucida Calligraphy already registered with windowsFonts().</span></span>
+<span id="cb15-215"><a href="#cb15-215"></a><span class="co">#&gt; Lucida Console already registered with windowsFonts().</span></span>
+<span id="cb15-216"><a href="#cb15-216"></a><span class="co">#&gt; Lucida Fax already registered with windowsFonts().</span></span>
+<span id="cb15-217"><a href="#cb15-217"></a><span class="co">#&gt; Lucida Handwriting already registered with windowsFonts().</span></span>
+<span id="cb15-218"><a href="#cb15-218"></a><span class="co">#&gt; Lucida Sans already registered with windowsFonts().</span></span>
+<span id="cb15-219"><a href="#cb15-219"></a><span class="co">#&gt; Lucida Sans Typewriter already registered with windowsFonts().</span></span>
+<span id="cb15-220"><a href="#cb15-220"></a><span class="co">#&gt; Lucida Sans Unicode already registered with windowsFonts().</span></span>
+<span id="cb15-221"><a href="#cb15-221"></a><span class="co">#&gt; Magneto already registered with windowsFonts().</span></span>
+<span id="cb15-222"><a href="#cb15-222"></a><span class="co">#&gt; Maiandra GD already registered with windowsFonts().</span></span>
+<span id="cb15-223"><a href="#cb15-223"></a><span class="co">#&gt; Malgun Gothic already registered with windowsFonts().</span></span>
+<span id="cb15-224"><a href="#cb15-224"></a><span class="co">#&gt; Malgun Gothic Semilight already registered with windowsFonts().</span></span>
+<span id="cb15-225"><a href="#cb15-225"></a><span class="co">#&gt; Marlett already registered with windowsFonts().</span></span>
+<span id="cb15-226"><a href="#cb15-226"></a><span class="co">#&gt; Matura MT Script Capitals already registered with windowsFonts().</span></span>
+<span id="cb15-227"><a href="#cb15-227"></a><span class="co">#&gt; Metronic already registered with windowsFonts().</span></span>
+<span id="cb15-228"><a href="#cb15-228"></a><span class="co">#&gt; Microsoft Himalaya already registered with windowsFonts().</span></span>
+<span id="cb15-229"><a href="#cb15-229"></a><span class="co">#&gt; Microsoft Yi Baiti already registered with windowsFonts().</span></span>
+<span id="cb15-230"><a href="#cb15-230"></a><span class="co">#&gt; Microsoft New Tai Lue already registered with windowsFonts().</span></span>
+<span id="cb15-231"><a href="#cb15-231"></a><span class="co">#&gt; Microsoft PhagsPa already registered with windowsFonts().</span></span>
+<span id="cb15-232"><a href="#cb15-232"></a><span class="co">#&gt; Microsoft Sans Serif already registered with windowsFonts().</span></span>
+<span id="cb15-233"><a href="#cb15-233"></a><span class="co">#&gt; Microsoft Tai Le already registered with windowsFonts().</span></span>
+<span id="cb15-234"><a href="#cb15-234"></a><span class="co">#&gt; Microsoft Uighur already registered with windowsFonts().</span></span>
+<span id="cb15-235"><a href="#cb15-235"></a><span class="co">#&gt; Mistral already registered with windowsFonts().</span></span>
+<span id="cb15-236"><a href="#cb15-236"></a><span class="co">#&gt; Modern No. 20 already registered with windowsFonts().</span></span>
+<span id="cb15-237"><a href="#cb15-237"></a><span class="co">#&gt; Mongolian Baiti already registered with windowsFonts().</span></span>
+<span id="cb15-238"><a href="#cb15-238"></a><span class="co">#&gt; Monospac821 BT already registered with windowsFonts().</span></span>
+<span id="cb15-239"><a href="#cb15-239"></a><span class="co">#&gt; Monotxt already registered with windowsFonts().</span></span>
+<span id="cb15-240"><a href="#cb15-240"></a><span class="co">#&gt; Monotype Corsiva already registered with windowsFonts().</span></span>
+<span id="cb15-241"><a href="#cb15-241"></a><span class="co">#&gt; Montserrat Medium already registered with windowsFonts().</span></span>
+<span id="cb15-242"><a href="#cb15-242"></a><span class="co">#&gt; Montserrat already registered with windowsFonts().</span></span>
+<span id="cb15-243"><a href="#cb15-243"></a><span class="co">#&gt; MS Outlook already registered with windowsFonts().</span></span>
+<span id="cb15-244"><a href="#cb15-244"></a><span class="co">#&gt; MS Reference Sans Serif already registered with windowsFonts().</span></span>
+<span id="cb15-245"><a href="#cb15-245"></a><span class="co">#&gt; MS Reference Specialty already registered with windowsFonts().</span></span>
+<span id="cb15-246"><a href="#cb15-246"></a><span class="co">#&gt; MT Extra already registered with windowsFonts().</span></span>
+<span id="cb15-247"><a href="#cb15-247"></a><span class="co">#&gt; MV Boli already registered with windowsFonts().</span></span>
+<span id="cb15-248"><a href="#cb15-248"></a><span class="co">#&gt; Myanmar Text already registered with windowsFonts().</span></span>
+<span id="cb15-249"><a href="#cb15-249"></a><span class="co">#&gt; Niagara Engraved already registered with windowsFonts().</span></span>
+<span id="cb15-250"><a href="#cb15-250"></a><span class="co">#&gt; Niagara Solid already registered with windowsFonts().</span></span>
+<span id="cb15-251"><a href="#cb15-251"></a><span class="co">#&gt; NicoMoji+v2 already registered with windowsFonts().</span></span>
+<span id="cb15-252"><a href="#cb15-252"></a><span class="co">#&gt; Nirmala UI already registered with windowsFonts().</span></span>
+<span id="cb15-253"><a href="#cb15-253"></a><span class="co">#&gt; Nirmala UI Semilight already registered with windowsFonts().</span></span>
+<span id="cb15-254"><a href="#cb15-254"></a><span class="co">#&gt; Noto Sans JP Thin already registered with windowsFonts().</span></span>
+<span id="cb15-255"><a href="#cb15-255"></a><span class="co">#&gt; OCR A Extended already registered with windowsFonts().</span></span>
+<span id="cb15-256"><a href="#cb15-256"></a><span class="co">#&gt; OCRB already registered with windowsFonts().</span></span>
+<span id="cb15-257"><a href="#cb15-257"></a><span class="co">#&gt; Old English Text MT already registered with windowsFonts().</span></span>
+<span id="cb15-258"><a href="#cb15-258"></a><span class="co">#&gt; Onyx already registered with windowsFonts().</span></span>
+<span id="cb15-259"><a href="#cb15-259"></a><span class="co">#&gt; Open Sans already registered with windowsFonts().</span></span>
+<span id="cb15-260"><a href="#cb15-260"></a><span class="co">#&gt; Palace Script MT already registered with windowsFonts().</span></span>
+<span id="cb15-261"><a href="#cb15-261"></a><span class="co">#&gt; Palatino Linotype already registered with windowsFonts().</span></span>
+<span id="cb15-262"><a href="#cb15-262"></a><span class="co">#&gt; PanRoman already registered with windowsFonts().</span></span>
+<span id="cb15-263"><a href="#cb15-263"></a><span class="co">#&gt; Papyrus already registered with windowsFonts().</span></span>
+<span id="cb15-264"><a href="#cb15-264"></a><span class="co">#&gt; Parchment already registered with windowsFonts().</span></span>
+<span id="cb15-265"><a href="#cb15-265"></a><span class="co">#&gt; Perpetua already registered with windowsFonts().</span></span>
+<span id="cb15-266"><a href="#cb15-266"></a><span class="co">#&gt; Perpetua Titling MT already registered with windowsFonts().</span></span>
+<span id="cb15-267"><a href="#cb15-267"></a><span class="co">#&gt; Playbill already registered with windowsFonts().</span></span>
+<span id="cb15-268"><a href="#cb15-268"></a><span class="co">#&gt; Poiret One already registered with windowsFonts().</span></span>
+<span id="cb15-269"><a href="#cb15-269"></a><span class="co">#&gt; Poor Richard already registered with windowsFonts().</span></span>
+<span id="cb15-270"><a href="#cb15-270"></a><span class="co">#&gt; Pristina already registered with windowsFonts().</span></span>
+<span id="cb15-271"><a href="#cb15-271"></a><span class="co">#&gt; Proxy 1 already registered with windowsFonts().</span></span>
+<span id="cb15-272"><a href="#cb15-272"></a><span class="co">#&gt; Proxy 2 already registered with windowsFonts().</span></span>
+<span id="cb15-273"><a href="#cb15-273"></a><span class="co">#&gt; Proxy 3 already registered with windowsFonts().</span></span>
+<span id="cb15-274"><a href="#cb15-274"></a><span class="co">#&gt; Proxy 4 already registered with windowsFonts().</span></span>
+<span id="cb15-275"><a href="#cb15-275"></a><span class="co">#&gt; Proxy 5 already registered with windowsFonts().</span></span>
+<span id="cb15-276"><a href="#cb15-276"></a><span class="co">#&gt; Proxy 6 already registered with windowsFonts().</span></span>
+<span id="cb15-277"><a href="#cb15-277"></a><span class="co">#&gt; Proxy 7 already registered with windowsFonts().</span></span>
+<span id="cb15-278"><a href="#cb15-278"></a><span class="co">#&gt; Proxy 8 already registered with windowsFonts().</span></span>
+<span id="cb15-279"><a href="#cb15-279"></a><span class="co">#&gt; Proxy 9 already registered with windowsFonts().</span></span>
+<span id="cb15-280"><a href="#cb15-280"></a><span class="co">#&gt; Rage Italic already registered with windowsFonts().</span></span>
+<span id="cb15-281"><a href="#cb15-281"></a><span class="co">#&gt; Raleway already registered with windowsFonts().</span></span>
+<span id="cb15-282"><a href="#cb15-282"></a><span class="co">#&gt; Ravie already registered with windowsFonts().</span></span>
+<span id="cb15-283"><a href="#cb15-283"></a><span class="co">#&gt; Roboto already registered with windowsFonts().</span></span>
+<span id="cb15-284"><a href="#cb15-284"></a><span class="co">#&gt; Roboto Condensed already registered with windowsFonts().</span></span>
+<span id="cb15-285"><a href="#cb15-285"></a><span class="co">#&gt; Roboto Condensed Light already registered with windowsFonts().</span></span>
+<span id="cb15-286"><a href="#cb15-286"></a><span class="co">#&gt; Roboto Slab already registered with windowsFonts().</span></span>
+<span id="cb15-287"><a href="#cb15-287"></a><span class="co">#&gt; Rockwell already registered with windowsFonts().</span></span>
+<span id="cb15-288"><a href="#cb15-288"></a><span class="co">#&gt; Rockwell Condensed already registered with windowsFonts().</span></span>
+<span id="cb15-289"><a href="#cb15-289"></a><span class="co">#&gt; Rockwell Extra Bold already registered with windowsFonts().</span></span>
+<span id="cb15-290"><a href="#cb15-290"></a><span class="co">#&gt; RomanC already registered with windowsFonts().</span></span>
+<span id="cb15-291"><a href="#cb15-291"></a><span class="co">#&gt; RomanS already registered with windowsFonts().</span></span>
+<span id="cb15-292"><a href="#cb15-292"></a><span class="co">#&gt; RomanT already registered with windowsFonts().</span></span>
+<span id="cb15-293"><a href="#cb15-293"></a><span class="co">#&gt; Romantic already registered with windowsFonts().</span></span>
+<span id="cb15-294"><a href="#cb15-294"></a><span class="co">#&gt; SansSerif already registered with windowsFonts().</span></span>
+<span id="cb15-295"><a href="#cb15-295"></a><span class="co">#&gt; ScriptC already registered with windowsFonts().</span></span>
+<span id="cb15-296"><a href="#cb15-296"></a><span class="co">#&gt; Script MT Bold already registered with windowsFonts().</span></span>
+<span id="cb15-297"><a href="#cb15-297"></a><span class="co">#&gt; ScriptS already registered with windowsFonts().</span></span>
+<span id="cb15-298"><a href="#cb15-298"></a><span class="co">#&gt; Segoe MDL2 Assets already registered with windowsFonts().</span></span>
+<span id="cb15-299"><a href="#cb15-299"></a><span class="co">#&gt; Segoe Print already registered with windowsFonts().</span></span>
+<span id="cb15-300"><a href="#cb15-300"></a><span class="co">#&gt; Segoe Script already registered with windowsFonts().</span></span>
+<span id="cb15-301"><a href="#cb15-301"></a><span class="co">#&gt; Segoe UI already registered with windowsFonts().</span></span>
+<span id="cb15-302"><a href="#cb15-302"></a><span class="co">#&gt; Segoe UI Light already registered with windowsFonts().</span></span>
+<span id="cb15-303"><a href="#cb15-303"></a><span class="co">#&gt; Segoe UI Semibold already registered with windowsFonts().</span></span>
+<span id="cb15-304"><a href="#cb15-304"></a><span class="co">#&gt; Segoe UI Semilight already registered with windowsFonts().</span></span>
+<span id="cb15-305"><a href="#cb15-305"></a><span class="co">#&gt; Segoe UI Black already registered with windowsFonts().</span></span>
+<span id="cb15-306"><a href="#cb15-306"></a><span class="co">#&gt; Segoe UI Emoji already registered with windowsFonts().</span></span>
+<span id="cb15-307"><a href="#cb15-307"></a><span class="co">#&gt; Segoe UI Historic already registered with windowsFonts().</span></span>
+<span id="cb15-308"><a href="#cb15-308"></a><span class="co">#&gt; Segoe UI Symbol already registered with windowsFonts().</span></span>
+<span id="cb15-309"><a href="#cb15-309"></a><span class="co">#&gt; Showcard Gothic already registered with windowsFonts().</span></span>
+<span id="cb15-310"><a href="#cb15-310"></a><span class="co">#&gt; Simplex already registered with windowsFonts().</span></span>
+<span id="cb15-311"><a href="#cb15-311"></a><span class="co">#&gt; SimSun-ExtB already registered with windowsFonts().</span></span>
+<span id="cb15-312"><a href="#cb15-312"></a><span class="co">#&gt; Snap ITC already registered with windowsFonts().</span></span>
+<span id="cb15-313"><a href="#cb15-313"></a><span class="co">#&gt; socicon already registered with windowsFonts().</span></span>
+<span id="cb15-314"><a href="#cb15-314"></a><span class="co">#&gt; Stencil already registered with windowsFonts().</span></span>
+<span id="cb15-315"><a href="#cb15-315"></a><span class="co">#&gt; Stylus BT already registered with windowsFonts().</span></span>
+<span id="cb15-316"><a href="#cb15-316"></a><span class="co">#&gt; summernote already registered with windowsFonts().</span></span>
+<span id="cb15-317"><a href="#cb15-317"></a><span class="co">#&gt; SuperFrench already registered with windowsFonts().</span></span>
+<span id="cb15-318"><a href="#cb15-318"></a><span class="co">#&gt; Swis721 Blk BT already registered with windowsFonts().</span></span>
+<span id="cb15-319"><a href="#cb15-319"></a><span class="co">#&gt; Swis721 BlkCn BT already registered with windowsFonts().</span></span>
+<span id="cb15-320"><a href="#cb15-320"></a><span class="co">#&gt; Swis721 BlkEx BT already registered with windowsFonts().</span></span>
+<span id="cb15-321"><a href="#cb15-321"></a><span class="co">#&gt; Swis721 BlkOul BT already registered with windowsFonts().</span></span>
+<span id="cb15-322"><a href="#cb15-322"></a><span class="co">#&gt; Swis721 BT already registered with windowsFonts().</span></span>
+<span id="cb15-323"><a href="#cb15-323"></a><span class="co">#&gt; Swis721 Cn BT already registered with windowsFonts().</span></span>
+<span id="cb15-324"><a href="#cb15-324"></a><span class="co">#&gt; Swis721 BdCnOul BT already registered with windowsFonts().</span></span>
+<span id="cb15-325"><a href="#cb15-325"></a><span class="co">#&gt; Swis721 Ex BT already registered with windowsFonts().</span></span>
+<span id="cb15-326"><a href="#cb15-326"></a><span class="co">#&gt; Swis721 BdOul BT already registered with windowsFonts().</span></span>
+<span id="cb15-327"><a href="#cb15-327"></a><span class="co">#&gt; Swis721 Lt BT already registered with windowsFonts().</span></span>
+<span id="cb15-328"><a href="#cb15-328"></a><span class="co">#&gt; Swis721 LtCn BT already registered with windowsFonts().</span></span>
+<span id="cb15-329"><a href="#cb15-329"></a><span class="co">#&gt; Swis721 LtEx BT already registered with windowsFonts().</span></span>
+<span id="cb15-330"><a href="#cb15-330"></a><span class="co">#&gt; Syastro already registered with windowsFonts().</span></span>
+<span id="cb15-331"><a href="#cb15-331"></a><span class="co">#&gt; Sylfaen already registered with windowsFonts().</span></span>
+<span id="cb15-332"><a href="#cb15-332"></a><span class="co">#&gt; Symap already registered with windowsFonts().</span></span>
+<span id="cb15-333"><a href="#cb15-333"></a><span class="co">#&gt; Symath already registered with windowsFonts().</span></span>
+<span id="cb15-334"><a href="#cb15-334"></a><span class="co">#&gt; Symbol already registered with windowsFonts().</span></span>
+<span id="cb15-335"><a href="#cb15-335"></a><span class="co">#&gt; Symeteo already registered with windowsFonts().</span></span>
+<span id="cb15-336"><a href="#cb15-336"></a><span class="co">#&gt; Symusic already registered with windowsFonts().</span></span>
+<span id="cb15-337"><a href="#cb15-337"></a><span class="co">#&gt; Tahoma already registered with windowsFonts().</span></span>
+<span id="cb15-338"><a href="#cb15-338"></a><span class="co">#&gt; Technic already registered with windowsFonts().</span></span>
+<span id="cb15-339"><a href="#cb15-339"></a><span class="co">#&gt; TechnicBold already registered with windowsFonts().</span></span>
+<span id="cb15-340"><a href="#cb15-340"></a><span class="co">#&gt; TechnicLite already registered with windowsFonts().</span></span>
+<span id="cb15-341"><a href="#cb15-341"></a><span class="co">#&gt; Tempus Sans ITC already registered with windowsFonts().</span></span>
+<span id="cb15-342"><a href="#cb15-342"></a><span class="co">#&gt; Tera Special already registered with windowsFonts().</span></span>
+<span id="cb15-343"><a href="#cb15-343"></a><span class="co">#&gt; Times New Roman already registered with windowsFonts().</span></span>
+<span id="cb15-344"><a href="#cb15-344"></a><span class="co">#&gt; Trebuchet MS already registered with windowsFonts().</span></span>
+<span id="cb15-345"><a href="#cb15-345"></a><span class="co">#&gt; Tw Cen MT already registered with windowsFonts().</span></span>
+<span id="cb15-346"><a href="#cb15-346"></a><span class="co">#&gt; Tw Cen MT Condensed already registered with windowsFonts().</span></span>
+<span id="cb15-347"><a href="#cb15-347"></a><span class="co">#&gt; Tw Cen MT Condensed Extra Bold already registered with windowsFonts().</span></span>
+<span id="cb15-348"><a href="#cb15-348"></a><span class="co">#&gt; Txt already registered with windowsFonts().</span></span>
+<span id="cb15-349"><a href="#cb15-349"></a><span class="co">#&gt; UniversalMath1 BT already registered with windowsFonts().</span></span>
+<span id="cb15-350"><a href="#cb15-350"></a><span class="co">#&gt; Verdana already registered with windowsFonts().</span></span>
+<span id="cb15-351"><a href="#cb15-351"></a><span class="co">#&gt; Viner Hand ITC already registered with windowsFonts().</span></span>
+<span id="cb15-352"><a href="#cb15-352"></a><span class="co">#&gt; Vineta BT already registered with windowsFonts().</span></span>
+<span id="cb15-353"><a href="#cb15-353"></a><span class="co">#&gt; Vivaldi already registered with windowsFonts().</span></span>
+<span id="cb15-354"><a href="#cb15-354"></a><span class="co">#&gt; Vladimir Script already registered with windowsFonts().</span></span>
+<span id="cb15-355"><a href="#cb15-355"></a><span class="co">#&gt; Webdings already registered with windowsFonts().</span></span>
+<span id="cb15-356"><a href="#cb15-356"></a><span class="co">#&gt; Wingdings already registered with windowsFonts().</span></span>
+<span id="cb15-357"><a href="#cb15-357"></a><span class="co">#&gt; Wingdings 2 already registered with windowsFonts().</span></span>
+<span id="cb15-358"><a href="#cb15-358"></a><span class="co">#&gt; Wingdings 3 already registered with windowsFonts().</span></span>
+<span id="cb15-359"><a href="#cb15-359"></a><span class="co">#&gt; Yu Mincho Demibold already registered with windowsFonts().</span></span>
+<span id="cb15-360"><a href="#cb15-360"></a><span class="co">#&gt; Yu Mincho Light already registered with windowsFonts().</span></span>
+<span id="cb15-361"><a href="#cb15-361"></a><span class="co">#&gt; Yu Mincho already registered with windowsFonts().</span></span>
+<span id="cb15-362"><a href="#cb15-362"></a><span class="co">#&gt; ZWAdobeF already registered with windowsFonts().</span></span>
+<span id="cb15-363"><a href="#cb15-363"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>(</span>
+<span id="cb15-364"><a href="#cb15-364"></a>  <span class="at">base_size =</span> <span class="dv">14</span>, </span>
+<span id="cb15-365"><a href="#cb15-365"></a>  <span class="at">base_family =</span> <span class="st">"Calibri Light"</span></span>
+<span id="cb15-366"><a href="#cb15-366"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>g <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"日本語も使える"</span>) <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Yu Mincho"</span>))</span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="ch01_concepts_of_the_ggplot2_packages_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">ggsave</span>(<span class="fu">here</span>(cur_dir, <span class="st">"output/日本語.png"</span>))</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&gt; Saving 7 x 5 in image</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="fu">ggsave</span>(<span class="fu">here</span>(cur_dir, <span class="st">"output/日本語.pdf"</span>),</span>
+<span id="cb17-6"><a href="#cb17-6"></a>       <span class="at">device=</span>grDevices<span class="sc">::</span>cairo_pdf)</span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co">#&gt; Saving 7 x 5 in image</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="system-fonts" class="level3" data-number="3.0.1">
+<h3 data-number="3.0.1" class="anchored" data-anchor-id="system-fonts"><span class="header-section-number">3.0.1</span> System fonts</h3>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">library</span>(systemfonts)</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">system_fonts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="fu">filter</span>(<span class="fu">str_detect</span>(family, <span class="st">"Cabinet"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-5"><a href="#cb18-5"></a>    <span class="fu">pull</span>(name) <span class="sc">|&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>    <span class="fu">sort</span>()</span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="co">#&gt; [1] "CabinetGrotesk-Black"      "CabinetGrotesk-Bold"      </span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co">#&gt; [3] "CabinetGrotesk-Extrabold"  "CabinetGrotesk-Extralight"</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co">#&gt; [5] "CabinetGrotesk-Light"      "CabinetGrotesk-Medium"    </span></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co">#&gt; [7] "CabinetGrotesk-Regular"    "CabinetGrotesk-Thin"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="how-to-work-with-aspect-ratios" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="how-to-work-with-aspect-ratios"><span class="header-section-number">3.1</span> How to Work with Aspect Ratios</h2>
+<p>RStudioのViewerは、実際にファイルへ出力したときと見た目が異なる。 これに対して１度保存してから確認するということもあるが、chunkのセッティングを調整することもできる. もしくは<code>camcorder</code>を使うことになる。動かないのでとりあえず無視する.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">library</span>(camcorder)</span>
+<span id="cb19-2"><a href="#cb19-2"></a></span>
+<span id="cb19-3"><a href="#cb19-3"></a></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="fu">gg_record</span>(</span>
+<span id="cb19-5"><a href="#cb19-5"></a>    <span class="at">dir =</span> <span class="fu">here</span>(cur_dir, <span class="st">"output"</span>, <span class="st">"temp_plots"</span>), </span>
+<span id="cb19-6"><a href="#cb19-6"></a>    <span class="at">device =</span> <span class="st">"pdf"</span>, </span>
+<span id="cb19-7"><a href="#cb19-7"></a>    <span class="at">width  =</span>  <span class="dv">297</span>, </span>
+<span id="cb19-8"><a href="#cb19-8"></a>    <span class="at">height =</span> <span class="dv">210</span>, </span>
+<span id="cb19-9"><a href="#cb19-9"></a>    <span class="at">units  =</span> <span class="st">"mm"</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a>)</span>
+<span id="cb19-11"><a href="#cb19-11"></a></span>
+<span id="cb19-12"><a href="#cb19-12"></a>g </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../contents/website/graphic_design_with_ggplot2/index.html" class="pagination-link  aria-label=" introduction"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../contents/website/graphic_design_with_ggplot2/ch02_concepts_of_the_ggplot2_part2.html" class="pagination-link" aria-label="Concepts of the ggplot2 Packages pt 2">
+        <span class="nav-page-text">Concepts of the ggplot2 Packages pt 2</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb20" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">---</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="an">title:</span><span class="co"> "Concepts of the ggplot2 Packages pt 1"</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="co">  cache: false</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="an">filters:</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a><span class="co">---</span></span>
+<span id="cb20-10"><a href="#cb20-10"></a></span>
+<span id="cb20-13"><a href="#cb20-13"></a><span class="in">```{r}</span></span>
+<span id="cb20-14"><a href="#cb20-14"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb20-15"><a href="#cb20-15"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/website/graphic_design_with_ggplot2"</span>)</span>
+<span id="cb20-16"><a href="#cb20-16"></a><span class="in">```</span></span>
+<span id="cb20-17"><a href="#cb20-17"></a></span>
+<span id="cb20-20"><a href="#cb20-20"></a><span class="in">```{r}</span></span>
+<span id="cb20-21"><a href="#cb20-21"></a><span class="co">#| warning: false</span></span>
+<span id="cb20-22"><a href="#cb20-22"></a><span class="co">#| message: false</span></span>
+<span id="cb20-23"><a href="#cb20-23"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb20-24"><a href="#cb20-24"></a>  <span class="st">"tidyverse"</span>, </span>
+<span id="cb20-25"><a href="#cb20-25"></a>  <span class="st">"ggplot2"</span>, <span class="st">"readr"</span>, <span class="st">"tibble"</span>, <span class="st">"tidyr"</span>, <span class="st">"forcats"</span>, </span>
+<span id="cb20-26"><a href="#cb20-26"></a>  <span class="st">"stringr"</span>,</span>
+<span id="cb20-27"><a href="#cb20-27"></a>  <span class="st">"lubridate"</span>, <span class="st">"here"</span>, <span class="st">"systemfonts"</span>, <span class="st">"magick"</span>, </span>
+<span id="cb20-28"><a href="#cb20-28"></a>  <span class="st">"scales"</span>, <span class="st">"grid"</span>,</span>
+<span id="cb20-29"><a href="#cb20-29"></a>  <span class="st">"grDevices"</span>, <span class="st">"colorspace"</span>, <span class="st">"viridis"</span>, </span>
+<span id="cb20-30"><a href="#cb20-30"></a>  <span class="st">"RColorBrewer"</span>, <span class="st">"rcartocolor"</span>,</span>
+<span id="cb20-31"><a href="#cb20-31"></a>  <span class="st">"scico"</span>, <span class="st">"ggsci"</span>, <span class="st">"ggthemes"</span>, <span class="st">"nord"</span>, </span>
+<span id="cb20-32"><a href="#cb20-32"></a>  <span class="st">"MetBrewer"</span>, <span class="st">"ggrepel"</span>,</span>
+<span id="cb20-33"><a href="#cb20-33"></a>  <span class="st">"ggforce"</span>, <span class="st">"ggtext"</span>, <span class="st">"ggdist"</span>, <span class="st">"ggbeeswarm"</span>, </span>
+<span id="cb20-34"><a href="#cb20-34"></a>  <span class="st">"gghalves"</span>, <span class="st">"patchwork"</span>, </span>
+<span id="cb20-35"><a href="#cb20-35"></a>  <span class="st">"palmerpenguins"</span>, <span class="st">"rnaturalearth"</span>, <span class="st">"sf"</span>, <span class="st">"rmapshaper"</span>, <span class="st">"devtools"</span>, </span>
+<span id="cb20-36"><a href="#cb20-36"></a>  <span class="st">"extrafont"</span></span>
+<span id="cb20-37"><a href="#cb20-37"></a>) <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">library</span>(x, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb20-38"><a href="#cb20-38"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb20-39"><a href="#cb20-39"></a><span class="fu">library</span>(colorblindr)</span>
+<span id="cb20-40"><a href="#cb20-40"></a><span class="in">```</span></span>
+<span id="cb20-41"><a href="#cb20-41"></a></span>
+<span id="cb20-42"><a href="#cb20-42"></a></span>
+<span id="cb20-43"><a href="#cb20-43"></a><span class="fu"># A Basic ggplot Example</span></span>
+<span id="cb20-44"><a href="#cb20-44"></a></span>
+<span id="cb20-45"><a href="#cb20-45"></a><span class="fu">## the data</span></span>
+<span id="cb20-46"><a href="#cb20-46"></a></span>
+<span id="cb20-49"><a href="#cb20-49"></a><span class="in">```{r}</span></span>
+<span id="cb20-50"><a href="#cb20-50"></a>bikes <span class="ot">&lt;-</span> </span>
+<span id="cb20-51"><a href="#cb20-51"></a>    <span class="fu">read_csv</span>(</span>
+<span id="cb20-52"><a href="#cb20-52"></a>        <span class="fu">here</span>(</span>
+<span id="cb20-53"><a href="#cb20-53"></a>            cur_dir, </span>
+<span id="cb20-54"><a href="#cb20-54"></a>            <span class="st">"ggplot2-course-data"</span>, </span>
+<span id="cb20-55"><a href="#cb20-55"></a>            <span class="st">"london-bikes-custom.csv"</span>),</span>
+<span id="cb20-56"><a href="#cb20-56"></a>        <span class="at">col_types =</span> <span class="st">"Dcfffilllddddc"</span></span>
+<span id="cb20-57"><a href="#cb20-57"></a>    )</span>
+<span id="cb20-58"><a href="#cb20-58"></a></span>
+<span id="cb20-59"><a href="#cb20-59"></a>bikes<span class="sc">$</span>season <span class="ot">&lt;-</span> forcats<span class="sc">::</span><span class="fu">fct_inorder</span>(bikes<span class="sc">$</span>season)</span>
+<span id="cb20-60"><a href="#cb20-60"></a></span>
+<span id="cb20-61"><a href="#cb20-61"></a></span>
+<span id="cb20-62"><a href="#cb20-62"></a>bikes <span class="sc">|&gt;</span> </span>
+<span id="cb20-63"><a href="#cb20-63"></a>    <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-64"><a href="#cb20-64"></a>    rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>()</span>
+<span id="cb20-65"><a href="#cb20-65"></a><span class="in">```</span></span>
+<span id="cb20-66"><a href="#cb20-66"></a></span>
+<span id="cb20-67"><a href="#cb20-67"></a><span class="fu">## the group</span></span>
+<span id="cb20-68"><a href="#cb20-68"></a></span>
+<span id="cb20-71"><a href="#cb20-71"></a><span class="in">```{r}</span></span>
+<span id="cb20-72"><a href="#cb20-72"></a>bikes <span class="sc">|&gt;</span> </span>
+<span id="cb20-73"><a href="#cb20-73"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count)) <span class="sc">+</span> </span>
+<span id="cb20-74"><a href="#cb20-74"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> season), <span class="at">alpah =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb20-75"><a href="#cb20-75"></a>    <span class="fu">geom_smooth</span>(</span>
+<span id="cb20-76"><a href="#cb20-76"></a>        <span class="fu">aes</span>(<span class="at">group =</span> day_night), </span>
+<span id="cb20-77"><a href="#cb20-77"></a>        <span class="at">method =</span> <span class="st">"lm"</span></span>
+<span id="cb20-78"><a href="#cb20-78"></a>    )</span>
+<span id="cb20-79"><a href="#cb20-79"></a><span class="in">```</span></span>
+<span id="cb20-80"><a href="#cb20-80"></a></span>
+<span id="cb20-81"><a href="#cb20-81"></a></span>
+<span id="cb20-82"><a href="#cb20-82"></a><span class="fu">## stat, geom</span></span>
+<span id="cb20-83"><a href="#cb20-83"></a></span>
+<span id="cb20-84"><a href="#cb20-84"></a>::::{.columns}</span>
+<span id="cb20-85"><a href="#cb20-85"></a></span>
+<span id="cb20-86"><a href="#cb20-86"></a>:::{.column}</span>
+<span id="cb20-89"><a href="#cb20-89"></a><span class="in">```{r}</span></span>
+<span id="cb20-90"><a href="#cb20-90"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(<span class="at">x =</span> season)) <span class="sc">+</span> </span>
+<span id="cb20-91"><a href="#cb20-91"></a>    <span class="fu">stat_count</span>(<span class="at">geom =</span> <span class="st">"bar"</span>)</span>
+<span id="cb20-92"><a href="#cb20-92"></a><span class="in">```</span></span>
+<span id="cb20-93"><a href="#cb20-93"></a>:::</span>
+<span id="cb20-94"><a href="#cb20-94"></a></span>
+<span id="cb20-95"><a href="#cb20-95"></a>:::{.column}</span>
+<span id="cb20-96"><a href="#cb20-96"></a></span>
+<span id="cb20-99"><a href="#cb20-99"></a><span class="in">```{r}</span></span>
+<span id="cb20-100"><a href="#cb20-100"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(<span class="at">x =</span> season)) <span class="sc">+</span> </span>
+<span id="cb20-101"><a href="#cb20-101"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"count"</span>)</span>
+<span id="cb20-102"><a href="#cb20-102"></a><span class="in">```</span></span>
+<span id="cb20-103"><a href="#cb20-103"></a></span>
+<span id="cb20-104"><a href="#cb20-104"></a>:::</span>
+<span id="cb20-105"><a href="#cb20-105"></a></span>
+<span id="cb20-106"><a href="#cb20-106"></a>::::</span>
+<span id="cb20-107"><a href="#cb20-107"></a></span>
+<span id="cb20-108"><a href="#cb20-108"></a></span>
+<span id="cb20-109"><a href="#cb20-109"></a></span>
+<span id="cb20-110"><a href="#cb20-110"></a>::::{.columns}</span>
+<span id="cb20-111"><a href="#cb20-111"></a></span>
+<span id="cb20-112"><a href="#cb20-112"></a>:::{.column}</span>
+<span id="cb20-113"><a href="#cb20-113"></a></span>
+<span id="cb20-116"><a href="#cb20-116"></a><span class="in">```{r}</span></span>
+<span id="cb20-117"><a href="#cb20-117"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp_feel)) <span class="sc">+</span> </span>
+<span id="cb20-118"><a href="#cb20-118"></a>    <span class="fu">stat_identity</span>(<span class="at">geom =</span> <span class="st">"point"</span>)</span>
+<span id="cb20-119"><a href="#cb20-119"></a><span class="in">```</span></span>
+<span id="cb20-120"><a href="#cb20-120"></a>:::</span>
+<span id="cb20-121"><a href="#cb20-121"></a></span>
+<span id="cb20-122"><a href="#cb20-122"></a></span>
+<span id="cb20-123"><a href="#cb20-123"></a>:::{.column}</span>
+<span id="cb20-124"><a href="#cb20-124"></a></span>
+<span id="cb20-127"><a href="#cb20-127"></a><span class="in">```{r}</span></span>
+<span id="cb20-128"><a href="#cb20-128"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp_feel)) <span class="sc">+</span> </span>
+<span id="cb20-129"><a href="#cb20-129"></a>    <span class="fu">geom_point</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)</span>
+<span id="cb20-130"><a href="#cb20-130"></a><span class="in">```</span></span>
+<span id="cb20-131"><a href="#cb20-131"></a>:::</span>
+<span id="cb20-132"><a href="#cb20-132"></a></span>
+<span id="cb20-133"><a href="#cb20-133"></a>::::</span>
+<span id="cb20-134"><a href="#cb20-134"></a></span>
+<span id="cb20-135"><a href="#cb20-135"></a></span>
+<span id="cb20-136"><a href="#cb20-136"></a><span class="fu">## Statisitical Summarys</span></span>
+<span id="cb20-137"><a href="#cb20-137"></a></span>
+<span id="cb20-140"><a href="#cb20-140"></a><span class="in">```{r}</span></span>
+<span id="cb20-141"><a href="#cb20-141"></a><span class="fu">ggplot</span>(</span>
+<span id="cb20-142"><a href="#cb20-142"></a>    bikes, </span>
+<span id="cb20-143"><a href="#cb20-143"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season , <span class="at">y =</span> temp_feel)</span>
+<span id="cb20-144"><a href="#cb20-144"></a>) <span class="sc">+</span> </span>
+<span id="cb20-145"><a href="#cb20-145"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb20-146"><a href="#cb20-146"></a>    <span class="fu">stat_summary</span>(</span>
+<span id="cb20-147"><a href="#cb20-147"></a>        <span class="at">fun =</span> mean, </span>
+<span id="cb20-148"><a href="#cb20-148"></a>        <span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb20-149"><a href="#cb20-149"></a>        <span class="at">color =</span> <span class="st">"#28a87d"</span>, </span>
+<span id="cb20-150"><a href="#cb20-150"></a>        <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb20-151"><a href="#cb20-151"></a>    )</span>
+<span id="cb20-152"><a href="#cb20-152"></a><span class="in">```</span></span>
+<span id="cb20-153"><a href="#cb20-153"></a></span>
+<span id="cb20-156"><a href="#cb20-156"></a><span class="in">```{r}</span></span>
+<span id="cb20-157"><a href="#cb20-157"></a><span class="fu">ggplot</span>(</span>
+<span id="cb20-158"><a href="#cb20-158"></a>    bikes, </span>
+<span id="cb20-159"><a href="#cb20-159"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> temp_feel)</span>
+<span id="cb20-160"><a href="#cb20-160"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-161"><a href="#cb20-161"></a>  <span class="fu">stat_summary</span>(</span>
+<span id="cb20-162"><a href="#cb20-162"></a>    <span class="at">fun =</span> mean, </span>
+<span id="cb20-163"><a href="#cb20-163"></a>    <span class="at">fun.max =</span> <span class="cf">function</span>(y) <span class="fu">mean</span>(y) <span class="sc">+</span> <span class="fu">sd</span>(y), </span>
+<span id="cb20-164"><a href="#cb20-164"></a>    <span class="at">fun.min =</span> <span class="cf">function</span>(y) <span class="fu">mean</span>(y) <span class="sc">-</span> <span class="fu">sd</span>(y) </span>
+<span id="cb20-165"><a href="#cb20-165"></a>  ) </span>
+<span id="cb20-166"><a href="#cb20-166"></a><span class="in">```</span></span>
+<span id="cb20-167"><a href="#cb20-167"></a></span>
+<span id="cb20-168"><a href="#cb20-168"></a></span>
+<span id="cb20-169"><a href="#cb20-169"></a><span class="fu"># Extending ggplot</span></span>
+<span id="cb20-170"><a href="#cb20-170"></a></span>
+<span id="cb20-173"><a href="#cb20-173"></a><span class="in">```{r}</span></span>
+<span id="cb20-174"><a href="#cb20-174"></a>g <span class="ot">&lt;-</span></span>
+<span id="cb20-175"><a href="#cb20-175"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb20-176"><a href="#cb20-176"></a>    bikes,</span>
+<span id="cb20-177"><a href="#cb20-177"></a>    <span class="fu">aes</span>(<span class="at">x =</span> temp_feel, <span class="at">y =</span> count,</span>
+<span id="cb20-178"><a href="#cb20-178"></a>        <span class="at">color =</span> season,</span>
+<span id="cb20-179"><a href="#cb20-179"></a>        <span class="at">group =</span> day_night)</span>
+<span id="cb20-180"><a href="#cb20-180"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-181"><a href="#cb20-181"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb20-182"><a href="#cb20-182"></a>    <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb20-183"><a href="#cb20-183"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-184"><a href="#cb20-184"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb20-185"><a href="#cb20-185"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb20-186"><a href="#cb20-186"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb20-187"><a href="#cb20-187"></a>  )</span>
+<span id="cb20-188"><a href="#cb20-188"></a></span>
+<span id="cb20-189"><a href="#cb20-189"></a><span class="fu">class</span>(g)</span>
+<span id="cb20-190"><a href="#cb20-190"></a><span class="in">```</span></span>
+<span id="cb20-191"><a href="#cb20-191"></a></span>
+<span id="cb20-194"><a href="#cb20-194"></a><span class="in">```{r}</span></span>
+<span id="cb20-195"><a href="#cb20-195"></a>g<span class="sc">$</span>data <span class="sc">|&gt;</span> <span class="fu">head</span>() <span class="sc">|&gt;</span> rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>()</span>
+<span id="cb20-196"><a href="#cb20-196"></a><span class="in">```</span></span>
+<span id="cb20-197"><a href="#cb20-197"></a></span>
+<span id="cb20-198"><a href="#cb20-198"></a></span>
+<span id="cb20-199"><a href="#cb20-199"></a></span>
+<span id="cb20-202"><a href="#cb20-202"></a><span class="in">```{r}</span></span>
+<span id="cb20-203"><a href="#cb20-203"></a>g <span class="sc">+</span></span>
+<span id="cb20-204"><a href="#cb20-204"></a>    <span class="fu">geom_rug</span>(</span>
+<span id="cb20-205"><a href="#cb20-205"></a>        <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb20-206"><a href="#cb20-206"></a>    ) <span class="sc">+</span> </span>
+<span id="cb20-207"><a href="#cb20-207"></a>    <span class="fu">labs</span>(</span>
+<span id="cb20-208"><a href="#cb20-208"></a>       <span class="at">x =</span> <span class="st">"Feels-like temperature (°F)"</span>,</span>
+<span id="cb20-209"><a href="#cb20-209"></a>       <span class="at">y =</span> <span class="st">"Reported bike shares"</span>,</span>
+<span id="cb20-210"><a href="#cb20-210"></a>       <span class="at">title =</span> <span class="st">"TfL bike sharing trends"</span>,</span>
+<span id="cb20-211"><a href="#cb20-211"></a>       <span class="at">subtitle =</span> <span class="st">"Reported bike rents versus feels-like temp   erature in London"</span>,</span>
+<span id="cb20-212"><a href="#cb20-212"></a>       <span class="at">caption =</span> <span class="st">"Data: TfL"</span>,</span>
+<span id="cb20-213"><a href="#cb20-213"></a>       <span class="at">color =</span> <span class="st">"Season:"</span>,</span>
+<span id="cb20-214"><a href="#cb20-214"></a>       <span class="at">tag =</span> <span class="st">"Fig. 1"</span></span>
+<span id="cb20-215"><a href="#cb20-215"></a>    )</span>
+<span id="cb20-216"><a href="#cb20-216"></a><span class="in">```</span></span>
+<span id="cb20-217"><a href="#cb20-217"></a></span>
+<span id="cb20-218"><a href="#cb20-218"></a></span>
+<span id="cb20-219"><a href="#cb20-219"></a><span class="fu"># A Polished ggplot Example</span></span>
+<span id="cb20-220"><a href="#cb20-220"></a></span>
+<span id="cb20-221"><a href="#cb20-221"></a></span>
+<span id="cb20-222"><a href="#cb20-222"></a>ベースセッティング. </span>
+<span id="cb20-223"><a href="#cb20-223"></a></span>
+<span id="cb20-226"><a href="#cb20-226"></a><span class="in">```{r}</span></span>
+<span id="cb20-227"><a href="#cb20-227"></a><span class="co">#| eval: false</span></span>
+<span id="cb20-228"><a href="#cb20-228"></a>extrafont<span class="sc">::</span><span class="fu">font_import</span>()</span>
+<span id="cb20-229"><a href="#cb20-229"></a><span class="in">```</span></span>
+<span id="cb20-230"><a href="#cb20-230"></a></span>
+<span id="cb20-231"><a href="#cb20-231"></a></span>
+<span id="cb20-234"><a href="#cb20-234"></a><span class="in">```{r}</span></span>
+<span id="cb20-235"><a href="#cb20-235"></a>extrafont<span class="sc">::</span><span class="fu">loadfonts</span>(<span class="at">device =</span> <span class="st">"win"</span>)</span>
+<span id="cb20-236"><a href="#cb20-236"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>(</span>
+<span id="cb20-237"><a href="#cb20-237"></a>  <span class="at">base_size =</span> <span class="dv">14</span>, </span>
+<span id="cb20-238"><a href="#cb20-238"></a>  <span class="at">base_family =</span> <span class="st">"Calibri Light"</span></span>
+<span id="cb20-239"><a href="#cb20-239"></a>))</span>
+<span id="cb20-240"><a href="#cb20-240"></a><span class="in">```</span></span>
+<span id="cb20-241"><a href="#cb20-241"></a></span>
+<span id="cb20-242"><a href="#cb20-242"></a></span>
+<span id="cb20-245"><a href="#cb20-245"></a><span class="in">```{r}</span></span>
+<span id="cb20-246"><a href="#cb20-246"></a>g <span class="sc">+</span> </span>
+<span id="cb20-247"><a href="#cb20-247"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"日本語も使える"</span>) <span class="sc">+</span> </span>
+<span id="cb20-248"><a href="#cb20-248"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Yu Mincho"</span>))</span>
+<span id="cb20-249"><a href="#cb20-249"></a></span>
+<span id="cb20-250"><a href="#cb20-250"></a><span class="fu">ggsave</span>(<span class="fu">here</span>(cur_dir, <span class="st">"output/日本語.png"</span>))</span>
+<span id="cb20-251"><a href="#cb20-251"></a><span class="fu">ggsave</span>(<span class="fu">here</span>(cur_dir, <span class="st">"output/日本語.pdf"</span>),</span>
+<span id="cb20-252"><a href="#cb20-252"></a>       <span class="at">device=</span>grDevices<span class="sc">::</span>cairo_pdf)</span>
+<span id="cb20-253"><a href="#cb20-253"></a><span class="in">```</span></span>
+<span id="cb20-254"><a href="#cb20-254"></a></span>
+<span id="cb20-255"><a href="#cb20-255"></a></span>
+<span id="cb20-256"><a href="#cb20-256"></a></span>
+<span id="cb20-257"><a href="#cb20-257"></a><span class="fu">### System fonts</span></span>
+<span id="cb20-258"><a href="#cb20-258"></a></span>
+<span id="cb20-259"><a href="#cb20-259"></a></span>
+<span id="cb20-262"><a href="#cb20-262"></a><span class="in">```{r}</span></span>
+<span id="cb20-263"><a href="#cb20-263"></a><span class="fu">library</span>(systemfonts)</span>
+<span id="cb20-264"><a href="#cb20-264"></a></span>
+<span id="cb20-265"><a href="#cb20-265"></a><span class="fu">system_fonts</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-266"><a href="#cb20-266"></a>    <span class="fu">filter</span>(<span class="fu">str_detect</span>(family, <span class="st">"Cabinet"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-267"><a href="#cb20-267"></a>    <span class="fu">pull</span>(name) <span class="sc">|&gt;</span></span>
+<span id="cb20-268"><a href="#cb20-268"></a>    <span class="fu">sort</span>()</span>
+<span id="cb20-269"><a href="#cb20-269"></a></span>
+<span id="cb20-270"><a href="#cb20-270"></a><span class="in">```</span></span>
+<span id="cb20-271"><a href="#cb20-271"></a></span>
+<span id="cb20-272"><a href="#cb20-272"></a></span>
+<span id="cb20-273"><a href="#cb20-273"></a></span>
+<span id="cb20-274"><a href="#cb20-274"></a><span class="fu">## How to Work with Aspect Ratios</span></span>
+<span id="cb20-275"><a href="#cb20-275"></a></span>
+<span id="cb20-276"><a href="#cb20-276"></a>RStudioのViewerは、実際にファイルへ出力したときと見た目が異なる。</span>
+<span id="cb20-277"><a href="#cb20-277"></a>これに対して１度保存してから確認するということもあるが、chunkのセッティングを調整することもできる. もしくは<span class="in">`camcorder`</span>を使うことになる。動かないのでとりあえず無視する. </span>
+<span id="cb20-278"><a href="#cb20-278"></a></span>
+<span id="cb20-279"><a href="#cb20-279"></a></span>
+<span id="cb20-280"><a href="#cb20-280"></a></span>
+<span id="cb20-283"><a href="#cb20-283"></a><span class="in">```{r}</span></span>
+<span id="cb20-284"><a href="#cb20-284"></a><span class="co">#| eval: false</span></span>
+<span id="cb20-285"><a href="#cb20-285"></a><span class="fu">library</span>(camcorder)</span>
+<span id="cb20-286"><a href="#cb20-286"></a></span>
+<span id="cb20-287"><a href="#cb20-287"></a></span>
+<span id="cb20-288"><a href="#cb20-288"></a><span class="fu">gg_record</span>(</span>
+<span id="cb20-289"><a href="#cb20-289"></a>    <span class="at">dir =</span> <span class="fu">here</span>(cur_dir, <span class="st">"output"</span>, <span class="st">"temp_plots"</span>), </span>
+<span id="cb20-290"><a href="#cb20-290"></a>    <span class="at">device =</span> <span class="st">"pdf"</span>, </span>
+<span id="cb20-291"><a href="#cb20-291"></a>    <span class="at">width  =</span>  <span class="dv">297</span>, </span>
+<span id="cb20-292"><a href="#cb20-292"></a>    <span class="at">height =</span> <span class="dv">210</span>, </span>
+<span id="cb20-293"><a href="#cb20-293"></a>    <span class="at">units  =</span> <span class="st">"mm"</span></span>
+<span id="cb20-294"><a href="#cb20-294"></a>)</span>
+<span id="cb20-295"><a href="#cb20-295"></a></span>
+<span id="cb20-296"><a href="#cb20-296"></a>g </span>
+<span id="cb20-297"><a href="#cb20-297"></a></span>
+<span id="cb20-298"><a href="#cb20-298"></a><span class="in">```</span></span>
+<span id="cb20-299"><a href="#cb20-299"></a></span>
+<span id="cb20-300"><a href="#cb20-300"></a></span>
+<span id="cb20-301"><a href="#cb20-301"></a></span>
+<span id="cb20-302"><a href="#cb20-302"></a></span>
+<span id="cb20-303"><a href="#cb20-303"></a></span>
+<span id="cb20-304"><a href="#cb20-304"></a></span>
+<span id="cb20-305"><a href="#cb20-305"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":false,"openEffect":"zoom","descPosition":"bottom"});</script>
+
+
+
+
+</body></html>
