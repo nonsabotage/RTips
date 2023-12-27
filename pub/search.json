@@ -1143,6 +1143,13 @@
     ]
   },
   {
+    "objectID": "contents/libs/igraph/index.html",
+    "href": "contents/libs/igraph/index.html",
+    "title": "igraph",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/igraph\")\n\n\n\n\nCode\nbox::use(\n  igraph[...],\n  ggplot2[...],\n  cowplot[...], \n  showtext[showtext_auto], \n  sysfonts[font_add_google],\n)\nlibrary(cowplot)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 はじめに\nigraphはグラフ構造の解析を行うためのオープンソースのパッケージである。 RだけでなくPython, Mathmaticaでも使うことができる。\nここでは、Rでのigraphの使い方を学ぶこととする。\n\nR interface\nR reference\nigraph\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
     "objectID": "contents/libs/ggmosaic/working.html",
     "href": "contents/libs/ggmosaic/working.html",
     "title": "ggmosaic",
@@ -2207,6 +2214,17 @@
     "crumbs": [
       "libs",
       "ggtext"
+    ]
+  },
+  {
+    "objectID": "contents/libs/igraph/r_interface.html",
+    "href": "contents/libs/igraph/r_interface.html",
+    "title": "igraph",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/igraph\")\n\n\n\n\nCode\nbox::use(\n  igraph[...],\n  ggplot2[...],\n  cowplot[...], \n  showtext[showtext_auto], \n  sysfonts[font_add_google],\n)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 Create a graph\n\n\nCode\ng &lt;- make_empty_graph()\n\ng\n#&gt; IGRAPH b3eb4e8 D--- 0 0 -- \n#&gt; + edges from b3eb4e8:\n\n\n\nmake_graph系はエッジからグラフを構築する\n10個の頂点と2のエッジからなるグラフは次である\n\nedgeは1to2, 1to5の2つである\n\n\n\n\nCode\ng &lt;- make_graph(\n  edges = c(1, 2,\n            1, 5), \n  n = 10, \n  directed = FALSE\n)\ng\n#&gt; IGRAPH b3f59b2 U--- 10 2 -- \n#&gt; + edges from b3f59b2:\n#&gt; [1] 1--2 1--5\n\n\n\n\nCode\nplot(g)\n\n\n\n\n\n\n\n\n\n特殊な式でエッジを指定することも可能である。 ~からはじめることで次のようにエッジを指定できる\n\n\nCode\n# ノードはエッジと重複していても大丈夫である\nmake_graph(\n  ~ 1--2, 1--5, 3, 4, 5\n) |&gt; plot()\n\n\n\n\n\n\n\n\n\nグラフの名前を使ってグラフを構築することも可能である。 たとえば、Zacharyというグラフは次のように構築できる\n\n\nCode\nmake_graph(\"Zachary\") |&gt; plot()\n\n\n\n\n\n\n\n\n\nより詳しい詳細はこの後のチュートリアルに追記される。\n\n\n2 Vertex and edge IDs\nigraphの頂点とエッジはそれぞれ数値IDを有してる。 頂点のIDは必ず1からはじまる。また数値IDは連続しています。 たとえばサブグラフが構築されたときには、 サブグラフの中で頂点番号が振り直されます。 *Pythonとかは0からはじまるので注意すること。\n\n\n3 Adding/deleting vertices and edges\n\n\nCode\ng &lt;- make_empty_graph()\ng &lt;- add_vertices(g, 3) # 頂点を3つ追加する\nplot(g)\n\n\n\n\n\n\n\n\n\nもう一度頂点を追加してみる。頂点が３つ追加されて、６つになっていることがわかる。\n\n\nCode\ng &lt;- add_vertices(g, 3)\nplot(g)\n\n\n\n\n\n\n\n\n\n次はエッジを追加する。存在しない頂点番号を指定するとエラーになる。\n\n\nCode\ng &lt;- add_edges(g, edges = c(1, 3, 1, 6, 3, 4))\nplot(g)\n\n\n\n\n\n\n\n\n\n次の記法でも追加することが出来る。 ただしadd_edgesを使う方が効率的である。\n\n\nCode\ng + edges(c(2, 5))\n#&gt; IGRAPH b45a58d D--- 6 4 -- \n#&gt; + edges from b45a58d:\n#&gt; [1] 1-&gt;3 1-&gt;6 3-&gt;4 2-&gt;5\n\n\nより複雑な追加をしてみる.\n\n\nCode\ng &lt;- \n  make_graph(\"Zachary\") |&gt; \n  add_edges(edges = c(1, 34)) |&gt; \n  add_vertices(6) |&gt; \n  add_edges(edges = c(38, 39, 39, 40, 40, 38, 40, 37))\n\ng\n#&gt; IGRAPH b460e3c U--- 40 83 -- Zachary\n#&gt; + attr: name (g/c)\n#&gt; + edges from b460e3c:\n#&gt;  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12\n#&gt; [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14\n#&gt; [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10\n#&gt; [31]  3-- 9  3--14  4-- 8  4--13  4--14  5-- 7  5--11  6-- 7  6--11  6--17\n#&gt; [41]  7--17  9--31  9--33  9--34 10--34 14--34 15--33 15--34 16--33 16--34\n#&gt; [51] 19--33 19--34 20--34 21--33 21--34 23--33 23--34 24--26 24--28 24--33\n#&gt; [61] 24--34 24--30 25--26 25--28 25--32 26--32 27--30 27--34 28--34 29--32\n#&gt; [71] 29--34 30--33 30--34 31--33 31--34 32--33 32--34 33--34  1--34 38--39\n#&gt; + ... omitted several edges\n\n\nVertexのIDは常に1からはじまり連続的である。 Vertexがrenumberedされたとき、エッジはrenumberedされない。 しかし、エッジの頂点はrenumberedされる。\ndelete_verticesとdelete_edgesを使い操作してみる。\n\n\nCode\n# エッジ番号\nget.edge.ids(g, c(1, 34))\n#&gt; [1] 79\n\n\n\n\nCode\n# delete\ng &lt;- delete_edges(g, 79)\nget.edge.ids(g, c(1, 34)) # return 0\n#&gt; [1] 0\n\n\n例題として次のグラフを考える。リングを作成して、1と10のエッジを削除する。\n\n\nCode\ng &lt;- make_ring(10) %&gt;% delete_edges(\"10|1\")\nplot(g)\n\n\n\n\n\n\n\n\n\n同様に色々試す。\n\n\nCode\ng &lt;- make_ring(5)\ng &lt;- delete_edges(g, get.edge.ids(g, c(1,5, 4,5)))\nplot(g)\n\n\n\n\n\n\n\n\n\nリテラル表現のグラフ構造である。\n\n\nCode\ng1 &lt;- graph_from_literal(A-B:C:I, B-A:C:D, C-A:B:E:H, D-B:E:F,\n                         E-C:D:F:H, F-D:E:G, G-F:H, H-C:E:G:I,\n                         I-A:H)\nplot(g1)\n\n\n\n\n\n\n\n\n\nグラフがchordalであるのかを判定し、足りないエッジを調べる。\n\n\nCode\nis_chordal(g1, fillin=TRUE)\n#&gt; $chordal\n#&gt; [1] FALSE\n#&gt; \n#&gt; $fillin\n#&gt;  [1] 2 6 8 7 5 7 2 7 6 1 7 1\n#&gt; \n#&gt; $newgraph\n#&gt; NULL\n\n\n足りないエッジを追加する。\n\n\nCode\nchordal_graph &lt;- add_edges(g1, is_chordal(g1, fillin=TRUE)$fillin)\nplot(chordal_graph)\n\n\n\n\n\n\n\n\n\n\n\n4 Constucting graphs\n\n\n5 Setting and retrieving graph\n\n\n6 Structural properties\n\n\n7 Querying the graph\n\n\n8 Treating a graph as an adjacency\n\n\n9 Layouts and plotting\n\n\n10 igraph and the outside world\n\n\n11 where to go next\n\n\n12 Session info\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "libs",
+      "igraph"
     ]
   },
   {
