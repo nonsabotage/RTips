@@ -1117,7 +1117,8 @@
     "text": "sfはRでGISを扱うためのパッケージです。\nsfはSimple Featuresの略で、空間データを扱うための標準的なデータモデルです。\nsfは、Rのtidyverseとの親和性が高く、dplyrのような文法で空間データを扱うことができます。",
     "crumbs": [
       "libs",
-      "sf"
+      "sf",
+      "Introduction"
     ]
   },
   {
@@ -1128,7 +1129,8 @@
     "text": "2.1 IDW\nデータを作成する。\n\n\nCode\nlocations &lt;- \n  tibble(\n    longitude = c(10, 10.5, 11),\n    latitude = c(10, 14.5, 18),\n    measurement = c(100, 150, 120)\n  ) |&gt;\n  st_as_sf(coords = c(\"longitude\", \"latitude\"), crs = 4326)\n\nregion &lt;- st_as_sf(data.frame(\n  x = c(10, 10, 20, 20),\n  y = c(10, 20, 20, 10)\n), coords = c(\"x\", \"y\"), crs = 4326)\n\n\n逆距離補間をおこなう。\n\n\nCode\ngrid &lt;- st_make_grid(region, what = \"centers\")\nidw_result &lt;- idw(formula = measurement ~ 1, locations, grid)\n#&gt; [inverse distance weighted interpolation]\nidw_result\n#&gt; Simple feature collection with 100 features and 2 fields\n#&gt; Geometry type: POINT\n#&gt; Dimension:     XY\n#&gt; Bounding box:  xmin: 10.5 ymin: 10.5 xmax: 19.5 ymax: 19.5\n#&gt; Geodetic CRS:  WGS 84\n#&gt; First 10 features:\n#&gt;    var1.pred var1.var          geometry\n#&gt; 1   101.6566       NA POINT (10.5 10.5)\n#&gt; 2   106.8246       NA POINT (11.5 10.5)\n#&gt; 3   112.7551       NA POINT (12.5 10.5)\n#&gt; 4   116.9918       NA POINT (13.5 10.5)\n#&gt; 5   119.5808       NA POINT (14.5 10.5)\n#&gt; 6   121.1055       NA POINT (15.5 10.5)\n#&gt; 7   122.0098       NA POINT (16.5 10.5)\n#&gt; 8   122.5585       NA POINT (17.5 10.5)\n#&gt; 9   122.9007       NA POINT (18.5 10.5)\n#&gt; 10  123.1201       NA POINT (19.5 10.5)\n\n\n\n\nCode\nplot(\n  st_make_grid(\n    region, \n    cellsize = 1,\n    what = \"polygons\")\n)\nplot(select(idw_result, var1.pred), add = TRUE)\nplot(locations, add = TRUE, col = \"red\", cex = 3, pch = 19)\n\n\n\n\n\n\n\n\n\nラスタ化する.\n\n\nCode\nplot(\n  rasterize(\n    idw_result, \n    rast(\n      extent = st_bbox(region), \n      resolution = 1\n    ),\n    field = \"var1.pred\"\n  )\n)\n\n\n\n\n\n\n\n\n\n距離の次数を変更してみる。\n\n\nCode\n# IDW補間の実行、距離のべき乗を3に設定\nidw_result_power3 &lt;- idw(formula = measurement ~ 1, locations, grid, idp = 3)\n#&gt; [inverse distance weighted interpolation]\nidw_result_power3\n#&gt; Simple feature collection with 100 features and 2 fields\n#&gt; Geometry type: POINT\n#&gt; Dimension:     XY\n#&gt; Bounding box:  xmin: 10.5 ymin: 10.5 xmax: 19.5 ymax: 19.5\n#&gt; Geodetic CRS:  WGS 84\n#&gt; First 10 features:\n#&gt;    var1.pred var1.var          geometry\n#&gt; 1   100.2868       NA POINT (10.5 10.5)\n#&gt; 2   102.7593       NA POINT (11.5 10.5)\n#&gt; 3   108.0653       NA POINT (12.5 10.5)\n#&gt; 4   113.3959       NA POINT (13.5 10.5)\n#&gt; 5   117.2178       NA POINT (14.5 10.5)\n#&gt; 6   119.6376       NA POINT (15.5 10.5)\n#&gt; 7   121.1204       NA POINT (16.5 10.5)\n#&gt; 8   122.0318       NA POINT (17.5 10.5)\n#&gt; 9   122.6014       NA POINT (18.5 10.5)\n#&gt; 10  122.9651       NA POINT (19.5 10.5)",
     "crumbs": [
       "libs",
-      "sf"
+      "sf",
+      "Introduction"
     ]
   },
   {
@@ -1139,7 +1141,8 @@
     "text": "3.1 st_make_grid\n\n空間データをグリッドに変換する関数です。\n以下のように、グリッドのセルの大きさを指定することができます。\n\n\n\nCode\n# 例として、ある地域のポリゴンを定義\nregion &lt;- st_as_sf(data.frame(\n  x = c(10, 10, 20, 20),\n  y = c(10, 20, 20, 10)\n), coords = c(\"x\", \"y\"), crs = 4326)\n\n\n\n\nCode\ngrid &lt;- st_make_grid(region, cellsize = 1, what = \"polygons\")\ngrid\n#&gt; Geometry set for 100 features \n#&gt; Geometry type: POLYGON\n#&gt; Dimension:     XY\n#&gt; Bounding box:  xmin: 10 ymin: 10 xmax: 20 ymax: 20\n#&gt; Geodetic CRS:  WGS 84\n#&gt; First 5 geometries:\n#&gt; POLYGON ((10 10, 11 10, 11 11, 10 11, 10 10))\n#&gt; POLYGON ((11 10, 12 10, 12 11, 11 11, 11 10))\n#&gt; POLYGON ((12 10, 13 10, 13 11, 12 11, 12 10))\n#&gt; POLYGON ((13 10, 14 10, 14 11, 13 11, 13 10))\n#&gt; POLYGON ((14 10, 15 10, 15 11, 14 11, 14 10))\n\n\n\n\nCode\nplot(grid)\nplot(region, add = TRUE)\n# ポイントデータを作成することもできる\nplot(\n  st_make_grid(region, cellsize = 1, what = \"centers\"),\n  col = \"red\", \n  add = TRUE\n)\nplot(\n  st_make_grid(region, cellsize = 1, what = \"corners\"),\n  col = \"blue\", \n  add = TRUE\n)\n\n\n\n\n\n\n\n\n\nセルサイズはXYで変更することもできる。\n\n\nCode\nplot(grid)\nplot(\n  st_make_grid(region, cellsize = c(1, 2), what = \"centers\"),\n  col = \"red\", \n  add = TRUE\n)",
     "crumbs": [
       "libs",
-      "sf"
+      "sf",
+      "Introduction"
     ]
   },
   {
@@ -1147,7 +1150,12 @@
     "href": "contents/libs/igraph/index.html",
     "title": "igraph",
     "section": "",
-    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/igraph\")\n\n\n\n\nCode\nbox::use(\n  igraph[...],\n  ggplot2[...],\n  cowplot[...], \n  showtext[showtext_auto], \n  sysfonts[font_add_google],\n)\nlibrary(cowplot)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 はじめに\nigraphはグラフ構造の解析を行うためのオープンソースのパッケージである。 RだけでなくPython, Mathmaticaでも使うことができる。\nここでは、Rでのigraphの使い方を学ぶこととする。\n\nR interface\nR reference\nigraph\n\n\n\n\n\n\n\n Back to top"
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/igraph\")\n\n\n\n\nCode\nbox::use(\n  igraph[...],\n  ggplot2[...],\n  cowplot[...], \n  showtext[showtext_auto], \n  sysfonts[font_add_google],\n)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 はじめに\nigraphはグラフ構造の解析を行うためのオープンソースのパッケージである。 RだけでなくPython, Mathmaticaでも使うことができる。\nここでは、Rでのigraphの使い方を学ぶこととする。\n\nR interface\nR reference\nigraph\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "libs",
+      "igraph",
+      "Introduction"
+    ]
   },
   {
     "objectID": "contents/libs/ggmosaic/working.html",
@@ -1157,7 +1165,8 @@
     "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ggmosaic\")\n\n\n\n\nCode\nlibrary(ggmosaic)\nlibrary(showtext)\nlibrary(dplyr)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 はじめに\nggmosaicで美しいモザイクプロットを作成することができる。\nHPが再発サイトである。\n\n\n2 Example\n\n\nCode\nhappy %&gt;% \n  mutate(finrela = forcats::fct_recode(finrela,\n    \"far below     \" = \"far below average\",\n    \"    below\" = \"below average\",\n    \"average\" = \"average\",\n    \"above    \" = \"above average\", \n    \"l\\n   far above\" = \"far above average\")) %&gt;% \n  ggplot() +\n  geom_mosaic(aes(x = product(finrela), fill=health), show.legend = FALSE) +\n  theme_mosaic() +\n  scale_fill_manual(values = c(\"#4575B4\", \"#ABD9E9\", \"#FEE090\", \"#F46D43\"))\n#&gt; Warning: `unite_()` was deprecated in tidyr 1.2.0.\n#&gt; ℹ Please use `unite()` instead.\n#&gt; ℹ The deprecated feature was likely used in the ggmosaic package.\n#&gt;   Please report the issue at &lt;https://github.com/haleyjeppson/ggmosaic&gt;.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "libs",
-      "ggmosaic"
+      "ggmosaic",
+      "Introduction"
     ]
   },
   {
@@ -1168,7 +1177,8 @@
     "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/gganimate\")\n\n\n\n1 はじめに\n\nGithub\n\n\n\n2 An Example\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "libs",
-      "gganimate"
+      "gganimate",
+      "Introduction"
     ]
   },
   {
@@ -1179,7 +1189,8 @@
     "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ComplexHeatmap\")\n\n\n\n\nCode\nlibrary(ComplexHeatmap)\nlibrary(showtext)\nlibrary(dplyr)\nlibrary(ggplot2)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 はじめに\nComplexHeatmapで美しいモザイクプロットを作成することができる。\n\n\n2 Example\n\n\nCode\nif (!requireNamespace(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ComplexHeatmap\")\nlibrary(ComplexHeatmap)\n\n\n\n\nCode\n# サンプルデータの生成\nset.seed(123)\ndata &lt;- matrix(rnorm(100), nrow=10, ncol=10)\n\n# ヒートマップの作成\nHeatmap(data, \n        name = \"my_heatmap\", \n        cluster_rows = TRUE, \n        cluster_columns = TRUE,\n        show_row_dend = TRUE, \n        show_column_dend = TRUE)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "libs",
-      "ComplexHeatmap"
+      "ComplexHeatmap",
+      "Introduction"
     ]
   },
   {
@@ -2070,7 +2081,8 @@
     "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/GGally\")\nCode\n library(ComplexHeatmap)\nlibrary(ggplot2)\nlibrary(tidyverse)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
     "crumbs": [
       "libs",
-      "GGally"
+      "GGally",
+      "Introduction"
     ]
   },
   {
@@ -2081,7 +2093,8 @@
     "text": "2.1 ggparcoord\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           showPoints = TRUE) +\n           scale_color_brewer(palette = \"Set2\") \n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           splineFactor = TRUE) +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\nスケールを色々と変更することが可能である。\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"robust\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"uniminmax\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"globalminmax\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"center\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"centerObs\") +\n           scale_color_brewer(palette = \"Set2\")",
     "crumbs": [
       "libs",
-      "GGally"
+      "GGally",
+      "Introduction"
     ]
   },
   {
@@ -2092,7 +2105,8 @@
     "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ggfit\")\nCode\npackages &lt;- c(\n  \"tidyverse\", \n  \"magick\",\n  \"ggplot2\", \n  \"readr\", \n  \"tibble\", \n  \"tidyr\", \n  \"forcats\", \n  \"stringr\",\n  \"lubridate\", \n  \"here\", \n  \"systemfonts\", \n  \"magick\", \n  \"scales\", \n  \"grid\",\n  \"grDevices\", \n  \"colorspace\", \n  \"viridis\", \n  \"RColorBrewer\", \n  \"rcartocolor\",\n  \"scico\", \n  \"ggsci\", \n  \"ggthemes\", \n  \"nord\", \n  \"MetBrewer\", \n  \"ggrepel\",\n  \"ggforce\",\n  \"ggtext\", \n  \"ggfittext\",\n  \"ggdist\", \n  \"ggbeeswarm\", \n  \"gghalves\", \n  \"patchwork\", \n  \"palmerpenguins\", \n  \"rnaturalearth\", \n  \"sf\", \n  \"rmapshaper\", \n  \"devtools\", \n  \"extrafont\"\n) |&gt; lapply(\\(x) library(x, character.only = TRUE))\nlibrary(cowplot)\nlibrary(colorblindr)\n\n\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2103,7 +2117,8 @@
     "text": "2.1 Fitting text inside a box\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text()",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2114,7 +2129,8 @@
     "text": "2.2 Reflowing text\n\n\nCode\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE)",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2125,7 +2141,8 @@
     "text": "2.3 Growing text\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE, grow = TRUE)",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2136,7 +2153,8 @@
     "text": "2.4 Placing text\n\n\nCode\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(place = \"topleft\", reflow = TRUE)",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2147,7 +2165,8 @@
     "text": "2.5 Bar plots\ngeom_bar_textを使うだけで簡単に作成することができてしまう。\n\n\nCode\n\nggplot(altitudes, aes(x = craft, y = altitude, label = altitude)) +\n  geom_col() +\n  geom_bar_text()\n\n\n\n\n\n\n\n\n\n\n\nCode\n\nggplot(beverages, aes(x = beverage, y = proportion, label = ingredient,\n                    fill = ingredient)) +\n  geom_col(position = \"stack\") +\n  geom_bar_text(position = \"stack\", reflow = TRUE)\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(beverages, aes(x = beverage, y = proportion, label = ingredient,\n                    fill = ingredient)) +\n  geom_col(position = \"dodge\") +\n  geom_bar_text(position = \"dodge\", grow = TRUE, reflow = TRUE, \n                place = \"left\") +\n  coord_flip()\n\n\n\n\n\n\n\n\n\nリッチなテクストを配置することも可能である。\n\n\nCode\nggplot(animals_rich, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE, grow = TRUE, rich = TRUE)",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2158,7 +2177,8 @@
     "text": "2.6 Specifying the box limits\n\n\nCode\nggplot(presidential, aes(ymin = start, ymax = end, x = party, label = name)) +\n  geom_fit_text(grow = TRUE) +\n  geom_errorbar(alpha = 0.5)",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2169,7 +2189,8 @@
     "text": "2.7 Experimental feaure: text inpolar coordinates\n\n\nCode\np &lt;- ggplot(gold, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, \n                 fill = linenumber, label = line)) +\n  coord_polar() +\n  geom_rect() +\n  scale_fill_gradient(low = \"#fee391\", high = \"#238443\")\n\np + geom_fit_text(min.size = 0, grow = TRUE)",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2180,7 +2201,8 @@
     "text": "2.8 Other useful arguments\ncontrastパラメータは自動でテキストの色を反転させることができる。\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, fill = mass, label = animal)) +\n  geom_tile() +\n  geom_fit_text(reflow = TRUE, grow = TRUE, contrast = TRUE)",
     "crumbs": [
       "libs",
-      "ggfittext"
+      "ggfittext",
+      "Introduction"
     ]
   },
   {
@@ -2191,7 +2213,8 @@
     "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ggtext\")\nCode\npackages &lt;- c(\n  \"tidyverse\", \n  \"magick\",\n  \"ggplot2\", \n  \"readr\", \n  \"tibble\", \n  \"tidyr\", \n  \"forcats\", \n  \"stringr\",\n  \"lubridate\", \n  \"here\", \n  \"systemfonts\", \n  \"magick\", \n  \"scales\", \n  \"grid\",\n  \"grDevices\", \n  \"colorspace\", \n  \"viridis\", \n  \"RColorBrewer\", \n  \"rcartocolor\",\n  \"scico\", \n  \"ggsci\", \n  \"ggthemes\", \n  \"nord\", \n  \"MetBrewer\", \n  \"ggrepel\",\n  \"ggforce\",\n  \"ggtext\", \n  \"ggdist\", \n  \"ggbeeswarm\", \n  \"gghalves\", \n  \"patchwork\", \n  \"palmerpenguins\", \n  \"rnaturalearth\", \n  \"sf\", \n  \"rmapshaper\", \n  \"devtools\", \n  \"extrafont\"\n) |&gt; lapply(\\(x) library(x, character.only = TRUE))\nlibrary(cowplot)\nlibrary(colorblindr)\n\n\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
     "crumbs": [
       "libs",
-      "ggtext"
+      "ggtext",
+      "Introduction"
     ]
   },
   {
@@ -2202,7 +2225,8 @@
     "text": "2.1 Markdown in theme elements\nthemeでelementを指定することで、html要素を使うことが可能となる。 たとえば&lt;br&gt;で改行したり、iタグでCSSを当てたりすることができる.\n\n\nCode\nlibrary(tidyverse)\nlibrary(ggtext)\nlibrary(glue)\n\ndata &lt;- tibble(\n  bactname = c(\"Staphylococcaceae\", \"Moraxella\", \"Streptococcus\", \"Acinetobacter\"),\n  OTUname = c(\"OTU 1\", \"OTU 2\", \"OTU 3\", \"OTU 4\"),\n  value = c(-0.5, 0.5, 2, 3)\n)\n\ndata %&gt;% mutate(\n  color = c(\"#009E73\", \"#D55E00\", \"#0072B2\", \"#000000\"),\n  name = glue(\"&lt;i style='color:{color}'&gt;{bactname}&lt;/i&gt; ({OTUname})\"),\n  name = fct_reorder(name, value)\n)  %&gt;%\n  ggplot(aes(value, name, fill = color)) + \n  geom_col(alpha = 0.5) + \n  scale_fill_identity() +\n  labs(caption = \"Example posted on **stackoverflow.com**&lt;br&gt;(using made-up data)\") +\n  theme(\n    axis.text.y = element_markdown(),\n    plot.caption = element_markdown(lineheight = 1.2)\n  )\n\n\n\n\n\n\n\n\n\nimgタグを使うことも可能である。\n\n\nCode\nlabels &lt;- c(\n  setosa = \"&lt;img src='unnamed-chunk-6-1.png'\n    width='100' /&gt;&lt;br&gt;*I. setosa*\",\n  virginica = \"&lt;img src='unnamed-chunk-4-1.png'\n    width='100' /&gt;&lt;br&gt;*I. virginica*\",\n  versicolor = \"&lt;img src='unnamed-chunk-5-1.png'\n    width='100' /&gt;&lt;br&gt;*I. versicolor*\"\n)\n\nggplot(iris, aes(Species, Sepal.Width)) +\n  geom_boxplot() +\n  scale_x_discrete(\n    name = NULL,\n    labels = labels\n  ) +\n  theme(\n    axis.text.x = element_markdown(color = \"black\", size = 11)\n  )\n\n\n\n\n\n\n\n\n\ngeom_textbox_simpleなどでは、直接マークダウン要素を使うことが可能である。\n\n\nCode\nggplot(mtcars, aes(disp, mpg)) + \n  geom_point() +\n  labs(\n    title = \"&lt;b&gt;Fuel economy vs. engine displacement&lt;/b&gt;&lt;br&gt;\n    &lt;span style = 'font-size:10pt'&gt;Lorem ipsum *dolor sit amet,*\n    consectetur adipiscing elit, **sed do eiusmod tempor incididunt** ut\n    labore et dolore magna aliqua. &lt;span style = 'color:red;'&gt;Ut enim\n    ad minim veniam,&lt;/span&gt; quis nostrud exercitation ullamco laboris nisi\n    ut aliquip ex ea commodo consequat.&lt;/span&gt;\",\n    x = \"displacement (in&lt;sup&gt;3&lt;/sup&gt;)\",\n    y = \"Miles per gallon (mpg)&lt;br&gt;&lt;span style = 'font-size:8pt'&gt;A measure of\n    the car's fuel efficiency.&lt;/span&gt;\"\n  ) +\n  theme(\n    plot.title.position = \"plot\",\n    plot.title = element_textbox_simple(\n      size = 13,\n      lineheight = 1,\n      padding = margin(5.5, 5.5, 5.5, 5.5),\n      margin = margin(0, 0, 5.5, 0),\n      fill = \"cornsilk\"\n    ),\n    axis.title.x = element_textbox_simple(\n      width = NULL,\n      padding = margin(4, 4, 4, 4),\n      margin = margin(4, 0, 0, 0),\n      linetype = 1,\n      r = grid::unit(8, \"pt\"),\n      fill = \"azure1\"\n    ),\n    axis.title.y = element_textbox_simple(\n      hjust = 0,\n      orientation = \"left-rotated\",\n      minwidth = unit(1, \"in\"),\n      maxwidth = unit(2, \"in\"),\n      padding = margin(4, 4, 2, 4),\n      margin = margin(0, 0, 2, 0),\n      fill = \"lightsteelblue1\"\n    )\n  )\n\n\n\n\n\n\n\n\n\nfacetのラベルにも使うことが可能である。\n\n\nCode\n\nlibrary(cowplot)\n\nggplot(mpg, aes(cty, hwy)) + \n  geom_point() +\n  facet_wrap(~class) +\n  theme_half_open(12) +\n  background_grid() +\n  theme(\n    strip.background = element_blank(),\n    strip.text = element_textbox(\n      size = 12,\n      color = \"white\", fill = \"#5D729D\", box.color = \"#4A618C\",\n      halign = 0.5, linetype = 1, r = unit(5, \"pt\"), width = unit(1, \"npc\"),\n      padding = margin(2, 0, 1, 0), margin = margin(3, 3, 3, 3)\n    )\n  )\n\n\n\n\n\n\n\n\n\nCode\n#&gt; Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.\n#&gt; Please use the `linewidth` argument instead.\n#&gt; Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.\n#&gt; Please use the `linewidth` argument instead.",
     "crumbs": [
       "libs",
-      "ggtext"
+      "ggtext",
+      "Introduction"
     ]
   },
   {
@@ -2213,7 +2237,8 @@
     "text": "2.2 Geoms\ngeom_richtextを使うとテキストボックスの加工が色々と可能となる。\n\n\nCode\ndf &lt;- tibble(\n  label = c(\n    \"Some text **in bold.**\",\n    \"Linebreaks&lt;br&gt;Linebreaks&lt;br&gt;Linebreaks\",\n    \"*x*&lt;sup&gt;2&lt;/sup&gt; + 5*x* + *C*&lt;sub&gt;*i*&lt;/sub&gt;\",\n    \"Some &lt;span style='color:blue'&gt;blue text **in bold.**&lt;/span&gt;&lt;br&gt;And *italics text.*&lt;br&gt;\n    And some &lt;span style='font-size:18pt; color:black'&gt;large&lt;/span&gt; text.\"\n  ),\n  x = c(.2, .1, .5, .9),\n  y = c(.8, .4, .1, .5),\n  hjust = c(0.5, 0, 0, 1),\n  vjust = c(0.5, 1, 0, 0.5),\n  angle = c(0, 0, 45, -45),\n  color = c(\"black\", \"blue\", \"black\", \"red\"),\n  fill = c(\"cornsilk\", \"white\", \"lightblue1\", \"white\")\n)\n\n\nggplot(df) +\n  aes(\n    x, y, label = label, angle = angle, color = color, fill = fill,\n    hjust = hjust, vjust = vjust\n  ) +\n  geom_richtext() +\n  geom_point(color = \"black\", size = 2) +\n  scale_color_identity() +\n  scale_fill_identity() +\n  xlim(0, 1) + ylim(0, 1)\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df) +\n  aes(\n    x, y, label = label, angle = angle, color = color,\n    hjust = hjust, vjust = vjust\n  ) +\n  geom_richtext(\n    fill = NA, label.color = NA, # remove background and outline\n    label.padding = grid::unit(rep(0, 4), \"pt\") # remove padding\n  ) +\n  geom_point(color = \"black\", size = 2) +\n  scale_color_identity() +\n  xlim(0, 1) + ylim(0, 1)\n\n\n\n\n\n\n\n\n\ngeom_textboxは、word wrapさせることも可能である。ただし、回転角度についてはサポートされれていない。\n\n\nCode\n\ndf &lt;- tibble(\n  label = rep(\"Lorem ipsum dolor **sit amet,** consectetur adipiscing elit,\n    sed do *eiusmod tempor incididunt* ut labore et dolore magna\n    aliqua.\", 2),\n  x = c(0, .6),\n  y = c(1, .6),\n  hjust = c(0, 0),\n  vjust = c(1, 0),\n  orientation = c(\"upright\", \"right-rotated\"),\n  color = c(\"black\", \"blue\"),\n  fill = c(\"cornsilk\", \"white\")\n)\n\nggplot(df) +\n  aes(\n    x, y, label = label, color = color, fill = fill,\n    hjust = hjust, vjust = vjust,\n    orientation = orientation\n  ) +\n  geom_textbox(width = unit(0.4, \"npc\")) +\n  geom_point(color = \"black\", size = 2) +\n  scale_discrete_identity(aesthetics = c(\"color\", \"fill\", \"orientation\")) +\n  xlim(0, 1) + ylim(0, 1)",
     "crumbs": [
       "libs",
-      "ggtext"
+      "ggtext",
+      "Introduction"
     ]
   },
   {
@@ -2221,9 +2246,10 @@
     "href": "contents/libs/igraph/r_interface.html",
     "title": "igraph",
     "section": "",
-    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/igraph\")\n\n\n\n\nCode\nbox::use(\n  igraph[...],\n  ggplot2[...],\n  cowplot[...], \n  showtext[showtext_auto], \n  sysfonts[font_add_google],\n)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 Create a graph\n\n\nCode\ng &lt;- make_empty_graph()\n\ng\n#&gt; IGRAPH b3eb4e8 D--- 0 0 -- \n#&gt; + edges from b3eb4e8:\n\n\n\nmake_graph系はエッジからグラフを構築する\n10個の頂点と2のエッジからなるグラフは次である\n\nedgeは1to2, 1to5の2つである\n\n\n\n\nCode\ng &lt;- make_graph(\n  edges = c(1, 2,\n            1, 5), \n  n = 10, \n  directed = FALSE\n)\ng\n#&gt; IGRAPH b3f59b2 U--- 10 2 -- \n#&gt; + edges from b3f59b2:\n#&gt; [1] 1--2 1--5\n\n\n\n\nCode\nplot(g)\n\n\n\n\n\n\n\n\n\n特殊な式でエッジを指定することも可能である。 ~からはじめることで次のようにエッジを指定できる\n\n\nCode\n# ノードはエッジと重複していても大丈夫である\nmake_graph(\n  ~ 1--2, 1--5, 3, 4, 5\n) |&gt; plot()\n\n\n\n\n\n\n\n\n\nグラフの名前を使ってグラフを構築することも可能である。 たとえば、Zacharyというグラフは次のように構築できる\n\n\nCode\nmake_graph(\"Zachary\") |&gt; plot()\n\n\n\n\n\n\n\n\n\nより詳しい詳細はこの後のチュートリアルに追記される。\n\n\n2 Vertex and edge IDs\nigraphの頂点とエッジはそれぞれ数値IDを有してる。 頂点のIDは必ず1からはじまる。また数値IDは連続しています。 たとえばサブグラフが構築されたときには、 サブグラフの中で頂点番号が振り直されます。 *Pythonとかは0からはじまるので注意すること。\n\n\n3 Adding/deleting vertices and edges\n\n\nCode\ng &lt;- make_empty_graph()\ng &lt;- add_vertices(g, 3) # 頂点を3つ追加する\nplot(g)\n\n\n\n\n\n\n\n\n\nもう一度頂点を追加してみる。頂点が３つ追加されて、６つになっていることがわかる。\n\n\nCode\ng &lt;- add_vertices(g, 3)\nplot(g)\n\n\n\n\n\n\n\n\n\n次はエッジを追加する。存在しない頂点番号を指定するとエラーになる。\n\n\nCode\ng &lt;- add_edges(g, edges = c(1, 3, 1, 6, 3, 4))\nplot(g)\n\n\n\n\n\n\n\n\n\n次の記法でも追加することが出来る。 ただしadd_edgesを使う方が効率的である。\n\n\nCode\ng + edges(c(2, 5))\n#&gt; IGRAPH b45a58d D--- 6 4 -- \n#&gt; + edges from b45a58d:\n#&gt; [1] 1-&gt;3 1-&gt;6 3-&gt;4 2-&gt;5\n\n\nより複雑な追加をしてみる.\n\n\nCode\ng &lt;- \n  make_graph(\"Zachary\") |&gt; \n  add_edges(edges = c(1, 34)) |&gt; \n  add_vertices(6) |&gt; \n  add_edges(edges = c(38, 39, 39, 40, 40, 38, 40, 37))\n\ng\n#&gt; IGRAPH b460e3c U--- 40 83 -- Zachary\n#&gt; + attr: name (g/c)\n#&gt; + edges from b460e3c:\n#&gt;  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12\n#&gt; [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14\n#&gt; [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10\n#&gt; [31]  3-- 9  3--14  4-- 8  4--13  4--14  5-- 7  5--11  6-- 7  6--11  6--17\n#&gt; [41]  7--17  9--31  9--33  9--34 10--34 14--34 15--33 15--34 16--33 16--34\n#&gt; [51] 19--33 19--34 20--34 21--33 21--34 23--33 23--34 24--26 24--28 24--33\n#&gt; [61] 24--34 24--30 25--26 25--28 25--32 26--32 27--30 27--34 28--34 29--32\n#&gt; [71] 29--34 30--33 30--34 31--33 31--34 32--33 32--34 33--34  1--34 38--39\n#&gt; + ... omitted several edges\n\n\nVertexのIDは常に1からはじまり連続的である。 Vertexがrenumberedされたとき、エッジはrenumberedされない。 しかし、エッジの頂点はrenumberedされる。\ndelete_verticesとdelete_edgesを使い操作してみる。\n\n\nCode\n# エッジ番号\nget.edge.ids(g, c(1, 34))\n#&gt; [1] 79\n\n\n\n\nCode\n# delete\ng &lt;- delete_edges(g, 79)\nget.edge.ids(g, c(1, 34)) # return 0\n#&gt; [1] 0\n\n\n例題として次のグラフを考える。リングを作成して、1と10のエッジを削除する。\n\n\nCode\ng &lt;- make_ring(10) %&gt;% delete_edges(\"10|1\")\nplot(g)\n\n\n\n\n\n\n\n\n\n同様に色々試す。\n\n\nCode\ng &lt;- make_ring(5)\ng &lt;- delete_edges(g, get.edge.ids(g, c(1,5, 4,5)))\nplot(g)\n\n\n\n\n\n\n\n\n\nリテラル表現のグラフ構造である。\n\n\nCode\ng1 &lt;- graph_from_literal(A-B:C:I, B-A:C:D, C-A:B:E:H, D-B:E:F,\n                         E-C:D:F:H, F-D:E:G, G-F:H, H-C:E:G:I,\n                         I-A:H)\nplot(g1)\n\n\n\n\n\n\n\n\n\nグラフがchordalであるのかを判定し、足りないエッジを調べる。\n\n\nCode\nis_chordal(g1, fillin=TRUE)\n#&gt; $chordal\n#&gt; [1] FALSE\n#&gt; \n#&gt; $fillin\n#&gt;  [1] 2 6 8 7 5 7 2 7 6 1 7 1\n#&gt; \n#&gt; $newgraph\n#&gt; NULL\n\n\n足りないエッジを追加する。\n\n\nCode\nchordal_graph &lt;- add_edges(g1, is_chordal(g1, fillin=TRUE)$fillin)\nplot(chordal_graph)\n\n\n\n\n\n\n\n\n\n\n\n4 Constucting graphs\n\n\n5 Setting and retrieving graph\n\n\n6 Structural properties\n\n\n7 Querying the graph\n\n\n8 Treating a graph as an adjacency\n\n\n9 Layouts and plotting\n\n\n10 igraph and the outside world\n\n\n11 where to go next\n\n\n12 Session info\n\n\n\n\n\n\n Back to top",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/igraph\")\n\n\n\n\nCode\nbox::use(\n  igraph[...],\n  ggplot2[...],\n  cowplot[...], \n  showtext[showtext_auto], \n  sysfonts[font_add_google],\n)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 Create a graph\n\n\nCode\ng &lt;- make_empty_graph()\n\ng\n#&gt; IGRAPH a16e811 D--- 0 0 -- \n#&gt; + edges from a16e811:\n\n\n\nmake_graph系はエッジからグラフを構築する\n10個の頂点と2のエッジからなるグラフは次である\n\nedgeは1to2, 1to5の2つである\n\n\n\n\nCode\ng &lt;- make_graph(\n  edges = c(1, 2,\n            1, 5), \n  n = 10, \n  directed = FALSE\n)\ng\n#&gt; IGRAPH a178bde U--- 10 2 -- \n#&gt; + edges from a178bde:\n#&gt; [1] 1--2 1--5\n\n\n\n\nCode\nplot(g)\n\n\n\n\n\n\n\n\n\n特殊な式でエッジを指定することも可能である。 ~からはじめることで次のようにエッジを指定できる\n\n\nCode\n# ノードはエッジと重複していても大丈夫である\nmake_graph(\n  ~ 1--2, 1--5, 3, 4, 5\n) |&gt; plot()\n\n\n\n\n\n\n\n\n\nグラフの名前を使ってグラフを構築することも可能である。 たとえば、Zacharyというグラフは次のように構築できる\n\n\nCode\nmake_graph(\"Zachary\") |&gt; plot()\n\n\n\n\n\n\n\n\n\nより詳しい詳細はこの後のチュートリアルに追記される。\n\n\n2 Vertex and edge IDs\nigraphの頂点とエッジはそれぞれ数値IDを有してる。 頂点のIDは必ず1からはじまる。また数値IDは連続しています。 たとえばサブグラフが構築されたときには、 サブグラフの中で頂点番号が振り直されます。 *Pythonとかは0からはじまるので注意すること。\n\n\n3 Adding/deleting vertices and edges\n\n\nCode\ng &lt;- make_empty_graph()\ng &lt;- add_vertices(g, 3) # 頂点を3つ追加する\nplot(g)\n\n\n\n\n\n\n\n\n\nもう一度頂点を追加してみる。頂点が３つ追加されて、６つになっていることがわかる。\n\n\nCode\ng &lt;- add_vertices(g, 3)\nplot(g)\n\n\n\n\n\n\n\n\n\n次はエッジを追加する。存在しない頂点番号を指定するとエラーになる。\n\n\nCode\ng &lt;- add_edges(g, edges = c(1, 3, 1, 6, 3, 4))\nplot(g)\n\n\n\n\n\n\n\n\n\n次の記法でも追加することが出来る。 ただしadd_edgesを使う方が効率的である。\n\n\nCode\ng + edges(c(2, 5))\n#&gt; IGRAPH a1dfc57 D--- 6 4 -- \n#&gt; + edges from a1dfc57:\n#&gt; [1] 1-&gt;3 1-&gt;6 3-&gt;4 2-&gt;5\n\n\nより複雑な追加をしてみる.\n\n\nCode\ng &lt;- \n  make_graph(\"Zachary\") |&gt; \n  add_edges(edges = c(1, 34)) |&gt; \n  add_vertices(6) |&gt; \n  add_edges(edges = c(38, 39, 39, 40, 40, 38, 40, 37))\n\ng\n#&gt; IGRAPH a1e5a6e U--- 40 83 -- Zachary\n#&gt; + attr: name (g/c)\n#&gt; + edges from a1e5a6e:\n#&gt;  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12\n#&gt; [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14\n#&gt; [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10\n#&gt; [31]  3-- 9  3--14  4-- 8  4--13  4--14  5-- 7  5--11  6-- 7  6--11  6--17\n#&gt; [41]  7--17  9--31  9--33  9--34 10--34 14--34 15--33 15--34 16--33 16--34\n#&gt; [51] 19--33 19--34 20--34 21--33 21--34 23--33 23--34 24--26 24--28 24--33\n#&gt; [61] 24--34 24--30 25--26 25--28 25--32 26--32 27--30 27--34 28--34 29--32\n#&gt; [71] 29--34 30--33 30--34 31--33 31--34 32--33 32--34 33--34  1--34 38--39\n#&gt; + ... omitted several edges\n\n\nVertexのIDは常に1からはじまり連続的である。 Vertexがrenumberedされたとき、エッジはrenumberedされない。 しかし、エッジの頂点はrenumberedされる。\ndelete_verticesとdelete_edgesを使い操作してみる。\n\n\nCode\n# エッジ番号\nget.edge.ids(g, c(1, 34))\n#&gt; [1] 79\n\n\n\n\nCode\n# delete\ng &lt;- delete_edges(g, 79)\nget.edge.ids(g, c(1, 34)) # return 0\n#&gt; [1] 0\n\n\n例題として次のグラフを考える。リングを作成して、1と10のエッジを削除する。\n\n\nCode\ng &lt;- make_ring(10) %&gt;% delete_edges(\"10|1\")\nplot(g)\n\n\n\n\n\n\n\n\n\n同様に色々試す。\n\n\nCode\ng &lt;- make_ring(5)\ng &lt;- delete_edges(g, get.edge.ids(g, c(1,5, 4,5)))\nplot(g)\n\n\n\n\n\n\n\n\n\nリテラル表現のグラフ構造である。\n\n\nCode\ng1 &lt;- graph_from_literal(A-B:C:I, B-A:C:D, C-A:B:E:H, D-B:E:F,\n                         E-C:D:F:H, F-D:E:G, G-F:H, H-C:E:G:I,\n                         I-A:H)\nplot(g1)\n\n\n\n\n\n\n\n\n\nグラフがchordalであるのかを判定し、足りないエッジを調べる。\n\n\nCode\nis_chordal(g1, fillin=TRUE)\n#&gt; $chordal\n#&gt; [1] FALSE\n#&gt; \n#&gt; $fillin\n#&gt;  [1] 2 6 8 7 5 7 2 7 6 1 7 1\n#&gt; \n#&gt; $newgraph\n#&gt; NULL\n\n\n足りないエッジを追加する。\n\n\nCode\nchordal_graph &lt;- add_edges(g1, is_chordal(g1, fillin=TRUE)$fillin)\nplot(chordal_graph)\n\n\n\n\n\n\n\n\n\n\n\n4 Constucting graphs\nigraphにはここまで使ったmake_graph系以外にも多くのグラフ構築関数がある。 このグラフは127のノードを持ち、いずれノードも2つのエッジを持つ。\n\n\nCode\ngraph1 &lt;- make_tree(127, 2, mode = \"undirected\")\nsummary(graph1)\n#&gt; IGRAPH a2400a3 U--- 127 126 -- Tree\n#&gt; + attr: name (g/c), children (g/n), mode (g/c)\n\n\n\n\nCode\nplot(graph1)\n\n\n\n\n\n\n\n\n\n同じグラフを作成して、比較をしてみる。\n\n\nCode\ngraph2 &lt;- make_tree(127, 2, mode = \"undirected\")\nidentical_graphs(graph1, graph2)\n#&gt; [1] TRUE\n\n\nGRGsで同じパラメータを使うと異なる構造のグラフが生成される。\n\n\nCode\ngraph2 &lt;- sample_grg(100, .2)\nidentical_graphs(graph1, graph2)\n#&gt; [1] FALSE\n\n\n２つのグラフが同型であるか、つまり頂点と辺の数が同じで1対1に対応させられる場合である。\n\n\nCode\nisomorphic(graph1, graph2)\n#&gt; [1] FALSE\n\n\n\n\n5 Setting and retrieving graph\nVertexやEdgesはIDだけでなく属性を付与することができる。\n\n\nCode\ng &lt;- make_graph(~ Alice-Bob:Claire:Frank, Claire-Alice:Dennis:Frank:Esther,\n                George-Dennis:Frank, Dennis-Esther)\n\nplot(g)\n\n\n\n\n\n\n\n\n\n頂点は人を表していて、年齢や性別、関係性について追加したい。\n\n\nCode\nV(g)$age &lt;- c(25, 31, 18, 23, 47, 22, 50) \nV(g)$gender &lt;- c(\"f\", \"m\", \"f\", \"m\", \"m\", \"f\", \"m\")\nE(g)$is_formal &lt;- c(FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE)\nsummary(g)\n#&gt; IGRAPH a277a19 UN-- 7 9 -- \n#&gt; + attr: name (v/c), age (v/n), gender (v/c), is_formal (e/l)\n\n\nほかのやり方として次がある。\n\n\nCode\ng &lt;- make_graph(~ Alice-Bob:Claire:Frank, Claire-Alice:Dennis:Frank:Esther,\n                George-Dennis:Frank, Dennis-Esther) %&gt;%\n  set_vertex_attr(\"age\", value = c(25, 31, 18, 23, 47, 22, 50)) %&gt;%\n  set_vertex_attr(\"gender\", value = c(\"f\", \"m\", \"f\", \"m\", \"m\", \"f\", \"m\")) %&gt;%\n  set_edge_attr(\"is_formal\", value = c(FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE))\nsummary(g)\n#&gt; IGRAPH a293dcc UN-- 7 9 -- \n#&gt; + attr: name (v/c), age (v/n), gender (v/c), is_formal (e/l)\n\n\nグラフ自体に属性を設定することも可能である。\n\n\nCode\ng$date &lt;- c(\"2022-02-11\")\ngraph_attr(g, \"date\")\n#&gt; [1] \"2022-02-11\"\n\n\n属性を使ってIDを検索することが可能である。\n\n\nCode\nV(g)[match(c(\"George\"), V(g)$name)]\n#&gt; + 1/7 vertex, named, from a293dcc:\n#&gt; [1] George\n\n\n属性を削除することにする。\n\n\nCode\ng &lt;- delete_vertex_attr(g, \"gender\")\nV(g)$gender\n#&gt; NULL\n\n\n\n\n6 Structural properties\n\n\n7 Querying the graph\n\n\n8 Treating a graph as an adjacency\n\n\n9 Layouts and plotting\n\n\n10 igraph and the outside world\n\n\n11 where to go next\n\n\n12 Session info\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "libs",
+      "igraph",
       "igraph"
     ]
   },
@@ -2235,7 +2261,8 @@
     "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/treemapify\")\nCode\nlibrary(treemapify)\nlibrary(showtext)\nlibrary(dplyr)\nlibrary(ggplot2)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
     "crumbs": [
       "libs",
-      "treemapify"
+      "treemapify",
+      "Introduction"
     ]
   },
   {
@@ -2246,7 +2273,8 @@
     "text": "2.1 sample data\n\n\nCode\ngroup &lt;- paste(\"Group\", 1:9)\nsubgroup &lt;- c(\"A\", \"C\", \"B\", \"A\", \"A\",\n              \"C\", \"C\", \"B\", \"B\")\nvalue &lt;- c(7, 25, 50, 5, 16,\n           18, 30, 12, 41)\n\ndf &lt;- data.frame(group, subgroup, value) \ndf\n#&gt;     group subgroup value\n#&gt; 1 Group 1        A     7\n#&gt; 2 Group 2        C    25\n#&gt; 3 Group 3        B    50\n#&gt; 4 Group 4        A     5\n#&gt; 5 Group 5        A    16\n#&gt; 6 Group 6        C    18\n#&gt; 7 Group 7        C    30\n#&gt; 8 Group 8        B    12\n#&gt; 9 Group 9        B    41",
     "crumbs": [
       "libs",
-      "treemapify"
+      "treemapify",
+      "Introduction"
     ]
   },
   {
@@ -2257,7 +2285,8 @@
     "text": "2.2 Fill by categorical\n\n\nCode\nggplot(df, aes(area = value, fill = group)) +\n  geom_treemap()",
     "crumbs": [
       "libs",
-      "treemapify"
+      "treemapify",
+      "Introduction"
     ]
   },
   {
@@ -2268,7 +2297,8 @@
     "text": "2.3 Fill by the numerical variable\n\n\nCode\n\nggplot(df, aes(area = value, fill = value)) +\n  geom_treemap()",
     "crumbs": [
       "libs",
-      "treemapify"
+      "treemapify",
+      "Introduction"
     ]
   },
   {
@@ -2279,7 +2309,8 @@
     "text": "2.4 with label\n\n\nCode\nggplot(df, aes(area = value, fill = group, label = value)) +\n  geom_treemap() +\n  geom_treemap_text(colour = \"white\",\n                    place = \"centre\",\n                    size = 15)",
     "crumbs": [
       "libs",
-      "treemapify"
+      "treemapify",
+      "Introduction"
     ]
   },
   {
@@ -2290,7 +2321,8 @@
     "text": "2.5 label grow\n\n\nCode\nggplot(df, aes(area = value, fill = value, label = group)) +\n  geom_treemap() +\n  geom_treemap_text(colour = \"white\",\n                    place = \"centre\",\n                    size = 15,\n                    grow = TRUE)",
     "crumbs": [
       "libs",
-      "treemapify"
+      "treemapify",
+      "Introduction"
     ]
   },
   {
@@ -2301,7 +2333,8 @@
     "text": "2.6 sub group\n\n\nCode\nggplot(df, aes(area = value, fill = value,\n               label = group, subgroup = subgroup)) +\n  geom_treemap() +\n  geom_treemap_subgroup_border(colour = \"white\", size = 5) +\n  geom_treemap_subgroup_text(place = \"centre\", grow = TRUE,\n                             alpha = 0.25, colour = \"black\",\n                             fontface = \"italic\") +\n  geom_treemap_text(colour = \"white\", place = \"centre\",\n                    size = 15, grow = TRUE)",
     "crumbs": [
       "libs",
-      "treemapify"
+      "treemapify",
+      "Introduction"
     ]
   },
   {
@@ -2312,7 +2345,8 @@
     "text": "2.7 color customize\n\n\nCode\nggplot(df, aes(area = value, fill = group, label = value)) +\n  geom_treemap() +\n  geom_treemap_text(colour = \"white\",\n                    place = \"centre\",\n                    size = 15) +\n  scale_fill_brewer(palette = \"Blues\")",
     "crumbs": [
       "libs",
-      "treemapify"
+      "treemapify",
+      "Introduction"
     ]
   },
   {
