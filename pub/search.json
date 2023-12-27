@@ -2244,13 +2244,49 @@
   {
     "objectID": "contents/libs/igraph/r_interface.html",
     "href": "contents/libs/igraph/r_interface.html",
-    "title": "igraph",
+    "title": "R インターフェイス",
     "section": "",
-    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/igraph\")\n\n\n\n\nCode\nbox::use(\n  igraph[...],\n  ggplot2[...],\n  cowplot[...], \n  showtext[showtext_auto], \n  sysfonts[font_add_google],\n)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 Create a graph\n\n\nCode\ng &lt;- make_empty_graph()\n\ng\n#&gt; IGRAPH a16e811 D--- 0 0 -- \n#&gt; + edges from a16e811:\n\n\n\nmake_graph系はエッジからグラフを構築する\n10個の頂点と2のエッジからなるグラフは次である\n\nedgeは1to2, 1to5の2つである\n\n\n\n\nCode\ng &lt;- make_graph(\n  edges = c(1, 2,\n            1, 5), \n  n = 10, \n  directed = FALSE\n)\ng\n#&gt; IGRAPH a178bde U--- 10 2 -- \n#&gt; + edges from a178bde:\n#&gt; [1] 1--2 1--5\n\n\n\n\nCode\nplot(g)\n\n\n\n\n\n\n\n\n\n特殊な式でエッジを指定することも可能である。 ~からはじめることで次のようにエッジを指定できる\n\n\nCode\n# ノードはエッジと重複していても大丈夫である\nmake_graph(\n  ~ 1--2, 1--5, 3, 4, 5\n) |&gt; plot()\n\n\n\n\n\n\n\n\n\nグラフの名前を使ってグラフを構築することも可能である。 たとえば、Zacharyというグラフは次のように構築できる\n\n\nCode\nmake_graph(\"Zachary\") |&gt; plot()\n\n\n\n\n\n\n\n\n\nより詳しい詳細はこの後のチュートリアルに追記される。\n\n\n2 Vertex and edge IDs\nigraphの頂点とエッジはそれぞれ数値IDを有してる。 頂点のIDは必ず1からはじまる。また数値IDは連続しています。 たとえばサブグラフが構築されたときには、 サブグラフの中で頂点番号が振り直されます。 *Pythonとかは0からはじまるので注意すること。\n\n\n3 Adding/deleting vertices and edges\n\n\nCode\ng &lt;- make_empty_graph()\ng &lt;- add_vertices(g, 3) # 頂点を3つ追加する\nplot(g)\n\n\n\n\n\n\n\n\n\nもう一度頂点を追加してみる。頂点が３つ追加されて、６つになっていることがわかる。\n\n\nCode\ng &lt;- add_vertices(g, 3)\nplot(g)\n\n\n\n\n\n\n\n\n\n次はエッジを追加する。存在しない頂点番号を指定するとエラーになる。\n\n\nCode\ng &lt;- add_edges(g, edges = c(1, 3, 1, 6, 3, 4))\nplot(g)\n\n\n\n\n\n\n\n\n\n次の記法でも追加することが出来る。 ただしadd_edgesを使う方が効率的である。\n\n\nCode\ng + edges(c(2, 5))\n#&gt; IGRAPH a1dfc57 D--- 6 4 -- \n#&gt; + edges from a1dfc57:\n#&gt; [1] 1-&gt;3 1-&gt;6 3-&gt;4 2-&gt;5\n\n\nより複雑な追加をしてみる.\n\n\nCode\ng &lt;- \n  make_graph(\"Zachary\") |&gt; \n  add_edges(edges = c(1, 34)) |&gt; \n  add_vertices(6) |&gt; \n  add_edges(edges = c(38, 39, 39, 40, 40, 38, 40, 37))\n\ng\n#&gt; IGRAPH a1e5a6e U--- 40 83 -- Zachary\n#&gt; + attr: name (g/c)\n#&gt; + edges from a1e5a6e:\n#&gt;  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12\n#&gt; [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14\n#&gt; [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10\n#&gt; [31]  3-- 9  3--14  4-- 8  4--13  4--14  5-- 7  5--11  6-- 7  6--11  6--17\n#&gt; [41]  7--17  9--31  9--33  9--34 10--34 14--34 15--33 15--34 16--33 16--34\n#&gt; [51] 19--33 19--34 20--34 21--33 21--34 23--33 23--34 24--26 24--28 24--33\n#&gt; [61] 24--34 24--30 25--26 25--28 25--32 26--32 27--30 27--34 28--34 29--32\n#&gt; [71] 29--34 30--33 30--34 31--33 31--34 32--33 32--34 33--34  1--34 38--39\n#&gt; + ... omitted several edges\n\n\nVertexのIDは常に1からはじまり連続的である。 Vertexがrenumberedされたとき、エッジはrenumberedされない。 しかし、エッジの頂点はrenumberedされる。\ndelete_verticesとdelete_edgesを使い操作してみる。\n\n\nCode\n# エッジ番号\nget.edge.ids(g, c(1, 34))\n#&gt; [1] 79\n\n\n\n\nCode\n# delete\ng &lt;- delete_edges(g, 79)\nget.edge.ids(g, c(1, 34)) # return 0\n#&gt; [1] 0\n\n\n例題として次のグラフを考える。リングを作成して、1と10のエッジを削除する。\n\n\nCode\ng &lt;- make_ring(10) %&gt;% delete_edges(\"10|1\")\nplot(g)\n\n\n\n\n\n\n\n\n\n同様に色々試す。\n\n\nCode\ng &lt;- make_ring(5)\ng &lt;- delete_edges(g, get.edge.ids(g, c(1,5, 4,5)))\nplot(g)\n\n\n\n\n\n\n\n\n\nリテラル表現のグラフ構造である。\n\n\nCode\ng1 &lt;- graph_from_literal(A-B:C:I, B-A:C:D, C-A:B:E:H, D-B:E:F,\n                         E-C:D:F:H, F-D:E:G, G-F:H, H-C:E:G:I,\n                         I-A:H)\nplot(g1)\n\n\n\n\n\n\n\n\n\nグラフがchordalであるのかを判定し、足りないエッジを調べる。\n\n\nCode\nis_chordal(g1, fillin=TRUE)\n#&gt; $chordal\n#&gt; [1] FALSE\n#&gt; \n#&gt; $fillin\n#&gt;  [1] 2 6 8 7 5 7 2 7 6 1 7 1\n#&gt; \n#&gt; $newgraph\n#&gt; NULL\n\n\n足りないエッジを追加する。\n\n\nCode\nchordal_graph &lt;- add_edges(g1, is_chordal(g1, fillin=TRUE)$fillin)\nplot(chordal_graph)\n\n\n\n\n\n\n\n\n\n\n\n4 Constucting graphs\nigraphにはここまで使ったmake_graph系以外にも多くのグラフ構築関数がある。 このグラフは127のノードを持ち、いずれノードも2つのエッジを持つ。\n\n\nCode\ngraph1 &lt;- make_tree(127, 2, mode = \"undirected\")\nsummary(graph1)\n#&gt; IGRAPH a2400a3 U--- 127 126 -- Tree\n#&gt; + attr: name (g/c), children (g/n), mode (g/c)\n\n\n\n\nCode\nplot(graph1)\n\n\n\n\n\n\n\n\n\n同じグラフを作成して、比較をしてみる。\n\n\nCode\ngraph2 &lt;- make_tree(127, 2, mode = \"undirected\")\nidentical_graphs(graph1, graph2)\n#&gt; [1] TRUE\n\n\nGRGsで同じパラメータを使うと異なる構造のグラフが生成される。\n\n\nCode\ngraph2 &lt;- sample_grg(100, .2)\nidentical_graphs(graph1, graph2)\n#&gt; [1] FALSE\n\n\n２つのグラフが同型であるか、つまり頂点と辺の数が同じで1対1に対応させられる場合である。\n\n\nCode\nisomorphic(graph1, graph2)\n#&gt; [1] FALSE\n\n\n\n\n5 Setting and retrieving graph\nVertexやEdgesはIDだけでなく属性を付与することができる。\n\n\nCode\ng &lt;- make_graph(~ Alice-Bob:Claire:Frank, Claire-Alice:Dennis:Frank:Esther,\n                George-Dennis:Frank, Dennis-Esther)\n\nplot(g)\n\n\n\n\n\n\n\n\n\n頂点は人を表していて、年齢や性別、関係性について追加したい。\n\n\nCode\nV(g)$age &lt;- c(25, 31, 18, 23, 47, 22, 50) \nV(g)$gender &lt;- c(\"f\", \"m\", \"f\", \"m\", \"m\", \"f\", \"m\")\nE(g)$is_formal &lt;- c(FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE)\nsummary(g)\n#&gt; IGRAPH a277a19 UN-- 7 9 -- \n#&gt; + attr: name (v/c), age (v/n), gender (v/c), is_formal (e/l)\n\n\nほかのやり方として次がある。\n\n\nCode\ng &lt;- make_graph(~ Alice-Bob:Claire:Frank, Claire-Alice:Dennis:Frank:Esther,\n                George-Dennis:Frank, Dennis-Esther) %&gt;%\n  set_vertex_attr(\"age\", value = c(25, 31, 18, 23, 47, 22, 50)) %&gt;%\n  set_vertex_attr(\"gender\", value = c(\"f\", \"m\", \"f\", \"m\", \"m\", \"f\", \"m\")) %&gt;%\n  set_edge_attr(\"is_formal\", value = c(FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE))\nsummary(g)\n#&gt; IGRAPH a293dcc UN-- 7 9 -- \n#&gt; + attr: name (v/c), age (v/n), gender (v/c), is_formal (e/l)\n\n\nグラフ自体に属性を設定することも可能である。\n\n\nCode\ng$date &lt;- c(\"2022-02-11\")\ngraph_attr(g, \"date\")\n#&gt; [1] \"2022-02-11\"\n\n\n属性を使ってIDを検索することが可能である。\n\n\nCode\nV(g)[match(c(\"George\"), V(g)$name)]\n#&gt; + 1/7 vertex, named, from a293dcc:\n#&gt; [1] George\n\n\n属性を削除することにする。\n\n\nCode\ng &lt;- delete_vertex_attr(g, \"gender\")\nV(g)$gender\n#&gt; NULL\n\n\n\n\n6 Structural properties\n\n\n7 Querying the graph\n\n\n8 Treating a graph as an adjacency\n\n\n9 Layouts and plotting\n\n\n10 igraph and the outside world\n\n\n11 where to go next\n\n\n12 Session info\n\n\n\n\n\n\n Back to top",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/igraph\")\nCode\nbox::use(\n  igraph[..., V, E],\n  ggplot2[...],\n  cowplot[...], \n  showtext[showtext_auto], \n  sysfonts[font_add_google],\n)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
     "crumbs": [
       "libs",
       "igraph",
-      "igraph"
+      "R インターフェイス"
+    ]
+  },
+  {
+    "objectID": "contents/libs/igraph/r_interface.html#selecting-vertices",
+    "href": "contents/libs/igraph/r_interface.html#selecting-vertices",
+    "title": "R インターフェイス",
+    "section": "7.1 Selecting vertices",
+    "text": "7.1 Selecting vertices\n\n\nCode\n# 最も辺が多い頂点\nwhich.max(degree(g))\n#&gt; Claire \n#&gt;      3\n\n\n1を除いた奇数個のエッジを持つ頂点を探す.\n\n\nCode\ngraph &lt;- graph.full(10)\nonly_odd_vertices &lt;- which(V(graph) %% 2 == 1)\nlength(only_odd_vertices)\n#&gt; [1] 5\n\n\n属性を使いフィルターすることも可能である。\n\n\nCode\nV(g)[age &lt; 30]\n#&gt; + 4/7 vertices, named, from 220d792:\n#&gt; [1] Alice  Claire Frank  Esther",
+    "crumbs": [
+      "libs",
+      "igraph",
+      "R インターフェイス"
+    ]
+  },
+  {
+    "objectID": "contents/libs/igraph/r_interface.html#selecting-edges",
+    "href": "contents/libs/igraph/r_interface.html#selecting-edges",
+    "title": "R インターフェイス",
+    "section": "7.2 Selecting edges",
+    "text": "7.2 Selecting edges\n.toや.fromを使うことで、エッジのフィルターが可能となる。\n\n\nCode\nE(g)[.from(\"Alice\")]\n#&gt; + 3/9 edges from 220d792 (vertex names):\n#&gt; [1] Alice--Bob    Alice--Claire Alice--Frank\n\n\n\n\nCode\nE(g)[.from(3)]\n#&gt; + 4/9 edges from 220d792 (vertex names):\n#&gt; [1] Alice --Claire Claire--Frank  Claire--Dennis Claire--Esther\n\n\n%--%オペレータを使うことでエッジを頂点グループで指定することができる。 頂点グループの指定方法はcでもいいし、色々と使うことができる。\n\n\nCode\nE(g)[c(1, 2) %--% V(g)]\n#&gt; + 3/9 edges from 220d792 (vertex names):\n#&gt; [1] Alice--Bob    Alice--Claire Alice--Frank\n\n\n%--%はname属性でも動かすことができる.\n\n\nCode\nV(g)$gender &lt;-  c(\"f\", \"m\", \"f\", \"m\", \"m\", \"f\", \"m\")\nmen &lt;- V(g)[gender == \"m\"]$name\nwomen &lt;- V(g)[gender == \"f\"]$name\nE(g)[men %--% women]\n#&gt; + 5/9 edges from 220d792 (vertex names):\n#&gt; [1] Alice --Bob    Alice --Frank  Claire--Frank  Claire--Dennis Dennis--Esther",
+    "crumbs": [
+      "libs",
+      "igraph",
+      "R インターフェイス"
+    ]
+  },
+  {
+    "objectID": "contents/libs/igraph/r_interface.html#write_graphread_graph",
+    "href": "contents/libs/igraph/r_interface.html#write_graphread_graph",
+    "title": "R インターフェイス",
+    "section": "10.1 write_graph/read_graph",
+    "text": "10.1 write_graph/read_graph\n\n\nCode\ng &lt;- make_ring(10)\nfile &lt;- tempfile(fileext = \".txt\")\nwrite_graph(g, file, \"edgelist\")\n\n\nplot(g)\n\n\n\n\n\n\n\n\n\n\n\nCode\nplot(read_graph(file, \"edgelist\", directed = FALSE))",
+    "crumbs": [
+      "libs",
+      "igraph",
+      "R インターフェイス"
     ]
   },
   {
