@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tips - ch10 合成コントロール</title>
+<title>R Tips - corrr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../contents/books/02_因果推論ミックステープ/ch11_結論.html" rel="next">
-<link href="../../../contents/books/02_因果推論ミックステープ/ch09_差分の差デザイン.html" rel="prev">
+<link href="../../../contents/libs/ComplexHeatmap/working.html" rel="next">
+<link href="../../../contents/libs/treemapify/working.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -75,6 +75,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -288,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/books/02_因果推論ミックステープ/index.html">因果推論ミックステープ</a></li><li class="breadcrumb-item"><a href="../../../contents/books/02_因果推論ミックステープ/ch10_合成コントロール法.html">ch10 合成コントロール</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">libs</li><li class="breadcrumb-item"><a href="../../../contents/libs/corrr/working.html">corrr</a></li><li class="breadcrumb-item"><a href="../../../contents/libs/corrr/working.html">Introduction</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -311,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">R</span></a>
+ <span class="menu-text">libs</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -320,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Rによる実証分析2e</span></a>
+ <span class="menu-text">ggtext</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -328,163 +331,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../contents/libs/ggtext/working.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch01_回帰分析の目的.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch01 回帰分析の目的</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch02_統計の基礎知識.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch02 統計の基礎知識</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch03_確率論の基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch03 確率論の基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch04_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch04 回帰分析の基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch05_推測統計の基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch05 推測統計の基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch06_相関関係と因果関係.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch06 相関関係と因果関係</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch07_外生変数と内生変数.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch07 内生変数と外生変数</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch08_ランダム化実験.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch08 ランダム化実験</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch09_マッチング法.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch09 マッチング法</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch10_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch10 回帰不連続デザイン</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch11_操作変数法.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch11 操作変数法</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/01_Rによる実証分析_2e/ch12_パネルデータ.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch12 パネルデータ</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">因果推論ミックステープ</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">ggfittext</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../contents/libs/ggfittext/working.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch01_導入.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch01 導入</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch02_確率と回帰の概要.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch02 確率と回帰の概要</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch03_非巡回的有向グラフ.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch03 非巡回的有向グラフ</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch04_潜在アウトカム因果モデル.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch04 潜在アウトカム因果モデル</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch05_マッチングと層別化.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch05 マッチングと層別化</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch06_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch06 回帰不連続デザイン</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch07_操作変数.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch07 操作変数</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch08_パネルデータ.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch08 パネルデータ</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch09_差分の差デザイン.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch09 差分の差デザイン</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch10_合成コントロール法.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">ch10 合成コントロール</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/02_因果推論ミックステープ/ch11_結論.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch11 結論</span></a>
   </div>
 </li>
       </ul>
@@ -492,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
- <span class="menu-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+ <span class="menu-text">gganimate</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -500,50 +365,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../contents/libs/gganimate/working.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch01_本書の狙い.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch01 本書のねらい</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch02_プログラミングの基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch02 プログラミングの基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch03_乱数生成シミュレーションの基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch03 乱数生成シミュレーションの基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch04_母数の推定のシミュレーション.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch04 母数の推定</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch05_統計検定の論理とエラー確率のコントロール - コピー (2).html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch05 統計検定の論理</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch06_適切な検定のためのサンプルサイズ設計.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch06 サンプルサイズ</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch07_回帰分析とシミュレーション.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">ch07 回帰分析</span></a>
   </div>
 </li>
       </ul>
@@ -551,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">統計的因果推論の理論と実際</span></a>
+ <span class="menu-text">ggmosaic</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -559,104 +382,116 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../contents/libs/ggmosaic/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">treemapify</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/treemapify/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">corrr</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/corrr/working.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">ComplexHeatmap</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/ComplexHeatmap/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">GGally</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/GGally/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">sf</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/sf/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">igraph</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/libs/igraph/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/101_統計的因果推論の基礎の基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">基礎の基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/102_潜在的結果変数の枠組み.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">潜在的結果変数の枠組み</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/103_統計的因果推論における重要な仮定.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">重要な仮定</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/104_推測統計の基礎：標準誤差と信頼区間.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">標準誤差と信頼区間</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/105_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">回帰分析の基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/106_図で理解する重回帰モデルの基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">重回帰分析の基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/107_最小二乗法による重回帰モデルの仮定と診断1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">最小二乗法の仮定と診断1</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/108_最小二乗法による重回帰モデルの仮定と診断2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">最小二乗法の仮定と診断2</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/109_交互作用項のある共分散分析.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">交互作用項のある共分散分析</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/110_傾向スコア.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">傾向スコア</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/111_傾向スコアマッチング.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">傾向スコアマッチング</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/112_傾向スコアによる層化解析法および重み付き法.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">傾向スコアによる層化解析法および重み付き法</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/113_操作変数法の基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">操作変数法の基礎</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/114_操作変数法による非遵守への対処.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">操作変数の非遵守への対処</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/115_回帰不連続デザインの基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">回帰不連続デザイン</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../contents/books/05_統計的因果推論の理論と実際/119_欠測データ処理の基礎.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">欠損データ処理</span></a>
+  <a href="../../../contents/libs/igraph/r_interface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R インターフェイス</span></a>
   </div>
 </li>
       </ul>
@@ -668,27 +503,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/books/02_因果推論ミックステープ/index.html">因果推論ミックステープ</a></li><li class="breadcrumb-item"><a href="../../../contents/books/02_因果推論ミックステープ/ch10_合成コントロール法.html">ch10 合成コントロール</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">libs</li><li class="breadcrumb-item"><a href="../../../contents/libs/corrr/working.html">corrr</a></li><li class="breadcrumb-item"><a href="../../../contents/libs/corrr/working.html">Introduction</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">ch10 合成コントロール</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">corrr</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta column-body">
 
     
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 26, 2023</p>
+      <p class="date-modified">January 5, 2024</p>
     </div>
   </div>
     
@@ -699,10 +540,168 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/corr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(corrr)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
+<p>corrrは相関係数をデータフレームでハンドリングできるパッケージである。</p>
+<p><a href="https://corrr.tidymodels.org/">corrr</a>が公式サイトである。</p>
+<p><code>correlate</code>で相関係数を計算して、データフレームとしての相関係数行列を各種APIでハンドリングするのが主な流れである。</p>
+<p><code>NA</code>が含まれる場合は、<code>correlate</code>の引数に<code>use = "pairwise.complete.obs"</code>を指定する。 デフォルトでは指定されている。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>cor_df <span class="ot">&lt;-</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  iris <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">correlate</span>() </span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; Correlation computed with</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; • Method: 'pearson'</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; • Missing treated using: 'pairwise.complete.obs'</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a>cor_df</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; # A tibble: 4 × 5</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;   term         Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;   &lt;chr&gt;               &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; 1 Sepal.Length       NA          -0.118        0.872       0.818</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; 2 Sepal.Width        -0.118      NA           -0.428      -0.366</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 3 Petal.Length        0.872      -0.428       NA           0.963</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; 4 Petal.Width         0.818      -0.366        0.963      NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>cor_df <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="co"># 下△成分だけを取り出す</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">shave</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="co"># ロングフォーマットに変換する</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">stretch</span>()<span class="co"># |&gt; </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; # A tibble: 16 × 3</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;    x            y                 r</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;  1 Sepal.Length Sepal.Length NA    </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  2 Sepal.Length Sepal.Width  -0.118</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  3 Sepal.Length Petal.Length  0.872</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  4 Sepal.Length Petal.Width   0.818</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  5 Sepal.Width  Sepal.Length NA    </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  6 Sepal.Width  Sepal.Width  NA    </span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;  7 Sepal.Width  Petal.Length -0.428</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;  8 Sepal.Width  Petal.Width  -0.366</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;  9 Petal.Length Sepal.Length NA    </span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 10 Petal.Length Sepal.Width  NA    </span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; 11 Petal.Length Petal.Length NA    </span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; 12 Petal.Length Petal.Width   0.963</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; 13 Petal.Width  Sepal.Length NA    </span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; 14 Petal.Width  Sepal.Width  NA    </span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; 15 Petal.Width  Petal.Length NA    </span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; 16 Petal.Width  Petal.Width  NA</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>  <span class="co"># ggplot(aes(x = x, y = y, fill = r)) +</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>  <span class="co"># geom_tile() +</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a>  <span class="co"># geom_text(aes(label = round(r, 2))) +</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a>  <span class="co"># scale_fill_viridis_c() +</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a>  <span class="co"># theme_minimal() +</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>  <span class="co"># theme(</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a>  <span class="co">#   axis.text.x = element_text(angle = 45, hjust = 1)</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a>  <span class="co"># )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>cor_df <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="co"># 特定の変数に着目する</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">focus</span>(Sepal.Length)</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;   term         Sepal.Length</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;   &lt;chr&gt;               &lt;dbl&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; 1 Sepal.Width        -0.118</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; 2 Petal.Length        0.872</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; 3 Petal.Width         0.818</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>x <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  mtcars <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">correlate</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="co"># 強い順に並び変える</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">rearrange</span>()</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; Correlation computed with</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; • Method: 'pearson'</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; • Missing treated using: 'pairwise.complete.obs'</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>x <span class="sc">|&gt;</span> </span>
+<span id="cb6-10"><a href="#cb6-10"></a>  <span class="co"># 綺麗な見た目にして表示</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="fu">fashion</span>()</span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;    term  mpg   vs drat   am gear qsec carb   hp   wt disp  cyl</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; 1   mpg       .66  .68  .60  .48  .42 -.55 -.78 -.87 -.85 -.85</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; 2    vs  .66       .44  .17  .21  .74 -.57 -.72 -.55 -.71 -.81</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; 3  drat  .68  .44       .71  .70  .09 -.09 -.45 -.71 -.71 -.70</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; 4    am  .60  .17  .71       .79 -.23  .06 -.24 -.69 -.59 -.52</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; 5  gear  .48  .21  .70  .79      -.21  .27 -.13 -.58 -.56 -.49</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; 6  qsec  .42  .74  .09 -.23 -.21      -.66 -.71 -.17 -.43 -.59</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt; 7  carb -.55 -.57 -.09  .06  .27 -.66       .75  .43  .39  .53</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt; 8    hp -.78 -.72 -.45 -.24 -.13 -.71  .75       .66  .79  .83</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt; 9    wt -.87 -.55 -.71 -.69 -.58 -.17  .43  .66       .89  .78</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; 10 disp -.85 -.71 -.71 -.59 -.56 -.43  .39  .79  .89       .90</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt; 11  cyl -.85 -.81 -.70 -.52 -.49 -.59  .53  .83  .78  .90</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>x <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">shave</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">rplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="working_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>datasets<span class="sc">::</span>airquality <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">correlate</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">network_plot</span>(<span class="at">min_cor =</span> .<span class="dv">2</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; Correlation computed with</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; • Method: 'pearson'</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; • Missing treated using: 'pairwise.complete.obs'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="working_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 <!-- -->
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1153,50 +1152,117 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../contents/books/02_因果推論ミックステープ/ch09_差分の差デザイン.html" class="pagination-link  aria-label=" ch09="" 差分の差デザイン"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">ch09 差分の差デザイン</span>
+      <a href="../../../contents/libs/treemapify/working.html" class="pagination-link  aria-label=" introduction"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../contents/books/02_因果推論ミックステープ/ch11_結論.html" class="pagination-link" aria-label="ch11 結論">
-        <span class="nav-page-text">ch11 結論</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../contents/libs/ComplexHeatmap/working.html" class="pagination-link" aria-label="Introduction">
+        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="an">title:</span><span class="co"> "ch10 合成コントロール"</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">  cache: true</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="an">filters:</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">   - lightbox</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">---</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="in">```{r}</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#| warning: false</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#| message: false</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
-<span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/books/02_因果推論ミックステープ"</span>)</span>
-<span id="cb1-21"><a href="#cb1-21"></a></span>
-<span id="cb1-22"><a href="#cb1-22"></a></span>
-<span id="cb1-23"><a href="#cb1-23"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
-<span id="cb1-24"><a href="#cb1-24"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans JP"</span>)</span>
-<span id="cb1-25"><a href="#cb1-25"></a></span>
-<span id="cb1-26"><a href="#cb1-26"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
-<span id="cb1-27"><a href="#cb1-27"></a>    tidyverse, </span>
-<span id="cb1-28"><a href="#cb1-28"></a>    here, </span>
-<span id="cb1-29"><a href="#cb1-29"></a>    broom</span>
-<span id="cb1-30"><a href="#cb1-30"></a>)</span>
-<span id="cb1-31"><a href="#cb1-31"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">---</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="an">title:</span><span class="co"> "corrr"</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">  cache: true</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="an">filters:</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">---</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="in">```{r}</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb9-15"><a href="#cb9-15"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/corr"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="in">```</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="in">```{r}</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#| warning: false</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co">#| message: false</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="fu">library</span>(corrr)</span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb9-27"><a href="#cb9-27"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb9-28"><a href="#cb9-28"></a><span class="in">```</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a></span>
+<span id="cb9-30"><a href="#cb9-30"></a></span>
+<span id="cb9-31"><a href="#cb9-31"></a><span class="fu"># はじめに</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a></span>
+<span id="cb9-33"><a href="#cb9-33"></a>corrrは相関係数をデータフレームでハンドリングできるパッケージである。</span>
+<span id="cb9-34"><a href="#cb9-34"></a></span>
+<span id="cb9-35"><a href="#cb9-35"></a><span class="co">[</span><span class="ot">corrr</span><span class="co">](https://corrr.tidymodels.org/)</span>が公式サイトである。</span>
+<span id="cb9-36"><a href="#cb9-36"></a></span>
+<span id="cb9-37"><a href="#cb9-37"></a></span>
+<span id="cb9-38"><a href="#cb9-38"></a><span class="in">`correlate`</span>で相関係数を計算して、データフレームとしての相関係数行列を各種APIでハンドリングするのが主な流れである。</span>
+<span id="cb9-39"><a href="#cb9-39"></a></span>
+<span id="cb9-40"><a href="#cb9-40"></a><span class="in">`NA`</span>が含まれる場合は、<span class="in">`correlate`</span>の引数に<span class="in">`use = "pairwise.complete.obs"`</span>を指定する。</span>
+<span id="cb9-41"><a href="#cb9-41"></a>デフォルトでは指定されている。</span>
+<span id="cb9-42"><a href="#cb9-42"></a></span>
+<span id="cb9-45"><a href="#cb9-45"></a><span class="in">```{r}</span></span>
+<span id="cb9-46"><a href="#cb9-46"></a>cor_df <span class="ot">&lt;-</span> </span>
+<span id="cb9-47"><a href="#cb9-47"></a>  iris <span class="sc">|&gt;</span> </span>
+<span id="cb9-48"><a href="#cb9-48"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-49"><a href="#cb9-49"></a>  <span class="fu">correlate</span>() </span>
+<span id="cb9-50"><a href="#cb9-50"></a></span>
+<span id="cb9-51"><a href="#cb9-51"></a></span>
+<span id="cb9-52"><a href="#cb9-52"></a>cor_df</span>
+<span id="cb9-53"><a href="#cb9-53"></a><span class="in">```</span></span>
+<span id="cb9-54"><a href="#cb9-54"></a></span>
+<span id="cb9-57"><a href="#cb9-57"></a><span class="in">```{r}</span></span>
+<span id="cb9-58"><a href="#cb9-58"></a>cor_df <span class="sc">|&gt;</span> </span>
+<span id="cb9-59"><a href="#cb9-59"></a>  <span class="co"># 下△成分だけを取り出す</span></span>
+<span id="cb9-60"><a href="#cb9-60"></a>  <span class="fu">shave</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-61"><a href="#cb9-61"></a>  <span class="co"># ロングフォーマットに変換する</span></span>
+<span id="cb9-62"><a href="#cb9-62"></a>  <span class="fu">stretch</span>()<span class="co"># |&gt; </span></span>
+<span id="cb9-63"><a href="#cb9-63"></a>  <span class="co"># ggplot(aes(x = x, y = y, fill = r)) +</span></span>
+<span id="cb9-64"><a href="#cb9-64"></a>  <span class="co"># geom_tile() +</span></span>
+<span id="cb9-65"><a href="#cb9-65"></a>  <span class="co"># geom_text(aes(label = round(r, 2))) +</span></span>
+<span id="cb9-66"><a href="#cb9-66"></a>  <span class="co"># scale_fill_viridis_c() +</span></span>
+<span id="cb9-67"><a href="#cb9-67"></a>  <span class="co"># theme_minimal() +</span></span>
+<span id="cb9-68"><a href="#cb9-68"></a>  <span class="co"># theme(</span></span>
+<span id="cb9-69"><a href="#cb9-69"></a>  <span class="co">#   axis.text.x = element_text(angle = 45, hjust = 1)</span></span>
+<span id="cb9-70"><a href="#cb9-70"></a>  <span class="co"># )</span></span>
+<span id="cb9-71"><a href="#cb9-71"></a><span class="in">```</span></span>
+<span id="cb9-72"><a href="#cb9-72"></a></span>
+<span id="cb9-75"><a href="#cb9-75"></a><span class="in">```{r}</span></span>
+<span id="cb9-76"><a href="#cb9-76"></a>cor_df <span class="sc">|&gt;</span> </span>
+<span id="cb9-77"><a href="#cb9-77"></a>  <span class="co"># 特定の変数に着目する</span></span>
+<span id="cb9-78"><a href="#cb9-78"></a>  <span class="fu">focus</span>(Sepal.Length)</span>
+<span id="cb9-79"><a href="#cb9-79"></a><span class="in">```</span></span>
+<span id="cb9-80"><a href="#cb9-80"></a></span>
+<span id="cb9-83"><a href="#cb9-83"></a><span class="in">```{r}</span></span>
+<span id="cb9-84"><a href="#cb9-84"></a>x <span class="ot">&lt;-</span> </span>
+<span id="cb9-85"><a href="#cb9-85"></a>  mtcars <span class="sc">|&gt;</span></span>
+<span id="cb9-86"><a href="#cb9-86"></a>  <span class="fu">correlate</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-87"><a href="#cb9-87"></a>  <span class="co"># 強い順に並び変える</span></span>
+<span id="cb9-88"><a href="#cb9-88"></a>  <span class="fu">rearrange</span>()</span>
+<span id="cb9-89"><a href="#cb9-89"></a>x <span class="sc">|&gt;</span> </span>
+<span id="cb9-90"><a href="#cb9-90"></a>  <span class="co"># 綺麗な見た目にして表示</span></span>
+<span id="cb9-91"><a href="#cb9-91"></a>  <span class="fu">fashion</span>()</span>
+<span id="cb9-92"><a href="#cb9-92"></a><span class="in">```</span></span>
+<span id="cb9-93"><a href="#cb9-93"></a></span>
+<span id="cb9-96"><a href="#cb9-96"></a><span class="in">```{r}</span></span>
+<span id="cb9-97"><a href="#cb9-97"></a>x <span class="sc">|&gt;</span> </span>
+<span id="cb9-98"><a href="#cb9-98"></a>  <span class="fu">shave</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-99"><a href="#cb9-99"></a>  <span class="fu">rplot</span>()</span>
+<span id="cb9-100"><a href="#cb9-100"></a><span class="in">```</span></span>
+<span id="cb9-101"><a href="#cb9-101"></a></span>
+<span id="cb9-104"><a href="#cb9-104"></a><span class="in">```{r}</span></span>
+<span id="cb9-105"><a href="#cb9-105"></a>datasets<span class="sc">::</span>airquality <span class="sc">%&gt;%</span> </span>
+<span id="cb9-106"><a href="#cb9-106"></a>  <span class="fu">correlate</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-107"><a href="#cb9-107"></a>  <span class="fu">network_plot</span>(<span class="at">min_cor =</span> .<span class="dv">2</span>)</span>
+<span id="cb9-108"><a href="#cb9-108"></a><span class="in">```</span></span>
+<span id="cb9-109"><a href="#cb9-109"></a></span>
+<span id="cb9-110"><a href="#cb9-110"></a></span>
+<span id="cb9-111"><a href="#cb9-111"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","loop":false,"openEffect":"zoom"});</script>
 
 
 
