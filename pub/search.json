@@ -1,36 +1,86 @@
 [
   {
-    "objectID": "contents/utils/01_写真GPS/index.html",
-    "href": "contents/utils/01_写真GPS/index.html",
-    "title": "写真データのGISデータ化",
+    "objectID": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html",
+    "href": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html",
+    "title": "Data Import & Export",
     "section": "",
-    "text": "1 はじめに\niPhoneをはじめとしたスマートフォンで写真を撮ると位置情報が付与されている。 また、ミラーレス一眼レフカメラでもスマートフォンと連携して位置情報が付与される。 現場調査において位置情報というのは非常に重要な情報である。\nここでは、写真データに付与された位置情報をGISデータに変換する方法を紹介する。\n\n\n2 やり方\n大きく４つのステップに分かれている。\n\nJPEGへの変換\nJPEGから位置情報をCSVで出力する\nCSVをGeoJSONに変換する\n画像をサムネイル化する\n\n# convert HEIC to jpg\nmogrify -format jpg *.HEIC\n\n# extract gps coordates from jpgs to output.csv\nexiftool -gpslatitude -gpslongitude -n -csv *.jpg &gt; output.csv\n\n# convert output.csv to geojson\nogr2ogr -f \"GeoJSON\" output.geojson output.csv -oo X_POSSIBLE_NAMES=gpslongitude  -oo Y_POSSIBLE_NAMES=gpslatitude -oo KEEP_GEOM_COLUMNS=NO\n\n# create thumbnails\nmkdir -p thumbnails\nfor file in *.jpg; do \n    filename=$(basename \"$file\")\n    convert \"$file\" -thumbnail 200x \"thumbnails/$filename\"\ndone\nここまで為ておくことで、写真データを地図上に表示することができるようになる。 WebGISはもちろんであるがQGISでも可能である。たとえば、次をTipsに設定することで閲覧が可能となる。 これはプロジェクトフォルダーからの相対パスでファイルを指定している。ファイル名自体はSourceFileという名前の属性で保存されている。\n&lt;a href=\"file:///[% @project_folder %]/../../../09_写真/20231120-21_SiteVisit_Dulkadioglu/suzuki/[% SourceFile %]\"&gt;\n&lt;img src=\"file:///[% @project_folder %]/../../../09_写真/20231120-21_SiteVisit_Dulkadioglu/suzuki/[% SourceFile %]\" alt=\"hoge\" width=\"300\"&gt;\n&lt;/a&gt;\n\n\n\n\n\n\n\n Back to top",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/sql/duckdb/documentation\")\nCode\nlibrary(ggplot2)\nlibrary(duckdb)\nlibrary(tidyverse)\nlibrary(palmerpenguins)\nlibrary(DBI)\nlibrary(dbplyr)\nlibrary(arrow)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
     "crumbs": [
-      "Utils",
-      "01_写真GPS"
+      "DuckDB",
+      "Documentaion",
+      "Data Import & Export"
     ]
   },
   {
-    "objectID": "contents/test/bash/run_gdal.html",
-    "href": "contents/test/bash/run_gdal.html",
-    "title": "GDAL",
-    "section": "",
-    "text": "1 はじめに\n\ngdalを走らせられるかどうか\n日本語のパスでも問題なく動くには動くことがわかる\n\n\n\n2 works\n\n\nCode\ngdalinfo --version\n#&gt; GDAL 3.4.3, released 2022/04/22\n\n\n\n\nCode\ngdalinfo ./日本語フォルダ/stacking.tif\n#&gt; Driver: GTiff/GeoTIFF\n#&gt; Files: ./日本語フォルダ/stacking.tif\n#&gt; Size is 316, 192\n#&gt; Coordinate System is:\n#&gt; GEOGCRS[\"JGD2000\",\n#&gt;     DATUM[\"Japanese Geodetic Datum 2000\",\n#&gt;         ELLIPSOID[\"GRS 1980\",6378137,298.257222101004,\n#&gt;             LENGTHUNIT[\"metre\",1]],\n#&gt;         ID[\"EPSG\",6612]],\n#&gt;     PRIMEM[\"Greenwich\",0,\n#&gt;         ANGLEUNIT[\"degree\",0.0174532925199433,\n#&gt;             ID[\"EPSG\",9122]]],\n#&gt;     CS[ellipsoidal,2],\n#&gt;         AXIS[\"latitude\",north,\n#&gt;             ORDER[1],\n#&gt;             ANGLEUNIT[\"degree\",0.0174532925199433,\n#&gt;                 ID[\"EPSG\",9122]]],\n#&gt;         AXIS[\"longitude\",east,\n#&gt;             ORDER[2],\n#&gt;             ANGLEUNIT[\"degree\",0.0174532925199433,\n#&gt;                 ID[\"EPSG\",9122]]]]\n#&gt; Data axis to CRS axis mapping: 2,1\n#&gt; Origin = (138.937500000000000,35.899999999999999)\n#&gt; Pixel Size = (0.003125000000000,-0.002083333000000)\n#&gt; Metadata:\n#&gt;   AREA_OR_POINT=Area\n#&gt; Image Structure Metadata:\n#&gt;   COMPRESSION=LZW\n#&gt;   INTERLEAVE=PIXEL\n#&gt; Corner Coordinates:\n#&gt; Upper Left  ( 138.9375000,  35.9000000) (138d56'15.00\"E, 35d54' 0.00\"N)\n#&gt; Lower Left  ( 138.9375000,  35.5000001) (138d56'15.00\"E, 35d30' 0.00\"N)\n#&gt; Upper Right ( 139.9250000,  35.9000000) (139d55'30.00\"E, 35d54' 0.00\"N)\n#&gt; Lower Right ( 139.9250000,  35.5000001) (139d55'30.00\"E, 35d30' 0.00\"N)\n#&gt; Center      ( 139.4312500,  35.7000000) (139d25'52.50\"E, 35d42' 0.00\"N)\n#&gt; Band 1 Block=316x1 Type=Float64, ColorInterp=Gray\n#&gt;   NoData Value=0\n#&gt; Band 2 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 3 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 4 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 5 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 6 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 7 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 8 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 9 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 10 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 11 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 12 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n\n\n\n\n\n\n\n\n Back to top",
+    "objectID": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html#prerequisites",
+    "href": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html#prerequisites",
+    "title": "Data Import & Export",
+    "section": "7.1 Prerequisites",
+    "text": "7.1 Prerequisites\n#| connection: con\nINSTALL httpfs;\nLOAD httpfs;",
     "crumbs": [
-      "Test",
-      "Bash",
-      "GDAL"
+      "DuckDB",
+      "Documentaion",
+      "Data Import & Export"
     ]
   },
   {
-    "objectID": "contents/test/R/renv.html",
-    "href": "contents/test/R/renv.html",
+    "objectID": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html#credentials-and-configuration",
+    "href": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html#credentials-and-configuration",
+    "title": "Data Import & Export",
+    "section": "7.2 Credentials and Configuration",
+    "text": "7.2 Credentials and Configuration\n#| connection: con\nCREATE SECRET (\n    TYPE S3,\n    KEY_ID 'AKIAIOSFODNN7EXAMPLE',\n    SECRET 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',\n    REGION 'us-east-1'\n);",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Data Import & Export"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html#querying",
+    "href": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html#querying",
+    "title": "Data Import & Export",
+    "section": "7.3 Querying",
+    "text": "7.3 Querying\n#| connection: con\nSELECT * FROM read_parquet('s3://⟨bucket⟩/⟨file⟩');",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Data Import & Export"
+    ]
+  },
+  {
+    "objectID": "contents/test/R/sub_directory/renv.html",
+    "href": "contents/test/R/sub_directory/renv.html",
     "title": "renv",
     "section": "",
-    "text": "1 renvはどのように指定すればいいか\n\nプロジェクトファイルがあるフォルダで指定するときはそのフォルダになる\nプロジェクトファイルがないフォルダで指定するときはルートフォルダになる\n正確には１番近い親フォルダになっているみたい\nなのでこの場合のhereの挙動には注意する\n\n\n\nCode\nhere::here()\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\ncur_dir &lt;- here::here(\"contents\", \"test\", \"R\")\nprint(cur_dir)\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R/contents/test/R\"\n# renv::init(cur_dir)\n\nprint(getwd())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\nprint(here::here())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\n\n\n\n\nCode\nrenv::activate()\n\n\n\n\nCode\nprint(getwd())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\nprint(here::here())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\nprint(cur_dir)\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R/contents/test/R\"\n\n\n\n\nCode\nlibrary(here)\n\n\n\n\n\n\n\n\n Back to top",
+    "text": "1 renvはどのように指定すればいいか\n\nプロジェクトファイルがあるフォルダで指定するときはそのフォルダになる\nプロジェクトファイルがないフォルダで指定するときはルートフォルダになる\n正確には１番近い親フォルダになっているみたい\nなのでこの場合のhereの挙動には注意する\n\n\n\nCode\nhere::here()\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\ncur_dir &lt;- here::here(\"contents\", \"test\", \"R\")\nprint(cur_dir)\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R/contents/test/R\"\n# renv::init(cur_dir)\n\nprint(getwd())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R/sub_directory\"\nprint(here::here())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\n\n\n\n\nCode\nlibrary(here)\n\n\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "Test",
       "R",
+      "Sub Directory",
+      "renv"
+    ]
+  },
+  {
+    "objectID": "contents/test/bash/quick_sample.html",
+    "href": "contents/test/bash/quick_sample.html",
+    "title": "Quick Sample",
+    "section": "",
+    "text": "engine: knitrを追加することで動作\nカレントディレクトリはこのファイルがある場所\nルートディレクトリになっていないことに注意\n\n\n\nCode\nls -la | cat\n#&gt; total 0\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 22:06 .\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 21:52 ..\n#&gt; -rwxrwxrwx 1 asozan asozan  376 Sep 18 22:06 quick_sample.qmd\n#&gt; -rwxrwxrwx 1 asozan asozan  402 Sep 18 22:06 quick_sample.rmarkdown\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 22:06 quick_sample_cache\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 21:48 日本語フォルダ\n\n\n\n\nCode\nls -la\n#&gt; total 0\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 22:06 .\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 21:52 ..\n#&gt; -rwxrwxrwx 1 asozan asozan  376 Sep 18 22:06 quick_sample.qmd\n#&gt; -rwxrwxrwx 1 asozan asozan  402 Sep 18 22:06 quick_sample.rmarkdown\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 22:06 quick_sample_cache\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 21:48 日本語フォルダ\n\n\n\n\nCode\ncat 日本語フォルダ/日本語ファイル.txt\n#&gt; \n#&gt; 日本語テキストです\n\n\npwdで確認するとWSLでマウントしたときのディレクトリが カレントディレクトリになっていることがわかる。\n\n\nCode\npwd\n#&gt; /mnt/h/Dropbox/R/Workspace/RTipsSite/contents/test/bash\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Test",
+      "Bash",
+      "Quick Sample"
+    ]
+  },
+  {
+    "objectID": "contents/test/R2/renv.html",
+    "href": "contents/test/R2/renv.html",
+    "title": "renv",
+    "section": "",
+    "text": "1 hereでrenvはどのように指定すればいいか\n\nプロジェクトファイルがあるフォルダで指定するときはそのフォルダになる\nプロジェクトファイルがないフォルダで指定するときはルートフォルダになる\n正確には１番近い親フォルダになっているみたい\nなのでこの場合のhereの挙動には注意する\n\n\n\nCode\nhere::here()\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite\"\ncur_dir &lt;- here::here(\"contents\", \"test\", \"R\")\nprint(cur_dir)\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\n# renv::init(cur_dir)\n\nprint(getwd())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R2\"\nprint(here::here())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite\"\n\n\n\n\nCode\nlibrary(here)\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Test",
+      "R2",
       "renv"
     ]
   },
@@ -39,7 +89,7 @@
     "href": "contents/notes/ggplot2/working.html",
     "title": "ggplot2 Tips",
     "section": "",
-    "text": "ggplot2を覚えるのは難しいので具体的な描画事例を載せていく。 描画事例はシンプルなものを中心に載せていく。 機能の網羅性は欠ける資料であるが具体例なのでコピペですぐ動かせる内容ではある。\nすでに個別のファイルで作成した 事例があるのでそれを移植すること!\n\n\n\nggplot2\nrmarkdown\nggplot2 extensions",
+    "text": "Code\ncur_dir &lt;- here::here(\"contents/notes/ggplot2\")\n\n\nshowtext::showtext_auto()\nsysfonts::font_add_google(\"Noto Sans JP\")\n\npacman::p_load(\n    tidyverse, \n    here, \n    showtext,\n    ggplot2, \n    ggridges,\n    cowplot, \n    ggsci, \n    GGally,\n    ggprism,\n    palmerpenguins, \n    ggalluvial, \n    waffle,\n    ggokabeito, \n    patchwork\n)",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -49,8 +99,19 @@
     "objectID": "contents/notes/ggplot2/working.html#reference",
     "href": "contents/notes/ggplot2/working.html#reference",
     "title": "ggplot2 Tips",
-    "section": "",
-    "text": "ggplot2\nrmarkdown\nggplot2 extensions",
+    "section": "1.1 Reference",
+    "text": "1.1 Reference\n\nggplot2\nrmarkdown\nggplot2 extensions",
+    "crumbs": [
+      "Notes",
+      "ggplot2"
+    ]
+  },
+  {
+    "objectID": "contents/notes/ggplot2/working.html#リファレンンスラインの配置",
+    "href": "contents/notes/ggplot2/working.html#リファレンンスラインの配置",
+    "title": "ggplot2 Tips",
+    "section": "2.1 リファレンンスラインの配置",
+    "text": "2.1 リファレンンスラインの配置\n\n\nCode\niris |&gt; \n    ggplot(aes(Species, Sepal.Width, color = Species)) + \n    geom_jitter() + \n    stat_summary(fun = mean, geom = \"point\", linewidth = 3, size = 10, fill = \"white\") +\n    theme_bw() + \n    scale_color_aaas()\n#&gt; Warning in stat_summary(fun = mean, geom = \"point\", linewidth = 3, size = 10, :\n#&gt; Ignoring unknown parameters: `linewidth`\n\n\n\n\n\n\n\n\n\n\n\nCode\niris |&gt; \n    ggplot(aes(Species, Sepal.Width, color = Species, group = Species)) + \n    geom_jitter() + \n    geom_segment(\n      aes(x = as.numeric(Species)-.3, \n          xend = as.numeric(Species) + .3, \n          y = mean(Sepal.Width),\n          yend = mean(Sepal.Width)), color = \"black\") +\n    theme_bw() + \n    scale_color_aaas()\n\n\n\n\n\n\n\n\n\n\n\nCode\niris |&gt; \n    ggplot(aes(Species, Sepal.Width, color = Species, group = Species)) + \n    geom_jitter() + \n    stat_summary(\n      fun = mean, \n      geom = \"segment\",\n      linewidth = 3, \n      mapping = aes(x = as.numeric(Species)-.3, \n                    xend = as.numeric(Species) + .3, \n                    yend = ..y.. # 統計変換後の値である\n                  )\n    ) + \n    theme_bw() + \n    scale_color_aaas()\n#&gt; Warning: The dot-dot notation (`..y..`) was deprecated in ggplot2 3.4.0.\n#&gt; ℹ Please use `after_stat(y)` instead.\n\n\n\n\n\n\n\n\n\n..y..のような値として他にも次がある。\n\n..count..：データの項目数を表します。たとえば、geom_bar()やgeom_histogram()で使用されると、各ビンに含まれるアイ- テムの総数を示します。\n..density..：密度を表します。geom_histogram()において、yを密度にマッピングすることで、面積の合計が1になるように- 調整されたヒストグラムを表示できます。\n..binwidth..：ヒストグラムのビンの幅を指します。これは、geom_histogram()でビンの幅を調整する際に参照されることが- あります。\n..x..と..y..：統計変換によって計算されたx値やy値を指します。これらは、特にstat_summary()で平均値や中央値などを計- 算する際に使われることがあります。\n..ymin..と..ymax..：エラーバーの下限と上限を表します。geom_errorbar()やgeom_pointrange()で使用され、平均値や中央- 値の信頼区間や範囲を示します。\n..width..と..height..：geom_tile()やgeom_raster()などでタイルやピクセルの幅と高さを調整する際に使用されることが- あります。\n..group..：データをグループ化するために使用される内部変数です。特定のgeomやstat関数で複数のグループを処理する際に使われます。",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -60,8 +121,8 @@
     "objectID": "contents/notes/ggplot2/working.html#カーネル密度と経験累積分布関数",
     "href": "contents/notes/ggplot2/working.html#カーネル密度と経験累積分布関数",
     "title": "ggplot2 Tips",
-    "section": "2.1 カーネル密度と経験累積分布関数",
-    "text": "2.1 カーネル密度と経験累積分布関数\n経験累積分布関数とカーネル密度プロットは常に描画すること. できればそれを組み合わせて描画すること。 経験累積分布関数はさらに目的変数の累積分布関数と比較をすること.\n\n\nCode\ndata &lt;- iris\ng_dens &lt;- \n    data %&gt;%\n    ggplot(aes(Sepal.Length, color = Species)) + \n    geom_line(stat = \"density\", size = 1.5) + \n    theme_bw() + \n    labs(x = \"Sepal.Length\", y = \"density\") + \n    scale_color_aaas()\n#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\n#&gt; ℹ Please use `linewidth` instead.\n\n\n\n\nCode\ng_ecdf &lt;- \n    data %&gt;%\n    ggplot(aes(Sepal.Length, color = Species)) + \n    stat_ecdf(size = 1.5) + \n    theme_bw() + \n    labs(x = \"Sepal.Length\", y = \"density\") + \n    scale_color_aaas() +\n    guides(color = \"none\")\n\n\n\n\nCode\n\nplot_grid(\n    g_dens + labs(x = NULL), \n    g_ecdf, \n    rel_widths = c(1, 1), \n    ncol = 1,  \n    align = \"v\",  # 軸を合わせるのに必要 \n    axis = \"tblr\" # 余白を合わせるのに必要(特に凡例があったりなかったりするとき)\n)",
+    "section": "2.2 カーネル密度と経験累積分布関数",
+    "text": "2.2 カーネル密度と経験累積分布関数\n経験累積分布関数とカーネル密度プロットは常に描画すること. できればそれを組み合わせて描画すること。 経験累積分布関数はさらに目的変数の累積分布関数と比較をすること.\n\n\nCode\ndata &lt;- iris\ng_dens &lt;- \n    data %&gt;%\n    ggplot(aes(Sepal.Length, color = Species)) + \n    geom_line(stat = \"density\", size = 1.5) + \n    theme_bw() + \n    labs(x = \"Sepal.Length\", y = \"density\") + \n    scale_color_aaas()\n#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\n#&gt; ℹ Please use `linewidth` instead.\n\n\n\n\nCode\ng_ecdf &lt;- \n    data %&gt;%\n    ggplot(aes(Sepal.Length, color = Species)) + \n    stat_ecdf(size = 1.5) + \n    theme_bw() + \n    labs(x = \"Sepal.Length\", y = \"density\") + \n    scale_color_aaas() +\n    guides(color = \"none\")\n\n\n\n\nCode\n\nplot_grid(\n    g_dens + labs(x = NULL), \n    g_ecdf, \n    rel_widths = c(1, 1), \n    ncol = 1,  \n    align = \"v\",  # 軸を合わせるのに必要 \n    axis = \"tblr\" # 余白を合わせるのに必要(特に凡例があったりなかったりするとき)\n)",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -71,8 +132,8 @@
     "objectID": "contents/notes/ggplot2/working.html#関数曲線",
     "href": "contents/notes/ggplot2/working.html#関数曲線",
     "title": "ggplot2 Tips",
-    "section": "2.2 関数曲線",
-    "text": "2.2 関数曲線\n確率密度関数などを記述するときに使う.\n\n\nCode\ngenerate_dnorm &lt;- function (param) {\n    lift( partial )(\n        update_list(\n            param, .f = dnorm, .first = FALSE )\n        )\n}\n\nparam1 &lt;-\n    list( mean = 1.23 ) %&gt;%\n    update_list(\n        sd =  ~ .1\n    )\n#&gt; Warning: `update_list()` was deprecated in purrr 1.0.0.\nparam2 &lt;-\n    param1 %&gt;%\n    update_list(\n        mean = 1.48631\n    )\n\ndnorm1 &lt;- generate_dnorm( param1 )\n#&gt; Warning: `lift()` was deprecated in purrr 1.0.0.\n#&gt; Warning: The `.first` argument of `partial()` is deprecated as of purrr 0.3.0.\n#&gt; ℹ The deprecated feature was likely used in the purrr package.\n#&gt;   Please report the issue at &lt;https://github.com/tidyverse/purrr/issues&gt;.\ndnorm2 &lt;- generate_dnorm( param2 )\nfill_poly &lt;- data_frame(\n        x = seq(qnorm(.9, mean = param1$mean, sd = param1$sd), 2, length.out = 20)\n    ) %&gt;%\n    mutate(y = map_dbl(x, dnorm1))\n#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.\n#&gt; ℹ Please use `tibble()` instead.\n\ngrh &lt;-\n    data_frame( x = seq(0, 2, .01) ) %&gt;%\n    ggplot() +\n    geom_abline(slope = 0, intercept = 0) +\n    geom_ribbon(data = fill_poly, aes(x = x, ymax = y, ymin = 0), fill = \"pink\", alpha = .5) +\n    stat_function(fun = dnorm1, colour = \"red\",  lwd = 1.2 ) +\n    stat_function(fun = dnorm2, colour = \"blue\", lwd = 1.2 ) +\n    ylim(c(0, 4)) +\n    scale_x_continuous(limits = c(0.9, 1.8), breaks = seq(0.9, 1.8, .1)) +\n    labs(x = \"\", y = \"\") +\n    theme_bw() +\n    theme(\n        panel.grid.major = element_blank(),\n        panel.grid.minor = element_blank(),\n        axis.ticks.y = element_blank(),\n        axis.text.y  = element_blank(),\n        axis.text.x  = element_text(size = 12)\n    )\ngrh",
+    "section": "2.3 関数曲線",
+    "text": "2.3 関数曲線\n確率密度関数などを記述するときに使う.\n\n\nCode\ngenerate_dnorm &lt;- function (param) {\n    lift( partial )(\n        update_list(\n            param, .f = dnorm, .first = FALSE )\n        )\n}\n\nparam1 &lt;-\n    list( mean = 1.23 ) %&gt;%\n    update_list(\n        sd =  ~ .1\n    )\n#&gt; Warning: `update_list()` was deprecated in purrr 1.0.0.\nparam2 &lt;-\n    param1 %&gt;%\n    update_list(\n        mean = 1.48631\n    )\n\ndnorm1 &lt;- generate_dnorm( param1 )\n#&gt; Warning: `lift()` was deprecated in purrr 1.0.0.\n#&gt; Warning: The `.first` argument of `partial()` is deprecated as of purrr 0.3.0.\n#&gt; ℹ The deprecated feature was likely used in the purrr package.\n#&gt;   Please report the issue at &lt;https://github.com/tidyverse/purrr/issues&gt;.\ndnorm2 &lt;- generate_dnorm( param2 )\nfill_poly &lt;- data_frame(\n        x = seq(qnorm(.9, mean = param1$mean, sd = param1$sd), 2, length.out = 20)\n    ) %&gt;%\n    mutate(y = map_dbl(x, dnorm1))\n#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.\n#&gt; ℹ Please use `tibble()` instead.\n\ngrh &lt;-\n    data_frame( x = seq(0, 2, .01) ) %&gt;%\n    ggplot() +\n    geom_abline(slope = 0, intercept = 0) +\n    geom_ribbon(data = fill_poly, aes(x = x, ymax = y, ymin = 0), fill = \"pink\", alpha = .5) +\n    stat_function(fun = dnorm1, colour = \"red\",  lwd = 1.2 ) +\n    stat_function(fun = dnorm2, colour = \"blue\", lwd = 1.2 ) +\n    ylim(c(0, 4)) +\n    scale_x_continuous(limits = c(0.9, 1.8), breaks = seq(0.9, 1.8, .1)) +\n    labs(x = \"\", y = \"\") +\n    theme_bw() +\n    theme(\n        panel.grid.major = element_blank(),\n        panel.grid.minor = element_blank(),\n        axis.ticks.y = element_blank(),\n        axis.text.y  = element_blank(),\n        axis.text.x  = element_text(size = 12)\n    )\ngrh",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -82,8 +143,8 @@
     "objectID": "contents/notes/ggplot2/working.html#確率楕円",
     "href": "contents/notes/ggplot2/working.html#確率楕円",
     "title": "ggplot2 Tips",
-    "section": "2.3 確率楕円",
-    "text": "2.3 確率楕円\nデフォルトでは、2次元t分布の95%確率となる領域を記述してくれる。 つまり、異常値の発見に役立つ. geomパラメータを変更することで塗りつぶしを行うこともできるし、 t分布の変わりに正規分布を使うことも可能である. 単純に円を記述することも可能である.\n\n\nCode\ngp &lt;-\n    iris %&gt;% \n    ggplot(aes(Sepal.Length, Sepal.Width, color = Species)) + \n    theme_bw() + \n    labs(x = \"Sepal.Length\", y = \"Sepal.Width\") + \n    coord_equal() +\n    theme(\n        axis.ticks.length = unit(-2, \"mm\"), \n        axis.title.x = element_text(margin = margin(t = 1, unit = \"line\")),\n        axis.text.x  = element_text(margin = margin(t = 1, unit = \"line\")),\n        axis.title.y = element_text(margin = margin(r = 1, unit = \"line\")), \n        axis.text.y  = element_text(margin = margin(r = 1, unit = \"line\")),\n        plot.margin = margin(1, 0, 0, 0, \"line\")\n    ) + \n    scale_color_viridis_d()\n\ngp + \n    geom_point(size = 3, alpha = .5) + \n    stat_ellipse() + \n    stat_ellipse(type = \"norm\", lty = 2) + \n    stat_ellipse(type = \"euclid\", lty = 3)\n\n\n\n\n\n\n\n\n\n\n\nCode\ngp + \n    stat_ellipse(\n        aes(fill = Species), \n        type = \"norm\", \n        geom = \"polygon\", alpha = .2, color = \"transparent\") + \n    geom_point(size = 3, alpha = .5, position = \"jitter\") +\n    scale_fill_viridis_d()",
+    "section": "2.4 確率楕円",
+    "text": "2.4 確率楕円\nデフォルトでは、2次元t分布の95%確率となる領域を記述してくれる。 つまり、異常値の発見に役立つ. geomパラメータを変更することで塗りつぶしを行うこともできるし、 t分布の変わりに正規分布を使うことも可能である. 単純に円を記述することも可能である.\n\n\nCode\ngp &lt;-\n    iris %&gt;% \n    ggplot(aes(Sepal.Length, Sepal.Width, color = Species)) + \n    theme_bw() + \n    labs(x = \"Sepal.Length\", y = \"Sepal.Width\") + \n    coord_equal() +\n    theme(\n        axis.ticks.length = unit(-2, \"mm\"), \n        axis.title.x = element_text(margin = margin(t = 1, unit = \"line\")),\n        axis.text.x  = element_text(margin = margin(t = 1, unit = \"line\")),\n        axis.title.y = element_text(margin = margin(r = 1, unit = \"line\")), \n        axis.text.y  = element_text(margin = margin(r = 1, unit = \"line\")),\n        plot.margin = margin(1, 0, 0, 0, \"line\")\n    ) + \n    scale_color_viridis_d()\n\ngp + \n    geom_point(size = 3, alpha = .5) + \n    stat_ellipse() + \n    stat_ellipse(type = \"norm\", lty = 2) + \n    stat_ellipse(type = \"euclid\", lty = 3)\n\n\n\n\n\n\n\n\n\n\n\nCode\ngp + \n    stat_ellipse(\n        aes(fill = Species), \n        type = \"norm\", \n        geom = \"polygon\", alpha = .2, color = \"transparent\") + \n    geom_point(size = 3, alpha = .5, position = \"jitter\") +\n    scale_fill_viridis_d()",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -93,8 +154,8 @@
     "objectID": "contents/notes/ggplot2/working.html#annotate関数",
     "href": "contents/notes/ggplot2/working.html#annotate関数",
     "title": "ggplot2 Tips",
-    "section": "2.4 annotate関数",
-    "text": "2.4 annotate関数\n\n2.4.1 annotate\nannotate関数ではジオメトリを追加するが、 典型的なgeom functionとは方法がことなり、 ジオメトリの属性はデータフレームの変数ではなく ベクトルで与えらる。 テキストラベルなど小さなアノテーションを追加するとき、 あるいは、データフレームにしたくないデータを持っているときに有用である。\n\n\nCode\np &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() + theme_bw()\nlift(plot_grid)(list(\n    p + annotate(\"text\", x = 4, y = 25, label = \"Some text\"), \n    p + annotate(\"text\", x = 2:5, y = 25, label = \"Some text\"), \n    p + annotate(\"rect\", xmin = 3, xmax = 4.2, ymin = 12, ymax = 21, alpha = .2),\n    p + annotate(\"segment\", x = 2.5, xend = 4, y = 15, yend = 25, colour = \"blue\"),\n    p + annotate(\"pointrange\", x = 3.5, y = 20, ymin = 12, ymax = 28, colour = \"red\", size = 1.5),\n    p + annotate(\"text\", x = 2:3, y = 20:21, label = c(\"my label\", \"label 2\")),\n    p + annotate(\"text\", x = 4, y = 25, label = \"italic(R) ^ 2 == 0.75\",   parse = TRUE),\n    p + annotate(\"text\", x = 4, y = 25, label = \"paste(italic(R) ^ 2, \\\" = .75\\\")\", parse = TRUE), \n    ncol = 2, \n    rel_heights = c(4, 4)\n))\n\n\n\n\n\n\n\n\n\nなんか頑張ったら、こんなのもかけた。。。 これがあれば特定の範囲のデータについて、分布を記述することが可能となる。 めっちゃこれが便利だというシーンは思い浮かばないけどキレイなグラフを 記述するという意味では良い経験になったと思う.\n\n\nCode\nd  &lt;- density(mtcars$mpg)\nd2 &lt;- density(mtcars$wt)\np + \n    annotate(\n        \"polygon\",\n        x = (5 - 4 * d$y), # シフトやスケールが必要\n        y = d$x,\n        color = \"red\", \n        fill = \"transparent\") +  \n    annotate(\n        \"polygon\", \n        x = d2$x, \n        y = d2$y * 6 + 5, \n        color = \"blue\", \n        fill = \"transparent\")",
+    "section": "2.5 annotate関数",
+    "text": "2.5 annotate関数\n\n2.5.1 annotate\nannotate関数ではジオメトリを追加するが、 典型的なgeom functionとは方法がことなり、 ジオメトリの属性はデータフレームの変数ではなく ベクトルで与えらる。 テキストラベルなど小さなアノテーションを追加するとき、 あるいは、データフレームにしたくないデータを持っているときに有用である。\n\n\nCode\np &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() + theme_bw()\nlift(plot_grid)(list(\n    p + annotate(\"text\", x = 4, y = 25, label = \"Some text\"), \n    p + annotate(\"text\", x = 2:5, y = 25, label = \"Some text\"), \n    p + annotate(\"rect\", xmin = 3, xmax = 4.2, ymin = 12, ymax = 21, alpha = .2),\n    p + annotate(\"segment\", x = 2.5, xend = 4, y = 15, yend = 25, colour = \"blue\"),\n    p + annotate(\"pointrange\", x = 3.5, y = 20, ymin = 12, ymax = 28, colour = \"red\", size = 1.5),\n    p + annotate(\"text\", x = 2:3, y = 20:21, label = c(\"my label\", \"label 2\")),\n    p + annotate(\"text\", x = 4, y = 25, label = \"italic(R) ^ 2 == 0.75\",   parse = TRUE),\n    p + annotate(\"text\", x = 4, y = 25, label = \"paste(italic(R) ^ 2, \\\" = .75\\\")\", parse = TRUE), \n    ncol = 2, \n    rel_heights = c(4, 4)\n))\n\n\n\n\n\n\n\n\n\nなんか頑張ったら、こんなのもかけた。。。 これがあれば特定の範囲のデータについて、分布を記述することが可能となる。 めっちゃこれが便利だというシーンは思い浮かばないけどキレイなグラフを 記述するという意味では良い経験になったと思う.\n\n\nCode\nd  &lt;- density(mtcars$mpg)\nd2 &lt;- density(mtcars$wt)\np + \n    annotate(\n        \"polygon\",\n        x = (5 - 4 * d$y), # シフトやスケールが必要\n        y = d$x,\n        color = \"red\", \n        fill = \"transparent\") +  \n    annotate(\n        \"polygon\", \n        x = d2$x, \n        y = d2$y * 6 + 5, \n        color = \"blue\", \n        fill = \"transparent\")",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -104,8 +165,8 @@
     "objectID": "contents/notes/ggplot2/working.html#annotation",
     "href": "contents/notes/ggplot2/working.html#annotation",
     "title": "ggplot2 Tips",
-    "section": "2.5 annotation",
-    "text": "2.5 annotation\nすべてのパネルので同じ統計アノテーションとして使う特別なgeomである。 これらのアノテーションはscaleには影響を与えない.\n\n2.5.1 annotation_custom\n下記の例を見るとなんとなく使い方はわかる. あとは記述したい絵を考えたうえで、色々と工夫を重ねるのが一番良いと思う.\n適当なGrobを作成できれば後は勢いで作成できる?\n使い方の用途としては，全体を小さく書いておき メインは全体のうち拡大したい箇所，という方法にして置くのがわかりやすい気がする．\n\n\nCode\nbase &lt;- \n    iris %&gt;% \n    ggplot(aes(Sepal.Length, Sepal.Width, color = Species)) + \n    geom_point() + \n    lims(y = c(2, 5))\n\ng &lt;-\n  ggplotGrob(\n      ggplot(iris, aes(x = Sepal.Length, color = Species)) +\n      geom_line(stat = \"density\") + \n      guides(color = FALSE) + \n      theme(\n          panel.background = element_rect(fill = \"transparent\"), \n          plot.background  = element_rect(fill = \"transparent\"), \n          panel.grid   = element_blank(), \n          axis.title.y = element_blank(), \n          axis.line.y  = element_blank(), \n          axis.text.y  = element_blank(),\n          axis.ticks   = element_blank()\n      ))\n#&gt; Warning: The `&lt;scale&gt;` argument of `guides()` cannot be `FALSE`. Use \"none\" instead as\n#&gt; of ggplot2 3.3.4.\n \nbase + \n    annotation_custom(grob = g, xmin = 6, xmax = 8, ymin = 4, ymax = 5)\n\n\n\n\n\n\n\n\n\n\n\n2.5.2 annotation_logticks\nこれではないけどマイナーグリッドにチックを入れる方法として annotateにgeom = “segment”を使う方法が考えだされていたけど， 正直しんどい気がする．．．．\n\n\nCode\na &lt;- ggplot(msleep, aes(bodywt, brainwt)) +\n geom_point(na.rm = TRUE) +\n scale_x_log10(\n   breaks = scales::trans_breaks(\"log10\", function(x) 10^x),\n   labels = scales::trans_format(\"log10\", scales::math_format(10^.x))\n ) +\n scale_y_log10(\n   breaks = scales::trans_breaks(\"log10\", function(x) 10^x),\n   labels = scales::trans_format(\"log10\", scales::math_format(10^.x))\n ) +\n theme_bw()\n\nlift(plot_grid)(list(\n    a + annotation_logticks(),               # Default: log ticks on bottom and left\n    a + annotation_logticks(sides = \"lr\"),   # Log ticks for y, on left and right\n    a + annotation_logticks(sides = \"trbl\")  # All four sides\n))\n\n\n\n\n\n\n\n\n\n\n\n2.5.3 annotation_map\n\n\nCode\nif (require(\"maps\")) {\nusamap &lt;- map_data(\"state\")\n\nseal.sub &lt;- subset(seals, long &gt; -130 & lat &lt; 45 & lat &gt; 40)\nggplot(seal.sub, aes(x = long, y = lat)) +\n  annotation_map(usamap, fill = NA, colour = \"grey50\") +\n  geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat))\n}\n#&gt; Loading required package: maps\n#&gt; \n#&gt; Attaching package: 'maps'\n#&gt; The following object is masked from 'package:purrr':\n#&gt; \n#&gt;     map\n\n\n\n\n\n\n\n\n\n\n\nCode\nif (require(\"maps\")) {\nseal2 &lt;- transform(seal.sub,\n  latr = cut(lat, 2),\n  longr = cut(long, 2))\n\nggplot(seal2,  aes(x = long, y = lat)) +\n  annotation_map(usamap, fill = NA, colour = \"grey50\") +\n  geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat)) +\n  facet_grid(latr ~ longr, scales = \"free\", space = \"free\")\n}\n\n\n\n\n\n\n\n\n\n\n\n2.5.4 annotation_raster\n画像を読み込めば画像も行ける？ 16進数の色に変換しておけば良いのか?\n\n\nCode\n# Generate data\nrainbow &lt;- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)\nggplot(mtcars, aes(mpg, wt)) +\n  geom_point() +\n  annotation_raster(rainbow, 15, 20, 3, 4)\n\n\n\n\n\n\n\n\n\n\n\nCode\n# To fill up whole plot\nggplot(mtcars, aes(mpg, wt)) +\n  annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\n\nCode\nrainbow2 &lt;- matrix(hcl(seq(0, 360, length.out = 10), 80, 70), nrow = 1)\nggplot(mtcars, aes(mpg, wt)) +\n  annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\n\nCode\nlibrary(png)\nlibrary(grid)\nimg &lt;- readPNG(system.file(\"img\", \"Rlogo.png\", package = \"png\"))\ng   &lt;- rasterGrob(img, interpolate = TRUE)\nqplot(1:10, 1:10, geom = \"blank\") + \n    annotation_custom(g, xmin = 1, xmax = 5, ymin = 1, ymax = 2) + \n    geom_point()\n#&gt; Warning: `qplot()` was deprecated in ggplot2 3.4.0.",
+    "section": "2.6 annotation",
+    "text": "2.6 annotation\nすべてのパネルので同じ統計アノテーションとして使う特別なgeomである。 これらのアノテーションはscaleには影響を与えない.\n\n2.6.1 annotation_custom\n下記の例を見るとなんとなく使い方はわかる. あとは記述したい絵を考えたうえで、色々と工夫を重ねるのが一番良いと思う.\n適当なGrobを作成できれば後は勢いで作成できる?\n使い方の用途としては，全体を小さく書いておき メインは全体のうち拡大したい箇所，という方法にして置くのがわかりやすい気がする．\n\n\nCode\nbase &lt;- \n    iris %&gt;% \n    ggplot(aes(Sepal.Length, Sepal.Width, color = Species)) + \n    geom_point() + \n    lims(y = c(2, 5))\n\ng &lt;-\n  ggplotGrob(\n      ggplot(iris, aes(x = Sepal.Length, color = Species)) +\n      geom_line(stat = \"density\") + \n      guides(color = FALSE) + \n      theme(\n          panel.background = element_rect(fill = \"transparent\"), \n          plot.background  = element_rect(fill = \"transparent\"), \n          panel.grid   = element_blank(), \n          axis.title.y = element_blank(), \n          axis.line.y  = element_blank(), \n          axis.text.y  = element_blank(),\n          axis.ticks   = element_blank()\n      ))\n#&gt; Warning: The `&lt;scale&gt;` argument of `guides()` cannot be `FALSE`. Use \"none\" instead as\n#&gt; of ggplot2 3.3.4.\n \nbase + \n    annotation_custom(grob = g, xmin = 6, xmax = 8, ymin = 4, ymax = 5)\n\n\n\n\n\n\n\n\n\n\n\n2.6.2 annotation_logticks\nこれではないけどマイナーグリッドにチックを入れる方法として annotateにgeom = “segment”を使う方法が考えだされていたけど， 正直しんどい気がする．．．．\n\n\nCode\na &lt;- ggplot(msleep, aes(bodywt, brainwt)) +\n geom_point(na.rm = TRUE) +\n scale_x_log10(\n   breaks = scales::trans_breaks(\"log10\", function(x) 10^x),\n   labels = scales::trans_format(\"log10\", scales::math_format(10^.x))\n ) +\n scale_y_log10(\n   breaks = scales::trans_breaks(\"log10\", function(x) 10^x),\n   labels = scales::trans_format(\"log10\", scales::math_format(10^.x))\n ) +\n theme_bw()\n\nlift(plot_grid)(list(\n    a + annotation_logticks(),               # Default: log ticks on bottom and left\n    a + annotation_logticks(sides = \"lr\"),   # Log ticks for y, on left and right\n    a + annotation_logticks(sides = \"trbl\")  # All four sides\n))\n\n\n\n\n\n\n\n\n\n\n\n2.6.3 annotation_map\n\n\nCode\nif (require(\"maps\")) {\nusamap &lt;- map_data(\"state\")\n\nseal.sub &lt;- subset(seals, long &gt; -130 & lat &lt; 45 & lat &gt; 40)\nggplot(seal.sub, aes(x = long, y = lat)) +\n  annotation_map(usamap, fill = NA, colour = \"grey50\") +\n  geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat))\n}\n\n\n\n\n\n\n\n\n\n\n\nCode\nif (require(\"maps\")) {\nseal2 &lt;- transform(seal.sub,\n  latr = cut(lat, 2),\n  longr = cut(long, 2))\n\nggplot(seal2,  aes(x = long, y = lat)) +\n  annotation_map(usamap, fill = NA, colour = \"grey50\") +\n  geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat)) +\n  facet_grid(latr ~ longr, scales = \"free\", space = \"free\")\n}\n\n\n\n\n\n\n\n\n\n\n\n2.6.4 annotation_raster\n画像を読み込めば画像も行ける？ 16進数の色に変換しておけば良いのか?\n\n\nCode\n# Generate data\nrainbow &lt;- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)\nggplot(mtcars, aes(mpg, wt)) +\n  geom_point() +\n  annotation_raster(rainbow, 15, 20, 3, 4)\n\n\n\n\n\n\n\n\n\n\n\nCode\n# To fill up whole plot\nggplot(mtcars, aes(mpg, wt)) +\n  annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\n\nCode\nrainbow2 &lt;- matrix(hcl(seq(0, 360, length.out = 10), 80, 70), nrow = 1)\nggplot(mtcars, aes(mpg, wt)) +\n  annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\n\nCode\nlibrary(png)\nlibrary(grid)\nimg &lt;- readPNG(system.file(\"img\", \"Rlogo.png\", package = \"png\"))\ng   &lt;- rasterGrob(img, interpolate = TRUE)\nqplot(1:10, 1:10, geom = \"blank\") + \n    annotation_custom(g, xmin = 1, xmax = 5, ymin = 1, ymax = 2) + \n    geom_point()\n#&gt; Warning: `qplot()` was deprecated in ggplot2 3.4.0.",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -115,8 +176,8 @@
     "objectID": "contents/notes/ggplot2/working.html#凡例のハンドリング",
     "href": "contents/notes/ggplot2/working.html#凡例のハンドリング",
     "title": "ggplot2 Tips",
-    "section": "2.6 凡例のハンドリング",
-    "text": "2.6 凡例のハンドリング\n凡例の操作は難しい… とりあえず、次を操作できるようになりたい.\n\n凡例の出し入れ\n凡例の位置(panelの中か外か)\n凡例のタイトル\n凡例のキーの操作\n凡例の文字列\n\nまずは複数の凡例の順序と凡例自体の位置を制御する例. themeで見た目を整える事もできるけど, guides(guide_legend)でも 大概見た目を加工することができる. 以下の例では 標準的な出力に加えて、凡例を色々と操作してみた状態のプロット。\n\n\nCode\nbase &lt;- \n  ggplot(mpg, aes(displ, cty)) +\n  geom_point(aes(size = hwy, colour = cyl, shape = drv)) + \n  theme_bw()\n\nlift(plot_grid)(list(\n  base, \n  base + guides(\n   colour = guide_colourbar(order = 1, draw.llim = FALSE),\n   shape  = guide_legend(order = 2),\n   size   = guide_legend(\n     order = 3, \n     title = \"MyWay\", \n     keywidth = unit(2, \"cm\"),\n     reverse = 1, \n     title.position = \"top\", # or bottom, left, right\n     title.theme = element_text(color = \"red\", face = \"italic\"), \n     title.hjust = 1, \n     label.theme = element_text(size = 14),\n     direction = \"vertical\"\n    )\n ), \n ncol = 2\n))\n\n\n\n\n\n\n\n\n\nカラーバーなどでの操作を細かく行うための使い方。 guidesとかlegendとかではないけど、一応凡例が操作されているといいうことで. これってスゴい便利なのでは？ 例えば普通の連続値の場合にはscale_fill_continuousを使う.\n\n\nCode\ndf &lt;- expand.grid(X1 = 1:10, X2 = 1:10)\ndf$value &lt;- df$X1 * df$X2\n\np &lt;- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value)) + theme_bw() + coord_equal()\n\n# Coloursteps guide is the default for binned colour scales\nlift(plot_grid)(list(\n  p , \n  p + \n    geom_hline(yintercept = 1:10, color = \"lightgrey\", lty = 2) + \n    geom_vline(xintercept = 1:10, color = \"lightgrey\", lty = 2),\n  p + scale_fill_binned(), \n  p + scale_fill_binned(breaks = c(10, 25, 50)), \n  p + scale_fill_binned(breaks = c(10, 25, 50), guide = guide_coloursteps(even.steps = FALSE)), \n  p + scale_fill_binned(show.limits = TRUE),\n  ncol = 2\n))\n\n\n\n\n\n\n\n\n\n凡例をpanelの中に記述する場合の書き方は次の通り.\n\n\nCode\ndf &lt;- tibble(x = 1:3, y = 1:3, z = c(\"a\", \"b\", \"c\"))\nbase &lt;- \n  df %&gt;%\n  ggplot(aes(x, y, color = z), size = 3) + \n  geom_point()\n\nlift(plot_grid)(list(\n  base, \n  base + theme(\n    legend.position = c(0, 1),       # アンカーの相対座標\n    legend.justification = c(0, 1)), # アンカーの相対座標と紐付ける凡例の相対座標\n  base + theme(\n    legend.position = c(.5, .5), \n    legend.justification = c(.5, .5)),\n  base + theme(\n    legend.position = c(.5, .5), \n    legend.justification = c(0, 1)), \n  base + theme(\n    legend.position = c(1, 0), \n    legend.justification = c(1, 0)\n  ), \n  ncol = 2\n))\n\n\n\n\n\n\n\n\n\nマニュアルで凡例を作成する. ここを参考にした. これはしっくりするやり方だと思う.\n\n\nCode\n\ncolors &lt;- c(\"Sepal Width\" = \"blue\", \"Petal Length\" = \"red\", \"Petal Width\" = \"orange\")\n\nggplot(iris, aes(x = Sepal.Length)) +\n    geom_line(aes(y = Sepal.Width, color = \"Sepal Width\"), size = 1.5) +\n    geom_line(aes(y = Petal.Length, color = \"Petal Length\"), size = 1.5) +\n    geom_line(aes(y = Petal.Width, color = \"Petal Width\"), size = 1.5) +\n    labs(x = \"Year\",\n         y = \"(%)\",\n         color = \"Legend\") +\n    scale_color_manual(values = colors)\n\n\n\n\n\n\n\n\n\n凡例を消したい場合の対処方法. ここを参考にしている.\n\n\nCode\n# レイヤー単位で指定\np &lt;- \n  ggplot(ToothGrowth, aes(x = dose, y = len))+ \n  geom_boxplot(aes(fill = dose), show.legend = FALSE) +\n  scale_fill_viridis_d()\np\n#&gt; Warning: Continuous x aesthetic\n#&gt; ℹ did you forget `aes(group = ...)`?\n#&gt; Warning: The following aesthetics were dropped during statistical transformation: fill\n#&gt; ℹ This can happen when ggplot fails to infer the correct grouping structure in\n#&gt;   the data.\n#&gt; ℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n#&gt;   variable into a factor?\n\n\n\n\n\n\n\n\n\n\n\nCode\n# グラフを作成してから指定\np + theme(legend.position = \"none\")\n#&gt; Warning: Continuous x aesthetic\n#&gt; ℹ did you forget `aes(group = ...)`?\n#&gt; Warning: The following aesthetics were dropped during statistical transformation: fill\n#&gt; ℹ This can happen when ggplot fails to infer the correct grouping structure in\n#&gt;   the data.\n#&gt; ℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n#&gt;   variable into a factor?\n\n\n\n\n\n\n\n\n\n\n\nCode\n# 特定の軸に対して処理をしたい場合の指定\nmtcars$cyl&lt;-as.factor(mtcars$cyl)\nmtcars$gear &lt;- as.factor(mtcars$gear)\n\n# Scatter plot\np2 &lt;- ggplot(data = mtcars, aes(x = mpg, y = wt))+\n    geom_point(aes(color = cyl, size = qsec, shape = gear)) +\n  scale_color_viridis_d()\np2\n\n\n\n\n\n\n\n\n\n\n\nCode\np2 + guides(color = \"none\", size = \"none\")\n\n\n\n\n\n\n\n\n\n\n2.6.1 文字や位置を微調整したい\nstackoverflowが参考になる.\n水平方向に調整する.\n\n\nCode\nlibrary(ggplot2)\n\nggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) + \n  geom_bar() +\n  coord_flip() +\n  scale_fill_brewer(\"Cyl\", palette = \"Dark2\") +\n  theme_minimal(base_size = 14) +\n  theme(legend.position = 'top', \n        legend.spacing.x = unit(1.0, 'cm'))\n\n\n\n\n\n\n\n\n\n鉛直方向に調整する.\n\n\nCode\nlibrary(ggplot2)\n\nggplot(mtcars, aes(y = factor(cyl), fill = factor(cyl))) + \n  geom_bar() +\n  theme(legend.spacing.y = unit(1.0, 'cm'))  +\n  ## important additional element\n  guides(fill = guide_legend(byrow = TRUE))\n\n\n\n\n\n\n\n\n\nカラーバーなどは個別に微調整するみたい. バーの長さも自分で調整ができる見たい.\n\n\nCode\nggplot(mtcars, aes(mpg, wt)) +\n  geom_point(aes(fill = hp), pch = I(21), size = 5)+\n  scale_fill_viridis_c(guide = FALSE) +\n  theme_classic(base_size = 14) +\n  theme(legend.position = 'top', \n        legend.spacing.x = unit(0.5, 'cm'),\n        legend.text = element_text(margin = margin(t = 10))) +\n  guides(fill = guide_colorbar(title = \"HP\",\n                               label.position = \"bottom\",\n                               title.position = \"left\", title.vjust = 1,\n                               # draw border around the legend\n                               frame.colour = \"black\",\n                               barwidth = 25,\n                               barheight = 2)) \n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(mtcars) +\n  aes(x = cyl, fill = factor(cyl)) +\n  geom_bar() +\n  scale_fill_brewer(\"Cyl\", palette = \"Dark2\") +\n  theme_minimal(base_size = 14) +\n  theme(legend.key.size = unit(1, \"cm\"))\n\n\n\n\n\n\n\n\n\n\n\nCode\ndraw_key_polygon3 &lt;- function(data, params, size) {\n  lwd &lt;- min(data$size, min(size) / 4)\n  \n  grid::rectGrob(\n    width = grid::unit(0.6, \"npc\"),\n    height = grid::unit(0.6, \"npc\"),\n    gp = grid::gpar(\n      col = data$colour,\n      fill = alpha(data$fill, data$alpha),\n      lty = data$linetype,\n      lwd = lwd * .pt,\n      linejoin = \"mitre\"\n    ))\n}\n\n### this step is not needed anymore per tjebo's comment below\n### see also: https://ggplot2.tidyverse.org/reference/draw_key.html\n# register new key drawing function, \n# the effect is global & persistent throughout the R session\n# GeomBar$draw_key = draw_key_polygon3\n\nggplot(mtcars) +\n  aes(x = cyl, fill = factor(cyl)) +\n  geom_bar(key_glyph = \"polygon3\") +\n  scale_fill_brewer(\"Cyl\", palette = \"Dark2\") +\n  theme_minimal(base_size = 14) +\n  theme(legend.key = element_rect(color = NA, fill = NA),\n        legend.key.size = unit(1.5, \"cm\")) +\n  theme(legend.title.align = 0.5)",
+    "section": "2.7 凡例のハンドリング",
+    "text": "2.7 凡例のハンドリング\n凡例の操作は難しい… とりあえず、次を操作できるようになりたい.\n\n凡例の出し入れ\n凡例の位置(panelの中か外か)\n凡例のタイトル\n凡例のキーの操作\n凡例の文字列\n\nまずは複数の凡例の順序と凡例自体の位置を制御する例. themeで見た目を整える事もできるけど, guides(guide_legend)でも 大概見た目を加工することができる. 以下の例では 標準的な出力に加えて、凡例を色々と操作してみた状態のプロット。\n\n\nCode\nbase &lt;- \n  ggplot(mpg, aes(displ, cty)) +\n  geom_point(aes(size = hwy, colour = cyl, shape = drv)) + \n  theme_bw()\n\nlift(plot_grid)(list(\n  base, \n  base + guides(\n   colour = guide_colourbar(order = 1, draw.llim = FALSE),\n   shape  = guide_legend(order = 2),\n   size   = guide_legend(\n     order = 3, \n     title = \"MyWay\", \n     keywidth = unit(2, \"cm\"),\n     reverse = 1, \n     title.position = \"top\", # or bottom, left, right\n     title.theme = element_text(color = \"red\", face = \"italic\"), \n     title.hjust = 1, \n     label.theme = element_text(size = 14),\n     direction = \"vertical\"\n    )\n ), \n ncol = 2\n))\n\n\n\n\n\n\n\n\n\nカラーバーなどでの操作を細かく行うための使い方。 guidesとかlegendとかではないけど、一応凡例が操作されているといいうことで. これってスゴい便利なのでは？ 例えば普通の連続値の場合にはscale_fill_continuousを使う.\n\n\nCode\ndf &lt;- expand.grid(X1 = 1:10, X2 = 1:10)\ndf$value &lt;- df$X1 * df$X2\n\np &lt;- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value)) + theme_bw() + coord_equal()\n\n# Coloursteps guide is the default for binned colour scales\nlift(plot_grid)(list(\n  p , \n  p + \n    geom_hline(yintercept = 1:10, color = \"lightgrey\", lty = 2) + \n    geom_vline(xintercept = 1:10, color = \"lightgrey\", lty = 2),\n  p + scale_fill_binned(), \n  p + scale_fill_binned(breaks = c(10, 25, 50)), \n  p + scale_fill_binned(breaks = c(10, 25, 50), guide = guide_coloursteps(even.steps = FALSE)), \n  p + scale_fill_binned(show.limits = TRUE),\n  ncol = 2\n))\n\n\n\n\n\n\n\n\n\n凡例をpanelの中に記述する場合の書き方は次の通り.\n\n\nCode\ndf &lt;- tibble(x = 1:3, y = 1:3, z = c(\"a\", \"b\", \"c\"))\nbase &lt;- \n  df %&gt;%\n  ggplot(aes(x, y, color = z), size = 3) + \n  geom_point()\n\nlift(plot_grid)(list(\n  base, \n  base + theme(\n    legend.position = c(0, 1),       # アンカーの相対座標\n    legend.justification = c(0, 1)), # アンカーの相対座標と紐付ける凡例の相対座標\n  base + theme(\n    legend.position = c(.5, .5), \n    legend.justification = c(.5, .5)),\n  base + theme(\n    legend.position = c(.5, .5), \n    legend.justification = c(0, 1)), \n  base + theme(\n    legend.position = c(1, 0), \n    legend.justification = c(1, 0)\n  ), \n  ncol = 2\n))\n\n\n\n\n\n\n\n\n\nマニュアルで凡例を作成する. ここを参考にした. これはしっくりするやり方だと思う.\n\n\nCode\n\ncolors &lt;- c(\"Sepal Width\" = \"blue\", \"Petal Length\" = \"red\", \"Petal Width\" = \"orange\")\n\nggplot(iris, aes(x = Sepal.Length)) +\n    geom_line(aes(y = Sepal.Width, color = \"Sepal Width\"), size = 1.5) +\n    geom_line(aes(y = Petal.Length, color = \"Petal Length\"), size = 1.5) +\n    geom_line(aes(y = Petal.Width, color = \"Petal Width\"), size = 1.5) +\n    labs(x = \"Year\",\n         y = \"(%)\",\n         color = \"Legend\") +\n    scale_color_manual(values = colors)\n\n\n\n\n\n\n\n\n\n凡例を消したい場合の対処方法. ここを参考にしている.\n\n\nCode\n# レイヤー単位で指定\np &lt;- \n  ggplot(ToothGrowth, aes(x = dose, y = len))+ \n  geom_boxplot(aes(fill = dose), show.legend = FALSE) +\n  scale_fill_viridis_d()\np\n#&gt; Warning: Continuous x aesthetic\n#&gt; ℹ did you forget `aes(group = ...)`?\n#&gt; Warning: The following aesthetics were dropped during statistical transformation: fill\n#&gt; ℹ This can happen when ggplot fails to infer the correct grouping structure in\n#&gt;   the data.\n#&gt; ℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n#&gt;   variable into a factor?\n\n\n\n\n\n\n\n\n\n\n\nCode\n# グラフを作成してから指定\np + theme(legend.position = \"none\")\n#&gt; Warning: Continuous x aesthetic\n#&gt; ℹ did you forget `aes(group = ...)`?\n#&gt; Warning: The following aesthetics were dropped during statistical transformation: fill\n#&gt; ℹ This can happen when ggplot fails to infer the correct grouping structure in\n#&gt;   the data.\n#&gt; ℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n#&gt;   variable into a factor?\n\n\n\n\n\n\n\n\n\n\n\nCode\n# 特定の軸に対して処理をしたい場合の指定\nmtcars$cyl&lt;-as.factor(mtcars$cyl)\nmtcars$gear &lt;- as.factor(mtcars$gear)\n\n# Scatter plot\np2 &lt;- ggplot(data = mtcars, aes(x = mpg, y = wt))+\n    geom_point(aes(color = cyl, size = qsec, shape = gear)) +\n  scale_color_viridis_d()\np2\n\n\n\n\n\n\n\n\n\n\n\nCode\np2 + guides(color = \"none\", size = \"none\")\n\n\n\n\n\n\n\n\n\n\n2.7.1 文字や位置を微調整したい\nstackoverflowが参考になる.\n水平方向に調整する.\n\n\nCode\nlibrary(ggplot2)\n\nggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) + \n  geom_bar() +\n  coord_flip() +\n  scale_fill_brewer(\"Cyl\", palette = \"Dark2\") +\n  theme_minimal(base_size = 14) +\n  theme(legend.position = 'top', \n        legend.spacing.x = unit(1.0, 'cm'))\n\n\n\n\n\n\n\n\n\n鉛直方向に調整する.\n\n\nCode\nlibrary(ggplot2)\n\nggplot(mtcars, aes(y = factor(cyl), fill = factor(cyl))) + \n  geom_bar() +\n  theme(legend.spacing.y = unit(1.0, 'cm'))  +\n  ## important additional element\n  guides(fill = guide_legend(byrow = TRUE))\n\n\n\n\n\n\n\n\n\nカラーバーなどは個別に微調整するみたい. バーの長さも自分で調整ができる見たい.\n\n\nCode\nggplot(mtcars, aes(mpg, wt)) +\n  geom_point(aes(fill = hp), pch = I(21), size = 5)+\n  scale_fill_viridis_c(guide = FALSE) +\n  theme_classic(base_size = 14) +\n  theme(legend.position = 'top', \n        legend.spacing.x = unit(0.5, 'cm'),\n        legend.text = element_text(margin = margin(t = 10))) +\n  guides(fill = guide_colorbar(title = \"HP\",\n                               label.position = \"bottom\",\n                               title.position = \"left\", title.vjust = 1,\n                               # draw border around the legend\n                               frame.colour = \"black\",\n                               barwidth = 25,\n                               barheight = 2)) \n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(mtcars) +\n  aes(x = cyl, fill = factor(cyl)) +\n  geom_bar() +\n  scale_fill_brewer(\"Cyl\", palette = \"Dark2\") +\n  theme_minimal(base_size = 14) +\n  theme(legend.key.size = unit(1, \"cm\"))\n\n\n\n\n\n\n\n\n\n\n\nCode\ndraw_key_polygon3 &lt;- function(data, params, size) {\n  lwd &lt;- min(data$size, min(size) / 4)\n  \n  grid::rectGrob(\n    width = grid::unit(0.6, \"npc\"),\n    height = grid::unit(0.6, \"npc\"),\n    gp = grid::gpar(\n      col = data$colour,\n      fill = alpha(data$fill, data$alpha),\n      lty = data$linetype,\n      lwd = lwd * .pt,\n      linejoin = \"mitre\"\n    ))\n}\n\n### this step is not needed anymore per tjebo's comment below\n### see also: https://ggplot2.tidyverse.org/reference/draw_key.html\n# register new key drawing function, \n# the effect is global & persistent throughout the R session\n# GeomBar$draw_key = draw_key_polygon3\n\nggplot(mtcars) +\n  aes(x = cyl, fill = factor(cyl)) +\n  geom_bar(key_glyph = \"polygon3\") +\n  scale_fill_brewer(\"Cyl\", palette = \"Dark2\") +\n  theme_minimal(base_size = 14) +\n  theme(legend.key = element_rect(color = NA, fill = NA),\n        legend.key.size = unit(1.5, \"cm\")) +\n  theme(legend.title.align = 0.5)",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -126,8 +187,8 @@
     "objectID": "contents/notes/ggplot2/working.html#テキスト",
     "href": "contents/notes/ggplot2/working.html#テキスト",
     "title": "ggplot2 Tips",
-    "section": "2.7 テキスト",
-    "text": "2.7 テキスト\n\n2.7.1 hjust/vjusts\n凡例の位置設定と同じ考え方が，どうやらテキストも同様の考え方で対応でてきる気がする. これをみると、ラベルの左下が(0, 0)で、右上が(1, 1)となっている. ラベルの右端を点xに合わせたい場合には、hjust=1に調整するなど下のものを 参考としてもらいたい.\n\n\nCode\n\nd &lt;- tibble(\n  x = 1:3 %&gt;% rep(3), \n  y = 1:3 %&gt;% rep(each = 3), \n  hjust = c(0, .5, 1) %&gt;% rep(3), \n  vjust = c(0, .5, 1) %&gt;% rep(each = 3)\n) %&gt;%\n  mutate(\n    t = sprintf(\"h:%s\\nv:%s\", hjust, vjust)\n  )\n\ng &lt;- \n  d %&gt;% \n  ggplot(aes(x, y, label = t)) + \n  coord_equal() + \n  theme_bw()\n\nplot(\n  g +\n    geom_label(aes(hjust = hjust, vjust = vjust)) + \n    geom_point(color = \"gold\", size = 2)\n  )\n\n\n\n\n\n\n\n\n\n\n\n2.7.2 position\nposition系の関数を使うと気の利いた調整が行える.\n\n\nCode\ndf &lt;- data.frame(\n  x = factor(c(1, 1, 2, 2)),\n  y = c(1, 3, 2, 1),\n  grp = c(\"a\", \"b\", \"a\", \"b\")\n)\n\n\n\n\nCode\nggplot(data = df, aes(x, y, group = grp)) +\n  geom_col(aes(fill = grp), position = \"dodge\") +\n  # x軸の中心からそれぞれどれだけ離すか\n  geom_text(aes(label = y), position = position_dodge(0.9))\n\n\n\n\n\n\n\n\n\n\n\nCode\n# Use you can't nudge and dodge text, so instead adjust the y position\nggplot(data = df, aes(x, y, group = grp)) +\n  geom_col(aes(fill = grp), position = \"dodge\") +\n  geom_text(\n    aes(label = y, y = y + 0.05),\n    position = position_dodge(0.9),\n    vjust = 0\n  )\n\n\n\n\n\n\n\n\n\n\n\nCode\n# To place text in the middle of each bar in a stacked barplot, you\n# need to set the vjust parameter of position_stack()\nggplot(data = df, aes(x, y, group = grp)) +\n geom_col(aes(fill = grp)) +\n # スタックされているところは，つまり，境界のところ\n # この場合のvjustはスタックされているところで調整してくれている(文字の大きさでない)\n geom_text(aes(label = y), position = position_stack(vjust = 0.5))",
+    "section": "2.8 テキスト",
+    "text": "2.8 テキスト\n\n2.8.1 hjust/vjusts\n凡例の位置設定と同じ考え方が，どうやらテキストも同様の考え方で対応でてきる気がする. これをみると、ラベルの左下が(0, 0)で、右上が(1, 1)となっている. ラベルの右端を点xに合わせたい場合には、hjust=1に調整するなど下のものを 参考としてもらいたい.\n\n\nCode\n\nd &lt;- tibble(\n  x = 1:3 %&gt;% rep(3), \n  y = 1:3 %&gt;% rep(each = 3), \n  hjust = c(0, .5, 1) %&gt;% rep(3), \n  vjust = c(0, .5, 1) %&gt;% rep(each = 3)\n) %&gt;%\n  mutate(\n    t = sprintf(\"h:%s\\nv:%s\", hjust, vjust)\n  )\n\ng &lt;- \n  d %&gt;% \n  ggplot(aes(x, y, label = t)) + \n  coord_equal() + \n  theme_bw()\n\nplot(\n  g +\n    geom_label(aes(hjust = hjust, vjust = vjust)) + \n    geom_point(color = \"gold\", size = 2)\n  )\n\n\n\n\n\n\n\n\n\n\n\n2.8.2 position\nposition系の関数を使うと気の利いた調整が行える.\n\n\nCode\ndf &lt;- data.frame(\n  x = factor(c(1, 1, 2, 2)),\n  y = c(1, 3, 2, 1),\n  grp = c(\"a\", \"b\", \"a\", \"b\")\n)\n\n\n\n\nCode\nggplot(data = df, aes(x, y, group = grp)) +\n  geom_col(aes(fill = grp), position = \"dodge\") +\n  # x軸の中心からそれぞれどれだけ離すか\n  geom_text(aes(label = y), position = position_dodge(0.9))\n\n\n\n\n\n\n\n\n\n\n\nCode\n# Use you can't nudge and dodge text, so instead adjust the y position\nggplot(data = df, aes(x, y, group = grp)) +\n  geom_col(aes(fill = grp), position = \"dodge\") +\n  geom_text(\n    aes(label = y, y = y + 0.05),\n    position = position_dodge(0.9),\n    vjust = 0\n  )\n\n\n\n\n\n\n\n\n\n\n\nCode\n# To place text in the middle of each bar in a stacked barplot, you\n# need to set the vjust parameter of position_stack()\nggplot(data = df, aes(x, y, group = grp)) +\n geom_col(aes(fill = grp)) +\n # スタックされているところは，つまり，境界のところ\n # この場合のvjustはスタックされているところで調整してくれている(文字の大きさでない)\n geom_text(aes(label = y), position = position_stack(vjust = 0.5))",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -137,8 +198,8 @@
     "objectID": "contents/notes/ggplot2/working.html#facet_grid",
     "href": "contents/notes/ggplot2/working.html#facet_grid",
     "title": "ggplot2 Tips",
-    "section": "2.8 facet_grid",
-    "text": "2.8 facet_grid\n基本的な使い方はいいが，ここではストリップラベルをずらす例を紹介．\n\n\nCode\ndata &lt;- \n  tibble(\n    rows = sprintf(\"row_%d\", 1:2), \n    cols = sprintf(\"col_%d\", 1:2)\n  ) %&gt;%\n  tidyr::expand(rows, cols) %&gt;%\n  rowwise() %&gt;%\n  mutate(\n    data = list(tibble(x = rnorm(1000), y = rnorm(1000)))\n  ) %&gt;%\n  unnest(data)\n\n\n\n\nCode\ndata %&gt;%\n  ggplot() + \n  geom_point(aes(x, y), size = 1) + \n  coord_equal(xlim = c(-3, 3), ylim = c(-3, 3)) + \n  theme_cowplot() + \n  facet_grid(\n    rows = vars(rows), \n    cols = vars(cols), \n    switch = \"y\" # 行のラベルを左に置く\n  ) + \n  scale_y_continuous(position = \"right\") + \n  theme(\n    # RStudioの予測にも出てこないけど，\n    # leftにおいたyのstripにアングルを与えるには次を使うこと\n    strip.text.y.left = element_text(angle = 0, face = \"bold\")\n  )",
+    "section": "2.9 facet_grid",
+    "text": "2.9 facet_grid\n基本的な使い方はいいが，ここではストリップラベルをずらす例を紹介．\n\n\nCode\ndata &lt;- \n  tibble(\n    rows = sprintf(\"row_%d\", 1:2), \n    cols = sprintf(\"col_%d\", 1:2)\n  ) %&gt;%\n  tidyr::expand(rows, cols) %&gt;%\n  rowwise() %&gt;%\n  mutate(\n    data = list(tibble(x = rnorm(1000), y = rnorm(1000)))\n  ) %&gt;%\n  unnest(data)\n\n\n\n\nCode\ndata %&gt;%\n  ggplot() + \n  geom_point(aes(x, y), size = 1) + \n  coord_equal(xlim = c(-3, 3), ylim = c(-3, 3)) + \n  theme_cowplot() + \n  facet_grid(\n    rows = vars(rows), \n    cols = vars(cols), \n    switch = \"y\" # 行のラベルを左に置く\n  ) + \n  scale_y_continuous(position = \"right\") + \n  theme(\n    # RStudioの予測にも出てこないけど，\n    # leftにおいたyのstripにアングルを与えるには次を使うこと\n    strip.text.y.left = element_text(angle = 0, face = \"bold\")\n  )",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -148,8 +209,8 @@
     "objectID": "contents/notes/ggplot2/working.html#summary_stat",
     "href": "contents/notes/ggplot2/working.html#summary_stat",
     "title": "ggplot2 Tips",
-    "section": "2.9 summary_stat",
-    "text": "2.9 summary_stat\ngeom関数とstat関数は一緒の関係であるが, stat_summaryにより関数を適用してプロットを行うことが可能となる. 正直使いにくいイメージがあるので，個人的には 事前に集計したレイヤーを重ねるという方法を常に選択しがちである．\n\n\nCode\np &lt;- \n  ggplot(\n    data = filter(penguins, complete.cases(penguins)), \n    mapping = aes(\n      x = species,\n      y = bill_length_mm\n    )\n  ) + \n  theme_minimal() + \n  theme(\n    panel.background = element_rect(color = \"black\")\n  )\n\np + \n  geom_point() + \n  stat_summary(fun = \"mean\", color = \"red\", size = 4)\n#&gt; Warning: Removed 3 rows containing missing values (`geom_segment()`).",
+    "section": "2.10 summary_stat",
+    "text": "2.10 summary_stat\ngeom関数とstat関数は一緒の関係であるが, stat_summaryにより関数を適用してプロットを行うことが可能となる. 正直使いにくいイメージがあるので，個人的には 事前に集計したレイヤーを重ねるという方法を常に選択しがちである．\n\n\nCode\np &lt;- \n  ggplot(\n    data = filter(penguins, complete.cases(penguins)), \n    mapping = aes(\n      x = species,\n      y = bill_length_mm\n    )\n  ) + \n  theme_minimal() + \n  theme(\n    panel.background = element_rect(color = \"black\")\n  )\n\np + \n  geom_point() + \n  stat_summary(fun = \"mean\", color = \"red\", size = 4)\n#&gt; Warning: Removed 3 rows containing missing values (`geom_segment()`).",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -159,8 +220,8 @@
     "objectID": "contents/notes/ggplot2/working.html#マルチレベルのwrap",
     "href": "contents/notes/ggplot2/working.html#マルチレベルのwrap",
     "title": "ggplot2 Tips",
-    "section": "2.10 マルチレベルのwrap",
-    "text": "2.10 マルチレベルのwrap\n自然言語処理でドキュメントごとに単語頻度上位N件の 度数をバープロットで描画するときなど， ドキュメントでfacetしてその中でwordを並び変えてプロットしたいときがある．\nこのとき，何も考えずに行うと期待したプロットが作成できない． これに対処するには，並び換えを全体で行えるようにkeyを調整した上で， プロットする際にキーラベル名を調整するという処理が必要である.\n\n\nCode\ndata &lt;- \n  tibble(\n    key   = c(\"a\", \"a\", \"b\", \"b\"), \n    value = c(1, 2, 2, 1), \n    term  = c(\"w1\", \"w2\", \"w1\", \"w2\")\n  )\n\n# 並び変えてプロットしても\n# グラフは同じ順番になってしまう\n# これをfacetごとに降順に並び変えたい\ndata %&gt;% \n  group_by(key) %&gt;% \n  arrange(value) %&gt;% \n  ungroup() %&gt;% \n  ggplot(aes(reorder(term, value), value)) + \n  geom_col() + \n  facet_wrap(vars(key), scales = \"free\")\n\n\n\n\n\n\n\n\n\n一応このようにやれば対応が可能である.\n\n\nCode\ndata %&gt;%\n  mutate(new_key = factor(str_c(term, key, sep = \"___\"))) %&gt;%\n  arrange(value) %&gt;%\n  ggplot(aes(reorder(new_key, value), value)) + \n  geom_col() + \n  facet_wrap(vars(key), scales = \"free\") + \n  scale_x_discrete(label = function(x) sub(\"___.+$\", \"\", x), drop = TRUE)",
+    "section": "2.11 マルチレベルのwrap",
+    "text": "2.11 マルチレベルのwrap\n自然言語処理でドキュメントごとに単語頻度上位N件の 度数をバープロットで描画するときなど， ドキュメントでfacetしてその中でwordを並び変えてプロットしたいときがある．\nこのとき，何も考えずに行うと期待したプロットが作成できない． これに対処するには，並び換えを全体で行えるようにkeyを調整した上で， プロットする際にキーラベル名を調整するという処理が必要である.\n\n\nCode\ndata &lt;- \n  tibble(\n    key   = c(\"a\", \"a\", \"b\", \"b\"), \n    value = c(1, 2, 2, 1), \n    term  = c(\"w1\", \"w2\", \"w1\", \"w2\")\n  )\n\n# 並び変えてプロットしても\n# グラフは同じ順番になってしまう\n# これをfacetごとに降順に並び変えたい\ndata %&gt;% \n  group_by(key) %&gt;% \n  arrange(value) %&gt;% \n  ungroup() %&gt;% \n  ggplot(aes(reorder(term, value), value)) + \n  geom_col() + \n  facet_wrap(vars(key), scales = \"free\")\n\n\n\n\n\n\n\n\n\n一応このようにやれば対応が可能である.\n\n\nCode\ndata %&gt;%\n  mutate(new_key = factor(str_c(term, key, sep = \"___\"))) %&gt;%\n  arrange(value) %&gt;%\n  ggplot(aes(reorder(new_key, value), value)) + \n  geom_col() + \n  facet_wrap(vars(key), scales = \"free\") + \n  scale_x_discrete(label = function(x) sub(\"___.+$\", \"\", x), drop = TRUE)",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -170,8 +231,8 @@
     "objectID": "contents/notes/ggplot2/working.html#trans",
     "href": "contents/notes/ggplot2/working.html#trans",
     "title": "ggplot2 Tips",
-    "section": "2.11 trans",
-    "text": "2.11 trans\ntrans系やscale系の関数を使うことで，データをggplot内で変換することが可能となるはず． たとえばscale_x_logなどがそれに該当する.\n\n\nCode\ntibble(\n  x = 1:10, \n  y = 1:10\n) %&gt;% \n  ggplot(aes(x, y)) + \n  geom_line() + \n  scale_y_log10()\n\n\n\n\n\n\n\n\n\n同じことを違う遣り方で実行してみる.\n\n\nCode\ntibble(\n  x = 1:10, \n  y = 1:10\n) %&gt;% \n  ggplot(aes(x, y)) + \n  geom_line() + \n  scale_y_continuous(trans = \"log10\")\n\n\n\n\n\n\n\n\n\nさらに別のやり方を試す.\n\n\nCode\ntibble(\n  x = 1:10, \n  y = 1:10\n) %&gt;% \n  ggplot(aes(x, y)) + \n  geom_line() + \n  scale_y_continuous(\n    trans = scales::trans_new(\"log10\", log10, function(x) 10 ** x), \n    minor_breaks = seq(1, 10, .5), \n    breaks = c(1, 6, 10)\n  ) + \n  theme(\n    axis.ticks.length = unit(-2, \"mm\")\n  )",
+    "section": "2.12 trans",
+    "text": "2.12 trans\ntrans系やscale系の関数を使うことで，データをggplot内で変換することが可能となるはず． たとえばscale_x_logなどがそれに該当する.\n\n\nCode\ntibble(\n  x = 1:10, \n  y = 1:10\n) %&gt;% \n  ggplot(aes(x, y)) + \n  geom_line() + \n  scale_y_log10()\n\n\n\n\n\n\n\n\n\n同じことを違う遣り方で実行してみる.\n\n\nCode\ntibble(\n  x = 1:10, \n  y = 1:10\n) %&gt;% \n  ggplot(aes(x, y)) + \n  geom_line() + \n  scale_y_continuous(trans = \"log10\")\n\n\n\n\n\n\n\n\n\nさらに別のやり方を試す.\n\n\nCode\ntibble(\n  x = 1:10, \n  y = 1:10\n) %&gt;% \n  ggplot(aes(x, y)) + \n  geom_line() + \n  scale_y_continuous(\n    trans = scales::trans_new(\"log10\", log10, function(x) 10 ** x), \n    minor_breaks = seq(1, 10, .5), \n    breaks = c(1, 6, 10)\n  ) + \n  theme(\n    axis.ticks.length = unit(-2, \"mm\")\n  )",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -181,8 +242,8 @@
     "objectID": "contents/notes/ggplot2/working.html#グラフの順番に凡例の順番を合わす",
     "href": "contents/notes/ggplot2/working.html#グラフの順番に凡例の順番を合わす",
     "title": "ggplot2 Tips",
-    "section": "2.12 グラフの順番に凡例の順番を合わす",
-    "text": "2.12 グラフの順番に凡例の順番を合わす\n参考文献\n\n\nCode\nlibrary(tidyverse)  # 1.3.0\n\nusa_crop_yields &lt;- read_csv(\"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-01/key_crop_yields.csv\") %&gt;%\n  rename_with(~ gsub(\" \\\\(tonnes per hectare\\\\)\", \"\", .)) %&gt;%\n  pivot_longer(Wheat:Bananas, names_to = \"crop\", values_to = \"yield\") %&gt;%\n  rename_with(tolower) %&gt;%\n  filter(entity == \"United States\", !is.na(yield)) %&gt;%\n  select(year, crop, yield)\n#&gt; Rows: 13075 Columns: 14\n#&gt; ── Column specification ────────────────────────────────────────────────────────\n#&gt; Delimiter: \",\"\n#&gt; chr  (2): Entity, Code\n#&gt; dbl (12): Year, Wheat (tonnes per hectare), Rice (tonnes per hectare), Maize...\n#&gt; \n#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.\n#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nusa_crop_yields\n#&gt; # A tibble: 522 × 3\n#&gt;     year crop     yield\n#&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;\n#&gt;  1  1961 Wheat     1.61\n#&gt;  2  1961 Rice      3.82\n#&gt;  3  1961 Maize     3.92\n#&gt;  4  1961 Soybeans  1.69\n#&gt;  5  1961 Potatoes 22.2 \n#&gt;  6  1961 Beans     1.54\n#&gt;  7  1961 Peas      1.19\n#&gt;  8  1961 Barley    1.65\n#&gt;  9  1961 Bananas  10.5 \n#&gt; 10  1962 Wheat     1.68\n#&gt; # ℹ 512 more rows\n\n\n\n\nCode\nusa_crop_yields %&gt;%\n  mutate(crop = fct_reorder2(crop, year, yield)) %&gt;%\n  ggplot(aes(year, yield, color = crop)) +\n  geom_line() +\n  labs(x = NULL, y = NULL, color = NULL)",
+    "section": "2.13 グラフの順番に凡例の順番を合わす",
+    "text": "2.13 グラフの順番に凡例の順番を合わす\n参考文献\n\n\nCode\nlibrary(tidyverse)  # 1.3.0\n\nusa_crop_yields &lt;- read_csv(\"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-01/key_crop_yields.csv\") %&gt;%\n  rename_with(~ gsub(\" \\\\(tonnes per hectare\\\\)\", \"\", .)) %&gt;%\n  pivot_longer(Wheat:Bananas, names_to = \"crop\", values_to = \"yield\") %&gt;%\n  rename_with(tolower) %&gt;%\n  filter(entity == \"United States\", !is.na(yield)) %&gt;%\n  select(year, crop, yield)\n#&gt; Rows: 13075 Columns: 14\n#&gt; ── Column specification ────────────────────────────────────────────────────────\n#&gt; Delimiter: \",\"\n#&gt; chr  (2): Entity, Code\n#&gt; dbl (12): Year, Wheat (tonnes per hectare), Rice (tonnes per hectare), Maize...\n#&gt; \n#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.\n#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nusa_crop_yields\n#&gt; # A tibble: 522 × 3\n#&gt;     year crop     yield\n#&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;\n#&gt;  1  1961 Wheat     1.61\n#&gt;  2  1961 Rice      3.82\n#&gt;  3  1961 Maize     3.92\n#&gt;  4  1961 Soybeans  1.69\n#&gt;  5  1961 Potatoes 22.2 \n#&gt;  6  1961 Beans     1.54\n#&gt;  7  1961 Peas      1.19\n#&gt;  8  1961 Barley    1.65\n#&gt;  9  1961 Bananas  10.5 \n#&gt; 10  1962 Wheat     1.68\n#&gt; # ℹ 512 more rows\n\n\n\n\nCode\nusa_crop_yields %&gt;%\n  mutate(crop = fct_reorder2(crop, year, yield)) %&gt;%\n  ggplot(aes(year, yield, color = crop)) +\n  geom_line() +\n  labs(x = NULL, y = NULL, color = NULL)",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -192,8 +253,8 @@
     "objectID": "contents/notes/ggplot2/working.html#histgram",
     "href": "contents/notes/ggplot2/working.html#histgram",
     "title": "ggplot2 Tips",
-    "section": "2.13 histgram",
-    "text": "2.13 histgram\nヒストグラムをきれいに書きたい.\n\n\nCode\ndata &lt;- tibble(a = runif(100), b = sample(c(\"a\", \"b\"), 100, replace = TRUE))\ndata %&gt;%\n  ggplot(aes(x = a)) + \n  geom_histogram(aes(fill = b), center = 0, breaks = seq(0, 1., .1), color = \"lightgrey\", closed = \"left\") +\n  geom_text(\n    stat = \"bin\",\n    # count, dnesity, ncount, ndensity\n    aes(label = ..count.., y = ..count.., fill = b),\n    breaks = seq(0, 1., .1),\n    closed = \"left\",\n    vjust = -.5,\n    position = position_stack(vjust = .5)\n  ) + \n  geom_text(\n    stat = \"bin\", \n    aes(x = a, label = after_stat(count), y = after_stat(count)), \n    breaks = seq(0, 1., .1), \n    closed = \"left\", \n    vjust = -.5, \n    data = data\n  ) +\n  scale_x_continuous(breaks = seq(0, 1., .1))\n#&gt; Warning in geom_text(stat = \"bin\", aes(label = ..count.., y = ..count.., :\n#&gt; Ignoring unknown aesthetics: fill\n#&gt; Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.\n#&gt; ℹ Please use `after_stat(count)` instead.\n\n\n\n\n\n\n\n\n\n左に閉じたときにどのような挙動になるのかを確認したい. [0, .1), [.1, .2), …., [.9, 1.]となっていることがわかる.\n\n\nCode\ndata &lt;- tibble(a = sample(c(0, .1, .5,  1.), 100, TRUE), b = sample(c(\"a\", \"b\"), 100, replace = TRUE))\ndata %&gt;%\n  ggplot(aes(x = a)) + \n  geom_histogram(\n    aes(fill = b), \n    center = 0,\n    breaks = seq(0, 1., .1), \n    color = \"lightgrey\", \n    closed = \"left\"\n  ) +\n  geom_text(\n    stat = \"bin\",\n    aes(label = ..count.., y = ..count.., group = b),\n    breaks = seq(0, 1., .1),\n    closed = \"left\",\n    vjust = -.5,\n    position = position_stack(vjust = .5)\n  ) + \n  scale_x_continuous(breaks = seq(0, 1., .1))",
+    "section": "2.14 histgram",
+    "text": "2.14 histgram\nヒストグラムをきれいに書きたい.\n\n\nCode\ndata &lt;- tibble(a = runif(100), b = sample(c(\"a\", \"b\"), 100, replace = TRUE))\ndata %&gt;%\n  ggplot(aes(x = a)) + \n  geom_histogram(aes(fill = b), center = 0, breaks = seq(0, 1., .1), color = \"lightgrey\", closed = \"left\") +\n  geom_text(\n    stat = \"bin\",\n    # count, dnesity, ncount, ndensity\n    aes(label = ..count.., y = ..count.., fill = b),\n    breaks = seq(0, 1., .1),\n    closed = \"left\",\n    vjust = -.5,\n    position = position_stack(vjust = .5)\n  ) + \n  geom_text(\n    stat = \"bin\", \n    aes(x = a, label = after_stat(count), y = after_stat(count)), \n    breaks = seq(0, 1., .1), \n    closed = \"left\", \n    vjust = -.5, \n    data = data\n  ) +\n  scale_x_continuous(breaks = seq(0, 1., .1))\n#&gt; Warning in geom_text(stat = \"bin\", aes(label = ..count.., y = ..count.., :\n#&gt; Ignoring unknown aesthetics: fill\n\n\n\n\n\n\n\n\n\n左に閉じたときにどのような挙動になるのかを確認したい. [0, .1), [.1, .2), …., [.9, 1.]となっていることがわかる.\n\n\nCode\ndata &lt;- tibble(a = sample(c(0, .1, .5,  1.), 100, TRUE), b = sample(c(\"a\", \"b\"), 100, replace = TRUE))\ndata %&gt;%\n  ggplot(aes(x = a)) + \n  geom_histogram(\n    aes(fill = b), \n    center = 0,\n    breaks = seq(0, 1., .1), \n    color = \"lightgrey\", \n    closed = \"left\"\n  ) +\n  geom_text(\n    stat = \"bin\",\n    aes(label = ..count.., y = ..count.., group = b),\n    breaks = seq(0, 1., .1),\n    closed = \"left\",\n    vjust = -.5,\n    position = position_stack(vjust = .5)\n  ) + \n  scale_x_continuous(breaks = seq(0, 1., .1))",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -203,8 +264,8 @@
     "objectID": "contents/notes/ggplot2/working.html#geom_smooth",
     "href": "contents/notes/ggplot2/working.html#geom_smooth",
     "title": "ggplot2 Tips",
-    "section": "2.14 geom_smooth",
-    "text": "2.14 geom_smooth\n\n\nCode\ndf &lt;- tibble(\n    x = seq(1, 100, 1), \n    e = runif(n = 100)\n) |&gt; \n    mutate(y = x * .05 + e)\n\ndf |&gt; \n    ggplot(aes(x, y)) + \n    geom_point() + \n    geom_line(data = ~ . |&gt; filter(x &lt;= 50), col = \"red\") + \n    geom_smooth(data = ~ . |&gt; filter(x &gt; 50), col = \"blue\")\n#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'",
+    "section": "2.15 geom_smooth",
+    "text": "2.15 geom_smooth\n\n\nCode\ndf &lt;- tibble(\n    x = seq(1, 100, 1), \n    e = runif(n = 100)\n) |&gt; \n    mutate(y = x * .05 + e)\n\ndf |&gt; \n    ggplot(aes(x, y)) + \n    geom_point() + \n    geom_line(data = ~ . |&gt; filter(x &lt;= 50), col = \"red\") + \n    geom_smooth(data = ~ . |&gt; filter(x &gt; 50), col = \"blue\")\n#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -215,7 +276,7 @@
     "href": "contents/notes/ggplot2/working.html#ggmosaic",
     "title": "ggplot2 Tips",
     "section": "3.1 ggmosaic",
-    "text": "3.1 ggmosaic\n\n\nCode\nlibrary(ggplot2)\nlibrary(ggmosaic)\n#&gt; \n#&gt; Attaching package: 'ggmosaic'\n#&gt; The following object is masked from 'package:GGally':\n#&gt; \n#&gt;     happy\nlibrary(dplyr)\n\ncc &lt;- count(diamonds, cut, clarity)\n\nggplot(cc) + \n    geom_mosaic(\n        aes(weight = n, x = product(cut), fill = clarity)\n    )\n#&gt; Warning: `unite_()` was deprecated in tidyr 1.2.0.\n#&gt; ℹ Please use `unite()` instead.\n#&gt; ℹ The deprecated feature was likely used in the ggmosaic package.\n#&gt;   Please report the issue at &lt;https://github.com/haleyjeppson/ggmosaic&gt;.",
+    "text": "3.1 ggmosaic\n\n\nCode\nlibrary(ggplot2)\nlibrary(ggmosaic)\nlibrary(dplyr)\n\ncc &lt;- count(diamonds, cut, clarity)\n\nggplot(cc) + \n    geom_mosaic(\n        aes(weight = n, x = product(cut), fill = clarity)\n    )\n#&gt; Warning: `unite_()` was deprecated in tidyr 1.2.0.\n#&gt; ℹ Please use `unite()` instead.\n#&gt; ℹ The deprecated feature was likely used in the ggmosaic package.\n#&gt;   Please report the issue at &lt;https://github.com/haleyjeppson/ggmosaic&gt;.",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -303,7 +364,7 @@
     "href": "contents/notes/ggplot2/working.html#heat-map-with-geom_tile",
     "title": "ggplot2 Tips",
     "section": "3.9 Heat map with geom_tile",
-    "text": "3.9 Heat map with geom_tile\n\n3.9.1 Sample Data\n\n\nCode\nlibrary(reshape)\n#&gt; \n#&gt; Attaching package: 'reshape'\n#&gt; The following object is masked from 'package:cowplot':\n#&gt; \n#&gt;     stamp\n#&gt; The following object is masked from 'package:lubridate':\n#&gt; \n#&gt;     stamp\n#&gt; The following object is masked from 'package:dplyr':\n#&gt; \n#&gt;     rename\n#&gt; The following objects are masked from 'package:tidyr':\n#&gt; \n#&gt;     expand, smiths\n\n# Data \nset.seed(8)\nm &lt;- matrix(round(rnorm(200), 2), 10, 10)\n#&gt; Warning in matrix(round(rnorm(200), 2), 10, 10): data length differs from size\n#&gt; of matrix: [200 != 10 x 10]\ncolnames(m) &lt;- paste(\"Col\", 1:10)\nrownames(m) &lt;- paste(\"Row\", 1:10)\n\n# Transform the matrix in long format\ndf &lt;- melt(m)\n#&gt; Warning in type.convert.default(X[[i]], ...): 'as.is' should be specified by\n#&gt; the caller; using TRUE\n#&gt; Warning in type.convert.default(X[[i]], ...): 'as.is' should be specified by\n#&gt; the caller; using TRUE\ncolnames(df) &lt;- c(\"x\", \"y\", \"value\")\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile()\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile() + \n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(\n    color = \"white\", \n    lwd = 1.5, \n    linetype = 1.\n  ) + \n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  geom_text(aes(label = value), color = \"white\", size = 4) + \n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\n3.9.2 Color Palette\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  scale_fill_gradient(low = \"white\", high = \"red\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  scale_fill_gradient2(\n    low = \"#075AFF\", \n    mid = \"#FFFFCC\", \n    high = \"#FF0000\"\n  ) + \n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  scale_fill_gradientn(colors = hcl.colors(20, \"RdYlGn\")) +\n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\n3.9.3 Legend customization\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  coord_fixed() + \n  guides(\n    fill = guide_colourbar(barwidth = .5, barheight = 20)\n  )\n\n\n\n\n\n\n\n\n\n\n\nCode\n# install.packages(\"ggplot2\")\nlibrary(ggplot2)\n\nggplot(df, aes(x = x, y = y, fill = value)) +\n  geom_tile(color = \"black\") +\n  coord_fixed() +\n  guides(fill = guide_colourbar(title = \"Title\")) \n\n\n\n\n\n\n\n\n\n\n\nCode\n# install.packages(\"ggplot2\")\nlibrary(ggplot2)\n\nggplot(df, aes(x = x, y = y, fill = value)) +\n  geom_tile(color = \"black\") +\n  coord_fixed() +\n  guides(fill = guide_colourbar(label = FALSE,\n                                ticks = FALSE)) \n\n\n\n\n\n\n\n\n\n\n\nCode\n# install.packages(\"ggplot2\")\nlibrary(ggplot2)\n\nggplot(df, aes(x = x, y = y, fill = value)) +\n  geom_tile(color = \"black\") +\n  coord_fixed() +\n  theme(legend.position = \"none\")",
+    "text": "3.9 Heat map with geom_tile\n\n3.9.1 Sample Data\n\n\nCode\nlibrary(reshape)\n\n# Data \nset.seed(8)\nm &lt;- matrix(round(rnorm(200), 2), 10, 10)\n#&gt; Warning in matrix(round(rnorm(200), 2), 10, 10): data length differs from size\n#&gt; of matrix: [200 != 10 x 10]\ncolnames(m) &lt;- paste(\"Col\", 1:10)\nrownames(m) &lt;- paste(\"Row\", 1:10)\n\n# Transform the matrix in long format\ndf &lt;- melt(m)\n#&gt; Warning in type.convert.default(X[[i]], ...): 'as.is' should be specified by\n#&gt; the caller; using TRUE\n#&gt; Warning in type.convert.default(X[[i]], ...): 'as.is' should be specified by\n#&gt; the caller; using TRUE\ncolnames(df) &lt;- c(\"x\", \"y\", \"value\")\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile()\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile() + \n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(\n    color = \"white\", \n    lwd = 1.5, \n    linetype = 1.\n  ) + \n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  geom_text(aes(label = value), color = \"white\", size = 4) + \n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\n3.9.2 Color Palette\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  scale_fill_gradient(low = \"white\", high = \"red\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  scale_fill_gradient2(\n    low = \"#075AFF\", \n    mid = \"#FFFFCC\", \n    high = \"#FF0000\"\n  ) + \n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  scale_fill_gradientn(colors = hcl.colors(20, \"RdYlGn\")) +\n  coord_fixed()\n\n\n\n\n\n\n\n\n\n\n\n3.9.3 Legend customization\n\n\nCode\nggplot(df, aes(x = x, y = y, fill = value)) + \n  geom_tile(color = \"black\") + \n  coord_fixed() + \n  guides(\n    fill = guide_colourbar(barwidth = .5, barheight = 20)\n  )\n\n\n\n\n\n\n\n\n\n\n\nCode\n# install.packages(\"ggplot2\")\nlibrary(ggplot2)\n\nggplot(df, aes(x = x, y = y, fill = value)) +\n  geom_tile(color = \"black\") +\n  coord_fixed() +\n  guides(fill = guide_colourbar(title = \"Title\")) \n\n\n\n\n\n\n\n\n\n\n\nCode\n# install.packages(\"ggplot2\")\nlibrary(ggplot2)\n\nggplot(df, aes(x = x, y = y, fill = value)) +\n  geom_tile(color = \"black\") +\n  coord_fixed() +\n  guides(fill = guide_colourbar(label = FALSE,\n                                ticks = FALSE)) \n\n\n\n\n\n\n\n\n\n\n\nCode\n# install.packages(\"ggplot2\")\nlibrary(ggplot2)\n\nggplot(df, aes(x = x, y = y, fill = value)) +\n  geom_tile(color = \"black\") +\n  coord_fixed() +\n  theme(legend.position = \"none\")",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -336,7 +397,7 @@
     "href": "contents/notes/ggplot2/working.html#ggridges",
     "title": "ggplot2 Tips",
     "section": "3.12 ggridges",
-    "text": "3.12 ggridges\n公式ページをみるのが１番．どのようなグラフが描けるのかは，サンプルを見て欲しい．グラフの幅が拡がること間違いなし．\n\n\nCode\ndata &lt;- data.frame(x = 1:5, y = rep(1, 5), height = c(0, 1, 3, 4, 2))\nggplot(data, aes(x, y, height = height)) + geom_ridgeline()\n\n\n\n\n\n\n\n\n\n\n\nCode\n\ndata &lt;- data.frame(x = 1:5, y = rep(1, 5), height = c(0, 1, -1, 3, 2))\nplot_base &lt;- ggplot(data, aes(x, y, height = height))\n\nplot_base + geom_ridgeline() | plot_base + geom_ridgeline(min_height = -2)\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(iris, aes(x=Sepal.Length, y=Species, fill = factor(stat(quantile)))) +\n  stat_density_ridges(\n    geom = \"density_ridges_gradient\", calc_ecdf = TRUE,\n    quantiles = 4, quantile_lines = TRUE\n  ) +\n  scale_fill_viridis_d(name = \"Quartiles\")\n#&gt; Warning: `stat(quantile)` was deprecated in ggplot2 3.4.0.\n#&gt; ℹ Please use `after_stat(quantile)` instead.\n#&gt; Picking joint bandwidth of 0.181\n#&gt; Warning: Using the `size` aesthetic with geom_segment was deprecated in ggplot2 3.4.0.\n#&gt; ℹ Please use the `linewidth` aesthetic instead.\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(iris, aes(x = Sepal.Length, y = Species, fill = factor(stat(quantile)))) +\n  stat_density_ridges(\n    geom = \"density_ridges_gradient\",\n    calc_ecdf = TRUE,\n    quantiles = c(0.025, 0.975)\n  ) +\n  scale_fill_manual(\n    name = \"Probability\", values = c(\"#FF0000A0\", \"#A0A0A0A0\", \"#0000FFA0\"),\n    labels = c(\"(0, 0.025]\", \"(0.025, 0.975]\", \"(0.975, 1]\")\n  )\n#&gt; Picking joint bandwidth of 0.181\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(iris, aes(x = Sepal.Length, y = Species)) +\n  geom_density_ridges(\n    jittered_points = TRUE, quantile_lines = TRUE, scale = 0.9, alpha = 0.7,\n    vline_size = 1, vline_color = \"red\",\n    point_size = 0.4, point_alpha = 1,\n    position = position_raincloud(adjust_vlines = TRUE)\n  )\n#&gt; Picking joint bandwidth of 0.181\n\n\n\n\n\n\n\n\n\nスケールは縦スケールである．重なりを避けたい場合には小さくすればいいし，重なりがあっても強調したい場合には大きい値を設定すればよい.\n\n\nCode\nggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = Month, fill = stat(x))) +\n  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +\n  scale_fill_viridis_c(name = \"Temp. [F]\", option = \"C\") +\n  labs(title = 'Temperatures in Lincoln NE in 2016')\n#&gt; Picking joint bandwidth of 3.37",
+    "text": "3.12 ggridges\n公式ページをみるのが１番．どのようなグラフが描けるのかは，サンプルを見て欲しい．グラフの幅が拡がること間違いなし．\n\n\nCode\ndata &lt;- data.frame(x = 1:5, y = rep(1, 5), height = c(0, 1, 3, 4, 2))\nggplot(data, aes(x, y, height = height)) + geom_ridgeline()\n\n\n\n\n\n\n\n\n\n\n\nCode\n\ndata &lt;- data.frame(x = 1:5, y = rep(1, 5), height = c(0, 1, -1, 3, 2))\nplot_base &lt;- ggplot(data, aes(x, y, height = height))\n\nplot_base + geom_ridgeline() | plot_base + geom_ridgeline(min_height = -2)\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(iris, aes(x=Sepal.Length, y=Species, fill = factor(stat(quantile)))) +\n  stat_density_ridges(\n    geom = \"density_ridges_gradient\", calc_ecdf = TRUE,\n    quantiles = 4, quantile_lines = TRUE\n  ) +\n  scale_fill_viridis_d(name = \"Quartiles\")\n#&gt; Warning: `stat(quantile)` was deprecated in ggplot2 3.4.0.\n#&gt; ℹ Please use `after_stat(quantile)` instead.\n#&gt; Picking joint bandwidth of 0.181\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(iris, aes(x = Sepal.Length, y = Species, fill = factor(stat(quantile)))) +\n  stat_density_ridges(\n    geom = \"density_ridges_gradient\",\n    calc_ecdf = TRUE,\n    quantiles = c(0.025, 0.975)\n  ) +\n  scale_fill_manual(\n    name = \"Probability\", values = c(\"#FF0000A0\", \"#A0A0A0A0\", \"#0000FFA0\"),\n    labels = c(\"(0, 0.025]\", \"(0.025, 0.975]\", \"(0.975, 1]\")\n  )\n#&gt; Picking joint bandwidth of 0.181\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(iris, aes(x = Sepal.Length, y = Species)) +\n  geom_density_ridges(\n    jittered_points = TRUE, quantile_lines = TRUE, scale = 0.9, alpha = 0.7,\n    vline_size = 1, vline_color = \"red\",\n    point_size = 0.4, point_alpha = 1,\n    position = position_raincloud(adjust_vlines = TRUE)\n  )\n#&gt; Picking joint bandwidth of 0.181\n#&gt; Warning: Use of the `vline_size` or `size` aesthetic are deprecated, please use\n#&gt; `linewidth` instead of `size` and `vline_width` instead of `vline_size`.\n#&gt; Warning: Use of the `vline_size` aesthetics is deprecated, please use\n#&gt; `vline_width` instead of `vline_size`.\n\n#&gt; Warning: Use of the `vline_size` aesthetics is deprecated, please use\n#&gt; `vline_width` instead of `vline_size`.\n\n#&gt; Warning: Use of the `vline_size` aesthetics is deprecated, please use\n#&gt; `vline_width` instead of `vline_size`.\n\n\n\n\n\n\n\n\n\nスケールは縦スケールである．重なりを避けたい場合には小さくすればいいし，重なりがあっても強調したい場合には大きい値を設定すればよい.\n\n\nCode\nggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = Month, fill = stat(x))) +\n  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +\n  scale_fill_viridis_c(name = \"Temp. [F]\", option = \"C\") +\n  labs(title = 'Temperatures in Lincoln NE in 2016')\n#&gt; Picking joint bandwidth of 3.37",
     "crumbs": [
       "Notes",
       "ggplot2"
@@ -1242,110 +1303,26 @@
     ]
   },
   {
-    "objectID": "contents/libs/ggfittext/working.html",
-    "href": "contents/libs/ggfittext/working.html",
-    "title": "ggfittext",
+    "objectID": "contents/libs/ggmosaic/working.html",
+    "href": "contents/libs/ggmosaic/working.html",
+    "title": "ggmosaic",
     "section": "",
-    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ggfit\")\nCode\npackages &lt;- c(\n  \"tidyverse\", \n  \"magick\",\n  \"ggplot2\", \n  \"readr\", \n  \"tibble\", \n  \"tidyr\", \n  \"forcats\", \n  \"stringr\",\n  \"lubridate\", \n  \"here\", \n  \"systemfonts\", \n  \"magick\", \n  \"scales\", \n  \"grid\",\n  \"grDevices\", \n  \"colorspace\", \n  \"viridis\", \n  \"RColorBrewer\", \n  \"rcartocolor\",\n  \"scico\", \n  \"ggsci\", \n  \"ggthemes\", \n  \"nord\", \n  \"MetBrewer\", \n  \"ggrepel\",\n  \"ggforce\",\n  \"ggtext\", \n  \"ggfittext\",\n  \"ggdist\", \n  \"ggbeeswarm\", \n  \"gghalves\", \n  \"patchwork\", \n  \"palmerpenguins\", \n  \"rnaturalearth\", \n  \"sf\", \n  \"rmapshaper\", \n  \"devtools\", \n  \"extrafont\"\n) |&gt; lapply(\\(x) library(x, character.only = TRUE))\nlibrary(cowplot)\nlibrary(colorblindr)\n\n\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ggmosaic\")\n\n\n\n\nCode\nlibrary(ggmosaic)\nlibrary(showtext)\nlibrary(dplyr)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 はじめに\nggmosaicで美しいモザイクプロットを作成することができる。\nHPが再発サイトである。\n\n\n2 Example\n\n\nCode\nhappy %&gt;% \n  mutate(finrela = forcats::fct_recode(finrela,\n    \"far below     \" = \"far below average\",\n    \"    below\" = \"below average\",\n    \"average\" = \"average\",\n    \"above    \" = \"above average\", \n    \"l\\n   far above\" = \"far above average\")) %&gt;% \n  ggplot() +\n  geom_mosaic(aes(x = product(finrela), fill=health), show.legend = FALSE) +\n  theme_mosaic() +\n  scale_fill_manual(values = c(\"#4575B4\", \"#ABD9E9\", \"#FEE090\", \"#F46D43\"))\n#&gt; Warning: `unite_()` was deprecated in tidyr 1.2.0.\n#&gt; ℹ Please use `unite()` instead.\n#&gt; ℹ The deprecated feature was likely used in the ggmosaic package.\n#&gt;   Please report the issue at &lt;https://github.com/haleyjeppson/ggmosaic&gt;.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "libs",
-      "ggfittext",
+      "ggmosaic",
       "Introduction"
     ]
   },
   {
-    "objectID": "contents/libs/ggfittext/working.html#fitting-text-inside-a-box",
-    "href": "contents/libs/ggfittext/working.html#fitting-text-inside-a-box",
-    "title": "ggfittext",
-    "section": "2.1 Fitting text inside a box",
-    "text": "2.1 Fitting text inside a box\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text()",
+    "objectID": "contents/libs/gganimate/working.html",
+    "href": "contents/libs/gganimate/working.html",
+    "title": "gganimate",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/gganimate\")\n\n\n\n1 はじめに\n\nGithub\n\n\n\n2 An Example\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "libs",
-      "ggfittext",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "contents/libs/ggfittext/working.html#reflowing-text",
-    "href": "contents/libs/ggfittext/working.html#reflowing-text",
-    "title": "ggfittext",
-    "section": "2.2 Reflowing text",
-    "text": "2.2 Reflowing text\n\n\nCode\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE)",
-    "crumbs": [
-      "libs",
-      "ggfittext",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "contents/libs/ggfittext/working.html#growing-text",
-    "href": "contents/libs/ggfittext/working.html#growing-text",
-    "title": "ggfittext",
-    "section": "2.3 Growing text",
-    "text": "2.3 Growing text\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE, grow = TRUE)",
-    "crumbs": [
-      "libs",
-      "ggfittext",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "contents/libs/ggfittext/working.html#placing-text",
-    "href": "contents/libs/ggfittext/working.html#placing-text",
-    "title": "ggfittext",
-    "section": "2.4 Placing text",
-    "text": "2.4 Placing text\n\n\nCode\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(place = \"topleft\", reflow = TRUE)",
-    "crumbs": [
-      "libs",
-      "ggfittext",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "contents/libs/ggfittext/working.html#bar-plots",
-    "href": "contents/libs/ggfittext/working.html#bar-plots",
-    "title": "ggfittext",
-    "section": "2.5 Bar plots",
-    "text": "2.5 Bar plots\ngeom_bar_textを使うだけで簡単に作成することができてしまう。\n\n\nCode\n\nggplot(altitudes, aes(x = craft, y = altitude, label = altitude)) +\n  geom_col() +\n  geom_bar_text()\n\n\n\n\n\n\n\n\n\n\n\nCode\n\nggplot(beverages, aes(x = beverage, y = proportion, label = ingredient,\n                    fill = ingredient)) +\n  geom_col(position = \"stack\") +\n  geom_bar_text(position = \"stack\", reflow = TRUE)\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(beverages, aes(x = beverage, y = proportion, label = ingredient,\n                    fill = ingredient)) +\n  geom_col(position = \"dodge\") +\n  geom_bar_text(position = \"dodge\", grow = TRUE, reflow = TRUE, \n                place = \"left\") +\n  coord_flip()\n\n\n\n\n\n\n\n\n\nリッチなテクストを配置することも可能である。\n\n\nCode\nggplot(animals_rich, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE, grow = TRUE, rich = TRUE)",
-    "crumbs": [
-      "libs",
-      "ggfittext",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "contents/libs/ggfittext/working.html#specifying-the-box-limits",
-    "href": "contents/libs/ggfittext/working.html#specifying-the-box-limits",
-    "title": "ggfittext",
-    "section": "2.6 Specifying the box limits",
-    "text": "2.6 Specifying the box limits\n\n\nCode\nggplot(presidential, aes(ymin = start, ymax = end, x = party, label = name)) +\n  geom_fit_text(grow = TRUE) +\n  geom_errorbar(alpha = 0.5)",
-    "crumbs": [
-      "libs",
-      "ggfittext",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "contents/libs/ggfittext/working.html#experimental-feaure-text-inpolar-coordinates",
-    "href": "contents/libs/ggfittext/working.html#experimental-feaure-text-inpolar-coordinates",
-    "title": "ggfittext",
-    "section": "2.7 Experimental feaure: text inpolar coordinates",
-    "text": "2.7 Experimental feaure: text inpolar coordinates\n\n\nCode\np &lt;- ggplot(gold, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, \n                 fill = linenumber, label = line)) +\n  coord_polar() +\n  geom_rect() +\n  scale_fill_gradient(low = \"#fee391\", high = \"#238443\")\n\np + geom_fit_text(min.size = 0, grow = TRUE)",
-    "crumbs": [
-      "libs",
-      "ggfittext",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "contents/libs/ggfittext/working.html#other-useful-arguments",
-    "href": "contents/libs/ggfittext/working.html#other-useful-arguments",
-    "title": "ggfittext",
-    "section": "2.8 Other useful arguments",
-    "text": "2.8 Other useful arguments\ncontrastパラメータは自動でテキストの色を反転させることができる。\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, fill = mass, label = animal)) +\n  geom_tile() +\n  geom_fit_text(reflow = TRUE, grow = TRUE, contrast = TRUE)",
-    "crumbs": [
-      "libs",
-      "ggfittext",
+      "gganimate",
       "Introduction"
     ]
   },
@@ -1358,6 +1335,30 @@
     "crumbs": [
       "libs",
       "corrr",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/GGally/working.html",
+    "href": "contents/libs/GGally/working.html",
+    "title": "GGally",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/GGally\")\nCode\n library(ComplexHeatmap)\nlibrary(ggplot2)\nlibrary(tidyverse)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
+    "crumbs": [
+      "libs",
+      "GGally",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/GGally/working.html#ggparcoord",
+    "href": "contents/libs/GGally/working.html#ggparcoord",
+    "title": "GGally",
+    "section": "2.1 ggparcoord",
+    "text": "2.1 ggparcoord\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           showPoints = TRUE) +\n           scale_color_brewer(palette = \"Set2\") \n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           splineFactor = TRUE) +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\nスケールを色々と変更することが可能である。\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"robust\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"uniminmax\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"globalminmax\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"center\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"centerObs\") +\n           scale_color_brewer(palette = \"Set2\")",
+    "crumbs": [
+      "libs",
+      "GGally",
       "Introduction"
     ]
   },
@@ -2254,50 +2255,314 @@
     ]
   },
   {
-    "objectID": "contents/libs/GGally/working.html",
-    "href": "contents/libs/GGally/working.html",
-    "title": "GGally",
+    "objectID": "contents/libs/DBI/working.html",
+    "href": "contents/libs/DBI/working.html",
+    "title": "DBI",
     "section": "",
-    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/GGally\")\nCode\n library(ComplexHeatmap)\nlibrary(ggplot2)\nlibrary(tidyverse)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/DBI\")\nCode\nlibrary(ggplot2)\nlibrary(duckdb)\nlibrary(tidyverse)\nlibrary(palmerpenguins)\nlibrary(DBI)\nlibrary(dbplyr)\nlibrary(showtext)\nlibrary(arrow)\nlibrary(nanoarrow)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
     "crumbs": [
       "libs",
-      "GGally",
+      "DBI",
       "Introduction"
     ]
   },
   {
-    "objectID": "contents/libs/GGally/working.html#ggparcoord",
-    "href": "contents/libs/GGally/working.html#ggparcoord",
-    "title": "GGally",
-    "section": "2.1 ggparcoord",
-    "text": "2.1 ggparcoord\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           showPoints = TRUE) +\n           scale_color_brewer(palette = \"Set2\") \n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           splineFactor = TRUE) +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\nスケールを色々と変更することが可能である。\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"robust\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"uniminmax\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"globalminmax\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"center\") +\n           scale_color_brewer(palette = \"Set2\")\n\n\n\n\n\n\n\n\n\n\n\nCode\nggparcoord(data = iris,\n           columns = 1:4,\n           groupColumn = \"Species\",\n           scale = \"centerObs\") +\n           scale_color_brewer(palette = \"Set2\")",
+    "objectID": "contents/libs/DBI/working.html#prepare",
+    "href": "contents/libs/DBI/working.html#prepare",
+    "title": "DBI",
+    "section": "3.1 Prepare",
+    "text": "3.1 Prepare\n\n\nCode\ncon &lt;- dbConnect(RSQLite::SQLite())\n\ndata &lt;- data.frame(\n  a = 1:3,\n  b = 4.5,\n  c = \"five\"\n)\n\ndbWriteTable(con, \"tbl\", data)",
     "crumbs": [
       "libs",
-      "GGally",
+      "DBI",
       "Introduction"
     ]
   },
   {
-    "objectID": "contents/libs/gganimate/working.html",
-    "href": "contents/libs/gganimate/working.html",
-    "title": "gganimate",
-    "section": "",
-    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/gganimate\")\n\n\n\n1 はじめに\n\nGithub\n\n\n\n2 An Example\n\n\n\n\n\n\n Back to top",
+    "objectID": "contents/libs/DBI/working.html#read-all-rows-from-table",
+    "href": "contents/libs/DBI/working.html#read-all-rows-from-table",
+    "title": "DBI",
+    "section": "3.2 Read all rows from table",
+    "text": "3.2 Read all rows from table\n\n\nCode\nstream &lt;- dbReadTableArrow(con, \"tbl\")\nstream\n#&gt; &lt;nanoarrow_array_stream struct&lt;a: int32, b: double, c: string&gt;&gt;\n#&gt;  $ get_schema:function ()  \n#&gt;  $ get_next  :function (schema = x$get_schema(), validate = TRUE)  \n#&gt;  $ release   :function ()\n\n\n\n\nCode\nstream$get_schema()\n#&gt; &lt;nanoarrow_schema struct&gt;\n#&gt;  $ format    : chr \"+s\"\n#&gt;  $ name      : chr \"\"\n#&gt;  $ metadata  : list()\n#&gt;  $ flags     : int 0\n#&gt;  $ children  :List of 3\n#&gt;   ..$ a:&lt;nanoarrow_schema int32&gt;\n#&gt;   .. ..$ format    : chr \"i\"\n#&gt;   .. ..$ name      : chr \"a\"\n#&gt;   .. ..$ metadata  : list()\n#&gt;   .. ..$ flags     : int 2\n#&gt;   .. ..$ children  : list()\n#&gt;   .. ..$ dictionary: NULL\n#&gt;   ..$ b:&lt;nanoarrow_schema double&gt;\n#&gt;   .. ..$ format    : chr \"g\"\n#&gt;   .. ..$ name      : chr \"b\"\n#&gt;   .. ..$ metadata  : list()\n#&gt;   .. ..$ flags     : int 2\n#&gt;   .. ..$ children  : list()\n#&gt;   .. ..$ dictionary: NULL\n#&gt;   ..$ c:&lt;nanoarrow_schema string&gt;\n#&gt;   .. ..$ format    : chr \"u\"\n#&gt;   .. ..$ name      : chr \"c\"\n#&gt;   .. ..$ metadata  : list()\n#&gt;   .. ..$ flags     : int 2\n#&gt;   .. ..$ children  : list()\n#&gt;   .. ..$ dictionary: NULL\n#&gt;  $ dictionary: NULL\n\n\n\n\nCode\nas_tibble(stream)\n#&gt; # A tibble: 3 × 3\n#&gt;       a     b c    \n#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;\n#&gt; 1     1   4.5 five \n#&gt; 2     2   4.5 five \n#&gt; 3     3   4.5 five",
     "crumbs": [
       "libs",
-      "gganimate",
+      "DBI",
       "Introduction"
     ]
   },
   {
-    "objectID": "contents/libs/ggmosaic/working.html",
-    "href": "contents/libs/ggmosaic/working.html",
-    "title": "ggmosaic",
-    "section": "",
-    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ggmosaic\")\n\n\n\n\nCode\nlibrary(ggmosaic)\nlibrary(showtext)\nlibrary(dplyr)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 はじめに\nggmosaicで美しいモザイクプロットを作成することができる。\nHPが再発サイトである。\n\n\n2 Example\n\n\nCode\nhappy %&gt;% \n  mutate(finrela = forcats::fct_recode(finrela,\n    \"far below     \" = \"far below average\",\n    \"    below\" = \"below average\",\n    \"average\" = \"average\",\n    \"above    \" = \"above average\", \n    \"l\\n   far above\" = \"far above average\")) %&gt;% \n  ggplot() +\n  geom_mosaic(aes(x = product(finrela), fill=health), show.legend = FALSE) +\n  theme_mosaic() +\n  scale_fill_manual(values = c(\"#4575B4\", \"#ABD9E9\", \"#FEE090\", \"#F46D43\"))\n#&gt; Warning: `unite_()` was deprecated in tidyr 1.2.0.\n#&gt; ℹ Please use `unite()` instead.\n#&gt; ℹ The deprecated feature was likely used in the ggmosaic package.\n#&gt;   Please report the issue at &lt;https://github.com/haleyjeppson/ggmosaic&gt;.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
+    "objectID": "contents/libs/DBI/working.html#run-queries",
+    "href": "contents/libs/DBI/working.html#run-queries",
+    "title": "DBI",
+    "section": "3.3 Run queries",
+    "text": "3.3 Run queries\n\n\nCode\nstream &lt;- dbGetQueryArrow(con, \"SELECT COUNT(*) AS n FROM tbl WHERE a &lt; 3\")\nstream\n#&gt; &lt;nanoarrow_array_stream struct&lt;n: int32&gt;&gt;\n#&gt;  $ get_schema:function ()  \n#&gt;  $ get_next  :function (schema = x$get_schema(), validate = TRUE)  \n#&gt;  $ release   :function ()\n\n\nファイルに書き出す。\n\n\nCode\npath &lt;- tempfile(fileext = \".parquet\")\narrow::write_parquet(arrow::as_record_batch_reader(stream), path)\narrow::read_parquet(path)\n#&gt; # A tibble: 1 × 1\n#&gt;       n\n#&gt;   &lt;int&gt;\n#&gt; 1     2",
     "crumbs": [
       "libs",
-      "ggmosaic",
+      "DBI",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/DBI/working.html#prepared-queries",
+    "href": "contents/libs/DBI/working.html#prepared-queries",
+    "title": "DBI",
+    "section": "3.4 Prepared queries",
+    "text": "3.4 Prepared queries\nクエリに使うパラメータをデータフレームから渡すことができる。\n\n\nCode\nparams &lt;- data.frame(a = 3L)\nstream &lt;- dbGetQueryArrow(con, \"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a\", params = params)\nas.data.frame(stream)\n#&gt;   batch a   b    c\n#&gt; 1     3 1 4.5 five\n#&gt; 2     3 2 4.5 five\n\n\nパラメータが不足するときには最期の値がrecursiveする。\n\n\nCode\nparams &lt;- data.frame(a = c(2L, 4L))\n# Equivalent to dbBind()\nstream &lt;- dbGetQueryArrow(con, \"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a\", params = params)\nas.data.frame(stream)\n#&gt;   batch a   b    c\n#&gt; 1     2 1 4.5 five\n#&gt; 2     4 1 4.5 five\n#&gt; 3     4 2 4.5 five\n#&gt; 4     4 3 4.5 five",
+    "crumbs": [
+      "libs",
+      "DBI",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/DBI/working.html#manual-flow",
+    "href": "contents/libs/DBI/working.html#manual-flow",
+    "title": "DBI",
+    "section": "3.5 Manual flow",
+    "text": "3.5 Manual flow\ndbSendQueryArrowを使うとクエリを送付し、dbFetchArrowで結果を取得する。 これらはdbBindArrowを使うことでもできる。処理後は必ずdbClearResultを使いクリアすることになる。\n\n\nCode\nrs &lt;- dbSendQueryArrow(con, \"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a\")\n\nin_arrow &lt;- nanoarrow::as_nanoarrow_array(data.frame(a = 1L))\ndbBindArrow(rs, in_arrow)\nas.data.frame(dbFetchArrow(rs))\n#&gt; [1] batch a     b     c    \n#&gt; &lt;0 rows&gt; (or 0-length row.names)\n\n\n\n\nCode\nin_arrow &lt;- nanoarrow::as_nanoarrow_array(data.frame(a = 2L))\ndbBindArrow(rs, in_arrow)\nas.data.frame(dbFetchArrow(rs))\n#&gt;   batch a   b    c\n#&gt; 1     2 1 4.5 five\n\n\n\n\nCode\nin_arrow &lt;- nanoarrow::as_nanoarrow_array(data.frame(a = 3L))\ndbBindArrow(rs, in_arrow)\nas.data.frame(dbFetchArrow(rs))\n#&gt;   batch a   b    c\n#&gt; 1     3 1 4.5 five\n#&gt; 2     3 2 4.5 five\n\n\n\n\nCode\nin_arrow &lt;- nanoarrow::as_nanoarrow_array(data.frame(a = 1:4L))\ndbBindArrow(rs, in_arrow)\nas.data.frame(dbFetchArrow(rs))\n#&gt;   batch a   b    c\n#&gt; 1     2 1 4.5 five\n#&gt; 2     3 1 4.5 five\n#&gt; 3     3 2 4.5 five\n#&gt; 4     4 1 4.5 five\n#&gt; 5     4 2 4.5 five\n#&gt; 6     4 3 4.5 five",
+    "crumbs": [
+      "libs",
+      "DBI",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/DBI/working.html#writing-data",
+    "href": "contents/libs/DBI/working.html#writing-data",
+    "title": "DBI",
+    "section": "3.6 Writing Data",
+    "text": "3.6 Writing Data\n\n\nCode\nstream &lt;- dbGetQueryArrow(con, \"SELECT * FROM tbl WHERE a &lt; 3\")\n#&gt; Warning: Closing open result set, pending rows\ndbWriteTableArrow(con, \"tbl_new\", stream)\ndbReadTable(con, \"tbl_new\")\n#&gt;   a   b    c\n#&gt; 1 1 4.5 five\n#&gt; 2 2 4.5 five",
+    "crumbs": [
+      "libs",
+      "DBI",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/DBI/working.html#appending-data",
+    "href": "contents/libs/DBI/working.html#appending-data",
+    "title": "DBI",
+    "section": "3.7 Appending Data",
+    "text": "3.7 Appending Data\n\n\nCode\nstream &lt;- dbGetQueryArrow(con, \"SELECT * FROM tbl WHERE a &lt; 3\")\ndbCreateTableArrow(con, \"tbl_split\", stream)\ndbAppendTableArrow(con, \"tbl_split\", stream)\n#&gt; [1] 2\n\n\n\n\nCode\nstream &lt;- dbGetQueryArrow(con, \"SELECT * FROM tbl WHERE a &gt;= 3\")\ndbAppendTableArrow(con, \"tbl_split\", stream)\n#&gt; [1] 1\n\n\n\n\nCode\ndbReadTable(con, \"tbl_split\")\n#&gt;   a   b    c\n#&gt; 1 1 4.5 five\n#&gt; 2 2 4.5 five\n#&gt; 3 3 4.5 five",
+    "crumbs": [
+      "libs",
+      "DBI",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/DBI/working.html#coculution",
+    "href": "contents/libs/DBI/working.html#coculution",
+    "title": "DBI",
+    "section": "3.8 Coculution",
+    "text": "3.8 Coculution\n\n\nCode\ndbDisconnect(con)",
+    "crumbs": [
+      "libs",
+      "DBI",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/base/working.html",
+    "href": "contents/libs/base/working.html",
+    "title": "base",
+    "section": "",
+    "text": "baseパッケージ関連のノートです。",
+    "crumbs": [
+      "libs",
+      "base",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/base/working.html#approxapproxxfun",
+    "href": "contents/libs/base/working.html#approxapproxxfun",
+    "title": "base",
+    "section": "2.1 approx/approxxfun",
+    "text": "2.1 approx/approxxfun\n\nデータ点から近似関数を作成する\n1次元の他に使うことができる\napproxは直接近似値を返し, approxfunは近似関数を返す\n\n\n\nCode\nx &lt;- seq(0, 2 * pi, length.out = 10)\ny &lt;- sin(x)\nay &lt;- approxfun(x, y)(x)\nplot(x, y, pch = 19, cex = 3)\npoints(x, ay, col = \"blue\", type = \"l\")",
+    "crumbs": [
+      "libs",
+      "base",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/duckdb/working.html",
+    "href": "contents/libs/duckdb/working.html",
+    "title": "duckdb",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/duckdb\")\nCode\nlibrary(ggplot2)\nlibrary(duckdb)\nlibrary(tidyverse)\nlibrary(palmerpenguins)\nlibrary(DBI)\nlibrary(dbplyr)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
+    "crumbs": [
+      "libs",
+      "duckdb",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/duckdb/working.html#startup-shutdown",
+    "href": "contents/libs/duckdb/working.html#startup-shutdown",
+    "title": "duckdb",
+    "section": "2.1 Startup & Shutdown",
+    "text": "2.1 Startup & Shutdown\nduckdbのファイル拡張子は、.dbか.duckdbである。 :memory:とするとin-memory databaseとして使うことが可能である。この場合、Rの終了と合わせてデータが破棄される。 read-onlyパラメータを使うことで書き込み制限ができる。\n\n\nCode\n# to start an in-memory database\ncon &lt;- dbConnect(duckdb())\n# or\ncon &lt;- dbConnect(duckdb(), dbdir = \":memory:\")\n# to use a database file (not shared between processes)\ncon &lt;- dbConnect(duckdb(), dbdir = \"my-db.duckdb\", read_only = FALSE)\n# to use a database file (shared between processes)\ncon &lt;- dbConnect(duckdb(), dbdir = \"my-db.duckdb\", read_only = TRUE)",
+    "crumbs": [
+      "libs",
+      "duckdb",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/duckdb/working.html#querying",
+    "href": "contents/libs/duckdb/working.html#querying",
+    "title": "duckdb",
+    "section": "2.2 Querying",
+    "text": "2.2 Querying\ndbExecuteはCREATE TABLEやUPDATEのように返値を期待したいクエリの際に使う。 dbGetQueryはSELECTのように返値を期待するクエリに対して使う。\n\n\nCode\ncon &lt;- dbConnect(duckdb(\":memory:\"))\n\n\n\n\nCode\ndbExecute(con, \"CREATE TABLE items (item VARCHAR, value DECIMAL(10, 2), count INTEGER)\")\n#&gt; [1] 0\ndbExecute(con, \"INSERT INTO items VALUES ('jeans', 20.0, 1), ('hammer', 42.2, 2)\")\n#&gt; [1] 2\nres &lt;- dbGetQuery(con, \"SELECT * FROM items\")\nprint(res)\n#&gt;     item value count\n#&gt; 1  jeans  20.0     1\n#&gt; 2 hammer  42.2     2",
+    "crumbs": [
+      "libs",
+      "duckdb",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/duckdb/working.html#efficient-transfer",
+    "href": "contents/libs/duckdb/working.html#efficient-transfer",
+    "title": "duckdb",
+    "section": "2.3 Efficient Transfer",
+    "text": "2.3 Efficient Transfer\ndbWriteTableを使うことでRのデータフレームをduckdbに書き込むことができる。\n\n\nCode\ndbWriteTable(con, \"iris_table\", iris)\nres &lt;- dbGetQuery(con, \"SELECT * FROM iris_table LIMIT 1\")\nprint(res)\n#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n#&gt; 1          5.1         3.5          1.4         0.2  setosa\n\n\n\n\nCode\niris_tibble &lt;- as_tibble(iris)\ndbWriteTable(con, \"iris_tibble_table\", iris_tibble)\nres &lt;- dbGetQuery(con, \"SELECT * FROM iris_tibble_table LIMIT 1\")\nprint(res)\n#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n#&gt; 1          5.1         3.5          1.4         0.2  setosa\n\n\n\n\nCode\ndbDisconnect(con)",
+    "crumbs": [
+      "libs",
+      "duckdb",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/duckdb/working.html#dbplyr",
+    "href": "contents/libs/duckdb/working.html#dbplyr",
+    "title": "duckdb",
+    "section": "2.4 dbplyr",
+    "text": "2.4 dbplyr\n\n\nCode\ncon &lt;- dbConnect(duckdb())\nduckdb_register(con, \"flights\", nycflights13::flights)\n\n\ntbl(con, \"flights\") |&gt;\n  group_by(dest) |&gt;\n  summarise(delay = mean(dep_time, na.rm = TRUE)) |&gt;\n  collect()\n#&gt; # A tibble: 105 × 2\n#&gt;    dest  delay\n#&gt;    &lt;chr&gt; &lt;dbl&gt;\n#&gt;  1 FLL   1327.\n#&gt;  2 RSW   1209.\n#&gt;  3 ROC   1473.\n#&gt;  4 SYR   1474.\n#&gt;  5 CMH   1421.\n#&gt;  6 CHS   1299.\n#&gt;  7 STL   1344.\n#&gt;  8 STT    830.\n#&gt;  9 OMA   1388.\n#&gt; 10 OKC   1996.\n#&gt; # ℹ 95 more rows\n\n\ndbplyrを使っているときは、csvやparquertのファイル群をdbplyr::tbl関数を使うことで読み込むことが可能である。\n\n\nCode\nwrite_csv(mtcars, \"mtcars.csv\")\n\n\nquery &lt;- \n  tbl(con, \"mtcars.csv\", check_from = FALSE) |&gt; \n  group_by(cyl) |&gt; \n  summarise(across(disp:wt, .fns = mean)) \n\nquery\n#&gt; Warning: Missing values are always removed in SQL aggregation functions.\n#&gt; Use `na.rm = TRUE` to silence this warning\n#&gt; This warning is displayed once every 8 hours.\n#&gt; # Source:   SQL [3 x 5]\n#&gt; # Database: DuckDB v0.10.0 [suzuk@Windows 10 x64:R 4.3.1/:memory:]\n#&gt;     cyl  disp    hp  drat    wt\n#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n#&gt; 1     8  353. 209.   3.23  4.00\n#&gt; 2     6  183. 122.   3.59  3.12\n#&gt; 3     4  105.  82.6  4.07  2.29\n\n\n\n\nCode\ncollect(query)\n#&gt; # A tibble: 3 × 5\n#&gt;     cyl  disp    hp  drat    wt\n#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n#&gt; 1     4  105.  82.6  4.07  2.29\n#&gt; 2     6  183. 122.   3.59  3.12\n#&gt; 3     8  353. 209.   3.23  4.00\n\n\nparquetファイルに書き出すことも可能である。\n\n\nCode\ndbExecute(con, \"COPY flights TO 'dataset' (FORMAT PARQUET, PARTITION_BY (year, month), OVERWRITE_OR_IGNORE)\")\n#&gt; [1] 0\n\n\nparquetに書き出したファイルにを対象にしてインメモリで集計する。読み出しを含めて爆速で集計できるのがわかる。\n\n\nCode\nbench::mark(\n  tbl(con, \"read_parquet('dataset/**/*.parquet', hive_partitioning = true)\") |&gt;\n    filter(month == 3) |&gt;\n    summarise(delay = mean(dep_time, na.rm = TRUE)) |&gt;\n    collect()\n)\n#&gt; # A tibble: 1 × 6\n#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`\n#&gt;   &lt;bch:expr&gt;                           &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;\n#&gt; 1 \"collect(summarise(filter(tbl(con, … 108ms  109ms      9.20     573KB     13.8\n\n\n\n\nCode\ndbDisconnect(con)",
+    "crumbs": [
+      "libs",
+      "duckdb",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html",
+    "href": "contents/libs/ggfittext/working.html",
+    "title": "ggfittext",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ggfit\")\nCode\npackages &lt;- c(\n  \"tidyverse\", \n  \"magick\",\n  \"ggplot2\", \n  \"readr\", \n  \"tibble\", \n  \"tidyr\", \n  \"forcats\", \n  \"stringr\",\n  \"lubridate\", \n  \"here\", \n  \"systemfonts\", \n  \"magick\", \n  \"scales\", \n  \"grid\",\n  \"grDevices\", \n  \"colorspace\", \n  \"viridis\", \n  \"RColorBrewer\", \n  \"rcartocolor\",\n  \"scico\", \n  \"ggsci\", \n  \"ggthemes\", \n  \"nord\", \n  \"MetBrewer\", \n  \"ggrepel\",\n  \"ggforce\",\n  \"ggtext\", \n  \"ggfittext\",\n  \"ggdist\", \n  \"ggbeeswarm\", \n  \"gghalves\", \n  \"patchwork\", \n  \"palmerpenguins\", \n  \"rnaturalearth\", \n  \"sf\", \n  \"rmapshaper\", \n  \"devtools\", \n  \"extrafont\"\n) |&gt; lapply(\\(x) library(x, character.only = TRUE))\nlibrary(cowplot)\nlibrary(colorblindr)\n\n\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html#fitting-text-inside-a-box",
+    "href": "contents/libs/ggfittext/working.html#fitting-text-inside-a-box",
+    "title": "ggfittext",
+    "section": "2.1 Fitting text inside a box",
+    "text": "2.1 Fitting text inside a box\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text()",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html#reflowing-text",
+    "href": "contents/libs/ggfittext/working.html#reflowing-text",
+    "title": "ggfittext",
+    "section": "2.2 Reflowing text",
+    "text": "2.2 Reflowing text\n\n\nCode\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE)",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html#growing-text",
+    "href": "contents/libs/ggfittext/working.html#growing-text",
+    "title": "ggfittext",
+    "section": "2.3 Growing text",
+    "text": "2.3 Growing text\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE, grow = TRUE)",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html#placing-text",
+    "href": "contents/libs/ggfittext/working.html#placing-text",
+    "title": "ggfittext",
+    "section": "2.4 Placing text",
+    "text": "2.4 Placing text\n\n\nCode\nggplot(animals, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(place = \"topleft\", reflow = TRUE)",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html#bar-plots",
+    "href": "contents/libs/ggfittext/working.html#bar-plots",
+    "title": "ggfittext",
+    "section": "2.5 Bar plots",
+    "text": "2.5 Bar plots\ngeom_bar_textを使うだけで簡単に作成することができてしまう。\n\n\nCode\n\nggplot(altitudes, aes(x = craft, y = altitude, label = altitude)) +\n  geom_col() +\n  geom_bar_text()\n\n\n\n\n\n\n\n\n\n\n\nCode\n\nggplot(beverages, aes(x = beverage, y = proportion, label = ingredient,\n                    fill = ingredient)) +\n  geom_col(position = \"stack\") +\n  geom_bar_text(position = \"stack\", reflow = TRUE)\n\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(beverages, aes(x = beverage, y = proportion, label = ingredient,\n                    fill = ingredient)) +\n  geom_col(position = \"dodge\") +\n  geom_bar_text(position = \"dodge\", grow = TRUE, reflow = TRUE, \n                place = \"left\") +\n  coord_flip()\n\n\n\n\n\n\n\n\n\nリッチなテクストを配置することも可能である。\n\n\nCode\nggplot(animals_rich, aes(x = type, y = flies, label = animal)) +\n  geom_tile(fill = \"white\", colour = \"black\") +\n  geom_fit_text(reflow = TRUE, grow = TRUE, rich = TRUE)",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html#specifying-the-box-limits",
+    "href": "contents/libs/ggfittext/working.html#specifying-the-box-limits",
+    "title": "ggfittext",
+    "section": "2.6 Specifying the box limits",
+    "text": "2.6 Specifying the box limits\n\n\nCode\nggplot(presidential, aes(ymin = start, ymax = end, x = party, label = name)) +\n  geom_fit_text(grow = TRUE) +\n  geom_errorbar(alpha = 0.5)",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html#experimental-feaure-text-inpolar-coordinates",
+    "href": "contents/libs/ggfittext/working.html#experimental-feaure-text-inpolar-coordinates",
+    "title": "ggfittext",
+    "section": "2.7 Experimental feaure: text inpolar coordinates",
+    "text": "2.7 Experimental feaure: text inpolar coordinates\n\n\nCode\np &lt;- ggplot(gold, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, \n                 fill = linenumber, label = line)) +\n  coord_polar() +\n  geom_rect() +\n  scale_fill_gradient(low = \"#fee391\", high = \"#238443\")\n\np + geom_fit_text(min.size = 0, grow = TRUE)",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggfittext/working.html#other-useful-arguments",
+    "href": "contents/libs/ggfittext/working.html#other-useful-arguments",
+    "title": "ggfittext",
+    "section": "2.8 Other useful arguments",
+    "text": "2.8 Other useful arguments\ncontrastパラメータは自動でテキストの色を反転させることができる。\n\n\nCode\n\nggplot(animals, aes(x = type, y = flies, fill = mass, label = animal)) +\n  geom_tile() +\n  geom_fit_text(reflow = TRUE, grow = TRUE, contrast = TRUE)",
+    "crumbs": [
+      "libs",
+      "ggfittext",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "contents/libs/ggspatial/working.html",
+    "href": "contents/libs/ggspatial/working.html",
+    "title": "ggspatial",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/libs/ggspatial\")\n\n\n\n\nCode\nlibrary(ggspatial)\nlibrary(ggplot2)\n\n\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\n\n\n\n1 はじめに\n地理データのグラフ化をリッチにすることができる。\ngithubが開発サイトである。\n\n\n2 イントロダクション\n\n\nCode\nlibrary(ggplot2)\nlibrary(ggspatial)\nload_longlake_data()\n\nggplot() +\n  # loads background map tiles from a tile source\n  annotation_map_tile(zoomin = -1) +\n  \n  # annotation_spatial() layers don't train the scales, so data stays central\n  annotation_spatial(longlake_roadsdf, size = 2, col = \"black\") +\n  annotation_spatial(longlake_roadsdf, size = 1.6, col = \"white\") +\n\n  # raster layers train scales and get projected automatically\n  layer_spatial(longlake_depth_raster, aes(color = after_stat(band1))) +\n  # make no data values transparent\n  scale_fill_viridis_c(na.value = NA) +\n  \n  # layer_spatial trains the scales\n  layer_spatial(longlake_depthdf, aes(fill = DEPTH_M)) +\n  \n  # spatial-aware automagic scale bar\n  annotation_scale(location = \"tl\") +\n\n  # spatial-aware automagic north arrow\n  annotation_north_arrow(location = \"br\", which_north = \"true\")\n#&gt; Warning in layer_spatial(longlake_depth_raster, aes(color =\n#&gt; after_stat(band1))): Ignoring unknown aesthetics: colour\n#&gt; Zoom: 14\n#&gt; Warning: Removed 9122 rows containing missing values (`geom_raster()`).\n\n\n\n\n\n\n\n\n\nCode\n\n  \n  labs(caption = \"\\U00a9 OpenStreetMap contributors\")\n#&gt; $caption\n#&gt; [1] \"© OpenStreetMap contributors\"\n#&gt; \n#&gt; attr(,\"class\")\n#&gt; [1] \"labels\"\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "libs",
+      "ggspatial",
       "Introduction"
     ]
   },
@@ -2594,7 +2859,7 @@
     "href": "contents/books/01_Rによる実証分析_2e/ch02_統計の基礎知識.html#section",
     "title": "ch02 統計の基礎知識",
     "section": "3.1 2.1",
-    "text": "3.1 2.1\n\n\nCode\nx &lt;- runif(100)\nprint(mean(x))\n#&gt; [1] 0.5322551\nprint(var(x))\n#&gt; [1] 0.08880894\nprint(sd(x))\n#&gt; [1] 0.2980083\n\n\n\n\nCode\nparams &lt;- tibble(\n    n_sample =  c(1:1000), \n    n_simulate = 1000\n)\nresult &lt;- \n    params |&gt; \n    mutate(res = map2(n_sample, n_simulate, \\(x, y) replicate(y, mean(runif(x))))) |&gt; \n    mutate(mean = map_dbl(res, mean), sd = map_dbl(res, sd))\n\nresult |&gt; \n    ggplot(aes(x = n_sample, y = mean)) + \n    geom_line() + \n    scale_x_log10() + \n    scale_y_continuous(\n        breaks = 0:10 * .1, \n        limits = c(0, 1)) + \n    geom_ribbon(\n        aes(ymin = mean - sd, ymax = mean + sd), fill = \"pink\", alpha = .5) + \n    theme(\n        panel.grid.minor = element_blank()\n    )",
+    "text": "3.1 2.1\n\n\nCode\nx &lt;- runif(100)\nprint(mean(x))\n#&gt; [1] 0.4960834\nprint(var(x))\n#&gt; [1] 0.08765114\nprint(sd(x))\n#&gt; [1] 0.2960593\n\n\n\n\nCode\nparams &lt;- tibble(\n    n_sample =  c(1:1000), \n    n_simulate = 1000\n)\nresult &lt;- \n    params |&gt; \n    mutate(res = map2(n_sample, n_simulate, \\(x, y) replicate(y, mean(runif(x))))) |&gt; \n    mutate(mean = map_dbl(res, mean), sd = map_dbl(res, sd))\n\nresult |&gt; \n    ggplot(aes(x = n_sample, y = mean)) + \n    geom_line() + \n    scale_x_log10() + \n    scale_y_continuous(\n        breaks = 0:10 * .1, \n        limits = c(0, 1)) + \n    geom_ribbon(\n        aes(ymin = mean - sd, ymax = mean + sd), fill = \"pink\", alpha = .5) + \n    theme(\n        panel.grid.minor = element_blank()\n    )",
     "crumbs": [
       "R",
       "Rによる実証分析2e",
@@ -2606,7 +2871,7 @@
     "href": "contents/books/01_Rによる実証分析_2e/ch02_統計の基礎知識.html#section-1",
     "title": "ch02 統計の基礎知識",
     "section": "3.2 2.2",
-    "text": "3.2 2.2\n\n\nCode\nlibrary(correlation)\n\ndf &lt;- tibble(\n    x = runif(100), \n    y = rnorm(100, 0, 1), \n    z = 1.3 * x - .7 * y\n)\n\nuv &lt;- \n    combn(syms(c(\"x\", \"y\", \"z\")), 2, simplify = FALSE)\n\ngraphs &lt;-\n    uv |&gt; \n    map(\\(x) ggplot(df, aes(!!x[[1]], !!x[[2]])) + geom_point()) |&gt; \n    list_modify(ncol = 1)\n\ndo.call(grid.arrange, graphs)\n\n\n\n\n\n\n\n\n\n\n\nCode\ndf |&gt; \n    correlation()\n#&gt; # Correlation Matrix (pearson-method)\n#&gt; \n#&gt; Parameter1 | Parameter2 |     r |         95% CI |  t(98) |         p\n#&gt; ---------------------------------------------------------------------\n#&gt; x          |          y |  0.05 | [-0.15,  0.25] |   0.52 | 0.603    \n#&gt; x          |          z |  0.43 | [ 0.25,  0.58] |   4.69 | &lt; .001***\n#&gt; y          |          z | -0.88 | [-0.92, -0.83] | -18.34 | &lt; .001***\n#&gt; \n#&gt; p-value adjustment method: Holm (1979)\n#&gt; Observations: 100\n\n\n標本サイズと相関係数の関係を確認する。\n\n\nCode\nlibrary(correlation)\n\nparams &lt;- tibble(\n    n_sample =  c(10:1000), \n    n_simulate = 100\n)\nresult &lt;- \n    params |&gt; \n    mutate(res1 = map2(\n        n_sample, \n        n_simulate, \n        \\(x, y) replicate(\n            y, {\n                xx = runif(x)\n                yy = rnorm(x, 0, 1)\n                zz = 1.3 * xx - .7 * yy\n                c(\"xy\" = cor(xx, yy), \"yz\" = cor(yy, zz), \"zx\" = cor(zz, xx))\n            }))) |&gt; \n    mutate(res1 = map(res1, \\(x) as_tibble(t(x)))) |&gt; \n    mutate(res1 = map(res1, \\(x) summarise(x, across(everything(), .fns = list(mean = mean, sd = sd))))) |&gt; \n    unnest(res1)\n\n\n\n\nCode\ncols &lt;- c(\"xy\", \"yz\", \"zx\")\ngraphs &lt;- \n    map(cols, \\(x) {\n        u &lt;- sym(glue::glue(\"{x}_mean\"))\n        v &lt;- sym(glue::glue(\"{x}_sd\"))\n        result |&gt; \n            ggplot(aes(x = n_sample, y = !!u)) + \n            geom_path() + \n            geom_ribbon(\n                aes(ymin = !!u - !!v, ymax = !!u + !!v), fill = \"pink\", alpha = .5)\n    }) |&gt; \n    list_modify(ncol = 1)\n\ndo.call(grid.arrange, graphs)",
+    "text": "3.2 2.2\n\n\nCode\nlibrary(correlation)\n\ndf &lt;- tibble(\n    x = runif(100), \n    y = rnorm(100, 0, 1), \n    z = 1.3 * x - .7 * y\n)\n\nuv &lt;- \n    combn(syms(c(\"x\", \"y\", \"z\")), 2, simplify = FALSE)\n\ngraphs &lt;-\n    uv |&gt; \n    map(\\(x) ggplot(df, aes(!!x[[1]], !!x[[2]])) + geom_point()) |&gt; \n    list_modify(ncol = 1)\n\ndo.call(grid.arrange, graphs)\n\n\n\n\n\n\n\n\n\n\n\nCode\ndf |&gt; \n    correlation()\n#&gt; # Correlation Matrix (pearson-method)\n#&gt; \n#&gt; Parameter1 | Parameter2 |         r |         95% CI |  t(98) |         p\n#&gt; -------------------------------------------------------------------------\n#&gt; x          |          y | -6.70e-03 | [-0.20,  0.19] |  -0.07 | 0.947    \n#&gt; x          |          z |      0.45 | [ 0.28,  0.60] |   5.04 | &lt; .001***\n#&gt; y          |          z |     -0.89 | [-0.93, -0.85] | -19.75 | &lt; .001***\n#&gt; \n#&gt; p-value adjustment method: Holm (1979)\n#&gt; Observations: 100\n\n\n標本サイズと相関係数の関係を確認する。\n\n\nCode\nlibrary(correlation)\n\nparams &lt;- tibble(\n    n_sample =  c(10:1000), \n    n_simulate = 100\n)\nresult &lt;- \n    params |&gt; \n    mutate(res1 = map2(\n        n_sample, \n        n_simulate, \n        \\(x, y) replicate(\n            y, {\n                xx = runif(x)\n                yy = rnorm(x, 0, 1)\n                zz = 1.3 * xx - .7 * yy\n                c(\"xy\" = cor(xx, yy), \"yz\" = cor(yy, zz), \"zx\" = cor(zz, xx))\n            }))) |&gt; \n    mutate(res1 = map(res1, \\(x) as_tibble(t(x)))) |&gt; \n    mutate(res1 = map(res1, \\(x) summarise(x, across(everything(), .fns = list(mean = mean, sd = sd))))) |&gt; \n    unnest(res1)\n\n\n\n\nCode\ncols &lt;- c(\"xy\", \"yz\", \"zx\")\ngraphs &lt;- \n    map(cols, \\(x) {\n        u &lt;- sym(glue::glue(\"{x}_mean\"))\n        v &lt;- sym(glue::glue(\"{x}_sd\"))\n        result |&gt; \n            ggplot(aes(x = n_sample, y = !!u)) + \n            geom_path() + \n            geom_ribbon(\n                aes(ymin = !!u - !!v, ymax = !!u + !!v), fill = \"pink\", alpha = .5)\n    }) |&gt; \n    list_modify(ncol = 1)\n\ndo.call(grid.arrange, graphs)",
     "crumbs": [
       "R",
       "Rによる実証分析2e",
@@ -2702,7 +2967,7 @@
     "href": "contents/books/02_因果推論ミックステープ/ch03_非巡回的有向グラフ.html",
     "title": "ch03 非巡回的有向グラフ",
     "section": "",
-    "text": "DAG記法では因果関係は一方向にしか進まない\nDAGでは需要供給のような同時性を扱うことはできない\n因果関係には2つの生じ方がある\n\n直接働く場合\n第三の変数を媒介する場合\n\nこれをバックドアパスという\n第三の変数が未観測のときバックドアが開いてるという\nバックドアがある状態では因果不明である\nこのような第三因子を交絡因子ともいう\n\n\nDAGはデータが関係あるということを示している\n\n\n\nバックドアとなる変数が観測されているときに、正しく推定ができるのかを確認してみる。次の例は、xがyに直接影響を与える場合と、xがzを経由してyに影響を与えることがわかる。両方とも観測できていれば、それぞれがyに与える影響を正しく推定出来てることがわかる。\n\n\nCode\ndataset &lt;- tibble(\n    x = rnorm(100), \n    z = 2 * x + rnorm(100), \n    y = 1 + x + 3 * z + rnorm(100) \n) \n\nfit &lt;- lm(y ~ x + z, data = dataset)\n\nfit |&gt; \n    summary()\n#&gt; \n#&gt; Call:\n#&gt; lm(formula = y ~ x + z, data = dataset)\n#&gt; \n#&gt; Residuals:\n#&gt;      Min       1Q   Median       3Q      Max \n#&gt; -1.85428 -0.74562 -0.00954  0.82648  2.44393 \n#&gt; \n#&gt; Coefficients:\n#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    \n#&gt; (Intercept)  1.04295    0.10084  10.343  &lt; 2e-16 ***\n#&gt; x            1.38382    0.20241   6.837 7.22e-10 ***\n#&gt; z            2.84427    0.09043  31.452  &lt; 2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; Residual standard error: 1.006 on 97 degrees of freedom\n#&gt; Multiple R-squared:  0.9829, Adjusted R-squared:  0.9825 \n#&gt; F-statistic:  2781 on 2 and 97 DF,  p-value: &lt; 2.2e-16\n\n\nxがzを経由してyに影響を与えている分もあるので、zを見込まないとバイアスが入ることがわかる。\n\n\nCode\ndataset &lt;- tibble(\n    x = rnorm(100), \n    z = 2 * x + rnorm(100), \n    y = 1 + x + 3 * z + rnorm(100) \n) \n\nfit &lt;- lm(y ~ x, data = dataset)\n\nfit |&gt; \n    summary()\n#&gt; \n#&gt; Call:\n#&gt; lm(formula = y ~ x, data = dataset)\n#&gt; \n#&gt; Residuals:\n#&gt;     Min      1Q  Median      3Q     Max \n#&gt; -7.2801 -1.5175  0.1067  1.8525 10.1467 \n#&gt; \n#&gt; Coefficients:\n#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    \n#&gt; (Intercept)   1.1068     0.3101   3.569 0.000557 ***\n#&gt; x             7.0884     0.3114  22.764  &lt; 2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; Residual standard error: 3.096 on 98 degrees of freedom\n#&gt; Multiple R-squared:  0.841,  Adjusted R-squared:  0.8393 \n#&gt; F-statistic: 518.2 on 1 and 98 DF,  p-value: &lt; 2.2e-16\n\n\n\n\n\nバックドアパスが開いているときに、回帰分析をすると、 推定値の符号を反転させるほどの深刻な問題が引き起こされる。 このためデータ分析の際には、バックドアパスを閉じることにする。\nバックドアを閉じる方法は次の２つである。\n\n交絡因子を条件付ける(マッチングなど)\n合流点を作りバックドアを閉じる\n\nすべてのバックドアパスが閉じているときに、そのリサーチデザインはバックドア基準を満たすということになる。\nバックドアの合流点があるときに、その合流点を制御することで、バックドアパスが閉じられることになる。アウトカムとなる変数について、関心がある変数以外の合流点があるときにはその合流点を制御するだけで、バックドア基準を満たすことができる。　\n合流点バイアスの考え方は非常に難しいわ。\n\n\nCode\nlibrary(stargazer)\n\ntb &lt;- tibble(\n    female  = ifelse(runif(10000) &gt; .5, 1, 0), \n    ability = rnorm(10000), \n    discrimination = female, \n    occupation = 1 + 2 * ability + 0 * female - 2 * discrimination  + rnorm(10000), \n    wage       = 1 - 1 * discrimination  + 1 * occupation + 2 * ability + rnorm(10000)\n)\n\nlm_1 &lt;- lm(wage ~ female, tb)\nlm_2 &lt;- lm(wage ~ female + occupation, tb)\nlm_3 &lt;- lm(wage ~ female + occupation + ability, tb)\n\n\n# warningが出るが問題ない\n# chunkで実行する場合にだけwarningが発生してくる\nstargazer(lm_1, lm_2, lm_3, type = \"text\", omit.stat = \"all\", column.labels = c(\"a\", \"b\", \"c\"))\n#&gt; \n#&gt; ========================================\n#&gt;                 Dependent variable:     \n#&gt;            -----------------------------\n#&gt;                        wage             \n#&gt;                a         b         c    \n#&gt;               (1)       (2)       (3)   \n#&gt; ----------------------------------------\n#&gt; female     -2.970***  0.611*** -0.992***\n#&gt;             (0.085)   (0.030)   (0.028) \n#&gt;                                         \n#&gt; occupation            1.798*** 0.990*** \n#&gt;                       (0.006)   (0.010) \n#&gt;                                         \n#&gt; ability                        2.025*** \n#&gt;                                 (0.022) \n#&gt;                                         \n#&gt; Constant    2.013***  0.222*** 1.011*** \n#&gt;             (0.060)   (0.020)   (0.017) \n#&gt;                                         \n#&gt; ========================================\n#&gt; ========================================\n#&gt; Note:        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01\n\n\nDAGにおいて合流点をコントロールすると、つまり今回の場合には職業をコントロールすると、 差別と賃金の間に、関係全体を歪めるほど強力活誤ったバックドアパスが 開いてしまう。職業と能力をコントロールした場合にのみ、 賃金に対するジェンダーの直接的な因果効果を分離することができるのである。\nバックドアとDAGのノート",
+    "text": "DAG記法では因果関係は一方向にしか進まない\nDAGでは需要供給のような同時性を扱うことはできない\n因果関係には2つの生じ方がある\n\n直接働く場合\n第三の変数を媒介する場合\n\nこれをバックドアパスという\n第三の変数が未観測のときバックドアが開いてるという\nバックドアがある状態では因果不明である\nこのような第三因子を交絡因子ともいう\n\n\nDAGはデータが関係あるということを示している\n\n\n\nバックドアとなる変数が観測されているときに、正しく推定ができるのかを確認してみる。次の例は、xがyに直接影響を与える場合と、xがzを経由してyに影響を与えることがわかる。両方とも観測できていれば、それぞれがyに与える影響を正しく推定出来てることがわかる。\n\n\nCode\ndataset &lt;- tibble(\n    x = rnorm(100), \n    z = 2 * x + rnorm(100), \n    y = 1 + x + 3 * z + rnorm(100) \n) \n\nfit &lt;- lm(y ~ x + z, data = dataset)\n\nfit |&gt; \n    summary()\n#&gt; \n#&gt; Call:\n#&gt; lm(formula = y ~ x + z, data = dataset)\n#&gt; \n#&gt; Residuals:\n#&gt;     Min      1Q  Median      3Q     Max \n#&gt; -2.1326 -0.5320  0.1311  0.6630  3.0720 \n#&gt; \n#&gt; Coefficients:\n#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    \n#&gt; (Intercept)   1.1073     0.1007  11.000  &lt; 2e-16 ***\n#&gt; x             0.8399     0.2144   3.918 0.000166 ***\n#&gt; z             3.0302     0.1028  29.463  &lt; 2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; Residual standard error: 1.003 on 97 degrees of freedom\n#&gt; Multiple R-squared:  0.9825, Adjusted R-squared:  0.9821 \n#&gt; F-statistic:  2720 on 2 and 97 DF,  p-value: &lt; 2.2e-16\n\n\nxがzを経由してyに影響を与えている分もあるので、zを見込まないとバイアスが入ることがわかる。\n\n\nCode\ndataset &lt;- tibble(\n    x = rnorm(100), \n    z = 2 * x + rnorm(100), \n    y = 1 + x + 3 * z + rnorm(100) \n) \n\nfit &lt;- lm(y ~ x, data = dataset)\n\nfit |&gt; \n    summary()\n#&gt; \n#&gt; Call:\n#&gt; lm(formula = y ~ x, data = dataset)\n#&gt; \n#&gt; Residuals:\n#&gt;      Min       1Q   Median       3Q      Max \n#&gt; -10.2580  -1.6361   0.0889   2.0298   8.1917 \n#&gt; \n#&gt; Coefficients:\n#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    \n#&gt; (Intercept)   0.8534     0.3330   2.562   0.0119 *  \n#&gt; x             7.6675     0.3503  21.886   &lt;2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; Residual standard error: 3.322 on 98 degrees of freedom\n#&gt; Multiple R-squared:  0.8302, Adjusted R-squared:  0.8284 \n#&gt; F-statistic:   479 on 1 and 98 DF,  p-value: &lt; 2.2e-16\n\n\n\n\n\nバックドアパスが開いているときに、回帰分析をすると、 推定値の符号を反転させるほどの深刻な問題が引き起こされる。 このためデータ分析の際には、バックドアパスを閉じることにする。\nバックドアを閉じる方法は次の２つである。\n\n交絡因子を条件付ける(マッチングなど)\n合流点を作りバックドアを閉じる\n\nすべてのバックドアパスが閉じているときに、そのリサーチデザインはバックドア基準を満たすということになる。\nバックドアの合流点があるときに、その合流点を制御することで、バックドアパスが閉じられることになる。アウトカムとなる変数について、関心がある変数以外の合流点があるときにはその合流点を制御するだけで、バックドア基準を満たすことができる。　\n合流点バイアスの考え方は非常に難しいわ。\n\n\nCode\nlibrary(stargazer)\n\ntb &lt;- tibble(\n    female  = ifelse(runif(10000) &gt; .5, 1, 0), \n    ability = rnorm(10000), \n    discrimination = female, \n    occupation = 1 + 2 * ability + 0 * female - 2 * discrimination  + rnorm(10000), \n    wage       = 1 - 1 * discrimination  + 1 * occupation + 2 * ability + rnorm(10000)\n)\n\nlm_1 &lt;- lm(wage ~ female, tb)\nlm_2 &lt;- lm(wage ~ female + occupation, tb)\nlm_3 &lt;- lm(wage ~ female + occupation + ability, tb)\n\n\n# warningが出るが問題ない\n# chunkで実行する場合にだけwarningが発生してくる\nstargazer(lm_1, lm_2, lm_3, type = \"text\", omit.stat = \"all\", column.labels = c(\"a\", \"b\", \"c\"))\n#&gt; \n#&gt; ========================================\n#&gt;                 Dependent variable:     \n#&gt;            -----------------------------\n#&gt;                        wage             \n#&gt;                a         b         c    \n#&gt;               (1)       (2)       (3)   \n#&gt; ----------------------------------------\n#&gt; female     -2.945***  0.608*** -0.996***\n#&gt;             (0.085)   (0.029)   (0.029) \n#&gt;                                         \n#&gt; occupation            1.807*** 1.010*** \n#&gt;                       (0.006)   (0.010) \n#&gt;                                         \n#&gt; ability                        1.986*** \n#&gt;                                 (0.023) \n#&gt;                                         \n#&gt; Constant    2.045***  0.210*** 1.008*** \n#&gt;             (0.060)   (0.020)   (0.018) \n#&gt;                                         \n#&gt; ========================================\n#&gt; ========================================\n#&gt; Note:        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01\n\n\nDAGにおいて合流点をコントロールすると、つまり今回の場合には職業をコントロールすると、 差別と賃金の間に、関係全体を歪めるほど強力活誤ったバックドアパスが 開いてしまう。職業と能力をコントロールした場合にのみ、 賃金に対するジェンダーの直接的な因果効果を分離することができるのである。\nバックドアとDAGのノート",
     "crumbs": [
       "R",
       "因果推論ミックステープ",
@@ -2714,7 +2979,7 @@
     "href": "contents/books/02_因果推論ミックステープ/ch03_非巡回的有向グラフ.html#シミュレーション1",
     "title": "ch03 非巡回的有向グラフ",
     "section": "",
-    "text": "バックドアとなる変数が観測されているときに、正しく推定ができるのかを確認してみる。次の例は、xがyに直接影響を与える場合と、xがzを経由してyに影響を与えることがわかる。両方とも観測できていれば、それぞれがyに与える影響を正しく推定出来てることがわかる。\n\n\nCode\ndataset &lt;- tibble(\n    x = rnorm(100), \n    z = 2 * x + rnorm(100), \n    y = 1 + x + 3 * z + rnorm(100) \n) \n\nfit &lt;- lm(y ~ x + z, data = dataset)\n\nfit |&gt; \n    summary()\n#&gt; \n#&gt; Call:\n#&gt; lm(formula = y ~ x + z, data = dataset)\n#&gt; \n#&gt; Residuals:\n#&gt;      Min       1Q   Median       3Q      Max \n#&gt; -1.85428 -0.74562 -0.00954  0.82648  2.44393 \n#&gt; \n#&gt; Coefficients:\n#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    \n#&gt; (Intercept)  1.04295    0.10084  10.343  &lt; 2e-16 ***\n#&gt; x            1.38382    0.20241   6.837 7.22e-10 ***\n#&gt; z            2.84427    0.09043  31.452  &lt; 2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; Residual standard error: 1.006 on 97 degrees of freedom\n#&gt; Multiple R-squared:  0.9829, Adjusted R-squared:  0.9825 \n#&gt; F-statistic:  2781 on 2 and 97 DF,  p-value: &lt; 2.2e-16\n\n\nxがzを経由してyに影響を与えている分もあるので、zを見込まないとバイアスが入ることがわかる。\n\n\nCode\ndataset &lt;- tibble(\n    x = rnorm(100), \n    z = 2 * x + rnorm(100), \n    y = 1 + x + 3 * z + rnorm(100) \n) \n\nfit &lt;- lm(y ~ x, data = dataset)\n\nfit |&gt; \n    summary()\n#&gt; \n#&gt; Call:\n#&gt; lm(formula = y ~ x, data = dataset)\n#&gt; \n#&gt; Residuals:\n#&gt;     Min      1Q  Median      3Q     Max \n#&gt; -7.2801 -1.5175  0.1067  1.8525 10.1467 \n#&gt; \n#&gt; Coefficients:\n#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    \n#&gt; (Intercept)   1.1068     0.3101   3.569 0.000557 ***\n#&gt; x             7.0884     0.3114  22.764  &lt; 2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; Residual standard error: 3.096 on 98 degrees of freedom\n#&gt; Multiple R-squared:  0.841,  Adjusted R-squared:  0.8393 \n#&gt; F-statistic: 518.2 on 1 and 98 DF,  p-value: &lt; 2.2e-16",
+    "text": "バックドアとなる変数が観測されているときに、正しく推定ができるのかを確認してみる。次の例は、xがyに直接影響を与える場合と、xがzを経由してyに影響を与えることがわかる。両方とも観測できていれば、それぞれがyに与える影響を正しく推定出来てることがわかる。\n\n\nCode\ndataset &lt;- tibble(\n    x = rnorm(100), \n    z = 2 * x + rnorm(100), \n    y = 1 + x + 3 * z + rnorm(100) \n) \n\nfit &lt;- lm(y ~ x + z, data = dataset)\n\nfit |&gt; \n    summary()\n#&gt; \n#&gt; Call:\n#&gt; lm(formula = y ~ x + z, data = dataset)\n#&gt; \n#&gt; Residuals:\n#&gt;     Min      1Q  Median      3Q     Max \n#&gt; -2.1326 -0.5320  0.1311  0.6630  3.0720 \n#&gt; \n#&gt; Coefficients:\n#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    \n#&gt; (Intercept)   1.1073     0.1007  11.000  &lt; 2e-16 ***\n#&gt; x             0.8399     0.2144   3.918 0.000166 ***\n#&gt; z             3.0302     0.1028  29.463  &lt; 2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; Residual standard error: 1.003 on 97 degrees of freedom\n#&gt; Multiple R-squared:  0.9825, Adjusted R-squared:  0.9821 \n#&gt; F-statistic:  2720 on 2 and 97 DF,  p-value: &lt; 2.2e-16\n\n\nxがzを経由してyに影響を与えている分もあるので、zを見込まないとバイアスが入ることがわかる。\n\n\nCode\ndataset &lt;- tibble(\n    x = rnorm(100), \n    z = 2 * x + rnorm(100), \n    y = 1 + x + 3 * z + rnorm(100) \n) \n\nfit &lt;- lm(y ~ x, data = dataset)\n\nfit |&gt; \n    summary()\n#&gt; \n#&gt; Call:\n#&gt; lm(formula = y ~ x, data = dataset)\n#&gt; \n#&gt; Residuals:\n#&gt;      Min       1Q   Median       3Q      Max \n#&gt; -10.2580  -1.6361   0.0889   2.0298   8.1917 \n#&gt; \n#&gt; Coefficients:\n#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    \n#&gt; (Intercept)   0.8534     0.3330   2.562   0.0119 *  \n#&gt; x             7.6675     0.3503  21.886   &lt;2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; Residual standard error: 3.322 on 98 degrees of freedom\n#&gt; Multiple R-squared:  0.8302, Adjusted R-squared:  0.8284 \n#&gt; F-statistic:   479 on 1 and 98 DF,  p-value: &lt; 2.2e-16",
     "crumbs": [
       "R",
       "因果推論ミックステープ",
@@ -2726,7 +2991,7 @@
     "href": "contents/books/02_因果推論ミックステープ/ch03_非巡回的有向グラフ.html#バックドア基準",
     "title": "ch03 非巡回的有向グラフ",
     "section": "",
-    "text": "バックドアパスが開いているときに、回帰分析をすると、 推定値の符号を反転させるほどの深刻な問題が引き起こされる。 このためデータ分析の際には、バックドアパスを閉じることにする。\nバックドアを閉じる方法は次の２つである。\n\n交絡因子を条件付ける(マッチングなど)\n合流点を作りバックドアを閉じる\n\nすべてのバックドアパスが閉じているときに、そのリサーチデザインはバックドア基準を満たすということになる。\nバックドアの合流点があるときに、その合流点を制御することで、バックドアパスが閉じられることになる。アウトカムとなる変数について、関心がある変数以外の合流点があるときにはその合流点を制御するだけで、バックドア基準を満たすことができる。　\n合流点バイアスの考え方は非常に難しいわ。\n\n\nCode\nlibrary(stargazer)\n\ntb &lt;- tibble(\n    female  = ifelse(runif(10000) &gt; .5, 1, 0), \n    ability = rnorm(10000), \n    discrimination = female, \n    occupation = 1 + 2 * ability + 0 * female - 2 * discrimination  + rnorm(10000), \n    wage       = 1 - 1 * discrimination  + 1 * occupation + 2 * ability + rnorm(10000)\n)\n\nlm_1 &lt;- lm(wage ~ female, tb)\nlm_2 &lt;- lm(wage ~ female + occupation, tb)\nlm_3 &lt;- lm(wage ~ female + occupation + ability, tb)\n\n\n# warningが出るが問題ない\n# chunkで実行する場合にだけwarningが発生してくる\nstargazer(lm_1, lm_2, lm_3, type = \"text\", omit.stat = \"all\", column.labels = c(\"a\", \"b\", \"c\"))\n#&gt; \n#&gt; ========================================\n#&gt;                 Dependent variable:     \n#&gt;            -----------------------------\n#&gt;                        wage             \n#&gt;                a         b         c    \n#&gt;               (1)       (2)       (3)   \n#&gt; ----------------------------------------\n#&gt; female     -2.970***  0.611*** -0.992***\n#&gt;             (0.085)   (0.030)   (0.028) \n#&gt;                                         \n#&gt; occupation            1.798*** 0.990*** \n#&gt;                       (0.006)   (0.010) \n#&gt;                                         \n#&gt; ability                        2.025*** \n#&gt;                                 (0.022) \n#&gt;                                         \n#&gt; Constant    2.013***  0.222*** 1.011*** \n#&gt;             (0.060)   (0.020)   (0.017) \n#&gt;                                         \n#&gt; ========================================\n#&gt; ========================================\n#&gt; Note:        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01\n\n\nDAGにおいて合流点をコントロールすると、つまり今回の場合には職業をコントロールすると、 差別と賃金の間に、関係全体を歪めるほど強力活誤ったバックドアパスが 開いてしまう。職業と能力をコントロールした場合にのみ、 賃金に対するジェンダーの直接的な因果効果を分離することができるのである。\nバックドアとDAGのノート",
+    "text": "バックドアパスが開いているときに、回帰分析をすると、 推定値の符号を反転させるほどの深刻な問題が引き起こされる。 このためデータ分析の際には、バックドアパスを閉じることにする。\nバックドアを閉じる方法は次の２つである。\n\n交絡因子を条件付ける(マッチングなど)\n合流点を作りバックドアを閉じる\n\nすべてのバックドアパスが閉じているときに、そのリサーチデザインはバックドア基準を満たすということになる。\nバックドアの合流点があるときに、その合流点を制御することで、バックドアパスが閉じられることになる。アウトカムとなる変数について、関心がある変数以外の合流点があるときにはその合流点を制御するだけで、バックドア基準を満たすことができる。　\n合流点バイアスの考え方は非常に難しいわ。\n\n\nCode\nlibrary(stargazer)\n\ntb &lt;- tibble(\n    female  = ifelse(runif(10000) &gt; .5, 1, 0), \n    ability = rnorm(10000), \n    discrimination = female, \n    occupation = 1 + 2 * ability + 0 * female - 2 * discrimination  + rnorm(10000), \n    wage       = 1 - 1 * discrimination  + 1 * occupation + 2 * ability + rnorm(10000)\n)\n\nlm_1 &lt;- lm(wage ~ female, tb)\nlm_2 &lt;- lm(wage ~ female + occupation, tb)\nlm_3 &lt;- lm(wage ~ female + occupation + ability, tb)\n\n\n# warningが出るが問題ない\n# chunkで実行する場合にだけwarningが発生してくる\nstargazer(lm_1, lm_2, lm_3, type = \"text\", omit.stat = \"all\", column.labels = c(\"a\", \"b\", \"c\"))\n#&gt; \n#&gt; ========================================\n#&gt;                 Dependent variable:     \n#&gt;            -----------------------------\n#&gt;                        wage             \n#&gt;                a         b         c    \n#&gt;               (1)       (2)       (3)   \n#&gt; ----------------------------------------\n#&gt; female     -2.945***  0.608*** -0.996***\n#&gt;             (0.085)   (0.029)   (0.029) \n#&gt;                                         \n#&gt; occupation            1.807*** 1.010*** \n#&gt;                       (0.006)   (0.010) \n#&gt;                                         \n#&gt; ability                        1.986*** \n#&gt;                                 (0.023) \n#&gt;                                         \n#&gt; Constant    2.045***  0.210*** 1.008*** \n#&gt;             (0.060)   (0.020)   (0.018) \n#&gt;                                         \n#&gt; ========================================\n#&gt; ========================================\n#&gt; Note:        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01\n\n\nDAGにおいて合流点をコントロールすると、つまり今回の場合には職業をコントロールすると、 差別と賃金の間に、関係全体を歪めるほど強力活誤ったバックドアパスが 開いてしまう。職業と能力をコントロールした場合にのみ、 賃金に対するジェンダーの直接的な因果効果を分離することができるのである。\nバックドアとDAGのノート",
     "crumbs": [
       "R",
       "因果推論ミックステープ",
@@ -3346,40 +3611,50 @@
     ]
   },
   {
-    "objectID": "contents/test/R2/renv.html",
-    "href": "contents/test/R2/renv.html",
-    "title": "renv",
+    "objectID": "contents/utils/01_写真GPS/index.html",
+    "href": "contents/utils/01_写真GPS/index.html",
+    "title": "写真データのGISデータ化",
     "section": "",
-    "text": "1 hereでrenvはどのように指定すればいいか\n\nプロジェクトファイルがあるフォルダで指定するときはそのフォルダになる\nプロジェクトファイルがないフォルダで指定するときはルートフォルダになる\n正確には１番近い親フォルダになっているみたい\nなのでこの場合のhereの挙動には注意する\n\n\n\nCode\nhere::here()\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite\"\ncur_dir &lt;- here::here(\"contents\", \"test\", \"R\")\nprint(cur_dir)\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\n# renv::init(cur_dir)\n\nprint(getwd())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R2\"\nprint(here::here())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite\"\n\n\n\n\nCode\nlibrary(here)\n\n\n\n\n\n\n\n\n Back to top",
+    "text": "1 はじめに\niPhoneをはじめとしたスマートフォンで写真を撮ると位置情報が付与されている。 また、ミラーレス一眼レフカメラでもスマートフォンと連携して位置情報が付与される。 現場調査において位置情報というのは非常に重要な情報である。\nここでは、写真データに付与された位置情報をGISデータに変換する方法を紹介する。\n\n\n2 やり方\n大きく４つのステップに分かれている。\n\nJPEGへの変換\nJPEGから位置情報をCSVで出力する\nCSVをGeoJSONに変換する\n画像をサムネイル化する\n\n# convert HEIC to jpg\nmogrify -format jpg *.HEIC\n\n# extract gps coordates from jpgs to output.csv\nexiftool -gpslatitude -gpslongitude -n -csv *.jpg &gt; output.csv\n\n# convert output.csv to geojson\nogr2ogr -f \"GeoJSON\" output.geojson output.csv -oo X_POSSIBLE_NAMES=gpslongitude  -oo Y_POSSIBLE_NAMES=gpslatitude -oo KEEP_GEOM_COLUMNS=NO\n\n# create thumbnails\nmkdir -p thumbnails\nfor file in *.jpg; do \n    filename=$(basename \"$file\")\n    convert \"$file\" -thumbnail 200x \"thumbnails/$filename\"\ndone\nここまで為ておくことで、写真データを地図上に表示することができるようになる。 WebGISはもちろんであるがQGISでも可能である。たとえば、次をTipsに設定することで閲覧が可能となる。 これはプロジェクトフォルダーからの相対パスでファイルを指定している。ファイル名自体はSourceFileという名前の属性で保存されている。\n&lt;a href=\"file:///[% @project_folder %]/../../../09_写真/20231120-21_SiteVisit_Dulkadioglu/suzuki/[% SourceFile %]\"&gt;\n&lt;img src=\"file:///[% @project_folder %]/../../../09_写真/20231120-21_SiteVisit_Dulkadioglu/suzuki/[% SourceFile %]\" alt=\"hoge\" width=\"300\"&gt;\n&lt;/a&gt;\n\n\n\n\n\n\n\n Back to top",
     "crumbs": [
-      "Test",
-      "R2",
-      "renv"
+      "Utils",
+      "01_写真GPS"
     ]
   },
   {
-    "objectID": "contents/test/bash/quick_sample.html",
-    "href": "contents/test/bash/quick_sample.html",
-    "title": "Quick Sample",
-    "section": "",
-    "text": "engine: knitrを追加することで動作\nカレントディレクトリはこのファイルがある場所\nルートディレクトリになっていないことに注意\n\n\n\nCode\nls -la | cat\n#&gt; total 0\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 22:06 .\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 21:52 ..\n#&gt; -rwxrwxrwx 1 asozan asozan  376 Sep 18 22:06 quick_sample.qmd\n#&gt; -rwxrwxrwx 1 asozan asozan  402 Sep 18 22:06 quick_sample.rmarkdown\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 22:06 quick_sample_cache\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 21:48 日本語フォルダ\n\n\n\n\nCode\nls -la\n#&gt; total 0\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 22:06 .\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 21:52 ..\n#&gt; -rwxrwxrwx 1 asozan asozan  376 Sep 18 22:06 quick_sample.qmd\n#&gt; -rwxrwxrwx 1 asozan asozan  402 Sep 18 22:06 quick_sample.rmarkdown\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 22:06 quick_sample_cache\n#&gt; drwxrwxrwx 1 asozan asozan 4096 Sep 18 21:48 日本語フォルダ\n\n\n\n\nCode\ncat 日本語フォルダ/日本語ファイル.txt\n#&gt; \n#&gt; 日本語テキストです\n\n\npwdで確認するとWSLでマウントしたときのディレクトリが カレントディレクトリになっていることがわかる。\n\n\nCode\npwd\n#&gt; /mnt/h/Dropbox/R/Workspace/RTipsSite/contents/test/bash\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Test",
-      "Bash",
-      "Quick Sample"
-    ]
-  },
-  {
-    "objectID": "contents/test/R/sub_directory/renv.html",
-    "href": "contents/test/R/sub_directory/renv.html",
+    "objectID": "contents/test/R/renv.html",
+    "href": "contents/test/R/renv.html",
     "title": "renv",
     "section": "",
-    "text": "1 renvはどのように指定すればいいか\n\nプロジェクトファイルがあるフォルダで指定するときはそのフォルダになる\nプロジェクトファイルがないフォルダで指定するときはルートフォルダになる\n正確には１番近い親フォルダになっているみたい\nなのでこの場合のhereの挙動には注意する\n\n\n\nCode\nhere::here()\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\ncur_dir &lt;- here::here(\"contents\", \"test\", \"R\")\nprint(cur_dir)\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R/contents/test/R\"\n# renv::init(cur_dir)\n\nprint(getwd())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R/sub_directory\"\nprint(here::here())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\n\n\n\n\nCode\nlibrary(here)\n\n\n\n\n\n\n\n\n Back to top",
+    "text": "1 renvはどのように指定すればいいか\n\nプロジェクトファイルがあるフォルダで指定するときはそのフォルダになる\nプロジェクトファイルがないフォルダで指定するときはルートフォルダになる\n正確には１番近い親フォルダになっているみたい\nなのでこの場合のhereの挙動には注意する\n\n\n\nCode\nhere::here()\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\ncur_dir &lt;- here::here(\"contents\", \"test\", \"R\")\nprint(cur_dir)\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R/contents/test/R\"\n# renv::init(cur_dir)\n\nprint(getwd())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\nprint(here::here())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\n\n\n\n\nCode\nrenv::activate()\n\n\n\n\nCode\nprint(getwd())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\nprint(here::here())\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R\"\nprint(cur_dir)\n#&gt; [1] \"H:/Dropbox/R/Workspace/RTipsSite/contents/test/R/contents/test/R\"\n\n\n\n\nCode\nlibrary(here)\n\n\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "Test",
       "R",
-      "Sub Directory",
       "renv"
+    ]
+  },
+  {
+    "objectID": "contents/test/bash/run_gdal.html",
+    "href": "contents/test/bash/run_gdal.html",
+    "title": "GDAL",
+    "section": "",
+    "text": "1 はじめに\n\ngdalを走らせられるかどうか\n日本語のパスでも問題なく動くには動くことがわかる\n\n\n\n2 works\n\n\nCode\ngdalinfo --version\n#&gt; GDAL 3.4.3, released 2022/04/22\n\n\n\n\nCode\ngdalinfo ./日本語フォルダ/stacking.tif\n#&gt; Driver: GTiff/GeoTIFF\n#&gt; Files: ./日本語フォルダ/stacking.tif\n#&gt; Size is 316, 192\n#&gt; Coordinate System is:\n#&gt; GEOGCRS[\"JGD2000\",\n#&gt;     DATUM[\"Japanese Geodetic Datum 2000\",\n#&gt;         ELLIPSOID[\"GRS 1980\",6378137,298.257222101004,\n#&gt;             LENGTHUNIT[\"metre\",1]],\n#&gt;         ID[\"EPSG\",6612]],\n#&gt;     PRIMEM[\"Greenwich\",0,\n#&gt;         ANGLEUNIT[\"degree\",0.0174532925199433,\n#&gt;             ID[\"EPSG\",9122]]],\n#&gt;     CS[ellipsoidal,2],\n#&gt;         AXIS[\"latitude\",north,\n#&gt;             ORDER[1],\n#&gt;             ANGLEUNIT[\"degree\",0.0174532925199433,\n#&gt;                 ID[\"EPSG\",9122]]],\n#&gt;         AXIS[\"longitude\",east,\n#&gt;             ORDER[2],\n#&gt;             ANGLEUNIT[\"degree\",0.0174532925199433,\n#&gt;                 ID[\"EPSG\",9122]]]]\n#&gt; Data axis to CRS axis mapping: 2,1\n#&gt; Origin = (138.937500000000000,35.899999999999999)\n#&gt; Pixel Size = (0.003125000000000,-0.002083333000000)\n#&gt; Metadata:\n#&gt;   AREA_OR_POINT=Area\n#&gt; Image Structure Metadata:\n#&gt;   COMPRESSION=LZW\n#&gt;   INTERLEAVE=PIXEL\n#&gt; Corner Coordinates:\n#&gt; Upper Left  ( 138.9375000,  35.9000000) (138d56'15.00\"E, 35d54' 0.00\"N)\n#&gt; Lower Left  ( 138.9375000,  35.5000001) (138d56'15.00\"E, 35d30' 0.00\"N)\n#&gt; Upper Right ( 139.9250000,  35.9000000) (139d55'30.00\"E, 35d54' 0.00\"N)\n#&gt; Lower Right ( 139.9250000,  35.5000001) (139d55'30.00\"E, 35d30' 0.00\"N)\n#&gt; Center      ( 139.4312500,  35.7000000) (139d25'52.50\"E, 35d42' 0.00\"N)\n#&gt; Band 1 Block=316x1 Type=Float64, ColorInterp=Gray\n#&gt;   NoData Value=0\n#&gt; Band 2 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 3 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 4 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 5 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 6 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 7 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 8 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 9 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 10 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 11 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n#&gt; Band 12 Block=316x1 Type=Float64, ColorInterp=Undefined\n#&gt;   NoData Value=0\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Test",
+      "Bash",
+      "GDAL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/index.html",
+    "href": "contents/sql/duckdb/index.html",
+    "title": "DuckDB Documentation",
+    "section": "",
+    "text": "1 はじめに\n\nDuckDBの勉強ノートです.\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "はじめに"
     ]
   }
 ]
