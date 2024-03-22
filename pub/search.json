@@ -1,5 +1,125 @@
 [
   {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html",
+    "title": "SQL",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/sql/duckdb/documentation\")\nCode\nlibrary(ggplot2)\nlibrary(duckdb)\nlibrary(tidyverse)\nlibrary(palmerpenguins)\nlibrary(DBI)\nlibrary(dbplyr)\nlibrary(arrow)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")\nポスグレのチュートリアルを参考としたSQLのチュートリアルである。",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#populating-a-table-with-rows",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#populating-a-table-with-rows",
+    "title": "SQL",
+    "section": "2.1 Populating a Table with Rows",
+    "text": "2.1 Populating a Table with Rows\nINSERTは行単位でデータを追加するときに使われる。\nINSERT INTO weather\nVALUES ('San Francisco', 46, 50, 0.25, '1994-11-27');\n数値でないときにはシングルクォーテションで値をかこむ必要がある。\nINSERT INTO weather\nVALUES ('San Francisco', 46, 50, 0.25, '1994-11-27');\nインサートするときにカラムの順序は異なっていても大丈夫である。\nINSERT INTO weather (date, city, temp_hi, temp_lo)\nVALUES ('1994-11-29', 'Hayward', 54, 37);\n\nMany developers consider explicitly listing the columns better style than relying on the order implicitly.\n\nバルクロードするときにはCOPYを使うことでより高速になる。\nCOPY weather\nFROM 'weather.csv'",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#querying-a-table",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#querying-a-table",
+    "title": "SQL",
+    "section": "2.2 Querying a Table",
+    "text": "2.2 Querying a Table\n\n\nCode\nCREATE OR REPLACE TABLE weather as SELECT * FROM read_csv('weather.csv')\n\n\n\n\nCode\nSELECT *\nFROM weather;\n\n\n\n3 records\n\n\ncity\ntemp_lo\ntemp_hi\nprcp\ndate\n\n\n\n\nSan Francisco\n46\n50\n0.25\n1994-11-27\n\n\nSan Francisco\n43\n57\n0.00\n1994-11-29\n\n\nHayward\n37\n54\nNA\n1994-11-29\n\n\n\n\n\n\n\nCode\nSELECT city, (temp_hi + temp_lo) / 2 AS temp_avg, date\nFROM weather;\n\n\n\n3 records\n\n\ncity\ntemp_avg\ndate\n\n\n\n\nSan Francisco\n48.0\n1994-11-27\n\n\nSan Francisco\n50.0\n1994-11-29\n\n\nHayward\n45.5\n1994-11-29\n\n\n\n\n\n\n\nCode\nSELECT *\nFROM weather\nWHERE city = 'San Francisco' AND prcp &gt; 0.0;\n\n\n\n1 records\n\n\ncity\ntemp_lo\ntemp_hi\nprcp\ndate\n\n\n\n\nSan Francisco\n46\n50\n0.25\n1994-11-27\n\n\n\n\n\n\n\nCode\nSELECT DISTINCT city\nFROM weather;\n\n\n\n2 records\n\n\ncity\n\n\n\n\nHayward\n\n\nSan Francisco\n\n\n\n\n\n\n\nCode\nSELECT DISTINCT city\nFROM weather\nORDER BY city;\n\n\n\n2 records\n\n\ncity\n\n\n\n\nHayward\n\n\nSan Francisco",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#joins-between-tables",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#joins-between-tables",
+    "title": "SQL",
+    "section": "2.3 Joins between Tables",
+    "text": "2.3 Joins between Tables\n\n\nCode\nCREATE OR REPLACE TABLE cities as SELECT * FROM read_csv('city.csv')\n\n\n２つのテーブルを組合せる方法として、用意したすべての組合せを考えた上でフィルターをかける方法がある。\n\n\nCode\nSELECT *\nFROM weather, cities\n\n\n\n3 records\n\n\n\n\n\n\n\n\n\n\n\n\ncity\ntemp_lo\ntemp_hi\nprcp\ndate\nname\nlat\nlon\n\n\n\n\nSan Francisco\n46\n50\n0.25\n1994-11-27\nSan Francisco\n-194\n53\n\n\nSan Francisco\n43\n57\n0.00\n1994-11-29\nSan Francisco\n-194\n53\n\n\nHayward\n37\n54\nNA\n1994-11-29\nSan Francisco\n-194\n53\n\n\n\n\n\n\n\nCode\nSELECT *\nFROM weather, cities\nWHERE city = name;\n\n\n\n2 records\n\n\n\n\n\n\n\n\n\n\n\n\ncity\ntemp_lo\ntemp_hi\nprcp\ndate\nname\nlat\nlon\n\n\n\n\nSan Francisco\n46\n50\n0.25\n1994-11-27\nSan Francisco\n-194\n53\n\n\nSan Francisco\n43\n57\n0.00\n1994-11-29\nSan Francisco\n-194\n53\n\n\n\n\n\nもしカラム名が被るときには次のようにテーブル名をつける。 見てわかるようにテーブル名にエイリアスを使うことが可能である。\n\n\nCode\nSELECT t.city, t.temp_lo, t.temp_hi, t.prcp, t.date, cities.lon, cities.lat\nFROM weather t, cities\nWHERE cities.name = t.city;\n\n\n\n2 records\n\n\ncity\ntemp_lo\ntemp_hi\nprcp\ndate\nlon\nlat\n\n\n\n\nSan Francisco\n46\n50\n0.25\n1994-11-27\n53\n-194\n\n\nSan Francisco\n43\n57\n0.00\n1994-11-29\n53\n-194\n\n\n\n\n\n左外部結合を考える。\n\n\nCode\nSELECT *\nFROM weather\nLEFT OUTER JOIN cities ON weather.city = cities.name;\n\n\n\n3 records\n\n\n\n\n\n\n\n\n\n\n\n\ncity\ntemp_lo\ntemp_hi\nprcp\ndate\nname\nlat\nlon\n\n\n\n\nSan Francisco\n46\n50\n0.25\n1994-11-27\nSan Francisco\n-194\n53\n\n\nSan Francisco\n43\n57\n0.00\n1994-11-29\nSan Francisco\n-194\n53\n\n\nHayward\n37\n54\nNA\n1994-11-29\nNA\nNA\nNA",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#aggregate-functions",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#aggregate-functions",
+    "title": "SQL",
+    "section": "2.4 Aggregate Functions",
+    "text": "2.4 Aggregate Functions\n\ncount, sum, avg, max, min\n\n\n\nCode\nSELECT max(temp_lo)\nFROM weather;\n\n\n\n1 records\n\n\nmax(temp_lo)\n\n\n\n\n46\n\n\n\n\n\n集約関数は次のようにWHERE句で使えない。 これは集約計算の対象がWHEREで絞った結果であるため。\n-- これはエラーになる\nSELECT city\nFROM weather\nWHERE temp_lo = max(temp_lo);     -- WRONG\nWHERE句で使うにはスカラー値をクエリする必要がある。サブクエリにすることで独立したクエリとして計算が行える。。\n\n\nCode\nSELECT city\nFROM weather\nWHERE temp_lo = (SELECT max(temp_lo) FROM weather);\n\n\n\n1 records\n\n\ncity\n\n\n\n\nSan Francisco\n\n\n\n\n\n\n\nCode\nSELECT city, max(temp_lo)\nFROM weather\nGROUP BY city;\n\n\n\n2 records\n\n\ncity\nmax(temp_lo)\n\n\n\n\nHayward\n37\n\n\nSan Francisco\n46\n\n\n\n\n\n計算結果に対してフィルターすることが可能である。\n\n\nCode\nSELECT city, max(temp_lo) as A\nFROM weather\nGROUP BY city\nHAVING A &lt; 40;\n\n\n\n1 records\n\n\ncity\nA\n\n\n\n\nHayward\n37\n\n\n\n\n\n\n\nCode\nSELECT city, max(temp_lo)\nFROM weather\nWHERE city LIKE 'S%'            -- (1)\nGROUP BY city\nHAVING max(temp_lo) &lt; 40;\n\n\n\n0 records\n\n\ncity\nmax(temp_lo)\n\n\n\n\n\n\n\nHAVINGは常に集約値を使うことに注意する。",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#updates",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#updates",
+    "title": "SQL",
+    "section": "2.5 Updates",
+    "text": "2.5 Updates\nUPDATEコマンドを使うことで、既存の行を更新することができる。\n\n\nCode\nUPDATE weather\nSET temp_hi = temp_hi - 2,  temp_lo = temp_lo - 2\nWHERE date &gt; '1994-11-28';\n\n\n\n\nCode\nSELECT *\nFROM weather;\n\n\n\n3 records\n\n\ncity\ntemp_lo\ntemp_hi\nprcp\ndate\n\n\n\n\nSan Francisco\n46\n50\n0.25\n1994-11-27\n\n\nSan Francisco\n41\n55\n0.00\n1994-11-29\n\n\nHayward\n35\n52\nNA\n1994-11-29",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#deletions",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#deletions",
+    "title": "SQL",
+    "section": "2.6 Deletions",
+    "text": "2.6 Deletions\n\n\nCode\nDELETE FROM weather\nWHERE city = 'Hayward';\n\n\n\n\nCode\nSELECT *\nFROM weather;\n\n\n\n2 records\n\n\ncity\ntemp_lo\ntemp_hi\nprcp\ndate\n\n\n\n\nSan Francisco\n46\n50\n0.25\n1994-11-27\n\n\nSan Francisco\n41\n55\n0.00\n1994-11-29",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#general-purpose-window-functions",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#general-purpose-window-functions",
+    "title": "SQL",
+    "section": "3.1 General-Purpose Window Functions",
+    "text": "3.1 General-Purpose Window Functions\n\ncume_dist\ndense_rank\nfirst_value\nfirst\nlag\nlast_value\nlast\nlead\nnth_value\nntile：区分化\npercent_rank\nrank_dense\nrank\nrow_number\n\nタイル化でデータを分割してみる。\n\n\nCode\nWITH tiled as (\n  SELECT ntile(10) OVER() T, *\n  FROM penguins\n)\nSELECT T, COUNT(*)\nFROM tiled\nGROUP BY T\nORDER BY T\n\n\n\nDisplaying records 1 - 10\n\n\nT\ncount_star()\n\n\n\n\n1\n35\n\n\n2\n35\n\n\n3\n35\n\n\n4\n35\n\n\n5\n34\n\n\n6\n34\n\n\n7\n34\n\n\n8\n34\n\n\n9\n34\n\n\n10\n34",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#ignoring-nulls",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#ignoring-nulls",
+    "title": "SQL",
+    "section": "3.2 Ignoring NULLs",
+    "text": "3.2 Ignoring NULLs\n下記の関数はNULLを無視することができる。\n\nlag\nlead\nfirst_value\nlast_value\nnth_value\n\nlag(column, 3 IGNORE NULLS)となる。",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_04_sql.html#evaluation",
+    "href": "contents/sql/duckdb/documentaion/guide_04_sql.html#evaluation",
+    "title": "SQL",
+    "section": "3.3 Evaluation",
+    "text": "3.3 Evaluation\n\n3.3.1 Partition and Ordering\n\n\nCode\nCREATE OR REPLACE TABLE \"Generation History\" AS\n  FROM 'data/csv/power-plant-generation-history.csv';\n\n\n\n\nCode\nSELECT * FROM \"Generation History\" LIMIT 5;\n\n\n\n5 records\n\n\nMWh\nDate\nPlant\n\n\n\n\n564337\n2019-01-02\nBoston\n\n\n507405\n2019-01-03\nBoston\n\n\n528523\n2019-01-04\nBoston\n\n\n469538\n2019-01-05\nBoston\n\n\n474163\n2019-01-06\nBoston\n\n\n\n\n\nまずはrow_numberの挙動をみる。\n\n\nCode\nSELECT\n    \"Plant\",\n    \"Date\",\n    row_number() OVER (PARTITION BY \"Plant\" ORDER  BY \"Date\") AS \"Row\"\nFROM \"Generation History\"\nORDER BY 1, 2;\n\n\n\nDisplaying records 1 - 10\n\n\nPlant\nDate\nRow\n\n\n\n\nBoston\n2019-01-02\n1\n\n\nBoston\n2019-01-03\n2\n\n\nBoston\n2019-01-04\n3\n\n\nBoston\n2019-01-05\n4\n\n\nBoston\n2019-01-06\n5\n\n\nBoston\n2019-01-07\n6\n\n\nBoston\n2019-01-08\n7\n\n\nBoston\n2019-01-09\n8\n\n\nBoston\n2019-01-10\n9\n\n\nBoston\n2019-01-11\n10\n\n\n\n\n\n\n\n3.3.2 Framing\nPRECEDINGやFOLLOWINGを使うことで、相対的な位置関係を使うことが可能である。 この距離はROWSの整数としても指定することができる。 フレームのデフォルト値はUNBOUNDED PRECEDINGからCURRENT ROWである。 EXCLUDE句は使用するうと現在の行の周りの行をフレームから除外することができる。\n\nRANGEフレーミングを行う。\n\n\nCode\nSELECT \"Plant\", \"Date\",\n    avg(\"MWh\") OVER (\n        PARTITION BY \"Plant\"\n        ORDER BY \"Date\" ASC\n        RANGE BETWEEN INTERVAL 3 DAYS PRECEDING\n                  AND INTERVAL 3 DAYS FOLLOWING)\n        AS \"MWh 7-day Moving Average\"\nFROM \"Generation History\"\nORDER BY 1, 2;\n\n\n\nDisplaying records 1 - 10\n\n\nPlant\nDate\nMWh 7-day Moving Average\n\n\n\n\nBoston\n2019-01-02\n517450.8\n\n\nBoston\n2019-01-03\n508793.2\n\n\nBoston\n2019-01-04\n508529.8\n\n\nBoston\n2019-01-05\n523459.9\n\n\nBoston\n2019-01-06\n526067.1\n\n\nBoston\n2019-01-07\n524938.7\n\n\nBoston\n2019-01-08\n518294.6\n\n\nBoston\n2019-01-09\n520665.4\n\n\nBoston\n2019-01-10\n528859.0\n\n\nBoston\n2019-01-11\n532466.7\n\n\n\n\n\n範囲がないときにNULLになるようにする。\n\n\nCode\nSELECT \"Plant\", \"Date\",\n    CASE\n        WHEN COUNT(\"MWh\") OVER (\n            PARTITION BY \"Plant\"\n            ORDER BY \"Date\" ASC\n            RANGE BETWEEN INTERVAL 3 DAYS PRECEDING\n                      AND INTERVAL 3 DAYS FOLLOWING\n        ) &gt;= 7 THEN\n            avg(\"MWh\") OVER (\n                PARTITION BY \"Plant\"\n                ORDER BY \"Date\" ASC\n                RANGE BETWEEN INTERVAL 3 DAYS PRECEDING\n                          AND INTERVAL 3 DAYS FOLLOWING\n            )\n        ELSE\n            NULL\n    END AS \"MWh 7-day Moving Average\"\nFROM \"Generation History\"\nORDER BY 1, 2;\n\n\n\nDisplaying records 1 - 10\n\n\nPlant\nDate\nMWh 7-day Moving Average\n\n\n\n\nBoston\n2019-01-02\nNA\n\n\nBoston\n2019-01-03\nNA\n\n\nBoston\n2019-01-04\nNA\n\n\nBoston\n2019-01-05\n523459.9\n\n\nBoston\n2019-01-06\n526067.1\n\n\nBoston\n2019-01-07\n524938.7\n\n\nBoston\n2019-01-08\n518294.6\n\n\nBoston\n2019-01-09\n520665.4\n\n\nBoston\n2019-01-10\n528859.0\n\n\nBoston\n2019-01-11\nNA\n\n\n\n\n\n\n\n3.3.3 WINDOW Clauses\nWINDOWを選言することでマクロのような使い方ができる。\n\n\nCode\nSELECT \"Plant\", \"Date\",\n    min(\"MWh\") OVER seven AS \"MWh 7-day Moving Minimum\",\n    avg(\"MWh\") OVER seven AS \"MWh 7-day Moving Average\",\n    max(\"MWh\") OVER seven AS \"MWh 7-day Moving Maximum\",\n    min(\"MWh\") OVER three AS \"MWh 3-day Moving Minimum\",\n    avg(\"MWh\") OVER three AS \"MWh 3-day Moving Average\",\n    max(\"MWh\") OVER three AS \"MWh 3-day Moving Maximum\"\nFROM \"Generation History\"\nWINDOW\n    seven AS (\n        PARTITION BY \"Plant\"\n        ORDER BY \"Date\" ASC\n        RANGE BETWEEN INTERVAL 3 DAYS PRECEDING\n                  AND INTERVAL 3 DAYS FOLLOWING),\n    three AS (\n        PARTITION BY \"Plant\"\n        ORDER BY \"Date\" ASC\n        RANGE BETWEEN INTERVAL 1 DAYS PRECEDING\n        AND INTERVAL 1 DAYS FOLLOWING)\nORDER BY 1, 2;\n\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\n\nPlant\nDate\nMWh 7-day Moving Minimum\nMWh 7-day Moving Average\nMWh 7-day Moving Maximum\nMWh 3-day Moving Minimum\nMWh 3-day Moving Average\nMWh 3-day Moving Maximum\n\n\n\n\nBoston\n2019-01-02\n469538\n517450.8\n564337\n507405\n535871.0\n564337\n\n\nBoston\n2019-01-03\n469538\n508793.2\n564337\n507405\n533421.7\n564337\n\n\nBoston\n2019-01-04\n469538\n508529.8\n564337\n469538\n501822.0\n528523\n\n\nBoston\n2019-01-05\n469538\n523459.9\n613040\n469538\n490741.3\n528523\n\n\nBoston\n2019-01-06\n469538\n526067.1\n613040\n469538\n483638.0\n507213\n\n\nBoston\n2019-01-07\n469538\n524938.7\n613040\n474163\n531472.0\n613040\n\n\nBoston\n2019-01-08\n469538\n518294.6\n613040\n507213\n567613.7\n613040\n\n\nBoston\n2019-01-09\n474163\n520665.4\n613040\n499506\n565044.7\n613040\n\n\nBoston\n2019-01-10\n482014\n528859.0\n613040\n482014\n521369.3\n582588\n\n\nBoston\n2019-01-11\n482014\n532466.7\n613040\n482014\n489218.0\n499506\n\n\n\n\n\n\n\n3.3.4 Filtering the Results of Window Functions Using QUALIFY\n\n\nCode\nSELECT \"Plant\", \"Date\",\n    min(\"MWh\") OVER seven AS \"MWh 7-day Moving Minimum\",\n    quantile_cont(\"MWh\", [0.25, 0.5, 0.75]) OVER seven\n        AS \"MWh 7-day Moving IQR\",\n    max(\"MWh\") OVER seven AS \"MWh 7-day Moving Maximum\",\nFROM \"Generation History\"\nWINDOW seven AS (\n    PARTITION BY \"Plant\"\n    ORDER BY \"Date\" ASC\n    RANGE BETWEEN INTERVAL 3 DAYS PRECEDING\n              AND INTERVAL 3 DAYS FOLLOWING)\nORDER BY 1, 2;\n\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\nPlant\nDate\nMWh 7-day Moving Minimum\nMWh 7-day Moving IQR\nMWh 7-day Moving Maximum\n\n\n\n\nBoston\n2019-01-02\n469538\n497938.2, 517964.0, 537476.5\n564337\n\n\nBoston\n2019-01-03\n469538\n474163, 507405, 528523\n564337\n\n\nBoston\n2019-01-04\n469538\n482425.5, 507309.0, 523243.5\n564337\n\n\nBoston\n2019-01-05\n469538\n490688, 507405, 546430\n613040\n\n\nBoston\n2019-01-06\n469538\n490688.0, 507405.0, 555555.5\n613040\n\n\nBoston\n2019-01-07\n469538\n486834.5, 507213.0, 555555.5\n613040\n\n\nBoston\n2019-01-08\n469538\n478088.5, 499506.0, 544900.5\n613040\n\n\nBoston\n2019-01-09\n474163\n484074.0, 499506.0, 544900.5\n613040\n\n\nBoston\n2019-01-10\n482014\n492820, 507213, 557053\n613040\n\n\nBoston\n2019-01-11\n482014\n489477.0, 515512.0, 569820.5\n613040",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "SQL"
+    ]
+  },
+  {
     "objectID": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html",
     "href": "contents/sql/duckdb/documentaion/guide_01_data_import_export.html",
     "title": "Data Import & Export",
@@ -3655,6 +3775,114 @@
       "DuckDB",
       "Documentaion",
       "はじめに"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html",
+    "title": "Configuration",
+    "section": "",
+    "text": "Code\nrenv::activate(here::here())\ncur_dir &lt;- here::here(\"contents/sql/duckdb/documentation\")\nCode\nlibrary(ggplot2)\nlibrary(duckdb)\nlibrary(tidyverse)\nlibrary(palmerpenguins)\nlibrary(DBI)\nlibrary(dbplyr)\nlibrary(arrow)\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Noto Sans\")",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html#list-of-supported-pragma-statements",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html#list-of-supported-pragma-statements",
+    "title": "Configuration",
+    "section": "3.1 List of Supported PRAGMA Statements",
+    "text": "3.1 List of Supported PRAGMA Statements\n\n\nCode\nPRAGMA database_list;\n\n\n\n1 records\n\n\nseq\nname\nfile\n\n\n\n\n1078\nmemory\nNA\n\n\n\n\n\n\n\nCode\nPRAGMA show_tables;\n\n\n\n0 records\n\n\nname\n\n\n\n\n\n\n\nいわゆるDESCRIBEと同じ効果を出す。\n\n\nCode\nPRAGMA show_tables_expanded;\n\n\n\n0 records\n\n\ndatabase\nschema\nname\ncolumn_names\ncolumn_types\ntemporary\n\n\n\n\n\n\n\n\n\nCode\nPRAGMA functions;\n\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\nname\ntype\nparameters\nvarargs\nreturn_type\nside_effects\n\n\n\n\n!__postfix\nSCALAR\nINTEGER\nNA\nHUGEINT\nFALSE\n\n\n!~~\nSCALAR\nVARCHAR, VARCHAR\nNA\nBOOLEAN\nFALSE\n\n\n!~~*\nSCALAR\nVARCHAR, VARCHAR\nNA\nBOOLEAN\nFALSE\n\n\n%\nSCALAR\nDOUBLE, DOUBLE\nNA\nDOUBLE\nFALSE\n\n\n%\nSCALAR\nFLOAT, FLOAT\nNA\nFLOAT\nFALSE\n\n\n%\nSCALAR\nHUGEINT, HUGEINT\nNA\nHUGEINT\nFALSE\n\n\n%\nSCALAR\nBIGINT, BIGINT\nNA\nBIGINT\nFALSE\n\n\n%\nSCALAR\nSMALLINT, SMALLINT\nNA\nSMALLINT\nFALSE\n\n\n%\nSCALAR\nTINYINT, TINYINT\nNA\nTINYINT\nFALSE\n\n\n%\nSCALAR\nINTEGER, INTEGER\nNA\nINTEGER\nFALSE",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html#table-info",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html#table-info",
+    "title": "Configuration",
+    "section": "3.2 Table info",
+    "text": "3.2 Table info\n\n\nCode\nCREATE OR REPLACE TABLE tbl AS SELECT * FROM read_parquet('./penguins.parquet');\n\n\n\n\nCode\nPRAGMA table_info('tbl');\n\n\n\n8 records\n\n\ncid\nname\ntype\nnotnull\ndflt_value\npk\n\n\n\n\n0\nspecies\nVARCHAR\nFALSE\nNA\nFALSE\n\n\n1\nisland\nVARCHAR\nFALSE\nNA\nFALSE\n\n\n2\nbill_length_mm\nDOUBLE\nFALSE\nNA\nFALSE\n\n\n3\nbill_depth_mm\nDOUBLE\nFALSE\nNA\nFALSE\n\n\n4\nflipper_length_mm\nINTEGER\nFALSE\nNA\nFALSE\n\n\n5\nbody_mass_g\nINTEGER\nFALSE\nNA\nFALSE\n\n\n6\nsex\nVARCHAR\nFALSE\nNA\nFALSE\n\n\n7\nyear\nINTEGER\nFALSE\nNA\nFALSE\n\n\n\n\n\n\n\nCode\nCALL pragma_table_info('tbl');\n\n\n\n8 records\n\n\ncid\nname\ntype\nnotnull\ndflt_value\npk\n\n\n\n\n0\nspecies\nVARCHAR\nFALSE\nNA\nFALSE\n\n\n1\nisland\nVARCHAR\nFALSE\nNA\nFALSE\n\n\n2\nbill_length_mm\nDOUBLE\nFALSE\nNA\nFALSE\n\n\n3\nbill_depth_mm\nDOUBLE\nFALSE\nNA\nFALSE\n\n\n4\nflipper_length_mm\nINTEGER\nFALSE\nNA\nFALSE\n\n\n5\nbody_mass_g\nINTEGER\nFALSE\nNA\nFALSE\n\n\n6\nsex\nVARCHAR\nFALSE\nNA\nFALSE\n\n\n7\nyear\nINTEGER\nFALSE\nNA\nFALSE",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html#memoory-limit",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html#memoory-limit",
+    "title": "Configuration",
+    "section": "3.3 Memoory Limit",
+    "text": "3.3 Memoory Limit\n#| connection: con\nSET memory_limit = '1GB';\nSET max_memory = '1GB';",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html#threads",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html#threads",
+    "title": "Configuration",
+    "section": "3.4 Threads",
+    "text": "3.4 Threads\n\n\nCode\nSET threads = 4;",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html#database-size",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html#database-size",
+    "title": "Configuration",
+    "section": "3.5 Database Size",
+    "text": "3.5 Database Size\n\n\nCode\nCALL pragma_database_size();\n\n\n\n1 records\n\n\n\n\n\n\n\n\n\n\n\n\n\ndatabase_name\ndatabase_size\nblock_size\ntotal_blocks\nused_blocks\nfree_blocks\nwal_size\nmemory_usage\nmemory_limit\n\n\n\n\nmemory\n0 bytes\n0\n0\n0\n0\n0 bytes\n168.0 KiB\n9.3 GiB",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html#progress-bar",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html#progress-bar",
+    "title": "Configuration",
+    "section": "3.6 Progress Bar",
+    "text": "3.6 Progress Bar\n\n\nCode\nPRAGMA enable_progress_bar;\n\n\n\n0 records\n\n\nSuccess",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html#returning-erros-as-json",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html#returning-erros-as-json",
+    "title": "Configuration",
+    "section": "3.7 Returning Erros as JSON",
+    "text": "3.7 Returning Erros as JSON\n\n\nCode\nSET errors_as_json = true;",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guide_02_configuration.html#secrets",
+    "href": "contents/sql/duckdb/documentaion/guide_02_configuration.html#secrets",
+    "title": "Configuration",
+    "section": "3.8 Secrets",
+    "text": "3.8 Secrets\nこんな感じで作成するみたい。\nCREATE SECRET secret1 (\n    TYPE S3,\n    KEY_ID 'my_secret_key1',\n    SECRET 'my_secret_value1',\n    SCOPE 's3://my-bucket'\n);\n削除するときには次のようにする。\nDROP PERSISTENT SECRET my_persistent_secret;",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Configuration"
     ]
   }
 ]
