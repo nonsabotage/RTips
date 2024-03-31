@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tips - DuckDB Documentation</title>
+<title>R Tips - ビッグデータ分析・活用のためのSQLレシピ</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,23 +57,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<link href="../../../contents/sql/duckdb/documentaion/guide_01_data_import_export.html" rel="next">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../contents/sql/duckdb/sql-bigdata/chap03_.html" rel="next">
+<link href="../../../../contents/sql/duckdb/documentaion/guide_04_sql.html" rel="prev">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
 
 
-<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="../../../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -115,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
   </div>
@@ -131,7 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../index.html">
+    <a class="dropdown-item" href="../../../../index.html">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
@@ -143,19 +144,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
     </ul>
@@ -167,19 +168,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
     </ul>
@@ -191,63 +192,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">libs</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/base/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/base/working.html">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/ggtext/working.html">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/ggfittext/working.html">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/gganimate/working.html">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/ggmosaic/working.html">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/treemapify/working.html">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/corrr/working.html">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/ComplexHeatmap/working.html">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/GGally/working.html">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/sf/working.html">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html">
+    <a class="dropdown-item" href="../../../../contents/libs/igraph/index.html">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/patchwork/working.html">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/ggspatial/working.html">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/duckdb/working.html">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/DBI/working.html">
  <span class="dropdown-text">DBI</span></a>
   </li>  
     </ul>
@@ -259,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
@@ -271,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
@@ -283,8 +284,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/index.html">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
     </ul>
   </li>
@@ -295,15 +300,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+    <a class="dropdown-item" href="../../../../contents/test/R/renv.html">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html">
  <span class="dropdown-text">R2</span></a>
   </li>  
     </ul>
@@ -319,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DuckDB</li><li class="breadcrumb-item"><a href="../../../contents/sql/duckdb/index.html">Documentaion</a></li><li class="breadcrumb-item"><a href="../../../contents/sql/duckdb/index.html">はじめに</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DuckDB</li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/sql-bigdata/index.html">ビッグデータレシピ</a></li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/sql-bigdata/index.html">はじめに</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -350,35 +355,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
  <span class="menu-text">Documentaion</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/sql/duckdb/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../../contents/sql/duckdb/documentaion/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">はじめに</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/sql/duckdb/documentaion/guide_01_data_import_export.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../contents/sql/duckdb/documentaion/guide_01_data_import_export.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Import &amp; Export</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/sql/duckdb/documentaion/guide_02_configuration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../contents/sql/duckdb/documentaion/guide_02_configuration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../contents/sql/duckdb/documentaion/guide_04_sql.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../contents/sql/duckdb/documentaion/guide_04_sql.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SQL</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">ビッグデータレシピ</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/chap03_.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">データ加工のためのSQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/chap04_.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">売上を把握するためのデータ抽出</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/chap05_.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ユーザーを把握するためのデータ抽出</span></a>
   </div>
 </li>
       </ul>
@@ -402,9 +442,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DuckDB</li><li class="breadcrumb-item"><a href="../../../contents/sql/duckdb/index.html">Documentaion</a></li><li class="breadcrumb-item"><a href="../../../contents/sql/duckdb/index.html">はじめに</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DuckDB</li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/sql-bigdata/index.html">ビッグデータレシピ</a></li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/sql-bigdata/index.html">はじめに</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">DuckDB Documentation</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">ビッグデータ分析・活用のためのSQLレシピ</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -416,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">March 20, 2024</p>
+      <p class="date-modified">March 28, 2024</p>
     </div>
   </div>
     
@@ -430,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="はじめに" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
 <ul>
-<li><a href="https://duckdb.org/">DuckDB</a>の勉強ノートです.</li>
+<li><a href="./ビッグデータ分析・活用のためのSQLレシピ-1.0.0.pdf">レシピ</a>の勉強ノートです.</li>
 </ul>
 
 
@@ -889,15 +929,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
+      <a href="../../../../contents/sql/duckdb/documentaion/guide_04_sql.html" class="pagination-link  aria-label=" sql"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">SQL</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../contents/sql/duckdb/documentaion/guide_01_data_import_export.html" class="pagination-link" aria-label="Data Import &amp; Export">
-        <span class="nav-page-text">Data Import &amp; Export</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../../contents/sql/duckdb/sql-bigdata/chap03_.html" class="pagination-link" aria-label="データ加工のためのSQL">
+        <span class="nav-page-text">データ加工のためのSQL</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="an">title:</span><span class="co"> "DuckDB Documentation"</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="an">title:</span><span class="co"> "ビッグデータ分析・活用のためのSQLレシピ"</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="an">execute:</span><span class="co"> </span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="co">  cache: true</span></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
@@ -908,7 +951,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-10"><a href="#cb1-10"></a></span>
 <span id="cb1-11"><a href="#cb1-11"></a><span class="fu"># はじめに</span></span>
 <span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="ss">- </span><span class="co">[</span><span class="ot">DuckDB</span><span class="co">](https://duckdb.org/)</span>の勉強ノートです.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="ss">- </span><span class="co">[</span><span class="ot">レシピ</span><span class="co">](./ビッグデータ分析・活用のためのSQLレシピ-1.0.0.pdf)</span>の勉強ノートです.</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

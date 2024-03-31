@@ -284,8 +284,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/index.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
     </ul>
   </li>
@@ -781,19 +785,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; </span></span>
 <span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; Residuals:</span></span>
 <span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; -2.1326 -0.5320  0.1311  0.6630  3.0720 </span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; -2.9572 -0.8387  0.0433  0.7855  3.4772 </span></span>
 <span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt; </span></span>
 <span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; Coefficients:</span></span>
 <span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; (Intercept)   1.1073     0.1007  11.000  &lt; 2e-16 ***</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; x             0.8399     0.2144   3.918 0.000166 ***</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="co">#&gt; z             3.0302     0.1028  29.463  &lt; 2e-16 ***</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; (Intercept)   0.8830     0.1089   8.109 1.57e-12 ***</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; x             1.0512     0.2344   4.484 2.01e-05 ***</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="co">#&gt; z             2.8908     0.1177  24.568  &lt; 2e-16 ***</span></span>
 <span id="cb1-24"><a href="#cb1-24"></a><span class="co">#&gt; ---</span></span>
 <span id="cb1-25"><a href="#cb1-25"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb1-26"><a href="#cb1-26"></a><span class="co">#&gt; </span></span>
-<span id="cb1-27"><a href="#cb1-27"></a><span class="co">#&gt; Residual standard error: 1.003 on 97 degrees of freedom</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a><span class="co">#&gt; Multiple R-squared:  0.9825, Adjusted R-squared:  0.9821 </span></span>
-<span id="cb1-29"><a href="#cb1-29"></a><span class="co">#&gt; F-statistic:  2720 on 2 and 97 DF,  p-value: &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="co">#&gt; Residual standard error: 1.085 on 97 degrees of freedom</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="co">#&gt; Multiple R-squared:  0.971,  Adjusted R-squared:  0.9704 </span></span>
+<span id="cb1-29"><a href="#cb1-29"></a><span class="co">#&gt; F-statistic:  1622 on 2 and 97 DF,  p-value: &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>xがzを経由してyに影響を与えている分もあるので、zを見込まないとバイアスが入ることがわかる。</p>
@@ -816,18 +820,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; </span></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; Residuals:</span></span>
 <span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; -10.2580  -1.6361   0.0889   2.0298   8.1917 </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; -10.2024  -1.6961  -0.5921   2.3997   9.4860 </span></span>
 <span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; </span></span>
 <span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; Coefficients:</span></span>
 <span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; (Intercept)   0.8534     0.3330   2.562   0.0119 *  </span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; x             7.6675     0.3503  21.886   &lt;2e-16 ***</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; (Intercept)   1.5444     0.3401   4.541 1.59e-05 ***</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; x             7.0064     0.3689  18.992  &lt; 2e-16 ***</span></span>
 <span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt; ---</span></span>
 <span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt; </span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; Residual standard error: 3.322 on 98 degrees of freedom</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="co">#&gt; Multiple R-squared:  0.8302, Adjusted R-squared:  0.8284 </span></span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="co">#&gt; F-statistic:   479 on 1 and 98 DF,  p-value: &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; Residual standard error: 3.401 on 98 degrees of freedom</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co">#&gt; Multiple R-squared:  0.7864, Adjusted R-squared:  0.7842 </span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="co">#&gt; F-statistic: 360.7 on 1 and 98 DF,  p-value: &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -871,17 +875,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt;                a         b         c    </span></span>
 <span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt;               (1)       (2)       (3)   </span></span>
 <span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt; ----------------------------------------</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; female     -2.945***  0.608*** -0.996***</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt;             (0.085)   (0.029)   (0.029) </span></span>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; female     -3.124***  0.571*** -1.031***</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt;             (0.086)   (0.030)   (0.028) </span></span>
 <span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; occupation            1.807*** 1.010*** </span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; occupation            1.798*** 0.981*** </span></span>
 <span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt;                       (0.006)   (0.010) </span></span>
 <span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; ability                        1.986*** </span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt;                                 (0.023) </span></span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; ability                        2.047*** </span></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt;                                 (0.022) </span></span>
 <span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt;                                         </span></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt; Constant    2.045***  0.210*** 1.008*** </span></span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt;             (0.060)   (0.020)   (0.018) </span></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt; Constant    2.091***  0.206*** 1.012*** </span></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt;             (0.061)   (0.020)   (0.017) </span></span>
 <span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt;                                         </span></span>
 <span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; ========================================</span></span>
 <span id="cb3-40"><a href="#cb3-40"></a><span class="co">#&gt; ========================================</span></span>

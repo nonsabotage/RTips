@@ -287,8 +287,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/index.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
     </ul>
   </li>
@@ -762,11 +766,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">print</span>(<span class="fu">mean</span>(x))</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; [1] 0.4960834</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; [1] 0.5518633</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="fu">print</span>(<span class="fu">var</span>(x))</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; [1] 0.08765114</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; [1] 0.08356918</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="fu">print</span>(<span class="fu">sd</span>(x))</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; [1] 0.2960593</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; [1] 0.2890833</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -841,11 +845,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-2"><a href="#cb4-2"></a>    <span class="fu">correlation</span>()</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; # Correlation Matrix (pearson-method)</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; </span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; Parameter1 | Parameter2 |         r |         95% CI |  t(98) |         p</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; -------------------------------------------------------------------------</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; x          |          y | -6.70e-03 | [-0.20,  0.19] |  -0.07 | 0.947    </span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; x          |          z |      0.45 | [ 0.28,  0.60] |   5.04 | &lt; .001***</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; y          |          z |     -0.89 | [-0.93, -0.85] | -19.75 | &lt; .001***</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; Parameter1 | Parameter2 |        r |         95% CI |  t(98) |         p</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; ------------------------------------------------------------------------</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; x          |          y | 8.42e-03 | [-0.19,  0.20] |   0.08 | 0.934    </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; x          |          z |     0.41 | [ 0.23,  0.56] |   4.39 | &lt; .001***</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; y          |          z |    -0.91 | [-0.94, -0.87] | -21.82 | &lt; .001***</span></span>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; </span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; p-value adjustment method: Holm (1979)</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; Observations: 100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1539,7 +1543,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":false,"selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});</script>
 
 
 
