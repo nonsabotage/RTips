@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips - データ活用の精度を高めるための分析術</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../contents/sql/duckdb/sql-bigdata/chap06_.html" rel="prev">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../../index.html" rel="" target="">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html" rel="" target="">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html" rel="" target="">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html" rel="" target="">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">libs</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/base/working.html" rel="" target="">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/ggtext/working.html" rel="" target="">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/ggfittext/working.html" rel="" target="">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/gganimate/working.html" rel="" target="">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/ggmosaic/working.html" rel="" target="">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/treemapify/working.html" rel="" target="">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/corrr/working.html" rel="" target="">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/ComplexHeatmap/working.html" rel="" target="">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/GGally/working.html" rel="" target="">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/sf/working.html" rel="" target="">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/igraph/index.html" rel="" target="">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/patchwork/working.html" rel="" target="">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/ggspatial/working.html" rel="" target="">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/duckdb/working.html" rel="" target="">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/DBI/working.html" rel="" target="">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html" rel="" target="">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html" rel="" target="">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html" rel="" target="">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/R/renv.html" rel="" target="">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html" rel="" target="">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DuckDB</li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/sql-bigdata/index.html">ビッグデータレシピ</a></li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/sql-bigdata/chap07_.html">データ活用の精度を高めるための分析術</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">DuckDB</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Documentaion</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/documentaion/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/documentaion/guide_01_data_import_export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Import &amp; Export</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/documentaion/guide_02_configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/documentaion/guide_04_sql.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SQL</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">ビッグデータレシピ</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/chap03_.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">データ加工のためのSQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/chap04_.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">売上を把握するためのデータ抽出</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/chap05_.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ユーザーを把握するためのデータ抽出</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/chap06_.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webサイトでの行動を把握するためのデータ抽出</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/sql/duckdb/sql-bigdata/chap07_.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">データ活用の精度を高めるための分析術</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
+  <li><a href="#データの重複を検出する" id="toc-データの重複を検出する" class="nav-link" data-scroll-target="#データの重複を検出する"><span class="header-section-number">2</span> データの重複を検出する</a>
+  <ul class="collapse">
+  <li><a href="#マスターデータの重複" id="toc-マスターデータの重複" class="nav-link" data-scroll-target="#マスターデータの重複"><span class="header-section-number">2.1</span> マスターデータの重複</a>
+  <ul class="collapse">
+  <li><a href="#キーが重複しているレコードを確認する" id="toc-キーが重複しているレコードを確認する" class="nav-link" data-scroll-target="#キーが重複しているレコードを確認する"><span class="header-section-number">2.1.1</span> キーが重複しているレコードを確認する</a></li>
+  </ul></li>
+  <li><a href="#ログの重複を検出する" id="toc-ログの重複を検出する" class="nav-link" data-scroll-target="#ログの重複を検出する"><span class="header-section-number">2.2</span> ログの重複を検出する</a>
+  <ul class="collapse">
+  <li><a href="#サンプルデータ" id="toc-サンプルデータ" class="nav-link" data-scroll-target="#サンプルデータ"><span class="header-section-number">2.2.1</span> サンプルデータ</a></li>
+  <li><a href="#重複データを各員する" id="toc-重複データを各員する" class="nav-link" data-scroll-target="#重複データを各員する"><span class="header-section-number">2.2.2</span> 重複データを各員する</a></li>
+  <li><a href="#重複データを削除する" id="toc-重複データを削除する" class="nav-link" data-scroll-target="#重複データを削除する"><span class="header-section-number">2.2.3</span> 重複データを削除する</a></li>
+  <li><a href="#変更されたマスタデータをすべて抽出する" id="toc-変更されたマスタデータをすべて抽出する" class="nav-link" data-scroll-target="#変更されたマスタデータをすべて抽出する"><span class="header-section-number">2.2.4</span> 変更されたマスタデータをすべて抽出する</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#disconnect" id="toc-disconnect" class="nav-link" data-scroll-target="#disconnect"><span class="header-section-number">3</span> Disconnect</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">データ活用の精度を高めるための分析術</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">April 2, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-1_18cc7580271280c5300866f56e4269df">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-2_56ac068bea60e7e06f8689c53e36066f">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/sql-bigdata"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="setup" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-3_6166f82e25c349ca0129106c0a7351cf">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(<span class="st">":memory:"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-4_788c7b5257f1510c2551e4aa39c29bab">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>sqlfiles <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">here</span>(cur_dir, <span class="st">"sql/SQL_Recipe_sample-code_20170325/Chapter7"</span>), </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="at">pattern =</span> <span class="st">"*.sql"</span>, </span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="cf">for</span> (sql <span class="cf">in</span> sqlfiles) {</span>
+<span id="cb4-8"><a href="#cb4-8"></a>  x <span class="ot">&lt;-</span> <span class="fu">read_file</span>(sql)</span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">str_detect</span>(x, <span class="st">"-- 必要なテーブルはありません"</span>)) {</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    x <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(x, <span class="fu">regex</span>(<span class="st">"SET CLIENT_ENCODING ?= ?'UTF-?8';"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="fu">dbExecute</span>(con, x)</span>
+<span id="cb4-12"><a href="#cb4-12"></a>  }</span>
+<span id="cb4-13"><a href="#cb4-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-5_63d0af2192188047e5354ec34cbae69c">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1"></a>INSTALL icu;</span>
+<span id="cb5-2"><a href="#cb5-2"></a>LOAD icu;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-6_ca3b9c7ee897d4128d3f6ff27ef28999">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1"></a>SHOW <span class="kw">ALL</span> <span class="kw">TABLES</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 11%">
+<col style="width: 43%">
+<col style="width: 32%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">database</th>
+<th style="text-align: left;">schema</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">column_names</th>
+<th style="text-align: left;">column_types</th>
+<th style="text-align: left;">temporary</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">access_log</td>
+<td style="text-align: left;">stamp , short_session, long_session , path</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, VARCHAR, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">action_log</td>
+<td style="text-align: left;">session, user_id, action , stamp</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, VARCHAR, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">action_log_with_ip</td>
+<td style="text-align: left;">session, user_id, action , ip , stamp</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">action_log_with_noise</td>
+<td style="text-align: left;">stamp , session , action , products , url , ip , user_agent</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">dup_action_log</td>
+<td style="text-align: left;">stamp , session , user_id , action , products</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">invalid_action_log</td>
+<td style="text-align: left;">stamp , session , user_id , action , category, products, amount</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR, INTEGER</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">mst_categories</td>
+<td style="text-align: left;">id , name , stamp</td>
+<td style="text-align: left;">INTEGER, VARCHAR, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">mst_products_20161201</td>
+<td style="text-align: left;">product_id, name , price , updated_at</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, INTEGER, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">mst_products_20170101</td>
+<td style="text-align: left;">product_id, name , price , updated_at</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, INTEGER, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">neighbor_pref</td>
+<td style="text-align: left;">pref_id , pref_name , neighbor_pref_id , neighbor_pref_name</td>
+<td style="text-align: left;">INTEGER, VARCHAR, INTEGER, VARCHAR</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-7_1703f7aff56329fb56b4a4fc3b1854fc">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> <span class="op">*</span> <span class="kw">FROM</span> duckdb_functions() <span class="kw">WHERE</span> function_name <span class="kw">LIKE</span> <span class="st">'%generate%'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> function_name;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 22%">
+<col style="width: 2%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 16%">
+<col style="width: 2%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">database_name</th>
+<th style="text-align: left;">database_oid</th>
+<th style="text-align: left;">schema_name</th>
+<th style="text-align: left;">function_name</th>
+<th style="text-align: left;">function_type</th>
+<th style="text-align: left;">description</th>
+<th style="text-align: left;">comment</th>
+<th style="text-align: left;">return_type</th>
+<th style="text-align: left;">parameters</th>
+<th style="text-align: left;">parameter_types</th>
+<th style="text-align: left;">varargs</th>
+<th style="text-align: left;">macro_definition</th>
+<th style="text-align: left;">has_side_effects</th>
+<th style="text-align: left;">internal</th>
+<th style="text-align: right;">function_oid</th>
+<th style="text-align: left;">example</th>
+<th style="text-align: left;">stability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">scalar</td>
+<td style="text-align: left;">Create a list of values between start and stop - the stop parameter is inclusive</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">BIGINT[]</td>
+<td style="text-align: left;">start</td>
+<td style="text-align: left;">BIGINT</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">648</td>
+<td style="text-align: left;">generate_series(2, 5, 3)</td>
+<td style="text-align: left;">CONSISTENT</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">scalar</td>
+<td style="text-align: left;">Create a list of values between start and stop - the stop parameter is inclusive</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">BIGINT[]</td>
+<td style="text-align: left;">start, stop , step</td>
+<td style="text-align: left;">BIGINT, BIGINT, BIGINT</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">648</td>
+<td style="text-align: left;">generate_series(2, 5, 3)</td>
+<td style="text-align: left;">CONSISTENT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">col0, col1, col2</td>
+<td style="text-align: left;">TIMESTAMP WITH TIME ZONE, TIMESTAMP WITH TIME ZONE, INTERVAL</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">col0, col1</td>
+<td style="text-align: left;">BIGINT, BIGINT</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">col0</td>
+<td style="text-align: left;">BIGINT</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">col0, col1, col2</td>
+<td style="text-align: left;">TIMESTAMP, TIMESTAMP, INTERVAL</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">scalar</td>
+<td style="text-align: left;">Create a list of values between start and stop - the stop parameter is inclusive</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TIMESTAMP[]</td>
+<td style="text-align: left;">start, stop , step</td>
+<td style="text-align: left;">TIMESTAMP, TIMESTAMP, INTERVAL</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">648</td>
+<td style="text-align: left;">generate_series(2, 5, 3)</td>
+<td style="text-align: left;">CONSISTENT</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">scalar</td>
+<td style="text-align: left;">Create a list of values between start and stop - the stop parameter is inclusive</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TIMESTAMP WITH TIME ZONE[]</td>
+<td style="text-align: left;">start, stop , step</td>
+<td style="text-align: left;">TIMESTAMP WITH TIME ZONE, TIMESTAMP WITH TIME ZONE, INTERVAL</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">648</td>
+<td style="text-align: left;">generate_series(2, 5, 3)</td>
+<td style="text-align: left;">CONSISTENT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">col0, col1, col2</td>
+<td style="text-align: left;">BIGINT, BIGINT, BIGINT</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">generate_series</td>
+<td style="text-align: left;">scalar</td>
+<td style="text-align: left;">Create a list of values between start and stop - the stop parameter is inclusive</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">BIGINT[]</td>
+<td style="text-align: left;">start, stop</td>
+<td style="text-align: left;">BIGINT, BIGINT</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">648</td>
+<td style="text-align: left;">generate_series(2, 5, 3)</td>
+<td style="text-align: left;">CONSISTENT</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="データの重複を検出する" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> データの重複を検出する</h1>
+<section id="マスターデータの重複" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="マスターデータの重複"><span class="header-section-number">2.1</span> マスターデータの重複</h2>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-8_cddfb33a83ca81816d0d36616520620d">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">select</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">count</span>(<span class="dv">1</span>) <span class="kw">as</span> total_num</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  , <span class="fu">count</span>(<span class="kw">distinct</span> <span class="kw">id</span>) <span class="kw">as</span> key_num</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">from</span> </span>
+<span id="cb8-5"><a href="#cb8-5"></a>  mst_categories</span>
+<span id="cb8-6"><a href="#cb8-6"></a>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>1 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">total_num</th>
+<th style="text-align: right;">key_num</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="キーが重複しているレコードを確認する" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="キーが重複しているレコードを確認する"><span class="header-section-number">2.1.1</span> キーが重複しているレコードを確認する</h3>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-9_629981bb46ff87d7cf7477dffe12959d">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">select</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="kw">id</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  , <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> record_num</span>
+<span id="cb9-4"><a href="#cb9-4"></a>  , string_agg(name, <span class="st">','</span>) <span class="kw">as</span> name_list</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  , string_agg(stamp, <span class="st">','</span>) <span class="kw">as</span> stamp_list</span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="kw">from</span> </span>
+<span id="cb9-7"><a href="#cb9-7"></a>  mst_categories</span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="kw">group</span> <span class="kw">by</span> <span class="kw">id</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="kw">having</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">&gt;</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>1 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">record_num</th>
+<th style="text-align: left;">name_list</th>
+<th style="text-align: left;">stamp_list</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">food,cooking</td>
+<td style="text-align: left;">2016-01-01 10:00:00,2016-02-01 10:00:00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>もとのレコードを保持したまま処理する。</p>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-10_17ae0c0c97eb2331ebe74e335cb355eb">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">with</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>mst_categories_with_key_num <span class="kw">as</span> (</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="kw">select</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>    <span class="op">*</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>    , <span class="fu">count</span>(<span class="dv">1</span>) <span class="kw">over</span>(<span class="kw">partition</span> <span class="kw">by</span> <span class="kw">id</span>) <span class="kw">as</span> key_num</span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="kw">from</span> mst_categories</span>
+<span id="cb10-7"><a href="#cb10-7"></a>)</span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="kw">select</span> </span>
+<span id="cb10-9"><a href="#cb10-9"></a>  <span class="op">*</span> </span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="kw">from</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>  mst_categories_with_key_num</span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="kw">where</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>  key_num <span class="op">&gt;</span> <span class="dv">1</span>;;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>2 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">stamp</th>
+<th style="text-align: right;">key_num</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">food</td>
+<td style="text-align: left;">2016-01-01 10:00:00</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">cooking</td>
+<td style="text-align: left;">2016-02-01 10:00:00</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="ログの重複を検出する" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="ログの重複を検出する"><span class="header-section-number">2.2</span> ログの重複を検出する</h2>
+<p>ログはマスタと異なり、正常なデータ取得でもデータが重複してしまう倍ｇあある。</p>
+<section id="サンプルデータ" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="サンプルデータ"><span class="header-section-number">2.2.1</span> サンプルデータ</h3>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-11_3b84d8c0b36bda056e8bdd91060d7f7c">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> dup_action_log;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">stamp</th>
+<th style="text-align: left;">session</th>
+<th style="text-align: left;">user_id</th>
+<th style="text-align: left;">action</th>
+<th style="text-align: left;">products</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2016-11-03 18:00:00</td>
+<td style="text-align: left;">989004ea</td>
+<td style="text-align: left;">U001</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2016-11-03 19:00:00</td>
+<td style="text-align: left;">47db0370</td>
+<td style="text-align: left;">U002</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D002</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2016-11-03 20:00:00</td>
+<td style="text-align: left;">1cf7678e</td>
+<td style="text-align: left;">U003</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2016-11-03 21:00:00</td>
+<td style="text-align: left;">5eb2e107</td>
+<td style="text-align: left;">U004</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2016-11-03 21:00:00</td>
+<td style="text-align: left;">fe05e1d8</td>
+<td style="text-align: left;">U004</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2016-11-04 18:00:00</td>
+<td style="text-align: left;">87b5725f</td>
+<td style="text-align: left;">U001</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2016-11-04 19:00:00</td>
+<td style="text-align: left;">eee2bb21</td>
+<td style="text-align: left;">U005</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2016-11-04 20:00:00</td>
+<td style="text-align: left;">5d5b0997</td>
+<td style="text-align: left;">U006</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2016-11-04 21:00:00</td>
+<td style="text-align: left;">111f2996</td>
+<td style="text-align: left;">U007</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2016-11-04 22:00:00</td>
+<td style="text-align: left;">3efe001c</td>
+<td style="text-align: left;">U008</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="重複データを各員する" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="重複データを各員する"><span class="header-section-number">2.2.2</span> 重複データを各員する</h3>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-12_eb97df58164e713ec46d223f68842c13">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">select</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  user_id</span>
+<span id="cb12-3"><a href="#cb12-3"></a>  , products</span>
+<span id="cb12-4"><a href="#cb12-4"></a>  , string_agg(<span class="kw">session</span>, <span class="st">','</span>) <span class="kw">as</span> session_list</span>
+<span id="cb12-5"><a href="#cb12-5"></a>  , string_agg(stamp, <span class="st">','</span>) <span class="kw">as</span> stamp_list</span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="kw">from</span> dup_action_log</span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="kw">group</span> <span class="kw">by</span> user_id, products</span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="kw">having</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">&gt;</span> <span class="dv">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>2 records</caption>
+<colgroup>
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 24%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">user_id</th>
+<th style="text-align: left;">products</th>
+<th style="text-align: left;">session_list</th>
+<th style="text-align: left;">stamp_list</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">U008</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">3efe001c,3efe001c</td>
+<td style="text-align: left;">2016-11-04 22:00:00,2016-11-04 22:00:10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">U001</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">989004ea,87b5725f</td>
+<td style="text-align: left;">2016-11-03 18:00:00,2016-11-04 18:00:00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="重複データを削除する" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="重複データを削除する"><span class="header-section-number">2.2.3</span> 重複データを削除する</h3>
+<p>たとえば１番古いデータを残す。</p>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-13_86890b3b241e08f0d41a1c1b55ff7ced">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">select</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="kw">session</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  , user_id</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  , action</span>
+<span id="cb13-5"><a href="#cb13-5"></a>  , products</span>
+<span id="cb13-6"><a href="#cb13-6"></a>  , <span class="fu">min</span>(stamp) <span class="kw">as</span> stamp</span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="kw">from</span> </span>
+<span id="cb13-8"><a href="#cb13-8"></a>  dup_action_log</span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="kw">group</span> <span class="kw">by</span> </span>
+<span id="cb13-10"><a href="#cb13-10"></a>  <span class="kw">session</span>, user_id, action, products</span>
+<span id="cb13-11"><a href="#cb13-11"></a>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">session</th>
+<th style="text-align: left;">user_id</th>
+<th style="text-align: left;">action</th>
+<th style="text-align: left;">products</th>
+<th style="text-align: left;">stamp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">47db0370</td>
+<td style="text-align: left;">U002</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D002</td>
+<td style="text-align: left;">2016-11-03 19:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1cf7678e</td>
+<td style="text-align: left;">U003</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">2016-11-03 20:00:00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fe05e1d8</td>
+<td style="text-align: left;">U004</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">2016-11-03 21:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eee2bb21</td>
+<td style="text-align: left;">U005</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">2016-11-04 19:00:00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3efe001c</td>
+<td style="text-align: left;">U008</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">2016-11-04 22:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">989004ea</td>
+<td style="text-align: left;">U001</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">2016-11-03 18:00:00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">87b5725f</td>
+<td style="text-align: left;">U001</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">2016-11-04 18:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">111f2996</td>
+<td style="text-align: left;">U007</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D002</td>
+<td style="text-align: left;">2016-11-04 21:00:00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5d5b0997</td>
+<td style="text-align: left;">U006</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">2016-11-04 20:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5eb2e107</td>
+<td style="text-align: left;">U004</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">2016-11-03 21:00:00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>前回のアクションからの経過時間で同一を判定する。</p>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-14_abd8ef30581f8e8a05b32a0c2115b21c">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">with</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>dup_action_log_with_lag_seconds <span class="kw">as</span> (</span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="kw">select</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>    user_id</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    , action</span>
+<span id="cb14-6"><a href="#cb14-6"></a>    , products</span>
+<span id="cb14-7"><a href="#cb14-7"></a>    , stamp</span>
+<span id="cb14-8"><a href="#cb14-8"></a>    , <span class="fu">extract</span>(</span>
+<span id="cb14-9"><a href="#cb14-9"></a>        epoch <span class="kw">from</span> stamp:<span class="ch">:timestamp</span> <span class="op">-</span> </span>
+<span id="cb14-10"><a href="#cb14-10"></a>        <span class="fu">lag</span>(stamp:<span class="ch">:timestamp</span>)</span>
+<span id="cb14-11"><a href="#cb14-11"></a>        <span class="kw">over</span>(<span class="kw">partition</span> <span class="kw">by</span> user_id, action, products <span class="kw">order</span> <span class="kw">by</span> stamp)) <span class="kw">as</span> lag_seconds</span>
+<span id="cb14-12"><a href="#cb14-12"></a>  <span class="kw">from</span> dup_action_log</span>
+<span id="cb14-13"><a href="#cb14-13"></a>)</span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="co">-- 30分以内の同一アクションを重複として除外する</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a><span class="kw">select</span></span>
+<span id="cb14-16"><a href="#cb14-16"></a>  user_id</span>
+<span id="cb14-17"><a href="#cb14-17"></a>  , action</span>
+<span id="cb14-18"><a href="#cb14-18"></a>  , products</span>
+<span id="cb14-19"><a href="#cb14-19"></a>  , stamp</span>
+<span id="cb14-20"><a href="#cb14-20"></a><span class="kw">from</span> dup_action_log_with_lag_seconds</span>
+<span id="cb14-21"><a href="#cb14-21"></a><span class="kw">where</span> (lag_seconds <span class="kw">is</span> <span class="kw">null</span> <span class="kw">or</span> lag_seconds <span class="op">&gt;=</span> <span class="dv">30</span> <span class="op">*</span> <span class="dv">60</span>)</span>
+<span id="cb14-22"><a href="#cb14-22"></a><span class="kw">order</span> <span class="kw">by</span> stamp;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">user_id</th>
+<th style="text-align: left;">action</th>
+<th style="text-align: left;">products</th>
+<th style="text-align: left;">stamp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">U001</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">2016-11-03 18:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">U002</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D002</td>
+<td style="text-align: left;">2016-11-03 19:00:00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">U003</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">2016-11-03 20:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">U004</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">2016-11-03 21:00:00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">U004</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">2016-11-03 21:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">U001</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">2016-11-04 18:00:00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">U005</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">2016-11-04 19:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">U006</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D001</td>
+<td style="text-align: left;">2016-11-04 20:00:00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">U007</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">D002</td>
+<td style="text-align: left;">2016-11-04 21:00:00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">U008</td>
+<td style="text-align: left;">click</td>
+<td style="text-align: left;">A001</td>
+<td style="text-align: left;">2016-11-04 22:00:00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="変更されたマスタデータをすべて抽出する" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="変更されたマスタデータをすべて抽出する"><span class="header-section-number">2.2.4</span> 変更されたマスタデータをすべて抽出する</h3>
+<p>NULLを含めた比較が<code>is distinct from</code>を使うことで行える。 つまり、どちらかがNULLだと演算が出来ないがわかる。</p>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-15_6215daf3bd3a3bc71fd9c0c5bffa2628">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">select</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>    <span class="fu">coalesce</span>(new_mst.product_id, old_mst.product_id) <span class="kw">as</span> product_id</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  , <span class="fu">coalesce</span>(new_mst.name,       old_mst.name) <span class="kw">as</span> name</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  , <span class="fu">coalesce</span>(new_mst.price,      old_mst.price) <span class="kw">as</span> price</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  , <span class="fu">coalesce</span>(new_mst.updated_at, old_mst.updated_at) <span class="kw">as</span> updated_at</span>
+<span id="cb15-6"><a href="#cb15-6"></a>  , <span class="cf">case</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>      <span class="cf">when</span> old_mst.updated_at <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'added'</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>      <span class="cf">when</span> new_mst.updated_at <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'deleted'</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>      <span class="cf">when</span> new_mst.updated_at <span class="op">&lt;&gt;</span> old_mst.updated_at <span class="cf">then</span> <span class="st">'updated'</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>    <span class="cf">end</span> <span class="kw">as</span> status</span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="kw">from</span> </span>
+<span id="cb15-12"><a href="#cb15-12"></a>  mst_products_20170101 <span class="kw">as</span> new_mst</span>
+<span id="cb15-13"><a href="#cb15-13"></a>  <span class="kw">full</span> <span class="kw">outer</span> <span class="kw">join</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a>    mst_products_20161201 <span class="kw">as</span> old_mst</span>
+<span id="cb15-15"><a href="#cb15-15"></a>  <span class="kw">on</span> </span>
+<span id="cb15-16"><a href="#cb15-16"></a>    new_mst.product_id <span class="op">=</span> old_mst.product_id</span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="kw">where</span></span>
+<span id="cb15-18"><a href="#cb15-18"></a>  <span class="co">-- null</span></span>
+<span id="cb15-19"><a href="#cb15-19"></a>  new_mst.updated_at <span class="kw">is</span> <span class="kw">distinct</span> <span class="kw">from</span> old_mst.updated_at</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>3 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">product_id</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">price</th>
+<th style="text-align: left;">updated_at</th>
+<th style="text-align: left;">status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">C001</td>
+<td style="text-align: left;">CCA</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: left;">2016-12-04 18:00:00</td>
+<td style="text-align: left;">updated</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B001</td>
+<td style="text-align: left;">BBB</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: left;">2016-11-03 20:00:00</td>
+<td style="text-align: left;">deleted</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">D002</td>
+<td style="text-align: left;">DAD</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: left;">2016-12-04 19:00:00</td>
+<td style="text-align: left;">added</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="disconnect" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Disconnect</h1>
+<div class="cell" data-hash="chap07__cache/html/unnamed-chunk-16_931b89f43e1a622bb06cd73fcc320235">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../../contents/sql/duckdb/sql-bigdata/chap06_.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Webサイトでの行動を把握するためのデータ抽出</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="an">title:</span><span class="co"> "データ活用の精度を高めるための分析術"</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co">  cache: true</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="an">filters:</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="co">---</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a></span>
+<span id="cb17-11"><a href="#cb17-11"></a></span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="in">```{r}</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb17-16"><a href="#cb17-16"></a><span class="in">```</span></span>
+<span id="cb17-17"><a href="#cb17-17"></a></span>
+<span id="cb17-18"><a href="#cb17-18"></a></span>
+<span id="cb17-21"><a href="#cb17-21"></a><span class="in">```{r}</span></span>
+<span id="cb17-22"><a href="#cb17-22"></a><span class="co">#| warning: false</span></span>
+<span id="cb17-23"><a href="#cb17-23"></a><span class="co">#| message: false</span></span>
+<span id="cb17-24"><a href="#cb17-24"></a></span>
+<span id="cb17-25"><a href="#cb17-25"></a></span>
+<span id="cb17-26"><a href="#cb17-26"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/sql-bigdata"</span>)</span>
+<span id="cb17-27"><a href="#cb17-27"></a></span>
+<span id="cb17-28"><a href="#cb17-28"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb17-29"><a href="#cb17-29"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb17-30"><a href="#cb17-30"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb17-31"><a href="#cb17-31"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb17-32"><a href="#cb17-32"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb17-33"><a href="#cb17-33"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb17-34"><a href="#cb17-34"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb17-35"><a href="#cb17-35"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb17-36"><a href="#cb17-36"></a><span class="fu">library</span>(here)</span>
+<span id="cb17-37"><a href="#cb17-37"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb17-38"><a href="#cb17-38"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb17-39"><a href="#cb17-39"></a><span class="in">```</span></span>
+<span id="cb17-40"><a href="#cb17-40"></a></span>
+<span id="cb17-41"><a href="#cb17-41"></a><span class="fu"># Setup </span></span>
+<span id="cb17-42"><a href="#cb17-42"></a></span>
+<span id="cb17-45"><a href="#cb17-45"></a><span class="in">```{r}</span></span>
+<span id="cb17-46"><a href="#cb17-46"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(<span class="st">":memory:"</span>))</span>
+<span id="cb17-47"><a href="#cb17-47"></a><span class="in">```</span></span>
+<span id="cb17-48"><a href="#cb17-48"></a></span>
+<span id="cb17-51"><a href="#cb17-51"></a><span class="in">```{r}</span></span>
+<span id="cb17-52"><a href="#cb17-52"></a>sqlfiles <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb17-53"><a href="#cb17-53"></a>  <span class="fu">here</span>(cur_dir, <span class="st">"sql/SQL_Recipe_sample-code_20170325/Chapter7"</span>), </span>
+<span id="cb17-54"><a href="#cb17-54"></a>  <span class="at">pattern =</span> <span class="st">"*.sql"</span>, </span>
+<span id="cb17-55"><a href="#cb17-55"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb17-56"><a href="#cb17-56"></a>)</span>
+<span id="cb17-57"><a href="#cb17-57"></a></span>
+<span id="cb17-58"><a href="#cb17-58"></a><span class="cf">for</span> (sql <span class="cf">in</span> sqlfiles) {</span>
+<span id="cb17-59"><a href="#cb17-59"></a>  x <span class="ot">&lt;-</span> <span class="fu">read_file</span>(sql)</span>
+<span id="cb17-60"><a href="#cb17-60"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">str_detect</span>(x, <span class="st">"-- 必要なテーブルはありません"</span>)) {</span>
+<span id="cb17-61"><a href="#cb17-61"></a>    x <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(x, <span class="fu">regex</span>(<span class="st">"SET CLIENT_ENCODING ?= ?'UTF-?8';"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb17-62"><a href="#cb17-62"></a>    <span class="fu">dbExecute</span>(con, x)</span>
+<span id="cb17-63"><a href="#cb17-63"></a>  }</span>
+<span id="cb17-64"><a href="#cb17-64"></a>}</span>
+<span id="cb17-65"><a href="#cb17-65"></a><span class="in">```</span></span>
+<span id="cb17-66"><a href="#cb17-66"></a></span>
+<span id="cb17-69"><a href="#cb17-69"></a><span class="in">```{sql}</span></span>
+<span id="cb17-70"><a href="#cb17-70"></a><span class="co">#| connection: con</span></span>
+<span id="cb17-71"><a href="#cb17-71"></a>INSTALL icu;</span>
+<span id="cb17-72"><a href="#cb17-72"></a><span class="kw">LOAD</span> icu;</span>
+<span id="cb17-73"><a href="#cb17-73"></a><span class="in">```</span></span>
+<span id="cb17-74"><a href="#cb17-74"></a></span>
+<span id="cb17-75"><a href="#cb17-75"></a></span>
+<span id="cb17-78"><a href="#cb17-78"></a><span class="in">```{sql}</span></span>
+<span id="cb17-79"><a href="#cb17-79"></a><span class="co">#| connection: con</span></span>
+<span id="cb17-80"><a href="#cb17-80"></a><span class="kw">SHOW</span> <span class="kw">ALL</span> <span class="kw">TABLES</span>;</span>
+<span id="cb17-81"><a href="#cb17-81"></a><span class="in">```</span></span>
+<span id="cb17-82"><a href="#cb17-82"></a></span>
+<span id="cb17-83"><a href="#cb17-83"></a></span>
+<span id="cb17-84"><a href="#cb17-84"></a></span>
+<span id="cb17-87"><a href="#cb17-87"></a><span class="in">```{sql}</span></span>
+<span id="cb17-88"><a href="#cb17-88"></a><span class="co">#| connection: con</span></span>
+<span id="cb17-89"><a href="#cb17-89"></a></span>
+<span id="cb17-90"><a href="#cb17-90"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> <span class="op">*</span> <span class="kw">FROM</span> duckdb_functions() <span class="kw">WHERE</span> function_name <span class="kw">LIKE</span> <span class="st">'%generate%'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> function_name;</span>
+<span id="cb17-91"><a href="#cb17-91"></a></span>
+<span id="cb17-92"><a href="#cb17-92"></a><span class="in">```</span></span>
+<span id="cb17-93"><a href="#cb17-93"></a></span>
+<span id="cb17-94"><a href="#cb17-94"></a><span class="fu"># データの重複を検出する</span></span>
+<span id="cb17-95"><a href="#cb17-95"></a></span>
+<span id="cb17-96"><a href="#cb17-96"></a><span class="fu">## マスターデータの重複</span></span>
+<span id="cb17-97"><a href="#cb17-97"></a></span>
+<span id="cb17-98"><a href="#cb17-98"></a></span>
+<span id="cb17-99"><a href="#cb17-99"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb17-100"><a href="#cb17-100"></a><span class="kw">select</span></span>
+<span id="cb17-101"><a href="#cb17-101"></a>  <span class="fu">count</span>(<span class="dv">1</span>) <span class="kw">as</span> total_num</span>
+<span id="cb17-102"><a href="#cb17-102"></a>  , <span class="fu">count</span>(<span class="kw">distinct</span> id) <span class="kw">as</span> key_num</span>
+<span id="cb17-103"><a href="#cb17-103"></a><span class="kw">from</span> </span>
+<span id="cb17-104"><a href="#cb17-104"></a>  mst_categories</span>
+<span id="cb17-105"><a href="#cb17-105"></a>;</span>
+<span id="cb17-106"><a href="#cb17-106"></a></span>
+<span id="cb17-107"><a href="#cb17-107"></a><span class="in">```</span></span>
+<span id="cb17-108"><a href="#cb17-108"></a></span>
+<span id="cb17-109"><a href="#cb17-109"></a><span class="fu">### キーが重複しているレコードを確認する</span></span>
+<span id="cb17-110"><a href="#cb17-110"></a></span>
+<span id="cb17-111"><a href="#cb17-111"></a></span>
+<span id="cb17-112"><a href="#cb17-112"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb17-113"><a href="#cb17-113"></a><span class="kw">select</span></span>
+<span id="cb17-114"><a href="#cb17-114"></a>  id</span>
+<span id="cb17-115"><a href="#cb17-115"></a>  , <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> record_num</span>
+<span id="cb17-116"><a href="#cb17-116"></a>  , string_agg(name, <span class="st">','</span>) <span class="kw">as</span> name_list</span>
+<span id="cb17-117"><a href="#cb17-117"></a>  , string_agg(stamp, <span class="st">','</span>) <span class="kw">as</span> stamp_list</span>
+<span id="cb17-118"><a href="#cb17-118"></a><span class="kw">from</span> </span>
+<span id="cb17-119"><a href="#cb17-119"></a>  mst_categories</span>
+<span id="cb17-120"><a href="#cb17-120"></a><span class="kw">group</span> <span class="kw">by</span> id</span>
+<span id="cb17-121"><a href="#cb17-121"></a><span class="kw">having</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">&gt;</span> <span class="dv">1</span></span>
+<span id="cb17-122"><a href="#cb17-122"></a></span>
+<span id="cb17-123"><a href="#cb17-123"></a><span class="in">```</span></span>
+<span id="cb17-124"><a href="#cb17-124"></a></span>
+<span id="cb17-125"><a href="#cb17-125"></a></span>
+<span id="cb17-126"><a href="#cb17-126"></a>もとのレコードを保持したまま処理する。</span>
+<span id="cb17-127"><a href="#cb17-127"></a></span>
+<span id="cb17-128"><a href="#cb17-128"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb17-129"><a href="#cb17-129"></a><span class="kw">with</span></span>
+<span id="cb17-130"><a href="#cb17-130"></a>mst_categories_with_key_num <span class="kw">as</span> (</span>
+<span id="cb17-131"><a href="#cb17-131"></a>  <span class="kw">select</span></span>
+<span id="cb17-132"><a href="#cb17-132"></a>    <span class="op">*</span></span>
+<span id="cb17-133"><a href="#cb17-133"></a>    , <span class="fu">count</span>(<span class="dv">1</span>) over(partition <span class="kw">by</span> id) <span class="kw">as</span> key_num</span>
+<span id="cb17-134"><a href="#cb17-134"></a>  <span class="kw">from</span> mst_categories</span>
+<span id="cb17-135"><a href="#cb17-135"></a>)</span>
+<span id="cb17-136"><a href="#cb17-136"></a><span class="kw">select</span> </span>
+<span id="cb17-137"><a href="#cb17-137"></a>  <span class="op">*</span> </span>
+<span id="cb17-138"><a href="#cb17-138"></a><span class="kw">from</span></span>
+<span id="cb17-139"><a href="#cb17-139"></a>  mst_categories_with_key_num</span>
+<span id="cb17-140"><a href="#cb17-140"></a><span class="kw">where</span></span>
+<span id="cb17-141"><a href="#cb17-141"></a>  key_num <span class="op">&gt;</span> <span class="dv">1</span>;;</span>
+<span id="cb17-142"><a href="#cb17-142"></a></span>
+<span id="cb17-143"><a href="#cb17-143"></a></span>
+<span id="cb17-144"><a href="#cb17-144"></a><span class="in">```</span></span>
+<span id="cb17-145"><a href="#cb17-145"></a></span>
+<span id="cb17-146"><a href="#cb17-146"></a></span>
+<span id="cb17-147"><a href="#cb17-147"></a><span class="fu">## ログの重複を検出する</span></span>
+<span id="cb17-148"><a href="#cb17-148"></a></span>
+<span id="cb17-149"><a href="#cb17-149"></a>ログはマスタと異なり、正常なデータ取得でもデータが重複してしまう倍ｇあある。</span>
+<span id="cb17-150"><a href="#cb17-150"></a></span>
+<span id="cb17-151"><a href="#cb17-151"></a><span class="fu">### サンプルデータ</span></span>
+<span id="cb17-152"><a href="#cb17-152"></a></span>
+<span id="cb17-153"><a href="#cb17-153"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb17-154"><a href="#cb17-154"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> dup_action_log;</span>
+<span id="cb17-155"><a href="#cb17-155"></a><span class="in">```</span></span>
+<span id="cb17-156"><a href="#cb17-156"></a></span>
+<span id="cb17-157"><a href="#cb17-157"></a><span class="fu">### 重複データを各員する</span></span>
+<span id="cb17-158"><a href="#cb17-158"></a></span>
+<span id="cb17-159"><a href="#cb17-159"></a></span>
+<span id="cb17-160"><a href="#cb17-160"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb17-161"><a href="#cb17-161"></a><span class="kw">select</span></span>
+<span id="cb17-162"><a href="#cb17-162"></a>  user_id</span>
+<span id="cb17-163"><a href="#cb17-163"></a>  , products</span>
+<span id="cb17-164"><a href="#cb17-164"></a>  , string_agg(session, <span class="st">','</span>) <span class="kw">as</span> session_list</span>
+<span id="cb17-165"><a href="#cb17-165"></a>  , string_agg(stamp, <span class="st">','</span>) <span class="kw">as</span> stamp_list</span>
+<span id="cb17-166"><a href="#cb17-166"></a><span class="kw">from</span> dup_action_log</span>
+<span id="cb17-167"><a href="#cb17-167"></a><span class="kw">group</span> <span class="kw">by</span> user_id, products</span>
+<span id="cb17-168"><a href="#cb17-168"></a><span class="kw">having</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">&gt;</span> <span class="dv">1</span>;</span>
+<span id="cb17-169"><a href="#cb17-169"></a><span class="in">```</span></span>
+<span id="cb17-170"><a href="#cb17-170"></a></span>
+<span id="cb17-171"><a href="#cb17-171"></a></span>
+<span id="cb17-172"><a href="#cb17-172"></a><span class="fu">### 重複データを削除する</span></span>
+<span id="cb17-173"><a href="#cb17-173"></a></span>
+<span id="cb17-174"><a href="#cb17-174"></a>たとえば１番古いデータを残す。</span>
+<span id="cb17-175"><a href="#cb17-175"></a></span>
+<span id="cb17-176"><a href="#cb17-176"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb17-177"><a href="#cb17-177"></a><span class="kw">select</span> </span>
+<span id="cb17-178"><a href="#cb17-178"></a>  session</span>
+<span id="cb17-179"><a href="#cb17-179"></a>  , user_id</span>
+<span id="cb17-180"><a href="#cb17-180"></a>  , action</span>
+<span id="cb17-181"><a href="#cb17-181"></a>  , products</span>
+<span id="cb17-182"><a href="#cb17-182"></a>  , <span class="fu">min</span>(stamp) <span class="kw">as</span> stamp</span>
+<span id="cb17-183"><a href="#cb17-183"></a><span class="kw">from</span> </span>
+<span id="cb17-184"><a href="#cb17-184"></a>  dup_action_log</span>
+<span id="cb17-185"><a href="#cb17-185"></a><span class="kw">group</span> <span class="kw">by</span> </span>
+<span id="cb17-186"><a href="#cb17-186"></a>  session, user_id, action, products</span>
+<span id="cb17-187"><a href="#cb17-187"></a>;</span>
+<span id="cb17-188"><a href="#cb17-188"></a></span>
+<span id="cb17-189"><a href="#cb17-189"></a><span class="in">```</span></span>
+<span id="cb17-190"><a href="#cb17-190"></a></span>
+<span id="cb17-191"><a href="#cb17-191"></a></span>
+<span id="cb17-192"><a href="#cb17-192"></a>前回のアクションからの経過時間で同一を判定する。</span>
+<span id="cb17-193"><a href="#cb17-193"></a></span>
+<span id="cb17-194"><a href="#cb17-194"></a></span>
+<span id="cb17-195"><a href="#cb17-195"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb17-196"><a href="#cb17-196"></a><span class="kw">with</span></span>
+<span id="cb17-197"><a href="#cb17-197"></a>dup_action_log_with_lag_seconds <span class="kw">as</span> (</span>
+<span id="cb17-198"><a href="#cb17-198"></a>  <span class="kw">select</span></span>
+<span id="cb17-199"><a href="#cb17-199"></a>    user_id</span>
+<span id="cb17-200"><a href="#cb17-200"></a>    , action</span>
+<span id="cb17-201"><a href="#cb17-201"></a>    , products</span>
+<span id="cb17-202"><a href="#cb17-202"></a>    , stamp</span>
+<span id="cb17-203"><a href="#cb17-203"></a>    , <span class="fu">extract</span>(</span>
+<span id="cb17-204"><a href="#cb17-204"></a>        epoch <span class="kw">from</span> stamp<span class="ch">::</span><span class="dt">timestamp</span> <span class="op">-</span> </span>
+<span id="cb17-205"><a href="#cb17-205"></a>        lag(stamp<span class="ch">::</span><span class="dt">timestamp</span>)</span>
+<span id="cb17-206"><a href="#cb17-206"></a>        over(partition <span class="kw">by</span> user_id, action, products <span class="kw">order</span> <span class="kw">by</span> stamp)) <span class="kw">as</span> lag_seconds</span>
+<span id="cb17-207"><a href="#cb17-207"></a>  <span class="kw">from</span> dup_action_log</span>
+<span id="cb17-208"><a href="#cb17-208"></a>)</span>
+<span id="cb17-209"><a href="#cb17-209"></a><span class="co">-- 30分以内の同一アクションを重複として除外する</span></span>
+<span id="cb17-210"><a href="#cb17-210"></a><span class="kw">select</span></span>
+<span id="cb17-211"><a href="#cb17-211"></a>  user_id</span>
+<span id="cb17-212"><a href="#cb17-212"></a>  , action</span>
+<span id="cb17-213"><a href="#cb17-213"></a>  , products</span>
+<span id="cb17-214"><a href="#cb17-214"></a>  , stamp</span>
+<span id="cb17-215"><a href="#cb17-215"></a><span class="kw">from</span> dup_action_log_with_lag_seconds</span>
+<span id="cb17-216"><a href="#cb17-216"></a><span class="kw">where</span> (lag_seconds <span class="kw">is</span> <span class="kw">null</span> <span class="kw">or</span> lag_seconds <span class="op">&gt;=</span> <span class="dv">30</span> <span class="op">*</span> <span class="dv">60</span>)</span>
+<span id="cb17-217"><a href="#cb17-217"></a><span class="kw">order</span> <span class="kw">by</span> stamp;</span>
+<span id="cb17-218"><a href="#cb17-218"></a><span class="in">```</span></span>
+<span id="cb17-219"><a href="#cb17-219"></a></span>
+<span id="cb17-220"><a href="#cb17-220"></a></span>
+<span id="cb17-221"><a href="#cb17-221"></a><span class="fu">### 変更されたマスタデータをすべて抽出する</span></span>
+<span id="cb17-222"><a href="#cb17-222"></a></span>
+<span id="cb17-223"><a href="#cb17-223"></a></span>
+<span id="cb17-224"><a href="#cb17-224"></a>NULLを含めた比較が<span class="in">`is distinct from`</span>を使うことで行える。</span>
+<span id="cb17-225"><a href="#cb17-225"></a>つまり、どちらかがNULLだと演算が出来ないがわかる。</span>
+<span id="cb17-226"><a href="#cb17-226"></a></span>
+<span id="cb17-227"><a href="#cb17-227"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb17-228"><a href="#cb17-228"></a><span class="kw">select</span></span>
+<span id="cb17-229"><a href="#cb17-229"></a>    <span class="fu">coalesce</span>(new_mst<span class="ch">.</span>product_id, old_mst<span class="ch">.</span>product_id) <span class="kw">as</span> product_id</span>
+<span id="cb17-230"><a href="#cb17-230"></a>  , <span class="fu">coalesce</span>(new_mst<span class="ch">.</span>name,       old_mst<span class="ch">.</span>name) <span class="kw">as</span> name</span>
+<span id="cb17-231"><a href="#cb17-231"></a>  , <span class="fu">coalesce</span>(new_mst<span class="ch">.</span>price,      old_mst<span class="ch">.</span>price) <span class="kw">as</span> price</span>
+<span id="cb17-232"><a href="#cb17-232"></a>  , <span class="fu">coalesce</span>(new_mst<span class="ch">.</span>updated_at, old_mst<span class="ch">.</span>updated_at) <span class="kw">as</span> updated_at</span>
+<span id="cb17-233"><a href="#cb17-233"></a>  , <span class="cf">case</span></span>
+<span id="cb17-234"><a href="#cb17-234"></a>      <span class="cf">when</span> old_mst<span class="ch">.</span>updated_at <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'added'</span></span>
+<span id="cb17-235"><a href="#cb17-235"></a>      <span class="cf">when</span> new_mst<span class="ch">.</span>updated_at <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'deleted'</span></span>
+<span id="cb17-236"><a href="#cb17-236"></a>      <span class="cf">when</span> new_mst<span class="ch">.</span>updated_at <span class="op">&lt;&gt;</span> old_mst<span class="ch">.</span>updated_at <span class="cf">then</span> <span class="st">'updated'</span></span>
+<span id="cb17-237"><a href="#cb17-237"></a>    <span class="cf">end</span> <span class="kw">as</span> status</span>
+<span id="cb17-238"><a href="#cb17-238"></a><span class="kw">from</span> </span>
+<span id="cb17-239"><a href="#cb17-239"></a>  mst_products_20170101 <span class="kw">as</span> new_mst</span>
+<span id="cb17-240"><a href="#cb17-240"></a>  full <span class="kw">outer</span> <span class="kw">join</span></span>
+<span id="cb17-241"><a href="#cb17-241"></a>    mst_products_20161201 <span class="kw">as</span> old_mst</span>
+<span id="cb17-242"><a href="#cb17-242"></a>  <span class="kw">on</span> </span>
+<span id="cb17-243"><a href="#cb17-243"></a>    new_mst<span class="ch">.</span>product_id <span class="op">=</span> old_mst<span class="ch">.</span>product_id</span>
+<span id="cb17-244"><a href="#cb17-244"></a><span class="kw">where</span></span>
+<span id="cb17-245"><a href="#cb17-245"></a>  <span class="co">-- null</span></span>
+<span id="cb17-246"><a href="#cb17-246"></a>  new_mst<span class="ch">.</span>updated_at <span class="kw">is</span> <span class="kw">distinct</span> <span class="kw">from</span> old_mst<span class="ch">.</span>updated_at</span>
+<span id="cb17-247"><a href="#cb17-247"></a><span class="in">```</span></span>
+<span id="cb17-248"><a href="#cb17-248"></a></span>
+<span id="cb17-249"><a href="#cb17-249"></a></span>
+<span id="cb17-250"><a href="#cb17-250"></a></span>
+<span id="cb17-251"><a href="#cb17-251"></a></span>
+<span id="cb17-252"><a href="#cb17-252"></a></span>
+<span id="cb17-253"><a href="#cb17-253"></a></span>
+<span id="cb17-254"><a href="#cb17-254"></a></span>
+<span id="cb17-255"><a href="#cb17-255"></a></span>
+<span id="cb17-256"><a href="#cb17-256"></a></span>
+<span id="cb17-257"><a href="#cb17-257"></a></span>
+<span id="cb17-258"><a href="#cb17-258"></a></span>
+<span id="cb17-259"><a href="#cb17-259"></a></span>
+<span id="cb17-260"><a href="#cb17-260"></a></span>
+<span id="cb17-261"><a href="#cb17-261"></a></span>
+<span id="cb17-262"><a href="#cb17-262"></a></span>
+<span id="cb17-263"><a href="#cb17-263"></a></span>
+<span id="cb17-264"><a href="#cb17-264"></a></span>
+<span id="cb17-265"><a href="#cb17-265"></a></span>
+<span id="cb17-266"><a href="#cb17-266"></a></span>
+<span id="cb17-267"><a href="#cb17-267"></a></span>
+<span id="cb17-268"><a href="#cb17-268"></a></span>
+<span id="cb17-269"><a href="#cb17-269"></a></span>
+<span id="cb17-270"><a href="#cb17-270"></a></span>
+<span id="cb17-271"><a href="#cb17-271"></a></span>
+<span id="cb17-272"><a href="#cb17-272"></a></span>
+<span id="cb17-273"><a href="#cb17-273"></a><span class="fu"># Disconnect</span></span>
+<span id="cb17-274"><a href="#cb17-274"></a></span>
+<span id="cb17-277"><a href="#cb17-277"></a><span class="in">```{r}</span></span>
+<span id="cb17-278"><a href="#cb17-278"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
+<span id="cb17-279"><a href="#cb17-279"></a><span class="in">```</span> </span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
