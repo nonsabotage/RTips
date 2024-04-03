@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.515">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,7 +80,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -106,9 +112,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
@@ -120,206 +126,210 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../index.html">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">libs</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/base/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/base/working.html">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/sf/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html">
  <span class="dropdown-text">DBI</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">SpatialDataAnalysiswithDuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R2/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
  <span class="dropdown-text">R2</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">libs</li><li class="breadcrumb-item"><a href="../../../contents/libs/DBI/working.html">DBI</a></li><li class="breadcrumb-item"><a href="../../../contents/libs/DBI/working.html">Introduction</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">libs</li><li class="breadcrumb-item"><a href="../../../contents/libs/DBI/working.html">DBI</a></li><li class="breadcrumb-item"><a href="../../../contents/libs/DBI/working.html">Introduction</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -329,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -612,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -638,14 +648,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">libs</li><li class="breadcrumb-item"><a href="../../../contents/libs/DBI/working.html">DBI</a></li><li class="breadcrumb-item"><a href="../../../contents/libs/DBI/working.html">Introduction</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">DBI</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -659,17 +669,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
+
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
 <span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/DBI"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(duckdb)</span>
@@ -692,7 +704,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="2"><span class="header-section-number">2</span> Basic API Usage</h1>
 <p><a href="https://solutions.posit.co/connections/db/r-packages/dbi/">ここ</a>を参照している。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(DBI)</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="co"># Create an ephemeral in-memory RSQLite database</span></span>
@@ -774,7 +786,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
@@ -841,7 +853,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="prepare" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="prepare"><span class="header-section-number">3.1</span> Prepare</h2>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>())</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
@@ -858,7 +870,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="read-all-rows-from-table" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="read-all-rows-from-table"><span class="header-section-number">3.2</span> Read all rows from table</h2>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbReadTableArrow</span>(con, <span class="st">"tbl"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2"></a>stream</span>
@@ -869,7 +881,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>stream<span class="sc">$</span><span class="fu">get_schema</span>()</span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; &lt;nanoarrow_schema struct&gt;</span></span>
@@ -903,7 +915,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">as_tibble</span>(stream)</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
@@ -918,7 +930,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="run-queries" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="run-queries"><span class="header-section-number">3.3</span> Run queries</h2>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT COUNT(*) AS n FROM tbl WHERE a &lt; 3"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2"></a>stream</span>
@@ -930,7 +942,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>ファイルに書き出す。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>path <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(arrow<span class="sc">::</span><span class="fu">as_record_batch_reader</span>(stream), path)</span>
@@ -946,9 +958,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.4" class="anchored" data-anchor-id="prepared-queries"><span class="header-section-number">3.4</span> Prepared queries</h2>
 <p>クエリに使うパラメータをデータフレームから渡すことができる。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> 3L)</span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">3</span>L)</span>
 <span id="cb11-2"><a href="#cb11-2"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="fu">as.data.frame</span>(stream)</span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
@@ -958,9 +970,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>パラメータが不足するときには最期の値がrecursiveする。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(2L, 4L))</span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">2</span>L, <span class="dv">4</span>L))</span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="co"># Equivalent to dbBind()</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
 <span id="cb12-4"><a href="#cb12-4"></a><span class="fu">as.data.frame</span>(stream)</span>
@@ -976,11 +988,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.5" class="anchored" data-anchor-id="manual-flow"><span class="header-section-number">3.5</span> Manual flow</h2>
 <p><code>dbSendQueryArrow</code>を使うとクエリを送付し、<code>dbFetchArrow</code>で結果を取得する。 これらは<code>dbBindArrow</code>を使うことでもできる。処理後は必ず<code>dbClearResult</code>を使いクリアすることになる。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>rs <span class="ot">&lt;-</span> <span class="fu">dbSendQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2"></a></span>
-<span id="cb13-3"><a href="#cb13-3"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 1L))</span>
+<span id="cb13-3"><a href="#cb13-3"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span>L))</span>
 <span id="cb13-4"><a href="#cb13-4"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb13-5"><a href="#cb13-5"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; [1] batch a     b     c    </span></span>
@@ -988,9 +1000,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 2L))</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">2</span>L))</span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb14-3"><a href="#cb14-3"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
@@ -998,9 +1010,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 3L))</span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">3</span>L))</span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb15-3"><a href="#cb15-3"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
@@ -1009,9 +1021,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span>4L))</span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>L))</span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb16-3"><a href="#cb16-3"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb16-4"><a href="#cb16-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
@@ -1027,7 +1039,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="writing-data" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="writing-data"><span class="header-section-number">3.6</span> Writing Data</h2>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&gt; Warning: Closing open result set, pending rows</span></span>
@@ -1042,7 +1054,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="appending-data" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="appending-data"><span class="header-section-number">3.7</span> Appending Data</h2>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="fu">dbCreateTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
@@ -1051,7 +1063,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &gt;= 3"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
@@ -1059,7 +1071,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_split"</span>)</span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="co">#&gt;   a   b    c</span></span>
@@ -1072,7 +1084,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="coculution" class="level2" data-number="3.8">
 <h2 data-number="3.8" class="anchored" data-anchor-id="coculution"><span class="header-section-number">3.8</span> Coculution</h2>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1215,10 +1227,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1228,8 +1239,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1242,6 +1262,135 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1285,6 +1434,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1310,6 +1460,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1371,7 +1547,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../contents/libs/duckdb/working.html" class="pagination-link">
+      <a href="../../../contents/libs/duckdb/working.html" class="pagination-link  aria-label=" introduction"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
@@ -1547,7 +1723,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-187"><a href="#cb22-187"></a>クエリに使うパラメータをデータフレームから渡すことができる。</span>
 <span id="cb22-188"><a href="#cb22-188"></a></span>
 <span id="cb22-191"><a href="#cb22-191"></a><span class="in">```{r}</span></span>
-<span id="cb22-192"><a href="#cb22-192"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> 3L)</span>
+<span id="cb22-192"><a href="#cb22-192"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">3</span>L)</span>
 <span id="cb22-193"><a href="#cb22-193"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
 <span id="cb22-194"><a href="#cb22-194"></a><span class="fu">as.data.frame</span>(stream)</span>
 <span id="cb22-195"><a href="#cb22-195"></a><span class="in">```</span></span>
@@ -1556,7 +1732,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-198"><a href="#cb22-198"></a>パラメータが不足するときには最期の値がrecursiveする。</span>
 <span id="cb22-199"><a href="#cb22-199"></a></span>
 <span id="cb22-202"><a href="#cb22-202"></a><span class="in">```{r}</span></span>
-<span id="cb22-203"><a href="#cb22-203"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(2L, 4L))</span>
+<span id="cb22-203"><a href="#cb22-203"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">2</span>L, <span class="dv">4</span>L))</span>
 <span id="cb22-204"><a href="#cb22-204"></a><span class="co"># Equivalent to dbBind()</span></span>
 <span id="cb22-205"><a href="#cb22-205"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
 <span id="cb22-206"><a href="#cb22-206"></a><span class="fu">as.data.frame</span>(stream)</span>
@@ -1571,25 +1747,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-217"><a href="#cb22-217"></a><span class="in">```{r}</span></span>
 <span id="cb22-218"><a href="#cb22-218"></a>rs <span class="ot">&lt;-</span> <span class="fu">dbSendQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>)</span>
 <span id="cb22-219"><a href="#cb22-219"></a></span>
-<span id="cb22-220"><a href="#cb22-220"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 1L))</span>
+<span id="cb22-220"><a href="#cb22-220"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span>L))</span>
 <span id="cb22-221"><a href="#cb22-221"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb22-222"><a href="#cb22-222"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb22-223"><a href="#cb22-223"></a><span class="in">```</span></span>
 <span id="cb22-224"><a href="#cb22-224"></a></span>
 <span id="cb22-227"><a href="#cb22-227"></a><span class="in">```{r}</span></span>
-<span id="cb22-228"><a href="#cb22-228"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 2L))</span>
+<span id="cb22-228"><a href="#cb22-228"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">2</span>L))</span>
 <span id="cb22-229"><a href="#cb22-229"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb22-230"><a href="#cb22-230"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb22-231"><a href="#cb22-231"></a><span class="in">```</span></span>
 <span id="cb22-232"><a href="#cb22-232"></a></span>
 <span id="cb22-235"><a href="#cb22-235"></a><span class="in">```{r}</span></span>
-<span id="cb22-236"><a href="#cb22-236"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 3L))</span>
+<span id="cb22-236"><a href="#cb22-236"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">3</span>L))</span>
 <span id="cb22-237"><a href="#cb22-237"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb22-238"><a href="#cb22-238"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb22-239"><a href="#cb22-239"></a><span class="in">```</span></span>
 <span id="cb22-240"><a href="#cb22-240"></a></span>
 <span id="cb22-243"><a href="#cb22-243"></a><span class="in">```{r}</span></span>
-<span id="cb22-244"><a href="#cb22-244"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span>4L))</span>
+<span id="cb22-244"><a href="#cb22-244"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>L))</span>
 <span id="cb22-245"><a href="#cb22-245"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb22-246"><a href="#cb22-246"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb22-247"><a href="#cb22-247"></a><span class="in">```</span></span>
@@ -1632,6 +1808,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+
 
 
 
