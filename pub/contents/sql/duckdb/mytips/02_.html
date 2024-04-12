@@ -492,7 +492,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
   <li><a href="#qualify" id="toc-qualify" class="nav-link" data-scroll-target="#qualify"><span class="header-section-number">2</span> QUALIFY</a></li>
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">3</span> FILTER</a></li>
-  <li><a href="#disconnect" id="toc-disconnect" class="nav-link" data-scroll-target="#disconnect"><span class="header-section-number">4</span> Disconnect</a></li>
+  <li><a href="#乱数" id="toc-乱数" class="nav-link" data-scroll-target="#乱数"><span class="header-section-number">4</span> 乱数</a></li>
+  <li><a href="#disconnect" id="toc-disconnect" class="nav-link" data-scroll-target="#disconnect"><span class="header-section-number">5</span> Disconnect</a></li>
   </ul>
 </nav>
     </div>
@@ -513,7 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">April 8, 2024</p>
+      <p class="date-modified">April 12, 2024</p>
     </div>
   </div>
     
@@ -1037,23 +1038,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">2932737</td>
-<td style="text-align: right;">35610625</td>
-<td style="text-align: right;">52543489</td>
-<td style="text-align: right;">77529089</td>
-<td style="text-align: right;">90497025</td>
+<td style="text-align: right;">1622017</td>
+<td style="text-align: right;">25018369</td>
+<td style="text-align: right;">50069505</td>
+<td style="text-align: right;">75382785</td>
+<td style="text-align: right;">88875009</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </section>
-<section id="disconnect" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Disconnect</h1>
-<div class="cell" data-hash="02__cache/html/unnamed-chunk-14_86f3af6e83be22242ab82a15d4426e2e">
+<section id="乱数" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 乱数</h1>
+<div class="cell" data-hash="02__cache/html/unnamed-chunk-14_7a853b4c9f3ceafbd96563b59cba1346">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">select</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="kw">random</span>() rnd, </span>
+<span id="cb14-3"><a href="#cb14-3"></a>  t.v</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="kw">from</span> </span>
+<span id="cb14-5"><a href="#cb14-5"></a>  generate_series(<span class="dv">1</span>, <span class="dv">100</span>) <span class="kw">as</span> t(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">rnd</th>
+<th style="text-align: right;">v</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.4775091</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.7254761</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.2464252</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.4641774</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.6094292</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.3866020</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.0577629</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.3588712</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.7645831</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.5193721</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="disconnect" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Disconnect</h1>
+<div class="cell" data-hash="02__cache/html/unnamed-chunk-15_2d43b1dbd070404588adf7940044a113">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
@@ -1359,187 +1426,198 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">---</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="an">title:</span><span class="co"> "クイックメモ"</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co">  cache: true</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="an">filters:</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="co">   - lightbox</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co">---</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a></span>
-<span id="cb15-11"><a href="#cb15-11"></a></span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="in">```{r}</span></span>
-<span id="cb15-15"><a href="#cb15-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="in">```</span></span>
-<span id="cb15-17"><a href="#cb15-17"></a></span>
-<span id="cb15-18"><a href="#cb15-18"></a></span>
-<span id="cb15-19"><a href="#cb15-19"></a></span>
-<span id="cb15-22"><a href="#cb15-22"></a><span class="in">```{r}</span></span>
-<span id="cb15-23"><a href="#cb15-23"></a><span class="co">#| warning: false</span></span>
-<span id="cb15-24"><a href="#cb15-24"></a><span class="co">#| message: false</span></span>
-<span id="cb15-25"><a href="#cb15-25"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/mytips"</span>)</span>
-<span id="cb15-26"><a href="#cb15-26"></a></span>
-<span id="cb15-27"><a href="#cb15-27"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb15-28"><a href="#cb15-28"></a><span class="fu">library</span>(duckdb)</span>
-<span id="cb15-29"><a href="#cb15-29"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb15-30"><a href="#cb15-30"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb15-31"><a href="#cb15-31"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb15-32"><a href="#cb15-32"></a><span class="fu">library</span>(dbplyr)</span>
-<span id="cb15-33"><a href="#cb15-33"></a><span class="fu">library</span>(arrow)</span>
-<span id="cb15-34"><a href="#cb15-34"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb15-35"><a href="#cb15-35"></a><span class="fu">library</span>(here)</span>
-<span id="cb15-36"><a href="#cb15-36"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb15-37"><a href="#cb15-37"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
-<span id="cb15-38"><a href="#cb15-38"></a><span class="in">```</span></span>
-<span id="cb15-39"><a href="#cb15-39"></a></span>
-<span id="cb15-40"><a href="#cb15-40"></a><span class="fu"># Setup </span></span>
-<span id="cb15-41"><a href="#cb15-41"></a></span>
-<span id="cb15-44"><a href="#cb15-44"></a><span class="in">```{r}</span></span>
-<span id="cb15-45"><a href="#cb15-45"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(<span class="st">":memory:"</span>))</span>
-<span id="cb15-46"><a href="#cb15-46"></a><span class="in">```</span></span>
-<span id="cb15-47"><a href="#cb15-47"></a></span>
-<span id="cb15-50"><a href="#cb15-50"></a><span class="in">```{sql}</span></span>
-<span id="cb15-51"><a href="#cb15-51"></a><span class="co">#| eval: false</span></span>
-<span id="cb15-52"><a href="#cb15-52"></a><span class="co">#| connection: con</span></span>
-<span id="cb15-53"><a href="#cb15-53"></a>INSTALL icu;</span>
-<span id="cb15-54"><a href="#cb15-54"></a>INSTALL spatial;</span>
-<span id="cb15-55"><a href="#cb15-55"></a>INSTALL httpfs;</span>
-<span id="cb15-56"><a href="#cb15-56"></a>INSTALL json;</span>
-<span id="cb15-57"><a href="#cb15-57"></a><span class="in">```</span></span>
-<span id="cb15-58"><a href="#cb15-58"></a></span>
-<span id="cb15-59"><a href="#cb15-59"></a></span>
-<span id="cb15-62"><a href="#cb15-62"></a><span class="in">```{sql}</span></span>
-<span id="cb15-63"><a href="#cb15-63"></a><span class="co">#| connection: con</span></span>
-<span id="cb15-64"><a href="#cb15-64"></a><span class="kw">LOAD</span> icu;</span>
-<span id="cb15-65"><a href="#cb15-65"></a><span class="kw">LOAD</span> spatial;</span>
-<span id="cb15-66"><a href="#cb15-66"></a><span class="kw">LOAD</span> httpfs;</span>
-<span id="cb15-67"><a href="#cb15-67"></a><span class="kw">LOAD</span> json;</span>
-<span id="cb15-68"><a href="#cb15-68"></a><span class="in">```</span></span>
-<span id="cb15-69"><a href="#cb15-69"></a></span>
-<span id="cb15-72"><a href="#cb15-72"></a><span class="in">```{sql}</span></span>
-<span id="cb15-73"><a href="#cb15-73"></a><span class="co">#| connection: con</span></span>
-<span id="cb15-74"><a href="#cb15-74"></a><span class="kw">SHOW</span> <span class="kw">ALL</span> <span class="kw">TABLES</span>;</span>
-<span id="cb15-75"><a href="#cb15-75"></a><span class="in">```</span></span>
-<span id="cb15-76"><a href="#cb15-76"></a></span>
-<span id="cb15-77"><a href="#cb15-77"></a></span>
-<span id="cb15-78"><a href="#cb15-78"></a></span>
-<span id="cb15-79"><a href="#cb15-79"></a></span>
-<span id="cb15-82"><a href="#cb15-82"></a><span class="in">```{sql}</span></span>
-<span id="cb15-83"><a href="#cb15-83"></a><span class="co">#| connection: con</span></span>
-<span id="cb15-84"><a href="#cb15-84"></a></span>
-<span id="cb15-85"><a href="#cb15-85"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> <span class="op">*</span> <span class="kw">FROM</span> duckdb_functions() <span class="kw">WHERE</span> function_name <span class="kw">LIKE</span> <span class="st">'st_%'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> function_name;</span>
-<span id="cb15-86"><a href="#cb15-86"></a></span>
-<span id="cb15-87"><a href="#cb15-87"></a><span class="in">```</span></span>
-<span id="cb15-88"><a href="#cb15-88"></a></span>
-<span id="cb15-89"><a href="#cb15-89"></a></span>
-<span id="cb15-90"><a href="#cb15-90"></a><span class="fu"># QUALIFY</span></span>
-<span id="cb15-91"><a href="#cb15-91"></a></span>
-<span id="cb15-92"><a href="#cb15-92"></a>WINDOW()関数の結果を使ったクエリができる。データの読込が１度であるため、相関サブクエリでフィルターしているときにはより効率的、高速になることがある。履歴データから最新時間断面を抽出することも簡単にできる。</span>
-<span id="cb15-93"><a href="#cb15-93"></a></span>
-<span id="cb15-94"><a href="#cb15-94"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb15-95"><a href="#cb15-95"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> Temp (x <span class="dt">INTEGER</span>, y STRING);</span>
-<span id="cb15-96"><a href="#cb15-96"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> Temp <span class="kw">VALUES</span> </span>
-<span id="cb15-97"><a href="#cb15-97"></a>(<span class="dv">1</span>, <span class="st">'a'</span>), </span>
-<span id="cb15-98"><a href="#cb15-98"></a>(<span class="dv">2</span>, <span class="st">'a'</span>), </span>
-<span id="cb15-99"><a href="#cb15-99"></a>(<span class="dv">3</span>, <span class="st">'b'</span>), </span>
-<span id="cb15-100"><a href="#cb15-100"></a>(<span class="op">-</span><span class="dv">1</span>, <span class="st">'b'</span>);</span>
-<span id="cb15-101"><a href="#cb15-101"></a></span>
-<span id="cb15-102"><a href="#cb15-102"></a><span class="in">```</span></span>
-<span id="cb15-103"><a href="#cb15-103"></a></span>
-<span id="cb15-104"><a href="#cb15-104"></a></span>
-<span id="cb15-105"><a href="#cb15-105"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb15-106"><a href="#cb15-106"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Temp;</span>
-<span id="cb15-107"><a href="#cb15-107"></a><span class="in">```</span></span>
-<span id="cb15-108"><a href="#cb15-108"></a></span>
-<span id="cb15-109"><a href="#cb15-109"></a>次の用に<span class="in">`QUAFLIFY`</span>につづいてWindow関数を使うことで、Widnow関数の結果に対するフィルタが行える。</span>
-<span id="cb15-110"><a href="#cb15-110"></a>これをIdと時間でおこなえばIdごと最新の時間断面データを作成することができる。</span>
-<span id="cb15-111"><a href="#cb15-111"></a></span>
-<span id="cb15-112"><a href="#cb15-112"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb15-113"><a href="#cb15-113"></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
-<span id="cb15-114"><a href="#cb15-114"></a><span class="kw">FROM</span> Temp</span>
-<span id="cb15-115"><a href="#cb15-115"></a>QUALIFY ROW_NUMBER() </span>
-<span id="cb15-116"><a href="#cb15-116"></a>  OVER(</span>
-<span id="cb15-117"><a href="#cb15-117"></a>    PARTITION <span class="kw">BY</span> y</span>
-<span id="cb15-118"><a href="#cb15-118"></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> x <span class="kw">DESC</span></span>
-<span id="cb15-119"><a href="#cb15-119"></a>  ) <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb15-120"><a href="#cb15-120"></a><span class="kw">ORDER</span> <span class="kw">BY</span> y</span>
-<span id="cb15-121"><a href="#cb15-121"></a>;</span>
-<span id="cb15-122"><a href="#cb15-122"></a><span class="in">```</span></span>
-<span id="cb15-123"><a href="#cb15-123"></a></span>
-<span id="cb15-124"><a href="#cb15-124"></a></span>
-<span id="cb15-125"><a href="#cb15-125"></a><span class="fu"># FILTER</span></span>
-<span id="cb15-126"><a href="#cb15-126"></a></span>
-<span id="cb15-127"><a href="#cb15-127"></a>SELECT句でのAGG関数において使えるオプション関数である。</span>
-<span id="cb15-128"><a href="#cb15-128"></a>AGG関数に食わせるデータの行に対してWHERE句と同じように</span>
-<span id="cb15-129"><a href="#cb15-129"></a>使うことが買おうである。</span>
-<span id="cb15-130"><a href="#cb15-130"></a>Window関数ではいまのところ使うことができない。</span>
-<span id="cb15-131"><a href="#cb15-131"></a></span>
-<span id="cb15-132"><a href="#cb15-132"></a></span>
-<span id="cb15-133"><a href="#cb15-133"></a></span>
-<span id="cb15-134"><a href="#cb15-134"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb15-135"><a href="#cb15-135"></a><span class="co">-- Compare total row count to:</span></span>
-<span id="cb15-136"><a href="#cb15-136"></a><span class="co">--   The number of rows where i &lt;= 5</span></span>
-<span id="cb15-137"><a href="#cb15-137"></a><span class="co">--   The number of rows where i is odd</span></span>
-<span id="cb15-138"><a href="#cb15-138"></a><span class="kw">SELECT</span></span>
-<span id="cb15-139"><a href="#cb15-139"></a>    <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> total_rows,</span>
-<span id="cb15-140"><a href="#cb15-140"></a>    <span class="fu">count</span>(<span class="op">*</span>) FILTER (i <span class="op">&lt;=</span> <span class="dv">5</span>) <span class="kw">AS</span> lte_five,</span>
-<span id="cb15-141"><a href="#cb15-141"></a>    <span class="fu">count</span>(<span class="op">*</span>) FILTER (i % <span class="dv">2</span> <span class="op">=</span> <span class="dv">1</span>) <span class="kw">AS</span> odds</span>
-<span id="cb15-142"><a href="#cb15-142"></a><span class="kw">FROM</span> generate_series(<span class="dv">1</span>, <span class="dv">10</span>) tbl(i);</span>
-<span id="cb15-143"><a href="#cb15-143"></a><span class="in">```</span></span>
-<span id="cb15-144"><a href="#cb15-144"></a></span>
-<span id="cb15-145"><a href="#cb15-145"></a></span>
-<span id="cb15-146"><a href="#cb15-146"></a></span>
-<span id="cb15-147"><a href="#cb15-147"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb15-148"><a href="#cb15-148"></a></span>
-<span id="cb15-149"><a href="#cb15-149"></a><span class="co">-- Different aggregate functions may be used, and multiple WHERE expressions are also permitted</span></span>
-<span id="cb15-150"><a href="#cb15-150"></a><span class="co">--   The sum of i for rows where i &lt;= 5</span></span>
-<span id="cb15-151"><a href="#cb15-151"></a><span class="co">--   The median of i where i is odd</span></span>
-<span id="cb15-152"><a href="#cb15-152"></a><span class="kw">SELECT</span></span>
-<span id="cb15-153"><a href="#cb15-153"></a>    <span class="fu">sum</span>(i) FILTER (i <span class="op">&lt;=</span> <span class="dv">5</span>) <span class="kw">AS</span> lte_five_sum,</span>
-<span id="cb15-154"><a href="#cb15-154"></a>    median(i) FILTER (i % <span class="dv">2</span> <span class="op">=</span> <span class="dv">1</span>) <span class="kw">AS</span> odds_median,</span>
-<span id="cb15-155"><a href="#cb15-155"></a>    median(i) FILTER (i % <span class="dv">2</span> <span class="op">=</span> <span class="dv">1</span> <span class="kw">AND</span> i <span class="op">&lt;=</span> <span class="dv">5</span>) <span class="kw">AS</span> odds_lte_five_median</span>
-<span id="cb15-156"><a href="#cb15-156"></a><span class="kw">FROM</span> generate_series(<span class="dv">1</span>, <span class="dv">10</span>) tbl(i);</span>
-<span id="cb15-157"><a href="#cb15-157"></a><span class="in">```</span></span>
-<span id="cb15-158"><a href="#cb15-158"></a></span>
-<span id="cb15-159"><a href="#cb15-159"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb15-160"><a href="#cb15-160"></a><span class="co">-- First generate an example dataset</span></span>
-<span id="cb15-161"><a href="#cb15-161"></a><span class="kw">CREATE</span> TEMP <span class="kw">TABLE</span> stacked_data <span class="kw">AS</span></span>
-<span id="cb15-162"><a href="#cb15-162"></a>    <span class="kw">SELECT</span></span>
-<span id="cb15-163"><a href="#cb15-163"></a>        i,</span>
-<span id="cb15-164"><a href="#cb15-164"></a>        <span class="cf">CASE</span> <span class="cf">WHEN</span> i <span class="op">&lt;=</span> rows <span class="op">*</span> <span class="fl">0.25</span>  <span class="cf">THEN</span> <span class="dv">2022</span></span>
-<span id="cb15-165"><a href="#cb15-165"></a>             <span class="cf">WHEN</span> i <span class="op">&lt;=</span> rows <span class="op">*</span> <span class="fl">0.5</span>   <span class="cf">THEN</span> <span class="dv">2023</span></span>
-<span id="cb15-166"><a href="#cb15-166"></a>             <span class="cf">WHEN</span> i <span class="op">&lt;=</span> rows <span class="op">*</span> <span class="fl">0.75</span>  <span class="cf">THEN</span> <span class="dv">2024</span></span>
-<span id="cb15-167"><a href="#cb15-167"></a>             <span class="cf">WHEN</span> i <span class="op">&lt;=</span> rows <span class="op">*</span> <span class="fl">0.875</span> <span class="cf">THEN</span> <span class="dv">2025</span></span>
-<span id="cb15-168"><a href="#cb15-168"></a>             <span class="cf">ELSE</span> <span class="kw">NULL</span></span>
-<span id="cb15-169"><a href="#cb15-169"></a>             <span class="cf">END</span> <span class="kw">AS</span> <span class="fu">year</span></span>
-<span id="cb15-170"><a href="#cb15-170"></a>    <span class="kw">FROM</span> (</span>
-<span id="cb15-171"><a href="#cb15-171"></a>        <span class="kw">SELECT</span></span>
-<span id="cb15-172"><a href="#cb15-172"></a>            i,</span>
-<span id="cb15-173"><a href="#cb15-173"></a>            <span class="fu">count</span>(<span class="op">*</span>) OVER () <span class="kw">AS</span> rows</span>
-<span id="cb15-174"><a href="#cb15-174"></a>        <span class="kw">FROM</span> generate_series(<span class="dv">1</span>, 100_000_000) tbl(i)</span>
-<span id="cb15-175"><a href="#cb15-175"></a>    ) tbl;</span>
-<span id="cb15-176"><a href="#cb15-176"></a></span>
-<span id="cb15-177"><a href="#cb15-177"></a></span>
-<span id="cb15-178"><a href="#cb15-178"></a><span class="co">-- "Pivot" the data out by year (move each year out to a separate column)</span></span>
-<span id="cb15-179"><a href="#cb15-179"></a><span class="kw">SELECT</span></span>
-<span id="cb15-180"><a href="#cb15-180"></a>    first(i) FILTER (<span class="fu">year</span> <span class="op">=</span> <span class="dv">2022</span>) <span class="kw">AS</span> <span class="st">"2022"</span>,</span>
-<span id="cb15-181"><a href="#cb15-181"></a>    first(i) FILTER (<span class="fu">year</span> <span class="op">=</span> <span class="dv">2023</span>) <span class="kw">AS</span> <span class="st">"2023"</span>,</span>
-<span id="cb15-182"><a href="#cb15-182"></a>    first(i) FILTER (<span class="fu">year</span> <span class="op">=</span> <span class="dv">2024</span>) <span class="kw">AS</span> <span class="st">"2024"</span>,</span>
-<span id="cb15-183"><a href="#cb15-183"></a>    first(i) FILTER (<span class="fu">year</span> <span class="op">=</span> <span class="dv">2025</span>) <span class="kw">AS</span> <span class="st">"2025"</span>,</span>
-<span id="cb15-184"><a href="#cb15-184"></a>    first(i) FILTER (<span class="fu">year</span> <span class="kw">IS</span> <span class="kw">NULL</span>) <span class="kw">AS</span> <span class="st">"NULLs"</span></span>
-<span id="cb15-185"><a href="#cb15-185"></a><span class="kw">FROM</span> stacked_data;</span>
-<span id="cb15-186"><a href="#cb15-186"></a><span class="in">```</span></span>
-<span id="cb15-187"><a href="#cb15-187"></a></span>
-<span id="cb15-188"><a href="#cb15-188"></a></span>
-<span id="cb15-189"><a href="#cb15-189"></a></span>
-<span id="cb15-190"><a href="#cb15-190"></a></span>
-<span id="cb15-191"><a href="#cb15-191"></a><span class="fu"># Disconnect</span></span>
-<span id="cb15-192"><a href="#cb15-192"></a></span>
-<span id="cb15-195"><a href="#cb15-195"></a><span class="in">```{r}</span></span>
-<span id="cb15-196"><a href="#cb15-196"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
-<span id="cb15-197"><a href="#cb15-197"></a><span class="in">```</span> </span>
+<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">---</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="an">title:</span><span class="co"> "クイックメモ"</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">  cache: true</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="an">filters:</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co">---</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a></span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-14"><a href="#cb16-14"></a><span class="in">```{r}</span></span>
+<span id="cb16-15"><a href="#cb16-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb16-16"><a href="#cb16-16"></a><span class="in">```</span></span>
+<span id="cb16-17"><a href="#cb16-17"></a></span>
+<span id="cb16-18"><a href="#cb16-18"></a></span>
+<span id="cb16-19"><a href="#cb16-19"></a></span>
+<span id="cb16-22"><a href="#cb16-22"></a><span class="in">```{r}</span></span>
+<span id="cb16-23"><a href="#cb16-23"></a><span class="co">#| warning: false</span></span>
+<span id="cb16-24"><a href="#cb16-24"></a><span class="co">#| message: false</span></span>
+<span id="cb16-25"><a href="#cb16-25"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/mytips"</span>)</span>
+<span id="cb16-26"><a href="#cb16-26"></a></span>
+<span id="cb16-27"><a href="#cb16-27"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-28"><a href="#cb16-28"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb16-29"><a href="#cb16-29"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-30"><a href="#cb16-30"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb16-31"><a href="#cb16-31"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb16-32"><a href="#cb16-32"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb16-33"><a href="#cb16-33"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb16-34"><a href="#cb16-34"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb16-35"><a href="#cb16-35"></a><span class="fu">library</span>(here)</span>
+<span id="cb16-36"><a href="#cb16-36"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb16-37"><a href="#cb16-37"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb16-38"><a href="#cb16-38"></a><span class="in">```</span></span>
+<span id="cb16-39"><a href="#cb16-39"></a></span>
+<span id="cb16-40"><a href="#cb16-40"></a><span class="fu"># Setup </span></span>
+<span id="cb16-41"><a href="#cb16-41"></a></span>
+<span id="cb16-44"><a href="#cb16-44"></a><span class="in">```{r}</span></span>
+<span id="cb16-45"><a href="#cb16-45"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(<span class="st">":memory:"</span>))</span>
+<span id="cb16-46"><a href="#cb16-46"></a><span class="in">```</span></span>
+<span id="cb16-47"><a href="#cb16-47"></a></span>
+<span id="cb16-50"><a href="#cb16-50"></a><span class="in">```{sql}</span></span>
+<span id="cb16-51"><a href="#cb16-51"></a><span class="co">#| eval: false</span></span>
+<span id="cb16-52"><a href="#cb16-52"></a><span class="co">#| connection: con</span></span>
+<span id="cb16-53"><a href="#cb16-53"></a>INSTALL icu;</span>
+<span id="cb16-54"><a href="#cb16-54"></a>INSTALL spatial;</span>
+<span id="cb16-55"><a href="#cb16-55"></a>INSTALL httpfs;</span>
+<span id="cb16-56"><a href="#cb16-56"></a>INSTALL json;</span>
+<span id="cb16-57"><a href="#cb16-57"></a><span class="in">```</span></span>
+<span id="cb16-58"><a href="#cb16-58"></a></span>
+<span id="cb16-59"><a href="#cb16-59"></a></span>
+<span id="cb16-62"><a href="#cb16-62"></a><span class="in">```{sql}</span></span>
+<span id="cb16-63"><a href="#cb16-63"></a><span class="co">#| connection: con</span></span>
+<span id="cb16-64"><a href="#cb16-64"></a><span class="kw">LOAD</span> icu;</span>
+<span id="cb16-65"><a href="#cb16-65"></a><span class="kw">LOAD</span> spatial;</span>
+<span id="cb16-66"><a href="#cb16-66"></a><span class="kw">LOAD</span> httpfs;</span>
+<span id="cb16-67"><a href="#cb16-67"></a><span class="kw">LOAD</span> json;</span>
+<span id="cb16-68"><a href="#cb16-68"></a><span class="in">```</span></span>
+<span id="cb16-69"><a href="#cb16-69"></a></span>
+<span id="cb16-72"><a href="#cb16-72"></a><span class="in">```{sql}</span></span>
+<span id="cb16-73"><a href="#cb16-73"></a><span class="co">#| connection: con</span></span>
+<span id="cb16-74"><a href="#cb16-74"></a><span class="kw">SHOW</span> <span class="kw">ALL</span> <span class="kw">TABLES</span>;</span>
+<span id="cb16-75"><a href="#cb16-75"></a><span class="in">```</span></span>
+<span id="cb16-76"><a href="#cb16-76"></a></span>
+<span id="cb16-77"><a href="#cb16-77"></a></span>
+<span id="cb16-78"><a href="#cb16-78"></a></span>
+<span id="cb16-79"><a href="#cb16-79"></a></span>
+<span id="cb16-82"><a href="#cb16-82"></a><span class="in">```{sql}</span></span>
+<span id="cb16-83"><a href="#cb16-83"></a><span class="co">#| connection: con</span></span>
+<span id="cb16-84"><a href="#cb16-84"></a></span>
+<span id="cb16-85"><a href="#cb16-85"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> <span class="op">*</span> <span class="kw">FROM</span> duckdb_functions() <span class="kw">WHERE</span> function_name <span class="kw">LIKE</span> <span class="st">'st_%'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> function_name;</span>
+<span id="cb16-86"><a href="#cb16-86"></a></span>
+<span id="cb16-87"><a href="#cb16-87"></a><span class="in">```</span></span>
+<span id="cb16-88"><a href="#cb16-88"></a></span>
+<span id="cb16-89"><a href="#cb16-89"></a></span>
+<span id="cb16-90"><a href="#cb16-90"></a><span class="fu"># QUALIFY</span></span>
+<span id="cb16-91"><a href="#cb16-91"></a></span>
+<span id="cb16-92"><a href="#cb16-92"></a>WINDOW()関数の結果を使ったクエリができる。データの読込が１度であるため、相関サブクエリでフィルターしているときにはより効率的、高速になることがある。履歴データから最新時間断面を抽出することも簡単にできる。</span>
+<span id="cb16-93"><a href="#cb16-93"></a></span>
+<span id="cb16-94"><a href="#cb16-94"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb16-95"><a href="#cb16-95"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> Temp (x <span class="dt">INTEGER</span>, y STRING);</span>
+<span id="cb16-96"><a href="#cb16-96"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> Temp <span class="kw">VALUES</span> </span>
+<span id="cb16-97"><a href="#cb16-97"></a>(<span class="dv">1</span>, <span class="st">'a'</span>), </span>
+<span id="cb16-98"><a href="#cb16-98"></a>(<span class="dv">2</span>, <span class="st">'a'</span>), </span>
+<span id="cb16-99"><a href="#cb16-99"></a>(<span class="dv">3</span>, <span class="st">'b'</span>), </span>
+<span id="cb16-100"><a href="#cb16-100"></a>(<span class="op">-</span><span class="dv">1</span>, <span class="st">'b'</span>);</span>
+<span id="cb16-101"><a href="#cb16-101"></a></span>
+<span id="cb16-102"><a href="#cb16-102"></a><span class="in">```</span></span>
+<span id="cb16-103"><a href="#cb16-103"></a></span>
+<span id="cb16-104"><a href="#cb16-104"></a></span>
+<span id="cb16-105"><a href="#cb16-105"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb16-106"><a href="#cb16-106"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Temp;</span>
+<span id="cb16-107"><a href="#cb16-107"></a><span class="in">```</span></span>
+<span id="cb16-108"><a href="#cb16-108"></a></span>
+<span id="cb16-109"><a href="#cb16-109"></a>次の用に<span class="in">`QUAFLIFY`</span>につづいてWindow関数を使うことで、Widnow関数の結果に対するフィルタが行える。</span>
+<span id="cb16-110"><a href="#cb16-110"></a>これをIdと時間でおこなえばIdごと最新の時間断面データを作成することができる。</span>
+<span id="cb16-111"><a href="#cb16-111"></a></span>
+<span id="cb16-112"><a href="#cb16-112"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb16-113"><a href="#cb16-113"></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
+<span id="cb16-114"><a href="#cb16-114"></a><span class="kw">FROM</span> Temp</span>
+<span id="cb16-115"><a href="#cb16-115"></a>QUALIFY ROW_NUMBER() </span>
+<span id="cb16-116"><a href="#cb16-116"></a>  OVER(</span>
+<span id="cb16-117"><a href="#cb16-117"></a>    PARTITION <span class="kw">BY</span> y</span>
+<span id="cb16-118"><a href="#cb16-118"></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> x <span class="kw">DESC</span></span>
+<span id="cb16-119"><a href="#cb16-119"></a>  ) <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb16-120"><a href="#cb16-120"></a><span class="kw">ORDER</span> <span class="kw">BY</span> y</span>
+<span id="cb16-121"><a href="#cb16-121"></a>;</span>
+<span id="cb16-122"><a href="#cb16-122"></a><span class="in">```</span></span>
+<span id="cb16-123"><a href="#cb16-123"></a></span>
+<span id="cb16-124"><a href="#cb16-124"></a></span>
+<span id="cb16-125"><a href="#cb16-125"></a><span class="fu"># FILTER</span></span>
+<span id="cb16-126"><a href="#cb16-126"></a></span>
+<span id="cb16-127"><a href="#cb16-127"></a>SELECT句でのAGG関数において使えるオプション関数である。</span>
+<span id="cb16-128"><a href="#cb16-128"></a>AGG関数に食わせるデータの行に対してWHERE句と同じように</span>
+<span id="cb16-129"><a href="#cb16-129"></a>使うことが買おうである。</span>
+<span id="cb16-130"><a href="#cb16-130"></a>Window関数ではいまのところ使うことができない。</span>
+<span id="cb16-131"><a href="#cb16-131"></a></span>
+<span id="cb16-132"><a href="#cb16-132"></a></span>
+<span id="cb16-133"><a href="#cb16-133"></a></span>
+<span id="cb16-134"><a href="#cb16-134"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb16-135"><a href="#cb16-135"></a><span class="co">-- Compare total row count to:</span></span>
+<span id="cb16-136"><a href="#cb16-136"></a><span class="co">--   The number of rows where i &lt;= 5</span></span>
+<span id="cb16-137"><a href="#cb16-137"></a><span class="co">--   The number of rows where i is odd</span></span>
+<span id="cb16-138"><a href="#cb16-138"></a><span class="kw">SELECT</span></span>
+<span id="cb16-139"><a href="#cb16-139"></a>    <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> total_rows,</span>
+<span id="cb16-140"><a href="#cb16-140"></a>    <span class="fu">count</span>(<span class="op">*</span>) FILTER (i <span class="op">&lt;=</span> <span class="dv">5</span>) <span class="kw">AS</span> lte_five,</span>
+<span id="cb16-141"><a href="#cb16-141"></a>    <span class="fu">count</span>(<span class="op">*</span>) FILTER (i % <span class="dv">2</span> <span class="op">=</span> <span class="dv">1</span>) <span class="kw">AS</span> odds</span>
+<span id="cb16-142"><a href="#cb16-142"></a><span class="kw">FROM</span> generate_series(<span class="dv">1</span>, <span class="dv">10</span>) tbl(i);</span>
+<span id="cb16-143"><a href="#cb16-143"></a><span class="in">```</span></span>
+<span id="cb16-144"><a href="#cb16-144"></a></span>
+<span id="cb16-145"><a href="#cb16-145"></a></span>
+<span id="cb16-146"><a href="#cb16-146"></a></span>
+<span id="cb16-147"><a href="#cb16-147"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb16-148"><a href="#cb16-148"></a></span>
+<span id="cb16-149"><a href="#cb16-149"></a><span class="co">-- Different aggregate functions may be used, and multiple WHERE expressions are also permitted</span></span>
+<span id="cb16-150"><a href="#cb16-150"></a><span class="co">--   The sum of i for rows where i &lt;= 5</span></span>
+<span id="cb16-151"><a href="#cb16-151"></a><span class="co">--   The median of i where i is odd</span></span>
+<span id="cb16-152"><a href="#cb16-152"></a><span class="kw">SELECT</span></span>
+<span id="cb16-153"><a href="#cb16-153"></a>    <span class="fu">sum</span>(i) FILTER (i <span class="op">&lt;=</span> <span class="dv">5</span>) <span class="kw">AS</span> lte_five_sum,</span>
+<span id="cb16-154"><a href="#cb16-154"></a>    median(i) FILTER (i % <span class="dv">2</span> <span class="op">=</span> <span class="dv">1</span>) <span class="kw">AS</span> odds_median,</span>
+<span id="cb16-155"><a href="#cb16-155"></a>    median(i) FILTER (i % <span class="dv">2</span> <span class="op">=</span> <span class="dv">1</span> <span class="kw">AND</span> i <span class="op">&lt;=</span> <span class="dv">5</span>) <span class="kw">AS</span> odds_lte_five_median</span>
+<span id="cb16-156"><a href="#cb16-156"></a><span class="kw">FROM</span> generate_series(<span class="dv">1</span>, <span class="dv">10</span>) tbl(i);</span>
+<span id="cb16-157"><a href="#cb16-157"></a><span class="in">```</span></span>
+<span id="cb16-158"><a href="#cb16-158"></a></span>
+<span id="cb16-159"><a href="#cb16-159"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb16-160"><a href="#cb16-160"></a><span class="co">-- First generate an example dataset</span></span>
+<span id="cb16-161"><a href="#cb16-161"></a><span class="kw">CREATE</span> TEMP <span class="kw">TABLE</span> stacked_data <span class="kw">AS</span></span>
+<span id="cb16-162"><a href="#cb16-162"></a>    <span class="kw">SELECT</span></span>
+<span id="cb16-163"><a href="#cb16-163"></a>        i,</span>
+<span id="cb16-164"><a href="#cb16-164"></a>        <span class="cf">CASE</span> <span class="cf">WHEN</span> i <span class="op">&lt;=</span> rows <span class="op">*</span> <span class="fl">0.25</span>  <span class="cf">THEN</span> <span class="dv">2022</span></span>
+<span id="cb16-165"><a href="#cb16-165"></a>             <span class="cf">WHEN</span> i <span class="op">&lt;=</span> rows <span class="op">*</span> <span class="fl">0.5</span>   <span class="cf">THEN</span> <span class="dv">2023</span></span>
+<span id="cb16-166"><a href="#cb16-166"></a>             <span class="cf">WHEN</span> i <span class="op">&lt;=</span> rows <span class="op">*</span> <span class="fl">0.75</span>  <span class="cf">THEN</span> <span class="dv">2024</span></span>
+<span id="cb16-167"><a href="#cb16-167"></a>             <span class="cf">WHEN</span> i <span class="op">&lt;=</span> rows <span class="op">*</span> <span class="fl">0.875</span> <span class="cf">THEN</span> <span class="dv">2025</span></span>
+<span id="cb16-168"><a href="#cb16-168"></a>             <span class="cf">ELSE</span> <span class="kw">NULL</span></span>
+<span id="cb16-169"><a href="#cb16-169"></a>             <span class="cf">END</span> <span class="kw">AS</span> <span class="fu">year</span></span>
+<span id="cb16-170"><a href="#cb16-170"></a>    <span class="kw">FROM</span> (</span>
+<span id="cb16-171"><a href="#cb16-171"></a>        <span class="kw">SELECT</span></span>
+<span id="cb16-172"><a href="#cb16-172"></a>            i,</span>
+<span id="cb16-173"><a href="#cb16-173"></a>            <span class="fu">count</span>(<span class="op">*</span>) OVER () <span class="kw">AS</span> rows</span>
+<span id="cb16-174"><a href="#cb16-174"></a>        <span class="kw">FROM</span> generate_series(<span class="dv">1</span>, 100_000_000) tbl(i)</span>
+<span id="cb16-175"><a href="#cb16-175"></a>    ) tbl;</span>
+<span id="cb16-176"><a href="#cb16-176"></a></span>
+<span id="cb16-177"><a href="#cb16-177"></a></span>
+<span id="cb16-178"><a href="#cb16-178"></a><span class="co">-- "Pivot" the data out by year (move each year out to a separate column)</span></span>
+<span id="cb16-179"><a href="#cb16-179"></a><span class="kw">SELECT</span></span>
+<span id="cb16-180"><a href="#cb16-180"></a>    first(i) FILTER (<span class="fu">year</span> <span class="op">=</span> <span class="dv">2022</span>) <span class="kw">AS</span> <span class="st">"2022"</span>,</span>
+<span id="cb16-181"><a href="#cb16-181"></a>    first(i) FILTER (<span class="fu">year</span> <span class="op">=</span> <span class="dv">2023</span>) <span class="kw">AS</span> <span class="st">"2023"</span>,</span>
+<span id="cb16-182"><a href="#cb16-182"></a>    first(i) FILTER (<span class="fu">year</span> <span class="op">=</span> <span class="dv">2024</span>) <span class="kw">AS</span> <span class="st">"2024"</span>,</span>
+<span id="cb16-183"><a href="#cb16-183"></a>    first(i) FILTER (<span class="fu">year</span> <span class="op">=</span> <span class="dv">2025</span>) <span class="kw">AS</span> <span class="st">"2025"</span>,</span>
+<span id="cb16-184"><a href="#cb16-184"></a>    first(i) FILTER (<span class="fu">year</span> <span class="kw">IS</span> <span class="kw">NULL</span>) <span class="kw">AS</span> <span class="st">"NULLs"</span></span>
+<span id="cb16-185"><a href="#cb16-185"></a><span class="kw">FROM</span> stacked_data;</span>
+<span id="cb16-186"><a href="#cb16-186"></a><span class="in">```</span></span>
+<span id="cb16-187"><a href="#cb16-187"></a></span>
+<span id="cb16-188"><a href="#cb16-188"></a></span>
+<span id="cb16-189"><a href="#cb16-189"></a><span class="fu"># 乱数</span></span>
+<span id="cb16-190"><a href="#cb16-190"></a></span>
+<span id="cb16-191"><a href="#cb16-191"></a></span>
+<span id="cb16-192"><a href="#cb16-192"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb16-193"><a href="#cb16-193"></a><span class="kw">select</span> </span>
+<span id="cb16-194"><a href="#cb16-194"></a>  random() rnd, </span>
+<span id="cb16-195"><a href="#cb16-195"></a>  t<span class="ch">.</span>v</span>
+<span id="cb16-196"><a href="#cb16-196"></a><span class="kw">from</span> </span>
+<span id="cb16-197"><a href="#cb16-197"></a>  generate_series(<span class="dv">1</span>, <span class="dv">100</span>) <span class="kw">as</span> t(v)</span>
+<span id="cb16-198"><a href="#cb16-198"></a><span class="in">```</span></span>
+<span id="cb16-199"><a href="#cb16-199"></a></span>
+<span id="cb16-200"><a href="#cb16-200"></a></span>
+<span id="cb16-201"><a href="#cb16-201"></a></span>
+<span id="cb16-202"><a href="#cb16-202"></a><span class="fu"># Disconnect</span></span>
+<span id="cb16-203"><a href="#cb16-203"></a></span>
+<span id="cb16-206"><a href="#cb16-206"></a><span class="in">```{r}</span></span>
+<span id="cb16-207"><a href="#cb16-207"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
+<span id="cb16-208"><a href="#cb16-208"></a><span class="in">```</span> </span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
