@@ -181,6 +181,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./contents/books/05_統計的因果推論の理論と実際/index.html">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="./contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -188,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
-        <li class="dropdown-header">libs</li>
+        <li class="dropdown-header">R</li>
         <li>
     <a class="dropdown-item" href="./contents/libs/base/working.html">
  <span class="dropdown-text">base</span></a>
@@ -248,6 +254,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="./contents/libs/DBI/working.html">
  <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="./contents/libs/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./contents/libs/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
@@ -367,8 +383,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
-  <li><a href="#構成" id="toc-構成" class="nav-link" data-scroll-target="#構成"><span class="header-section-number">2</span> 構成</a></li>
-  <li><a href="#開発環境" id="toc-開発環境" class="nav-link" data-scroll-target="#開発環境"><span class="header-section-number">3</span> 開発環境</a></li>
   </ul>
 </nav>
     </div>
@@ -397,22 +411,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="はじめに" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
 <ul>
-<li>Rに関するTips, 勉強ノートです</li>
-<li>サイト、図書、勉強会などの情報を一箇所にまとめるのが目的です</li>
-<li>Rは常に進化しており、知らないことは損をします</li>
-<li>データサイエンスを極めましょう</li>
-</ul>
-</section>
-<section id="構成" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 構成</h1>
-<p><code>contents/{web/book/adhoc/library}/source_name/section/chapter.qmd</code>を基本的な構成とします.</p>
-</section>
-<section id="開発環境" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 開発環境</h1>
-<ul>
-<li>R 4.3.1を使います</li>
-<li><code>here</code>パッケージを使います</li>
-<li><code>renv</code>パッケージを使いマス</li>
+<li>RやPythonなどに関するTips, 勉強ノートです</li>
+<li>データサイエンスで社会がより豊かになることに貢献したい</li>
 </ul>
 
 
@@ -875,20 +875,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-4"><a href="#cb1-4"></a></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="fu"># はじめに</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="ss">- </span>Rに関するTips, 勉強ノートです</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="ss">- </span>サイト、図書、勉強会などの情報を一箇所にまとめるのが目的です</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="ss">- </span>Rは常に進化しており、知らないことは損をします</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="ss">- </span>データサイエンスを極めましょう</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="fu"># 構成</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="in">`contents/{web/book/adhoc/library}/source_name/section/chapter.qmd`</span>を基本的な構成とします. </span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="fu"># 開発環境</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="ss">- </span>R 4.3.1を使います</span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="ss">- </span><span class="in">`here`</span>パッケージを使います</span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="ss">- </span><span class="in">`renv`</span>パッケージを使いマス</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="ss">- </span>RやPythonなどに関するTips, 勉強ノートです</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="ss">- </span>データサイエンスで社会がより豊かになることに貢献したい</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
