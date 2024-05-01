@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.515">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,13 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -112,9 +106,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
@@ -126,230 +120,230 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../index.html">
+    <a class="dropdown-item" href="../../../index.html" rel="" target="">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html" rel="" target="">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html" rel="" target="">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html" rel="" target="">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" rel="" target="">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/base/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/base/working.html" rel="" target="">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html" rel="" target="">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html" rel="" target="">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html" rel="" target="">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html" rel="" target="">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html" rel="" target="">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html" rel="" target="">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html" rel="" target="">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html" rel="" target="">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html" rel="" target="">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html" rel="" target="">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html" rel="" target="">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html" rel="" target="">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html" rel="" target="">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html" rel="" target="">
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/pydantic/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/pydantic/index.html" rel="" target="">
  <span class="dropdown-text">pydantic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/pandera/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/pandera/index.html" rel="" target="">
  <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html" rel="" target="">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html" rel="" target="">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html" rel="" target="">
  <span class="dropdown-text">My Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html" rel="" target="">
  <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html" rel="" target="">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html" rel="" target="">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html" rel="" target="">
  <span class="dropdown-text">R2</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools ms-auto">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">Pythonではじめる数理最適化 2nd</a></li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/ch02_チュートリアル.html">数理最適化チュートリアル</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">Pythonではじめる数理最適化 2nd</a></li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/ch02_チュートリアル.html">数理最適化チュートリアル</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -359,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -759,7 +753,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -768,47 +762,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
   <li><a href="#連立1次方程式の解" id="toc-連立1次方程式の解" class="nav-link" data-scroll-target="#連立1次方程式の解"><span class="header-section-number">2</span> 連立1次方程式の解</a></li>
+  <li><a href="#線形計画問題" id="toc-線形計画問題" class="nav-link" data-scroll-target="#線形計画問題"><span class="header-section-number">3</span> 線形計画問題</a></li>
+  <li><a href="#規模の大きな問題" id="toc-規模の大きな問題" class="nav-link" data-scroll-target="#規模の大きな問題"><span class="header-section-number">4</span> 規模の大きな問題</a></li>
+  <li><a href="#整数問題" id="toc-整数問題" class="nav-link" data-scroll-target="#整数問題"><span class="header-section-number">5</span> 整数問題</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">Pythonではじめる数理最適化 2nd</a></li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/ch02_チュートリアル.html">数理最適化チュートリアル</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">数理最適化チュートリアル</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta column-body">
+<div class="quarto-title-meta">
 
     
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">April 29, 2024</p>
+      <p class="date-modified">May 1, 2024</p>
     </div>
   </div>
     
   </div>
   
 
-
 </header>
 
-
-<div class="cell">
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/unnamed-chunk-1_75a58d67f8b37509b15c711520754287">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/activat python_0a5a85e5d4f4d1fb587e7200a93e22a5">
 <pre><code>#&gt; python:         C:/pyenv/py312/Scripts/python.exe
 #&gt; libpython:      C:/Program Files/Python312/python312.dll
 #&gt; pythonhome:     C:/pyenv/py312
-#&gt; version:        3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+#&gt; version:        3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]
 #&gt; Architecture:   64bit
 #&gt; numpy:          C:/pyenv/py312/Lib/site-packages/numpy
-#&gt; numpy_version:  1.26.0
+#&gt; numpy_version:  1.26.4
 #&gt; 
-#&gt; NOTE: Python version was forced by use_python() function</code></pre>
+#&gt; NOTE: Python version was forced by RETICULATE_PYTHON</code></pre>
 </div>
 <section id="はじめに" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
@@ -821,30 +822,302 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>1個120円のりんごと1個150円のなしをあわせて10個購入したら、代金は1440円であった。りんごとなしの個数を求めよ。</p>
 </blockquote>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/連立1次方程式の解_4930431b05ad6beffb1f0d0f31f9037c">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> pulp</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># 問題の定義</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'SLE'</span>, pulp.LpMaximize)</span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># 変数の定義</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>x <span class="op">=</span> pulp.LpVariable(<span class="st">'x'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>y <span class="op">=</span> pulp.LpVariable(<span class="st">'y'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># 制約条件</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>problem <span class="op">+=</span> x <span class="op">+</span> y <span class="op">==</span> <span class="dv">10</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>problem <span class="op">+=</span> <span class="dv">120</span><span class="op">*</span>x <span class="op">+</span> <span class="dv">150</span><span class="op">*</span>y <span class="op">==</span> <span class="dv">1440</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co"># 最適化</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>status <span class="op">=</span> problem.solve()</span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># 結果の表示</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="bu">print</span>(<span class="ss">f'りんごの個数: </span><span class="sc">{</span>x<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; りんごの個数: 2.0</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="bu">print</span>(<span class="ss">f'なしの個数: </span><span class="sc">{</span>y<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; なしの個数: 8.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> pulp</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># 問題の定義</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'SLE'</span>, pulp.LpMaximize)</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># 変数の定義</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>x <span class="op">=</span> pulp.LpVariable(<span class="st">'x'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>y <span class="op">=</span> pulp.LpVariable(<span class="st">'y'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># 制約条件</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>problem <span class="op">+=</span> x <span class="op">+</span> y <span class="op">==</span> <span class="dv">10</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>problem <span class="op">+=</span> <span class="dv">120</span><span class="op">*</span>x <span class="op">+</span> <span class="dv">150</span><span class="op">*</span>y <span class="op">==</span> <span class="dv">1440</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co"># 最適化</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>status <span class="op">=</span> problem.solve()</span>
+<span id="cb3-16"><a href="#cb3-16"></a></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co"># 結果の表示</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="bu">print</span>(<span class="ss">f'りんごの個数: </span><span class="sc">{</span>x<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; りんごの個数: 2.0</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="bu">print</span>(<span class="ss">f'なしの個数: </span><span class="sc">{</span>y<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; なしの個数: 8.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="線形計画問題" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 線形計画問題</h1>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/線形計画問題_d79daebe1adb5c286fec5004167dab36">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'LP'</span>, pulp.LpMaximize)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>x <span class="op">=</span> pulp.LpVariable(<span class="st">'x'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>y <span class="op">=</span> pulp.LpVariable(<span class="st">'y'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>problem <span class="op">+=</span> <span class="dv">1</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> y <span class="op">&lt;=</span> <span class="dv">30</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>problem <span class="op">+=</span> <span class="dv">2</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">1</span> <span class="op">*</span> y <span class="op">&lt;=</span> <span class="dv">40</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>problem <span class="op">+=</span> x <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>problem <span class="op">+=</span> y <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>problem <span class="op">+=</span> x <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> y</span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a>problem.solve()</span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 1</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co"># 解の状態について表示する</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="bu">print</span>(<span class="ss">f"Status: </span><span class="sc">{</span>pulp<span class="sc">.</span>LpStatus[status]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; Status: Optimal</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="bu">print</span>(<span class="ss">f"x: </span><span class="sc">{</span>x<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">, y: </span><span class="sc">{</span>y<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">, Objective: </span><span class="sc">{</span>problem<span class="sc">.</span>objective<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; x: 18.0, y: 4.0, Objective: 26.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="規模の大きな問題" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 規模の大きな問題</h1>
+<p>変数が増えた場合にまとめて定義する方法について示す。 ファイルに記述しておいて、その情報を使って変数の定義などをおこなう。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/head requires.csv_5d028c4cbc1ed4319f4bcdd54b72c866">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> subprocess</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>subprocess.run([<span class="st">"head"</span>, <span class="st">"-n"</span>, <span class="st">"10"</span>, <span class="st">"./unshare/PyOptBook/2.tutorial/requires.csv"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>上記のようにファイルに記述しておいて、その情報を使って変数の定義などをおこなう。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/import data_02f0089e5f772e874da2c19d76c1bacf">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>data_dir <span class="op">=</span> Path(<span class="st">"./unshare/PyOptBook/2.tutorial"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>stock_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"stocks.csv"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="bu">print</span>(stock_df)</span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;     m  stock</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; 0  m1     35</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; 1  m2     22</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; 2  m3     27</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a>require_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"requires.csv"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="bu">print</span>(require_df)</span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;      p   m  require</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; 0   p1  m1        2</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; 1   p1  m2        0</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; 2   p1  m3        1</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; 3   p2  m1        3</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt; 4   p2  m2        2</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt; 5   p2  m3        0</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt; 6   p3  m1        0</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; 7   p3  m2        2</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt; 8   p3  m3        2</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; 9   p4  m1        2</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; 10  p4  m2        2</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt; 11  p4  m3        2</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a></span>
+<span id="cb6-28"><a href="#cb6-28"></a>gain_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"gains.csv"</span>)</span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="bu">print</span>(gain_df)</span>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt;     p  gain</span></span>
+<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; 0  p1     3</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; 1  p2     4</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a><span class="co">#&gt; 2  p3     4</span></span>
+<span id="cb6-34"><a href="#cb6-34"></a><span class="co">#&gt; 3  p4     5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>データを読み込んだので、前処理として変数のリストを作成する。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/preprocess_1f3a93eba80875e073d27c3c321a25ca">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>P <span class="op">=</span> gain_df[<span class="st">'p'</span>].tolist()</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="bu">print</span>(P)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; ['p1', 'p2', 'p3', 'p4']</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a>M <span class="op">=</span> stock_df[<span class="st">'m'</span>].tolist()</span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="bu">print</span>(M)</span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; ['m1', 'm2', 'm3']</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>定数を定義する。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/define constants_a7a642a035dbb66c0a15d8a1c22b2fb4">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>stock <span class="op">=</span> {row.m:row.stock <span class="cf">for</span> row <span class="kw">in</span> stock_df.itertuples()}</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="bu">print</span>(stock)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; {'m1': 35, 'm2': 22, 'm3': 27}</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a>require <span class="op">=</span> {(row.p, row.m): row.require <span class="cf">for</span> row <span class="kw">in</span> require_df.itertuples()}</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="bu">print</span>(require)</span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; {('p1', 'm1'): 2, ('p1', 'm2'): 0, ('p1', 'm3'): 1, ('p2', 'm1'): 3, ('p2', 'm2'): 2, ('p2', 'm3'): 0, ('p3', 'm1'): 0, ('p3', 'm2'): 2, ('p3', 'm3'): 2, ('p4', 'm1'): 2, ('p4', 'm2'): 2, ('p4', 'm3'): 2}</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a>gain <span class="op">=</span> {row.p: row.gain <span class="cf">for</span> row <span class="kw">in</span> gain_df.itertuples()}</span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="bu">print</span>(gain)</span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; {'p1': 3, 'p2': 4, 'p3': 4, 'p4': 5}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>問題を定義する。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/define problem_14b1f26f8aceae50e5738b4468d78824">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> pulp</span>
+<span id="cb9-2"><a href="#cb9-2"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'LP2'</span>, pulp.LpMaximize)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>problem</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; LP2:</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt; MAXIMIZE</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt; None</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt; VARIABLES</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>変数を定義する。次のように辞書を使ってまとめて定義することができる。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/define variables_0dbdd617bd2cafa1ef76aa9adf24c3fb">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> pulp</span>
+<span id="cb10-2"><a href="#cb10-2"></a>x <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">'x'</span>, P, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a>x</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; {'p1': x_p1, 'p2': x_p2, 'p3': x_p3, 'p4': x_p4}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>上記の定義は次の定義の仕方と同じである。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/define variables2_75183e316fbb41a6f4648e8f5568bddf">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="op">=</span> {}</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    x[p] <span class="op">=</span> pulp.LpVariable(<span class="ss">f'x_</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">'</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>制約式を定義する。ここまでに定義してきた変数を使って制約式を定義する。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/define constraints_5805926c7c7f9915068996d01fcd006b">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb12-2"><a href="#cb12-2"></a>    problem <span class="op">+=</span> x[p] <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="cf">for</span> m <span class="kw">in</span> M:</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    problem <span class="op">+=</span> pulp.lpSum([require[(p, m)] <span class="op">*</span> x[p] <span class="cf">for</span> p <span class="kw">in</span> P]) <span class="op">&lt;=</span> stock[m]</span>
+<span id="cb12-6"><a href="#cb12-6"></a></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="bu">print</span>(problem)</span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt; LP2:</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt; MAXIMIZE</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt; None</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt; SUBJECT TO</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt; _C1: x_p1 &gt;= 0</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt; </span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt; _C2: x_p2 &gt;= 0</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; </span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt; _C3: x_p3 &gt;= 0</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt; </span></span>
+<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt; _C4: x_p4 &gt;= 0</span></span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt; </span></span>
+<span id="cb12-20"><a href="#cb12-20"></a><span class="co">#&gt; _C5: 2 x_p1 + 3 x_p2 + 2 x_p4 &lt;= 35</span></span>
+<span id="cb12-21"><a href="#cb12-21"></a><span class="co">#&gt; </span></span>
+<span id="cb12-22"><a href="#cb12-22"></a><span class="co">#&gt; _C6: 2 x_p2 + 2 x_p3 + 2 x_p4 &lt;= 22</span></span>
+<span id="cb12-23"><a href="#cb12-23"></a><span class="co">#&gt; </span></span>
+<span id="cb12-24"><a href="#cb12-24"></a><span class="co">#&gt; _C7: x_p1 + 2 x_p3 + 2 x_p4 &lt;= 27</span></span>
+<span id="cb12-25"><a href="#cb12-25"></a><span class="co">#&gt; </span></span>
+<span id="cb12-26"><a href="#cb12-26"></a><span class="co">#&gt; VARIABLES</span></span>
+<span id="cb12-27"><a href="#cb12-27"></a><span class="co">#&gt; x_p1 free Continuous</span></span>
+<span id="cb12-28"><a href="#cb12-28"></a><span class="co">#&gt; x_p2 free Continuous</span></span>
+<span id="cb12-29"><a href="#cb12-29"></a><span class="co">#&gt; x_p3 free Continuous</span></span>
+<span id="cb12-30"><a href="#cb12-30"></a><span class="co">#&gt; x_p4 free Continuous</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>目的関数の定義をおこなう。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/define objective_bda8ec267790bfaa5de062546b0ac6ec">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>problem <span class="op">+=</span> pulp.lpSum([gain[p] <span class="op">*</span> x[p] <span class="cf">for</span> p <span class="kw">in</span> P])</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="bu">print</span>(problem)</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#&gt; LP2:</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt; MAXIMIZE</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt; 3*x_p1 + 4*x_p2 + 4*x_p3 + 5*x_p4 + 0</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; SUBJECT TO</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt; _C1: x_p1 &gt;= 0</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt; </span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; _C2: x_p2 &gt;= 0</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt; </span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt; _C3: x_p3 &gt;= 0</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt; </span></span>
+<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt; _C4: x_p4 &gt;= 0</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt; </span></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt; _C5: 2 x_p1 + 3 x_p2 + 2 x_p4 &lt;= 35</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt; </span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt; _C6: 2 x_p2 + 2 x_p3 + 2 x_p4 &lt;= 22</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; </span></span>
+<span id="cb13-19"><a href="#cb13-19"></a><span class="co">#&gt; _C7: x_p1 + 2 x_p3 + 2 x_p4 &lt;= 27</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="co">#&gt; </span></span>
+<span id="cb13-21"><a href="#cb13-21"></a><span class="co">#&gt; VARIABLES</span></span>
+<span id="cb13-22"><a href="#cb13-22"></a><span class="co">#&gt; x_p1 free Continuous</span></span>
+<span id="cb13-23"><a href="#cb13-23"></a><span class="co">#&gt; x_p2 free Continuous</span></span>
+<span id="cb13-24"><a href="#cb13-24"></a><span class="co">#&gt; x_p3 free Continuous</span></span>
+<span id="cb13-25"><a href="#cb13-25"></a><span class="co">#&gt; x_p4 free Continuous</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>問題を解く。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/solve_97d891a7eec285220dea193c45ae3828">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>status <span class="op">=</span> problem.solve()</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="bu">print</span>(<span class="ss">f"Status: </span><span class="sc">{</span>pulp<span class="sc">.</span>LpStatus[status]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co">#&gt; Status: Optimal</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x[p]<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt; p1: 12.142857</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#&gt; p2: 3.5714286</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#&gt; p3: 7.4285714</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="co">#&gt; p4: 0.0</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="bu">print</span>(<span class="ss">f"Objective: </span><span class="sc">{</span>problem<span class="sc">.</span>objective<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="co">#&gt; Objective: 80.42857099999999</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="整数問題" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 整数問題</h1>
+<p>上記の問題は変数が実数でおこなわれた。ここでは、変数が整数である場合について示す。</p>
+<div class="cell" data-hash="ch02_チュートリアル_cache/html/as integer problem_497008c4aabc2e479d32d15947016c0d">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2"></a>data_dir <span class="op">=</span> Path(<span class="st">"./unshare/PyOptBook/2.tutorial"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>stock_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"stocks.csv"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>require_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"requires.csv"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5"></a>gain_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"gains.csv"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7"></a>P <span class="op">=</span> gain_df[<span class="st">'p'</span>].tolist()</span>
+<span id="cb15-8"><a href="#cb15-8"></a>M <span class="op">=</span> stock_df[<span class="st">'m'</span>].tolist()</span>
+<span id="cb15-9"><a href="#cb15-9"></a></span>
+<span id="cb15-10"><a href="#cb15-10"></a>stock <span class="op">=</span> {row.m:row.stock <span class="cf">for</span> row <span class="kw">in</span> stock_df.itertuples()}</span>
+<span id="cb15-11"><a href="#cb15-11"></a>require <span class="op">=</span> {(row.p, row.m): row.require <span class="cf">for</span> row <span class="kw">in</span> require_df.itertuples()}</span>
+<span id="cb15-12"><a href="#cb15-12"></a>gain <span class="op">=</span> {row.p: row.gain <span class="cf">for</span> row <span class="kw">in</span> gain_df.itertuples()}</span>
+<span id="cb15-13"><a href="#cb15-13"></a></span>
+<span id="cb15-14"><a href="#cb15-14"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'IP'</span>, pulp.LpMaximize)</span>
+<span id="cb15-15"><a href="#cb15-15"></a></span>
+<span id="cb15-16"><a href="#cb15-16"></a>x <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">'x'</span>, P, cat<span class="op">=</span><span class="st">'Integer'</span>)</span>
+<span id="cb15-17"><a href="#cb15-17"></a></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb15-19"><a href="#cb15-19"></a>    problem <span class="op">+=</span> x[p] <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a></span>
+<span id="cb15-21"><a href="#cb15-21"></a><span class="cf">for</span> m <span class="kw">in</span> M:</span>
+<span id="cb15-22"><a href="#cb15-22"></a>    problem <span class="op">+=</span> pulp.lpSum([require[(p, m)] <span class="op">*</span> x[p] <span class="cf">for</span> p <span class="kw">in</span> P]) <span class="op">&lt;=</span> stock[m]</span>
+<span id="cb15-23"><a href="#cb15-23"></a></span>
+<span id="cb15-24"><a href="#cb15-24"></a>problem <span class="op">+=</span> pulp.lpSum([gain[p] <span class="op">*</span> x[p] <span class="cf">for</span> p <span class="kw">in</span> P])</span>
+<span id="cb15-25"><a href="#cb15-25"></a></span>
+<span id="cb15-26"><a href="#cb15-26"></a>status <span class="op">=</span> problem.solve()</span>
+<span id="cb15-27"><a href="#cb15-27"></a><span class="bu">print</span>(<span class="ss">f"Status: </span><span class="sc">{</span>pulp<span class="sc">.</span>LpStatus[status]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-28"><a href="#cb15-28"></a><span class="co">#&gt; Status: Optimal</span></span>
+<span id="cb15-29"><a href="#cb15-29"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb15-30"><a href="#cb15-30"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x[p]<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-31"><a href="#cb15-31"></a><span class="co">#&gt; p1: 13.0</span></span>
+<span id="cb15-32"><a href="#cb15-32"></a><span class="co">#&gt; p2: 3.0</span></span>
+<span id="cb15-33"><a href="#cb15-33"></a><span class="co">#&gt; p3: 7.0</span></span>
+<span id="cb15-34"><a href="#cb15-34"></a><span class="co">#&gt; p4: -0.0</span></span>
+<span id="cb15-35"><a href="#cb15-35"></a></span>
+<span id="cb15-36"><a href="#cb15-36"></a><span class="bu">print</span>(<span class="ss">f"Objective: </span><span class="sc">{</span>problem<span class="sc">.</span>objective<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-37"><a href="#cb15-37"></a><span class="co">#&gt; Objective: 79.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
@@ -984,9 +1257,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -996,17 +1270,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1019,135 +1284,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        typesetMath(container);
-        return container.innerHTML
-      } else {
-        typesetMath(note);
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      typesetMath(note);
-      return note.innerHTML;
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1191,7 +1327,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1217,32 +1352,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1304,97 +1413,284 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" class="pagination-link  aria-label=" introduction"="">
+      <a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="an">title:</span><span class="co"> "数理最適化チュートリアル"</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="an">execute:</span><span class="co">  </span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">    cache: true</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="an">filters:</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">    - lightbox</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">---</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a></span>
-<span id="cb3-11"><a href="#cb3-11"></a></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="in">```{r}</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#| echo: false</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#| warning: false</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#| message: false</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a></span>
-<span id="cb3-19"><a href="#cb3-19"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
-<span id="cb3-20"><a href="#cb3-20"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/books/06_Pythonではじめる数理最適化"</span>)</span>
-<span id="cb3-21"><a href="#cb3-21"></a></span>
-<span id="cb3-22"><a href="#cb3-22"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
-<span id="cb3-23"><a href="#cb3-23"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans JP"</span>)</span>
-<span id="cb3-24"><a href="#cb3-24"></a></span>
-<span id="cb3-25"><a href="#cb3-25"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(reticulate)</span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="in">```</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a></span>
-<span id="cb3-28"><a href="#cb3-28"></a></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="in">```{r}</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#| echo: false</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#| warning: false</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#| message: false</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="fu">library</span>(reticulate)</span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="fu">use_virtualenv</span>(<span class="st">"c:/pyenv/py312"</span>)</span>
-<span id="cb3-38"><a href="#cb3-38"></a><span class="fu">Sys.setenv</span>(<span class="at">TCL_LIBRARY=</span><span class="st">"C:/Program Files/Python312/tcl/tcl8.6"</span>)</span>
-<span id="cb3-39"><a href="#cb3-39"></a></span>
-<span id="cb3-40"><a href="#cb3-40"></a>reticulate<span class="sc">::</span><span class="fu">py_config</span>()</span>
-<span id="cb3-41"><a href="#cb3-41"></a><span class="in">```</span></span>
-<span id="cb3-42"><a href="#cb3-42"></a></span>
-<span id="cb3-43"><a href="#cb3-43"></a></span>
-<span id="cb3-44"><a href="#cb3-44"></a></span>
-<span id="cb3-45"><a href="#cb3-45"></a><span class="fu"># はじめに</span></span>
-<span id="cb3-46"><a href="#cb3-46"></a></span>
-<span id="cb3-47"><a href="#cb3-47"></a>二次方程式、線形計画問題を例としたPythonによる数理最適化のチュートリアルである。</span>
-<span id="cb3-48"><a href="#cb3-48"></a>必要なライブラリは<span class="in">`requirements.txt`</span>に記載されている。</span>
-<span id="cb3-49"><a href="#cb3-49"></a></span>
-<span id="cb3-50"><a href="#cb3-50"></a>必要なデータは<span class="in">`PyOptBook`</span>以下の各章のディレクトリに格納されている。</span>
-<span id="cb3-51"><a href="#cb3-51"></a></span>
-<span id="cb3-52"><a href="#cb3-52"></a><span class="fu"># 連立1次方程式の解</span></span>
-<span id="cb3-53"><a href="#cb3-53"></a></span>
-<span id="cb3-54"><a href="#cb3-54"></a><span class="in">`PuLP`</span>を使って連立1次方程式を解く。</span>
-<span id="cb3-55"><a href="#cb3-55"></a></span>
-<span id="cb3-56"><a href="#cb3-56"></a><span class="at">&gt; 1個120円のりんごと1個150円のなしをあわせて10個購入したら、代金は1440円であった。りんごとなしの個数を求めよ。</span></span>
-<span id="cb3-57"><a href="#cb3-57"></a></span>
-<span id="cb3-60"><a href="#cb3-60"></a><span class="in">```{python}</span></span>
-<span id="cb3-61"><a href="#cb3-61"></a><span class="im">import</span> pulp</span>
-<span id="cb3-62"><a href="#cb3-62"></a></span>
-<span id="cb3-63"><a href="#cb3-63"></a><span class="co"># 問題の定義</span></span>
-<span id="cb3-64"><a href="#cb3-64"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'SLE'</span>, pulp.LpMaximize)</span>
-<span id="cb3-65"><a href="#cb3-65"></a></span>
-<span id="cb3-66"><a href="#cb3-66"></a><span class="co"># 変数の定義</span></span>
-<span id="cb3-67"><a href="#cb3-67"></a>x <span class="op">=</span> pulp.LpVariable(<span class="st">'x'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
-<span id="cb3-68"><a href="#cb3-68"></a>y <span class="op">=</span> pulp.LpVariable(<span class="st">'y'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
-<span id="cb3-69"><a href="#cb3-69"></a></span>
-<span id="cb3-70"><a href="#cb3-70"></a><span class="co"># 制約条件</span></span>
-<span id="cb3-71"><a href="#cb3-71"></a>problem <span class="op">+=</span> x <span class="op">+</span> y <span class="op">==</span> <span class="dv">10</span></span>
-<span id="cb3-72"><a href="#cb3-72"></a>problem <span class="op">+=</span> <span class="dv">120</span><span class="op">*</span>x <span class="op">+</span> <span class="dv">150</span><span class="op">*</span>y <span class="op">==</span> <span class="dv">1440</span></span>
-<span id="cb3-73"><a href="#cb3-73"></a></span>
-<span id="cb3-74"><a href="#cb3-74"></a><span class="co"># 最適化</span></span>
-<span id="cb3-75"><a href="#cb3-75"></a>status <span class="op">=</span> problem.solve()</span>
-<span id="cb3-76"><a href="#cb3-76"></a></span>
-<span id="cb3-77"><a href="#cb3-77"></a><span class="co"># 結果の表示</span></span>
-<span id="cb3-78"><a href="#cb3-78"></a><span class="bu">print</span>(<span class="ss">f'りんごの個数: </span><span class="sc">{</span>x<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb3-79"><a href="#cb3-79"></a><span class="bu">print</span>(<span class="ss">f'なしの個数: </span><span class="sc">{</span>y<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb3-80"><a href="#cb3-80"></a></span>
-<span id="cb3-81"><a href="#cb3-81"></a></span>
-<span id="cb3-82"><a href="#cb3-82"></a></span>
-<span id="cb3-83"><a href="#cb3-83"></a><span class="in">```</span></span>
-<span id="cb3-84"><a href="#cb3-84"></a></span>
-<span id="cb3-85"><a href="#cb3-85"></a></span>
-<span id="cb3-86"><a href="#cb3-86"></a></span>
+<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">---</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="an">title:</span><span class="co"> "数理最適化チュートリアル"</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="an">execute:</span><span class="co">  </span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">    cache: true</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="an">filters:</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">    - lightbox</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co">---</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a></span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="in">```{r}</span></span>
+<span id="cb16-14"><a href="#cb16-14"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb16-15"><a href="#cb16-15"></a><span class="in">```</span></span>
+<span id="cb16-16"><a href="#cb16-16"></a></span>
+<span id="cb16-19"><a href="#cb16-19"></a><span class="in">```{r}</span></span>
+<span id="cb16-20"><a href="#cb16-20"></a><span class="co">#| label: setup</span></span>
+<span id="cb16-21"><a href="#cb16-21"></a><span class="co">#| echo: false</span></span>
+<span id="cb16-22"><a href="#cb16-22"></a><span class="co">#| warning: false</span></span>
+<span id="cb16-23"><a href="#cb16-23"></a><span class="co">#| message: false</span></span>
+<span id="cb16-24"><a href="#cb16-24"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents"</span>, <span class="st">"books"</span>, <span class="st">"06_Pythonではじめる数理最適化"</span>)</span>
+<span id="cb16-25"><a href="#cb16-25"></a><span class="fu">setwd</span>(cur_dir)</span>
+<span id="cb16-26"><a href="#cb16-26"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
+<span id="cb16-27"><a href="#cb16-27"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans JP"</span>)</span>
+<span id="cb16-28"><a href="#cb16-28"></a><span class="in">```</span></span>
+<span id="cb16-29"><a href="#cb16-29"></a></span>
+<span id="cb16-30"><a href="#cb16-30"></a></span>
+<span id="cb16-33"><a href="#cb16-33"></a><span class="in">```{r}</span></span>
+<span id="cb16-34"><a href="#cb16-34"></a><span class="co">#| label: activat python</span></span>
+<span id="cb16-35"><a href="#cb16-35"></a><span class="co">#| echo: false</span></span>
+<span id="cb16-36"><a href="#cb16-36"></a><span class="co">#| warning: false</span></span>
+<span id="cb16-37"><a href="#cb16-37"></a><span class="co">#| message: false</span></span>
+<span id="cb16-38"><a href="#cb16-38"></a></span>
+<span id="cb16-39"><a href="#cb16-39"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb16-40"><a href="#cb16-40"></a><span class="co"># use_virtualenv("c:/pyenv/py312")</span></span>
+<span id="cb16-41"><a href="#cb16-41"></a><span class="fu">Sys.setenv</span>(<span class="at">TCL_LIBRARY=</span><span class="st">"C:/Program Files/Python312/tcl/tcl8.6"</span>)</span>
+<span id="cb16-42"><a href="#cb16-42"></a><span class="fu">Sys.setenv</span>(<span class="at">RETICULATE_PYTHON=</span><span class="st">"c:/pyenv/py312/Scripts/python.exe"</span>)</span>
+<span id="cb16-43"><a href="#cb16-43"></a>reticulate<span class="sc">::</span><span class="fu">py_config</span>()</span>
+<span id="cb16-44"><a href="#cb16-44"></a><span class="in">```</span></span>
+<span id="cb16-45"><a href="#cb16-45"></a></span>
+<span id="cb16-46"><a href="#cb16-46"></a></span>
+<span id="cb16-47"><a href="#cb16-47"></a><span class="fu"># はじめに</span></span>
+<span id="cb16-48"><a href="#cb16-48"></a></span>
+<span id="cb16-49"><a href="#cb16-49"></a>二次方程式、線形計画問題を例としたPythonによる数理最適化のチュートリアルである。</span>
+<span id="cb16-50"><a href="#cb16-50"></a>必要なライブラリは<span class="in">`requirements.txt`</span>に記載されている。</span>
+<span id="cb16-51"><a href="#cb16-51"></a></span>
+<span id="cb16-52"><a href="#cb16-52"></a>必要なデータは<span class="in">`PyOptBook`</span>以下の各章のディレクトリに格納されている。</span>
+<span id="cb16-53"><a href="#cb16-53"></a></span>
+<span id="cb16-54"><a href="#cb16-54"></a><span class="fu"># 連立1次方程式の解</span></span>
+<span id="cb16-55"><a href="#cb16-55"></a></span>
+<span id="cb16-56"><a href="#cb16-56"></a><span class="in">`PuLP`</span>を使って連立1次方程式を解く。</span>
+<span id="cb16-57"><a href="#cb16-57"></a></span>
+<span id="cb16-58"><a href="#cb16-58"></a><span class="at">&gt; 1個120円のりんごと1個150円のなしをあわせて10個購入したら、代金は1440円であった。りんごとなしの個数を求めよ。</span></span>
+<span id="cb16-59"><a href="#cb16-59"></a></span>
+<span id="cb16-60"><a href="#cb16-60"></a></span>
+<span id="cb16-63"><a href="#cb16-63"></a><span class="in">```{python}</span></span>
+<span id="cb16-64"><a href="#cb16-64"></a><span class="co">#| label: 連立1次方程式の解</span></span>
+<span id="cb16-65"><a href="#cb16-65"></a><span class="im">import</span> pulp</span>
+<span id="cb16-66"><a href="#cb16-66"></a></span>
+<span id="cb16-67"><a href="#cb16-67"></a><span class="co"># 問題の定義</span></span>
+<span id="cb16-68"><a href="#cb16-68"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'SLE'</span>, pulp.LpMaximize)</span>
+<span id="cb16-69"><a href="#cb16-69"></a></span>
+<span id="cb16-70"><a href="#cb16-70"></a><span class="co"># 変数の定義</span></span>
+<span id="cb16-71"><a href="#cb16-71"></a>x <span class="op">=</span> pulp.LpVariable(<span class="st">'x'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb16-72"><a href="#cb16-72"></a>y <span class="op">=</span> pulp.LpVariable(<span class="st">'y'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb16-73"><a href="#cb16-73"></a></span>
+<span id="cb16-74"><a href="#cb16-74"></a><span class="co"># 制約条件</span></span>
+<span id="cb16-75"><a href="#cb16-75"></a>problem <span class="op">+=</span> x <span class="op">+</span> y <span class="op">==</span> <span class="dv">10</span></span>
+<span id="cb16-76"><a href="#cb16-76"></a>problem <span class="op">+=</span> <span class="dv">120</span><span class="op">*</span>x <span class="op">+</span> <span class="dv">150</span><span class="op">*</span>y <span class="op">==</span> <span class="dv">1440</span></span>
+<span id="cb16-77"><a href="#cb16-77"></a></span>
+<span id="cb16-78"><a href="#cb16-78"></a><span class="co"># 最適化</span></span>
+<span id="cb16-79"><a href="#cb16-79"></a>status <span class="op">=</span> problem.solve()</span>
+<span id="cb16-80"><a href="#cb16-80"></a></span>
+<span id="cb16-81"><a href="#cb16-81"></a><span class="co"># 結果の表示</span></span>
+<span id="cb16-82"><a href="#cb16-82"></a><span class="bu">print</span>(<span class="ss">f'りんごの個数: </span><span class="sc">{</span>x<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb16-83"><a href="#cb16-83"></a><span class="bu">print</span>(<span class="ss">f'なしの個数: </span><span class="sc">{</span>y<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb16-84"><a href="#cb16-84"></a></span>
+<span id="cb16-85"><a href="#cb16-85"></a><span class="in">```</span></span>
+<span id="cb16-86"><a href="#cb16-86"></a></span>
+<span id="cb16-87"><a href="#cb16-87"></a></span>
+<span id="cb16-88"><a href="#cb16-88"></a><span class="fu"># 線形計画問題</span></span>
+<span id="cb16-89"><a href="#cb16-89"></a></span>
+<span id="cb16-92"><a href="#cb16-92"></a><span class="in">```{python}</span></span>
+<span id="cb16-93"><a href="#cb16-93"></a><span class="co">#| label: 線形計画問題</span></span>
+<span id="cb16-94"><a href="#cb16-94"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'LP'</span>, pulp.LpMaximize)</span>
+<span id="cb16-95"><a href="#cb16-95"></a></span>
+<span id="cb16-96"><a href="#cb16-96"></a>x <span class="op">=</span> pulp.LpVariable(<span class="st">'x'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb16-97"><a href="#cb16-97"></a>y <span class="op">=</span> pulp.LpVariable(<span class="st">'y'</span>, lowBound<span class="op">=</span><span class="dv">0</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb16-98"><a href="#cb16-98"></a></span>
+<span id="cb16-99"><a href="#cb16-99"></a>problem <span class="op">+=</span> <span class="dv">1</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> y <span class="op">&lt;=</span> <span class="dv">30</span></span>
+<span id="cb16-100"><a href="#cb16-100"></a>problem <span class="op">+=</span> <span class="dv">2</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">1</span> <span class="op">*</span> y <span class="op">&lt;=</span> <span class="dv">40</span></span>
+<span id="cb16-101"><a href="#cb16-101"></a>problem <span class="op">+=</span> x <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb16-102"><a href="#cb16-102"></a>problem <span class="op">+=</span> y <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb16-103"><a href="#cb16-103"></a>problem <span class="op">+=</span> x <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> y</span>
+<span id="cb16-104"><a href="#cb16-104"></a></span>
+<span id="cb16-105"><a href="#cb16-105"></a>problem.solve()</span>
+<span id="cb16-106"><a href="#cb16-106"></a></span>
+<span id="cb16-107"><a href="#cb16-107"></a><span class="co"># 解の状態について表示する</span></span>
+<span id="cb16-108"><a href="#cb16-108"></a><span class="bu">print</span>(<span class="ss">f"Status: </span><span class="sc">{</span>pulp<span class="sc">.</span>LpStatus[status]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-109"><a href="#cb16-109"></a><span class="bu">print</span>(<span class="ss">f"x: </span><span class="sc">{</span>x<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">, y: </span><span class="sc">{</span>y<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">, Objective: </span><span class="sc">{</span>problem<span class="sc">.</span>objective<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-110"><a href="#cb16-110"></a><span class="in">```</span></span>
+<span id="cb16-111"><a href="#cb16-111"></a></span>
+<span id="cb16-112"><a href="#cb16-112"></a><span class="fu"># 規模の大きな問題</span></span>
+<span id="cb16-113"><a href="#cb16-113"></a></span>
+<span id="cb16-114"><a href="#cb16-114"></a>変数が増えた場合にまとめて定義する方法について示す。</span>
+<span id="cb16-115"><a href="#cb16-115"></a>ファイルに記述しておいて、その情報を使って変数の定義などをおこなう。</span>
+<span id="cb16-116"><a href="#cb16-116"></a></span>
+<span id="cb16-117"><a href="#cb16-117"></a></span>
+<span id="cb16-120"><a href="#cb16-120"></a><span class="in">```{python}</span></span>
+<span id="cb16-121"><a href="#cb16-121"></a><span class="co">#| label: head requires.csv</span></span>
+<span id="cb16-122"><a href="#cb16-122"></a><span class="co">#| eval: false</span></span>
+<span id="cb16-123"><a href="#cb16-123"></a><span class="im">import</span> subprocess</span>
+<span id="cb16-124"><a href="#cb16-124"></a></span>
+<span id="cb16-125"><a href="#cb16-125"></a>subprocess.run([<span class="st">"head"</span>, <span class="st">"-n"</span>, <span class="st">"10"</span>, <span class="st">"./unshare/PyOptBook/2.tutorial/requires.csv"</span>])</span>
+<span id="cb16-126"><a href="#cb16-126"></a><span class="in">```</span></span>
+<span id="cb16-127"><a href="#cb16-127"></a></span>
+<span id="cb16-128"><a href="#cb16-128"></a>上記のようにファイルに記述しておいて、その情報を使って変数の定義などをおこなう。</span>
+<span id="cb16-129"><a href="#cb16-129"></a></span>
+<span id="cb16-132"><a href="#cb16-132"></a><span class="in">```{python}</span></span>
+<span id="cb16-133"><a href="#cb16-133"></a><span class="co">#| label: import data</span></span>
+<span id="cb16-134"><a href="#cb16-134"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-135"><a href="#cb16-135"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb16-136"><a href="#cb16-136"></a></span>
+<span id="cb16-137"><a href="#cb16-137"></a>data_dir <span class="op">=</span> Path(<span class="st">"./unshare/PyOptBook/2.tutorial"</span>)</span>
+<span id="cb16-138"><a href="#cb16-138"></a>stock_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"stocks.csv"</span>)</span>
+<span id="cb16-139"><a href="#cb16-139"></a><span class="bu">print</span>(stock_df)</span>
+<span id="cb16-140"><a href="#cb16-140"></a></span>
+<span id="cb16-141"><a href="#cb16-141"></a>require_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"requires.csv"</span>)</span>
+<span id="cb16-142"><a href="#cb16-142"></a><span class="bu">print</span>(require_df)</span>
+<span id="cb16-143"><a href="#cb16-143"></a></span>
+<span id="cb16-144"><a href="#cb16-144"></a>gain_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"gains.csv"</span>)</span>
+<span id="cb16-145"><a href="#cb16-145"></a><span class="bu">print</span>(gain_df)</span>
+<span id="cb16-146"><a href="#cb16-146"></a></span>
+<span id="cb16-147"><a href="#cb16-147"></a><span class="in">```</span></span>
+<span id="cb16-148"><a href="#cb16-148"></a></span>
+<span id="cb16-149"><a href="#cb16-149"></a>データを読み込んだので、前処理として変数のリストを作成する。</span>
+<span id="cb16-150"><a href="#cb16-150"></a></span>
+<span id="cb16-153"><a href="#cb16-153"></a><span class="in">```{python}</span></span>
+<span id="cb16-154"><a href="#cb16-154"></a><span class="co">#| label: preprocess </span></span>
+<span id="cb16-155"><a href="#cb16-155"></a>P <span class="op">=</span> gain_df[<span class="st">'p'</span>].tolist()</span>
+<span id="cb16-156"><a href="#cb16-156"></a><span class="bu">print</span>(P)</span>
+<span id="cb16-157"><a href="#cb16-157"></a></span>
+<span id="cb16-158"><a href="#cb16-158"></a>M <span class="op">=</span> stock_df[<span class="st">'m'</span>].tolist()</span>
+<span id="cb16-159"><a href="#cb16-159"></a><span class="bu">print</span>(M)</span>
+<span id="cb16-160"><a href="#cb16-160"></a><span class="in">```</span></span>
+<span id="cb16-161"><a href="#cb16-161"></a></span>
+<span id="cb16-162"><a href="#cb16-162"></a>定数を定義する。</span>
+<span id="cb16-163"><a href="#cb16-163"></a></span>
+<span id="cb16-166"><a href="#cb16-166"></a><span class="in">```{python}</span></span>
+<span id="cb16-167"><a href="#cb16-167"></a><span class="co">#| label: define constants</span></span>
+<span id="cb16-168"><a href="#cb16-168"></a>stock <span class="op">=</span> {row.m:row.stock <span class="cf">for</span> row <span class="kw">in</span> stock_df.itertuples()}</span>
+<span id="cb16-169"><a href="#cb16-169"></a><span class="bu">print</span>(stock)</span>
+<span id="cb16-170"><a href="#cb16-170"></a></span>
+<span id="cb16-171"><a href="#cb16-171"></a>require <span class="op">=</span> {(row.p, row.m): row.require <span class="cf">for</span> row <span class="kw">in</span> require_df.itertuples()}</span>
+<span id="cb16-172"><a href="#cb16-172"></a><span class="bu">print</span>(require)</span>
+<span id="cb16-173"><a href="#cb16-173"></a></span>
+<span id="cb16-174"><a href="#cb16-174"></a>gain <span class="op">=</span> {row.p: row.gain <span class="cf">for</span> row <span class="kw">in</span> gain_df.itertuples()}</span>
+<span id="cb16-175"><a href="#cb16-175"></a><span class="bu">print</span>(gain)</span>
+<span id="cb16-176"><a href="#cb16-176"></a></span>
+<span id="cb16-177"><a href="#cb16-177"></a><span class="in">```</span></span>
+<span id="cb16-178"><a href="#cb16-178"></a></span>
+<span id="cb16-179"><a href="#cb16-179"></a>問題を定義する。</span>
+<span id="cb16-180"><a href="#cb16-180"></a></span>
+<span id="cb16-183"><a href="#cb16-183"></a><span class="in">```{python}</span></span>
+<span id="cb16-184"><a href="#cb16-184"></a><span class="co">#| label: define problem</span></span>
+<span id="cb16-185"><a href="#cb16-185"></a></span>
+<span id="cb16-186"><a href="#cb16-186"></a><span class="im">import</span> pulp</span>
+<span id="cb16-187"><a href="#cb16-187"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'LP2'</span>, pulp.LpMaximize)</span>
+<span id="cb16-188"><a href="#cb16-188"></a>problem</span>
+<span id="cb16-189"><a href="#cb16-189"></a><span class="in">```</span></span>
+<span id="cb16-190"><a href="#cb16-190"></a></span>
+<span id="cb16-191"><a href="#cb16-191"></a>変数を定義する。次のように辞書を使ってまとめて定義することができる。</span>
+<span id="cb16-192"><a href="#cb16-192"></a></span>
+<span id="cb16-195"><a href="#cb16-195"></a><span class="in">```{python}</span></span>
+<span id="cb16-196"><a href="#cb16-196"></a><span class="co">#| label: define variables</span></span>
+<span id="cb16-197"><a href="#cb16-197"></a><span class="im">import</span> pulp</span>
+<span id="cb16-198"><a href="#cb16-198"></a>x <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">'x'</span>, P, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb16-199"><a href="#cb16-199"></a>x</span>
+<span id="cb16-200"><a href="#cb16-200"></a><span class="in">```</span></span>
+<span id="cb16-201"><a href="#cb16-201"></a></span>
+<span id="cb16-202"><a href="#cb16-202"></a>上記の定義は次の定義の仕方と同じである。</span>
+<span id="cb16-203"><a href="#cb16-203"></a></span>
+<span id="cb16-206"><a href="#cb16-206"></a><span class="in">```{python}</span></span>
+<span id="cb16-207"><a href="#cb16-207"></a><span class="co">#| label: define variables2</span></span>
+<span id="cb16-208"><a href="#cb16-208"></a><span class="co">#| eval: false</span></span>
+<span id="cb16-209"><a href="#cb16-209"></a>x <span class="op">=</span> {}</span>
+<span id="cb16-210"><a href="#cb16-210"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb16-211"><a href="#cb16-211"></a>    x[p] <span class="op">=</span> pulp.LpVariable(<span class="ss">f'x_</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">'</span>, cat<span class="op">=</span><span class="st">'Continuous'</span>)</span>
+<span id="cb16-212"><a href="#cb16-212"></a></span>
+<span id="cb16-213"><a href="#cb16-213"></a><span class="in">```</span></span>
+<span id="cb16-214"><a href="#cb16-214"></a></span>
+<span id="cb16-215"><a href="#cb16-215"></a>制約式を定義する。ここまでに定義してきた変数を使って制約式を定義する。</span>
+<span id="cb16-216"><a href="#cb16-216"></a></span>
+<span id="cb16-219"><a href="#cb16-219"></a><span class="in">```{python}</span></span>
+<span id="cb16-220"><a href="#cb16-220"></a><span class="co">#| label: define constraints</span></span>
+<span id="cb16-221"><a href="#cb16-221"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb16-222"><a href="#cb16-222"></a>    problem <span class="op">+=</span> x[p] <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb16-223"><a href="#cb16-223"></a></span>
+<span id="cb16-224"><a href="#cb16-224"></a><span class="cf">for</span> m <span class="kw">in</span> M:</span>
+<span id="cb16-225"><a href="#cb16-225"></a>    problem <span class="op">+=</span> pulp.lpSum([require[(p, m)] <span class="op">*</span> x[p] <span class="cf">for</span> p <span class="kw">in</span> P]) <span class="op">&lt;=</span> stock[m]</span>
+<span id="cb16-226"><a href="#cb16-226"></a></span>
+<span id="cb16-227"><a href="#cb16-227"></a><span class="bu">print</span>(problem)</span>
+<span id="cb16-228"><a href="#cb16-228"></a><span class="in">```</span></span>
+<span id="cb16-229"><a href="#cb16-229"></a></span>
+<span id="cb16-230"><a href="#cb16-230"></a>目的関数の定義をおこなう。</span>
+<span id="cb16-231"><a href="#cb16-231"></a></span>
+<span id="cb16-234"><a href="#cb16-234"></a><span class="in">```{python}</span></span>
+<span id="cb16-235"><a href="#cb16-235"></a><span class="co">#| label: define objective</span></span>
+<span id="cb16-236"><a href="#cb16-236"></a>problem <span class="op">+=</span> pulp.lpSum([gain[p] <span class="op">*</span> x[p] <span class="cf">for</span> p <span class="kw">in</span> P])</span>
+<span id="cb16-237"><a href="#cb16-237"></a><span class="bu">print</span>(problem)</span>
+<span id="cb16-238"><a href="#cb16-238"></a><span class="in">```</span></span>
+<span id="cb16-239"><a href="#cb16-239"></a></span>
+<span id="cb16-240"><a href="#cb16-240"></a>問題を解く。</span>
+<span id="cb16-241"><a href="#cb16-241"></a></span>
+<span id="cb16-244"><a href="#cb16-244"></a><span class="in">```{python}</span></span>
+<span id="cb16-245"><a href="#cb16-245"></a><span class="co">#| label: solve</span></span>
+<span id="cb16-246"><a href="#cb16-246"></a>status <span class="op">=</span> problem.solve()</span>
+<span id="cb16-247"><a href="#cb16-247"></a><span class="bu">print</span>(<span class="ss">f"Status: </span><span class="sc">{</span>pulp<span class="sc">.</span>LpStatus[status]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-248"><a href="#cb16-248"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb16-249"><a href="#cb16-249"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x[p]<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-250"><a href="#cb16-250"></a></span>
+<span id="cb16-251"><a href="#cb16-251"></a><span class="bu">print</span>(<span class="ss">f"Objective: </span><span class="sc">{</span>problem<span class="sc">.</span>objective<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-252"><a href="#cb16-252"></a><span class="in">```</span></span>
+<span id="cb16-253"><a href="#cb16-253"></a></span>
+<span id="cb16-254"><a href="#cb16-254"></a></span>
+<span id="cb16-255"><a href="#cb16-255"></a></span>
+<span id="cb16-256"><a href="#cb16-256"></a></span>
+<span id="cb16-257"><a href="#cb16-257"></a><span class="fu"># 整数問題</span></span>
+<span id="cb16-258"><a href="#cb16-258"></a></span>
+<span id="cb16-259"><a href="#cb16-259"></a>上記の問題は変数が実数でおこなわれた。ここでは、変数が整数である場合について示す。</span>
+<span id="cb16-260"><a href="#cb16-260"></a></span>
+<span id="cb16-261"><a href="#cb16-261"></a></span>
+<span id="cb16-264"><a href="#cb16-264"></a><span class="in">```{python}</span></span>
+<span id="cb16-265"><a href="#cb16-265"></a><span class="co">#| label: as integer problem</span></span>
+<span id="cb16-266"><a href="#cb16-266"></a></span>
+<span id="cb16-267"><a href="#cb16-267"></a></span>
+<span id="cb16-268"><a href="#cb16-268"></a>data_dir <span class="op">=</span> Path(<span class="st">"./unshare/PyOptBook/2.tutorial"</span>)</span>
+<span id="cb16-269"><a href="#cb16-269"></a>stock_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"stocks.csv"</span>)</span>
+<span id="cb16-270"><a href="#cb16-270"></a>require_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"requires.csv"</span>)</span>
+<span id="cb16-271"><a href="#cb16-271"></a>gain_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"gains.csv"</span>)</span>
+<span id="cb16-272"><a href="#cb16-272"></a></span>
+<span id="cb16-273"><a href="#cb16-273"></a>P <span class="op">=</span> gain_df[<span class="st">'p'</span>].tolist()</span>
+<span id="cb16-274"><a href="#cb16-274"></a>M <span class="op">=</span> stock_df[<span class="st">'m'</span>].tolist()</span>
+<span id="cb16-275"><a href="#cb16-275"></a></span>
+<span id="cb16-276"><a href="#cb16-276"></a>stock <span class="op">=</span> {row.m:row.stock <span class="cf">for</span> row <span class="kw">in</span> stock_df.itertuples()}</span>
+<span id="cb16-277"><a href="#cb16-277"></a>require <span class="op">=</span> {(row.p, row.m): row.require <span class="cf">for</span> row <span class="kw">in</span> require_df.itertuples()}</span>
+<span id="cb16-278"><a href="#cb16-278"></a>gain <span class="op">=</span> {row.p: row.gain <span class="cf">for</span> row <span class="kw">in</span> gain_df.itertuples()}</span>
+<span id="cb16-279"><a href="#cb16-279"></a></span>
+<span id="cb16-280"><a href="#cb16-280"></a>problem <span class="op">=</span> pulp.LpProblem(<span class="st">'IP'</span>, pulp.LpMaximize)</span>
+<span id="cb16-281"><a href="#cb16-281"></a></span>
+<span id="cb16-282"><a href="#cb16-282"></a>x <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">'x'</span>, P, cat<span class="op">=</span><span class="st">'Integer'</span>)</span>
+<span id="cb16-283"><a href="#cb16-283"></a></span>
+<span id="cb16-284"><a href="#cb16-284"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb16-285"><a href="#cb16-285"></a>    problem <span class="op">+=</span> x[p] <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb16-286"><a href="#cb16-286"></a></span>
+<span id="cb16-287"><a href="#cb16-287"></a><span class="cf">for</span> m <span class="kw">in</span> M:</span>
+<span id="cb16-288"><a href="#cb16-288"></a>    problem <span class="op">+=</span> pulp.lpSum([require[(p, m)] <span class="op">*</span> x[p] <span class="cf">for</span> p <span class="kw">in</span> P]) <span class="op">&lt;=</span> stock[m]</span>
+<span id="cb16-289"><a href="#cb16-289"></a></span>
+<span id="cb16-290"><a href="#cb16-290"></a>problem <span class="op">+=</span> pulp.lpSum([gain[p] <span class="op">*</span> x[p] <span class="cf">for</span> p <span class="kw">in</span> P])</span>
+<span id="cb16-291"><a href="#cb16-291"></a></span>
+<span id="cb16-292"><a href="#cb16-292"></a>status <span class="op">=</span> problem.solve()</span>
+<span id="cb16-293"><a href="#cb16-293"></a><span class="bu">print</span>(<span class="ss">f"Status: </span><span class="sc">{</span>pulp<span class="sc">.</span>LpStatus[status]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-294"><a href="#cb16-294"></a><span class="cf">for</span> p <span class="kw">in</span> P:</span>
+<span id="cb16-295"><a href="#cb16-295"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x[p]<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-296"><a href="#cb16-296"></a></span>
+<span id="cb16-297"><a href="#cb16-297"></a><span class="bu">print</span>(<span class="ss">f"Objective: </span><span class="sc">{</span>problem<span class="sc">.</span>objective<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-298"><a href="#cb16-298"></a><span class="in">```</span></span>
+<span id="cb16-299"><a href="#cb16-299"></a></span>
+<span id="cb16-300"><a href="#cb16-300"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-
 
 
 
