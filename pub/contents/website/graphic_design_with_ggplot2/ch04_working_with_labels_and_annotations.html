@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.515">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -84,7 +84,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -110,9 +116,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
@@ -124,230 +130,230 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../index.html">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/base/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/base/working.html">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/sf/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html">
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/pydantic/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/pydantic/index.html">
  <span class="dropdown-text">pydantic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/pandera/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/pandera/index.html">
  <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
  <span class="dropdown-text">My Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
  <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R2/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
  <span class="dropdown-text">R2</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch04_working_with_labels_and_annotations.html">Working with Labels and Annotations</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch04_working_with_labels_and_annotations.html">Working with Labels and Annotations</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -357,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -590,7 +596,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -614,14 +620,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch04_working_with_labels_and_annotations.html">Working with Labels and Annotations</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Working with Labels and Annotations</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -635,17 +641,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
+
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-1_82f55bf56d00460c79098fcd97b9f114">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
 <span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/website/graphic_design_with_ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-2_38880c756c00bf6e280036841bcd5923">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb2-2"><a href="#cb2-2"></a>  <span class="st">"tidyverse"</span>, </span>
@@ -698,7 +706,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="setup" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-3_8fdf5caf288d1a7afe42e9bd34c175fe">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>bikes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="fu">here</span>(cur_dir, <span class="st">"ggplot2-course-data/london-bikes-custom.csv"</span>), </span>
@@ -737,7 +745,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="labels-theme" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Labels + theme</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-4_3cd199def30efadfd1b373183da80dc9">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
@@ -760,7 +768,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-19"><a href="#cb4-19"></a><span class="fu">plot</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -769,7 +777,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>上記のグラフをカスタマイズする.</p>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-5_c5574d7fe71f08e49ccfed552eaf5a87">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>g <span class="sc">+</span> </span>
 <span id="cb5-2"><a href="#cb5-2"></a>    <span class="fu">theme</span>(</span>
@@ -796,7 +804,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-23"><a href="#cb5-23"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -807,7 +815,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="labels-scale" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Labels + scale</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-6_5a7976c9fdf2aa2f6a4422146ec938fe">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>g <span class="ot">&lt;-</span> </span>
 <span id="cb6-2"><a href="#cb6-2"></a>    g <span class="sc">+</span> </span>
@@ -832,7 +840,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-21"><a href="#cb6-21"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -840,7 +848,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-7_79c03ebc12d6bb4ddd94f11f646e7941">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>g <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">scale_y_continuous</span>(</span>
@@ -850,7 +858,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-6"><a href="#cb7-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -858,7 +866,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-8_07727dbf8d76f08508b8e683f68428bc">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb8-2"><a href="#cb8-2"></a>    bikes,</span>
@@ -871,7 +879,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-9"><a href="#cb8-9"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -883,7 +891,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="4"><span class="header-section-number">4</span> Labels + element_markdown</h1>
 <p><code>ggtext</code>パッケージを使うことで対応することができる.</p>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-9_6f985e0ecbeb3ade0315f79239cf53ce">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># install.packages("ggtext")</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a></span>
@@ -894,7 +902,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-7"><a href="#cb9-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -902,7 +910,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-10_71410d5245e08919fd7e3dbc53dc3eac">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># install.packages("ggtext")</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a></span>
@@ -913,7 +921,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-7"><a href="#cb10-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -924,7 +932,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="labels-facet" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Labels + facet</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-11_110582311cb0700fd592ebfab760642a">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>codes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb11-2"><a href="#cb11-2"></a>  <span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Workday"</span>,</span>
@@ -943,7 +951,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-15"><a href="#cb11-15"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -954,7 +962,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="handling-long-labels" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Handling Long Labels</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-12_7ac6dfe1fc74a409ca7bdc303e2aba23">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb12-2"><a href="#cb12-2"></a>    bikes,</span>
@@ -964,7 +972,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -973,7 +981,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>タイトルを調整することも可能です.</p>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-13_0a3287f371f706aeb7b4280fe1f024d7">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>g <span class="sc">+</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">ggtitle</span>(<span class="st">"TfL bike sharing trends in 2015 and 2016 by season for day and night periods"</span>) <span class="sc">+</span></span>
@@ -992,7 +1000,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-15"><a href="#cb13-15"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1003,7 +1011,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="annotations-with-annotate" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Annotations with annotate</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-14_a5f2a965edd170f96fef9ce6e5767890">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(humidity, temp)) <span class="sc">+</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
@@ -1018,7 +1026,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-11"><a href="#cb14-11"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1026,7 +1034,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-15_c502341dddd943d35a9f9838beb154aa">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a></span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(humidity, temp)) <span class="sc">+</span></span>
@@ -1041,7 +1049,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-11"><a href="#cb15-11"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"grey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1049,7 +1057,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-16_0f1ba1ccaf58cf00335f59bae7ca1a1b">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(humidity, temp)) <span class="sc">+</span></span>
@@ -1077,7 +1085,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-24"><a href="#cb16-24"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1088,7 +1096,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="annotations-with-geom" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> Annotations with geom</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-17_0d701e66524bce7cfd7d40d06caf7555">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb17-2"><a href="#cb17-2"></a>    <span class="fu">filter</span>(bikes, temp <span class="sc">&gt;=</span> <span class="dv">27</span>),</span>
@@ -1106,7 +1114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-14"><a href="#cb17-14"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1114,7 +1122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-18_76a701869ab00d290a65579fd0ffda3e">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a></span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="fu">ggplot</span>(</span>
@@ -1136,7 +1144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-18"><a href="#cb18-18"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1144,7 +1152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-19_6d798faef7c06b9c880bd7ee967c3694">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb19-2"><a href="#cb19-2"></a>    <span class="fu">filter</span>(bikes, temp <span class="sc">&gt;=</span> <span class="dv">27</span>),</span>
@@ -1172,7 +1180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-24"><a href="#cb19-24"></a>  <span class="fu">xlim</span>(<span class="dv">25</span>, <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1180,7 +1188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-20_f222d9d992f04a8956782e34a38026c8">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb20-2"><a href="#cb20-2"></a>    <span class="fu">filter</span>(bikes, temp <span class="sc">&gt;</span> <span class="dv">20</span> <span class="sc">&amp;</span> season <span class="sc">!=</span> <span class="st">"summer"</span>),</span>
@@ -1201,7 +1209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-17"><a href="#cb20-17"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1209,7 +1217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-21_a9cf3da1f91f94a85a6ea8ea5aefc37d">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb21-2"><a href="#cb21-2"></a>    <span class="fu">filter</span>(bikes, temp <span class="sc">&gt;</span> <span class="dv">20</span> <span class="sc">&amp;</span> season <span class="sc">!=</span> <span class="st">"summer"</span>),</span>
@@ -1237,7 +1245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-24"><a href="#cb21-24"></a>  <span class="fu">ylim</span>(<span class="cn">NA</span>, <span class="dv">35</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1245,7 +1253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-22_fd97b6eb18ddf9024856e1def7784f37">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb22-2"><a href="#cb22-2"></a>    bikes,</span>
@@ -1265,7 +1273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-16"><a href="#cb22-16"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1276,7 +1284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="adding-images" class="level1" data-number="9">
 <h1 data-number="9"><span class="header-section-number">9</span> Adding Images</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-23_f82b60f34b3976ef8f4edf22799e6a30">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://d33wubrfki0l68.cloudfront.net/dbb07b06a7b3fe056db386fef0b158cc2fd33cb9/8b491/assets/img/2022conf/logo-rstudio-conf.png"</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>img <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_read</span>(url)</span>
@@ -1285,7 +1293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-5"><a href="#cb23-5"></a>img</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="292"></a></p>
 </figure>
@@ -1293,7 +1301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-24_e47d41ac021a2a44fed7791797071d29">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">ggplot</span>(bikes, <span class="fu">aes</span>(date, temp_feel)) <span class="sc">+</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">annotation_custom</span>(</span>
@@ -1311,7 +1319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-14"><a href="#cb24-14"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1326,7 +1334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercise-2" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Exercise 2</h1>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-25_01a848685fd59870ab690460df14935f">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a></span>
 <span id="cb25-2"><a href="#cb25-2"></a>g <span class="ot">&lt;-</span> </span>
@@ -1396,7 +1404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-66"><a href="#cb25-66"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1405,7 +1413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>上記に、テキストボックスを追加する。と思ったけどどうすればいいのかがよくわからない・・・・</p>
 <div class="cell" data-hash="ch04_working_with_labels_and_annotations_cache/html/unnamed-chunk-26_531ca484df845ddd07de3ae1b0cd7e62">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>codes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb26-2"><a href="#cb26-2"></a>    <span class="st">"Adelie"</span> <span class="ot">=</span> <span class="st">"&lt;span style='font-size:20px'&gt;&lt;b&gt;P.adelie&lt;/b&gt;&lt;/span&gt;&lt;br&gt;(Adelie penguin)"</span>, </span>
@@ -1441,7 +1449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb26-32"><a href="#cb26-32"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="ch04_working_with_labels_and_annotations_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1585,10 +1593,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1598,8 +1605,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1612,6 +1628,135 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1655,6 +1800,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1680,6 +1826,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1741,12 +1913,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../contents/website/graphic_design_with_ggplot2/ch03_data_communication.html" class="pagination-link">
+      <a href="../../../contents/website/graphic_design_with_ggplot2/ch03_data_communication.html" class="pagination-link  aria-label=" data="" communication"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Data Communication</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../contents/website/graphic_design_with_ggplot2/ch06_working_with_colors.html" class="pagination-link">
+      <a href="../../../contents/website/graphic_design_with_ggplot2/ch06_working_with_colors.html" class="pagination-link" aria-label="Working with Colors">
         <span class="nav-page-text">Working with Colors</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -2411,7 +2583,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom"});</script>
+
 
 
 

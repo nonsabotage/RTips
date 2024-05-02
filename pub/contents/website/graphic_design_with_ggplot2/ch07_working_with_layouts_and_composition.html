@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.515">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,9 +115,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
@@ -123,230 +129,230 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../index.html">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/base/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/base/working.html">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/sf/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html">
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/pydantic/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/pydantic/index.html">
  <span class="dropdown-text">pydantic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/pandera/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/pandera/index.html">
  <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
  <span class="dropdown-text">My Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
  <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R2/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
  <span class="dropdown-text">R2</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch07_working_with_layouts_and_composition.html">Working with Layouts and Composition</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch07_working_with_layouts_and_composition.html">Working with Layouts and Composition</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -356,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -589,7 +595,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -613,14 +619,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/index.html">Graphic Design with ggplot2</a></li><li class="breadcrumb-item"><a href="../../../contents/website/graphic_design_with_ggplot2/ch07_working_with_layouts_and_composition.html">Working with Layouts and Composition</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Working with Layouts and Composition</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -634,17 +640,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
+
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-1_e21b738ef135defaa1b634d9c2c769d8">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
 <span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/website/graphic_design_with_ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-2_d2c376c6d3d092dc1c294b0fcd6cac57">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb2-2"><a href="#cb2-2"></a>  <span class="st">"tidyverse"</span>, </span>
@@ -698,7 +706,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="setup" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-3_337e7333818f2d25d92abac813e8dd7b">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>bikes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="fu">here</span>(cur_dir, <span class="st">"ggplot2-course-data/london-bikes-custom.csv"</span>), </span>
@@ -747,7 +755,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="discrete" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="discrete"><span class="header-section-number">2.1</span> discrete</h2>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-4_77dbca884ddddee4468672bddc530f44">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#3c89d9"</span>, <span class="st">"#1ec99b"</span>, <span class="st">"#F7B01B"</span>, <span class="st">"#a26e7c"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
@@ -760,7 +768,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -771,7 +779,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="continuous" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="continuous"><span class="header-section-number">2.2</span> Continuous</h2>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-5_2c85c570a684c736e45395775b99ae74">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    bikes,</span>
@@ -786,7 +794,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-11"><a href="#cb5-11"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -794,7 +802,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-6_17434a606b7df8bf6d118ce7a8f6e2a7">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb6-2"><a href="#cb6-2"></a>    bikes,</span>
@@ -811,7 +819,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-13"><a href="#cb6-13"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -820,7 +828,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>次は凡例を離散的に表現しているが、 プロットの色自体は色分けされていないことに注意する。</p>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-7_894ef7942e7a7f85f27f0f56ee4147e0">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb7-2"><a href="#cb7-2"></a>    bikes,</span>
@@ -837,7 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-13"><a href="#cb7-13"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -846,7 +854,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>次はプロットの色自体も離散的にしている。つまり、<code>viridis_b</code>を使っている。</p>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-8_3f9d7db19c86ffd206be21b95c5fd4f8">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>bikes <span class="sc">|&gt;</span> </span>
 <span id="cb8-2"><a href="#cb8-2"></a>    <span class="fu">ggplot</span>(</span>
@@ -862,7 +870,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-12"><a href="#cb8-12"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -871,7 +879,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>細かく凡例を調整したいときには次のように<code>guide_colorsteps</code>を使う。</p>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-9_9d472d2b09de10d29c838e08d43f5ba8">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb9-2"><a href="#cb9-2"></a>    bikes,</span>
@@ -898,7 +906,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-23"><a href="#cb9-23"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -906,7 +914,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-10_ff79e52b449fa859bb92f0071eb357c2">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb10-2"><a href="#cb10-2"></a>    bikes,</span>
@@ -930,7 +938,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-20"><a href="#cb10-20"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -941,7 +949,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="key-glyphs" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="key-glyphs"><span class="header-section-number">2.3</span> Key Glyphs</h2>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-11_0a6b4673338c284f334617ffae11622f">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb11-2"><a href="#cb11-2"></a>    bikes,</span>
@@ -965,7 +973,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-20"><a href="#cb11-20"></a><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -973,7 +981,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-12_e3bb9395b9df40b102d04babbf0e2b1c">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb12-2"><a href="#cb12-2"></a>    bikes,</span>
@@ -996,7 +1004,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-19"><a href="#cb12-19"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1010,7 +1018,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="patchwork" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="patchwork"><span class="header-section-number">3.1</span> patchwork</h2>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-13_d566985692a0667f1ebc531a4ca03aa6">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>theme_std <span class="ot">&lt;-</span> <span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">18</span>, <span class="at">base_family =</span> <span class="st">"Noto Sans"</span>))</span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="fu">theme_update</span>(</span>
@@ -1117,7 +1125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-103"><a href="#cb13-103"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1125,12 +1133,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-14_30fbd7ac459ad751fc679c485d02ac96">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1138,12 +1146,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-15_5db1d2e8e2fcfa3ba24e94c430a9b911">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>((p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">legend.justification =</span> <span class="st">"top"</span>)) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1151,14 +1159,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-16_3a46565b19bafcb2892ad29d3958c26c">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>))</span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="co">#&gt; Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.</span></span>
 <span id="cb16-3"><a href="#cb16-3"></a><span class="co">#&gt; ℹ Please use the `linewidth` argument instead.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1166,14 +1174,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-17_33eb5fe8845bd464ef9a7fe57c300932">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a></span>
 <span id="cb17-2"><a href="#cb17-2"></a>((p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)) <span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">1</span>), <span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1181,7 +1189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-18_f310f9472ae34f90a27f76d93f647e27">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>picasso <span class="ot">&lt;-</span> <span class="st">"</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="st">AAAAAA#BBBB</span></span>
@@ -1190,7 +1198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-5"><a href="#cb18-5"></a>(p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">design =</span> picasso)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1198,7 +1206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-20_0e9515b0278461af49176287d4d04175">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>theme_std <span class="ot">&lt;-</span> <span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">18</span>, <span class="at">base_family =</span> <span class="st">"Noto Sans"</span>))</span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="fu">theme_update</span>(</span>
@@ -1303,7 +1311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-101"><a href="#cb19-101"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1311,12 +1319,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-21_8e9e5023dded391d785f62ad128e1517">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1324,12 +1332,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-22_8db8f1eadd706cbbb8e98012b916a920">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>((p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">legend.justification =</span> <span class="st">"top"</span>)) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1337,12 +1345,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-23_3f25da020bf38c5d72c465f734d3c3c4">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1350,14 +1358,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-24_df5dbc595a8ffc967b86cc2db2d4a87e">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a></span>
 <span id="cb23-2"><a href="#cb23-2"></a>((p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)) <span class="sc">+</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">1</span>), <span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1365,7 +1373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-25_175469ddca50ef2751cc9c46fd94c641">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>picasso <span class="ot">&lt;-</span> <span class="st">"</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a><span class="st">AAAAAA#BBBB</span></span>
@@ -1374,7 +1382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-5"><a href="#cb24-5"></a>(p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">design =</span> picasso)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1382,7 +1390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-26_1c5709923cce63ab8253723f389ee318">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a></span>
 <span id="cb25-2"><a href="#cb25-2"></a>text <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -1401,7 +1409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-15"><a href="#cb25-15"></a>pt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1409,12 +1417,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-27_f20f1991f6c93e9f6005d416bbb7ebe1">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>(p1 <span class="sc">+</span> pt) <span class="sc">/</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-27-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1422,12 +1430,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-28_2bd6ca04ff5184f404824f04c4c41a84">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>p1 <span class="sc">+</span> <span class="fu">inset_element</span>(p2, <span class="at">l =</span> .<span class="dv">6</span>, <span class="at">b =</span> .<span class="dv">1</span>, <span class="at">r =</span> <span class="dv">1</span>, <span class="at">t =</span> .<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-28-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1435,12 +1443,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-hash="ch07_working_with_layouts_and_composition_cache/html/unnamed-chunk-29_5a191d582051b267eff68c59bc8d197f">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>(p1 <span class="sc">+</span> <span class="fu">inset_element</span>(p2, <span class="at">l =</span> .<span class="dv">6</span>, <span class="at">b =</span> .<span class="dv">1</span>, <span class="at">r =</span> <span class="dv">1</span>, <span class="at">t =</span> .<span class="dv">6</span>) <span class="sc">+</span> pt) <span class="sc">/</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
 <p><a href="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-29-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="ch07_working_with_layouts_and_composition_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
@@ -1585,10 +1593,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1598,8 +1605,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1612,6 +1628,135 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1655,6 +1800,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1680,6 +1826,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1741,7 +1913,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../contents/website/graphic_design_with_ggplot2/ch06_working_with_colors.html" class="pagination-link">
+      <a href="../../../contents/website/graphic_design_with_ggplot2/ch06_working_with_colors.html" class="pagination-link  aria-label=" working="" with="" colors"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Working with Colors</span>
       </a>          
   </div>
@@ -2355,7 +2527,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":true,"openEffect":"zoom","descPosition":"bottom","selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":false,"selector":".lightbox"});</script>
+
 
 
 
