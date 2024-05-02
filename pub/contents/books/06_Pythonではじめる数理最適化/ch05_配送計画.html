@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips - 配送計画</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/books/06_Pythonではじめる数理最適化/ch04_クーポン.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
+ <span class="dropdown-text">My Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">Pythonではじめる数理最適化 2nd</a></li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/ch05_配送計画.html">配送計画</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Rによる実証分析2e</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch01_回帰分析の目的.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 回帰分析の目的</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch02_統計の基礎知識.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 統計の基礎知識</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch03_確率論の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 確率論の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch04_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch05_推測統計の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 推測統計の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch06_相関関係と因果関係.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 相関関係と因果関係</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch07_外生変数と内生変数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 内生変数と外生変数</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch08_ランダム化実験.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch08 ランダム化実験</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch09_マッチング法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch09 マッチング法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch10_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch10 回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch11_操作変数法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch11 操作変数法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch12_パネルデータ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch12 パネルデータ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">因果推論ミックステープ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch01_導入.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 導入</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch02_確率と回帰の概要.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 確率と回帰の概要</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch03_非巡回的有向グラフ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 非巡回的有向グラフ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch04_潜在アウトカム因果モデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 潜在アウトカム因果モデル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch05_マッチングと層別化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 マッチングと層別化</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch06_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch07_操作変数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 操作変数</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch08_パネルデータ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch08 パネルデータ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch09_差分の差デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch09 差分の差デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch10_合成コントロール法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch10 合成コントロール</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch11_結論.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch11 結論</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch01_本書の狙い.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 本書のねらい</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch02_プログラミングの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 プログラミングの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch03_乱数生成シミュレーションの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 乱数生成シミュレーションの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch04_母数の推定のシミュレーション.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 母数の推定</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch05_統計検定の論理とエラー確率のコントロール - コピー (2).html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 統計検定の論理</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch06_適切な検定のためのサンプルサイズ設計.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 サンプルサイズ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch07_回帰分析とシミュレーション.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 回帰分析</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">統計的因果推論の理論と実際</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/101_統計的因果推論の基礎の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">基礎の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/102_潜在的結果変数の枠組み.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">潜在的結果変数の枠組み</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/103_統計的因果推論における重要な仮定.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">重要な仮定</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/104_推測統計の基礎：標準誤差と信頼区間.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">標準誤差と信頼区間</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/105_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/106_図で理解する重回帰モデルの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">重回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/107_最小二乗法による重回帰モデルの仮定と診断1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">最小二乗法の仮定と診断1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/108_最小二乗法による重回帰モデルの仮定と診断2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">最小二乗法の仮定と診断2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/109_交互作用項のある共分散分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交互作用項のある共分散分析</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/110_傾向スコア.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコア</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/111_傾向スコアマッチング.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコアマッチング</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/112_傾向スコアによる層化解析法および重み付き法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコアによる層化解析法および重み付き法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/113_操作変数法の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">操作変数法の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/114_操作変数法による非遵守への対処.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">操作変数の非遵守への対処</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/115_回帰不連続デザインの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/119_欠測データ処理の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">欠損データ処理</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Pythonではじめる数理最適化 2nd</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch02_チュートリアル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">数理最適化チュートリアル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch03_学校のクラス編成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">学校のクラス編成</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch04_クーポン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">クーポン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch05_配送計画.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">配送計画</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  <li><a href="#課題整理" id="toc-課題整理" class="nav-link" data-scroll-target="#課題整理"><span class="header-section-number">2</span> 課題整理</a></li>
+  <li><a href="#素朴な数理モデリング" id="toc-素朴な数理モデリング" class="nav-link" data-scroll-target="#素朴な数理モデリング"><span class="header-section-number">3</span> 素朴な数理モデリング</a>
+  <ul class="collapse">
+  <li><a href="#混合整数計画への素朴なモデリング" id="toc-混合整数計画への素朴なモデリング" class="nav-link" data-scroll-target="#混合整数計画への素朴なモデリング"><span class="header-section-number">3.1</span> 混合整数計画への素朴なモデリング</a>
+  <ul class="collapse">
+  <li><a href="#集合と定数" id="toc-集合と定数" class="nav-link" data-scroll-target="#集合と定数"><span class="header-section-number">3.1.1</span> 集合と定数</a></li>
+  <li><a href="#決定変数と補助変数" id="toc-決定変数と補助変数" class="nav-link" data-scroll-target="#決定変数と補助変数"><span class="header-section-number">3.1.2</span> 決定変数と補助変数</a></li>
+  <li><a href="#制約式と目的関数" id="toc-制約式と目的関数" class="nav-link" data-scroll-target="#制約式と目的関数"><span class="header-section-number">3.1.3</span> 制約式と目的関数</a></li>
+  <li><a href="#サイクルとなる経路" id="toc-サイクルとなる経路" class="nav-link" data-scroll-target="#サイクルとなる経路"><span class="header-section-number">3.1.4</span> サイクルとなる経路</a></li>
+  <li><a href="#配送センターと通るサイクル" id="toc-配送センターと通るサイクル" class="nav-link" data-scroll-target="#配送センターと通るサイクル"><span class="header-section-number">3.1.5</span> 配送センターと通るサイクル</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#素朴なモデリングの実装と実験" id="toc-素朴なモデリングの実装と実験" class="nav-link" data-scroll-target="#素朴なモデリングの実装と実験"><span class="header-section-number">4</span> 素朴なモデリングの実装と実験</a></li>
+  <li><a href="#つづく" id="toc-つづく" class="nav-link" data-scroll-target="#つづく"><span class="header-section-number">5</span> つづく</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">Pythonではじめる数理最適化 2nd</a></li><li class="breadcrumb-item"><a href="../../../contents/books/06_Pythonではじめる数理最適化/ch05_配送計画.html">配送計画</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">配送計画</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">May 2, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<pre><code>#&gt; python:         C:/pyenv/py312/Scripts/python.exe
+#&gt; libpython:      C:/Program Files/Python312/python312.dll
+#&gt; pythonhome:     C:/pyenv/py312
+#&gt; version:        3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+#&gt; Architecture:   64bit
+#&gt; numpy:          C:/pyenv/py312/Lib/site-packages/numpy
+#&gt; numpy_version:  1.26.0
+#&gt; 
+#&gt; NOTE: Python version was forced by use_python() function</code></pre>
+</div>
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
+<p>1つの車両を用いた多期間の配送計画問題をアツアク。<code>混合整数計画問題(MIP)</code>としてモデリングして 解くことにより配送計画がエラ得ることを示す。</p>
+<p>技術的には次の３点が解説される</p>
+<ol type="1">
+<li>巡回セールスマン問題の混合整数計画問題へのモデリング</li>
+<li>数理モデルの表現力を高める補助変数の使い方</li>
+<li>配送パターンの列挙を利用した数理モデルの工夫による求解の効率化</li>
+</ol>
+</section>
+<section id="課題整理" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 課題整理</h1>
+<p>配送計画では配送車両と地点に関する要件が与えら得る。</p>
+<ul>
+<li>配送車両：トラック１台</li>
+<li>地点：配送拠点である配送センターが一箇所、配送先であるお店を複数もつ</li>
+<li>配送ルート：配送センターを出発し、いくつかのお店を訪問して、配送センターに戻ってくるまでの配送の順番をあらわしたもので、同じお店には２回以上訪問しない</li>
+</ul>
+<p>ここでは１ヶ月先までの各お店の発注量がわかるとして、曜日、ドライバーの勤務日数、お店の営業日を考慮したうえで、 角日の配送センターから地点の配送ルートを決めるものである。</p>
+<ul>
+<li>配送計画：２０日分の配送ルート、および各配送日にお店に配送する荷物が決定された表</li>
+</ul>
+<p>トラックの要件としては１度の最大積載容量がある。</p>
+<ul>
+<li>1日に配送できる荷物の重量は4,000kg以下とする</li>
+</ul>
+<p>ドライバーに関する要件として労働時間がある。</p>
+<ul>
+<li>ドライバーの所定労働時間は1日8時間とする</li>
+<li>ドライバーの所定労働時間を超えて配送業務をおこなう場合、1時間あたり3,000円の残業代が発生する</li>
+<li>ドライバーの1日の残業時間は3時間以下とする</li>
+</ul>
+<p>外部配送業者に関する要件として次がある。</p>
+<ul>
+<li>1kgあたり46円とする</li>
+</ul>
+<p>最適化の要件として経営者側の視点にたち、「残業費用」と「外注費用」の和を最少化することを目標とする。</p>
+</section>
+<section id="素朴な数理モデリング" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 素朴な数理モデリング</h1>
+<p>数理モデリングは次の５つの要素に分けて構築する。</p>
+<ol type="1">
+<li>集合</li>
+<li>定数</li>
+<li>変数</li>
+<li>制約式</li>
+<li>目的関数</li>
+</ol>
+<section id="混合整数計画への素朴なモデリング" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="混合整数計画への素朴なモデリング"><span class="header-section-number">3.1</span> 混合整数計画への素朴なモデリング</h2>
+<section id="集合と定数" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="集合と定数"><span class="header-section-number">3.1.1</span> 集合と定数</h3>
+<p>省略します</p>
+</section>
+<section id="決定変数と補助変数" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="決定変数と補助変数"><span class="header-section-number">3.1.2</span> 決定変数と補助変数</h3>
+<p>数理モデルに現れる変数のうち、独立した変数として定義するものを<code>決定変数</code>と呼ぶ。 決定変数に従属して値が決まる変数を<code>補助変数</code>と呼ぶ。</p>
+<p>ある日<span class="math inline">\(d\)</span>において地点<span class="math inline">\(k_1\)</span>から<span class="math inline">\(k_2\)</span>への移動の有無を表す決定変数を次のように定義する。</p>
+<p><span class="math display">\[
+x_{d,k_1, k_2}\in \{0, 1\}
+\]</span></p>
+<p>次に<span class="math inline">\(d\)</span>における<span class="math inline">\(k\)</span>に移動する順番を表す補助変数<span class="math inline">\(u_{d,k}\)</span>を定義する。<span class="math inline">\(\mathbb{Z}_{\ge 0}\)</span>は 0以上の整数の集合である。</p>
+<p><span class="math display">\[
+u_{d,k}\in \mathbb{Z}_{\ge 0}
+\]</span></p>
+<p>次に、配送日において荷物<span class="math inline">\(r\in R\)</span>を自社配送するかどうかを表す決定変数を定義する.</p>
+<p><span class="math display">\[
+y_{d,r}\in \{0,1\}
+\]</span></p>
+<p>最期に配送日の残業時間を表す補助変数を定義する。</p>
+<p><span class="math display">\[
+h_{d} \in \mathbb{R}_{\ge 0}
+\]</span></p>
+<p>補助変数は一見すると省略できるようにも見えるが現実の問題を解くことができるモデリングをする場合には必須のテクニックであるう。</p>
+<p>実務では非線形な問題を補助変数により線形問題に帰着させることがよくおこなわれる。</p>
+</section>
+<section id="制約式と目的関数" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="制約式と目的関数"><span class="header-section-number">3.1.3</span> 制約式と目的関数</h3>
+<p>省略</p>
+</section>
+<section id="サイクルとなる経路" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="サイクルとなる経路"><span class="header-section-number">3.1.4</span> サイクルとなる経路</h3>
+<p>２つ制約式を用いて、「経路がサイクルをつくる」ということを表すことができる。</p>
+<p>1つ目はある地点から他の地点への移動の合計は、ある地点への他の地点からの移動の合計と同じになる。</p>
+<p><span class="math display">\[
+\sum_{k_2\in K}x_{d,k_2, k_1} = \sum_{k_2 \in K}x_{d, k_1, k_2}
+\]</span></p>
+<p>もう一つは同じ地点に移動するのは1日に一度までという定義である。</p>
+<p><span class="math display">\[
+\sum_{k_2 \in K}x_{d, k_2, k_1}\le 1
+\]</span></p>
+</section>
+<section id="配送センターと通るサイクル" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="配送センターと通るサイクル"><span class="header-section-number">3.1.5</span> 配送センターと通るサイクル</h3>
+<p>サイクルのうち配送センターを通るものだけに絞るには次の３つの制約をいれる。</p>
+<p>まず、ある日に配送センター<span class="math inline">\(p\)</span>への移動順番は0である。</p>
+<p><span class="math display">\[
+\u_{d,p}=0
+\]</span></p>
+<p>次に値の上限を制約式として与えることで1番目から順番に番号を付けるようにする。</p>
+<p><span class="math display">\[
+1\le u_{d,s} \le |K|-1
+\]</span></p>
+<p>最期に角配送日においてお店間だけのサイクルを禁止する。<span class="math inline">\(s_1, s_2 \in S\)</span>であり、荷物の配送先を表す集合。 <span class="math inline">\(x_{d,s_1, s_2}=1\)</span>のときは<span class="math inline">\(u_{d, s_1}+1 \le u_{d, s_2}\)</span>となるうえで、 <span class="math inline">\(s_1\)</span>から<span class="math inline">\(s_2\)</span>への移動があるので、つまりは<span class="math inline">\(u_{d, s_1}\le u_{d, s_2}\)</span>という制約が生まれる。 これにより地点間でのサイクルは発生しないことになる。</p>
+<p><span class="math display">\[
+u_{d, s_1}+1 \le u_{d, s_2}+(|K|-1)(1-x_{d,s_1, s_2})
+\]</span></p>
+<p>その他の制約条件は題意から適当に設定することができる。</p>
+</section>
+</section>
+</section>
+<section id="素朴なモデリングの実装と実験" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 素朴なモデリングの実装と実験</h1>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> pulp</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>data_dir <span class="op">=</span> Path(<span class="st">"unshare"</span>, <span class="st">"PyOptBook"</span>, <span class="st">"5.routing_ver2"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>k_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_locations.csv"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>r_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_orders.csv"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>kk_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_distances.csv"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># 配送日</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>D <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(r_df.b.<span class="bu">min</span>(), r_df.e.<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co"># 配送センター</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>p <span class="op">=</span> k_df[k_df.depo_flag <span class="op">==</span> <span class="dv">1</span>].k.tolist()[<span class="dv">0</span>]</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># お店のリスト</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>S <span class="op">=</span> k_df[k_df.depo_flag <span class="op">==</span> <span class="dv">0</span>].k.tolist()</span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co"># 地点のリスト</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>K <span class="op">=</span> [p] <span class="op">+</span> S</span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co"># 荷物のリスト</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>R <span class="op">=</span> r_df.r.tolist()</span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co"># 各変数を定義するために必要なリスト</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>DKK <span class="op">=</span>[(d, k1, k2) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K]</span>
+<span id="cb2-28"><a href="#cb2-28"></a>DR <span class="op">=</span> [(d, r) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> r <span class="kw">in</span> R]</span>
+<span id="cb2-29"><a href="#cb2-29"></a>DK <span class="op">=</span> [(d, k) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> k <span class="kw">in</span> K]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>次に定数などを辞書形式で作成する。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># 荷物と紐付ける配送先のお店</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>R2S <span class="op">=</span> {row.r:row.s <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># 荷物に紐付ける重量</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>R2W <span class="op">=</span> {row.r:row.w <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># 荷物を紐付ける指定配送期間の開始日</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>R2B <span class="op">=</span> {row.r:row.b <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># 荷物を紐付ける指定配送期間の終了日</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>R2E <span class="op">=</span> {row.r:row.e <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co"># 地点間の移動時間</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>KK2T <span class="op">=</span> {(row.k1, row.k2): row.t <span class="cf">for</span> row <span class="kw">in</span> kk_df.itertuples()}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>素朴なモデリングの実装は次となる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>prob <span class="op">=</span> pulp.LpProblem(<span class="st">"vrp_small3"</span>, pulp.LpMinimize)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>x <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"x"</span>, DKK, cat <span class="op">=</span> <span class="st">"Binary"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>u <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"u"</span>, DK,  cat <span class="op">=</span> <span class="st">"Integer"</span>, lowBound <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>y <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"y"</span>, DR,  cat <span class="op">=</span> <span class="st">"Binary"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>h <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"h"</span>, D,   cat <span class="op">=</span> <span class="st">"Continuous"</span>, lowBound  <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="cf">for</span> k1 <span class="kw">in</span> K:</span>
+<span id="cb4-10"><a href="#cb4-10"></a>        prob <span class="op">+=</span> pulp.lpSum([x[(d, k1, k2)] <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">==</span> pulp.lpSum([x[(d, k2, k1)] <span class="cf">for</span> k2 <span class="kw">in</span> K])</span>
+<span id="cb4-11"><a href="#cb4-11"></a>        prob <span class="op">+=</span> pulp.lpSum([x[(d, k2, k1)] <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb4-15"><a href="#cb4-15"></a>    prob <span class="op">+=</span> u[(d, p)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="cf">for</span> s <span class="kw">in</span> S:</span>
+<span id="cb4-17"><a href="#cb4-17"></a>        prob <span class="op">+=</span> <span class="dv">1</span> <span class="op">&lt;=</span> u[(d,s)]</span>
+<span id="cb4-18"><a href="#cb4-18"></a>        prob <span class="op">+=</span> u[(d, s)] <span class="op">&lt;=</span> <span class="bu">len</span>(K) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="cf">for</span> s1 <span class="kw">in</span> S:</span>
+<span id="cb4-20"><a href="#cb4-20"></a>        <span class="cf">for</span> s2 <span class="kw">in</span> S:</span>
+<span id="cb4-21"><a href="#cb4-21"></a>            prob <span class="op">+=</span> u[(d, s1)] <span class="op">+</span> <span class="dv">1</span> <span class="op">&lt;=</span> u[(d, s2)] <span class="op">+</span> (<span class="bu">len</span>(K) <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x[(d, s1, s2)])</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb4-24"><a href="#cb4-24"></a>    prob <span class="op">+=</span> pulp.lpSum([y[(d, r)] <span class="cf">for</span> d <span class="kw">in</span> D]) <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co"># 荷物を自社配送するなら配送刃先のお店に訪問</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb4-28"><a href="#cb4-28"></a>    <span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb4-29"><a href="#cb4-29"></a>        tar_s <span class="op">=</span> R2S[r]</span>
+<span id="cb4-30"><a href="#cb4-30"></a>        prob <span class="op">+=</span> y[(d, r)] <span class="op">&lt;=</span> pulp.lpSum([x[(d, k, tar_s)]<span class="cf">for</span> k <span class="kw">in</span> K])</span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="co"># 各配送日について荷物の重量は4,000kg以下</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb4-34"><a href="#cb4-34"></a>    prob <span class="op">+=</span> pulp.lpSum([y[(d, r)] <span class="op">*</span> R2W[r] <span class="cf">for</span> r <span class="kw">in</span> R]) <span class="op">&lt;=</span> <span class="dv">4000</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="co"># 各配送日についてドライバーの残業時間は所定労働時間の8時間を差し引いた労働時間</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb4-38"><a href="#cb4-38"></a>    prob <span class="op">+=</span> pulp.lpSum([KK2T[(k1, k2)] <span class="op">*</span> x[(d, k1, k2)] <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">-</span> <span class="dv">8</span> <span class="op">&lt;=</span> h[d]</span>
+<span id="cb4-39"><a href="#cb4-39"></a></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb4-41"><a href="#cb4-41"></a>    prob <span class="op">+=</span> h[d] <span class="op">&lt;=</span> <span class="dv">3</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="co"># 荷物は指定配送期間外の配送を禁止</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb4-45"><a href="#cb4-45"></a>    <span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb4-46"><a href="#cb4-46"></a>        <span class="cf">if</span> d <span class="op">&lt;</span> R2B[r]:</span>
+<span id="cb4-47"><a href="#cb4-47"></a>            prob <span class="op">+=</span> y[(d, r)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a>        <span class="cf">if</span> R2E[r] <span class="op">&lt;</span> d:</span>
+<span id="cb4-49"><a href="#cb4-49"></a>            prob <span class="op">+=</span> y[(d, r)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a></span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="co"># 配送費用を最少化</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a>zangyo <span class="op">=</span> pulp.lpSum([<span class="dv">3000</span> <span class="op">*</span> h[d] <span class="cf">for</span> d <span class="kw">in</span> D])</span>
+<span id="cb4-53"><a href="#cb4-53"></a>gaityu <span class="op">=</span> pulp.lpSum([<span class="dv">46</span> <span class="op">*</span> R2W[r] <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> pulp.lpSum([y[(d, r)] <span class="cf">for</span> d <span class="kw">in</span> D])) <span class="cf">for</span> r <span class="kw">in</span> R])</span>
+<span id="cb4-54"><a href="#cb4-54"></a>prob <span class="op">+=</span> zangyo <span class="op">+</span> gaityu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>solver <span class="op">=</span> pulp.PULP_CBC_CMD()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>status <span class="op">=</span> prob.solve(solver)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="bu">print</span>(<span class="st">'ステータス:'</span>, pulp.LpStatus[status])</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; ステータス: Optimal</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co"># 結果の表示</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="bu">print</span>(<span class="ss">f"残業費用： </span><span class="sc">{</span>zangyo<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; 残業費用： 10249.22373</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="bu">print</span>(<span class="ss">f"外注費用： </span><span class="sc">{</span>gaityu<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; 外注費用： 69000.0</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="bu">print</span>(<span class="ss">f"費用合計： </span><span class="sc">{</span>zangyo<span class="sc">.</span>value() <span class="op">+</span> gaityu<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; 費用合計： 79249.22373</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>配送日ごとの配送ルートを確認するために、次のコードを実行する。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    X <span class="op">=</span> [(k1, k2) <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K <span class="cf">if</span> x[(d, k1, k2)].value() <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    time <span class="op">=</span> <span class="bu">sum</span>([KK2T[(k1, k2)] <span class="cf">for</span> k1, k2 <span class="kw">in</span> X])</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="bu">print</span>(<span class="st">"--- 配送日: </span><span class="sc">{}</span><span class="st">日目 ---"</span>.<span class="bu">format</span>(d))</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="bu">print</span>(<span class="st">"配送重量: </span><span class="sc">{}</span><span class="st">[kg]"</span>.<span class="bu">format</span>(<span class="bu">sum</span>([y[(d, r)].value() <span class="op">*</span> R2W[r] <span class="cf">for</span> r <span class="kw">in</span> R])))</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="bu">print</span>(<span class="st">"移動時間: </span><span class="sc">{}</span><span class="st">[h]"</span>.<span class="bu">format</span>(time))</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="bu">print</span>(<span class="st">"残業時間: </span><span class="sc">{}</span><span class="st">[h]"</span>.<span class="bu">format</span>(h[d].value))</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="bu">print</span>(<span class="st">"x:"</span>, X)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    tar <span class="op">=</span> p</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    Route <span class="op">=</span> [p]</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    <span class="cf">while</span> <span class="bu">len</span>(X) <span class="op">&gt;=</span> <span class="dv">1</span>:</span>
+<span id="cb6-12"><a href="#cb6-12"></a>        <span class="cf">for</span> k1, k2 <span class="kw">in</span> X:</span>
+<span id="cb6-13"><a href="#cb6-13"></a>            <span class="cf">if</span> k1 <span class="op">==</span> tar:</span>
+<span id="cb6-14"><a href="#cb6-14"></a>                tar <span class="op">=</span> k2</span>
+<span id="cb6-15"><a href="#cb6-15"></a>                Route.append(k2)</span>
+<span id="cb6-16"><a href="#cb6-16"></a>                X.remove((k1, k2))</span>
+<span id="cb6-17"><a href="#cb6-17"></a>    <span class="bu">print</span>(<span class="st">"u:"</span>, [u[(d, k)].value() <span class="cf">for</span> k <span class="kw">in</span> Route])</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    <span class="bu">print</span>(<span class="st">"配送ルート:"</span>, <span class="st">"-&gt;"</span>.join(Route))</span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt; --- 配送日: 1日目 ---</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt; 配送重量: 2000.0[kg]</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt; 移動時間: 6.82842712474619[h]</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; 残業時間: &lt;bound method LpVariable.value of h_1&gt;[h]</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt; x: [('p', 's2'), ('s1', 'p'), ('s2', 's1')]</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; u: [0.0, 1.0, 4.0, 0.0]</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; 配送ルート: p-&gt;s2-&gt;s1-&gt;p</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt; --- 配送日: 2日目 ---</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt; 配送重量: 2500.0[kg]</span></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt; 移動時間: 10.47213595499958[h]</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt; 残業時間: &lt;bound method LpVariable.value of h_2&gt;[h]</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt; x: [('p', 's3'), ('s3', 's4'), ('s4', 'p')]</span></span>
+<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; u: [0.0, 1.0, 4.0, 0.0]</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; 配送ルート: p-&gt;s3-&gt;s4-&gt;p</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a><span class="co">#&gt; --- 配送日: 3日目 ---</span></span>
+<span id="cb6-34"><a href="#cb6-34"></a><span class="co">#&gt; 配送重量: 3000.0[kg]</span></span>
+<span id="cb6-35"><a href="#cb6-35"></a><span class="co">#&gt; 移動時間: 6.82842712474619[h]</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a><span class="co">#&gt; 残業時間: &lt;bound method LpVariable.value of h_3&gt;[h]</span></span>
+<span id="cb6-37"><a href="#cb6-37"></a><span class="co">#&gt; x: [('p', 's2'), ('s1', 'p'), ('s2', 's1')]</span></span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="co">#&gt; u: [0.0, 1.0, 4.0, 0.0]</span></span>
+<span id="cb6-39"><a href="#cb6-39"></a><span class="co">#&gt; 配送ルート: p-&gt;s2-&gt;s1-&gt;p</span></span>
+<span id="cb6-40"><a href="#cb6-40"></a><span class="co">#&gt; --- 配送日: 4日目 ---</span></span>
+<span id="cb6-41"><a href="#cb6-41"></a><span class="co">#&gt; 配送重量: 3000.0[kg]</span></span>
+<span id="cb6-42"><a href="#cb6-42"></a><span class="co">#&gt; 移動時間: 8.94427190999916[h]</span></span>
+<span id="cb6-43"><a href="#cb6-43"></a><span class="co">#&gt; 残業時間: &lt;bound method LpVariable.value of h_4&gt;[h]</span></span>
+<span id="cb6-44"><a href="#cb6-44"></a><span class="co">#&gt; x: [('p', 's4'), ('s4', 'p')]</span></span>
+<span id="cb6-45"><a href="#cb6-45"></a><span class="co">#&gt; u: [0.0, 4.0, 0.0]</span></span>
+<span id="cb6-46"><a href="#cb6-46"></a><span class="co">#&gt; 配送ルート: p-&gt;s4-&gt;p</span></span>
+<span id="cb6-47"><a href="#cb6-47"></a></span>
+<span id="cb6-48"><a href="#cb6-48"></a></span>
+<span id="cb6-49"><a href="#cb6-49"></a><span class="bu">print</span>(<span class="dv">1</span>)</span>
+<span id="cb6-50"><a href="#cb6-50"></a><span class="co">#&gt; 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>配送計画を確認する。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    owned_flag <span class="op">=</span> <span class="bu">sum</span>(y[(d, r)].value() <span class="cf">for</span> d <span class="kw">in</span> D)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="cf">if</span> owned_flag:</span>
+<span id="cb7-4"><a href="#cb7-4"></a>        tar_d <span class="op">=</span> [d <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">if</span> y[(d, r)].value() <span class="op">==</span> <span class="dv">1</span>][<span class="dv">0</span>]</span>
+<span id="cb7-5"><a href="#cb7-5"></a>        text <span class="op">=</span> <span class="st">'荷物</span><span class="sc">{}</span><span class="st">(お店</span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">[kg])-配送日:</span><span class="sc">{}</span><span class="st">日目'</span>.<span class="bu">format</span>(r, R2S[r], R2W[r], tar_d)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="cf">else</span>: </span>
+<span id="cb7-7"><a href="#cb7-7"></a>        gaityu <span class="op">=</span> <span class="dv">46</span> <span class="op">*</span> R2W[r]</span>
+<span id="cb7-8"><a href="#cb7-8"></a>        text <span class="op">=</span> <span class="st">'荷物</span><span class="sc">{}</span><span class="st">(お店</span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">[kg])-外注費:</span><span class="sc">{}</span><span class="st">[円]'</span>.<span class="bu">format</span>(r, R2S[r], R2W[r], gaityu)</span>
+<span id="cb7-9"><a href="#cb7-9"></a>    <span class="bu">print</span>(text)</span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; 荷物r1(お店s1, 1000[kg])-配送日:1日目</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; 荷物r2(お店s2, 1000[kg])-配送日:1日目</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; 荷物r3(お店s3, 1000[kg])-配送日:2日目</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt; 荷物r4(お店s4, 1500[kg])-配送日:2日目</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; 荷物r5(お店s1, 1500[kg])-配送日:3日目</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; 荷物r6(お店s2, 1500[kg])-配送日:3日目</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; 荷物r7(お店s3, 1500[kg])-外注費:69000[円]</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; 荷物r8(お店s4, 3000[kg])-配送日:4日目</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a></span>
+<span id="cb7-19"><a href="#cb7-19"></a></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="bu">print</span>(<span class="dv">1</span>)</span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="つづく" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> つづく</h1>
+<p>このあとに事前に配送パターンを列挙して高速化を図る実装が紹介されているが、 少し疲れたのでここでは省略する。</p>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch04_クーポン.html" class="pagination-link  aria-label=" クーポン"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">クーポン</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">---</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="an">title:</span><span class="co"> "配送計画"</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="an">execute:</span><span class="co">  </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">    cache: true</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="an">filters:</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">    - lightbox</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">---</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="in">```{r}</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#| label: activate renv</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#| echo: false</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#| warning: false</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#| message: false</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="in">```</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="in">```{r}</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#| label: change direcory</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="co">#| echo: false</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a><span class="co">#| warning: false</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a><span class="co">#| message: false</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents"</span>, <span class="st">"books"</span>, <span class="st">"06_Pythonではじめる数理最適化"</span>)</span>
+<span id="cb8-29"><a href="#cb8-29"></a><span class="fu">setwd</span>(cur_dir)</span>
+<span id="cb8-30"><a href="#cb8-30"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
+<span id="cb8-31"><a href="#cb8-31"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans JP"</span>)</span>
+<span id="cb8-32"><a href="#cb8-32"></a><span class="in">```</span></span>
+<span id="cb8-33"><a href="#cb8-33"></a></span>
+<span id="cb8-34"><a href="#cb8-34"></a></span>
+<span id="cb8-37"><a href="#cb8-37"></a><span class="in">```{r}</span></span>
+<span id="cb8-38"><a href="#cb8-38"></a><span class="co">#| label: activate python</span></span>
+<span id="cb8-39"><a href="#cb8-39"></a><span class="co">#| echo: false</span></span>
+<span id="cb8-40"><a href="#cb8-40"></a><span class="co">#| warning: false</span></span>
+<span id="cb8-41"><a href="#cb8-41"></a><span class="co">#| message: false</span></span>
+<span id="cb8-42"><a href="#cb8-42"></a></span>
+<span id="cb8-43"><a href="#cb8-43"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb8-44"><a href="#cb8-44"></a><span class="fu">use_virtualenv</span>(<span class="st">"c:/pyenv/py312"</span>)</span>
+<span id="cb8-45"><a href="#cb8-45"></a><span class="fu">Sys.setenv</span>(<span class="at">TCL_LIBRARY=</span><span class="st">"C:/Program Files/Python312/tcl/tcl8.6"</span>)</span>
+<span id="cb8-46"><a href="#cb8-46"></a>reticulate<span class="sc">::</span><span class="fu">py_config</span>()</span>
+<span id="cb8-47"><a href="#cb8-47"></a><span class="in">```</span></span>
+<span id="cb8-48"><a href="#cb8-48"></a></span>
+<span id="cb8-49"><a href="#cb8-49"></a></span>
+<span id="cb8-50"><a href="#cb8-50"></a><span class="fu"># はじめに</span></span>
+<span id="cb8-51"><a href="#cb8-51"></a></span>
+<span id="cb8-52"><a href="#cb8-52"></a></span>
+<span id="cb8-53"><a href="#cb8-53"></a>1つの車両を用いた多期間の配送計画問題をアツアク。<span class="in">`混合整数計画問題(MIP)`</span>としてモデリングして</span>
+<span id="cb8-54"><a href="#cb8-54"></a>解くことにより配送計画がエラ得ることを示す。</span>
+<span id="cb8-55"><a href="#cb8-55"></a></span>
+<span id="cb8-56"><a href="#cb8-56"></a>技術的には次の３点が解説される</span>
+<span id="cb8-57"><a href="#cb8-57"></a></span>
+<span id="cb8-58"><a href="#cb8-58"></a><span class="ss">1. </span>巡回セールスマン問題の混合整数計画問題へのモデリング</span>
+<span id="cb8-59"><a href="#cb8-59"></a><span class="ss">2. </span>数理モデルの表現力を高める補助変数の使い方</span>
+<span id="cb8-60"><a href="#cb8-60"></a><span class="ss">3. </span>配送パターンの列挙を利用した数理モデルの工夫による求解の効率化</span>
+<span id="cb8-61"><a href="#cb8-61"></a></span>
+<span id="cb8-62"><a href="#cb8-62"></a><span class="fu"># 課題整理</span></span>
+<span id="cb8-63"><a href="#cb8-63"></a></span>
+<span id="cb8-64"><a href="#cb8-64"></a>配送計画では配送車両と地点に関する要件が与えら得る。</span>
+<span id="cb8-65"><a href="#cb8-65"></a></span>
+<span id="cb8-66"><a href="#cb8-66"></a><span class="ss">- </span>配送車両：トラック１台</span>
+<span id="cb8-67"><a href="#cb8-67"></a><span class="ss">- </span>地点：配送拠点である配送センターが一箇所、配送先であるお店を複数もつ</span>
+<span id="cb8-68"><a href="#cb8-68"></a><span class="ss">- </span>配送ルート：配送センターを出発し、いくつかのお店を訪問して、配送センターに戻ってくるまでの配送の順番をあらわしたもので、同じお店には２回以上訪問しない</span>
+<span id="cb8-69"><a href="#cb8-69"></a></span>
+<span id="cb8-70"><a href="#cb8-70"></a>ここでは１ヶ月先までの各お店の発注量がわかるとして、曜日、ドライバーの勤務日数、お店の営業日を考慮したうえで、</span>
+<span id="cb8-71"><a href="#cb8-71"></a>角日の配送センターから地点の配送ルートを決めるものである。</span>
+<span id="cb8-72"><a href="#cb8-72"></a></span>
+<span id="cb8-73"><a href="#cb8-73"></a><span class="ss">- </span>配送計画：２０日分の配送ルート、および各配送日にお店に配送する荷物が決定された表</span>
+<span id="cb8-74"><a href="#cb8-74"></a></span>
+<span id="cb8-75"><a href="#cb8-75"></a>トラックの要件としては１度の最大積載容量がある。</span>
+<span id="cb8-76"><a href="#cb8-76"></a></span>
+<span id="cb8-77"><a href="#cb8-77"></a><span class="ss">- </span>1日に配送できる荷物の重量は4,000kg以下とする</span>
+<span id="cb8-78"><a href="#cb8-78"></a></span>
+<span id="cb8-79"><a href="#cb8-79"></a>ドライバーに関する要件として労働時間がある。</span>
+<span id="cb8-80"><a href="#cb8-80"></a></span>
+<span id="cb8-81"><a href="#cb8-81"></a><span class="ss">- </span>ドライバーの所定労働時間は1日8時間とする</span>
+<span id="cb8-82"><a href="#cb8-82"></a><span class="ss">- </span>ドライバーの所定労働時間を超えて配送業務をおこなう場合、1時間あたり3,000円の残業代が発生する</span>
+<span id="cb8-83"><a href="#cb8-83"></a><span class="ss">- </span>ドライバーの1日の残業時間は3時間以下とする</span>
+<span id="cb8-84"><a href="#cb8-84"></a></span>
+<span id="cb8-85"><a href="#cb8-85"></a>外部配送業者に関する要件として次がある。</span>
+<span id="cb8-86"><a href="#cb8-86"></a></span>
+<span id="cb8-87"><a href="#cb8-87"></a><span class="ss">- </span>1kgあたり46円とする</span>
+<span id="cb8-88"><a href="#cb8-88"></a></span>
+<span id="cb8-89"><a href="#cb8-89"></a>最適化の要件として経営者側の視点にたち、「残業費用」と「外注費用」の和を最少化することを目標とする。</span>
+<span id="cb8-90"><a href="#cb8-90"></a></span>
+<span id="cb8-91"><a href="#cb8-91"></a></span>
+<span id="cb8-92"><a href="#cb8-92"></a><span class="fu"># 素朴な数理モデリング</span></span>
+<span id="cb8-93"><a href="#cb8-93"></a></span>
+<span id="cb8-94"><a href="#cb8-94"></a></span>
+<span id="cb8-95"><a href="#cb8-95"></a>数理モデリングは次の５つの要素に分けて構築する。</span>
+<span id="cb8-96"><a href="#cb8-96"></a></span>
+<span id="cb8-97"><a href="#cb8-97"></a><span class="ss">1. </span>集合</span>
+<span id="cb8-98"><a href="#cb8-98"></a><span class="ss">2. </span>定数</span>
+<span id="cb8-99"><a href="#cb8-99"></a><span class="ss">3. </span>変数</span>
+<span id="cb8-100"><a href="#cb8-100"></a><span class="ss">4. </span>制約式</span>
+<span id="cb8-101"><a href="#cb8-101"></a><span class="ss">5. </span>目的関数</span>
+<span id="cb8-102"><a href="#cb8-102"></a></span>
+<span id="cb8-103"><a href="#cb8-103"></a><span class="fu">## 混合整数計画への素朴なモデリング</span></span>
+<span id="cb8-104"><a href="#cb8-104"></a></span>
+<span id="cb8-105"><a href="#cb8-105"></a></span>
+<span id="cb8-106"><a href="#cb8-106"></a><span class="fu">### 集合と定数</span></span>
+<span id="cb8-107"><a href="#cb8-107"></a></span>
+<span id="cb8-108"><a href="#cb8-108"></a>省略します</span>
+<span id="cb8-109"><a href="#cb8-109"></a></span>
+<span id="cb8-110"><a href="#cb8-110"></a><span class="fu">### 決定変数と補助変数</span></span>
+<span id="cb8-111"><a href="#cb8-111"></a></span>
+<span id="cb8-112"><a href="#cb8-112"></a>数理モデルに現れる変数のうち、独立した変数として定義するものを<span class="in">`決定変数`</span>と呼ぶ。</span>
+<span id="cb8-113"><a href="#cb8-113"></a>決定変数に従属して値が決まる変数を<span class="in">`補助変数`</span>と呼ぶ。</span>
+<span id="cb8-114"><a href="#cb8-114"></a></span>
+<span id="cb8-115"><a href="#cb8-115"></a>ある日$d$において地点$k_1$から$k_2$への移動の有無を表す決定変数を次のように定義する。</span>
+<span id="cb8-116"><a href="#cb8-116"></a></span>
+<span id="cb8-117"><a href="#cb8-117"></a>$$</span>
+<span id="cb8-118"><a href="#cb8-118"></a>x_{d,k_1, k_2}\in <span class="sc">\{</span>0, 1<span class="sc">\}</span></span>
+<span id="cb8-119"><a href="#cb8-119"></a>$$</span>
+<span id="cb8-120"><a href="#cb8-120"></a></span>
+<span id="cb8-121"><a href="#cb8-121"></a>次に$d$における$k$に移動する順番を表す補助変数$u_{d,k}$を定義する。$\mathbb{Z}_{\ge 0}$は</span>
+<span id="cb8-122"><a href="#cb8-122"></a>0以上の整数の集合である。</span>
+<span id="cb8-123"><a href="#cb8-123"></a></span>
+<span id="cb8-124"><a href="#cb8-124"></a>$$</span>
+<span id="cb8-125"><a href="#cb8-125"></a>u_{d,k}\in \mathbb{Z}_{\ge 0}</span>
+<span id="cb8-126"><a href="#cb8-126"></a>$$</span>
+<span id="cb8-127"><a href="#cb8-127"></a></span>
+<span id="cb8-128"><a href="#cb8-128"></a></span>
+<span id="cb8-129"><a href="#cb8-129"></a></span>
+<span id="cb8-130"><a href="#cb8-130"></a>次に、配送日において荷物$r\in R$を自社配送するかどうかを表す決定変数を定義する.</span>
+<span id="cb8-131"><a href="#cb8-131"></a></span>
+<span id="cb8-132"><a href="#cb8-132"></a>$$</span>
+<span id="cb8-133"><a href="#cb8-133"></a>y_{d,r}\in <span class="sc">\{</span>0,1<span class="sc">\}</span></span>
+<span id="cb8-134"><a href="#cb8-134"></a>$$</span>
+<span id="cb8-135"><a href="#cb8-135"></a></span>
+<span id="cb8-136"><a href="#cb8-136"></a>最期に配送日の残業時間を表す補助変数を定義する。</span>
+<span id="cb8-137"><a href="#cb8-137"></a></span>
+<span id="cb8-138"><a href="#cb8-138"></a>$$</span>
+<span id="cb8-139"><a href="#cb8-139"></a>h_{d} \in \mathbb{R}_{\ge 0}</span>
+<span id="cb8-140"><a href="#cb8-140"></a>$$</span>
+<span id="cb8-141"><a href="#cb8-141"></a></span>
+<span id="cb8-142"><a href="#cb8-142"></a></span>
+<span id="cb8-143"><a href="#cb8-143"></a>補助変数は一見すると省略できるようにも見えるが現実の問題を解くことができるモデリングをする場合には必須のテクニックであるう。</span>
+<span id="cb8-144"><a href="#cb8-144"></a></span>
+<span id="cb8-145"><a href="#cb8-145"></a>実務では非線形な問題を補助変数により線形問題に帰着させることがよくおこなわれる。</span>
+<span id="cb8-146"><a href="#cb8-146"></a></span>
+<span id="cb8-147"><a href="#cb8-147"></a></span>
+<span id="cb8-148"><a href="#cb8-148"></a></span>
+<span id="cb8-149"><a href="#cb8-149"></a><span class="fu">### 制約式と目的関数</span></span>
+<span id="cb8-150"><a href="#cb8-150"></a></span>
+<span id="cb8-151"><a href="#cb8-151"></a>省略</span>
+<span id="cb8-152"><a href="#cb8-152"></a></span>
+<span id="cb8-153"><a href="#cb8-153"></a><span class="fu">### サイクルとなる経路</span></span>
+<span id="cb8-154"><a href="#cb8-154"></a></span>
+<span id="cb8-155"><a href="#cb8-155"></a></span>
+<span id="cb8-156"><a href="#cb8-156"></a>２つ制約式を用いて、「経路がサイクルをつくる」ということを表すことができる。</span>
+<span id="cb8-157"><a href="#cb8-157"></a></span>
+<span id="cb8-158"><a href="#cb8-158"></a>1つ目はある地点から他の地点への移動の合計は、ある地点への他の地点からの移動の合計と同じになる。</span>
+<span id="cb8-159"><a href="#cb8-159"></a></span>
+<span id="cb8-160"><a href="#cb8-160"></a>$$</span>
+<span id="cb8-161"><a href="#cb8-161"></a>\sum_{k_2\in K}x_{d,k_2, k_1} = \sum_{k_2 \in K}x_{d, k_1, k_2}</span>
+<span id="cb8-162"><a href="#cb8-162"></a>$$</span>
+<span id="cb8-163"><a href="#cb8-163"></a></span>
+<span id="cb8-164"><a href="#cb8-164"></a></span>
+<span id="cb8-165"><a href="#cb8-165"></a>もう一つは同じ地点に移動するのは1日に一度までという定義である。</span>
+<span id="cb8-166"><a href="#cb8-166"></a></span>
+<span id="cb8-167"><a href="#cb8-167"></a>$$</span>
+<span id="cb8-168"><a href="#cb8-168"></a>\sum_{k_2 \in K}x_{d, k_2, k_1}\le 1</span>
+<span id="cb8-169"><a href="#cb8-169"></a>$$</span>
+<span id="cb8-170"><a href="#cb8-170"></a></span>
+<span id="cb8-171"><a href="#cb8-171"></a></span>
+<span id="cb8-172"><a href="#cb8-172"></a></span>
+<span id="cb8-173"><a href="#cb8-173"></a><span class="fu">### 配送センターと通るサイクル</span></span>
+<span id="cb8-174"><a href="#cb8-174"></a></span>
+<span id="cb8-175"><a href="#cb8-175"></a>サイクルのうち配送センターを通るものだけに絞るには次の３つの制約をいれる。</span>
+<span id="cb8-176"><a href="#cb8-176"></a></span>
+<span id="cb8-177"><a href="#cb8-177"></a></span>
+<span id="cb8-178"><a href="#cb8-178"></a>まず、ある日に配送センター$p$への移動順番は0である。</span>
+<span id="cb8-179"><a href="#cb8-179"></a></span>
+<span id="cb8-180"><a href="#cb8-180"></a>$$</span>
+<span id="cb8-181"><a href="#cb8-181"></a>\u_{d,p}=0</span>
+<span id="cb8-182"><a href="#cb8-182"></a>$$</span>
+<span id="cb8-183"><a href="#cb8-183"></a></span>
+<span id="cb8-184"><a href="#cb8-184"></a>次に値の上限を制約式として与えることで1番目から順番に番号を付けるようにする。</span>
+<span id="cb8-185"><a href="#cb8-185"></a></span>
+<span id="cb8-186"><a href="#cb8-186"></a>$$</span>
+<span id="cb8-187"><a href="#cb8-187"></a>1\le u_{d,s} \le |K|-1</span>
+<span id="cb8-188"><a href="#cb8-188"></a>$$</span>
+<span id="cb8-189"><a href="#cb8-189"></a></span>
+<span id="cb8-190"><a href="#cb8-190"></a>最期に角配送日においてお店間だけのサイクルを禁止する。$s_1, s_2 \in S$であり、荷物の配送先を表す集合。</span>
+<span id="cb8-191"><a href="#cb8-191"></a>$x_{d,s_1, s_2}=1$のときは$u_{d, s_1}+1 \le u_{d, s_2}$となるうえで、</span>
+<span id="cb8-192"><a href="#cb8-192"></a>$s_1$から$s_2$への移動があるので、つまりは$u_{d, s_1}\le u_{d, s_2}$という制約が生まれる。</span>
+<span id="cb8-193"><a href="#cb8-193"></a>これにより地点間でのサイクルは発生しないことになる。</span>
+<span id="cb8-194"><a href="#cb8-194"></a></span>
+<span id="cb8-195"><a href="#cb8-195"></a>$$</span>
+<span id="cb8-196"><a href="#cb8-196"></a>u_{d, s_1}+1 \le u_{d, s_2}+(|K|-1)(1-x_{d,s_1, s_2})</span>
+<span id="cb8-197"><a href="#cb8-197"></a>$$</span>
+<span id="cb8-198"><a href="#cb8-198"></a></span>
+<span id="cb8-199"><a href="#cb8-199"></a></span>
+<span id="cb8-200"><a href="#cb8-200"></a>その他の制約条件は題意から適当に設定することができる。</span>
+<span id="cb8-201"><a href="#cb8-201"></a></span>
+<span id="cb8-202"><a href="#cb8-202"></a></span>
+<span id="cb8-203"><a href="#cb8-203"></a></span>
+<span id="cb8-204"><a href="#cb8-204"></a><span class="fu"># 素朴なモデリングの実装と実験</span></span>
+<span id="cb8-205"><a href="#cb8-205"></a></span>
+<span id="cb8-208"><a href="#cb8-208"></a><span class="in">```{python}</span></span>
+<span id="cb8-209"><a href="#cb8-209"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-210"><a href="#cb8-210"></a><span class="im">import</span> pulp</span>
+<span id="cb8-211"><a href="#cb8-211"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb8-212"><a href="#cb8-212"></a></span>
+<span id="cb8-213"><a href="#cb8-213"></a>data_dir <span class="op">=</span> Path(<span class="st">"unshare"</span>, <span class="st">"PyOptBook"</span>, <span class="st">"5.routing_ver2"</span>)</span>
+<span id="cb8-214"><a href="#cb8-214"></a></span>
+<span id="cb8-215"><a href="#cb8-215"></a>k_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_locations.csv"</span>)</span>
+<span id="cb8-216"><a href="#cb8-216"></a>r_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_orders.csv"</span>)</span>
+<span id="cb8-217"><a href="#cb8-217"></a>kk_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_distances.csv"</span>)</span>
+<span id="cb8-218"><a href="#cb8-218"></a></span>
+<span id="cb8-219"><a href="#cb8-219"></a><span class="co"># 配送日</span></span>
+<span id="cb8-220"><a href="#cb8-220"></a>D <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(r_df.b.<span class="bu">min</span>(), r_df.e.<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb8-221"><a href="#cb8-221"></a></span>
+<span id="cb8-222"><a href="#cb8-222"></a><span class="co"># 配送センター</span></span>
+<span id="cb8-223"><a href="#cb8-223"></a>p <span class="op">=</span> k_df[k_df.depo_flag <span class="op">==</span> <span class="dv">1</span>].k.tolist()[<span class="dv">0</span>]</span>
+<span id="cb8-224"><a href="#cb8-224"></a></span>
+<span id="cb8-225"><a href="#cb8-225"></a><span class="co"># お店のリスト</span></span>
+<span id="cb8-226"><a href="#cb8-226"></a>S <span class="op">=</span> k_df[k_df.depo_flag <span class="op">==</span> <span class="dv">0</span>].k.tolist()</span>
+<span id="cb8-227"><a href="#cb8-227"></a></span>
+<span id="cb8-228"><a href="#cb8-228"></a><span class="co"># 地点のリスト</span></span>
+<span id="cb8-229"><a href="#cb8-229"></a>K <span class="op">=</span> [p] <span class="op">+</span> S</span>
+<span id="cb8-230"><a href="#cb8-230"></a></span>
+<span id="cb8-231"><a href="#cb8-231"></a><span class="co"># 荷物のリスト</span></span>
+<span id="cb8-232"><a href="#cb8-232"></a>R <span class="op">=</span> r_df.r.tolist()</span>
+<span id="cb8-233"><a href="#cb8-233"></a></span>
+<span id="cb8-234"><a href="#cb8-234"></a><span class="co"># 各変数を定義するために必要なリスト</span></span>
+<span id="cb8-235"><a href="#cb8-235"></a>DKK <span class="op">=</span>[(d, k1, k2) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K]</span>
+<span id="cb8-236"><a href="#cb8-236"></a>DR <span class="op">=</span> [(d, r) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> r <span class="kw">in</span> R]</span>
+<span id="cb8-237"><a href="#cb8-237"></a>DK <span class="op">=</span> [(d, k) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> k <span class="kw">in</span> K]</span>
+<span id="cb8-238"><a href="#cb8-238"></a></span>
+<span id="cb8-239"><a href="#cb8-239"></a></span>
+<span id="cb8-240"><a href="#cb8-240"></a><span class="in">```</span></span>
+<span id="cb8-241"><a href="#cb8-241"></a></span>
+<span id="cb8-242"><a href="#cb8-242"></a></span>
+<span id="cb8-243"><a href="#cb8-243"></a>次に定数などを辞書形式で作成する。</span>
+<span id="cb8-244"><a href="#cb8-244"></a></span>
+<span id="cb8-247"><a href="#cb8-247"></a><span class="in">```{python}</span></span>
+<span id="cb8-248"><a href="#cb8-248"></a><span class="co"># 荷物と紐付ける配送先のお店</span></span>
+<span id="cb8-249"><a href="#cb8-249"></a>R2S <span class="op">=</span> {row.r:row.s <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb8-250"><a href="#cb8-250"></a></span>
+<span id="cb8-251"><a href="#cb8-251"></a><span class="co"># 荷物に紐付ける重量</span></span>
+<span id="cb8-252"><a href="#cb8-252"></a>R2W <span class="op">=</span> {row.r:row.w <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb8-253"><a href="#cb8-253"></a></span>
+<span id="cb8-254"><a href="#cb8-254"></a><span class="co"># 荷物を紐付ける指定配送期間の開始日</span></span>
+<span id="cb8-255"><a href="#cb8-255"></a>R2B <span class="op">=</span> {row.r:row.b <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb8-256"><a href="#cb8-256"></a></span>
+<span id="cb8-257"><a href="#cb8-257"></a><span class="co"># 荷物を紐付ける指定配送期間の終了日</span></span>
+<span id="cb8-258"><a href="#cb8-258"></a>R2E <span class="op">=</span> {row.r:row.e <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb8-259"><a href="#cb8-259"></a></span>
+<span id="cb8-260"><a href="#cb8-260"></a><span class="co"># 地点間の移動時間</span></span>
+<span id="cb8-261"><a href="#cb8-261"></a>KK2T <span class="op">=</span> {(row.k1, row.k2): row.t <span class="cf">for</span> row <span class="kw">in</span> kk_df.itertuples()}</span>
+<span id="cb8-262"><a href="#cb8-262"></a></span>
+<span id="cb8-263"><a href="#cb8-263"></a></span>
+<span id="cb8-264"><a href="#cb8-264"></a><span class="in">```</span></span>
+<span id="cb8-265"><a href="#cb8-265"></a></span>
+<span id="cb8-266"><a href="#cb8-266"></a></span>
+<span id="cb8-267"><a href="#cb8-267"></a>素朴なモデリングの実装は次となる。</span>
+<span id="cb8-268"><a href="#cb8-268"></a></span>
+<span id="cb8-271"><a href="#cb8-271"></a><span class="in">```{python}</span></span>
+<span id="cb8-272"><a href="#cb8-272"></a>prob <span class="op">=</span> pulp.LpProblem(<span class="st">"vrp_small3"</span>, pulp.LpMinimize)</span>
+<span id="cb8-273"><a href="#cb8-273"></a></span>
+<span id="cb8-274"><a href="#cb8-274"></a>x <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"x"</span>, DKK, cat <span class="op">=</span> <span class="st">"Binary"</span>)</span>
+<span id="cb8-275"><a href="#cb8-275"></a>u <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"u"</span>, DK,  cat <span class="op">=</span> <span class="st">"Integer"</span>, lowBound <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb8-276"><a href="#cb8-276"></a>y <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"y"</span>, DR,  cat <span class="op">=</span> <span class="st">"Binary"</span>)</span>
+<span id="cb8-277"><a href="#cb8-277"></a>h <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"h"</span>, D,   cat <span class="op">=</span> <span class="st">"Continuous"</span>, lowBound  <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb8-278"><a href="#cb8-278"></a></span>
+<span id="cb8-279"><a href="#cb8-279"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-280"><a href="#cb8-280"></a>    <span class="cf">for</span> k1 <span class="kw">in</span> K:</span>
+<span id="cb8-281"><a href="#cb8-281"></a>        prob <span class="op">+=</span> pulp.lpSum([x[(d, k1, k2)] <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">==</span> pulp.lpSum([x[(d, k2, k1)] <span class="cf">for</span> k2 <span class="kw">in</span> K])</span>
+<span id="cb8-282"><a href="#cb8-282"></a>        prob <span class="op">+=</span> pulp.lpSum([x[(d, k2, k1)] <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb8-283"><a href="#cb8-283"></a></span>
+<span id="cb8-284"><a href="#cb8-284"></a></span>
+<span id="cb8-285"><a href="#cb8-285"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-286"><a href="#cb8-286"></a>    prob <span class="op">+=</span> u[(d, p)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb8-287"><a href="#cb8-287"></a>    <span class="cf">for</span> s <span class="kw">in</span> S:</span>
+<span id="cb8-288"><a href="#cb8-288"></a>        prob <span class="op">+=</span> <span class="dv">1</span> <span class="op">&lt;=</span> u[(d,s)]</span>
+<span id="cb8-289"><a href="#cb8-289"></a>        prob <span class="op">+=</span> u[(d, s)] <span class="op">&lt;=</span> <span class="bu">len</span>(K) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb8-290"><a href="#cb8-290"></a>    <span class="cf">for</span> s1 <span class="kw">in</span> S:</span>
+<span id="cb8-291"><a href="#cb8-291"></a>        <span class="cf">for</span> s2 <span class="kw">in</span> S:</span>
+<span id="cb8-292"><a href="#cb8-292"></a>            prob <span class="op">+=</span> u[(d, s1)] <span class="op">+</span> <span class="dv">1</span> <span class="op">&lt;=</span> u[(d, s2)] <span class="op">+</span> (<span class="bu">len</span>(K) <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x[(d, s1, s2)])</span>
+<span id="cb8-293"><a href="#cb8-293"></a></span>
+<span id="cb8-294"><a href="#cb8-294"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb8-295"><a href="#cb8-295"></a>    prob <span class="op">+=</span> pulp.lpSum([y[(d, r)] <span class="cf">for</span> d <span class="kw">in</span> D]) <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb8-296"><a href="#cb8-296"></a></span>
+<span id="cb8-297"><a href="#cb8-297"></a><span class="co"># 荷物を自社配送するなら配送刃先のお店に訪問</span></span>
+<span id="cb8-298"><a href="#cb8-298"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-299"><a href="#cb8-299"></a>    <span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb8-300"><a href="#cb8-300"></a>        tar_s <span class="op">=</span> R2S[r]</span>
+<span id="cb8-301"><a href="#cb8-301"></a>        prob <span class="op">+=</span> y[(d, r)] <span class="op">&lt;=</span> pulp.lpSum([x[(d, k, tar_s)]<span class="cf">for</span> k <span class="kw">in</span> K])</span>
+<span id="cb8-302"><a href="#cb8-302"></a></span>
+<span id="cb8-303"><a href="#cb8-303"></a><span class="co"># 各配送日について荷物の重量は4,000kg以下</span></span>
+<span id="cb8-304"><a href="#cb8-304"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-305"><a href="#cb8-305"></a>    prob <span class="op">+=</span> pulp.lpSum([y[(d, r)] <span class="op">*</span> R2W[r] <span class="cf">for</span> r <span class="kw">in</span> R]) <span class="op">&lt;=</span> <span class="dv">4000</span></span>
+<span id="cb8-306"><a href="#cb8-306"></a></span>
+<span id="cb8-307"><a href="#cb8-307"></a><span class="co"># 各配送日についてドライバーの残業時間は所定労働時間の8時間を差し引いた労働時間</span></span>
+<span id="cb8-308"><a href="#cb8-308"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-309"><a href="#cb8-309"></a>    prob <span class="op">+=</span> pulp.lpSum([KK2T[(k1, k2)] <span class="op">*</span> x[(d, k1, k2)] <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">-</span> <span class="dv">8</span> <span class="op">&lt;=</span> h[d]</span>
+<span id="cb8-310"><a href="#cb8-310"></a></span>
+<span id="cb8-311"><a href="#cb8-311"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-312"><a href="#cb8-312"></a>    prob <span class="op">+=</span> h[d] <span class="op">&lt;=</span> <span class="dv">3</span></span>
+<span id="cb8-313"><a href="#cb8-313"></a></span>
+<span id="cb8-314"><a href="#cb8-314"></a><span class="co"># 荷物は指定配送期間外の配送を禁止</span></span>
+<span id="cb8-315"><a href="#cb8-315"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb8-316"><a href="#cb8-316"></a>    <span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-317"><a href="#cb8-317"></a>        <span class="cf">if</span> d <span class="op">&lt;</span> R2B[r]:</span>
+<span id="cb8-318"><a href="#cb8-318"></a>            prob <span class="op">+=</span> y[(d, r)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb8-319"><a href="#cb8-319"></a>        <span class="cf">if</span> R2E[r] <span class="op">&lt;</span> d:</span>
+<span id="cb8-320"><a href="#cb8-320"></a>            prob <span class="op">+=</span> y[(d, r)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb8-321"><a href="#cb8-321"></a></span>
+<span id="cb8-322"><a href="#cb8-322"></a><span class="co"># 配送費用を最少化</span></span>
+<span id="cb8-323"><a href="#cb8-323"></a>zangyo <span class="op">=</span> pulp.lpSum([<span class="dv">3000</span> <span class="op">*</span> h[d] <span class="cf">for</span> d <span class="kw">in</span> D])</span>
+<span id="cb8-324"><a href="#cb8-324"></a>gaityu <span class="op">=</span> pulp.lpSum([<span class="dv">46</span> <span class="op">*</span> R2W[r] <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> pulp.lpSum([y[(d, r)] <span class="cf">for</span> d <span class="kw">in</span> D])) <span class="cf">for</span> r <span class="kw">in</span> R])</span>
+<span id="cb8-325"><a href="#cb8-325"></a>prob <span class="op">+=</span> zangyo <span class="op">+</span> gaityu</span>
+<span id="cb8-326"><a href="#cb8-326"></a><span class="in">```</span></span>
+<span id="cb8-327"><a href="#cb8-327"></a></span>
+<span id="cb8-328"><a href="#cb8-328"></a></span>
+<span id="cb8-331"><a href="#cb8-331"></a><span class="in">```{python}</span></span>
+<span id="cb8-332"><a href="#cb8-332"></a>solver <span class="op">=</span> pulp.PULP_CBC_CMD()</span>
+<span id="cb8-333"><a href="#cb8-333"></a>status <span class="op">=</span> prob.solve(solver)</span>
+<span id="cb8-334"><a href="#cb8-334"></a><span class="bu">print</span>(<span class="st">'ステータス:'</span>, pulp.LpStatus[status])</span>
+<span id="cb8-335"><a href="#cb8-335"></a></span>
+<span id="cb8-336"><a href="#cb8-336"></a><span class="co"># 結果の表示</span></span>
+<span id="cb8-337"><a href="#cb8-337"></a><span class="bu">print</span>(<span class="ss">f"残業費用： </span><span class="sc">{</span>zangyo<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-338"><a href="#cb8-338"></a><span class="bu">print</span>(<span class="ss">f"外注費用： </span><span class="sc">{</span>gaityu<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-339"><a href="#cb8-339"></a><span class="bu">print</span>(<span class="ss">f"費用合計： </span><span class="sc">{</span>zangyo<span class="sc">.</span>value() <span class="op">+</span> gaityu<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-340"><a href="#cb8-340"></a><span class="in">```</span></span>
+<span id="cb8-341"><a href="#cb8-341"></a></span>
+<span id="cb8-342"><a href="#cb8-342"></a>配送日ごとの配送ルートを確認するために、次のコードを実行する。</span>
+<span id="cb8-343"><a href="#cb8-343"></a></span>
+<span id="cb8-346"><a href="#cb8-346"></a><span class="in">```{python}</span></span>
+<span id="cb8-347"><a href="#cb8-347"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-348"><a href="#cb8-348"></a>    X <span class="op">=</span> [(k1, k2) <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K <span class="cf">if</span> x[(d, k1, k2)].value() <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb8-349"><a href="#cb8-349"></a>    time <span class="op">=</span> <span class="bu">sum</span>([KK2T[(k1, k2)] <span class="cf">for</span> k1, k2 <span class="kw">in</span> X])</span>
+<span id="cb8-350"><a href="#cb8-350"></a>    <span class="bu">print</span>(<span class="st">"--- 配送日: </span><span class="sc">{}</span><span class="st">日目 ---"</span>.<span class="bu">format</span>(d))</span>
+<span id="cb8-351"><a href="#cb8-351"></a>    <span class="bu">print</span>(<span class="st">"配送重量: </span><span class="sc">{}</span><span class="st">[kg]"</span>.<span class="bu">format</span>(<span class="bu">sum</span>([y[(d, r)].value() <span class="op">*</span> R2W[r] <span class="cf">for</span> r <span class="kw">in</span> R])))</span>
+<span id="cb8-352"><a href="#cb8-352"></a>    <span class="bu">print</span>(<span class="st">"移動時間: </span><span class="sc">{}</span><span class="st">[h]"</span>.<span class="bu">format</span>(time))</span>
+<span id="cb8-353"><a href="#cb8-353"></a>    <span class="bu">print</span>(<span class="st">"残業時間: </span><span class="sc">{}</span><span class="st">[h]"</span>.<span class="bu">format</span>(h[d].value))</span>
+<span id="cb8-354"><a href="#cb8-354"></a>    <span class="bu">print</span>(<span class="st">"x:"</span>, X)</span>
+<span id="cb8-355"><a href="#cb8-355"></a>    tar <span class="op">=</span> p</span>
+<span id="cb8-356"><a href="#cb8-356"></a>    Route <span class="op">=</span> [p]</span>
+<span id="cb8-357"><a href="#cb8-357"></a>    <span class="cf">while</span> <span class="bu">len</span>(X) <span class="op">&gt;=</span> <span class="dv">1</span>:</span>
+<span id="cb8-358"><a href="#cb8-358"></a>        <span class="cf">for</span> k1, k2 <span class="kw">in</span> X:</span>
+<span id="cb8-359"><a href="#cb8-359"></a>            <span class="cf">if</span> k1 <span class="op">==</span> tar:</span>
+<span id="cb8-360"><a href="#cb8-360"></a>                tar <span class="op">=</span> k2</span>
+<span id="cb8-361"><a href="#cb8-361"></a>                Route.append(k2)</span>
+<span id="cb8-362"><a href="#cb8-362"></a>                X.remove((k1, k2))</span>
+<span id="cb8-363"><a href="#cb8-363"></a>    <span class="bu">print</span>(<span class="st">"u:"</span>, [u[(d, k)].value() <span class="cf">for</span> k <span class="kw">in</span> Route])</span>
+<span id="cb8-364"><a href="#cb8-364"></a>    <span class="bu">print</span>(<span class="st">"配送ルート:"</span>, <span class="st">"-&gt;"</span>.join(Route))</span>
+<span id="cb8-365"><a href="#cb8-365"></a></span>
+<span id="cb8-366"><a href="#cb8-366"></a></span>
+<span id="cb8-367"><a href="#cb8-367"></a><span class="bu">print</span>(<span class="dv">1</span>)</span>
+<span id="cb8-368"><a href="#cb8-368"></a><span class="in">```</span></span>
+<span id="cb8-369"><a href="#cb8-369"></a></span>
+<span id="cb8-370"><a href="#cb8-370"></a></span>
+<span id="cb8-371"><a href="#cb8-371"></a>配送計画を確認する。</span>
+<span id="cb8-372"><a href="#cb8-372"></a></span>
+<span id="cb8-373"><a href="#cb8-373"></a></span>
+<span id="cb8-376"><a href="#cb8-376"></a><span class="in">```{python}</span></span>
+<span id="cb8-377"><a href="#cb8-377"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb8-378"><a href="#cb8-378"></a>    owned_flag <span class="op">=</span> <span class="bu">sum</span>(y[(d, r)].value() <span class="cf">for</span> d <span class="kw">in</span> D)</span>
+<span id="cb8-379"><a href="#cb8-379"></a>    <span class="cf">if</span> owned_flag:</span>
+<span id="cb8-380"><a href="#cb8-380"></a>        tar_d <span class="op">=</span> [d <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">if</span> y[(d, r)].value() <span class="op">==</span> <span class="dv">1</span>][<span class="dv">0</span>]</span>
+<span id="cb8-381"><a href="#cb8-381"></a>        text <span class="op">=</span> <span class="st">'荷物</span><span class="sc">{}</span><span class="st">(お店</span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">[kg])-配送日:</span><span class="sc">{}</span><span class="st">日目'</span>.<span class="bu">format</span>(r, R2S[r], R2W[r], tar_d)</span>
+<span id="cb8-382"><a href="#cb8-382"></a>    <span class="cf">else</span>: </span>
+<span id="cb8-383"><a href="#cb8-383"></a>        gaityu <span class="op">=</span> <span class="dv">46</span> <span class="op">*</span> R2W[r]</span>
+<span id="cb8-384"><a href="#cb8-384"></a>        text <span class="op">=</span> <span class="st">'荷物</span><span class="sc">{}</span><span class="st">(お店</span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">[kg])-外注費:</span><span class="sc">{}</span><span class="st">[円]'</span>.<span class="bu">format</span>(r, R2S[r], R2W[r], gaityu)</span>
+<span id="cb8-385"><a href="#cb8-385"></a>    <span class="bu">print</span>(text)</span>
+<span id="cb8-386"><a href="#cb8-386"></a></span>
+<span id="cb8-387"><a href="#cb8-387"></a></span>
+<span id="cb8-388"><a href="#cb8-388"></a><span class="bu">print</span>(<span class="dv">1</span>)</span>
+<span id="cb8-389"><a href="#cb8-389"></a></span>
+<span id="cb8-390"><a href="#cb8-390"></a><span class="in">```</span></span>
+<span id="cb8-391"><a href="#cb8-391"></a></span>
+<span id="cb8-392"><a href="#cb8-392"></a></span>
+<span id="cb8-393"><a href="#cb8-393"></a></span>
+<span id="cb8-394"><a href="#cb8-394"></a><span class="fu"># つづく</span></span>
+<span id="cb8-395"><a href="#cb8-395"></a></span>
+<span id="cb8-396"><a href="#cb8-396"></a>このあとに事前に配送パターンを列挙して高速化を図る実装が紹介されているが、</span>
+<span id="cb8-397"><a href="#cb8-397"></a>少し疲れたのでここでは省略する。</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
