@@ -1,0 +1,3279 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips - Setup</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/books/08_handbook_lightgbm/cl03_分類の予測モデル.html" rel="next">
+<link href="../../../contents/books/07_NumpyInfinity/ch05_ブロードキャストの応用.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+ <span class="dropdown-text">Numpy Infinity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+ <span class="dropdown-text">LightGBMハンドブック</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/corrr/working.html">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/igraph/index.html">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/patchwork/working.html">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/ggspatial/working.html">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/duckdb/working.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/DBI/working.html">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
+ <span class="dropdown-text">My Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/python/notebook.html">
+ <span class="dropdown-text">Python</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">LightGBMハンドブック</a></li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">Setup</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Rによる実証分析2e</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch01_回帰分析の目的.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 回帰分析の目的</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch02_統計の基礎知識.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 統計の基礎知識</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch03_確率論の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 確率論の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch04_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch05_推測統計の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 推測統計の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch06_相関関係と因果関係.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 相関関係と因果関係</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch07_外生変数と内生変数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 内生変数と外生変数</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch08_ランダム化実験.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch08 ランダム化実験</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch09_マッチング法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch09 マッチング法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch10_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch10 回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch11_操作変数法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch11 操作変数法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch12_パネルデータ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch12 パネルデータ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">因果推論ミックステープ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch01_導入.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 導入</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch02_確率と回帰の概要.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 確率と回帰の概要</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch03_非巡回的有向グラフ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 非巡回的有向グラフ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch04_潜在アウトカム因果モデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 潜在アウトカム因果モデル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch05_マッチングと層別化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 マッチングと層別化</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch06_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch07_操作変数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 操作変数</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch08_パネルデータ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch08 パネルデータ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch09_差分の差デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch09 差分の差デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch10_合成コントロール法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch10 合成コントロール</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch11_結論.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch11 結論</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch01_本書の狙い.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 本書のねらい</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch02_プログラミングの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 プログラミングの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch03_乱数生成シミュレーションの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 乱数生成シミュレーションの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch04_母数の推定のシミュレーション.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 母数の推定</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch05_統計検定の論理とエラー確率のコントロール - コピー (2).html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 統計検定の論理</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch06_適切な検定のためのサンプルサイズ設計.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 サンプルサイズ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch07_回帰分析とシミュレーション.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 回帰分析</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">統計的因果推論の理論と実際</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/101_統計的因果推論の基礎の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">基礎の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/102_潜在的結果変数の枠組み.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">潜在的結果変数の枠組み</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/103_統計的因果推論における重要な仮定.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">重要な仮定</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/104_推測統計の基礎：標準誤差と信頼区間.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">標準誤差と信頼区間</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/105_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/106_図で理解する重回帰モデルの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">重回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/107_最小二乗法による重回帰モデルの仮定と診断1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">最小二乗法の仮定と診断1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/108_最小二乗法による重回帰モデルの仮定と診断2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">最小二乗法の仮定と診断2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/109_交互作用項のある共分散分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交互作用項のある共分散分析</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/110_傾向スコア.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコア</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/111_傾向スコアマッチング.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコアマッチング</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/112_傾向スコアによる層化解析法および重み付き法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコアによる層化解析法および重み付き法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/113_操作変数法の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">操作変数法の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/114_操作変数法による非遵守への対処.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">操作変数の非遵守への対処</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/115_回帰不連続デザインの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/119_欠測データ処理の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">欠損データ処理</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Pythonではじめる数理最適化 2nd</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch02_チュートリアル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">数理最適化チュートリアル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch03_学校のクラス編成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">学校のクラス編成</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch04_クーポン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">クーポン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch05_配送計画.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">配送計画</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Numpy Infinity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pythonの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch02_numpyの導入.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">numpyの導入</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch03_行列の導入.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">行列の導入</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch04_テンソルと画像処理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">テンソルと画像処理</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch04_テンソルと画像処理_Q52.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Q52：セピア化</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch04_テンソルと画像処理_Q72.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Q84：CMYK色空間</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch05_ブロードキャストの応用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ブロードキャストの応用</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+ <span class="menu-text">LightGBMハンドブック</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/08_handbook_lightgbm/cl03_分類の予測モデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/08_handbook_lightgbm/cl04_回帰の予測モデル改善.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link active" data-scroll-target="#dataset"><span class="header-section-number">0.1</span> dataset</a></li>
+  <li><a href="#変数eda" id="toc-変数eda" class="nav-link" data-scroll-target="#変数eda"><span class="header-section-number">0.2</span> 1変数EDA</a></li>
+  <li><a href="#線形回帰" id="toc-線形回帰" class="nav-link" data-scroll-target="#線形回帰"><span class="header-section-number">1</span> 線形回帰</a>
+  <ul class="collapse">
+  <li><a href="#重回帰分析の学習予測評価" id="toc-重回帰分析の学習予測評価" class="nav-link" data-scroll-target="#重回帰分析の学習予測評価"><span class="header-section-number">1.1</span> 重回帰分析の学習、予測、評価</a></li>
+  </ul></li>
+  <li><a href="#決定木" id="toc-決定木" class="nav-link" data-scroll-target="#決定木"><span class="header-section-number">2</span> 決定木</a>
+  <ul class="collapse">
+  <li><a href="#深さ1の回帰木の可視化" id="toc-深さ1の回帰木の可視化" class="nav-link" data-scroll-target="#深さ1の回帰木の可視化"><span class="header-section-number">2.1</span> 深さ1の回帰木の可視化</a></li>
+  <li><a href="#回帰木の深さと予測値" id="toc-回帰木の深さと予測値" class="nav-link" data-scroll-target="#回帰木の深さと予測値"><span class="header-section-number">2.2</span> 回帰木の深さと予測値</a></li>
+  <li><a href="#回帰木の学習予測評価" id="toc-回帰木の学習予測評価" class="nav-link" data-scroll-target="#回帰木の学習予測評価"><span class="header-section-number">2.3</span> 回帰木の学習、予測、評価</a></li>
+  </ul></li>
+  <li><a href="#lightgbm回帰" id="toc-lightgbm回帰" class="nav-link" data-scroll-target="#lightgbm回帰"><span class="header-section-number">3</span> LightGBM回帰</a>
+  <ul class="collapse">
+  <li><a href="#深さ1のlightgbm回帰の予測値の検証" id="toc-深さ1のlightgbm回帰の予測値の検証" class="nav-link" data-scroll-target="#深さ1のlightgbm回帰の予測値の検証"><span class="header-section-number">3.1</span> 深さ1のLightGBM回帰の予測値の検証</a></li>
+  <li><a href="#lightgbmの学習予測評価" id="toc-lightgbmの学習予測評価" class="nav-link" data-scroll-target="#lightgbmの学習予測評価"><span class="header-section-number">3.2</span> LightGBMの学習、予測、評価</a></li>
+  <li><a href="#shap" id="toc-shap" class="nav-link" data-scroll-target="#shap"><span class="header-section-number">3.3</span> SHAP</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">LightGBMハンドブック</a></li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">Setup</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Setup</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="cell-1" class="cell" data-executioninfo="{&quot;elapsed&quot;:480,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703549492609,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="ab673198-57ec-4a04-a921-e3be994004a6" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> importlib.util</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="cf">try</span>:</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="im">from</span> google.colab <span class="im">import</span> drive</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    drive.mount(<span class="st">'/content/drive'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    work_dirctory <span class="op">=</span> <span class="st">'/content/drive/Othercomputers/LetsNoteSilver'</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    os.chdir(work_dirctory)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="bu">print</span>(<span class="st">"mounted"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="cf">except</span> <span class="pp">ModuleNotFoundError</span> <span class="im">as</span> e:</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="bu">print</span>(<span class="st">"not mounted"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>not mounted</code></pre>
+</div>
+</div>
+<div id="cell-3" class="cell" data-executioninfo="{&quot;elapsed&quot;:2186,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703549167783,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="im">import</span> graphviz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-4" class="cell" data-executioninfo="{&quot;elapsed&quot;:383,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703549809040,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>pd.set_option(<span class="st">'display.float_format'</span>, <span class="st">'</span><span class="sc">{:.3f}</span><span class="st">'</span>.<span class="bu">format</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="dataset" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="dataset"><span class="header-section-number">0.1</span> dataset</h2>
+<div id="cell-6" class="cell" data-executioninfo="{&quot;elapsed&quot;:444,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703549812177,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="31d2150e-097f-4c1a-ea5f-93e0901c82a1" data-execution_count="46">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>columns <span class="op">=</span> [<span class="st">"CRIM"</span>, <span class="st">"ZN"</span>, <span class="st">"INDUS"</span>, <span class="st">"CHAS"</span>, <span class="st">"NOX"</span>, <span class="st">"RM"</span>, <span class="st">"AGE"</span>, <span class="st">"DIS"</span>, <span class="st">"RAD"</span>, <span class="st">"TAX"</span>, <span class="st">"PTRATIO"</span>, <span class="st">"B"</span>, <span class="st">"LSTAT"</span>, <span class="st">"MEDV"</span>]</span>
+<span id="cb5-2"><a href="#cb5-2"></a>df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    names<span class="op">=</span>columns,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    sep<span class="op">=</span><span class="st">"\s+"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:6: SyntaxWarning: invalid escape sequence '\s'
+&lt;&gt;:6: SyntaxWarning: invalid escape sequence '\s'
+C:\Users\suzuk\AppData\Local\Temp\ipykernel_26716\1922502560.py:6: SyntaxWarning: invalid escape sequence '\s'
+  sep="\s+")</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CRIM</th>
+<th data-quarto-table-cell-role="th">ZN</th>
+<th data-quarto-table-cell-role="th">INDUS</th>
+<th data-quarto-table-cell-role="th">CHAS</th>
+<th data-quarto-table-cell-role="th">NOX</th>
+<th data-quarto-table-cell-role="th">RM</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">DIS</th>
+<th data-quarto-table-cell-role="th">RAD</th>
+<th data-quarto-table-cell-role="th">TAX</th>
+<th data-quarto-table-cell-role="th">PTRATIO</th>
+<th data-quarto-table-cell-role="th">B</th>
+<th data-quarto-table-cell-role="th">LSTAT</th>
+<th data-quarto-table-cell-role="th">MEDV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0.006</td>
+<td>18.000</td>
+<td>2.310</td>
+<td>0</td>
+<td>0.538</td>
+<td>6.575</td>
+<td>65.200</td>
+<td>4.090</td>
+<td>1</td>
+<td>296.000</td>
+<td>15.300</td>
+<td>396.900</td>
+<td>4.980</td>
+<td>24.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>0.027</td>
+<td>0.000</td>
+<td>7.070</td>
+<td>0</td>
+<td>0.469</td>
+<td>6.421</td>
+<td>78.900</td>
+<td>4.967</td>
+<td>2</td>
+<td>242.000</td>
+<td>17.800</td>
+<td>396.900</td>
+<td>9.140</td>
+<td>21.600</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0.027</td>
+<td>0.000</td>
+<td>7.070</td>
+<td>0</td>
+<td>0.469</td>
+<td>7.185</td>
+<td>61.100</td>
+<td>4.967</td>
+<td>2</td>
+<td>242.000</td>
+<td>17.800</td>
+<td>392.830</td>
+<td>4.030</td>
+<td>34.700</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>0.032</td>
+<td>0.000</td>
+<td>2.180</td>
+<td>0</td>
+<td>0.458</td>
+<td>6.998</td>
+<td>45.800</td>
+<td>6.062</td>
+<td>3</td>
+<td>222.000</td>
+<td>18.700</td>
+<td>394.630</td>
+<td>2.940</td>
+<td>33.400</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0.069</td>
+<td>0.000</td>
+<td>2.180</td>
+<td>0</td>
+<td>0.458</td>
+<td>7.147</td>
+<td>54.200</td>
+<td>6.062</td>
+<td>3</td>
+<td>222.000</td>
+<td>18.700</td>
+<td>396.900</td>
+<td>5.330</td>
+<td>36.200</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-7" class="cell" data-executioninfo="{&quot;elapsed&quot;:264,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703486900206,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="451e88bd-7284-4f37-c9de-9d51a3431ede" data-execution_count="47">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 506 entries, 0 to 505
+Data columns (total 14 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   CRIM     506 non-null    float64
+ 1   ZN       506 non-null    float64
+ 2   INDUS    506 non-null    float64
+ 3   CHAS     506 non-null    int64  
+ 4   NOX      506 non-null    float64
+ 5   RM       506 non-null    float64
+ 6   AGE      506 non-null    float64
+ 7   DIS      506 non-null    float64
+ 8   RAD      506 non-null    int64  
+ 9   TAX      506 non-null    float64
+ 10  PTRATIO  506 non-null    float64
+ 11  B        506 non-null    float64
+ 12  LSTAT    506 non-null    float64
+ 13  MEDV     506 non-null    float64
+dtypes: float64(12), int64(2)
+memory usage: 55.5 KB</code></pre>
+</div>
+</div>
+<div id="cell-8" class="cell" data-executioninfo="{&quot;elapsed&quot;:250,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703486901544,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="b7c687d7-2af8-4cb2-c92a-ed74075e8a8c" data-execution_count="48">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>(506, 14)</code></pre>
+</div>
+</div>
+<div id="cell-9" class="cell" data-executioninfo="{&quot;elapsed&quot;:6,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703486902609,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="dbc0fff8-02df-47ee-fe6f-73d4580e632e" data-execution_count="49">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CRIM</th>
+<th data-quarto-table-cell-role="th">ZN</th>
+<th data-quarto-table-cell-role="th">INDUS</th>
+<th data-quarto-table-cell-role="th">CHAS</th>
+<th data-quarto-table-cell-role="th">NOX</th>
+<th data-quarto-table-cell-role="th">RM</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">DIS</th>
+<th data-quarto-table-cell-role="th">RAD</th>
+<th data-quarto-table-cell-role="th">TAX</th>
+<th data-quarto-table-cell-role="th">PTRATIO</th>
+<th data-quarto-table-cell-role="th">B</th>
+<th data-quarto-table-cell-role="th">LSTAT</th>
+<th data-quarto-table-cell-role="th">MEDV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+<td>506.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>3.614</td>
+<td>11.364</td>
+<td>11.137</td>
+<td>0.069</td>
+<td>0.555</td>
+<td>6.285</td>
+<td>68.575</td>
+<td>3.795</td>
+<td>9.549</td>
+<td>408.237</td>
+<td>18.456</td>
+<td>356.674</td>
+<td>12.653</td>
+<td>22.533</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>8.602</td>
+<td>23.322</td>
+<td>6.860</td>
+<td>0.254</td>
+<td>0.116</td>
+<td>0.703</td>
+<td>28.149</td>
+<td>2.106</td>
+<td>8.707</td>
+<td>168.537</td>
+<td>2.165</td>
+<td>91.295</td>
+<td>7.141</td>
+<td>9.197</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.006</td>
+<td>0.000</td>
+<td>0.460</td>
+<td>0.000</td>
+<td>0.385</td>
+<td>3.561</td>
+<td>2.900</td>
+<td>1.130</td>
+<td>1.000</td>
+<td>187.000</td>
+<td>12.600</td>
+<td>0.320</td>
+<td>1.730</td>
+<td>5.000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.082</td>
+<td>0.000</td>
+<td>5.190</td>
+<td>0.000</td>
+<td>0.449</td>
+<td>5.885</td>
+<td>45.025</td>
+<td>2.100</td>
+<td>4.000</td>
+<td>279.000</td>
+<td>17.400</td>
+<td>375.377</td>
+<td>6.950</td>
+<td>17.025</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.257</td>
+<td>0.000</td>
+<td>9.690</td>
+<td>0.000</td>
+<td>0.538</td>
+<td>6.208</td>
+<td>77.500</td>
+<td>3.207</td>
+<td>5.000</td>
+<td>330.000</td>
+<td>19.050</td>
+<td>391.440</td>
+<td>11.360</td>
+<td>21.200</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>3.677</td>
+<td>12.500</td>
+<td>18.100</td>
+<td>0.000</td>
+<td>0.624</td>
+<td>6.623</td>
+<td>94.075</td>
+<td>5.188</td>
+<td>24.000</td>
+<td>666.000</td>
+<td>20.200</td>
+<td>396.225</td>
+<td>16.955</td>
+<td>25.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>88.976</td>
+<td>100.000</td>
+<td>27.740</td>
+<td>1.000</td>
+<td>0.871</td>
+<td>8.780</td>
+<td>100.000</td>
+<td>12.127</td>
+<td>24.000</td>
+<td>711.000</td>
+<td>22.000</td>
+<td>396.900</td>
+<td>37.970</td>
+<td>50.000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-10" class="cell" data-executioninfo="{&quot;elapsed&quot;:1510,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703486942158,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="88997afc-2812-4c4c-97e3-09f0fbb68acd" data-execution_count="50">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb12-2"><a href="#cb12-2"></a>sns.heatmap(df.corr(), annot<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="変数eda" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="変数eda"><span class="header-section-number">0.2</span> 1変数EDA</h2>
+<div id="cell-12" class="cell" data-executioninfo="{&quot;elapsed&quot;:281,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703486928232,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="3d2e2bf9-ba2d-4e36-894e-003274cb7507" data-execution_count="51">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>df[<span class="st">"MEDV"</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>count   506.000
+mean     22.533
+std       9.197
+min       5.000
+25%      17.025
+50%      21.200
+75%      25.000
+max      50.000
+Name: MEDV, dtype: float64</code></pre>
+</div>
+</div>
+<div id="cell-13" class="cell" data-executioninfo="{&quot;elapsed&quot;:603,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703473591406,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="722ed621-a958-48c4-afd4-53d968ec87ae" data-execution_count="52">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>df[<span class="st">"MEDV"</span>].hist(bins<span class="op">=</span><span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-14" class="cell" data-executioninfo="{&quot;elapsed&quot;:1695,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703473808558,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="d51e80aa-efb3-4d8f-ed7b-01b796d441fb" data-execution_count="53">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># @title 2変数EDA</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb16-4"><a href="#cb16-4"></a>df_corr <span class="op">=</span> df.corr()</span>
+<span id="cb16-5"><a href="#cb16-5"></a>sns.heatmap(df_corr, annot <span class="op">=</span> <span class="va">True</span>, vmax <span class="op">=</span> <span class="dv">1</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, center <span class="op">=</span> <span class="dv">0</span>, cmap <span class="op">=</span> <span class="st">"coolwarm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-15" class="cell" data-executioninfo="{&quot;elapsed&quot;:11188,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703473900804,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="7eb79a0f-0b17-4280-a53f-82d8ccebfa4d" data-execution_count="54">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># 散布図</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>num_cols <span class="op">=</span> [<span class="st">"LSTAT"</span>, <span class="st">"RM"</span>, <span class="st">"MEDV"</span>]</span>
+<span id="cb17-3"><a href="#cb17-3"></a>sns.pairplot(df[num_cols], height<span class="op">=</span><span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>上記をみると線形や非線形の形状が容易に見て取れる。このような探索的な可視化をおこのあう</p>
+</section>
+<section id="線形回帰" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 線形回帰</h1>
+<div id="cell-17" class="cell" data-executioninfo="{&quot;elapsed&quot;:271,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703487348137,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="7490d09a-a8c9-47d3-b9a3-7d6607e2a21b" data-execution_count="55">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a>X <span class="op">=</span> df.loc[:, [<span class="st">"RM"</span>]]</span>
+<span id="cb18-6"><a href="#cb18-6"></a>y <span class="op">=</span> df.loc[:, <span class="st">"MEDV"</span>]</span>
+<span id="cb18-7"><a href="#cb18-7"></a></span>
+<span id="cb18-8"><a href="#cb18-8"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb18-9"><a href="#cb18-9"></a></span>
+<span id="cb18-10"><a href="#cb18-10"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="co"># 学習</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a>model.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<style>#sk-container-id-2 {color: black;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">LinearRegression</label><div class="sk-toggleable__content"><pre>LinearRegression()</pre></div></div></div></div></div>
+</div>
+</div>
+<div id="cell-18" class="cell" data-executioninfo="{&quot;elapsed&quot;:4,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703487369724,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="a9f1bf9e-454c-4abf-b851-b3211e5c0a9d" data-execution_count="56">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>model.get_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="56">
+<pre><code>{'copy_X': True, 'fit_intercept': True, 'n_jobs': None, 'positive': False}</code></pre>
+</div>
+</div>
+<div id="cell-19" class="cell" data-executioninfo="{&quot;elapsed&quot;:257,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703487596495,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="f0dbc27e-b9b0-4a94-f1d3-ef6f48232b2d" data-execution_count="57">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># 当てはめ</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>y_hat <span class="op">=</span> model.predict(X_train)<span class="op">;</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>sns.scatterplot(x<span class="op">=</span>y_train, y<span class="op">=</span>y)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>model.get_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="57">
+<pre><code>{'copy_X': True, 'fit_intercept': True, 'n_jobs': None, 'positive': False}</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>データと予測値の可視化.</p>
+<div id="cell-21" class="cell" data-executioninfo="{&quot;elapsed&quot;:693,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703487820737,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="47e22dca-8fc1-4a88-abf7-d9d7e52768cb" data-execution_count="58">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb23-2"><a href="#cb23-2"></a>X <span class="op">=</span> X_train.values.flatten()</span>
+<span id="cb23-3"><a href="#cb23-3"></a>y <span class="op">=</span> y_train.values</span>
+<span id="cb23-4"><a href="#cb23-4"></a></span>
+<span id="cb23-5"><a href="#cb23-5"></a>x_plt <span class="op">=</span> np.arange(X.<span class="bu">min</span>(), X.<span class="bu">max</span>(), <span class="fl">0.01</span>)[:, np.newaxis]</span>
+<span id="cb23-6"><a href="#cb23-6"></a>y_pred <span class="op">=</span> model.predict(x_plt)</span>
+<span id="cb23-7"><a href="#cb23-7"></a></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="co"># 学習データの散布図と予測値のプロット</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>plt.scatter(X, y, color <span class="op">=</span> <span class="st">"blue"</span>, label <span class="op">=</span> <span class="st">"data"</span>)</span>
+<span id="cb23-10"><a href="#cb23-10"></a>plt.plot(x_plt, y_pred, color <span class="op">=</span> <span class="st">"red"</span>, label <span class="op">=</span> <span class="st">"LinearRegression"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11"></a>plt.ylabel(<span class="st">"Price in $1000's [MEDV]"</span>)</span>
+<span id="cb23-12"><a href="#cb23-12"></a>plt.xlabel(<span class="st">"Average number of rooms [RM]"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13"></a>plt.title(<span class="st">"Linear Regression"</span>)</span>
+<span id="cb23-14"><a href="#cb23-14"></a>plt.legend()</span>
+<span id="cb23-15"><a href="#cb23-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\pyenv\py312\Lib\site-packages\sklearn\base.py:465: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-17-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-22" class="cell" data-executioninfo="{&quot;elapsed&quot;:224,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703487871918,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="ea8c8cc4-c555-4131-b422-80d3a10213e8" data-execution_count="59">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>model.coef_, model.intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>(array([9.34474059]), -36.220385787486336)</code></pre>
+</div>
+</div>
+<section id="重回帰分析の学習予測評価" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="重回帰分析の学習予測評価"><span class="header-section-number">1.1</span> 重回帰分析の学習、予測、評価</h2>
+<p>データ、利用するライブラリはこれまでと同様である。</p>
+<div id="cell-24" class="cell" data-execution_count="60">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>X <span class="op">=</span> df.drop(labels <span class="op">=</span> [<span class="st">"MEDV"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a>y <span class="op">=</span> df[<span class="st">"MEDV"</span>]</span>
+<span id="cb27-3"><a href="#cb27-3"></a></span>
+<span id="cb27-4"><a href="#cb27-4"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, shuffle <span class="op">=</span> <span class="va">True</span>, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-5"><a href="#cb27-5"></a></span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="co"># 特徴量の標準化</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb27-8"><a href="#cb27-8"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb27-9"><a href="#cb27-9"></a>num_cols <span class="op">=</span> X.select_dtypes(include<span class="op">=</span>[<span class="st">"float64"</span>, <span class="st">"int64"</span>]).columns</span>
+<span id="cb27-10"><a href="#cb27-10"></a></span>
+<span id="cb27-11"><a href="#cb27-11"></a><span class="co"># 学習データだけで学習させる</span></span>
+<span id="cb27-12"><a href="#cb27-12"></a>scaler.fit(X_train[num_cols])</span>
+<span id="cb27-13"><a href="#cb27-13"></a></span>
+<span id="cb27-14"><a href="#cb27-14"></a><span class="co"># テストデータについても変換してしまう</span></span>
+<span id="cb27-15"><a href="#cb27-15"></a>X_train[num_cols] <span class="op">=</span> scaler.transform(X_train[num_cols])</span>
+<span id="cb27-16"><a href="#cb27-16"></a>X_test[num_cols] <span class="op">=</span> scaler.transform(X_test[num_cols])</span>
+<span id="cb27-17"><a href="#cb27-17"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-25" class="cell" data-executioninfo="{&quot;elapsed&quot;:256,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703489123964,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="b66bbf79-b65c-492e-827b-8ad6f5cdcc6f" data-execution_count="61">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># カスタムフォーマットを適用（例：小数点以下2桁）</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>X_train.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="61">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CRIM</th>
+<th data-quarto-table-cell-role="th">ZN</th>
+<th data-quarto-table-cell-role="th">INDUS</th>
+<th data-quarto-table-cell-role="th">CHAS</th>
+<th data-quarto-table-cell-role="th">NOX</th>
+<th data-quarto-table-cell-role="th">RM</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">DIS</th>
+<th data-quarto-table-cell-role="th">RAD</th>
+<th data-quarto-table-cell-role="th">TAX</th>
+<th data-quarto-table-cell-role="th">PTRATIO</th>
+<th data-quarto-table-cell-role="th">B</th>
+<th data-quarto-table-cell-role="th">LSTAT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+<td>404.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>-0.000</td>
+<td>0.000</td>
+<td>-0.000</td>
+<td>0.000</td>
+<td>-0.000</td>
+<td>0.000</td>
+<td>-0.000</td>
+<td>-0.000</td>
+<td>-0.000</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>-0.000</td>
+<td>0.000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+<td>1.001</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>-0.416</td>
+<td>-0.500</td>
+<td>-1.527</td>
+<td>-0.273</td>
+<td>-1.485</td>
+<td>-3.950</td>
+<td>-2.356</td>
+<td>-1.249</td>
+<td>-0.971</td>
+<td>-1.265</td>
+<td>-2.674</td>
+<td>-4.048</td>
+<td>-1.506</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>-0.407</td>
+<td>-0.500</td>
+<td>-0.858</td>
+<td>-0.273</td>
+<td>-0.929</td>
+<td>-0.597</td>
+<td>-0.832</td>
+<td>-0.810</td>
+<td>-0.625</td>
+<td>-0.743</td>
+<td>-0.485</td>
+<td>0.196</td>
+<td>-0.820</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>-0.385</td>
+<td>-0.500</td>
+<td>-0.286</td>
+<td>-0.273</td>
+<td>-0.155</td>
+<td>-0.131</td>
+<td>0.318</td>
+<td>-0.279</td>
+<td>-0.509</td>
+<td>-0.474</td>
+<td>0.291</td>
+<td>0.371</td>
+<td>-0.193</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>-0.003</td>
+<td>0.348</td>
+<td>0.999</td>
+<td>-0.273</td>
+<td>0.653</td>
+<td>0.538</td>
+<td>0.886</td>
+<td>0.660</td>
+<td>1.687</td>
+<td>1.542</td>
+<td>0.793</td>
+<td>0.421</td>
+<td>0.604</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>10.530</td>
+<td>3.736</td>
+<td>2.379</td>
+<td>3.665</td>
+<td>2.739</td>
+<td>3.572</td>
+<td>1.103</td>
+<td>4.021</td>
+<td>1.687</td>
+<td>1.806</td>
+<td>1.614</td>
+<td>0.430</td>
+<td>3.330</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-26" class="cell" data-executioninfo="{&quot;elapsed&quot;:9,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703489137878,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="f687868c-01be-44d8-cde6-8939c268926d" data-execution_count="62">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>X_test.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CRIM</th>
+<th data-quarto-table-cell-role="th">ZN</th>
+<th data-quarto-table-cell-role="th">INDUS</th>
+<th data-quarto-table-cell-role="th">CHAS</th>
+<th data-quarto-table-cell-role="th">NOX</th>
+<th data-quarto-table-cell-role="th">RM</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">DIS</th>
+<th data-quarto-table-cell-role="th">RAD</th>
+<th data-quarto-table-cell-role="th">TAX</th>
+<th data-quarto-table-cell-role="th">PTRATIO</th>
+<th data-quarto-table-cell-role="th">B</th>
+<th data-quarto-table-cell-role="th">LSTAT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+<td>102.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.139</td>
+<td>-0.091</td>
+<td>0.009</td>
+<td>-0.003</td>
+<td>-0.051</td>
+<td>-0.123</td>
+<td>-0.080</td>
+<td>0.059</td>
+<td>0.084</td>
+<td>0.157</td>
+<td>-0.015</td>
+<td>-0.118</td>
+<td>-0.036</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>1.259</td>
+<td>0.935</td>
+<td>0.908</td>
+<td>1.000</td>
+<td>1.034</td>
+<td>1.056</td>
+<td>1.011</td>
+<td>1.064</td>
+<td>1.030</td>
+<td>0.926</td>
+<td>0.936</td>
+<td>1.142</td>
+<td>0.893</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>-0.415</td>
+<td>-0.500</td>
+<td>-1.487</td>
+<td>-0.273</td>
+<td>-1.424</td>
+<td>-3.515</td>
+<td>-2.160</td>
+<td>-1.271</td>
+<td>-0.971</td>
+<td>-1.048</td>
+<td>-2.674</td>
+<td>-4.022</td>
+<td>-1.480</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>-0.405</td>
+<td>-0.500</td>
+<td>-0.750</td>
+<td>-0.273</td>
+<td>-0.938</td>
+<td>-0.606</td>
+<td>-1.047</td>
+<td>-0.787</td>
+<td>-0.625</td>
+<td>-0.579</td>
+<td>-0.713</td>
+<td>0.090</td>
+<td>-0.642</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>-0.386</td>
+<td>-0.500</td>
+<td>-0.175</td>
+<td>-0.273</td>
+<td>-0.312</td>
+<td>-0.209</td>
+<td>0.125</td>
+<td>-0.203</td>
+<td>-0.509</td>
+<td>-0.110</td>
+<td>0.108</td>
+<td>0.360</td>
+<td>-0.159</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.221</td>
+<td>-0.500</td>
+<td>0.999</td>
+<td>-0.273</td>
+<td>0.427</td>
+<td>0.241</td>
+<td>0.932</td>
+<td>0.681</td>
+<td>1.687</td>
+<td>1.542</td>
+<td>0.793</td>
+<td>0.430</td>
+<td>0.411</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>8.631</td>
+<td>3.101</td>
+<td>1.542</td>
+<td>3.665</td>
+<td>2.739</td>
+<td>3.492</td>
+<td>1.103</td>
+<td>3.340</td>
+<td>1.687</td>
+<td>1.542</td>
+<td>1.249</td>
+<td>0.430</td>
+<td>3.466</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-27" class="cell" data-executioninfo="{&quot;elapsed&quot;:3,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703489169232,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="5cbda0ac-1fd2-484b-f05b-8f5a077f5dc3" data-execution_count="63">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># モデルの学習</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb30-3"><a href="#cb30-3"></a>model.fit(X_train, y_train)</span>
+<span id="cb30-4"><a href="#cb30-4"></a>model.get_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="63">
+<pre><code>{'copy_X': True, 'fit_intercept': True, 'n_jobs': None, 'positive': False}</code></pre>
+</div>
+</div>
+<div id="cell-28" class="cell" data-executioninfo="{&quot;elapsed&quot;:3,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703489257007,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="9a990132-10fd-4405-9377-49adb9cf0f37" data-execution_count="64">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>y_test_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="bu">print</span>(<span class="ss">f"RMSE test: </span><span class="sc">{</span>np<span class="sc">.</span>sqrt(mean_squared_error(y_test, y_test_pred)) <span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>RMSE test: 5.78</code></pre>
+</div>
+</div>
+<div id="cell-29" class="cell" data-executioninfo="{&quot;elapsed&quot;:3,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703489346341,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="7046ea44-aa75-4ac8-b94b-6ed540fecb2d" data-execution_count="65">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>model.coef_, model.intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="65">
+<pre><code>(array([-0.97082019,  1.05714873,  0.03831099,  0.59450642, -1.8551476 ,
+         2.57321942, -0.08761547, -2.88094259,  2.11224542, -1.87533131,
+        -2.29276735,  0.71817947, -3.59245482]),
+ 22.611881188118804)</code></pre>
+</div>
+</div>
+<div id="cell-30" class="cell" data-executioninfo="{&quot;elapsed&quot;:7,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703489468909,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="4011ae1f-9b28-46aa-e1d7-1811beedd461" data-execution_count="66">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># 回帰係数の可視化</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>importances <span class="op">=</span> model.coef_</span>
+<span id="cb36-3"><a href="#cb36-3"></a>indices <span class="op">=</span> np.argsort(importances)[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb36-4"><a href="#cb36-4"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb36-5"><a href="#cb36-5"></a>plt.title(<span class="st">"Feature importances"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6"></a>plt.bar(<span class="bu">range</span>(X.shape[<span class="dv">1</span>]), importances[indices])</span>
+<span id="cb36-7"><a href="#cb36-7"></a>plt.xticks(<span class="bu">range</span>(X.shape[<span class="dv">1</span>]), X.columns[indices], rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb36-8"><a href="#cb36-8"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="決定木" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 決定木</h1>
+<section id="深さ1の回帰木の可視化" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="深さ1の回帰木の可視化"><span class="header-section-number">2.1</span> 深さ1の回帰木の可視化</h2>
+<div id="cell-32" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> plot_tree</span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb37-6"><a href="#cb37-6"></a><span class="im">import</span> graphviz</span>
+<span id="cb37-7"><a href="#cb37-7"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb37-8"><a href="#cb37-8"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
+<span id="cb37-9"><a href="#cb37-9"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-33" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb38-2"><a href="#cb38-2"></a>    <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data"</span>,</span>
+<span id="cb38-3"><a href="#cb38-3"></a>    header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb38-4"><a href="#cb38-4"></a>    names <span class="op">=</span>[<span class="st">"CRIM"</span>, <span class="st">"ZN"</span>, <span class="st">"INDUS"</span>, <span class="st">"CHAS"</span>, <span class="st">"NOX"</span>, <span class="st">"RM"</span>, <span class="st">"AGE"</span>, <span class="st">"DIS"</span>, <span class="st">"RAD"</span>, <span class="st">"TAX"</span>, <span class="st">"PTRATIO"</span>, <span class="st">"B"</span>, <span class="st">"LSTAT"</span>, <span class="st">"MEDV"</span>],</span>
+<span id="cb38-5"><a href="#cb38-5"></a>    sep<span class="op">=</span><span class="st">"\s+"</span>,</span>
+<span id="cb38-6"><a href="#cb38-6"></a>)</span>
+<span id="cb38-7"><a href="#cb38-7"></a></span>
+<span id="cb38-8"><a href="#cb38-8"></a>X_train <span class="op">=</span> df.loc[:<span class="dv">100</span>, [<span class="st">"RM"</span>]]</span>
+<span id="cb38-9"><a href="#cb38-9"></a>y_train <span class="op">=</span> df.loc[:<span class="dv">100</span>, <span class="st">"MEDV"</span>]</span>
+<span id="cb38-10"><a href="#cb38-10"></a></span>
+<span id="cb38-11"><a href="#cb38-11"></a>X_test <span class="op">=</span> df.loc[<span class="dv">101</span>:, [<span class="st">"RM"</span>]]</span>
+<span id="cb38-12"><a href="#cb38-12"></a>y_test <span class="op">=</span> df.loc[<span class="dv">101</span>:, <span class="st">"MEDV"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:5: SyntaxWarning: invalid escape sequence '\s'
+&lt;&gt;:5: SyntaxWarning: invalid escape sequence '\s'
+C:\Users\suzuk\AppData\Local\Temp\ipykernel_24336\4222003498.py:5: SyntaxWarning: invalid escape sequence '\s'
+  sep="\s+",</code></pre>
+</div>
+</div>
+<div id="cell-34" class="cell" data-executioninfo="{&quot;elapsed&quot;:3,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703490556167,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="1ccf9d47-d07b-44b2-ffd0-5cbf1419fe36" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>model <span class="op">=</span> DecisionTreeRegressor(criterion <span class="op">=</span> <span class="st">"squared_error"</span>, max_depth <span class="op">=</span> <span class="dv">1</span>, min_samples_leaf<span class="op">=</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb40-2"><a href="#cb40-2"></a>model.fit(X_train, y_train)</span>
+<span id="cb40-3"><a href="#cb40-3"></a>model.get_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>{'ccp_alpha': 0.0,
+ 'criterion': 'squared_error',
+ 'max_depth': 1,
+ 'max_features': None,
+ 'max_leaf_nodes': None,
+ 'min_impurity_decrease': 0.0,
+ 'min_samples_leaf': 1,
+ 'min_samples_split': 2,
+ 'min_weight_fraction_leaf': 0.0,
+ 'random_state': 0,
+ 'splitter': 'best'}</code></pre>
+</div>
+</div>
+<div id="cell-35" class="cell" data-executioninfo="{&quot;elapsed&quot;:2,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703490567460,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="66d57cae-acc5-41c7-e042-7ba2fb2aa51d" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># 予測値</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>model.predict(X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>array([20.1675    , 20.1675    , 30.71428571, 30.71428571, 30.71428571,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 30.71428571,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 30.71428571,
+       30.71428571, 30.71428571, 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       30.71428571, 20.1675    , 30.71428571, 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 30.71428571, 30.71428571,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       30.71428571, 30.71428571, 20.1675    , 20.1675    , 20.1675    ,
+       30.71428571, 20.1675    , 20.1675    , 30.71428571, 30.71428571,
+       20.1675    , 20.1675    , 20.1675    , 20.1675    , 20.1675    ,
+       30.71428571, 20.1675    , 30.71428571, 30.71428571, 30.71428571,
+       30.71428571])</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-executioninfo="{&quot;elapsed&quot;:235,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703490629678,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="01fbfd5d-87da-458d-97cc-1e056e548b1b" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
+<span id="cb44-2"><a href="#cb44-2"></a>dot_data <span class="op">=</span> tree.export_graphviz(</span>
+<span id="cb44-3"><a href="#cb44-3"></a>    model, out_file<span class="op">=</span><span class="va">None</span>, feature_names<span class="op">=</span>[<span class="st">"RM"</span>], class_names<span class="op">=</span>[<span class="st">"MEDV"</span>], filled<span class="op">=</span><span class="va">True</span>, rounded<span class="op">=</span><span class="va">True</span>, special_characters<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb44-4"><a href="#cb44-4"></a>graphviz.Source(dot_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-30-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-37" class="cell" data-executioninfo="{&quot;elapsed&quot;:710,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703490725809,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="cd0f91d9-4ee3-45ef-f921-a050ad1308a9" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="co"># データと予測値の可視化</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb45-3"><a href="#cb45-3"></a>X <span class="op">=</span> X_train.values.flatten()</span>
+<span id="cb45-4"><a href="#cb45-4"></a>y <span class="op">=</span> y_train.values</span>
+<span id="cb45-5"><a href="#cb45-5"></a></span>
+<span id="cb45-6"><a href="#cb45-6"></a>X_plt <span class="op">=</span> np.linspace(X.<span class="bu">min</span>(), X.<span class="bu">max</span>(), <span class="dv">100</span>)[:, np.newaxis]</span>
+<span id="cb45-7"><a href="#cb45-7"></a>y_pred <span class="op">=</span> model.predict(X_plt)</span>
+<span id="cb45-8"><a href="#cb45-8"></a></span>
+<span id="cb45-9"><a href="#cb45-9"></a>plt.scatter(X, y, label <span class="op">=</span> <span class="st">"Training data"</span>)</span>
+<span id="cb45-10"><a href="#cb45-10"></a>plt.plot(X_plt, y_pred, color <span class="op">=</span> <span class="st">"red"</span>, label <span class="op">=</span> <span class="st">"Decision Tree"</span>)</span>
+<span id="cb45-11"><a href="#cb45-11"></a>plt.ylabel(<span class="st">"MEDV"</span>)</span>
+<span id="cb45-12"><a href="#cb45-12"></a>plt.xlabel(<span class="st">"RM"</span>)</span>
+<span id="cb45-13"><a href="#cb45-13"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\pyenv\py312\Lib\site-packages\sklearn\base.py:465: UserWarning: X does not have valid feature names, but DecisionTreeRegressor was fitted with feature names
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-31-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="回帰木の深さと予測値" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="回帰木の深さと予測値"><span class="header-section-number">2.2</span> 回帰木の深さと予測値</h2>
+<p>深さ1のときにはレコードを1回だけ2分割して、左葉と右葉の2値を出力する予測モデルを実装した。実務では深さを指定して、指定した深さに到達するまでの２分割を繰り返す。深さが<span class="math inline">\(d\)</span>のときは最大<span class="math inline">\(2^d\)</span>に分割される。</p>
+<div id="cell-39" class="cell" data-executioninfo="{&quot;elapsed&quot;:259,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703490993010,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="af95dc10-b930-481f-ddd7-4177bb59fb52" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a>model <span class="op">=</span> DecisionTreeRegressor(criterion <span class="op">=</span> <span class="st">"squared_error"</span>, max_depth <span class="op">=</span> <span class="dv">2</span>, min_samples_leaf<span class="op">=</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="dv">0</span>, ccp_alpha <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb47-2"><a href="#cb47-2"></a>model.fit(X_train, y_train)</span>
+<span id="cb47-3"><a href="#cb47-3"></a>model.get_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>{'ccp_alpha': 0,
+ 'criterion': 'squared_error',
+ 'max_depth': 2,
+ 'max_features': None,
+ 'max_leaf_nodes': None,
+ 'min_impurity_decrease': 0.0,
+ 'min_samples_leaf': 1,
+ 'min_samples_split': 2,
+ 'min_weight_fraction_leaf': 0.0,
+ 'random_state': 0,
+ 'splitter': 'best'}</code></pre>
+</div>
+</div>
+<div id="cell-40" class="cell" data-executioninfo="{&quot;elapsed&quot;:3,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703491002116,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="34e0160a-88aa-4b7b-84ef-d07648f415fa" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># 予測値</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a>model.predict(X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>array([22.99642857, 22.99642857, 35.4       , 27.2       , 35.4       ,
+       22.99642857, 18.64423077, 22.99642857, 18.64423077, 18.64423077,
+       22.99642857, 18.64423077, 18.64423077, 18.64423077, 18.64423077,
+       18.64423077, 18.64423077, 18.64423077, 18.64423077, 18.64423077,
+       18.64423077, 18.64423077, 18.64423077, 18.64423077, 18.64423077,
+       18.64423077, 18.64423077, 18.64423077, 22.99642857, 27.2       ,
+       18.64423077, 18.64423077, 18.64423077, 18.64423077, 18.64423077,
+       18.64423077, 18.64423077, 18.64423077, 18.64423077, 27.2       ,
+       35.4       , 27.2       , 22.99642857, 22.99642857, 18.64423077,
+       18.64423077, 18.64423077, 18.64423077, 18.64423077, 18.64423077,
+       18.64423077, 18.64423077, 22.99642857, 18.64423077, 18.64423077,
+       35.4       , 22.99642857, 27.2       , 22.99642857, 18.64423077,
+       18.64423077, 18.64423077, 22.99642857, 27.2       , 35.4       ,
+       22.99642857, 18.64423077, 18.64423077, 18.64423077, 18.64423077,
+       22.99642857, 18.64423077, 18.64423077, 22.99642857, 22.99642857,
+       22.99642857, 22.99642857, 18.64423077, 22.99642857, 18.64423077,
+       27.2       , 27.2       , 22.99642857, 22.99642857, 22.99642857,
+       27.2       , 18.64423077, 18.64423077, 27.2       , 35.4       ,
+       22.99642857, 22.99642857, 22.99642857, 22.99642857, 22.99642857,
+       27.2       , 22.99642857, 35.4       , 35.4       , 35.4       ,
+       27.2       ])</code></pre>
+</div>
+</div>
+<div id="cell-41" class="cell" data-executioninfo="{&quot;elapsed&quot;:251,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703491025819,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="ac40623d-247b-4855-b90b-be63df2fb99c" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a>dot_data <span class="op">=</span> tree.export_graphviz(</span>
+<span id="cb51-2"><a href="#cb51-2"></a>    model, out_file<span class="op">=</span><span class="va">None</span>, feature_names<span class="op">=</span>[<span class="st">"RM"</span>], class_names<span class="op">=</span>[<span class="st">"MEDV"</span>], filled<span class="op">=</span><span class="va">True</span>, rounded<span class="op">=</span><span class="va">True</span>, special_characters<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb51-3"><a href="#cb51-3"></a>graphviz.Source(dot_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-34-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-42" class="cell" data-executioninfo="{&quot;elapsed&quot;:440,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1703491058951,&quot;user&quot;:{&quot;displayName&quot;:&quot;プレミアムサポート&quot;,&quot;userId&quot;:&quot;00985710683713790637&quot;},&quot;user_tz&quot;:-540}" data-outputid="1817143d-d432-46b4-9d3c-7826234ce939" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># データと予測値の可視化</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb52-3"><a href="#cb52-3"></a>X <span class="op">=</span> X_train.values.flatten()</span>
+<span id="cb52-4"><a href="#cb52-4"></a>y <span class="op">=</span> y_train.values</span>
+<span id="cb52-5"><a href="#cb52-5"></a></span>
+<span id="cb52-6"><a href="#cb52-6"></a>X_plt <span class="op">=</span> np.linspace(X.<span class="bu">min</span>(), X.<span class="bu">max</span>(), <span class="dv">100</span>)[:, np.newaxis]</span>
+<span id="cb52-7"><a href="#cb52-7"></a>y_pred <span class="op">=</span> model.predict(X_plt)</span>
+<span id="cb52-8"><a href="#cb52-8"></a></span>
+<span id="cb52-9"><a href="#cb52-9"></a>plt.scatter(X, y, label <span class="op">=</span> <span class="st">"Training data"</span>)</span>
+<span id="cb52-10"><a href="#cb52-10"></a>plt.plot(X_plt, y_pred, color <span class="op">=</span> <span class="st">"red"</span>, label <span class="op">=</span> <span class="st">"Decision Tree"</span>)</span>
+<span id="cb52-11"><a href="#cb52-11"></a>plt.ylabel(<span class="st">"MEDV"</span>)</span>
+<span id="cb52-12"><a href="#cb52-12"></a>plt.xlabel(<span class="st">"RM"</span>)</span>
+<span id="cb52-13"><a href="#cb52-13"></a>plt.legend()</span>
+<span id="cb52-14"><a href="#cb52-14"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\pyenv\py312\Lib\site-packages\sklearn\base.py:465: UserWarning: X does not have valid feature names, but DecisionTreeRegressor was fitted with feature names
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-35-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="回帰木の学習予測評価" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="回帰木の学習予測評価"><span class="header-section-number">2.3</span> 回帰木の学習、予測、評価</h2>
+<div id="cell-44" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb54-2"><a href="#cb54-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb54-3"><a href="#cb54-3"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb54-4"><a href="#cb54-4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb54-5"><a href="#cb54-5"></a><span class="im">import</span> graphviz</span>
+<span id="cb54-6"><a href="#cb54-6"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb54-7"><a href="#cb54-7"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb54-8"><a href="#cb54-8"></a></span>
+<span id="cb54-9"><a href="#cb54-9"></a>df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb54-10"><a href="#cb54-10"></a>    <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data"</span>,</span>
+<span id="cb54-11"><a href="#cb54-11"></a>    header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb54-12"><a href="#cb54-12"></a>    names <span class="op">=</span>[<span class="st">"CRIM"</span>, <span class="st">"ZN"</span>, <span class="st">"INDUS"</span>, <span class="st">"CHAS"</span>, <span class="st">"NOX"</span>, <span class="st">"RM"</span>, <span class="st">"AGE"</span>, <span class="st">"DIS"</span>, <span class="st">"RAD"</span>, <span class="st">"TAX"</span>, <span class="st">"PTRATIO"</span>, <span class="st">"B"</span>, <span class="st">"LSTAT"</span>, <span class="st">"MEDV"</span>],</span>
+<span id="cb54-13"><a href="#cb54-13"></a>    sep<span class="op">=</span><span class="st">"</span><span class="ch">\\</span><span class="st">s+"</span>,</span>
+<span id="cb54-14"><a href="#cb54-14"></a>)</span>
+<span id="cb54-15"><a href="#cb54-15"></a></span>
+<span id="cb54-16"><a href="#cb54-16"></a>X <span class="op">=</span> df.drop(labels <span class="op">=</span> [<span class="st">"MEDV"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb54-17"><a href="#cb54-17"></a>y <span class="op">=</span> df[<span class="st">"MEDV"</span>]</span>
+<span id="cb54-18"><a href="#cb54-18"></a>X.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CRIM</th>
+<th data-quarto-table-cell-role="th">ZN</th>
+<th data-quarto-table-cell-role="th">INDUS</th>
+<th data-quarto-table-cell-role="th">CHAS</th>
+<th data-quarto-table-cell-role="th">NOX</th>
+<th data-quarto-table-cell-role="th">RM</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">DIS</th>
+<th data-quarto-table-cell-role="th">RAD</th>
+<th data-quarto-table-cell-role="th">TAX</th>
+<th data-quarto-table-cell-role="th">PTRATIO</th>
+<th data-quarto-table-cell-role="th">B</th>
+<th data-quarto-table-cell-role="th">LSTAT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0.00632</td>
+<td>18.0</td>
+<td>2.31</td>
+<td>0</td>
+<td>0.538</td>
+<td>6.575</td>
+<td>65.2</td>
+<td>4.0900</td>
+<td>1</td>
+<td>296.0</td>
+<td>15.3</td>
+<td>396.90</td>
+<td>4.98</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>0.02731</td>
+<td>0.0</td>
+<td>7.07</td>
+<td>0</td>
+<td>0.469</td>
+<td>6.421</td>
+<td>78.9</td>
+<td>4.9671</td>
+<td>2</td>
+<td>242.0</td>
+<td>17.8</td>
+<td>396.90</td>
+<td>9.14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0.02729</td>
+<td>0.0</td>
+<td>7.07</td>
+<td>0</td>
+<td>0.469</td>
+<td>7.185</td>
+<td>61.1</td>
+<td>4.9671</td>
+<td>2</td>
+<td>242.0</td>
+<td>17.8</td>
+<td>392.83</td>
+<td>4.03</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>0.03237</td>
+<td>0.0</td>
+<td>2.18</td>
+<td>0</td>
+<td>0.458</td>
+<td>6.998</td>
+<td>45.8</td>
+<td>6.0622</td>
+<td>3</td>
+<td>222.0</td>
+<td>18.7</td>
+<td>394.63</td>
+<td>2.94</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0.06905</td>
+<td>0.0</td>
+<td>2.18</td>
+<td>0</td>
+<td>0.458</td>
+<td>7.147</td>
+<td>54.2</td>
+<td>6.0622</td>
+<td>3</td>
+<td>222.0</td>
+<td>18.7</td>
+<td>396.90</td>
+<td>5.33</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-45" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size <span class="op">=</span> <span class="fl">.2</span>, shuffle <span class="op">=</span> <span class="va">True</span>, random_state <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-46" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>learn_opts <span class="op">=</span> {</span>
+<span id="cb56-2"><a href="#cb56-2"></a>    <span class="st">"criterion"</span>: <span class="st">"squared_error"</span>,</span>
+<span id="cb56-3"><a href="#cb56-3"></a>    <span class="st">"max_depth"</span>: <span class="dv">4</span>, </span>
+<span id="cb56-4"><a href="#cb56-4"></a>    <span class="st">"min_samples_leaf"</span>: <span class="dv">10</span>, </span>
+<span id="cb56-5"><a href="#cb56-5"></a>    <span class="st">"ccp_alpha"</span>: <span class="dv">5</span>, <span class="co"># 葉数に対する正則化の強さ</span></span>
+<span id="cb56-6"><a href="#cb56-6"></a>}</span>
+<span id="cb56-7"><a href="#cb56-7"></a></span>
+<span id="cb56-8"><a href="#cb56-8"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
+<span id="cb56-9"><a href="#cb56-9"></a>model <span class="op">=</span> DecisionTreeRegressor(</span>
+<span id="cb56-10"><a href="#cb56-10"></a>    <span class="op">**</span>learn_opts</span>
+<span id="cb56-11"><a href="#cb56-11"></a>)</span>
+<span id="cb56-12"><a href="#cb56-12"></a></span>
+<span id="cb56-13"><a href="#cb56-13"></a>model.fit(X_train, y_train)</span>
+<span id="cb56-14"><a href="#cb56-14"></a>model.get_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>{'ccp_alpha': 5,
+ 'criterion': 'squared_error',
+ 'max_depth': 4,
+ 'max_features': None,
+ 'max_leaf_nodes': None,
+ 'min_impurity_decrease': 0.0,
+ 'min_samples_leaf': 10,
+ 'min_samples_split': 2,
+ 'min_weight_fraction_leaf': 0.0,
+ 'random_state': None,
+ 'splitter': 'best'}</code></pre>
+</div>
+</div>
+<div id="cell-47" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a>y_test_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb58-2"><a href="#cb58-2"></a>np.sqrt(mean_squared_error(y_test, y_test_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>5.950312246327099</code></pre>
+</div>
+</div>
+<div id="cell-48" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a>sns.scatterplot(</span>
+<span id="cb60-2"><a href="#cb60-2"></a>    x <span class="op">=</span> y_test, </span>
+<span id="cb60-3"><a href="#cb60-3"></a>    y <span class="op">=</span> y_test_pred</span>
+<span id="cb60-4"><a href="#cb60-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-40-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-49" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># 木の可視化</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
+<span id="cb61-3"><a href="#cb61-3"></a>dot_data <span class="op">=</span> tree.export_graphviz(model, out_file <span class="op">=</span> <span class="va">None</span>, rounded <span class="op">=</span> <span class="va">True</span>, feature_names <span class="op">=</span> X.columns, filled <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb61-4"><a href="#cb61-4"></a>graphviz.Source(dot_data, <span class="bu">format</span> <span class="op">=</span> <span class="st">"png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-41-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-50" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a><span class="co"># 特徴量の重要度の可視化</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a>importances <span class="op">=</span> model.feature_importances_</span>
+<span id="cb62-3"><a href="#cb62-3"></a>indices <span class="op">=</span> np.argsort(importances)[::<span class="op">-</span><span class="dv">1</span>] <span class="co"># 要素番号を大きい順</span></span>
+<span id="cb62-4"><a href="#cb62-4"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb62-5"><a href="#cb62-5"></a>plt.title(<span class="st">"Feature Importances"</span>)</span>
+<span id="cb62-6"><a href="#cb62-6"></a>plt.bar(<span class="bu">range</span>(<span class="bu">len</span>(indices)), importances[indices])</span>
+<span id="cb62-7"><a href="#cb62-7"></a>plt.xticks(<span class="bu">range</span>(<span class="bu">len</span>(indices)), X.columns[indices], rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb62-8"><a href="#cb62-8"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-42-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="lightgbm回帰" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> LightGBM回帰</h1>
+<p>回帰木での精度を高めるには木を深くする必要があるが、それは過学習のリスクがあり、限界がある。 勾配ブースティング回帰は、回帰木を直列に連結したアルゴリズムである。 浅い回帰木を複数作成してその結果を加重平均した値を予測値として使う。</p>
+<p>加重平均の重みは、正解値と１つ前の予測値の残差を元に計算する。詳しいことはこの後解説する。</p>
+<p><span class="math display">\[
+\hat{y}=\hat{y}^0+ w_1(x) + w_2(x) + \dots + w_K(x)
+\]</span></p>
+<p>正直、上の式がイマイチよくわからない。重みをそのまま足し込んでいること、１つ前の予測値とは、<span class="math inline">\(K-1\)</span>個の木を使ったものなのか、などがよくわからない。</p>
+<p>⇒ どうやらこれから解説してくれるようである。たとえば残差の平均値を重みにしているようである。</p>
+<div id="cell-52" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb63-2"><a href="#cb63-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb63-3"><a href="#cb63-3"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb63-4"><a href="#cb63-4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb63-5"><a href="#cb63-5"></a><span class="im">import</span> graphviz</span>
+<span id="cb63-6"><a href="#cb63-6"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb63-7"><a href="#cb63-7"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb63-8"><a href="#cb63-8"></a></span>
+<span id="cb63-9"><a href="#cb63-9"></a>df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb63-10"><a href="#cb63-10"></a>    <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data"</span>,</span>
+<span id="cb63-11"><a href="#cb63-11"></a>    header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb63-12"><a href="#cb63-12"></a>    names <span class="op">=</span>[<span class="st">"CRIM"</span>, <span class="st">"ZN"</span>, <span class="st">"INDUS"</span>, <span class="st">"CHAS"</span>, <span class="st">"NOX"</span>, <span class="st">"RM"</span>, <span class="st">"AGE"</span>, <span class="st">"DIS"</span>, <span class="st">"RAD"</span>, <span class="st">"TAX"</span>, <span class="st">"PTRATIO"</span>, <span class="st">"B"</span>, <span class="st">"LSTAT"</span>, <span class="st">"MEDV"</span>],</span>
+<span id="cb63-13"><a href="#cb63-13"></a>    sep<span class="op">=</span><span class="st">"</span><span class="ch">\\</span><span class="st">s+"</span>,</span>
+<span id="cb63-14"><a href="#cb63-14"></a>)</span>
+<span id="cb63-15"><a href="#cb63-15"></a></span>
+<span id="cb63-16"><a href="#cb63-16"></a>X_train <span class="op">=</span> df.iloc[:<span class="dv">100</span>].<span class="bu">filter</span>(items <span class="op">=</span> [<span class="st">"RM"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb63-17"><a href="#cb63-17"></a>y_train <span class="op">=</span> df.iloc[:<span class="dv">100</span>][<span class="st">"MEDV"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-53" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a><span class="im">import</span> lightgbm <span class="im">as</span> lgb</span>
+<span id="cb64-2"><a href="#cb64-2"></a>lgb_train <span class="op">=</span> lgb.Dataset(X_train, y_train)</span>
+<span id="cb64-3"><a href="#cb64-3"></a></span>
+<span id="cb64-4"><a href="#cb64-4"></a>params <span class="op">=</span> {</span>
+<span id="cb64-5"><a href="#cb64-5"></a>    <span class="st">"objective"</span>: <span class="st">"mse"</span>, </span>
+<span id="cb64-6"><a href="#cb64-6"></a>    <span class="st">"metric"</span>: <span class="st">"mse"</span>, </span>
+<span id="cb64-7"><a href="#cb64-7"></a>    <span class="st">"learning_rate"</span>: <span class="fl">.8</span>, </span>
+<span id="cb64-8"><a href="#cb64-8"></a>    <span class="st">"max_depth"</span>: <span class="dv">1</span>, </span>
+<span id="cb64-9"><a href="#cb64-9"></a>    <span class="st">"min_data_in_leaf"</span>: <span class="dv">1</span>, </span>
+<span id="cb64-10"><a href="#cb64-10"></a>    <span class="st">"min_data_in_bin"</span>: <span class="dv">1</span>, </span>
+<span id="cb64-11"><a href="#cb64-11"></a>    <span class="st">"max_bin"</span>: <span class="dv">100</span>, </span>
+<span id="cb64-12"><a href="#cb64-12"></a>    <span class="st">"seed"</span>: <span class="dv">0</span>, </span>
+<span id="cb64-13"><a href="#cb64-13"></a>    <span class="st">"verbose"</span>: <span class="op">-</span><span class="dv">1</span>, </span>
+<span id="cb64-14"><a href="#cb64-14"></a>}</span>
+<span id="cb64-15"><a href="#cb64-15"></a></span>
+<span id="cb64-16"><a href="#cb64-16"></a>model <span class="op">=</span> lgb.train(</span>
+<span id="cb64-17"><a href="#cb64-17"></a>    params, </span>
+<span id="cb64-18"><a href="#cb64-18"></a>    lgb_train, </span>
+<span id="cb64-19"><a href="#cb64-19"></a>    num_boost_round <span class="op">=</span> <span class="dv">1</span>, </span>
+<span id="cb64-20"><a href="#cb64-20"></a>    valid_sets <span class="op">=</span> [lgb_train], </span>
+<span id="cb64-21"><a href="#cb64-21"></a>    valid_names <span class="op">=</span> [<span class="st">"train"</span>]</span>
+<span id="cb64-22"><a href="#cb64-22"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-54" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a>y_train_pred <span class="op">=</span> model.predict(X_train)</span>
+<span id="cb65-2"><a href="#cb65-2"></a>mean_squared_error(y_train, y_train_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>17.10031135531668</code></pre>
+</div>
+</div>
+<div id="cell-55" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a><span class="co"># 予測値</span></span>
+<span id="cb67-2"><a href="#cb67-2"></a><span class="co"># 木の深さが1なので回帰木と同じように2値の分類となる</span></span>
+<span id="cb67-3"><a href="#cb67-3"></a>np.unique(model.predict(X_train), return_counts <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>(array([21.040891  , 31.60846732]), array([88, 12], dtype=int64))</code></pre>
+</div>
+</div>
+<div id="cell-56" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a><span class="co"># 回帰木のインデックスを指定することで</span></span>
+<span id="cb69-2"><a href="#cb69-2"></a><span class="co"># 分類の様子を調べることが可能である</span></span>
+<span id="cb69-3"><a href="#cb69-3"></a>lgb.plot_tree(</span>
+<span id="cb69-4"><a href="#cb69-4"></a>    model, </span>
+<span id="cb69-5"><a href="#cb69-5"></a>    tree_index <span class="op">=</span> <span class="dv">0</span>, </span>
+<span id="cb69-6"><a href="#cb69-6"></a>    figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb69-7"><a href="#cb69-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-47-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-57" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1"></a><span class="co"># データと予測値を同時に可視化することで２値の回帰木と同じ分類をしていることがわかる</span></span>
+<span id="cb70-2"><a href="#cb70-2"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb70-3"><a href="#cb70-3"></a>X <span class="op">=</span> X_train.values.flatten()</span>
+<span id="cb70-4"><a href="#cb70-4"></a>y <span class="op">=</span> y_train.values</span>
+<span id="cb70-5"><a href="#cb70-5"></a></span>
+<span id="cb70-6"><a href="#cb70-6"></a>X_plt <span class="op">=</span> np.arange(X.<span class="bu">min</span>(), X.<span class="bu">max</span>(), <span class="fl">.01</span>)[:, np.newaxis]</span>
+<span id="cb70-7"><a href="#cb70-7"></a>y_pred <span class="op">=</span> model.predict(X_plt)</span>
+<span id="cb70-8"><a href="#cb70-8"></a></span>
+<span id="cb70-9"><a href="#cb70-9"></a><span class="co"># 学習データでの可視化</span></span>
+<span id="cb70-10"><a href="#cb70-10"></a>plt.scatter(X, y, color <span class="op">=</span> <span class="st">"blue"</span>, label <span class="op">=</span> <span class="st">"data"</span>)</span>
+<span id="cb70-11"><a href="#cb70-11"></a>plt.plot(X_plt, y_pred, color <span class="op">=</span> <span class="st">"red"</span>, label <span class="op">=</span> <span class="st">"LightGBM"</span>)</span>
+<span id="cb70-12"><a href="#cb70-12"></a>plt.ylabel(<span class="st">"Price in $1000s [MEDV]"</span>)</span>
+<span id="cb70-13"><a href="#cb70-13"></a>plt.xlabel(<span class="st">"average number of rooms [RM]"</span>)</span>
+<span id="cb70-14"><a href="#cb70-14"></a>plt.title(<span class="st">"Boston house-prices"</span>)</span>
+<span id="cb70-15"><a href="#cb70-15"></a>plt.legend(loc <span class="op">=</span> <span class="st">"upper right"</span>)</span>
+<span id="cb70-16"><a href="#cb70-16"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-48-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="深さ1のlightgbm回帰の予測値の検証" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="深さ1のlightgbm回帰の予測値の検証"><span class="header-section-number">3.1</span> 深さ1のLightGBM回帰の予測値の検証</h2>
+<p>1回ブースティング回帰したときの予測値は次式からなる。 <span class="math inline">\(\hat{y}^0\)</span>は学習データの全体での平均値である。 二乗誤差で一回だけ更新する例をみるとことで、 アルゴリズムが式のとおり行進出来ていることを確認するというのが目的である</p>
+<p><span class="math display">\[
+\hat{y} = \hat{y}^0 + \eta w_1(x)
+\]</span></p>
+<div id="cell-59" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a><span class="bu">print</span>(<span class="ss">f"samples: </span><span class="sc">{</span><span class="bu">len</span>(y)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb71-2"><a href="#cb71-2"></a>pred0 <span class="op">=</span> <span class="bu">sum</span>(y) <span class="op">/</span> <span class="bu">len</span>(y)</span>
+<span id="cb71-3"><a href="#cb71-3"></a><span class="bu">print</span>(<span class="st">"pred0:"</span>, pred0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>samples: 100
+pred0: 22.30900000000001</code></pre>
+</div>
+</div>
+<div id="cell-60" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a><span class="co"># 深さ1の回帰木なので左右の部活となる</span></span>
+<span id="cb73-2"><a href="#cb73-2"></a>threshold <span class="op">=</span> <span class="fl">6.793</span></span>
+<span id="cb73-3"><a href="#cb73-3"></a>X_left <span class="op">=</span> X[X<span class="op">&lt;=</span>threshold]<span class="op">;</span></span>
+<span id="cb73-4"><a href="#cb73-4"></a>y_left <span class="op">=</span> y[X<span class="op">&lt;=</span>threshold]<span class="op">;</span></span>
+<span id="cb73-5"><a href="#cb73-5"></a></span>
+<span id="cb73-6"><a href="#cb73-6"></a></span>
+<span id="cb73-7"><a href="#cb73-7"></a><span class="co"># 左の葉を予測</span></span>
+<span id="cb73-8"><a href="#cb73-8"></a><span class="co"># - 残差は目的変数の正解値と初期値の差分となる</span></span>
+<span id="cb73-9"><a href="#cb73-9"></a><span class="co"># - 葉の重みはobjectiveにmseを指定したため残差の平均値となる</span></span>
+<span id="cb73-10"><a href="#cb73-10"></a><span class="co">#   - 自分で書いておいて上の文章がなぜか意味がわからない・・</span></span>
+<span id="cb73-11"><a href="#cb73-11"></a><span class="co">#   - なぜmseだと重みが残差の平均値になるのだろうか</span></span>
+<span id="cb73-12"><a href="#cb73-12"></a><span class="bu">print</span>(<span class="ss">f"sample_left: </span><span class="sc">{</span><span class="bu">len</span>(y_left)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb73-13"><a href="#cb73-13"></a>residual_left <span class="op">=</span> y_left <span class="op">-</span> pred0</span>
+<span id="cb73-14"><a href="#cb73-14"></a>weight_left <span class="op">=</span> np.mean(residual_left)<span class="op">;</span></span>
+<span id="cb73-15"><a href="#cb73-15"></a><span class="bu">print</span>(<span class="st">"weight_left:"</span>, weight_left)</span>
+<span id="cb73-16"><a href="#cb73-16"></a>y_pred_left <span class="op">=</span> pred0  <span class="op">+</span> <span class="fl">.8</span> <span class="op">*</span> weight_left<span class="op">;</span></span>
+<span id="cb73-17"><a href="#cb73-17"></a><span class="bu">print</span>(<span class="st">"y_pred_left:"</span>, y_pred_left)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>sample_left: 88
+weight_left: -1.5851363636363758
+y_pred_left: 21.040890909090912</code></pre>
+</div>
+</div>
+</section>
+<section id="lightgbmの学習予測評価" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="lightgbmの学習予測評価"><span class="header-section-number">3.2</span> LightGBMの学習、予測、評価</h2>
+<div id="cell-62" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1"></a>X <span class="op">=</span> df.drop([<span class="st">"MEDV"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb75-2"><a href="#cb75-2"></a>y <span class="op">=</span> df[<span class="st">"MEDV"</span>]</span>
+<span id="cb75-3"><a href="#cb75-3"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb75-4"><a href="#cb75-4"></a>    X, y, test_size <span class="op">=</span> <span class="fl">.2</span>, shuffle <span class="op">=</span> <span class="va">True</span>, random_state <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb75-5"><a href="#cb75-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-63" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a><span class="im">import</span> lightgbm <span class="im">as</span> lgb</span>
+<span id="cb76-2"><a href="#cb76-2"></a>lgb_train <span class="op">=</span> lgb.Dataset(X_train, y_train)</span>
+<span id="cb76-3"><a href="#cb76-3"></a></span>
+<span id="cb76-4"><a href="#cb76-4"></a>params <span class="op">=</span> {</span>
+<span id="cb76-5"><a href="#cb76-5"></a>    <span class="st">"objective"</span>: <span class="st">"mse"</span>, </span>
+<span id="cb76-6"><a href="#cb76-6"></a>    <span class="st">"num_leaves"</span>: <span class="dv">5</span>, </span>
+<span id="cb76-7"><a href="#cb76-7"></a>    <span class="st">"seed"</span>: <span class="dv">0</span>, </span>
+<span id="cb76-8"><a href="#cb76-8"></a>    <span class="st">"verbose"</span>: <span class="op">-</span><span class="dv">1</span>, </span>
+<span id="cb76-9"><a href="#cb76-9"></a>}</span>
+<span id="cb76-10"><a href="#cb76-10"></a></span>
+<span id="cb76-11"><a href="#cb76-11"></a>model <span class="op">=</span> lgb.train(</span>
+<span id="cb76-12"><a href="#cb76-12"></a>    params, </span>
+<span id="cb76-13"><a href="#cb76-13"></a>    lgb_train, </span>
+<span id="cb76-14"><a href="#cb76-14"></a>    num_boost_round <span class="op">=</span> <span class="dv">50</span>, </span>
+<span id="cb76-15"><a href="#cb76-15"></a>    valid_sets <span class="op">=</span> [lgb_train], </span>
+<span id="cb76-16"><a href="#cb76-16"></a>    valid_names <span class="op">=</span> [<span class="st">"train"</span>], </span>
+<span id="cb76-17"><a href="#cb76-17"></a>    callbacks <span class="op">=</span> [lgb.log_evaluation(<span class="dv">10</span>)]</span>
+<span id="cb76-18"><a href="#cb76-18"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[10]    train's l2: 23.2264
+[20]    train's l2: 11.4353
+[30]    train's l2: 8.26905
+[40]    train's l2: 6.83309
+[50]    train's l2: 5.88687</code></pre>
+</div>
+</div>
+<div id="cell-64" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a>y_test_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb78-2"><a href="#cb78-2"></a>np.sqrt(mean_squared_error(y_test_pred, y_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>4.965761177880827</code></pre>
+</div>
+</div>
+<div id="cell-65" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a><span class="co"># 特徴量の重要度の可視化</span></span>
+<span id="cb80-2"><a href="#cb80-2"></a>importances <span class="op">=</span> model.feature_importance(</span>
+<span id="cb80-3"><a href="#cb80-3"></a>    importance_type <span class="op">=</span> <span class="st">"gain"</span></span>
+<span id="cb80-4"><a href="#cb80-4"></a>)</span>
+<span id="cb80-5"><a href="#cb80-5"></a>indices <span class="op">=</span> np.argsort(importances)[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb80-6"><a href="#cb80-6"></a></span>
+<span id="cb80-7"><a href="#cb80-7"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb80-8"><a href="#cb80-8"></a>plt.title(<span class="st">"Feature Importance"</span>)</span>
+<span id="cb80-9"><a href="#cb80-9"></a>plt.bar(<span class="bu">range</span>(<span class="bu">len</span>(indices)), importances[indices])</span>
+<span id="cb80-10"><a href="#cb80-10"></a>plt.xticks(<span class="bu">range</span>(<span class="bu">len</span>(indices)), X.columns[indices], rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb80-11"><a href="#cb80-11"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-54-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-66" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1"></a><span class="co"># 回帰木の可視化</span></span>
+<span id="cb81-2"><a href="#cb81-2"></a>lgb.plot_tree(model, tree_index <span class="op">=</span> <span class="dv">0</span>, figsize <span class="op">=</span> (<span class="dv">20</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-55-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-67" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1"></a>lgb.plot_tree(model, tree_index <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">20</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-56-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="shap" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="shap"><span class="header-section-number">3.3</span> SHAP</h2>
+<p>SHAPはレコード1件ごとの予測値と平均的な予測値の差分を計算して、 差分を特徴量ごとに分解することで、どの特徴量が予測値に貢献するかを教えてくれる。</p>
+<p>特徴量<span class="math inline">\(X\)</span>をモデルに入力したとき予測値の期待値は<span class="math inline">\(\textrm{E}[\hat{f}(X)]\)</span>となる。</p>
+<p>インデックス<span class="math inline">\(i\)</span>の予測値<span class="math inline">\(\hat{f}(x_i)\)</span>と平均的な予測値<span class="math inline">\(\textrm{E}[\hat{f}(x)]\)</span>の差分は特徴量インデックス<span class="math inline">\(j\)</span>で分解できる.</p>
+<p><span class="math display">\[
+\hat{f}(x_i)-\textrm{E}[\hat{f}(x)]=\sum_{j=1}^m(\phi_{ij})
+\]</span></p>
+<div id="cell-69" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1"></a><span class="im">import</span> shap</span>
+<span id="cb83-2"><a href="#cb83-2"></a>explainer <span class="op">=</span> shap.TreeExplainer(</span>
+<span id="cb83-3"><a href="#cb83-3"></a>    model <span class="op">=</span> model, </span>
+<span id="cb83-4"><a href="#cb83-4"></a>    feature_pertubation <span class="op">=</span> <span class="st">"tree_path_dependent"</span></span>
+<span id="cb83-5"><a href="#cb83-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>作成したexplainerにテストデータの特徴量<span class="math inline">\(X\)</span>を入力して、SHAP値を計算する。</p>
+<div id="cell-71" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1"></a>shap_values <span class="op">=</span> explainer(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-72" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1"></a><span class="co"># 全レコードに対する期待値</span></span>
+<span id="cb85-2"><a href="#cb85-2"></a>explainer.expected_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>22.611881236511852</code></pre>
+</div>
+</div>
+<div id="cell-73" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1"></a><span class="co"># 予測値</span></span>
+<span id="cb87-2"><a href="#cb87-2"></a>y_test_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>array([24.33826347, 25.55850304, 22.88538477, 11.58613597, 22.02411837,
+       20.72080442, 21.86359234, 21.10557067, 21.40360298, 19.23261144,
+        9.61777349, 13.6106635 , 14.32141005,  9.76631897, 48.25601687,
+       35.00875917, 21.95652073, 37.80759643, 25.87572833, 22.00650765,
+       23.13945227, 22.36541355, 19.90861776, 23.78192781, 20.77748124,
+       18.71856927, 19.06298637, 16.83366361, 42.81339824, 18.96547221,
+       16.40352523, 16.24413082, 20.68783767, 20.67237901, 24.29716422,
+       16.26813009,  9.76631897, 21.76083107, 16.2511962 , 15.31180178,
+       22.50493327, 20.85719768, 23.72487685, 16.82037207, 23.63069676,
+       22.69888006, 19.02106683, 16.85573098, 15.93691435, 23.13066412,
+       18.16393601, 18.64008031, 21.32675084, 42.5370897 , 15.85521869,
+       19.32749944, 20.24974385, 20.30964921, 18.99113574, 18.75245656,
+       22.33068937, 20.77814028, 32.58636102, 31.77110891, 18.65418033,
+       29.86652849, 15.53331969, 19.5093324 , 17.2016036 , 20.92305328,
+       22.12660381, 23.27809658, 26.15053201, 32.81938365, 25.90559469,
+        9.93819836, 43.24659685, 21.98041858, 23.6518303 , 20.74369915,
+       24.4009425 , 17.80270523, 17.53592739, 42.93458749, 42.71282222,
+       23.13945227, 22.51401249, 16.70501676, 25.60918439, 15.8258483 ,
+       17.9798286 , 11.40325492, 22.59276985, 29.49044256, 21.62153404,
+       21.29432547, 10.59529386, 23.41397781, 14.93005998, 19.50409152,
+       23.2343968 , 20.60667604])</code></pre>
+</div>
+</div>
+<div id="cell-74" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1"></a><span class="co"># 貢献度と期待値の合計が予測値になる</span></span>
+<span id="cb89-2"><a href="#cb89-2"></a>shap_values[<span class="dv">14</span>].base_values <span class="op">+</span> shap_values.values[<span class="dv">14</span>].<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>48.25601687152404</code></pre>
+</div>
+</div>
+<div id="cell-75" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1"></a>y_test_pred[<span class="dv">14</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>48.25601687152407</code></pre>
+</div>
+</div>
+<p>SHAP値によってどの特徴量の貢献が大きかったのか<code>plots.waterfall</code>メソッドにより可視化可能である。 予測価格が高かった15件目の値を可視化する.</p>
+<div id="cell-77" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1"></a>shap.plots.waterfall(shap_values[<span class="dv">14</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-63-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-78" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1"></a>shap.plots.waterfall(shap_values[<span class="dv">10</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-64-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-79" class="cell" data-execution_count="31">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1"></a><span class="co"># マクロな貢献をみる</span></span>
+<span id="cb95-2"><a href="#cb95-2"></a><span class="co"># この値はテストデータの予測値で条件付けられている、ということを忘れないようにする</span></span>
+<span id="cb95-3"><a href="#cb95-3"></a>shap.plots.bar(shap_values <span class="op">=</span> shap_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cl02_データ理解_files/figure-html/cell-65-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-80" class="cell" data-execution_count="36">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1"></a>shap_values.base_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>array([[ 0.07616379,  0.        ,  0.22663437, ...,  0.89922106,
+         0.56269372,  2.62651817],
+       [ 0.56348624,  0.        , -0.08134097, ..., -1.14577638,
+         0.73951067,  2.65578769],
+       [ 0.29482469,  0.        , -0.14339472, ...,  1.23283713,
+         0.15968409, -1.09213544],
+       ...,
+       [ 0.29199972,  0.        , -0.10377573, ..., -0.69474318,
+         0.15539382, -0.90536801],
+       [ 0.15960661,  0.        , -0.1468447 , ...,  0.73249154,
+         0.09297993,  1.35855161],
+       [ 0.28207422,  0.        , -0.09163934, ..., -1.2087129 ,
+         0.12557371, -1.00348444]])</code></pre>
+</div>
+</div>
+<div id="cell-81" class="cell" data-execution_count="37">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1"></a>shap_values.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>array([[ 0.07616379,  0.        ,  0.22663437, ...,  0.89922106,
+         0.56269372,  2.62651817],
+       [ 0.56348624,  0.        , -0.08134097, ..., -1.14577638,
+         0.73951067,  2.65578769],
+       [ 0.29482469,  0.        , -0.14339472, ...,  1.23283713,
+         0.15968409, -1.09213544],
+       ...,
+       [ 0.29199972,  0.        , -0.10377573, ..., -0.69474318,
+         0.15539382, -0.90536801],
+       [ 0.15960661,  0.        , -0.1468447 , ...,  0.73249154,
+         0.09297993,  1.35855161],
+       [ 0.28207422,  0.        , -0.09163934, ..., -1.2087129 ,
+         0.12557371, -1.00348444]])</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../contents/books/07_NumpyInfinity/ch05_ブロードキャストの応用.html" class="pagination-link  aria-label=" ブロードキャストの応用"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">ブロードキャストの応用</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../contents/books/08_handbook_lightgbm/cl03_分類の予測モデル.html" class="pagination-link" aria-label="はじめに">
+        <span class="nav-page-text">はじめに</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
