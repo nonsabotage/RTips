@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips - patchwork</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../contents/libs/R/ggspatial/working.html" rel="next">
+<link href="../../../../contents/libs/R/igraph/r_interface.html" rel="prev">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+ <span class="dropdown-text">Numpy Infinity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+ <span class="dropdown-text">LightGBMハンドブック</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/corrr/working.html">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/igraph/index.html">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/patchwork/working.html">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggspatial/working.html">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/duckdb/working.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/DBI/working.html">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/mytips/01_.html">
+ <span class="dropdown-text">My Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/python/notebook.html">
+ <span class="dropdown-text">Python</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/patchwork/working.html">pathcwork</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/patchwork/working.html">Introduction</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">base</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/base/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">ggtext</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggtext/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">ggfittext</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggfittext/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">gganimate</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/gganimate/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">ggmosaic</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggmosaic/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">treemapify</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/treemapify/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">corrr</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/corrr/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">ComplexHeatmap</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ComplexHeatmap/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">GGally</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/GGally/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">sf</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/sf/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">igraph</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/igraph/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/igraph/r_interface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R インターフェイス</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
+ <span class="menu-text">pathcwork</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/patchwork/working.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">ggspatial</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggspatial/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+ <span class="menu-text">duckdb</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/duckdb/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+ <span class="menu-text">DBI</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/DBI/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="true">
+ <span class="menu-text">Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false">
+ <span class="menu-text">pydantic</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/Python/pydantic/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+ <span class="menu-text">pandera</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/Python/pandera/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  <li><a href="#basic-example" id="toc-basic-example" class="nav-link" data-scroll-target="#basic-example"><span class="header-section-number">2</span> Basic Example</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="header-section-number">3</span> Getting Started</a>
+  <ul class="collapse">
+  <li><a href="#controlling-layout" id="toc-controlling-layout" class="nav-link" data-scroll-target="#controlling-layout"><span class="header-section-number">3.1</span> Controlling layout</a></li>
+  <li><a href="#stacking-and-packing-plots" id="toc-stacking-and-packing-plots" class="nav-link" data-scroll-target="#stacking-and-packing-plots"><span class="header-section-number">3.2</span> Stacking and packing plots</a></li>
+  <li><a href="#annotating-the-composition" id="toc-annotating-the-composition" class="nav-link" data-scroll-target="#annotating-the-composition"><span class="header-section-number">3.3</span> Annotating the composition</a></li>
+  <li><a href="#controlling-guides" id="toc-controlling-guides" class="nav-link" data-scroll-target="#controlling-guides"><span class="header-section-number">3.4</span> Controlling guides</a></li>
+  <li><a href="#controlling-scales" id="toc-controlling-scales" class="nav-link" data-scroll-target="#controlling-scales"><span class="header-section-number">3.5</span> Controlling scales</a></li>
+  <li><a href="#adding-empty-area" id="toc-adding-empty-area" class="nav-link" data-scroll-target="#adding-empty-area"><span class="header-section-number">3.6</span> Adding empty area</a></li>
+  <li><a href="#controlling-the-grid" id="toc-controlling-the-grid" class="nav-link" data-scroll-target="#controlling-the-grid"><span class="header-section-number">3.7</span> Controlling the grid</a></li>
+  <li><a href="#moving-beyond-the-grid" id="toc-moving-beyond-the-grid" class="nav-link" data-scroll-target="#moving-beyond-the-grid"><span class="header-section-number">3.8</span> Moving beyond the grid</a></li>
+  <li><a href="#fixed-aspect-plots" id="toc-fixed-aspect-plots" class="nav-link" data-scroll-target="#fixed-aspect-plots"><span class="header-section-number">3.9</span> Fixed aspect plots</a></li>
+  <li><a href="#avoiding-alignment" id="toc-avoiding-alignment" class="nav-link" data-scroll-target="#avoiding-alignment"><span class="header-section-number">3.10</span> Avoiding alignment</a></li>
+  <li><a href="#insets" id="toc-insets" class="nav-link" data-scroll-target="#insets"><span class="header-section-number">3.11</span> Insets</a></li>
+  </ul></li>
+  <li><a href="#plot-assmebly" id="toc-plot-assmebly" class="nav-link" data-scroll-target="#plot-assmebly"><span class="header-section-number">4</span> Plot Assmebly</a>
+  <ul class="collapse">
+  <li><a href="#adding-non-ggplot-content" id="toc-adding-non-ggplot-content" class="nav-link" data-scroll-target="#adding-non-ggplot-content"><span class="header-section-number">4.1</span> Adding non-ggplot content</a></li>
+  <li><a href="#stacking-and-packing" id="toc-stacking-and-packing" class="nav-link" data-scroll-target="#stacking-and-packing"><span class="header-section-number">4.2</span> Stacking and packing</a></li>
+  <li><a href="#modfiying-patches" id="toc-modfiying-patches" class="nav-link" data-scroll-target="#modfiying-patches"><span class="header-section-number">4.3</span> Modfiying patches</a></li>
+  </ul></li>
+  <li><a href="#alignment-across-pages" id="toc-alignment-across-pages" class="nav-link" data-scroll-target="#alignment-across-pages"><span class="header-section-number">5</span> Alignment Across Pages</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/patchwork/working.html">pathcwork</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/patchwork/working.html">Introduction</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">patchwork</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">May 3, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/R/patchwork"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="st">"tidyverse"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="st">"magick"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="st">"ggplot2"</span>, </span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="st">"readr"</span>, </span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="st">"tibble"</span>, </span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="st">"tidyr"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="st">"forcats"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="st">"stringr"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="st">"lubridate"</span>, </span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="st">"here"</span>, </span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="st">"systemfonts"</span>, </span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="st">"magick"</span>, </span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="st">"scales"</span>, </span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="st">"grid"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>  <span class="st">"grDevices"</span>, </span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="st">"colorspace"</span>, </span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="st">"viridis"</span>, </span>
+<span id="cb2-19"><a href="#cb2-19"></a>  <span class="st">"RColorBrewer"</span>, </span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="st">"rcartocolor"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="st">"scico"</span>, </span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="st">"ggsci"</span>, </span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="st">"ggthemes"</span>, </span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="st">"nord"</span>, </span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="st">"MetBrewer"</span>, </span>
+<span id="cb2-26"><a href="#cb2-26"></a>  <span class="st">"ggrepel"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>  <span class="st">"ggforce"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28"></a>  <span class="st">"ggtext"</span>, </span>
+<span id="cb2-29"><a href="#cb2-29"></a>  <span class="st">"ggfittext"</span>,</span>
+<span id="cb2-30"><a href="#cb2-30"></a>  <span class="st">"ggdist"</span>, </span>
+<span id="cb2-31"><a href="#cb2-31"></a>  <span class="st">"ggbeeswarm"</span>, </span>
+<span id="cb2-32"><a href="#cb2-32"></a>  <span class="st">"gghalves"</span>, </span>
+<span id="cb2-33"><a href="#cb2-33"></a>  <span class="st">"patchwork"</span>, </span>
+<span id="cb2-34"><a href="#cb2-34"></a>  <span class="st">"palmerpenguins"</span>, </span>
+<span id="cb2-35"><a href="#cb2-35"></a>  <span class="st">"rnaturalearth"</span>, </span>
+<span id="cb2-36"><a href="#cb2-36"></a>  <span class="st">"sf"</span>, </span>
+<span id="cb2-37"><a href="#cb2-37"></a>  <span class="st">"rmapshaper"</span>, </span>
+<span id="cb2-38"><a href="#cb2-38"></a>  <span class="st">"devtools"</span>, </span>
+<span id="cb2-39"><a href="#cb2-39"></a>  <span class="st">"extrafont"</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>) <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">library</span>(x, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb2-42"><a href="#cb2-42"></a><span class="fu">library</span>(colorblindr)</span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a></span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb2-46"><a href="#cb2-46"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb2-47"><a href="#cb2-47"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
+<p>patchworkはggplot2の拡張パッケージである。<code>wrap_plot</code>は非常に強力に、ggplot2のプロットを組み合わせることができる。</p>
+<p><a href="https://patchwork.data-imaginist.com/">HP</a>をみると一目ですごさがわかる。 軸を共有することも可能であるし、別々の軸を持つこともできる。</p>
+</section>
+<section id="basic-example" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Basic Example</h1>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(mpg, disp))</span>
+<span id="cb3-5"><a href="#cb3-5"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(gear, disp, <span class="at">group =</span> gear))</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="working_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>上下に組み合わせることも可能である。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(disp, qsec))</span>
+<span id="cb4-2"><a href="#cb4-2"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="fu">aes</span>(carb))</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>(p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3) <span class="sc">/</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>      p4</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="working_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="getting-started" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Getting Started</h1>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(mpg, disp)) <span class="sc">+</span> </span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot 1'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(gear, disp, <span class="at">group =</span> gear)) <span class="sc">+</span> </span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot 2'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(hp, wt, <span class="at">colour =</span> mpg)) <span class="sc">+</span> </span>
+<span id="cb5-12"><a href="#cb5-12"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot 3'</span>)</span>
+<span id="cb5-13"><a href="#cb5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(gear)) <span class="sc">+</span> </span>
+<span id="cb5-16"><a href="#cb5-16"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>cyl) <span class="sc">+</span> </span>
+<span id="cb5-17"><a href="#cb5-17"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot 4'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>単純に凡例を付けると、それはグラフをくっつけた新しいオブジェクトに対するものではなく、 通常のggplotのプロットに対するものであることに注意する。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">'This will appear in the last plot'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="working_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="controlling-layout" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="controlling-layout"><span class="header-section-number">3.1</span> Controlling layout</h2>
+<p>通常は自動で、カラム数が２のレイアウトになる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="working_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="working_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="stacking-and-packing-plots" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="stacking-and-packing-plots"><span class="header-section-number">3.2</span> Stacking and packing plots</h2>
+<p>1行や1列のレイアウトを指定することにより、グラフの大きさを他のグラフと変更することも可能である。 もしくはレイアウトのショートカットとして<code>|</code>や<code>/</code>を使うこともできる。</p>
+<p><code>/</code>の方が先に演算されているように見える。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>p1 <span class="sc">|</span> (p2 <span class="sc">|</span> p3) <span class="sc">/</span> p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="working_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3 <span class="sc">/</span> p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="working_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="annotating-the-composition" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="annotating-the-composition"><span class="header-section-number">3.3</span> Annotating the composition</h2>
+<p><code>plot_annotation</code>を使うことで、結合したプロット全体に対するアノテーションを与えることが可能である</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>(p1 <span class="sc">|</span> (p2 <span class="sc">/</span> p3)) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"The surprising story about mtcars"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="working_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>プロットそれぞれにタグを与えることが可能である。 これによりサブプロットの見分けが付きやすくなる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"I"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="working_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="controlling-guides" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="controlling-guides"><span class="header-section-number">3.4</span> Controlling guides</h2>
+<p><code>plot_layout</code>の<code>guides</code>引数を使うことで、凡例の制御が可能である。 そのままプロットするとサブプロットごとの位置に凡例が表示されるが、<code>guides</code>を使うことで、 プロット全体に対することがわかりやすい位置に配置される。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="working_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="working_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>初期設定の設定は<code>auto</code>である。<code>keep</code>にすると、かならずサブプロットのプロット領域に凡例が配置されることになる。</p>
+<p>次は複数の凡例を有する場合のプロットである。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>p1a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(mpg, disp, <span class="at">colour =</span> mpg, <span class="at">size =</span> wt)) <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">ggtitle</span>(<span class="st">"PLot 1a"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a>p1a <span class="sc">|</span> (p2 <span class="sc">/</span> p3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="working_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>上記の状態で<code>guides</code>を<code>collect</code>にすると、凡例がプロット全体に配置される。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>(p1a <span class="sc">|</span> (p2 <span class="sc">/</span> p3)) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="working_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>凡例を凡例だけの場所を準備してそこにプロットすることも可能である。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">guide_area</span>() <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="working_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="controlling-scales" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="controlling-scales"><span class="header-section-number">3.5</span> Controlling scales</h2>
+<p><code>plot_layout</code>の<code>axes=collect</code>引数を使うことで、スケールの制御が可能である。</p>
+<p>通常の<code>+</code>では軸は同期された表現にならないが、上記の設定により同期された表現となる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">axes =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="working_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同期はするが、ラベルを消さないことも可能である。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>p1 <span class="sc">+</span> (p2 <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">position =</span> <span class="st">"right"</span>)) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">axis_titles =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="working_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-empty-area" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="adding-empty-area"><span class="header-section-number">3.6</span> Adding empty area</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>p1 <span class="sc">+</span> <span class="fu">plot_spacer</span>() <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_spacer</span>() <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">plot_spacer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="working_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>(p1 <span class="sc">+</span> <span class="fu">plot_spacer</span>() <span class="sc">+</span> p2) <span class="sc">/</span> (<span class="fu">plot_spacer</span>() <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">plot_spacer</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="working_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="controlling-the-grid" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="controlling-the-grid"><span class="header-section-number">3.7</span> Controlling the grid</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">byrow =</span> <span class="cn">FALSE</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="working_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="moving-beyond-the-grid" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="moving-beyond-the-grid"><span class="header-section-number">3.8</span> Moving beyond the grid</h2>
+<p>より柔軟なレイアウトの指定方法である</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>layout <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="st">##BBBB</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="st">AACCDD</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="st">##CCDD</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="st">"</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> </span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="fu">plot_layout</span>(<span class="at">design =</span> layout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="working_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>area</code>constructorを使うことでさらにプログラミックなものを作成することが可能である。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>layout <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">area</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">5</span>, <span class="at">r =</span> <span class="dv">4</span>),</span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">area</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">l =</span> <span class="dv">3</span>, <span class="at">b =</span> <span class="dv">3</span>, <span class="at">r =</span> <span class="dv">5</span>), </span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">area</span>(<span class="at">t =</span> <span class="dv">3</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="at">b =</span> <span class="dv">4</span>, <span class="at">r =</span> <span class="fl">2.5</span>)</span>
+<span id="cb24-5"><a href="#cb24-5"></a>)</span>
+<span id="cb24-6"><a href="#cb24-6"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> </span>
+<span id="cb24-7"><a href="#cb24-7"></a>  <span class="fu">plot_layout</span>(<span class="at">design =</span> layout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="working_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fixed-aspect-plots" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="fixed-aspect-plots"><span class="header-section-number">3.9</span> Fixed aspect plots</h2>
+<p>固定軸でのプロットアセンブリは特別なケースである。<code>coord_fixed</code>, <code>coord_polar</code>, <code>coord_sf</code>。</p>
+<p>デフォルトな固定軸に合わせられる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>p_fixed <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(hp, disp)) <span class="sc">+</span> </span>
+<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot F'</span>) <span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">coord_fixed</span>()</span>
+<span id="cb25-5"><a href="#cb25-5"></a>p_fixed <span class="sc">+</span> p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="working_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>合わせたくないときには、幅を指定すればよい。アスペクト比が維持されていることがわかるｓｓ</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>p_fixed <span class="sc">+</span> p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="working_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="avoiding-alignment" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="avoiding-alignment"><span class="header-section-number">3.10</span> Avoiding alignment</h2>
+<p>たとえば、captionが長いがそれに合わせて他のグラフについて、余白を調整したくないときがある。 そのときには次のような処理をおこなう。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>p2mod <span class="ot">&lt;-</span> p2 <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"This is such a long</span><span class="sc">\n</span><span class="st">and important label that</span><span class="sc">\n</span><span class="st">it has to span many lines"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a>p1 <span class="sc">|</span> p2mod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-27-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="working_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">free</span>(p1) <span class="sc">|</span> p2mod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-28-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="working_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>p1 <span class="sc">+</span> <span class="fu">inset_element</span>(p2, <span class="at">left =</span> <span class="fl">0.6</span>, <span class="at">bottom =</span> <span class="fl">0.6</span>, <span class="at">right =</span> <span class="dv">1</span>, <span class="at">top =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-29-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="working_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="insets" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="insets"><span class="header-section-number">3.11</span> Insets</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>p1 <span class="sc">+</span> <span class="fu">inset_element</span>(p2, <span class="at">left =</span> <span class="fl">0.6</span>, <span class="at">bottom =</span> <span class="fl">0.6</span>, <span class="at">right =</span> <span class="dv">1</span>, <span class="at">top =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-30-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27"><img src="working_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>npcという変数を使うことで、エリアの座標を0, 1にした相対値で指定することが可能となる</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a></span>
+<span id="cb31-2"><a href="#cb31-2"></a>p1 <span class="sc">+</span> <span class="fu">inset_element</span>(</span>
+<span id="cb31-3"><a href="#cb31-3"></a>  p2, </span>
+<span id="cb31-4"><a href="#cb31-4"></a>  <span class="at">left =</span> <span class="fl">0.5</span>, </span>
+<span id="cb31-5"><a href="#cb31-5"></a>  <span class="at">bottom =</span> <span class="fl">0.5</span>, </span>
+<span id="cb31-6"><a href="#cb31-6"></a>  <span class="at">right =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'npc'</span>) <span class="sc">-</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'cm'</span>), </span>
+<span id="cb31-7"><a href="#cb31-7"></a>  <span class="at">top =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'npc'</span>) <span class="sc">-</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'cm'</span>)</span>
+<span id="cb31-8"><a href="#cb31-8"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-31-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28"><img src="working_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="plot-assmebly" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Plot Assmebly</h1>
+<section id="adding-non-ggplot-content" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="adding-non-ggplot-content"><span class="header-section-number">4.1</span> Adding non-ggplot content</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>p1 <span class="sc">+</span> grid<span class="sc">::</span><span class="fu">textGrob</span>(<span class="st">'Some really important text'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-32-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img src="working_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="stacking-and-packing" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="stacking-and-packing"><span class="header-section-number">4.2</span> Stacking and packing</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>p1 <span class="sc">+</span> gridExtra<span class="sc">::</span><span class="fu">tableGrob</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">c</span>(<span class="st">'mpg'</span>, <span class="st">'disp'</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-33-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img src="working_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>通常のプロットでも組合せていいみたい。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>p1 <span class="sc">+</span> <span class="er">~</span><span class="fu">plot</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>disp, <span class="at">main =</span> <span class="st">'Plot 2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-34-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-31"><img src="working_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="modfiying-patches" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="modfiying-patches"><span class="header-section-number">4.3</span> Modfiying patches</h2>
+<p>グラフ全体でテーマを変換するときに</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>patchwork <span class="ot">&lt;-</span> p3 <span class="sc">/</span> (p1 <span class="sc">|</span> p2)</span>
+<span id="cb35-2"><a href="#cb35-2"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-35-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-32"><img src="working_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="alignment-across-pages" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Alignment Across Pages</h1>
+<p>異なるプロットを合成しないで同じサイズにしてくれる。 これはどこかで使う必要が高そう。どころでこのグラフがくるくるループしているのは、 gifanimationを作成しているからだろうか。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>p3_dims <span class="ot">&lt;-</span> <span class="fu">get_dim</span>(p3)</span>
+<span id="cb36-2"><a href="#cb36-2"></a>p1_aligned <span class="ot">&lt;-</span> <span class="fu">set_dim</span>(p1, p3_dims)</span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="fu">plot</span>(p1_aligned)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-36-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-33"><img src="working_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">plot</span>(p3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-36-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-34"><img src="working_files/figure-html/unnamed-chunk-36-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-37-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-35"><img src="working_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">set_dim</span>(p4, p3_dims)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-38-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-36"><img src="working_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>max_dims <span class="ot">&lt;-</span> <span class="fu">get_max_dim</span>(p1, p2, p3, p4)</span>
+<span id="cb40-2"><a href="#cb40-2"></a><span class="fu">set_dim</span>(p4, max_dims)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-39-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-37"><img src="working_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>まとめて確認する。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>plots_aligned <span class="ot">&lt;-</span> <span class="fu">align_patches</span>(p1, p2, p3, p4)</span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="cf">for</span> (p <span class="cf">in</span> plots_aligned) {</span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">plot</span>(p)</span>
+<span id="cb41-4"><a href="#cb41-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-40-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-38"><img src="working_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-40-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-39"><img src="working_files/figure-html/unnamed-chunk-40-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-40-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40"><img src="working_files/figure-html/unnamed-chunk-40-3.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="working_files/figure-html/unnamed-chunk-40-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-41"><img src="working_files/figure-html/unnamed-chunk-40-4.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../../contents/libs/R/igraph/r_interface.html" class="pagination-link  aria-label=" r="" インターフェイス"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">R インターフェイス</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../../contents/libs/R/ggspatial/working.html" class="pagination-link" aria-label="Introduction">
+        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb42" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1"></a><span class="co">---</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="an">title:</span><span class="co"> "patchwork"</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb42-4"><a href="#cb42-4"></a><span class="co">  cache: true</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a><span class="an">filters:</span></span>
+<span id="cb42-7"><a href="#cb42-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb42-9"><a href="#cb42-9"></a><span class="co">---</span></span>
+<span id="cb42-10"><a href="#cb42-10"></a></span>
+<span id="cb42-13"><a href="#cb42-13"></a><span class="in">```{r}</span></span>
+<span id="cb42-14"><a href="#cb42-14"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb42-15"><a href="#cb42-15"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/R/patchwork"</span>)</span>
+<span id="cb42-16"><a href="#cb42-16"></a><span class="in">```</span></span>
+<span id="cb42-17"><a href="#cb42-17"></a></span>
+<span id="cb42-20"><a href="#cb42-20"></a><span class="in">```{r}</span></span>
+<span id="cb42-21"><a href="#cb42-21"></a><span class="co">#| warning: false</span></span>
+<span id="cb42-22"><a href="#cb42-22"></a><span class="co">#| message: false</span></span>
+<span id="cb42-23"><a href="#cb42-23"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb42-24"><a href="#cb42-24"></a>  <span class="st">"tidyverse"</span>, </span>
+<span id="cb42-25"><a href="#cb42-25"></a>  <span class="st">"magick"</span>,</span>
+<span id="cb42-26"><a href="#cb42-26"></a>  <span class="st">"ggplot2"</span>, </span>
+<span id="cb42-27"><a href="#cb42-27"></a>  <span class="st">"readr"</span>, </span>
+<span id="cb42-28"><a href="#cb42-28"></a>  <span class="st">"tibble"</span>, </span>
+<span id="cb42-29"><a href="#cb42-29"></a>  <span class="st">"tidyr"</span>, </span>
+<span id="cb42-30"><a href="#cb42-30"></a>  <span class="st">"forcats"</span>, </span>
+<span id="cb42-31"><a href="#cb42-31"></a>  <span class="st">"stringr"</span>,</span>
+<span id="cb42-32"><a href="#cb42-32"></a>  <span class="st">"lubridate"</span>, </span>
+<span id="cb42-33"><a href="#cb42-33"></a>  <span class="st">"here"</span>, </span>
+<span id="cb42-34"><a href="#cb42-34"></a>  <span class="st">"systemfonts"</span>, </span>
+<span id="cb42-35"><a href="#cb42-35"></a>  <span class="st">"magick"</span>, </span>
+<span id="cb42-36"><a href="#cb42-36"></a>  <span class="st">"scales"</span>, </span>
+<span id="cb42-37"><a href="#cb42-37"></a>  <span class="st">"grid"</span>,</span>
+<span id="cb42-38"><a href="#cb42-38"></a>  <span class="st">"grDevices"</span>, </span>
+<span id="cb42-39"><a href="#cb42-39"></a>  <span class="st">"colorspace"</span>, </span>
+<span id="cb42-40"><a href="#cb42-40"></a>  <span class="st">"viridis"</span>, </span>
+<span id="cb42-41"><a href="#cb42-41"></a>  <span class="st">"RColorBrewer"</span>, </span>
+<span id="cb42-42"><a href="#cb42-42"></a>  <span class="st">"rcartocolor"</span>,</span>
+<span id="cb42-43"><a href="#cb42-43"></a>  <span class="st">"scico"</span>, </span>
+<span id="cb42-44"><a href="#cb42-44"></a>  <span class="st">"ggsci"</span>, </span>
+<span id="cb42-45"><a href="#cb42-45"></a>  <span class="st">"ggthemes"</span>, </span>
+<span id="cb42-46"><a href="#cb42-46"></a>  <span class="st">"nord"</span>, </span>
+<span id="cb42-47"><a href="#cb42-47"></a>  <span class="st">"MetBrewer"</span>, </span>
+<span id="cb42-48"><a href="#cb42-48"></a>  <span class="st">"ggrepel"</span>,</span>
+<span id="cb42-49"><a href="#cb42-49"></a>  <span class="st">"ggforce"</span>,</span>
+<span id="cb42-50"><a href="#cb42-50"></a>  <span class="st">"ggtext"</span>, </span>
+<span id="cb42-51"><a href="#cb42-51"></a>  <span class="st">"ggfittext"</span>,</span>
+<span id="cb42-52"><a href="#cb42-52"></a>  <span class="st">"ggdist"</span>, </span>
+<span id="cb42-53"><a href="#cb42-53"></a>  <span class="st">"ggbeeswarm"</span>, </span>
+<span id="cb42-54"><a href="#cb42-54"></a>  <span class="st">"gghalves"</span>, </span>
+<span id="cb42-55"><a href="#cb42-55"></a>  <span class="st">"patchwork"</span>, </span>
+<span id="cb42-56"><a href="#cb42-56"></a>  <span class="st">"palmerpenguins"</span>, </span>
+<span id="cb42-57"><a href="#cb42-57"></a>  <span class="st">"rnaturalearth"</span>, </span>
+<span id="cb42-58"><a href="#cb42-58"></a>  <span class="st">"sf"</span>, </span>
+<span id="cb42-59"><a href="#cb42-59"></a>  <span class="st">"rmapshaper"</span>, </span>
+<span id="cb42-60"><a href="#cb42-60"></a>  <span class="st">"devtools"</span>, </span>
+<span id="cb42-61"><a href="#cb42-61"></a>  <span class="st">"extrafont"</span></span>
+<span id="cb42-62"><a href="#cb42-62"></a>) <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">library</span>(x, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb42-63"><a href="#cb42-63"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb42-64"><a href="#cb42-64"></a><span class="fu">library</span>(colorblindr)</span>
+<span id="cb42-65"><a href="#cb42-65"></a></span>
+<span id="cb42-66"><a href="#cb42-66"></a></span>
+<span id="cb42-67"><a href="#cb42-67"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb42-68"><a href="#cb42-68"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb42-69"><a href="#cb42-69"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb42-70"><a href="#cb42-70"></a><span class="in">```</span></span>
+<span id="cb42-71"><a href="#cb42-71"></a></span>
+<span id="cb42-72"><a href="#cb42-72"></a></span>
+<span id="cb42-73"><a href="#cb42-73"></a><span class="fu"># はじめに</span></span>
+<span id="cb42-74"><a href="#cb42-74"></a></span>
+<span id="cb42-75"><a href="#cb42-75"></a>patchworkはggplot2の拡張パッケージである。<span class="in">`wrap_plot`</span>は非常に強力に、ggplot2のプロットを組み合わせることができる。</span>
+<span id="cb42-76"><a href="#cb42-76"></a></span>
+<span id="cb42-77"><a href="#cb42-77"></a><span class="co">[</span><span class="ot">HP</span><span class="co">](https://patchwork.data-imaginist.com/)</span>をみると一目ですごさがわかる。</span>
+<span id="cb42-78"><a href="#cb42-78"></a>軸を共有することも可能であるし、別々の軸を持つこともできる。</span>
+<span id="cb42-79"><a href="#cb42-79"></a></span>
+<span id="cb42-80"><a href="#cb42-80"></a></span>
+<span id="cb42-81"><a href="#cb42-81"></a><span class="fu"># Basic Example</span></span>
+<span id="cb42-82"><a href="#cb42-82"></a></span>
+<span id="cb42-85"><a href="#cb42-85"></a><span class="in">```{r}</span></span>
+<span id="cb42-86"><a href="#cb42-86"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb42-87"><a href="#cb42-87"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb42-88"><a href="#cb42-88"></a></span>
+<span id="cb42-89"><a href="#cb42-89"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(mpg, disp))</span>
+<span id="cb42-90"><a href="#cb42-90"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(gear, disp, <span class="at">group =</span> gear))</span>
+<span id="cb42-91"><a href="#cb42-91"></a></span>
+<span id="cb42-92"><a href="#cb42-92"></a>p1 <span class="sc">+</span> p2</span>
+<span id="cb42-93"><a href="#cb42-93"></a><span class="in">```</span></span>
+<span id="cb42-94"><a href="#cb42-94"></a></span>
+<span id="cb42-95"><a href="#cb42-95"></a>上下に組み合わせることも可能である。</span>
+<span id="cb42-96"><a href="#cb42-96"></a></span>
+<span id="cb42-97"><a href="#cb42-97"></a></span>
+<span id="cb42-100"><a href="#cb42-100"></a><span class="in">```{r}</span></span>
+<span id="cb42-101"><a href="#cb42-101"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(disp, qsec))</span>
+<span id="cb42-102"><a href="#cb42-102"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="fu">aes</span>(carb))</span>
+<span id="cb42-103"><a href="#cb42-103"></a></span>
+<span id="cb42-104"><a href="#cb42-104"></a>(p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3) <span class="sc">/</span></span>
+<span id="cb42-105"><a href="#cb42-105"></a>      p4</span>
+<span id="cb42-106"><a href="#cb42-106"></a><span class="in">```</span></span>
+<span id="cb42-107"><a href="#cb42-107"></a></span>
+<span id="cb42-108"><a href="#cb42-108"></a></span>
+<span id="cb42-109"><a href="#cb42-109"></a><span class="fu"># Getting Started </span></span>
+<span id="cb42-110"><a href="#cb42-110"></a></span>
+<span id="cb42-113"><a href="#cb42-113"></a><span class="in">```{r}</span></span>
+<span id="cb42-114"><a href="#cb42-114"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb42-115"><a href="#cb42-115"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb42-116"><a href="#cb42-116"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(mpg, disp)) <span class="sc">+</span> </span>
+<span id="cb42-117"><a href="#cb42-117"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot 1'</span>)</span>
+<span id="cb42-118"><a href="#cb42-118"></a></span>
+<span id="cb42-119"><a href="#cb42-119"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb42-120"><a href="#cb42-120"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(gear, disp, <span class="at">group =</span> gear)) <span class="sc">+</span> </span>
+<span id="cb42-121"><a href="#cb42-121"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot 2'</span>)</span>
+<span id="cb42-122"><a href="#cb42-122"></a></span>
+<span id="cb42-123"><a href="#cb42-123"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb42-124"><a href="#cb42-124"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(hp, wt, <span class="at">colour =</span> mpg)) <span class="sc">+</span> </span>
+<span id="cb42-125"><a href="#cb42-125"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot 3'</span>)</span>
+<span id="cb42-126"><a href="#cb42-126"></a></span>
+<span id="cb42-127"><a href="#cb42-127"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb42-128"><a href="#cb42-128"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(gear)) <span class="sc">+</span> </span>
+<span id="cb42-129"><a href="#cb42-129"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>cyl) <span class="sc">+</span> </span>
+<span id="cb42-130"><a href="#cb42-130"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot 4'</span>)</span>
+<span id="cb42-131"><a href="#cb42-131"></a><span class="in">```</span></span>
+<span id="cb42-132"><a href="#cb42-132"></a></span>
+<span id="cb42-133"><a href="#cb42-133"></a></span>
+<span id="cb42-134"><a href="#cb42-134"></a>単純に凡例を付けると、それはグラフをくっつけた新しいオブジェクトに対するものではなく、</span>
+<span id="cb42-135"><a href="#cb42-135"></a>通常のggplotのプロットに対するものであることに注意する。</span>
+<span id="cb42-136"><a href="#cb42-136"></a></span>
+<span id="cb42-139"><a href="#cb42-139"></a><span class="in">```{r}</span></span>
+<span id="cb42-140"><a href="#cb42-140"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">'This will appear in the last plot'</span>)</span>
+<span id="cb42-141"><a href="#cb42-141"></a><span class="in">```</span></span>
+<span id="cb42-142"><a href="#cb42-142"></a></span>
+<span id="cb42-143"><a href="#cb42-143"></a><span class="fu">## Controlling layout</span></span>
+<span id="cb42-144"><a href="#cb42-144"></a></span>
+<span id="cb42-145"><a href="#cb42-145"></a>通常は自動で、カラム数が２のレイアウトになる。</span>
+<span id="cb42-146"><a href="#cb42-146"></a></span>
+<span id="cb42-147"><a href="#cb42-147"></a></span>
+<span id="cb42-150"><a href="#cb42-150"></a><span class="in">```{r}</span></span>
+<span id="cb42-151"><a href="#cb42-151"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4</span>
+<span id="cb42-152"><a href="#cb42-152"></a><span class="in">```</span></span>
+<span id="cb42-153"><a href="#cb42-153"></a></span>
+<span id="cb42-156"><a href="#cb42-156"></a><span class="in">```{r}</span></span>
+<span id="cb42-157"><a href="#cb42-157"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb42-158"><a href="#cb42-158"></a><span class="in">```</span></span>
+<span id="cb42-159"><a href="#cb42-159"></a></span>
+<span id="cb42-160"><a href="#cb42-160"></a><span class="fu">## Stacking and packing plots</span></span>
+<span id="cb42-161"><a href="#cb42-161"></a></span>
+<span id="cb42-162"><a href="#cb42-162"></a>1行や1列のレイアウトを指定することにより、グラフの大きさを他のグラフと変更することも可能である。</span>
+<span id="cb42-163"><a href="#cb42-163"></a>もしくはレイアウトのショートカットとして<span class="in">`|`</span>や<span class="in">`/`</span>を使うこともできる。</span>
+<span id="cb42-164"><a href="#cb42-164"></a></span>
+<span id="cb42-165"><a href="#cb42-165"></a><span class="in">`/`</span>の方が先に演算されているように見える。</span>
+<span id="cb42-166"><a href="#cb42-166"></a></span>
+<span id="cb42-167"><a href="#cb42-167"></a></span>
+<span id="cb42-170"><a href="#cb42-170"></a><span class="in">```{r}</span></span>
+<span id="cb42-171"><a href="#cb42-171"></a>p1 <span class="sc">|</span> (p2 <span class="sc">|</span> p3) <span class="sc">/</span> p4</span>
+<span id="cb42-172"><a href="#cb42-172"></a><span class="in">```</span></span>
+<span id="cb42-173"><a href="#cb42-173"></a></span>
+<span id="cb42-174"><a href="#cb42-174"></a></span>
+<span id="cb42-175"><a href="#cb42-175"></a></span>
+<span id="cb42-176"><a href="#cb42-176"></a></span>
+<span id="cb42-177"><a href="#cb42-177"></a></span>
+<span id="cb42-180"><a href="#cb42-180"></a><span class="in">```{r}</span></span>
+<span id="cb42-181"><a href="#cb42-181"></a>p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3 <span class="sc">/</span> p4</span>
+<span id="cb42-182"><a href="#cb42-182"></a><span class="in">```</span></span>
+<span id="cb42-183"><a href="#cb42-183"></a></span>
+<span id="cb42-184"><a href="#cb42-184"></a></span>
+<span id="cb42-185"><a href="#cb42-185"></a><span class="fu">## Annotating the composition</span></span>
+<span id="cb42-186"><a href="#cb42-186"></a></span>
+<span id="cb42-187"><a href="#cb42-187"></a></span>
+<span id="cb42-188"><a href="#cb42-188"></a><span class="in">`plot_annotation`</span>を使うことで、結合したプロット全体に対するアノテーションを与えることが可能である</span>
+<span id="cb42-189"><a href="#cb42-189"></a></span>
+<span id="cb42-190"><a href="#cb42-190"></a></span>
+<span id="cb42-193"><a href="#cb42-193"></a><span class="in">```{r}</span></span>
+<span id="cb42-194"><a href="#cb42-194"></a>(p1 <span class="sc">|</span> (p2 <span class="sc">/</span> p3)) <span class="sc">+</span> </span>
+<span id="cb42-195"><a href="#cb42-195"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"The surprising story about mtcars"</span>)</span>
+<span id="cb42-196"><a href="#cb42-196"></a><span class="in">```</span></span>
+<span id="cb42-197"><a href="#cb42-197"></a></span>
+<span id="cb42-198"><a href="#cb42-198"></a>プロットそれぞれにタグを与えることが可能である。</span>
+<span id="cb42-199"><a href="#cb42-199"></a>これによりサブプロットの見分けが付きやすくなる。</span>
+<span id="cb42-200"><a href="#cb42-200"></a></span>
+<span id="cb42-203"><a href="#cb42-203"></a><span class="in">```{r}</span></span>
+<span id="cb42-204"><a href="#cb42-204"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"I"</span>)</span>
+<span id="cb42-205"><a href="#cb42-205"></a><span class="in">```</span></span>
+<span id="cb42-206"><a href="#cb42-206"></a></span>
+<span id="cb42-207"><a href="#cb42-207"></a><span class="fu">## Controlling guides</span></span>
+<span id="cb42-208"><a href="#cb42-208"></a></span>
+<span id="cb42-209"><a href="#cb42-209"></a><span class="in">`plot_layout`</span>の<span class="in">`guides`</span>引数を使うことで、凡例の制御が可能である。</span>
+<span id="cb42-210"><a href="#cb42-210"></a>そのままプロットするとサブプロットごとの位置に凡例が表示されるが、<span class="in">`guides`</span>を使うことで、</span>
+<span id="cb42-211"><a href="#cb42-211"></a>プロット全体に対することがわかりやすい位置に配置される。</span>
+<span id="cb42-212"><a href="#cb42-212"></a></span>
+<span id="cb42-215"><a href="#cb42-215"></a><span class="in">```{r}</span></span>
+<span id="cb42-216"><a href="#cb42-216"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4</span>
+<span id="cb42-217"><a href="#cb42-217"></a><span class="in">```</span></span>
+<span id="cb42-218"><a href="#cb42-218"></a></span>
+<span id="cb42-221"><a href="#cb42-221"></a><span class="in">```{r}</span></span>
+<span id="cb42-222"><a href="#cb42-222"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span>
+<span id="cb42-223"><a href="#cb42-223"></a><span class="in">```</span></span>
+<span id="cb42-224"><a href="#cb42-224"></a></span>
+<span id="cb42-225"><a href="#cb42-225"></a></span>
+<span id="cb42-226"><a href="#cb42-226"></a>初期設定の設定は<span class="in">`auto`</span>である。<span class="in">`keep`</span>にすると、かならずサブプロットのプロット領域に凡例が配置されることになる。</span>
+<span id="cb42-227"><a href="#cb42-227"></a></span>
+<span id="cb42-228"><a href="#cb42-228"></a>次は複数の凡例を有する場合のプロットである。</span>
+<span id="cb42-229"><a href="#cb42-229"></a></span>
+<span id="cb42-232"><a href="#cb42-232"></a><span class="in">```{r}</span></span>
+<span id="cb42-233"><a href="#cb42-233"></a>p1a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(mpg, disp, <span class="at">colour =</span> mpg, <span class="at">size =</span> wt)) <span class="sc">+</span> </span>
+<span id="cb42-234"><a href="#cb42-234"></a>  <span class="fu">ggtitle</span>(<span class="st">"PLot 1a"</span>)</span>
+<span id="cb42-235"><a href="#cb42-235"></a></span>
+<span id="cb42-236"><a href="#cb42-236"></a>p1a <span class="sc">|</span> (p2 <span class="sc">/</span> p3)</span>
+<span id="cb42-237"><a href="#cb42-237"></a><span class="in">```</span></span>
+<span id="cb42-238"><a href="#cb42-238"></a></span>
+<span id="cb42-239"><a href="#cb42-239"></a></span>
+<span id="cb42-240"><a href="#cb42-240"></a>上記の状態で<span class="in">`guides`</span>を<span class="in">`collect`</span>にすると、凡例がプロット全体に配置される。</span>
+<span id="cb42-241"><a href="#cb42-241"></a></span>
+<span id="cb42-244"><a href="#cb42-244"></a><span class="in">```{r}</span></span>
+<span id="cb42-245"><a href="#cb42-245"></a>(p1a <span class="sc">|</span> (p2 <span class="sc">/</span> p3)) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span>
+<span id="cb42-246"><a href="#cb42-246"></a><span class="in">```</span></span>
+<span id="cb42-247"><a href="#cb42-247"></a></span>
+<span id="cb42-248"><a href="#cb42-248"></a>凡例を凡例だけの場所を準備してそこにプロットすることも可能である。</span>
+<span id="cb42-249"><a href="#cb42-249"></a></span>
+<span id="cb42-252"><a href="#cb42-252"></a><span class="in">```{r}</span></span>
+<span id="cb42-253"><a href="#cb42-253"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">guide_area</span>() <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span>
+<span id="cb42-254"><a href="#cb42-254"></a><span class="in">```</span></span>
+<span id="cb42-255"><a href="#cb42-255"></a></span>
+<span id="cb42-256"><a href="#cb42-256"></a><span class="fu">## Controlling scales</span></span>
+<span id="cb42-257"><a href="#cb42-257"></a></span>
+<span id="cb42-258"><a href="#cb42-258"></a></span>
+<span id="cb42-259"><a href="#cb42-259"></a><span class="in">`plot_layout`</span>の<span class="in">`axes=collect`</span>引数を使うことで、スケールの制御が可能である。</span>
+<span id="cb42-260"><a href="#cb42-260"></a></span>
+<span id="cb42-261"><a href="#cb42-261"></a>通常の<span class="in">`+`</span>では軸は同期された表現にならないが、上記の設定により同期された表現となる。</span>
+<span id="cb42-262"><a href="#cb42-262"></a></span>
+<span id="cb42-265"><a href="#cb42-265"></a><span class="in">```{r}</span></span>
+<span id="cb42-266"><a href="#cb42-266"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">axes =</span> <span class="st">"collect"</span>)</span>
+<span id="cb42-267"><a href="#cb42-267"></a><span class="in">```</span></span>
+<span id="cb42-268"><a href="#cb42-268"></a></span>
+<span id="cb42-269"><a href="#cb42-269"></a></span>
+<span id="cb42-270"><a href="#cb42-270"></a>同期はするが、ラベルを消さないことも可能である。</span>
+<span id="cb42-271"><a href="#cb42-271"></a></span>
+<span id="cb42-274"><a href="#cb42-274"></a><span class="in">```{r}</span></span>
+<span id="cb42-275"><a href="#cb42-275"></a>p1 <span class="sc">+</span> (p2 <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">position =</span> <span class="st">"right"</span>)) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">axis_titles =</span> <span class="st">"collect"</span>)</span>
+<span id="cb42-276"><a href="#cb42-276"></a><span class="in">```</span></span>
+<span id="cb42-277"><a href="#cb42-277"></a></span>
+<span id="cb42-278"><a href="#cb42-278"></a><span class="fu">## Adding empty area</span></span>
+<span id="cb42-279"><a href="#cb42-279"></a></span>
+<span id="cb42-280"><a href="#cb42-280"></a></span>
+<span id="cb42-283"><a href="#cb42-283"></a><span class="in">```{r}</span></span>
+<span id="cb42-284"><a href="#cb42-284"></a>p1 <span class="sc">+</span> <span class="fu">plot_spacer</span>() <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_spacer</span>() <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">plot_spacer</span>()</span>
+<span id="cb42-285"><a href="#cb42-285"></a><span class="in">```</span></span>
+<span id="cb42-286"><a href="#cb42-286"></a></span>
+<span id="cb42-289"><a href="#cb42-289"></a><span class="in">```{r}</span></span>
+<span id="cb42-290"><a href="#cb42-290"></a>(p1 <span class="sc">+</span> <span class="fu">plot_spacer</span>() <span class="sc">+</span> p2) <span class="sc">/</span> (<span class="fu">plot_spacer</span>() <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">plot_spacer</span>())</span>
+<span id="cb42-291"><a href="#cb42-291"></a><span class="in">```</span></span>
+<span id="cb42-292"><a href="#cb42-292"></a></span>
+<span id="cb42-293"><a href="#cb42-293"></a><span class="fu">## Controlling the grid</span></span>
+<span id="cb42-294"><a href="#cb42-294"></a></span>
+<span id="cb42-297"><a href="#cb42-297"></a><span class="in">```{r}</span></span>
+<span id="cb42-298"><a href="#cb42-298"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> </span>
+<span id="cb42-299"><a href="#cb42-299"></a>  <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">byrow =</span> <span class="cn">FALSE</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb42-300"><a href="#cb42-300"></a><span class="in">```</span></span>
+<span id="cb42-301"><a href="#cb42-301"></a></span>
+<span id="cb42-302"><a href="#cb42-302"></a></span>
+<span id="cb42-303"><a href="#cb42-303"></a><span class="fu">## Moving beyond the grid</span></span>
+<span id="cb42-304"><a href="#cb42-304"></a></span>
+<span id="cb42-305"><a href="#cb42-305"></a>より柔軟なレイアウトの指定方法である</span>
+<span id="cb42-306"><a href="#cb42-306"></a></span>
+<span id="cb42-307"><a href="#cb42-307"></a></span>
+<span id="cb42-310"><a href="#cb42-310"></a><span class="in">```{r}</span></span>
+<span id="cb42-311"><a href="#cb42-311"></a>layout <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb42-312"><a href="#cb42-312"></a><span class="st">##BBBB</span></span>
+<span id="cb42-313"><a href="#cb42-313"></a><span class="st">AACCDD</span></span>
+<span id="cb42-314"><a href="#cb42-314"></a><span class="st">##CCDD</span></span>
+<span id="cb42-315"><a href="#cb42-315"></a><span class="st">"</span></span>
+<span id="cb42-316"><a href="#cb42-316"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> </span>
+<span id="cb42-317"><a href="#cb42-317"></a>  <span class="fu">plot_layout</span>(<span class="at">design =</span> layout)</span>
+<span id="cb42-318"><a href="#cb42-318"></a><span class="in">```</span></span>
+<span id="cb42-319"><a href="#cb42-319"></a></span>
+<span id="cb42-320"><a href="#cb42-320"></a><span class="in">`area`</span>constructorを使うことでさらにプログラミックなものを作成することが可能である。</span>
+<span id="cb42-321"><a href="#cb42-321"></a></span>
+<span id="cb42-324"><a href="#cb42-324"></a><span class="in">```{r}</span></span>
+<span id="cb42-325"><a href="#cb42-325"></a>layout <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb42-326"><a href="#cb42-326"></a>  <span class="fu">area</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">5</span>, <span class="at">r =</span> <span class="dv">4</span>),</span>
+<span id="cb42-327"><a href="#cb42-327"></a>  <span class="fu">area</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">l =</span> <span class="dv">3</span>, <span class="at">b =</span> <span class="dv">3</span>, <span class="at">r =</span> <span class="dv">5</span>), </span>
+<span id="cb42-328"><a href="#cb42-328"></a>  <span class="fu">area</span>(<span class="at">t =</span> <span class="dv">3</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="at">b =</span> <span class="dv">4</span>, <span class="at">r =</span> <span class="fl">2.5</span>)</span>
+<span id="cb42-329"><a href="#cb42-329"></a>)</span>
+<span id="cb42-330"><a href="#cb42-330"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> </span>
+<span id="cb42-331"><a href="#cb42-331"></a>  <span class="fu">plot_layout</span>(<span class="at">design =</span> layout)</span>
+<span id="cb42-332"><a href="#cb42-332"></a><span class="in">```</span></span>
+<span id="cb42-333"><a href="#cb42-333"></a></span>
+<span id="cb42-334"><a href="#cb42-334"></a><span class="fu">## Fixed aspect plots</span></span>
+<span id="cb42-335"><a href="#cb42-335"></a></span>
+<span id="cb42-336"><a href="#cb42-336"></a>固定軸でのプロットアセンブリは特別なケースである。<span class="in">`coord_fixed`</span>, <span class="in">`coord_polar`</span>, <span class="in">`coord_sf`</span>。</span>
+<span id="cb42-337"><a href="#cb42-337"></a></span>
+<span id="cb42-338"><a href="#cb42-338"></a></span>
+<span id="cb42-339"><a href="#cb42-339"></a>デフォルトな固定軸に合わせられる。</span>
+<span id="cb42-340"><a href="#cb42-340"></a></span>
+<span id="cb42-343"><a href="#cb42-343"></a><span class="in">```{r}</span></span>
+<span id="cb42-344"><a href="#cb42-344"></a>p_fixed <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb42-345"><a href="#cb42-345"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(hp, disp)) <span class="sc">+</span> </span>
+<span id="cb42-346"><a href="#cb42-346"></a>  <span class="fu">ggtitle</span>(<span class="st">'Plot F'</span>) <span class="sc">+</span> </span>
+<span id="cb42-347"><a href="#cb42-347"></a>  <span class="fu">coord_fixed</span>()</span>
+<span id="cb42-348"><a href="#cb42-348"></a>p_fixed <span class="sc">+</span> p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3</span>
+<span id="cb42-349"><a href="#cb42-349"></a><span class="in">```</span></span>
+<span id="cb42-350"><a href="#cb42-350"></a></span>
+<span id="cb42-351"><a href="#cb42-351"></a>合わせたくないときには、幅を指定すればよい。アスペクト比が維持されていることがわかるｓｓ</span>
+<span id="cb42-352"><a href="#cb42-352"></a></span>
+<span id="cb42-355"><a href="#cb42-355"></a><span class="in">```{r}</span></span>
+<span id="cb42-356"><a href="#cb42-356"></a>p_fixed <span class="sc">+</span> p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="dv">1</span>)</span>
+<span id="cb42-357"><a href="#cb42-357"></a><span class="in">```</span></span>
+<span id="cb42-358"><a href="#cb42-358"></a></span>
+<span id="cb42-359"><a href="#cb42-359"></a></span>
+<span id="cb42-360"><a href="#cb42-360"></a><span class="fu">## Avoiding alignment</span></span>
+<span id="cb42-361"><a href="#cb42-361"></a></span>
+<span id="cb42-362"><a href="#cb42-362"></a>たとえば、captionが長いがそれに合わせて他のグラフについて、余白を調整したくないときがある。</span>
+<span id="cb42-363"><a href="#cb42-363"></a>そのときには次のような処理をおこなう。</span>
+<span id="cb42-364"><a href="#cb42-364"></a></span>
+<span id="cb42-367"><a href="#cb42-367"></a><span class="in">```{r}</span></span>
+<span id="cb42-368"><a href="#cb42-368"></a>p2mod <span class="ot">&lt;-</span> p2 <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"This is such a long</span><span class="sc">\n</span><span class="st">and important label that</span><span class="sc">\n</span><span class="st">it has to span many lines"</span>)</span>
+<span id="cb42-369"><a href="#cb42-369"></a>p1 <span class="sc">|</span> p2mod</span>
+<span id="cb42-370"><a href="#cb42-370"></a><span class="in">```</span></span>
+<span id="cb42-371"><a href="#cb42-371"></a></span>
+<span id="cb42-374"><a href="#cb42-374"></a><span class="in">```{r}</span></span>
+<span id="cb42-375"><a href="#cb42-375"></a><span class="fu">free</span>(p1) <span class="sc">|</span> p2mod</span>
+<span id="cb42-376"><a href="#cb42-376"></a></span>
+<span id="cb42-377"><a href="#cb42-377"></a><span class="in">```</span></span>
+<span id="cb42-378"><a href="#cb42-378"></a></span>
+<span id="cb42-379"><a href="#cb42-379"></a></span>
+<span id="cb42-382"><a href="#cb42-382"></a><span class="in">```{r}</span></span>
+<span id="cb42-383"><a href="#cb42-383"></a>p1 <span class="sc">+</span> <span class="fu">inset_element</span>(p2, <span class="at">left =</span> <span class="fl">0.6</span>, <span class="at">bottom =</span> <span class="fl">0.6</span>, <span class="at">right =</span> <span class="dv">1</span>, <span class="at">top =</span> <span class="dv">1</span>)</span>
+<span id="cb42-384"><a href="#cb42-384"></a><span class="in">```</span></span>
+<span id="cb42-385"><a href="#cb42-385"></a></span>
+<span id="cb42-386"><a href="#cb42-386"></a></span>
+<span id="cb42-387"><a href="#cb42-387"></a></span>
+<span id="cb42-388"><a href="#cb42-388"></a></span>
+<span id="cb42-389"><a href="#cb42-389"></a><span class="fu">## Insets</span></span>
+<span id="cb42-390"><a href="#cb42-390"></a></span>
+<span id="cb42-393"><a href="#cb42-393"></a><span class="in">```{r}</span></span>
+<span id="cb42-394"><a href="#cb42-394"></a>p1 <span class="sc">+</span> <span class="fu">inset_element</span>(p2, <span class="at">left =</span> <span class="fl">0.6</span>, <span class="at">bottom =</span> <span class="fl">0.6</span>, <span class="at">right =</span> <span class="dv">1</span>, <span class="at">top =</span> <span class="dv">1</span>)</span>
+<span id="cb42-395"><a href="#cb42-395"></a><span class="in">```</span></span>
+<span id="cb42-396"><a href="#cb42-396"></a></span>
+<span id="cb42-397"><a href="#cb42-397"></a></span>
+<span id="cb42-398"><a href="#cb42-398"></a>npcという変数を使うことで、エリアの座標を0, 1にした相対値で指定することが可能となる</span>
+<span id="cb42-399"><a href="#cb42-399"></a></span>
+<span id="cb42-400"><a href="#cb42-400"></a></span>
+<span id="cb42-403"><a href="#cb42-403"></a><span class="in">```{r}</span></span>
+<span id="cb42-404"><a href="#cb42-404"></a>p1 <span class="sc">+</span> <span class="fu">inset_element</span>(</span>
+<span id="cb42-405"><a href="#cb42-405"></a>  p2, </span>
+<span id="cb42-406"><a href="#cb42-406"></a>  <span class="at">left =</span> <span class="fl">0.5</span>, </span>
+<span id="cb42-407"><a href="#cb42-407"></a>  <span class="at">bottom =</span> <span class="fl">0.5</span>, </span>
+<span id="cb42-408"><a href="#cb42-408"></a>  <span class="at">right =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'npc'</span>) <span class="sc">-</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'cm'</span>), </span>
+<span id="cb42-409"><a href="#cb42-409"></a>  <span class="at">top =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'npc'</span>) <span class="sc">-</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'cm'</span>)</span>
+<span id="cb42-410"><a href="#cb42-410"></a>)</span>
+<span id="cb42-411"><a href="#cb42-411"></a><span class="in">```</span></span>
+<span id="cb42-412"><a href="#cb42-412"></a></span>
+<span id="cb42-413"><a href="#cb42-413"></a></span>
+<span id="cb42-414"><a href="#cb42-414"></a><span class="fu"># Plot Assmebly</span></span>
+<span id="cb42-415"><a href="#cb42-415"></a></span>
+<span id="cb42-416"><a href="#cb42-416"></a></span>
+<span id="cb42-417"><a href="#cb42-417"></a><span class="fu">## Adding non-ggplot content</span></span>
+<span id="cb42-418"><a href="#cb42-418"></a></span>
+<span id="cb42-421"><a href="#cb42-421"></a><span class="in">```{r}</span></span>
+<span id="cb42-422"><a href="#cb42-422"></a>p1 <span class="sc">+</span> grid<span class="sc">::</span><span class="fu">textGrob</span>(<span class="st">'Some really important text'</span>)</span>
+<span id="cb42-423"><a href="#cb42-423"></a><span class="in">```</span></span>
+<span id="cb42-424"><a href="#cb42-424"></a></span>
+<span id="cb42-425"><a href="#cb42-425"></a></span>
+<span id="cb42-426"><a href="#cb42-426"></a><span class="fu">## Stacking and packing </span></span>
+<span id="cb42-427"><a href="#cb42-427"></a></span>
+<span id="cb42-430"><a href="#cb42-430"></a><span class="in">```{r}</span></span>
+<span id="cb42-431"><a href="#cb42-431"></a>p1 <span class="sc">+</span> gridExtra<span class="sc">::</span><span class="fu">tableGrob</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">c</span>(<span class="st">'mpg'</span>, <span class="st">'disp'</span>)])</span>
+<span id="cb42-432"><a href="#cb42-432"></a><span class="in">```</span></span>
+<span id="cb42-433"><a href="#cb42-433"></a></span>
+<span id="cb42-434"><a href="#cb42-434"></a>通常のプロットでも組合せていいみたい。</span>
+<span id="cb42-435"><a href="#cb42-435"></a></span>
+<span id="cb42-438"><a href="#cb42-438"></a><span class="in">```{r}</span></span>
+<span id="cb42-439"><a href="#cb42-439"></a>p1 <span class="sc">+</span> <span class="er">~</span><span class="fu">plot</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>disp, <span class="at">main =</span> <span class="st">'Plot 2'</span>)</span>
+<span id="cb42-440"><a href="#cb42-440"></a><span class="in">```</span></span>
+<span id="cb42-441"><a href="#cb42-441"></a></span>
+<span id="cb42-442"><a href="#cb42-442"></a></span>
+<span id="cb42-443"><a href="#cb42-443"></a><span class="fu">## Modfiying patches</span></span>
+<span id="cb42-444"><a href="#cb42-444"></a></span>
+<span id="cb42-445"><a href="#cb42-445"></a>グラフ全体でテーマを変換するときに</span>
+<span id="cb42-446"><a href="#cb42-446"></a></span>
+<span id="cb42-447"><a href="#cb42-447"></a></span>
+<span id="cb42-450"><a href="#cb42-450"></a><span class="in">```{r}</span></span>
+<span id="cb42-451"><a href="#cb42-451"></a>patchwork <span class="ot">&lt;-</span> p3 <span class="sc">/</span> (p1 <span class="sc">|</span> p2)</span>
+<span id="cb42-452"><a href="#cb42-452"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb42-453"><a href="#cb42-453"></a><span class="in">```</span></span>
+<span id="cb42-454"><a href="#cb42-454"></a></span>
+<span id="cb42-455"><a href="#cb42-455"></a><span class="fu"># Alignment Across Pages</span></span>
+<span id="cb42-456"><a href="#cb42-456"></a></span>
+<span id="cb42-457"><a href="#cb42-457"></a>異なるプロットを合成しないで同じサイズにしてくれる。</span>
+<span id="cb42-458"><a href="#cb42-458"></a>これはどこかで使う必要が高そう。どころでこのグラフがくるくるループしているのは、</span>
+<span id="cb42-459"><a href="#cb42-459"></a>gifanimationを作成しているからだろうか。</span>
+<span id="cb42-460"><a href="#cb42-460"></a></span>
+<span id="cb42-463"><a href="#cb42-463"></a><span class="in">```{r}</span></span>
+<span id="cb42-464"><a href="#cb42-464"></a>p3_dims <span class="ot">&lt;-</span> <span class="fu">get_dim</span>(p3)</span>
+<span id="cb42-465"><a href="#cb42-465"></a>p1_aligned <span class="ot">&lt;-</span> <span class="fu">set_dim</span>(p1, p3_dims)</span>
+<span id="cb42-466"><a href="#cb42-466"></a><span class="fu">plot</span>(p1_aligned)</span>
+<span id="cb42-467"><a href="#cb42-467"></a><span class="fu">plot</span>(p3)</span>
+<span id="cb42-468"><a href="#cb42-468"></a><span class="in">```</span></span>
+<span id="cb42-469"><a href="#cb42-469"></a></span>
+<span id="cb42-472"><a href="#cb42-472"></a><span class="in">```{r}</span></span>
+<span id="cb42-473"><a href="#cb42-473"></a>p4</span>
+<span id="cb42-474"><a href="#cb42-474"></a></span>
+<span id="cb42-475"><a href="#cb42-475"></a><span class="in">```</span></span>
+<span id="cb42-476"><a href="#cb42-476"></a></span>
+<span id="cb42-479"><a href="#cb42-479"></a><span class="in">```{r}</span></span>
+<span id="cb42-480"><a href="#cb42-480"></a><span class="fu">set_dim</span>(p4, p3_dims)</span>
+<span id="cb42-481"><a href="#cb42-481"></a><span class="in">```</span></span>
+<span id="cb42-482"><a href="#cb42-482"></a></span>
+<span id="cb42-485"><a href="#cb42-485"></a><span class="in">```{r}</span></span>
+<span id="cb42-486"><a href="#cb42-486"></a>max_dims <span class="ot">&lt;-</span> <span class="fu">get_max_dim</span>(p1, p2, p3, p4)</span>
+<span id="cb42-487"><a href="#cb42-487"></a><span class="fu">set_dim</span>(p4, max_dims)</span>
+<span id="cb42-488"><a href="#cb42-488"></a><span class="in">```</span></span>
+<span id="cb42-489"><a href="#cb42-489"></a></span>
+<span id="cb42-490"><a href="#cb42-490"></a>まとめて確認する。</span>
+<span id="cb42-491"><a href="#cb42-491"></a></span>
+<span id="cb42-494"><a href="#cb42-494"></a><span class="in">```{r}</span></span>
+<span id="cb42-495"><a href="#cb42-495"></a>plots_aligned <span class="ot">&lt;-</span> <span class="fu">align_patches</span>(p1, p2, p3, p4)</span>
+<span id="cb42-496"><a href="#cb42-496"></a><span class="cf">for</span> (p <span class="cf">in</span> plots_aligned) {</span>
+<span id="cb42-497"><a href="#cb42-497"></a>  <span class="fu">plot</span>(p)</span>
+<span id="cb42-498"><a href="#cb42-498"></a>}</span>
+<span id="cb42-499"><a href="#cb42-499"></a><span class="in">```</span></span>
+<span id="cb42-500"><a href="#cb42-500"></a></span>
+<span id="cb42-501"><a href="#cb42-501"></a></span>
+<span id="cb42-502"><a href="#cb42-502"></a></span>
+<span id="cb42-503"><a href="#cb42-503"></a></span>
+<span id="cb42-504"><a href="#cb42-504"></a></span>
+<span id="cb42-505"><a href="#cb42-505"></a></span>
+<span id="cb42-506"><a href="#cb42-506"></a></span>
+<span id="cb42-507"><a href="#cb42-507"></a></span>
+<span id="cb42-508"><a href="#cb42-508"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","loop":false});</script>
+
+
+
+
+</body></html>
