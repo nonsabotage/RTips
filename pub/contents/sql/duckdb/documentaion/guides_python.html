@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
-        <li class="dropdown-header">R</li>
+        <li class="dropdown-header">ALL</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html">
  <span class="dropdown-text">R for Data Science 2e</span></a>
@@ -161,6 +161,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/udemy_database-specialist/am-2-note.html">
+ <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
   </li>  
     </ul>
   </li>
@@ -574,7 +578,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="1"><span class="header-section-number">1</span> Library Import and Configuration</h1>
 <section id="connecting-to-duckdb-natively" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="connecting-to-duckdb-natively"><span class="header-section-number">1.1</span> Connecting to DuckDB Natively</h2>
-<div id="cell-3" class="cell" data-execution_count="3">
+<div id="cell-3" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> duckdb</span>
@@ -582,17 +586,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="op">%</span>load_ext sql</span>
-<span id="cb1-6"><a href="#cb1-6"></a>conn <span class="op">=</span> duckdb.<span class="ex">connect</span>()</span>
+<span id="cb1-6"><a href="#cb1-6"></a>conn <span class="op">=</span> duckdb.<span class="ex">connect</span>(<span class="st">"penguins.db"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="op">%</span>sql conn <span class="op">--</span>alias duckdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Deploy Streamlit apps for free on Ploomber Cloud! Learn more: https://ploomber.io/s/signup</code></pre>
+<pre><code>Deploy Panel apps for free on Ploomber Cloud! Learn more: https://ploomber.io/s/signup</code></pre>
 </div>
 </div>
 </section>
 <section id="connecting-to-duckdb-via-sqlalchemy-using-duckdb_engine" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="connecting-to-duckdb-via-sqlalchemy-using-duckdb_engine"><span class="header-section-number">1.2</span> Connecting to DuckDB via SQLAlchemy Using duckdb_engine</h2>
-<div id="cell-5" class="cell" data-execution_count="5">
+<div id="cell-5" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> duckdb</span>
@@ -651,7 +655,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="8">
+<div id="cell-10" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">%%</span>sql</span>
@@ -662,48 +666,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-6"><a href="#cb7-6"></a>ORDER BY ALL DESC</span>
 <span id="cb7-7"><a href="#cb7-7"></a>LIMIT <span class="dv">5</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<div class="cell-output cell-output-display">
+<span style="None">Running query in 'duckdb'</span>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">schema_name</th>
 <th data-quarto-table-cell-role="th">function_name</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
 <td>pg_catalog</td>
 <td>shobj_description</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
 <td>pg_catalog</td>
 <td>shobj_description</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
 <td>pg_catalog</td>
 <td>shobj_description</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
 <td>pg_catalog</td>
 <td>pg_typeof</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
 <td>pg_catalog</td>
 <td>pg_typeof</td>
 </tr>
 </tbody>
 </table>
-
-</div>
 </div>
 </div>
 <p>クエリの結果をPythonオブジェクトとして取得する。</p>
@@ -725,14 +721,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="querying-pandas-dataframes" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="querying-pandas-dataframes"><span class="header-section-number">2.1</span> Querying Pandas Dataframes</h2>
-<div id="cell-15" class="cell" data-execution_count="11">
+<div id="cell-15" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb11-2"><a href="#cb11-2"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3"></a>penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -867,28 +863,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="19">
+<div id="cell-16" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>penguins.to_csv(<span class="st">"./penguins.csv"</span>, index <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-17" class="cell" data-execution_count="15">
+<div id="cell-17" class="cell" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">%%</span>sql</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">%%</span>sql <span class="op">--</span>save penguins</span>
 <span id="cb13-2"><a href="#cb13-2"></a>SELECT species, sex, SUM(bill_length_mm)</span>
 <span id="cb13-3"><a href="#cb13-3"></a>FROM penguins</span>
 <span id="cb13-4"><a href="#cb13-4"></a>GROUP BY species, sex<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="15">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<div class="cell-output cell-output-display">
+<span style="None">Running query in 'duckdb'</span>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">species</th>
 <th data-quarto-table-cell-role="th">sex</th>
 <th data-quarto-table-cell-role="th">sum(bill_length_mm)</th>
@@ -896,133 +891,358 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
 <td>Gentoo</td>
 <td>None</td>
 <td>182.5</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Adelie</td>
-<td>Female</td>
-<td>2719.8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Gentoo</td>
-<td>Male</td>
-<td>3017.9</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Chinstrap</td>
-<td>Male</td>
-<td>1737.2</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Adelie</td>
-<td>Male</td>
-<td>2948.5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>Gentoo</td>
-<td>Female</td>
-<td>2642.7</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
 <td>Chinstrap</td>
 <td>Female</td>
 <td>1583.5</td>
 </tr>
+<tr class="odd">
+<td>Adelie</td>
+<td>Female</td>
+<td>2719.7999999999993</td>
+</tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
+<td>Gentoo</td>
+<td>Male</td>
+<td>3017.9000000000005</td>
+</tr>
+<tr class="odd">
+<td>Chinstrap</td>
+<td>Male</td>
+<td>1737.2</td>
+</tr>
+<tr class="even">
+<td>Adelie</td>
+<td>Male</td>
+<td>2948.4999999999973</td>
+</tr>
+<tr class="odd">
+<td>Gentoo</td>
+<td>Female</td>
+<td>2642.7</td>
+</tr>
+<tr class="even">
 <td>Adelie</td>
 <td>None</td>
 <td>189.2</td>
 </tr>
 </tbody>
 </table>
-
 </div>
 </div>
-</div>
-<div id="cell-18" class="cell" data-execution_count="20">
+<div id="cell-18" class="cell" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">%%</span>sql</span>
-<span id="cb14-2"><a href="#cb14-2"></a>SELECT species, sex, SUM(bill_length_mm)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>FROM read_csv(<span class="st">'penguins.csv'</span>)</span>
-<span id="cb14-4"><a href="#cb14-4"></a>GROUP BY species, sex<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="im">from</span> penguins<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<div class="cell-output cell-output-display">
+<span style="background-color:#fff3cd;color:#d39e00">Your query is using the following snippets: penguins. The query is not a SELECT type query and as snippets only work with SELECT queries, CTE generation is disabled</span>
+</div>
+<div class="cell-output cell-output-display">
+<span style="None">Running query in 'duckdb'</span>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
 <th data-quarto-table-cell-role="th">sex</th>
-<th data-quarto-table-cell-role="th">sum(bill_length_mm)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Gentoo</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<td>Adelie</td>
+<td>Torgersen</td>
 <td>None</td>
-<td>182.5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Chinstrap</td>
-<td>Female</td>
-<td>1583.5</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Adelie</td>
-<td>Female</td>
-<td>2719.8</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Gentoo</td>
-<td>Male</td>
-<td>3017.9</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Chinstrap</td>
-<td>Male</td>
-<td>1737.2</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>Adelie</td>
-<td>Male</td>
-<td>2948.5</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>Gentoo</td>
-<td>Female</td>
-<td>2642.7</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>Adelie</td>
 <td>None</td>
-<td>189.2</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+</tr>
+<tr class="odd">
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.3</td>
+<td>20.6</td>
+<td>190.0</td>
+<td>3650.0</td>
+<td>Male</td>
+</tr>
+<tr class="odd">
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>38.9</td>
+<td>17.8</td>
+<td>181.0</td>
+<td>3625.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.2</td>
+<td>19.6</td>
+<td>195.0</td>
+<td>4675.0</td>
+<td>Male</td>
+</tr>
+<tr class="odd">
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>34.1</td>
+<td>18.1</td>
+<td>193.0</td>
+<td>3475.0</td>
+<td>None</td>
+</tr>
+<tr class="even">
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>42.0</td>
+<td>20.2</td>
+<td>190.0</td>
+<td>4250.0</td>
+<td>None</td>
 </tr>
 </tbody>
 </table>
 
+<span style="font-style:italic;text-align:center;">Truncated to <a href="https://jupysql.ploomber.io/en/latest/api/configuration.html#displaylimit">displaylimit</a> of 10.</span>
 </div>
+</div>
+<div id="cell-19" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="op">%%</span>sql</span>
+<span id="cb15-2"><a href="#cb15-2"></a>SELECT </span>
+<span id="cb15-3"><a href="#cb15-3"></a>    COALESCE(species, <span class="st">'ALL'</span>) <span class="im">as</span> species</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    , COALESCE(sex, <span class="st">'ALL'</span>) <span class="im">as</span> sex</span>
+<span id="cb15-5"><a href="#cb15-5"></a>    , SUM(bill_length_mm) <span class="im">as</span> sum_bill_legth_mm</span>
+<span id="cb15-6"><a href="#cb15-6"></a>    , COUNT(<span class="op">*</span>) <span class="im">as</span> total</span>
+<span id="cb15-7"><a href="#cb15-7"></a>    , COUNT(bill_length_mm) <span class="im">as</span> cnt_bill_length_mm</span>
+<span id="cb15-8"><a href="#cb15-8"></a>    , AVG(bill_length_mm) <span class="im">as</span> avg_bill_length_mm</span>
+<span id="cb15-9"><a href="#cb15-9"></a>    , sum_bill_legth_mm <span class="op">/</span> total</span>
+<span id="cb15-10"><a href="#cb15-10"></a>    , sum_bill_legth_mm <span class="op">/</span> cnt_bill_length_mm</span>
+<span id="cb15-11"><a href="#cb15-11"></a>FROM (</span>
+<span id="cb15-12"><a href="#cb15-12"></a>    SELECT  </span>
+<span id="cb15-13"><a href="#cb15-13"></a>    COALESCE(species, <span class="st">'NA'</span>) <span class="im">as</span> species</span>
+<span id="cb15-14"><a href="#cb15-14"></a>    , COALESCE(sex, <span class="st">'NA'</span>) <span class="im">as</span> sex</span>
+<span id="cb15-15"><a href="#cb15-15"></a>    , bill_length_mm</span>
+<span id="cb15-16"><a href="#cb15-16"></a>    FROM read_csv(<span class="st">'penguins.csv'</span>)</span>
+<span id="cb15-17"><a href="#cb15-17"></a>)</span>
+<span id="cb15-18"><a href="#cb15-18"></a>GROUP BY ROLLUP(species, sex)</span>
+<span id="cb15-19"><a href="#cb15-19"></a>ORDER BY species, sex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<span style="None">Running query in 'duckdb'</span>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">sum_bill_legth_mm</th>
+<th data-quarto-table-cell-role="th">total</th>
+<th data-quarto-table-cell-role="th">cnt_bill_length_mm</th>
+<th data-quarto-table-cell-role="th">avg_bill_length_mm</th>
+<th data-quarto-table-cell-role="th">(sum_bill_legth_mm / total)</th>
+<th data-quarto-table-cell-role="th">(sum_bill_legth_mm / cnt_bill_length_mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ALL</td>
+<td>ALL</td>
+<td>15021.300000000005</td>
+<td>344</td>
+<td>342</td>
+<td>43.92192982456142</td>
+<td>43.66656976744187</td>
+<td>43.92192982456142</td>
+</tr>
+<tr class="even">
+<td>Adelie</td>
+<td>ALL</td>
+<td>5857.500000000003</td>
+<td>152</td>
+<td>151</td>
+<td>38.79139072847684</td>
+<td>38.536184210526336</td>
+<td>38.79139072847684</td>
+</tr>
+<tr class="odd">
+<td>Adelie</td>
+<td>Female</td>
+<td>2719.7999999999993</td>
+<td>73</td>
+<td>73</td>
+<td>37.25753424657533</td>
+<td>37.25753424657533</td>
+<td>37.25753424657533</td>
+</tr>
+<tr class="even">
+<td>Adelie</td>
+<td>Male</td>
+<td>2948.4999999999973</td>
+<td>73</td>
+<td>73</td>
+<td>40.39041095890407</td>
+<td>40.39041095890407</td>
+<td>40.39041095890407</td>
+</tr>
+<tr class="odd">
+<td>Adelie</td>
+<td>NA</td>
+<td>189.2</td>
+<td>6</td>
+<td>5</td>
+<td>37.839999999999996</td>
+<td>31.53333333333333</td>
+<td>37.839999999999996</td>
+</tr>
+<tr class="even">
+<td>Chinstrap</td>
+<td>ALL</td>
+<td>3320.7000000000003</td>
+<td>68</td>
+<td>68</td>
+<td>48.83382352941177</td>
+<td>48.83382352941177</td>
+<td>48.83382352941177</td>
+</tr>
+<tr class="odd">
+<td>Chinstrap</td>
+<td>Female</td>
+<td>1583.5</td>
+<td>34</td>
+<td>34</td>
+<td>46.5735294117647</td>
+<td>46.5735294117647</td>
+<td>46.5735294117647</td>
+</tr>
+<tr class="even">
+<td>Chinstrap</td>
+<td>Male</td>
+<td>1737.2</td>
+<td>34</td>
+<td>34</td>
+<td>51.09411764705882</td>
+<td>51.09411764705882</td>
+<td>51.09411764705882</td>
+</tr>
+<tr class="odd">
+<td>Gentoo</td>
+<td>ALL</td>
+<td>5843.0999999999985</td>
+<td>124</td>
+<td>123</td>
+<td>47.504878048780476</td>
+<td>47.121774193548376</td>
+<td>47.504878048780476</td>
+</tr>
+<tr class="even">
+<td>Gentoo</td>
+<td>Female</td>
+<td>2642.7</td>
+<td>58</td>
+<td>58</td>
+<td>45.563793103448276</td>
+<td>45.563793103448276</td>
+<td>45.563793103448276</td>
+</tr>
+</tbody>
+</table>
+
+<span style="font-style:italic;text-align:center;">Truncated to <a href="https://jupysql.ploomber.io/en/latest/api/configuration.html#displaylimit">displaylimit</a> of 10.</span>
+</div>
+</div>
+<div id="cell-20" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="op">%%</span>sql</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>select sex, count(<span class="op">*</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="im">from</span> read_csv (<span class="st">'penguins.csv'</span>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a></span>
+<span id="cb16-7"><a href="#cb16-7"></a>where species <span class="op">=</span> <span class="st">'Adelie'</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a></span>
+<span id="cb16-9"><a href="#cb16-9"></a>group by sex</span>
+<span id="cb16-10"><a href="#cb16-10"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<span style="None">Running query in 'duckdb'</span>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">count_star()</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Male</td>
+<td>73</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>Female</td>
+<td>73</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
@@ -1031,13 +1251,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="3"><span class="header-section-number">3</span> Visualizing DuckDB Data</h1>
 <section id="install-and-load-duckdb-httpsfs-extensions" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="install-and-load-duckdb-httpsfs-extensions"><span class="header-section-number">3.1</span> Install and load DuckDB httpsfs Extensions</h2>
-<div id="cell-20" class="cell" data-execution_count="21">
+<div id="cell-22" class="cell" data-execution_count="21">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="op">%%</span>sql</span>
-<span id="cb15-2"><a href="#cb15-2"></a></span>
-<span id="cb15-3"><a href="#cb15-3"></a>INSTALL httpfs<span class="op">;</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a>LOAD httpfs<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="op">%%</span>sql</span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a>INSTALL httpfs<span class="op">;</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>LOAD httpfs<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <div>
@@ -1063,27 +1283,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>picture 1</figcaption>
 </figure>
 </div>
-<div id="cell-22" class="cell" data-execution_count="24">
+<div id="cell-24" class="cell" data-execution_count="24">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="op">%%</span>sql <span class="op">--</span>save short_trips <span class="op">--</span>no<span class="op">-</span>execute</span>
-<span id="cb16-2"><a href="#cb16-2"></a>SELECT <span class="op">*</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>FROM <span class="st">'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet'</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>WHERE trip_distance <span class="op">&lt;</span> <span class="fl">6.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="op">%%</span>sql <span class="op">--</span>save short_trips <span class="op">--</span>no<span class="op">-</span>execute</span>
+<span id="cb18-2"><a href="#cb18-2"></a>SELECT <span class="op">*</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>FROM <span class="st">'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet'</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>WHERE trip_distance <span class="op">&lt;</span> <span class="fl">6.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <span style="None">Skipping execution...</span>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="25">
+<div id="cell-25" class="cell" data-execution_count="25">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="op">%</span>sqlplot histogram <span class="op">--</span>table short_trips <span class="op">--</span>column trip_distance <span class="op">--</span>bins <span class="dv">10</span> <span class="op">--</span><span class="cf">with</span> short_trips</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="op">%</span>sqlplot histogram <span class="op">--</span>table short_trips <span class="op">--</span>column trip_distance <span class="op">--</span>bins <span class="dv">10</span> <span class="op">--</span><span class="cf">with</span> short_trips</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="guides_python_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="guides_python_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
