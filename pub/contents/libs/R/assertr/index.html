@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tips – assertr</title>
+<title>R Tips - assertr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,8 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
-        <li class="dropdown-header">
- ALL</li>
+        <li class="dropdown-header">ALL</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html">
  <span class="dropdown-text">R for Data Science 2e</span></a>
@@ -174,8 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
-        <li class="dropdown-header">
- R</li>
+        <li class="dropdown-header">R</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
@@ -193,8 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
-        <li class="dropdown-header">
- Python</li>
+        <li class="dropdown-header">Python</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/books/06_Pythonではじめる数理最適化/index.html">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
@@ -218,8 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
-        <li class="dropdown-header">
- R</li>
+        <li class="dropdown-header">R</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/libs/R/base/working.html">
  <span class="dropdown-text">base</span></a>
@@ -285,8 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
-        <li class="dropdown-header">
- Python</li>
+        <li class="dropdown-header">Python</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/libs/Python/pydantic/index.html">
  <span class="dropdown-text">pydantic</span></a>
@@ -302,8 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
-        <li class="dropdown-header">
- Notes</li>
+        <li class="dropdown-header">Notes</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html">
  <span class="dropdown-text">ggplot2</span></a>
@@ -315,8 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
-        <li class="dropdown-header">
- Utils</li>
+        <li class="dropdown-header">Utils</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html">
  <span class="dropdown-text">01_写真GPS</span></a>
@@ -328,8 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
-        <li class="dropdown-header">
- DuckDB</li>
+        <li class="dropdown-header">DuckDB</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
@@ -353,8 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
-        <li class="dropdown-header">
- Test</li>
+        <li class="dropdown-header">Test</li>
         <li>
     <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html">
  <span class="dropdown-text">Bash</span></a>
@@ -1339,572 +1330,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="advanced-creating-your-own-predicate-generators-for-insist" class="level2" data-number="2.11">
 <h2 data-number="2.11" class="anchored" data-anchor-id="advanced-creating-your-own-predicate-generators-for-insist"><span class="header-section-number">2.11</span> advanced: creating your own predicate generators for insist</h2>
-<p>within_3_iqrs &lt;- function(a_vector){ the_median &lt;- median(a_vector) the_iqr &lt;- IQR(a_vector) within_bounds((the_median-the_iqr<em>3), (the_median+the_iqr</em>3)) } mtcars %&gt;% insist(within_3_iqrs, mpg) %&gt;% group_by(cyl) %&gt;% summarise(avg.mpg=mean(mpg))</p>
-<pre><code>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>within_3_iqrs <span class="ot">&lt;-</span> <span class="cf">function</span>(a_vector){</span>
+<span id="cb26-2"><a href="#cb26-2"></a>  the_median <span class="ot">&lt;-</span> <span class="fu">median</span>(a_vector)</span>
+<span id="cb26-3"><a href="#cb26-3"></a>  the_iqr <span class="ot">&lt;-</span> <span class="fu">IQR</span>(a_vector)</span>
+<span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">within_bounds</span>((the_median<span class="sc">-</span>the_iqr<span class="sc">*</span><span class="dv">3</span>), (the_median<span class="sc">+</span>the_iqr<span class="sc">*</span><span class="dv">3</span>))</span>
+<span id="cb26-5"><a href="#cb26-5"></a>}</span>
+<span id="cb26-6"><a href="#cb26-6"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">insist</span>(within_3_iqrs, mpg) <span class="sc">%&gt;%</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt;     cyl avg.mpg</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt; 1     4    26.7</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt; 2     6    19.7</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt; 3     8    15.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
+
+<!-- -->
 
-
-
-:::{#quarto-navigation-envelope .hidden}
-[libs]{.hidden render-id="quarto-int-sidebar-title"}
-[R Tips]{.hidden render-id="quarto-int-navbar-title"}
-[Introduction]{.hidden render-id="quarto-int-next"}
-[Introduction]{.hidden render-id="quarto-int-prev"}
-[R]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-1"}
-[base]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-2"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/base/working.html"}
-[assertr]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-3"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/assertr/index.html"}
-[ggtext]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-4"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ggtext/working.html"}
-[ggfittext]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-5"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ggfittext/working.html"}
-[gganimate]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-6"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/gganimate/working.html"}
-[ggmosaic]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-7"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ggmosaic/working.html"}
-[treemapify]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-8"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/treemapify/working.html"}
-[corrr]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-9"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/corrr/working.html"}
-[ComplexHeatmap]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-10"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ComplexHeatmap/working.html"}
-[GGally]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-11"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/GGally/working.html"}
-[sf]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-12"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/sf/working.html"}
-[igraph]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-13"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/igraph/index.html"}
-[R インターフェイス]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/igraph/r_interface.html"}
-[pathcwork]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-14"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/patchwork/working.html"}
-[ggspatial]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-15"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ggspatial/working.html"}
-[duckdb]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-16"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/duckdb/working.html"}
-[DBI]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-17"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/DBI/working.html"}
-[Python]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-18"}
-[pydantic]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-19"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/Python/pydantic/index.html"}
-[pandera]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-20"}
-[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/Python/pandera/index.html"}
-[Home]{.hidden render-id="quarto-int-navbar:Home"}
-[/index.html]{.hidden render-id="quarto-int-navbar:/index.html"}
-[Web Site]{.hidden render-id="quarto-int-navbar:Web Site"}
-[ALL]{.hidden render-id="quarto-int-navbar:ALL"}
-[R for Data Science 2e]{.hidden render-id="quarto-int-navbar:R for Data Science 2e"}
-[/contents/website/r4ds2e/index.html]{.hidden render-id="quarto-int-navbar:/contents/website/r4ds2e/index.html"}
-[Leaflet for R]{.hidden render-id="quarto-int-navbar:Leaflet for R"}
-[/contents/website/leaflet4r/index.html]{.hidden render-id="quarto-int-navbar:/contents/website/leaflet4r/index.html"}
-[Analyzing US Census Data]{.hidden render-id="quarto-int-navbar:Analyzing US Census Data"}
-[/contents/website/analizeUSCensus/index.html]{.hidden render-id="quarto-int-navbar:/contents/website/analizeUSCensus/index.html"}
-[Graphic Design with ggplot2]{.hidden render-id="quarto-int-navbar:Graphic Design with ggplot2"}
-[/contents/website/graphic_design_with_ggplot2/index.html]{.hidden render-id="quarto-int-navbar:/contents/website/graphic_design_with_ggplot2/index.html"}
-[Udemyデータベーススペシャリスト]{.hidden render-id="quarto-int-navbar:Udemyデータベーススペシャリスト"}
-[/contents/website/udemy_database-specialist/am-2-note.html]{.hidden render-id="quarto-int-navbar:/contents/website/udemy_database-specialist/am-2-note.html"}
-[books]{.hidden render-id="quarto-int-navbar:books"}
-[R]{.hidden render-id="quarto-int-navbar:R"}
-[Rによる実証分析2e]{.hidden render-id="quarto-int-navbar:Rによる実証分析2e"}
-[/contents/books/01_Rによる実証分析_2e/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/01_Rによる実証分析_2e/index.html"}
-[因果推論ミックステープ]{.hidden render-id="quarto-int-navbar:因果推論ミックステープ"}
-[/contents/books/02_因果推論ミックステープ/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/02_因果推論ミックステープ/index.html"}
-[数値シミュレーションで学ぶ統計の仕組み]{.hidden render-id="quarto-int-navbar:数値シミュレーションで学ぶ統計の仕組み"}
-[/contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html"}
-[統計的因果推論の理論と実際]{.hidden render-id="quarto-int-navbar:統計的因果推論の理論と実際"}
-[/contents/books/05_統計的因果推論の理論と実際/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/05_統計的因果推論の理論と実際/index.html"}
-[---]{.hidden render-id="quarto-int-navbar:---"}
-[Python]{.hidden render-id="quarto-int-navbar:Python"}
-[Pythonではじめる数理最適化 2nd]{.hidden render-id="quarto-int-navbar:Pythonではじめる数理最適化 2nd"}
-[/contents/books/06_Pythonではじめる数理最適化/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/06_Pythonではじめる数理最適化/index.html"}
-[Numpy Infinity]{.hidden render-id="quarto-int-navbar:Numpy Infinity"}
-[/contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html]{.hidden render-id="quarto-int-navbar:/contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html"}
-[LightGBMハンドブック]{.hidden render-id="quarto-int-navbar:LightGBMハンドブック"}
-[/contents/books/08_handbook_lightgbm/cl02_データ理解.html]{.hidden render-id="quarto-int-navbar:/contents/books/08_handbook_lightgbm/cl02_データ理解.html"}
-[Pythonで学ぶ数理最適化]{.hidden render-id="quarto-int-navbar:Pythonで学ぶ数理最適化"}
-[/contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html]{.hidden render-id="quarto-int-navbar:/contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html"}
-[libs]{.hidden render-id="quarto-int-navbar:libs"}
-[base]{.hidden render-id="quarto-int-navbar:base"}
-[/contents/libs/R/base/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/base/working.html"}
-[assertr]{.hidden render-id="quarto-int-navbar:assertr"}
-[/contents/libs/R/assertr/index.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/assertr/index.html"}
-[ggtext]{.hidden render-id="quarto-int-navbar:ggtext"}
-[/contents/libs/R/ggtext/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ggtext/working.html"}
-[ggfittext]{.hidden render-id="quarto-int-navbar:ggfittext"}
-[/contents/libs/R/ggfittext/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ggfittext/working.html"}
-[gganimate]{.hidden render-id="quarto-int-navbar:gganimate"}
-[/contents/libs/R/gganimate/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/gganimate/working.html"}
-[ggmosaic]{.hidden render-id="quarto-int-navbar:ggmosaic"}
-[/contents/libs/R/ggmosaic/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ggmosaic/working.html"}
-[treemapify]{.hidden render-id="quarto-int-navbar:treemapify"}
-[/contents/libs/R/treemapify/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/treemapify/working.html"}
-[corrr]{.hidden render-id="quarto-int-navbar:corrr"}
-[/contents/libs/R/corrr/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/corrr/working.html"}
-[ComplexHeatmap]{.hidden render-id="quarto-int-navbar:ComplexHeatmap"}
-[/contents/libs/R/ComplexHeatmap/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ComplexHeatmap/working.html"}
-[GGally]{.hidden render-id="quarto-int-navbar:GGally"}
-[/contents/libs/R/GGally/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/GGally/working.html"}
-[sf]{.hidden render-id="quarto-int-navbar:sf"}
-[/contents/libs/R/sf/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/sf/working.html"}
-[igraph]{.hidden render-id="quarto-int-navbar:igraph"}
-[/contents/libs/R/igraph/index.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/igraph/index.html"}
-[pathcwork]{.hidden render-id="quarto-int-navbar:pathcwork"}
-[/contents/libs/R/patchwork/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/patchwork/working.html"}
-[ggspatial]{.hidden render-id="quarto-int-navbar:ggspatial"}
-[/contents/libs/R/ggspatial/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ggspatial/working.html"}
-[duckdb]{.hidden render-id="quarto-int-navbar:duckdb"}
-[/contents/libs/R/duckdb/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/duckdb/working.html"}
-[DBI]{.hidden render-id="quarto-int-navbar:DBI"}
-[/contents/libs/R/DBI/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/DBI/working.html"}
-[pydantic]{.hidden render-id="quarto-int-navbar:pydantic"}
-[/contents/libs/Python/pydantic/index.html]{.hidden render-id="quarto-int-navbar:/contents/libs/Python/pydantic/index.html"}
-[pandera]{.hidden render-id="quarto-int-navbar:pandera"}
-[/contents/libs/Python/pandera/index.html]{.hidden render-id="quarto-int-navbar:/contents/libs/Python/pandera/index.html"}
-[Notes]{.hidden render-id="quarto-int-navbar:Notes"}
-[ggplot2]{.hidden render-id="quarto-int-navbar:ggplot2"}
-[/contents/notes/ggplot2/working.html]{.hidden render-id="quarto-int-navbar:/contents/notes/ggplot2/working.html"}
-[Utils]{.hidden render-id="quarto-int-navbar:Utils"}
-[01_写真GPS]{.hidden render-id="quarto-int-navbar:01_写真GPS"}
-[/contents/utils/01_写真GPS/index.html]{.hidden render-id="quarto-int-navbar:/contents/utils/01_写真GPS/index.html"}
-[sql]{.hidden render-id="quarto-int-navbar:sql"}
-[DuckDB]{.hidden render-id="quarto-int-navbar:DuckDB"}
-[Documentaion]{.hidden render-id="quarto-int-navbar:Documentaion"}
-[/contents/sql/duckdb/documentaion/index.html]{.hidden render-id="quarto-int-navbar:/contents/sql/duckdb/documentaion/index.html"}
-[ビッグデータレシピ]{.hidden render-id="quarto-int-navbar:ビッグデータレシピ"}
-[/contents/sql/duckdb/sql-bigdata/index.html]{.hidden render-id="quarto-int-navbar:/contents/sql/duckdb/sql-bigdata/index.html"}
-[My Tips]{.hidden render-id="quarto-int-navbar:My Tips"}
-[/contents/sql/duckdb/mytips/01_.html]{.hidden render-id="quarto-int-navbar:/contents/sql/duckdb/mytips/01_.html"}
-[Spatial DataAnalysis with DuckDB]{.hidden render-id="quarto-int-navbar:Spatial DataAnalysis with DuckDB"}
-[/contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html]{.hidden render-id="quarto-int-navbar:/contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html"}
-[Test]{.hidden render-id="quarto-int-navbar:Test"}
-[Bash]{.hidden render-id="quarto-int-navbar:Bash"}
-[/contents/test/bash/quick_sample.html]{.hidden render-id="quarto-int-navbar:/contents/test/bash/quick_sample.html"}
-[/contents/test/R/renv.html]{.hidden render-id="quarto-int-navbar:/contents/test/R/renv.html"}
-[R2]{.hidden render-id="quarto-int-navbar:R2"}
-[/contents/test/R2/renv.html]{.hidden render-id="quarto-int-navbar:/contents/test/R2/renv.html"}
-[/contents/test/python/notebook.html]{.hidden render-id="quarto-int-navbar:/contents/test/python/notebook.html"}
-[R]{.hidden render-id="quarto-breadcrumbs-e1e1d3d40573127e9ee0480caf1283d6"}
-[assertr]{.hidden render-id="quarto-breadcrumbs-555c67c3cf2136a7f4c29f9b79d23b33"}
-[Introduction]{.hidden render-id="quarto-breadcrumbs-0b79795d3efc95b9976c7c5b933afce2"}
-:::
-
-
-
-:::{#quarto-meta-markdown .hidden}
-[R Tips - assertr]{.hidden render-id="quarto-metatitle"}
-[R Tips - assertr]{.hidden render-id="quarto-twittercardtitle"}
-[R Tips - assertr]{.hidden render-id="quarto-ogcardtitle"}
-[R Tips]{.hidden render-id="quarto-metasitename"}
-[]{.hidden render-id="quarto-twittercarddesc"}
-[]{.hidden render-id="quarto-ogcardddesc"}
-:::
-
-
-
-
-&lt;!-- --&gt;
-
-::: {.quarto-embedded-source-code}
-```````````````````{.markdown shortcodes="false"}
----
-title: "assertr"
-execute: 
-  cache: true
-date-modified: last-modified
-filters:
-   - lightbox
-lightbox: auto
----
-
-quarto-executable-code-5450563D
-
-```r
-renv::activate(here::here())
-cur_dir &lt;- here::here("contents/libs/R/assertr")
-setwd(cur_dir)
-```
-
-quarto-executable-code-5450563D
-
-```r
-#| warning: false
-#| message: false
-box::use(
-  assertr[...],
-  igraph[...],
-  ggplot2[...],
-  cowplot[...], 
-  showtext[showtext_auto], 
-  sysfonts[font_add_google],
-)
-
-library(assertr)
-library(stringr)
-showtext_auto()
-font_add_google("Noto Sans")
-```
-
-
-# はじめに
-
-[assertr](https://docs.ropensci.org/assertr/)はアサーションのためのライブラリである。
-特にデータフレーム操作に対して特化されており、パイプラインと連携して利用することができる。
-データフレームの品質をチェックする、つまりPythonのpanderaのような使い方に適している、とのことである。
-
-関数には次がある。
-
-quarto-executable-code-5450563D
-
-```r
-#| output: asis
-glue::glue("- {objects('package:assertr')}") |&gt; 
-  cat(sep = "\n")
-```
-
-たとえば次のような演算を考える。
-
-&gt; エンジンのシリンダー数ごとにガロンあたりの平均走行距離を求めたいとします。まず、列 "mpg"、"vs"、および "am" があること、データセットに 10 個以上の観測値が含まれていること、'miles per gallon' (mpg) の列が正の数であること、'miles per gallon' (mpg) の列に平均から 4 標準偏差の外側のデータムが含まれていないことを確認します。 - AM列とVS列(それぞれ自動/手動とV/ストレートエンジン)に0と1のみが含まれていること - 各行には最大2つのNAが含まれます - 各行は、"mpg"、"am"、および "wt" 列の間で一意です。 - 各行のマハラノビス距離は、すべての距離の絶対偏差の中央値の10以内です(外れ値検出の場合)
-
-
-上記の問題は次のように上から順番に条件を記述することで対応できる。
-
-
-quarto-executable-code-5450563D
-
-```r
-library(dplyr)
-library(assertr)
-
-# 失敗するとデータフレームで結果が返される
-# tryCatchはquartoで記述しているから必要である。本来は必要ない。
-tryCatch({
-  mtcars |&gt; 
-    verify(has_all_names("unko"))
-}, error = \(e) print(e))
-
-```
-
-quarto-executable-code-5450563D
-
-```r
-# 成功した場合には処理を経たデータが返される
-tryCatch({
-  mtcars |&gt; 
-    verify(has_all_names("mpg", "vs", "am", "wt"))
-}, error = \(e) print(e))
-
-```
-
-
-quarto-executable-code-5450563D
-
-```r
-# もともとやりたかった処理をまとめる
-mtcars |&gt; 
-  verify(has_all_names("mpg", "vs", "am", "wt")) %&gt;%
-  verify(nrow(.) &gt; 10) |&gt; 
-  verify(mpg &gt; 0) |&gt; 
-  insist(within_n_sds(4), mpg) |&gt;  # insistは「主張する」という意味である
-  assert(in_set(0, 1), am, vs) |&gt; 
-  assert_rows(num_row_NAs, within_bounds(0, 2), everything()) |&gt; 
-  assert_rows(col_concat, is_uniq, mpg, am, wt) |&gt; 
-  insist_rows(maha_dist, within_n_mads(10), everything()) |&gt; # マハラノビス距離と中央絶対偏差
-  group_by(cyl) |&gt; 
-  summarise(avg.mpg = mean(mpg))
-
-
-
-```
-
-
-
-これを見ただけでもかなり使い方がイメージできる。
-
-# Get Startd
-
-[Assertive R Programming with assertr](https://docs.ropensci.org/assertr/articles/assertr.html)をマネする。
-
-
-## Concrete data errors
-
-quarto-executable-code-5450563D
-
-```r
-head(mtcars)
-```
-
-quarto-executable-code-5450563D
-
-```r
-our.data &lt;- mtcars
-our.data$mpg[5] &lt;- our.data$mpg[5] * -1
-our.data[4:6,]
-```
-
-このまま計算すると何か間違えている・・・？負の値を入り込ましているのでデータ気付かないうちに計算を間違う。
-
-quarto-executable-code-5450563D
-
-```r
-library(dplyr)
-
-our.data %&gt;%
-  group_by(cyl) %&gt;%
-  summarise(avg.mpg=mean(mpg))
-```
-
-
-## enter assertr
-
-次のような`verify`を使うことで計算が失敗するようになる。
-
-
-quarto-executable-code-5450563D
-
-```r
-library(assertr)
-
-tryCatch({
-our.data |&gt; 
-  verify(mpg &gt;= 0) |&gt; 
-  group_by(cyl) |&gt; 
-  summarise(avg.mpg = mean(mpg))
-
-}, error = \(e) print(e))
-
-
-```
-
-
-
-`assert`関数を使うと次のように記述することができる。結果をみると行単位で評価結果を得られてることがわかる。
-
-
-quarto-executable-code-5450563D
-
-```r
-tryCatch({
-
-our.data |&gt; 
-  assert(within_bounds(0, Inf), mpg) |&gt; 
-  group_by(cyl) |&gt; 
-  summarise(avg.mpg = mean(mpg))
-}, error = \(e) print(e))  
-```
-
-
-dplyrのselect関数が使える。
-
-
-quarto-executable-code-5450563D
-
-```r
-library(assertr)
-
-tryCatch({
-
-our.data %&gt;%
-  assert(within_bounds(0,Inf, include.lower=FALSE), -mpg) %&gt;%
-  group_by(cyl) %&gt;%
-  summarise(avg.mpg=mean(mpg))
-}, error = \(e) print(e))
-```
-
-
-
-## verify vs. assert
-
-式を引数にとるか、述語関数やカラムを引数にとるかが異なる。
-またverifyは引数全体に対する評価であり、全体を評価してから違反がないかを考えている。
-このため行単位での問題の特定が出来ない。
-
-## asserts predicates
-
-述語関数には次のようなものがある。
-
-- `not_na`はNAじゃないことを確認する
-- `within_bounds`は数値が与えられた範囲に含まれているかを確認する
-- `in_set`は集合のメンバーであるかどうかを確認する
-- `is_uniq`はユニークかどうかを確認する
-
-
-## cusotm predicates
-
-
-quarto-executable-code-5450563D
-
-```r
-not.empty.p &lt;- function(x) if(x=="") return(FALSE)
-```
-
-ほかには
-
-quarto-executable-code-5450563D
-
-```r
-seven.digit.p &lt;- function(x) nchar(x)==7
-```
-
-
-
-## enter `insist` and predicate `generators`
-
-たぶんだけどSQLのWindows関数のように自分の行以外の情報が評価に必要なものに対して有効、ということだと思う。
-
-
-quarto-executable-code-5450563D
-
-```r
-mtcars %&gt;%
-  insist(within_n_sds(3), mpg) %&gt;%
-  group_by(cyl) %&gt;%
-  summarise(avg.mpg=mean(mpg))
-```
-
-
-quarto-executable-code-5450563D
-
-```r
-mtcars %&gt;%
-  insist(within_n_sds(10), mpg:carb) %&gt;%
-  group_by(cyl) %&gt;%
-  summarise(avg.mpg=mean(mpg))
-```
-
-
-お試しの計算です。
-
-quarto-executable-code-5450563D
-
-```r
-example.vector &lt;- c(7.4, 7.1, 7.2, 72.1)
-within_n_sds(2)(example.vector)(example.vector)
-```
-
-
-## row-wise assertions and row reduction functions
-
-quarto-executable-code-5450563D
-
-```r
-example.data &lt;- data.frame(x=c(8, 9, 6, 5, 9, 5, 6, 7,
-                             8, 9, 6, 5, 5, 6, 7),
-                         y=c(82, 91, 61, 49, 40, 49, 57,
-                             74, 78, 90, 61, 49, 51, 62, 68))
-(example.data)
-```
-
-quarto-executable-code-5450563D
-
-```r
-plot(example.data$x, example.data$y, xlab="", ylab="")
-```
-
-多変量の検証にはマハラノビス距離が使える。
-
-quarto-executable-code-5450563D
-
-```r
-maha_dist(example.data)
-```
-
-quarto-executable-code-5450563D
-
-```r
-maha_dist(example.data) %&gt;% hist(main="", xlab="")
-```
-
-
-マハラノビス距離を評価に組み込む。
-
-
-quarto-executable-code-5450563D
-
-```r
-tryCatch({
-
-example.data %&gt;%
-  insist_rows(maha_dist, within_n_mads(3), dplyr::everything())
-}, error = \(e) print(e))
-```
-
-
-
-## success, error, and defect functions
-
-成功・失敗時の処理の挙動を制御できる。
-
-## Obligatory assertions
-
-独立でないルールを適用することがある。
-
-
-quarto-executable-code-5450563D
-
-```r
-tryCatch({
-
-mtcars_without_am &lt;- mtcars %&gt;% 
-  dplyr::select(-am)
-mtcars_without_am %&gt;% 
-  verify(has_all_names("am", "vs"), error_fun = error_append) %&gt;% 
-  assert(in_set(0, 1), am, vs, error_fun = error_report)
-}, error = \(e) print(e))
-```
-
-
-上記はverifyと関係ないところでエラーが出ている。
-その場合には次のようにする。
-
-
-quarto-executable-code-5450563D
-
-```r
-tryCatch({
-
-mtcars_without_am &lt;- mtcars %&gt;% 
-  dplyr::select(-am)
-mtcars_without_am %&gt;% 
-  verify(has_all_names("am", "vs"), obligatory=TRUE, error_fun=error_append) %&gt;% 
-  assert(in_set(0, 1), am, vs, defect_fun=defect_report)
-}, error = \(e) print(e))
-```
-
-
-## combining chains of assertions
-
-パイプラインだと1つの処理が失敗するとそこから先の処理は実施されない。
-一方で、複数のチェックをリポートしてもらいたいときがある。
-
-quarto-executable-code-5450563D
-
-```r
-mtcars %&gt;%
-  chain_start %&gt;%
-  verify(nrow(mtcars) &gt; 10) %&gt;%
-  verify(mpg &gt; 0) %&gt;%
-  insist(within_n_sds(4), mpg) %&gt;%
-  assert(in_set(0,1), am, vs) %&gt;%
-  chain_end %&gt;%
-  group_by(cyl) %&gt;%
-  summarise(avg.mpg=mean(mpg))
-```
-
-## advanced: creating your own predicate generators for insist
-
-
-quarto-executable-code-5450563D
-
-```r
-within_3_iqrs &lt;- function(a_vector){
-  the_median &lt;- median(a_vector)
-  the_iqr &lt;- IQR(a_vector)
-  within_bounds((the_median-the_iqr*3), (the_median+the_iqr*3))
-}
-mtcars %&gt;%
-  insist(within_3_iqrs, mpg) %&gt;%
-  group_by(cyl) %&gt;%
-  summarise(avg.mpg=mean(mpg))</code></pre>
-<p>``````````````````` :::</p>
 </section>
 </section>
 
@@ -2368,9 +1817,359 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb27" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1"></a><span class="co">---</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="an">title:</span><span class="co"> "assertr"</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="co">  cache: true</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="an">filters:</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="co">---</span></span>
+<span id="cb27-10"><a href="#cb27-10"></a></span>
+<span id="cb27-13"><a href="#cb27-13"></a><span class="in">```{r}</span></span>
+<span id="cb27-14"><a href="#cb27-14"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb27-15"><a href="#cb27-15"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/R/assertr"</span>)</span>
+<span id="cb27-16"><a href="#cb27-16"></a><span class="fu">setwd</span>(cur_dir)</span>
+<span id="cb27-17"><a href="#cb27-17"></a><span class="in">```</span></span>
+<span id="cb27-18"><a href="#cb27-18"></a></span>
+<span id="cb27-21"><a href="#cb27-21"></a><span class="in">```{r}</span></span>
+<span id="cb27-22"><a href="#cb27-22"></a><span class="co">#| warning: false</span></span>
+<span id="cb27-23"><a href="#cb27-23"></a><span class="co">#| message: false</span></span>
+<span id="cb27-24"><a href="#cb27-24"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb27-25"><a href="#cb27-25"></a>  assertr[...],</span>
+<span id="cb27-26"><a href="#cb27-26"></a>  igraph[...],</span>
+<span id="cb27-27"><a href="#cb27-27"></a>  ggplot2[...],</span>
+<span id="cb27-28"><a href="#cb27-28"></a>  cowplot[...], </span>
+<span id="cb27-29"><a href="#cb27-29"></a>  showtext[showtext_auto], </span>
+<span id="cb27-30"><a href="#cb27-30"></a>  sysfonts[font_add_google],</span>
+<span id="cb27-31"><a href="#cb27-31"></a>)</span>
+<span id="cb27-32"><a href="#cb27-32"></a></span>
+<span id="cb27-33"><a href="#cb27-33"></a><span class="fu">library</span>(assertr)</span>
+<span id="cb27-34"><a href="#cb27-34"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb27-35"><a href="#cb27-35"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb27-36"><a href="#cb27-36"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb27-37"><a href="#cb27-37"></a><span class="in">```</span></span>
+<span id="cb27-38"><a href="#cb27-38"></a></span>
+<span id="cb27-39"><a href="#cb27-39"></a></span>
+<span id="cb27-40"><a href="#cb27-40"></a><span class="fu"># はじめに</span></span>
+<span id="cb27-41"><a href="#cb27-41"></a></span>
+<span id="cb27-42"><a href="#cb27-42"></a><span class="co">[</span><span class="ot">assertr</span><span class="co">](https://docs.ropensci.org/assertr/)</span>はアサーションのためのライブラリである。</span>
+<span id="cb27-43"><a href="#cb27-43"></a>特にデータフレーム操作に対して特化されており、パイプラインと連携して利用することができる。</span>
+<span id="cb27-44"><a href="#cb27-44"></a>データフレームの品質をチェックする、つまりPythonのpanderaのような使い方に適している、とのことである。</span>
+<span id="cb27-45"><a href="#cb27-45"></a></span>
+<span id="cb27-46"><a href="#cb27-46"></a>関数には次がある。</span>
+<span id="cb27-47"><a href="#cb27-47"></a></span>
+<span id="cb27-50"><a href="#cb27-50"></a><span class="in">```{r}</span></span>
+<span id="cb27-51"><a href="#cb27-51"></a><span class="co">#| output: asis</span></span>
+<span id="cb27-52"><a href="#cb27-52"></a>glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"- {objects('package:assertr')}"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-53"><a href="#cb27-53"></a>  <span class="fu">cat</span>(<span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb27-54"><a href="#cb27-54"></a><span class="in">```</span></span>
+<span id="cb27-55"><a href="#cb27-55"></a></span>
+<span id="cb27-56"><a href="#cb27-56"></a>たとえば次のような演算を考える。</span>
+<span id="cb27-57"><a href="#cb27-57"></a></span>
+<span id="cb27-58"><a href="#cb27-58"></a><span class="at">&gt; エンジンのシリンダー数ごとにガロンあたりの平均走行距離を求めたいとします。まず、列 "mpg"、"vs"、および "am" があること、データセットに 10 個以上の観測値が含まれていること、'miles per gallon' (mpg) の列が正の数であること、'miles per gallon' (mpg) の列に平均から 4 標準偏差の外側のデータムが含まれていないことを確認します。 - AM列とVS列(それぞれ自動/手動とV/ストレートエンジン)に0と1のみが含まれていること - 各行には最大2つのNAが含まれます - 各行は、"mpg"、"am"、および "wt" 列の間で一意です。 - 各行のマハラノビス距離は、すべての距離の絶対偏差の中央値の10以内です(外れ値検出の場合)</span></span>
+<span id="cb27-59"><a href="#cb27-59"></a></span>
+<span id="cb27-60"><a href="#cb27-60"></a></span>
+<span id="cb27-61"><a href="#cb27-61"></a>上記の問題は次のように上から順番に条件を記述することで対応できる。</span>
+<span id="cb27-62"><a href="#cb27-62"></a></span>
+<span id="cb27-63"><a href="#cb27-63"></a></span>
+<span id="cb27-66"><a href="#cb27-66"></a><span class="in">```{r}</span></span>
+<span id="cb27-67"><a href="#cb27-67"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb27-68"><a href="#cb27-68"></a><span class="fu">library</span>(assertr)</span>
+<span id="cb27-69"><a href="#cb27-69"></a></span>
+<span id="cb27-70"><a href="#cb27-70"></a><span class="co"># 失敗するとデータフレームで結果が返される</span></span>
+<span id="cb27-71"><a href="#cb27-71"></a><span class="co"># tryCatchはquartoで記述しているから必要である。本来は必要ない。</span></span>
+<span id="cb27-72"><a href="#cb27-72"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb27-73"><a href="#cb27-73"></a>  mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb27-74"><a href="#cb27-74"></a>    <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"unko"</span>))</span>
+<span id="cb27-75"><a href="#cb27-75"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb27-76"><a href="#cb27-76"></a></span>
+<span id="cb27-77"><a href="#cb27-77"></a><span class="in">```</span></span>
+<span id="cb27-78"><a href="#cb27-78"></a></span>
+<span id="cb27-81"><a href="#cb27-81"></a><span class="in">```{r}</span></span>
+<span id="cb27-82"><a href="#cb27-82"></a><span class="co"># 成功した場合には処理を経たデータが返される</span></span>
+<span id="cb27-83"><a href="#cb27-83"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb27-84"><a href="#cb27-84"></a>  mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb27-85"><a href="#cb27-85"></a>    <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"mpg"</span>, <span class="st">"vs"</span>, <span class="st">"am"</span>, <span class="st">"wt"</span>))</span>
+<span id="cb27-86"><a href="#cb27-86"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb27-87"><a href="#cb27-87"></a></span>
+<span id="cb27-88"><a href="#cb27-88"></a><span class="in">```</span></span>
+<span id="cb27-89"><a href="#cb27-89"></a></span>
+<span id="cb27-90"><a href="#cb27-90"></a></span>
+<span id="cb27-93"><a href="#cb27-93"></a><span class="in">```{r}</span></span>
+<span id="cb27-94"><a href="#cb27-94"></a><span class="co"># もともとやりたかった処理をまとめる</span></span>
+<span id="cb27-95"><a href="#cb27-95"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb27-96"><a href="#cb27-96"></a>  <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"mpg"</span>, <span class="st">"vs"</span>, <span class="st">"am"</span>, <span class="st">"wt"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-97"><a href="#cb27-97"></a>  <span class="fu">verify</span>(<span class="fu">nrow</span>(.) <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-98"><a href="#cb27-98"></a>  <span class="fu">verify</span>(mpg <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-99"><a href="#cb27-99"></a>  <span class="fu">insist</span>(<span class="fu">within_n_sds</span>(<span class="dv">4</span>), mpg) <span class="sc">|&gt;</span>  <span class="co"># insistは「主張する」という意味である</span></span>
+<span id="cb27-100"><a href="#cb27-100"></a>  <span class="fu">assert</span>(<span class="fu">in_set</span>(<span class="dv">0</span>, <span class="dv">1</span>), am, vs) <span class="sc">|&gt;</span> </span>
+<span id="cb27-101"><a href="#cb27-101"></a>  <span class="fu">assert_rows</span>(num_row_NAs, <span class="fu">within_bounds</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="fu">everything</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb27-102"><a href="#cb27-102"></a>  <span class="fu">assert_rows</span>(col_concat, is_uniq, mpg, am, wt) <span class="sc">|&gt;</span> </span>
+<span id="cb27-103"><a href="#cb27-103"></a>  <span class="fu">insist_rows</span>(maha_dist, <span class="fu">within_n_mads</span>(<span class="dv">10</span>), <span class="fu">everything</span>()) <span class="sc">|&gt;</span> <span class="co"># マハラノビス距離と中央絶対偏差</span></span>
+<span id="cb27-104"><a href="#cb27-104"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span> </span>
+<span id="cb27-105"><a href="#cb27-105"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb27-106"><a href="#cb27-106"></a></span>
+<span id="cb27-107"><a href="#cb27-107"></a></span>
+<span id="cb27-108"><a href="#cb27-108"></a></span>
+<span id="cb27-109"><a href="#cb27-109"></a><span class="in">```</span></span>
+<span id="cb27-110"><a href="#cb27-110"></a></span>
+<span id="cb27-111"><a href="#cb27-111"></a></span>
+<span id="cb27-112"><a href="#cb27-112"></a></span>
+<span id="cb27-113"><a href="#cb27-113"></a>これを見ただけでもかなり使い方がイメージできる。</span>
+<span id="cb27-114"><a href="#cb27-114"></a></span>
+<span id="cb27-115"><a href="#cb27-115"></a><span class="fu"># Get Startd</span></span>
+<span id="cb27-116"><a href="#cb27-116"></a></span>
+<span id="cb27-117"><a href="#cb27-117"></a><span class="co">[</span><span class="ot">Assertive R Programming with assertr</span><span class="co">](https://docs.ropensci.org/assertr/articles/assertr.html)</span>をマネする。</span>
+<span id="cb27-118"><a href="#cb27-118"></a></span>
+<span id="cb27-119"><a href="#cb27-119"></a></span>
+<span id="cb27-120"><a href="#cb27-120"></a><span class="fu">## Concrete data errors</span></span>
+<span id="cb27-121"><a href="#cb27-121"></a></span>
+<span id="cb27-124"><a href="#cb27-124"></a><span class="in">```{r}</span></span>
+<span id="cb27-125"><a href="#cb27-125"></a><span class="fu">head</span>(mtcars)</span>
+<span id="cb27-126"><a href="#cb27-126"></a><span class="in">```</span></span>
+<span id="cb27-127"><a href="#cb27-127"></a></span>
+<span id="cb27-130"><a href="#cb27-130"></a><span class="in">```{r}</span></span>
+<span id="cb27-131"><a href="#cb27-131"></a>our.data <span class="ot">&lt;-</span> mtcars</span>
+<span id="cb27-132"><a href="#cb27-132"></a>our.data<span class="sc">$</span>mpg[<span class="dv">5</span>] <span class="ot">&lt;-</span> our.data<span class="sc">$</span>mpg[<span class="dv">5</span>] <span class="sc">*</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb27-133"><a href="#cb27-133"></a>our.data[<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>,]</span>
+<span id="cb27-134"><a href="#cb27-134"></a><span class="in">```</span></span>
+<span id="cb27-135"><a href="#cb27-135"></a></span>
+<span id="cb27-136"><a href="#cb27-136"></a>このまま計算すると何か間違えている・・・？負の値を入り込ましているのでデータ気付かないうちに計算を間違う。</span>
+<span id="cb27-137"><a href="#cb27-137"></a></span>
+<span id="cb27-140"><a href="#cb27-140"></a><span class="in">```{r}</span></span>
+<span id="cb27-141"><a href="#cb27-141"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb27-142"><a href="#cb27-142"></a></span>
+<span id="cb27-143"><a href="#cb27-143"></a>our.data <span class="sc">%&gt;%</span></span>
+<span id="cb27-144"><a href="#cb27-144"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb27-145"><a href="#cb27-145"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb27-146"><a href="#cb27-146"></a><span class="in">```</span></span>
+<span id="cb27-147"><a href="#cb27-147"></a></span>
+<span id="cb27-148"><a href="#cb27-148"></a></span>
+<span id="cb27-149"><a href="#cb27-149"></a><span class="fu">## enter assertr</span></span>
+<span id="cb27-150"><a href="#cb27-150"></a></span>
+<span id="cb27-151"><a href="#cb27-151"></a>次のような<span class="in">`verify`</span>を使うことで計算が失敗するようになる。</span>
+<span id="cb27-152"><a href="#cb27-152"></a></span>
+<span id="cb27-153"><a href="#cb27-153"></a></span>
+<span id="cb27-156"><a href="#cb27-156"></a><span class="in">```{r}</span></span>
+<span id="cb27-157"><a href="#cb27-157"></a><span class="fu">library</span>(assertr)</span>
+<span id="cb27-158"><a href="#cb27-158"></a></span>
+<span id="cb27-159"><a href="#cb27-159"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb27-160"><a href="#cb27-160"></a>our.data <span class="sc">|&gt;</span> </span>
+<span id="cb27-161"><a href="#cb27-161"></a>  <span class="fu">verify</span>(mpg <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-162"><a href="#cb27-162"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span> </span>
+<span id="cb27-163"><a href="#cb27-163"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb27-164"><a href="#cb27-164"></a></span>
+<span id="cb27-165"><a href="#cb27-165"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb27-166"><a href="#cb27-166"></a></span>
+<span id="cb27-167"><a href="#cb27-167"></a></span>
+<span id="cb27-168"><a href="#cb27-168"></a><span class="in">```</span></span>
+<span id="cb27-169"><a href="#cb27-169"></a></span>
+<span id="cb27-170"><a href="#cb27-170"></a></span>
+<span id="cb27-171"><a href="#cb27-171"></a></span>
+<span id="cb27-172"><a href="#cb27-172"></a><span class="in">`assert`</span>関数を使うと次のように記述することができる。結果をみると行単位で評価結果を得られてることがわかる。</span>
+<span id="cb27-173"><a href="#cb27-173"></a></span>
+<span id="cb27-174"><a href="#cb27-174"></a></span>
+<span id="cb27-177"><a href="#cb27-177"></a><span class="in">```{r}</span></span>
+<span id="cb27-178"><a href="#cb27-178"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb27-179"><a href="#cb27-179"></a></span>
+<span id="cb27-180"><a href="#cb27-180"></a>our.data <span class="sc">|&gt;</span> </span>
+<span id="cb27-181"><a href="#cb27-181"></a>  <span class="fu">assert</span>(<span class="fu">within_bounds</span>(<span class="dv">0</span>, <span class="cn">Inf</span>), mpg) <span class="sc">|&gt;</span> </span>
+<span id="cb27-182"><a href="#cb27-182"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span> </span>
+<span id="cb27-183"><a href="#cb27-183"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb27-184"><a href="#cb27-184"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))  </span>
+<span id="cb27-185"><a href="#cb27-185"></a><span class="in">```</span></span>
+<span id="cb27-186"><a href="#cb27-186"></a></span>
+<span id="cb27-187"><a href="#cb27-187"></a></span>
+<span id="cb27-188"><a href="#cb27-188"></a>dplyrのselect関数が使える。</span>
+<span id="cb27-189"><a href="#cb27-189"></a></span>
+<span id="cb27-190"><a href="#cb27-190"></a></span>
+<span id="cb27-193"><a href="#cb27-193"></a><span class="in">```{r}</span></span>
+<span id="cb27-194"><a href="#cb27-194"></a><span class="fu">library</span>(assertr)</span>
+<span id="cb27-195"><a href="#cb27-195"></a></span>
+<span id="cb27-196"><a href="#cb27-196"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb27-197"><a href="#cb27-197"></a></span>
+<span id="cb27-198"><a href="#cb27-198"></a>our.data <span class="sc">%&gt;%</span></span>
+<span id="cb27-199"><a href="#cb27-199"></a>  <span class="fu">assert</span>(<span class="fu">within_bounds</span>(<span class="dv">0</span>,<span class="cn">Inf</span>, <span class="at">include.lower=</span><span class="cn">FALSE</span>), <span class="sc">-</span>mpg) <span class="sc">%&gt;%</span></span>
+<span id="cb27-200"><a href="#cb27-200"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb27-201"><a href="#cb27-201"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb27-202"><a href="#cb27-202"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb27-203"><a href="#cb27-203"></a><span class="in">```</span></span>
+<span id="cb27-204"><a href="#cb27-204"></a></span>
+<span id="cb27-205"><a href="#cb27-205"></a></span>
+<span id="cb27-206"><a href="#cb27-206"></a></span>
+<span id="cb27-207"><a href="#cb27-207"></a><span class="fu">## verify vs. assert</span></span>
+<span id="cb27-208"><a href="#cb27-208"></a></span>
+<span id="cb27-209"><a href="#cb27-209"></a>式を引数にとるか、述語関数やカラムを引数にとるかが異なる。</span>
+<span id="cb27-210"><a href="#cb27-210"></a>またverifyは引数全体に対する評価であり、全体を評価してから違反がないかを考えている。</span>
+<span id="cb27-211"><a href="#cb27-211"></a>このため行単位での問題の特定が出来ない。</span>
+<span id="cb27-212"><a href="#cb27-212"></a></span>
+<span id="cb27-213"><a href="#cb27-213"></a><span class="fu">## asserts predicates</span></span>
+<span id="cb27-214"><a href="#cb27-214"></a></span>
+<span id="cb27-215"><a href="#cb27-215"></a>述語関数には次のようなものがある。</span>
+<span id="cb27-216"><a href="#cb27-216"></a></span>
+<span id="cb27-217"><a href="#cb27-217"></a><span class="ss">- </span><span class="in">`not_na`</span>はNAじゃないことを確認する</span>
+<span id="cb27-218"><a href="#cb27-218"></a><span class="ss">- </span><span class="in">`within_bounds`</span>は数値が与えられた範囲に含まれているかを確認する</span>
+<span id="cb27-219"><a href="#cb27-219"></a><span class="ss">- </span><span class="in">`in_set`</span>は集合のメンバーであるかどうかを確認する</span>
+<span id="cb27-220"><a href="#cb27-220"></a><span class="ss">- </span><span class="in">`is_uniq`</span>はユニークかどうかを確認する</span>
+<span id="cb27-221"><a href="#cb27-221"></a></span>
+<span id="cb27-222"><a href="#cb27-222"></a></span>
+<span id="cb27-223"><a href="#cb27-223"></a><span class="fu">## cusotm predicates</span></span>
+<span id="cb27-224"><a href="#cb27-224"></a></span>
+<span id="cb27-225"><a href="#cb27-225"></a></span>
+<span id="cb27-228"><a href="#cb27-228"></a><span class="in">```{r}</span></span>
+<span id="cb27-229"><a href="#cb27-229"></a>not.empty.p <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="cf">if</span>(x<span class="sc">==</span><span class="st">""</span>) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<span id="cb27-230"><a href="#cb27-230"></a><span class="in">```</span></span>
+<span id="cb27-231"><a href="#cb27-231"></a></span>
+<span id="cb27-232"><a href="#cb27-232"></a>ほかには</span>
+<span id="cb27-233"><a href="#cb27-233"></a></span>
+<span id="cb27-236"><a href="#cb27-236"></a><span class="in">```{r}</span></span>
+<span id="cb27-237"><a href="#cb27-237"></a>seven.digit.p <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">nchar</span>(x)<span class="sc">==</span><span class="dv">7</span></span>
+<span id="cb27-238"><a href="#cb27-238"></a><span class="in">```</span></span>
+<span id="cb27-239"><a href="#cb27-239"></a></span>
+<span id="cb27-240"><a href="#cb27-240"></a></span>
+<span id="cb27-241"><a href="#cb27-241"></a></span>
+<span id="cb27-242"><a href="#cb27-242"></a><span class="fu">## enter `insist` and predicate `generators`</span></span>
+<span id="cb27-243"><a href="#cb27-243"></a></span>
+<span id="cb27-244"><a href="#cb27-244"></a>たぶんだけどSQLのWindows関数のように自分の行以外の情報が評価に必要なものに対して有効、ということだと思う。</span>
+<span id="cb27-245"><a href="#cb27-245"></a></span>
+<span id="cb27-246"><a href="#cb27-246"></a></span>
+<span id="cb27-249"><a href="#cb27-249"></a><span class="in">```{r}</span></span>
+<span id="cb27-250"><a href="#cb27-250"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb27-251"><a href="#cb27-251"></a>  <span class="fu">insist</span>(<span class="fu">within_n_sds</span>(<span class="dv">3</span>), mpg) <span class="sc">%&gt;%</span></span>
+<span id="cb27-252"><a href="#cb27-252"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb27-253"><a href="#cb27-253"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb27-254"><a href="#cb27-254"></a><span class="in">```</span></span>
+<span id="cb27-255"><a href="#cb27-255"></a></span>
+<span id="cb27-256"><a href="#cb27-256"></a></span>
+<span id="cb27-259"><a href="#cb27-259"></a><span class="in">```{r}</span></span>
+<span id="cb27-260"><a href="#cb27-260"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb27-261"><a href="#cb27-261"></a>  <span class="fu">insist</span>(<span class="fu">within_n_sds</span>(<span class="dv">10</span>), mpg<span class="sc">:</span>carb) <span class="sc">%&gt;%</span></span>
+<span id="cb27-262"><a href="#cb27-262"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb27-263"><a href="#cb27-263"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb27-264"><a href="#cb27-264"></a><span class="in">```</span></span>
+<span id="cb27-265"><a href="#cb27-265"></a></span>
+<span id="cb27-266"><a href="#cb27-266"></a></span>
+<span id="cb27-267"><a href="#cb27-267"></a>お試しの計算です。</span>
+<span id="cb27-268"><a href="#cb27-268"></a></span>
+<span id="cb27-271"><a href="#cb27-271"></a><span class="in">```{r}</span></span>
+<span id="cb27-272"><a href="#cb27-272"></a>example.vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.4</span>, <span class="fl">7.1</span>, <span class="fl">7.2</span>, <span class="fl">72.1</span>)</span>
+<span id="cb27-273"><a href="#cb27-273"></a><span class="fu">within_n_sds</span>(<span class="dv">2</span>)(example.vector)(example.vector)</span>
+<span id="cb27-274"><a href="#cb27-274"></a><span class="in">```</span></span>
+<span id="cb27-275"><a href="#cb27-275"></a></span>
+<span id="cb27-276"><a href="#cb27-276"></a></span>
+<span id="cb27-277"><a href="#cb27-277"></a><span class="fu">## row-wise assertions and row reduction functions</span></span>
+<span id="cb27-278"><a href="#cb27-278"></a></span>
+<span id="cb27-281"><a href="#cb27-281"></a><span class="in">```{r}</span></span>
+<span id="cb27-282"><a href="#cb27-282"></a>example.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>,</span>
+<span id="cb27-283"><a href="#cb27-283"></a>                             <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>),</span>
+<span id="cb27-284"><a href="#cb27-284"></a>                         <span class="at">y=</span><span class="fu">c</span>(<span class="dv">82</span>, <span class="dv">91</span>, <span class="dv">61</span>, <span class="dv">49</span>, <span class="dv">40</span>, <span class="dv">49</span>, <span class="dv">57</span>,</span>
+<span id="cb27-285"><a href="#cb27-285"></a>                             <span class="dv">74</span>, <span class="dv">78</span>, <span class="dv">90</span>, <span class="dv">61</span>, <span class="dv">49</span>, <span class="dv">51</span>, <span class="dv">62</span>, <span class="dv">68</span>))</span>
+<span id="cb27-286"><a href="#cb27-286"></a>(example.data)</span>
+<span id="cb27-287"><a href="#cb27-287"></a><span class="in">```</span></span>
+<span id="cb27-288"><a href="#cb27-288"></a></span>
+<span id="cb27-291"><a href="#cb27-291"></a><span class="in">```{r}</span></span>
+<span id="cb27-292"><a href="#cb27-292"></a><span class="fu">plot</span>(example.data<span class="sc">$</span>x, example.data<span class="sc">$</span>y, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>)</span>
+<span id="cb27-293"><a href="#cb27-293"></a><span class="in">```</span></span>
+<span id="cb27-294"><a href="#cb27-294"></a></span>
+<span id="cb27-295"><a href="#cb27-295"></a>多変量の検証にはマハラノビス距離が使える。</span>
+<span id="cb27-296"><a href="#cb27-296"></a></span>
+<span id="cb27-299"><a href="#cb27-299"></a><span class="in">```{r}</span></span>
+<span id="cb27-300"><a href="#cb27-300"></a><span class="fu">maha_dist</span>(example.data)</span>
+<span id="cb27-301"><a href="#cb27-301"></a><span class="in">```</span></span>
+<span id="cb27-302"><a href="#cb27-302"></a></span>
+<span id="cb27-305"><a href="#cb27-305"></a><span class="in">```{r}</span></span>
+<span id="cb27-306"><a href="#cb27-306"></a><span class="fu">maha_dist</span>(example.data) <span class="sc">%&gt;%</span> <span class="fu">hist</span>(<span class="at">main=</span><span class="st">""</span>, <span class="at">xlab=</span><span class="st">""</span>)</span>
+<span id="cb27-307"><a href="#cb27-307"></a><span class="in">```</span></span>
+<span id="cb27-308"><a href="#cb27-308"></a></span>
+<span id="cb27-309"><a href="#cb27-309"></a></span>
+<span id="cb27-310"><a href="#cb27-310"></a>マハラノビス距離を評価に組み込む。</span>
+<span id="cb27-311"><a href="#cb27-311"></a></span>
+<span id="cb27-312"><a href="#cb27-312"></a></span>
+<span id="cb27-315"><a href="#cb27-315"></a><span class="in">```{r}</span></span>
+<span id="cb27-316"><a href="#cb27-316"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb27-317"><a href="#cb27-317"></a></span>
+<span id="cb27-318"><a href="#cb27-318"></a>example.data <span class="sc">%&gt;%</span></span>
+<span id="cb27-319"><a href="#cb27-319"></a>  <span class="fu">insist_rows</span>(maha_dist, <span class="fu">within_n_mads</span>(<span class="dv">3</span>), dplyr<span class="sc">::</span><span class="fu">everything</span>())</span>
+<span id="cb27-320"><a href="#cb27-320"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb27-321"><a href="#cb27-321"></a><span class="in">```</span></span>
+<span id="cb27-322"><a href="#cb27-322"></a></span>
+<span id="cb27-323"><a href="#cb27-323"></a></span>
+<span id="cb27-324"><a href="#cb27-324"></a></span>
+<span id="cb27-325"><a href="#cb27-325"></a><span class="fu">## success, error, and defect functions</span></span>
+<span id="cb27-326"><a href="#cb27-326"></a></span>
+<span id="cb27-327"><a href="#cb27-327"></a>成功・失敗時の処理の挙動を制御できる。</span>
+<span id="cb27-328"><a href="#cb27-328"></a></span>
+<span id="cb27-329"><a href="#cb27-329"></a><span class="fu">## Obligatory assertions</span></span>
+<span id="cb27-330"><a href="#cb27-330"></a></span>
+<span id="cb27-331"><a href="#cb27-331"></a>独立でないルールを適用することがある。</span>
+<span id="cb27-332"><a href="#cb27-332"></a></span>
+<span id="cb27-333"><a href="#cb27-333"></a></span>
+<span id="cb27-336"><a href="#cb27-336"></a><span class="in">```{r}</span></span>
+<span id="cb27-337"><a href="#cb27-337"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb27-338"><a href="#cb27-338"></a></span>
+<span id="cb27-339"><a href="#cb27-339"></a>mtcars_without_am <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb27-340"><a href="#cb27-340"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>am)</span>
+<span id="cb27-341"><a href="#cb27-341"></a>mtcars_without_am <span class="sc">%&gt;%</span> </span>
+<span id="cb27-342"><a href="#cb27-342"></a>  <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"am"</span>, <span class="st">"vs"</span>), <span class="at">error_fun =</span> error_append) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-343"><a href="#cb27-343"></a>  <span class="fu">assert</span>(<span class="fu">in_set</span>(<span class="dv">0</span>, <span class="dv">1</span>), am, vs, <span class="at">error_fun =</span> error_report)</span>
+<span id="cb27-344"><a href="#cb27-344"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb27-345"><a href="#cb27-345"></a><span class="in">```</span></span>
+<span id="cb27-346"><a href="#cb27-346"></a></span>
+<span id="cb27-347"><a href="#cb27-347"></a></span>
+<span id="cb27-348"><a href="#cb27-348"></a>上記はverifyと関係ないところでエラーが出ている。</span>
+<span id="cb27-349"><a href="#cb27-349"></a>その場合には次のようにする。</span>
+<span id="cb27-350"><a href="#cb27-350"></a></span>
+<span id="cb27-351"><a href="#cb27-351"></a></span>
+<span id="cb27-354"><a href="#cb27-354"></a><span class="in">```{r}</span></span>
+<span id="cb27-355"><a href="#cb27-355"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb27-356"><a href="#cb27-356"></a></span>
+<span id="cb27-357"><a href="#cb27-357"></a>mtcars_without_am <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb27-358"><a href="#cb27-358"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>am)</span>
+<span id="cb27-359"><a href="#cb27-359"></a>mtcars_without_am <span class="sc">%&gt;%</span> </span>
+<span id="cb27-360"><a href="#cb27-360"></a>  <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"am"</span>, <span class="st">"vs"</span>), <span class="at">obligatory=</span><span class="cn">TRUE</span>, <span class="at">error_fun=</span>error_append) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-361"><a href="#cb27-361"></a>  <span class="fu">assert</span>(<span class="fu">in_set</span>(<span class="dv">0</span>, <span class="dv">1</span>), am, vs, <span class="at">defect_fun=</span>defect_report)</span>
+<span id="cb27-362"><a href="#cb27-362"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb27-363"><a href="#cb27-363"></a><span class="in">```</span></span>
+<span id="cb27-364"><a href="#cb27-364"></a></span>
+<span id="cb27-365"><a href="#cb27-365"></a></span>
+<span id="cb27-366"><a href="#cb27-366"></a><span class="fu">## combining chains of assertions</span></span>
+<span id="cb27-367"><a href="#cb27-367"></a></span>
+<span id="cb27-368"><a href="#cb27-368"></a>パイプラインだと1つの処理が失敗するとそこから先の処理は実施されない。</span>
+<span id="cb27-369"><a href="#cb27-369"></a>一方で、複数のチェックをリポートしてもらいたいときがある。</span>
+<span id="cb27-370"><a href="#cb27-370"></a></span>
+<span id="cb27-373"><a href="#cb27-373"></a><span class="in">```{r}</span></span>
+<span id="cb27-374"><a href="#cb27-374"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb27-375"><a href="#cb27-375"></a>  chain_start <span class="sc">%&gt;%</span></span>
+<span id="cb27-376"><a href="#cb27-376"></a>  <span class="fu">verify</span>(<span class="fu">nrow</span>(mtcars) <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-377"><a href="#cb27-377"></a>  <span class="fu">verify</span>(mpg <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-378"><a href="#cb27-378"></a>  <span class="fu">insist</span>(<span class="fu">within_n_sds</span>(<span class="dv">4</span>), mpg) <span class="sc">%&gt;%</span></span>
+<span id="cb27-379"><a href="#cb27-379"></a>  <span class="fu">assert</span>(<span class="fu">in_set</span>(<span class="dv">0</span>,<span class="dv">1</span>), am, vs) <span class="sc">%&gt;%</span></span>
+<span id="cb27-380"><a href="#cb27-380"></a>  chain_end <span class="sc">%&gt;%</span></span>
+<span id="cb27-381"><a href="#cb27-381"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb27-382"><a href="#cb27-382"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb27-383"><a href="#cb27-383"></a><span class="in">```</span></span>
+<span id="cb27-384"><a href="#cb27-384"></a></span>
+<span id="cb27-385"><a href="#cb27-385"></a><span class="fu">## advanced: creating your own predicate generators for insist</span></span>
+<span id="cb27-386"><a href="#cb27-386"></a></span>
+<span id="cb27-387"><a href="#cb27-387"></a></span>
+<span id="cb27-390"><a href="#cb27-390"></a><span class="in">```{r}</span></span>
+<span id="cb27-391"><a href="#cb27-391"></a>within_3_iqrs <span class="ot">&lt;-</span> <span class="cf">function</span>(a_vector){</span>
+<span id="cb27-392"><a href="#cb27-392"></a>  the_median <span class="ot">&lt;-</span> <span class="fu">median</span>(a_vector)</span>
+<span id="cb27-393"><a href="#cb27-393"></a>  the_iqr <span class="ot">&lt;-</span> <span class="fu">IQR</span>(a_vector)</span>
+<span id="cb27-394"><a href="#cb27-394"></a>  <span class="fu">within_bounds</span>((the_median<span class="sc">-</span>the_iqr<span class="sc">*</span><span class="dv">3</span>), (the_median<span class="sc">+</span>the_iqr<span class="sc">*</span><span class="dv">3</span>))</span>
+<span id="cb27-395"><a href="#cb27-395"></a>}</span>
+<span id="cb27-396"><a href="#cb27-396"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb27-397"><a href="#cb27-397"></a>  <span class="fu">insist</span>(within_3_iqrs, mpg) <span class="sc">%&gt;%</span></span>
+<span id="cb27-398"><a href="#cb27-398"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb27-399"><a href="#cb27-399"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb27-400"><a href="#cb27-400"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","loop":false});</script>
+<script>var lightboxQuarto = GLightbox({"loop":false,"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});</script>
 
 
 
