@@ -914,6 +914,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#問題解決のやり方" id="toc-問題解決のやり方" class="nav-link active" data-scroll-target="#問題解決のやり方"><span class="header-section-number">1</span> 問題解決のやり方</a></li>
   <li><a href="#輸送費を減らしたい" id="toc-輸送費を減らしたい" class="nav-link" data-scroll-target="#輸送費を減らしたい"><span class="header-section-number">2</span> 輸送費を減らしたい</a></li>
   <li><a href="#もっと食べたくなる献立を" id="toc-もっと食べたくなる献立を" class="nav-link" data-scroll-target="#もっと食べたくなる献立を"><span class="header-section-number">3</span> もっと食べたくなる献立を</a></li>
+  <li><a href="#お酒をわけよう" id="toc-お酒をわけよう" class="nav-link" data-scroll-target="#お酒をわけよう"><span class="header-section-number">4</span> お酒をわけよう</a>
+  <ul class="collapse">
+  <li><a href="#公平にしたい" id="toc-公平にしたい" class="nav-link" data-scroll-target="#公平にしたい"><span class="header-section-number">4.1</span> 公平にしたい</a></li>
+  <li><a href="#つの尺度で考える" id="toc-つの尺度で考える" class="nav-link" data-scroll-target="#つの尺度で考える"><span class="header-section-number">4.2</span> ２つの尺度で考える</a></li>
+  </ul></li>
+  <li><a href="#シフト表をつくりたい" id="toc-シフト表をつくりたい" class="nav-link" data-scroll-target="#シフト表をつくりたい"><span class="header-section-number">5</span> シフト表をつくりたい</a>
+  <ul class="collapse">
+  <li><a href="#シフト表をつくるには" id="toc-シフト表をつくるには" class="nav-link" data-scroll-target="#シフト表をつくるには"><span class="header-section-number">5.1</span> シフト表をつくるには</a></li>
+  <li><a href="#まずは作ってみる" id="toc-まずは作ってみる" class="nav-link" data-scroll-target="#まずは作ってみる"><span class="header-section-number">5.2</span> まずは作ってみる</a></li>
+  <li><a href="#シフト表に必要な条件を考慮" id="toc-シフト表に必要な条件を考慮" class="nav-link" data-scroll-target="#シフト表に必要な条件を考慮"><span class="header-section-number">5.3</span> シフト表に必要な条件を考慮</a></li>
+  <li><a href="#休みの希望を叶える" id="toc-休みの希望を叶える" class="nav-link" data-scroll-target="#休みの希望を叶える"><span class="header-section-number">5.4</span> 休みの希望を叶える</a></li>
+  <li><a href="#つの応えを出そう" id="toc-つの応えを出そう" class="nav-link" data-scroll-target="#つの応えを出そう"><span class="header-section-number">5.5</span> 2つの応えを出そう</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1433,7 +1446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>picture 6</figcaption>
 </figure>
 </div>
-<div id="cell-30" class="cell" data-execution_count="57">
+<div id="cell-30" class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a></span>
@@ -1484,8 +1497,523 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ['焼肉サラダ' 'とんこつラーメン' 'カレーハンバーグ' '豆腐ハンバーグ' '魚ステーキ']</code></pre>
 </div>
 </div>
+</section>
+<section id="お酒をわけよう" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> お酒をわけよう</h1>
+<p>試飲会のけるお酒の名があらの振り分け方の課題を通して、公平さを考慮した解の調整や多目的最適化に取り組む。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715301898303.png" class="img-fluid figure-img"></p>
+<figcaption>picture 7</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715302012288.png" class="img-fluid figure-img"></p>
+<figcaption>picture 8</figcaption>
+</figure>
+</div>
+<div id="cell-32" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a></span>
+<span id="cb36-2"><a href="#cb36-2"></a></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="im">import</span> csv</span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="im">import</span> mip</span>
+<span id="cb36-5"><a href="#cb36-5"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb36-6"><a href="#cb36-6"></a></span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"./input/party.csv"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> fp:</span>
+<span id="cb36-8"><a href="#cb36-8"></a>    _csv <span class="op">=</span> np.array(<span class="bu">list</span>(csv.reader(fp)))</span>
+<span id="cb36-9"><a href="#cb36-9"></a>    </span>
+<span id="cb36-10"><a href="#cb36-10"></a>    </span>
+<span id="cb36-11"><a href="#cb36-11"></a>names <span class="op">=</span> _csv[<span class="dv">1</span>:, <span class="dv">0</span>] <span class="co"># 銘柄の名前</span></span>
+<span id="cb36-12"><a href="#cb36-12"></a>data <span class="op">=</span> {} <span class="co"># 列名をキーとする辞書</span></span>
+<span id="cb36-13"><a href="#cb36-13"></a><span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(_csv[<span class="dv">0</span>, <span class="dv">1</span>:]):</span>
+<span id="cb36-14"><a href="#cb36-14"></a>    data[column] <span class="op">=</span> _csv[<span class="dv">1</span>:, i <span class="op">+</span> <span class="dv">1</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb36-15"><a href="#cb36-15"></a></span>
+<span id="cb36-16"><a href="#cb36-16"></a></span>
+<span id="cb36-17"><a href="#cb36-17"></a><span class="bu">print</span>(<span class="ss">f"銘柄の名前 (先頭三つ)"</span>)</span>
+<span id="cb36-18"><a href="#cb36-18"></a><span class="bu">print</span>(<span class="ss">f" </span><span class="sc">{</span>names[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb36-19"><a href="#cb36-19"></a><span class="bu">print</span>(<span class="ss">f"アンケート得点 (先頭三つ)"</span>)</span>
+<span id="cb36-20"><a href="#cb36-20"></a><span class="bu">print</span>(<span class="ss">f" </span><span class="sc">{</span>data[<span class="st">'Tokyo'</span>][:<span class="dv">3</span>]<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb36-21"><a href="#cb36-21"></a><span class="bu">print</span>(<span class="ss">f" </span><span class="sc">{</span>data[<span class="st">'Osaka'</span>][:<span class="dv">3</span>]<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb36-22"><a href="#cb36-22"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>銘柄の名前 (先頭三つ)
+ ['神風酒造り' '雪の瑞穂酒' '紅葉の美酒']
+アンケート得点 (先頭三つ)
+ data['Tokyo'][:3]=array([3, 2, 2])
+ data['Osaka'][:3]=array([0, 3, 4])</code></pre>
+</div>
+</div>
+<div id="cell-33" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="im">from</span> mip <span class="im">import</span> Model, maximize, xsum</span>
+<span id="cb38-2"><a href="#cb38-2"></a></span>
+<span id="cb38-3"><a href="#cb38-3"></a>m <span class="op">=</span> Model()</span>
+<span id="cb38-4"><a href="#cb38-4"></a>n <span class="op">=</span> <span class="bu">len</span>(data[<span class="st">"Tokyo"</span>])</span>
+<span id="cb38-5"><a href="#cb38-5"></a>x <span class="op">=</span> m.add_var_tensor((n, ), <span class="st">"x"</span>, var_type <span class="op">=</span> <span class="st">"B"</span>)</span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="co"># 東京の得点和</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a>tokyo <span class="op">=</span> xsum(data[<span class="st">"Tokyo"</span>] <span class="op">*</span> x)</span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="co"># 大阪の得点和</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a>osaka <span class="op">=</span> xsum(data[<span class="st">"Osaka"</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x))</span>
+<span id="cb38-10"><a href="#cb38-10"></a></span>
+<span id="cb38-11"><a href="#cb38-11"></a>m.objective <span class="op">=</span> maximize(tokyo <span class="op">+</span> osaka)</span>
+<span id="cb38-12"><a href="#cb38-12"></a>m.verbose <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb38-13"><a href="#cb38-13"></a>m.optimize()</span>
+<span id="cb38-14"><a href="#cb38-14"></a></span>
+<span id="cb38-15"><a href="#cb38-15"></a><span class="cf">if</span> m.status.value <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb38-16"><a href="#cb38-16"></a>    val <span class="op">=</span> x.astype(<span class="bu">float</span>, subok <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb38-17"><a href="#cb38-17"></a>    tokyo_names <span class="op">=</span> names[val <span class="op">&gt;</span> <span class="fl">.5</span>]</span>
+<span id="cb38-18"><a href="#cb38-18"></a>    osaka_names <span class="op">=</span> names[val <span class="op">&lt;=</span> <span class="fl">.5</span>]</span>
+<span id="cb38-19"><a href="#cb38-19"></a>    <span class="bu">print</span>(<span class="ss">f"東京 </span><span class="sc">{</span>tokyo<span class="sc">.</span>x<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>tokyo_names[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb38-20"><a href="#cb38-20"></a>    <span class="bu">print</span>(<span class="ss">f"大阪 </span><span class="sc">{</span>osaka<span class="sc">.</span>x<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>osaka_names[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb38-21"><a href="#cb38-21"></a>    <span class="bu">print</span>(<span class="ss">f"合計 </span><span class="sc">{</span>tokyo<span class="sc">.</span>x <span class="op">+</span> osaka<span class="sc">.</span>x<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>東京 52.0 ['神風酒造り' '月の輝き' '大和の誇り']
+大阪 84.0 ['雪の瑞穂酒' '紅葉の美酒' '翡翠の杯']
+合計 136.0</code></pre>
+</div>
+</div>
+<section id="公平にしたい" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="公平にしたい"><span class="header-section-number">4.1</span> 公平にしたい</h2>
+<p>地域によって平均点が異なるので単純な合計値では不公平になる。</p>
+<p>そこで、ここではまず最低得点という制約を加えたモデリングをおこなう。</p>
+<div id="cell-35" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="im">from</span> mip <span class="im">import</span> Model, maximize, xsum</span>
+<span id="cb40-2"><a href="#cb40-2"></a></span>
+<span id="cb40-3"><a href="#cb40-3"></a>m <span class="op">=</span> Model()</span>
+<span id="cb40-4"><a href="#cb40-4"></a>n <span class="op">=</span> <span class="bu">len</span>(data[<span class="st">"Tokyo"</span>])</span>
+<span id="cb40-5"><a href="#cb40-5"></a>x <span class="op">=</span> m.add_var_tensor((n, ), <span class="st">"x"</span>, var_type <span class="op">=</span> <span class="st">"B"</span>)</span>
+<span id="cb40-6"><a href="#cb40-6"></a><span class="co"># 東京の得点和</span></span>
+<span id="cb40-7"><a href="#cb40-7"></a>tokyo <span class="op">=</span> xsum(data[<span class="st">"Tokyo"</span>] <span class="op">*</span> x)</span>
+<span id="cb40-8"><a href="#cb40-8"></a><span class="co"># 大阪の得点和</span></span>
+<span id="cb40-9"><a href="#cb40-9"></a>osaka <span class="op">=</span> xsum(data[<span class="st">"Osaka"</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x))</span>
+<span id="cb40-10"><a href="#cb40-10"></a></span>
+<span id="cb40-11"><a href="#cb40-11"></a><span class="co"># 目的関数</span></span>
+<span id="cb40-12"><a href="#cb40-12"></a>m.objective <span class="op">=</span> maximize(tokyo <span class="op">+</span> osaka)</span>
+<span id="cb40-13"><a href="#cb40-13"></a></span>
+<span id="cb40-14"><a href="#cb40-14"></a><span class="co"># 下限</span></span>
+<span id="cb40-15"><a href="#cb40-15"></a>m <span class="op">+=</span> tokyo <span class="op">&gt;=</span> <span class="dv">53</span></span>
+<span id="cb40-16"><a href="#cb40-16"></a></span>
+<span id="cb40-17"><a href="#cb40-17"></a></span>
+<span id="cb40-18"><a href="#cb40-18"></a>m.verbose <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb40-19"><a href="#cb40-19"></a>m.optimize()</span>
+<span id="cb40-20"><a href="#cb40-20"></a></span>
+<span id="cb40-21"><a href="#cb40-21"></a><span class="cf">if</span> m.status.value <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb40-22"><a href="#cb40-22"></a>    val <span class="op">=</span> x.astype(<span class="bu">float</span>, subok <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb40-23"><a href="#cb40-23"></a>    tokyo_names <span class="op">=</span> names[val <span class="op">&gt;</span> <span class="fl">.5</span>]</span>
+<span id="cb40-24"><a href="#cb40-24"></a>    osaka_names <span class="op">=</span> names[val <span class="op">&lt;=</span> <span class="fl">.5</span>]</span>
+<span id="cb40-25"><a href="#cb40-25"></a>    <span class="bu">print</span>(<span class="ss">f"東京 </span><span class="sc">{</span>tokyo<span class="sc">.</span>x<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>tokyo_names[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb40-26"><a href="#cb40-26"></a>    <span class="bu">print</span>(<span class="ss">f"大阪 </span><span class="sc">{</span>osaka<span class="sc">.</span>x<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>osaka_names[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb40-27"><a href="#cb40-27"></a>    <span class="bu">print</span>(<span class="ss">f"合計 </span><span class="sc">{</span>tokyo<span class="sc">.</span>x <span class="op">+</span> osaka<span class="sc">.</span>x<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>東京 64.0 ['神風酒造り' '天空の酔いどれ' '月の輝き']
+大阪 72.0 ['雪の瑞穂酒' '紅葉の美酒' '翡翠の杯']
+合計 136.0</code></pre>
+</div>
+</div>
+</section>
+<section id="つの尺度で考える" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="つの尺度で考える"><span class="header-section-number">4.2</span> ２つの尺度で考える</h2>
+<p>ここでは公平性を考えるために、会場間の得点の差が小さくなるようにしながら、得点の合計を最大化することを考える。</p>
+<p>このような二つの指標で目的変数を考えることを多目的最適化という。</p>
+<p>一般に多目的最適化はトレードオフになるので、ステップを分けて問題を解く。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715302809651.png" class="img-fluid figure-img"></p>
+<figcaption>picture 9</figcaption>
+</figure>
+</div>
+<div id="cell-37" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="im">from</span> mip <span class="im">import</span> Model, maximize, xsum</span>
+<span id="cb42-2"><a href="#cb42-2"></a></span>
+<span id="cb42-3"><a href="#cb42-3"></a>m <span class="op">=</span> Model()</span>
+<span id="cb42-4"><a href="#cb42-4"></a>n <span class="op">=</span> <span class="bu">len</span>(data[<span class="st">"Tokyo"</span>])</span>
+<span id="cb42-5"><a href="#cb42-5"></a>x <span class="op">=</span> m.add_var_tensor((n, ), <span class="st">"x"</span>, var_type <span class="op">=</span> <span class="st">"B"</span>)</span>
+<span id="cb42-6"><a href="#cb42-6"></a><span class="co"># 東京の得点和</span></span>
+<span id="cb42-7"><a href="#cb42-7"></a>tokyo <span class="op">=</span> xsum(data[<span class="st">"Tokyo"</span>] <span class="op">*</span> x)</span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="co"># 大阪の得点和</span></span>
+<span id="cb42-9"><a href="#cb42-9"></a>osaka <span class="op">=</span> xsum(data[<span class="st">"Osaka"</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x))</span>
+<span id="cb42-10"><a href="#cb42-10"></a></span>
+<span id="cb42-11"><a href="#cb42-11"></a><span class="co"># 目的関数</span></span>
+<span id="cb42-12"><a href="#cb42-12"></a>m.objective <span class="op">=</span> maximize(tokyo <span class="op">+</span> osaka)</span>
+<span id="cb42-13"><a href="#cb42-13"></a></span>
+<span id="cb42-14"><a href="#cb42-14"></a><span class="co"># 下限</span></span>
+<span id="cb42-15"><a href="#cb42-15"></a>m <span class="op">+=</span> tokyo <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb42-16"><a href="#cb42-16"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb42-17"><a href="#cb42-17"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb42-18"><a href="#cb42-18"></a>    i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb42-19"><a href="#cb42-19"></a>    m.verbose <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb42-20"><a href="#cb42-20"></a>    m.optimize()</span>
+<span id="cb42-21"><a href="#cb42-21"></a></span>
+<span id="cb42-22"><a href="#cb42-22"></a>    <span class="co"># 東京の値が大阪よりも大きくなるようにする</span></span>
+<span id="cb42-23"><a href="#cb42-23"></a>    v1, v2 <span class="op">=</span> tokyo.x, osaka.x</span>
+<span id="cb42-24"><a href="#cb42-24"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">回目 東京</span><span class="sc">{</span>v1<span class="sc">}</span><span class="ss">, 大阪 </span><span class="sc">{</span>v2<span class="sc">}</span><span class="ss">, 合計 </span><span class="sc">{</span>v1 <span class="op">+</span> v2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb42-25"><a href="#cb42-25"></a>    <span class="cf">if</span> v1 <span class="op">&gt;</span> v2:</span>
+<span id="cb42-26"><a href="#cb42-26"></a>        <span class="cf">break</span></span>
+<span id="cb42-27"><a href="#cb42-27"></a></span>
+<span id="cb42-28"><a href="#cb42-28"></a>    <span class="co"># 制約条件の変更</span></span>
+<span id="cb42-29"><a href="#cb42-29"></a>    m.constrs[<span class="dv">0</span>].rhs <span class="op">=</span> v1 <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb42-30"><a href="#cb42-30"></a></span>
+<span id="cb42-31"><a href="#cb42-31"></a></span>
+<span id="cb42-32"><a href="#cb42-32"></a></span>
+<span id="cb42-33"><a href="#cb42-33"></a><span class="cf">if</span> m.status.value <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb42-34"><a href="#cb42-34"></a>    val <span class="op">=</span> x.astype(<span class="bu">float</span>, subok <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb42-35"><a href="#cb42-35"></a>    tokyo_names <span class="op">=</span> names[val <span class="op">&gt;</span> <span class="fl">.5</span>]</span>
+<span id="cb42-36"><a href="#cb42-36"></a>    osaka_names <span class="op">=</span> names[val <span class="op">&lt;=</span> <span class="fl">.5</span>]</span>
+<span id="cb42-37"><a href="#cb42-37"></a>    <span class="bu">print</span>(<span class="ss">f"東京 </span><span class="sc">{</span>tokyo<span class="sc">.</span>x<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>tokyo_names[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb42-38"><a href="#cb42-38"></a>    <span class="bu">print</span>(<span class="ss">f"大阪 </span><span class="sc">{</span>osaka<span class="sc">.</span>x<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>osaka_names[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb42-39"><a href="#cb42-39"></a>    <span class="bu">print</span>(<span class="ss">f"合計 </span><span class="sc">{</span>tokyo<span class="sc">.</span>x <span class="op">+</span> osaka<span class="sc">.</span>x<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>1回目 東京52.0, 大阪 84.0, 合計 136.0
+2回目 東京64.0, 大阪 72.0, 合計 136.0
+3回目 東京66.0, 大阪 69.0, 合計 135.0
+4回目 東京67.0, 大阪 68.0, 合計 135.0
+5回目 東京68.0, 大阪 67.0, 合計 135.0
+東京 68.0 ['神風酒造り' '天空の酔いどれ' '竜神の泡']
+大阪 67.0 ['雪の瑞穂酒' '紅葉の美酒' '翡翠の杯']
+合計 135.0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="シフト表をつくりたい" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> シフト表をつくりたい</h1>
+<p>「なるべく守りたい条件」を考慮するにはどうすればよいのか？</p>
+<section id="シフト表をつくるには" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="シフト表をつくるには"><span class="header-section-number">5.1</span> シフト表をつくるには</h2>
+<p>人×日にちに対して、夜勤、日勤、休日などを割り当てる。</p>
+<p>そのなかで各日ごとや、各人に対して条件を設ける。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715303710062.png" class="img-fluid figure-img"></p>
+<figcaption>picture 10</figcaption>
+</figure>
+</div>
+<p>どのような変数を考えるかについては、0-1変数を使う。</p>
+<p>具体的にはスタッフ<span class="math inline">\(i0\)</span>が日番号<span class="math inline">\(i1\)</span>にシフト<span class="math inline">\(i2\)</span>をするかどうかを表す変数を使う。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715303825439.png" class="img-fluid figure-img"></p>
+<figcaption>picture 11</figcaption>
+</figure>
+</div>
+</section>
+<section id="まずは作ってみる" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="まずは作ってみる"><span class="header-section-number">5.2</span> まずは作ってみる</h2>
+<div id="cell-39" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>staffs <span class="op">=</span> [<span class="st">"安藤"</span>, <span class="st">"佐藤"</span>, <span class="st">"高橋"</span>, <span class="st">"山田"</span>]</span>
+<span id="cb44-2"><a href="#cb44-2"></a>days <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
+<span id="cb44-3"><a href="#cb44-3"></a>shifts <span class="op">=</span> [<span class="st">"日"</span>, <span class="st">"夜"</span>, <span class="st">"休"</span>]</span>
+<span id="cb44-4"><a href="#cb44-4"></a>n0, n1, n2 <span class="op">=</span> <span class="bu">len</span>(staffs), <span class="bu">len</span>(days), <span class="bu">len</span>(shifts)</span>
+<span id="cb44-5"><a href="#cb44-5"></a></span>
+<span id="cb44-6"><a href="#cb44-6"></a><span class="im">from</span> mip <span class="im">import</span> Model, xsum</span>
+<span id="cb44-7"><a href="#cb44-7"></a></span>
+<span id="cb44-8"><a href="#cb44-8"></a></span>
+<span id="cb44-9"><a href="#cb44-9"></a>m <span class="op">=</span> Model()</span>
+<span id="cb44-10"><a href="#cb44-10"></a>x <span class="op">=</span> m.add_var_tensor((n0, n1, n2), <span class="st">"x"</span>, var_type <span class="op">=</span> <span class="st">"B"</span>)</span>
+<span id="cb44-11"><a href="#cb44-11"></a></span>
+<span id="cb44-12"><a href="#cb44-12"></a></span>
+<span id="cb44-13"><a href="#cb44-13"></a><span class="co"># 制約条件</span></span>
+<span id="cb44-14"><a href="#cb44-14"></a><span class="cf">for</span> i0 <span class="kw">in</span> <span class="bu">range</span>(n0):</span>
+<span id="cb44-15"><a href="#cb44-15"></a>    <span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1):</span>
+<span id="cb44-16"><a href="#cb44-16"></a>        <span class="co"># ある人がある日に割り当てられるシフトは1つ</span></span>
+<span id="cb44-17"><a href="#cb44-17"></a>        m <span class="op">+=</span> xsum(x[i0, i1]) <span class="op">==</span> <span class="dv">1</span> </span>
+<span id="cb44-18"><a href="#cb44-18"></a>        </span>
+<span id="cb44-19"><a href="#cb44-19"></a>m.verbose <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb44-20"><a href="#cb44-20"></a>m.optimize()</span>
+<span id="cb44-21"><a href="#cb44-21"></a></span>
+<span id="cb44-22"><a href="#cb44-22"></a><span class="cf">if</span> m.status.value <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb44-23"><a href="#cb44-23"></a>    val <span class="op">=</span> x.astype(<span class="bu">float</span>, subok <span class="op">=</span> <span class="va">False</span>).<span class="bu">round</span>().astype(<span class="bu">int</span>)</span>
+<span id="cb44-24"><a href="#cb44-24"></a>    result <span class="op">=</span> (np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>,]).reshape(<span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">*</span> val).<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb44-25"><a href="#cb44-25"></a>    <span class="bu">print</span>(result)</span>
+<span id="cb44-26"><a href="#cb44-26"></a></span>
+<span id="cb44-27"><a href="#cb44-27"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[2 0 2 0 0 1 0]
+ [0 0 2 0 0 2 0]
+ [2 2 0 2 0 0 2]
+ [2 0 0 0 0 0 1]]</code></pre>
+</div>
+</div>
+</section>
+<section id="シフト表に必要な条件を考慮" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="シフト表に必要な条件を考慮"><span class="header-section-number">5.3</span> シフト表に必要な条件を考慮</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715304630073.png" class="img-fluid figure-img"></p>
+<figcaption>picture 12</figcaption>
+</figure>
+</div>
+<div id="cell-41" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a>m <span class="op">=</span> Model()</span>
+<span id="cb46-2"><a href="#cb46-2"></a>x <span class="op">=</span> m.add_var_tensor((n0, n1, n2), <span class="st">"x"</span>, var_type <span class="op">=</span> <span class="st">"B"</span>)</span>
+<span id="cb46-3"><a href="#cb46-3"></a></span>
+<span id="cb46-4"><a href="#cb46-4"></a></span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="co"># 制約条件</span></span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="cf">for</span> i0 <span class="kw">in</span> <span class="bu">range</span>(n0):</span>
+<span id="cb46-7"><a href="#cb46-7"></a>    <span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1):</span>
+<span id="cb46-8"><a href="#cb46-8"></a>        <span class="co"># ある人がある日に割り当てられるシフトは1つ</span></span>
+<span id="cb46-9"><a href="#cb46-9"></a>        m <span class="op">+=</span> xsum(x[i0, i1]) <span class="op">==</span> <span class="dv">1</span> </span>
+<span id="cb46-10"><a href="#cb46-10"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">0</span>]) <span class="op">&lt;=</span> <span class="dv">4</span>  <span class="co"># 日勤4日以下</span></span>
+<span id="cb46-11"><a href="#cb46-11"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">1</span>]) <span class="op">&lt;=</span> <span class="dv">2</span>  <span class="co"># 夜勤2日以下</span></span>
+<span id="cb46-12"><a href="#cb46-12"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">2</span>]) <span class="op">&lt;=</span> <span class="dv">2</span>  <span class="co"># 休日2日以下</span></span>
+<span id="cb46-13"><a href="#cb46-13"></a>    </span>
+<span id="cb46-14"><a href="#cb46-14"></a><span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1):</span>
+<span id="cb46-15"><a href="#cb46-15"></a>    m <span class="op">+=</span> xsum(x[:, i1, <span class="dv">0</span>]) <span class="op">==</span> <span class="dv">2</span> <span class="co"># ある日の日勤は二人</span></span>
+<span id="cb46-16"><a href="#cb46-16"></a>    m <span class="op">+=</span> xsum(x[:, i1, <span class="dv">1</span>]) <span class="op">==</span> <span class="dv">1</span> <span class="co"># ある日の夜勤は一人</span></span>
+<span id="cb46-17"><a href="#cb46-17"></a>    </span>
+<span id="cb46-18"><a href="#cb46-18"></a>m.verbose <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb46-19"><a href="#cb46-19"></a>m.optimize()</span>
+<span id="cb46-20"><a href="#cb46-20"></a></span>
+<span id="cb46-21"><a href="#cb46-21"></a></span>
+<span id="cb46-22"><a href="#cb46-22"></a><span class="cf">if</span> m.status.value <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb46-23"><a href="#cb46-23"></a>    val <span class="op">=</span> x.astype(<span class="bu">float</span>, subok <span class="op">=</span> <span class="va">False</span>).<span class="bu">round</span>().astype(<span class="bu">int</span>)</span>
+<span id="cb46-24"><a href="#cb46-24"></a>    result <span class="op">=</span> (np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>,]).reshape(<span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">*</span> val).<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb46-25"><a href="#cb46-25"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[0 0 2 0 1 1 2]
+ [2 0 1 0 0 2 1]
+ [0 2 0 1 2 0 0]
+ [1 1 0 2 0 0 0]]</code></pre>
+</div>
+</div>
+<div id="cell-42" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># る日の日勤、夜勤、休日者の数</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a>val.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>array([[2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1]])</code></pre>
+</div>
+</div>
+</section>
+<section id="休みの希望を叶える" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="休みの希望を叶える"><span class="header-section-number">5.4</span> 休みの希望を叶える</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715305137752.png" class="img-fluid figure-img"></p>
+<figcaption>picture 13</figcaption>
+</figure>
+</div>
+<p>「可能な限りかなえる」⇒目的変数として希望が実現できる数を目的変数にする。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715305357133.png" class="img-fluid figure-img"></p>
+<figcaption>picture 14</figcaption>
+</figure>
+</div>
+<div id="cell-44" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a><span class="im">from</span> mip <span class="im">import</span> Model, maximize, xsum</span>
+<span id="cb50-2"><a href="#cb50-2"></a></span>
+<span id="cb50-3"><a href="#cb50-3"></a><span class="kw">def</span> show(result):</span>
+<span id="cb50-4"><a href="#cb50-4"></a>    <span class="bu">print</span>(<span class="st">"    ０１２３４５６"</span>)</span>
+<span id="cb50-5"><a href="#cb50-5"></a>    <span class="cf">for</span> i0 <span class="kw">in</span> <span class="bu">range</span>(n0): <span class="co"># スタッフごと</span></span>
+<span id="cb50-6"><a href="#cb50-6"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>staffs[i0]<span class="sc">}</span><span class="ss">: "</span>, end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb50-7"><a href="#cb50-7"></a>        <span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1): <span class="co"># 日番号ごと</span></span>
+<span id="cb50-8"><a href="#cb50-8"></a>            <span class="bu">print</span>(shifts[result[i0, i1]], end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb50-9"><a href="#cb50-9"></a>        <span class="bu">print</span>()</span>
+<span id="cb50-10"><a href="#cb50-10"></a>        </span>
+<span id="cb50-11"><a href="#cb50-11"></a>staffs <span class="op">=</span> [<span class="st">"安藤"</span>, <span class="st">"佐藤"</span>, <span class="st">"高橋"</span>, <span class="st">"山田"</span>]</span>
+<span id="cb50-12"><a href="#cb50-12"></a>days  <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
+<span id="cb50-13"><a href="#cb50-13"></a>shifts <span class="op">=</span> [<span class="st">"日"</span>, <span class="st">"夜"</span>, <span class="st">"休"</span>]</span>
+<span id="cb50-14"><a href="#cb50-14"></a>n0, n1, n2 <span class="op">=</span> <span class="bu">len</span>(staffs), <span class="bu">len</span>(days), <span class="bu">len</span>(shifts)</span>
+<span id="cb50-15"><a href="#cb50-15"></a>wish_days <span class="op">=</span> [ <span class="co"># 休みの希望（追加）</span></span>
+<span id="cb50-16"><a href="#cb50-16"></a>    [<span class="dv">0</span>, <span class="dv">3</span>],</span>
+<span id="cb50-17"><a href="#cb50-17"></a>    [<span class="dv">2</span>],</span>
+<span id="cb50-18"><a href="#cb50-18"></a>    [<span class="dv">1</span>, <span class="dv">6</span>],</span>
+<span id="cb50-19"><a href="#cb50-19"></a>    [<span class="dv">5</span>],</span>
+<span id="cb50-20"><a href="#cb50-20"></a>]</span>
+<span id="cb50-21"><a href="#cb50-21"></a></span>
+<span id="cb50-22"><a href="#cb50-22"></a>m <span class="op">=</span> Model()</span>
+<span id="cb50-23"><a href="#cb50-23"></a>x <span class="op">=</span> m.add_var_tensor((n0, n1, n2), <span class="st">"x"</span>, var_type <span class="op">=</span> <span class="st">"B"</span>)</span>
+<span id="cb50-24"><a href="#cb50-24"></a></span>
+<span id="cb50-25"><a href="#cb50-25"></a>x_wish_days <span class="op">=</span> []</span>
+<span id="cb50-26"><a href="#cb50-26"></a><span class="cf">for</span> x_i, wish_day <span class="kw">in</span> <span class="bu">zip</span>(x, wish_days):</span>
+<span id="cb50-27"><a href="#cb50-27"></a>    <span class="cf">for</span> day <span class="kw">in</span> wish_day:</span>
+<span id="cb50-28"><a href="#cb50-28"></a>        <span class="co"># 該当スタッフの当該日番号の休みの変数を追加</span></span>
+<span id="cb50-29"><a href="#cb50-29"></a>        x_wish_days.append(x_i[day, <span class="dv">2</span>])</span>
+<span id="cb50-30"><a href="#cb50-30"></a>        </span>
+<span id="cb50-31"><a href="#cb50-31"></a><span class="co"># 休みが希望通りの数を指標にする</span></span>
+<span id="cb50-32"><a href="#cb50-32"></a>m.objective <span class="op">=</span> maximize(xsum(x_wish_days))</span>
+<span id="cb50-33"><a href="#cb50-33"></a></span>
+<span id="cb50-34"><a href="#cb50-34"></a><span class="co"># 制約条件</span></span>
+<span id="cb50-35"><a href="#cb50-35"></a><span class="cf">for</span> i0 <span class="kw">in</span> <span class="bu">range</span>(n0):</span>
+<span id="cb50-36"><a href="#cb50-36"></a>    <span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1):</span>
+<span id="cb50-37"><a href="#cb50-37"></a>        <span class="co"># ある人がある日に割り当てられるシフトは1つ</span></span>
+<span id="cb50-38"><a href="#cb50-38"></a>        m <span class="op">+=</span> xsum(x[i0, i1]) <span class="op">==</span> <span class="dv">1</span> </span>
+<span id="cb50-39"><a href="#cb50-39"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">0</span>]) <span class="op">&lt;=</span> <span class="dv">4</span>  <span class="co"># 日勤4日以下</span></span>
+<span id="cb50-40"><a href="#cb50-40"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">1</span>]) <span class="op">&lt;=</span> <span class="dv">2</span>  <span class="co"># 夜勤2日以下</span></span>
+<span id="cb50-41"><a href="#cb50-41"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">2</span>]) <span class="op">&lt;=</span> <span class="dv">2</span>  <span class="co"># 休日2日以下</span></span>
+<span id="cb50-42"><a href="#cb50-42"></a>    </span>
+<span id="cb50-43"><a href="#cb50-43"></a><span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1):</span>
+<span id="cb50-44"><a href="#cb50-44"></a>    m <span class="op">+=</span> xsum(x[:, i1, <span class="dv">0</span>]) <span class="op">==</span> <span class="dv">2</span> <span class="co"># ある日の日勤は二人</span></span>
+<span id="cb50-45"><a href="#cb50-45"></a>    m <span class="op">+=</span> xsum(x[:, i1, <span class="dv">1</span>]) <span class="op">==</span> <span class="dv">1</span> <span class="co"># ある日の夜勤は一人</span></span>
+<span id="cb50-46"><a href="#cb50-46"></a>    </span>
+<span id="cb50-47"><a href="#cb50-47"></a>m.verbose <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb50-48"><a href="#cb50-48"></a>m.optimize()</span>
+<span id="cb50-49"><a href="#cb50-49"></a></span>
+<span id="cb50-50"><a href="#cb50-50"></a><span class="cf">if</span> m.status.value <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb50-51"><a href="#cb50-51"></a>    val <span class="op">=</span> x.astype(<span class="bu">float</span>, subok <span class="op">=</span> <span class="va">False</span>).<span class="bu">round</span>().astype(<span class="bu">int</span>)</span>
+<span id="cb50-52"><a href="#cb50-52"></a>    result <span class="op">=</span> (np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>,]).reshape(<span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">*</span> val).<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb50-53"><a href="#cb50-53"></a>    show(result)</span>
+<span id="cb50-54"><a href="#cb50-54"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>m<span class="sc">.</span>objective_value<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    ０１２３４５６
+安藤: 休日日休日夜夜
+佐藤: 日夜休夜日日日
+高橋: 日休夜日夜日休
+山田: 夜日日日休休日
+m.objective_value=6.0</code></pre>
+</div>
+</div>
+</section>
+<section id="つの応えを出そう" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="つの応えを出そう"><span class="header-section-number">5.5</span> 2つの応えを出そう</h2>
+<p>休みの希望の成立数を目的巻数にしているが、条件を満たす解は実は多数あると考えられる。</p>
+<p>複数のシフト表を出すことで、実際に提示するときに議論がしやすくなる。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../static/img/1715306284739.png" class="img-fluid figure-img"></p>
+<figcaption>picture 15</figcaption>
+</figure>
+</div>
+<div id="cell-46" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>val.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>array([[2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1],
+       [2, 1, 1]])</code></pre>
+</div>
+</div>
+<div id="cell-47" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a><span class="im">from</span> mip <span class="im">import</span> Model, maximize, xsum</span>
+<span id="cb54-2"><a href="#cb54-2"></a></span>
+<span id="cb54-3"><a href="#cb54-3"></a><span class="kw">def</span> show(result):</span>
+<span id="cb54-4"><a href="#cb54-4"></a>    <span class="bu">print</span>(<span class="st">"    ０１２３４５６"</span>)</span>
+<span id="cb54-5"><a href="#cb54-5"></a>    <span class="cf">for</span> i0 <span class="kw">in</span> <span class="bu">range</span>(n0): <span class="co"># スタッフごと</span></span>
+<span id="cb54-6"><a href="#cb54-6"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>staffs[i0]<span class="sc">}</span><span class="ss">: "</span>, end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb54-7"><a href="#cb54-7"></a>        <span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1): <span class="co"># 日番号ごと</span></span>
+<span id="cb54-8"><a href="#cb54-8"></a>            <span class="bu">print</span>(shifts[result[i0, i1]], end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb54-9"><a href="#cb54-9"></a>        <span class="bu">print</span>()</span>
+<span id="cb54-10"><a href="#cb54-10"></a>        </span>
+<span id="cb54-11"><a href="#cb54-11"></a>staffs <span class="op">=</span> [<span class="st">"安藤"</span>, <span class="st">"佐藤"</span>, <span class="st">"高橋"</span>, <span class="st">"山田"</span>]</span>
+<span id="cb54-12"><a href="#cb54-12"></a>days  <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
+<span id="cb54-13"><a href="#cb54-13"></a>shifts <span class="op">=</span> [<span class="st">"日"</span>, <span class="st">"夜"</span>, <span class="st">"休"</span>]</span>
+<span id="cb54-14"><a href="#cb54-14"></a>n0, n1, n2 <span class="op">=</span> <span class="bu">len</span>(staffs), <span class="bu">len</span>(days), <span class="bu">len</span>(shifts)</span>
+<span id="cb54-15"><a href="#cb54-15"></a>wish_days <span class="op">=</span> [ <span class="co"># 休みの希望（追加）</span></span>
+<span id="cb54-16"><a href="#cb54-16"></a>    [<span class="dv">0</span>, <span class="dv">3</span>],</span>
+<span id="cb54-17"><a href="#cb54-17"></a>    [<span class="dv">2</span>],</span>
+<span id="cb54-18"><a href="#cb54-18"></a>    [<span class="dv">1</span>, <span class="dv">6</span>],</span>
+<span id="cb54-19"><a href="#cb54-19"></a>    [<span class="dv">5</span>],</span>
+<span id="cb54-20"><a href="#cb54-20"></a>]</span>
+<span id="cb54-21"><a href="#cb54-21"></a></span>
+<span id="cb54-22"><a href="#cb54-22"></a>m <span class="op">=</span> Model()</span>
+<span id="cb54-23"><a href="#cb54-23"></a>x <span class="op">=</span> m.add_var_tensor((n0, n1, n2), <span class="st">"x"</span>, var_type <span class="op">=</span> <span class="st">"B"</span>)</span>
+<span id="cb54-24"><a href="#cb54-24"></a></span>
+<span id="cb54-25"><a href="#cb54-25"></a>x_wish_days <span class="op">=</span> []</span>
+<span id="cb54-26"><a href="#cb54-26"></a><span class="cf">for</span> x_i, wish_day <span class="kw">in</span> <span class="bu">zip</span>(x, wish_days):</span>
+<span id="cb54-27"><a href="#cb54-27"></a>    <span class="cf">for</span> day <span class="kw">in</span> wish_day:</span>
+<span id="cb54-28"><a href="#cb54-28"></a>        <span class="co"># 該当スタッフの当該日番号の休みの変数を追加</span></span>
+<span id="cb54-29"><a href="#cb54-29"></a>        x_wish_days.append(x_i[day, <span class="dv">2</span>])</span>
+<span id="cb54-30"><a href="#cb54-30"></a>        </span>
+<span id="cb54-31"><a href="#cb54-31"></a><span class="co"># 休みが希望通りの数を指標にする</span></span>
+<span id="cb54-32"><a href="#cb54-32"></a>m.objective <span class="op">=</span> maximize(xsum(x_wish_days))</span>
+<span id="cb54-33"><a href="#cb54-33"></a></span>
+<span id="cb54-34"><a href="#cb54-34"></a><span class="co"># 制約条件</span></span>
+<span id="cb54-35"><a href="#cb54-35"></a><span class="cf">for</span> i0 <span class="kw">in</span> <span class="bu">range</span>(n0):</span>
+<span id="cb54-36"><a href="#cb54-36"></a>    <span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1):</span>
+<span id="cb54-37"><a href="#cb54-37"></a>        <span class="co"># ある人がある日に割り当てられるシフトは1つ</span></span>
+<span id="cb54-38"><a href="#cb54-38"></a>        m <span class="op">+=</span> xsum(x[i0, i1]) <span class="op">==</span> <span class="dv">1</span> </span>
+<span id="cb54-39"><a href="#cb54-39"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">0</span>]) <span class="op">&lt;=</span> <span class="dv">4</span>  <span class="co"># 日勤4日以下</span></span>
+<span id="cb54-40"><a href="#cb54-40"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">1</span>]) <span class="op">&lt;=</span> <span class="dv">2</span>  <span class="co"># 夜勤2日以下</span></span>
+<span id="cb54-41"><a href="#cb54-41"></a>    m <span class="op">+=</span> xsum(x[i0,:,<span class="dv">2</span>]) <span class="op">&lt;=</span> <span class="dv">2</span>  <span class="co"># 休日2日以下</span></span>
+<span id="cb54-42"><a href="#cb54-42"></a></span>
+<span id="cb54-43"><a href="#cb54-43"></a><span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(n1):</span>
+<span id="cb54-44"><a href="#cb54-44"></a>    m <span class="op">+=</span> xsum(x[:, i1, <span class="dv">0</span>]) <span class="op">==</span> <span class="dv">2</span> <span class="co"># ある日の日勤は二人</span></span>
+<span id="cb54-45"><a href="#cb54-45"></a>    m <span class="op">+=</span> xsum(x[:, i1, <span class="dv">1</span>]) <span class="op">==</span> <span class="dv">1</span> <span class="co"># ある日の夜勤は一人</span></span>
+<span id="cb54-46"><a href="#cb54-46"></a></span>
+<span id="cb54-47"><a href="#cb54-47"></a>m.verbose <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb54-48"><a href="#cb54-48"></a>m.optimize()</span>
+<span id="cb54-49"><a href="#cb54-49"></a></span>
+<span id="cb54-50"><a href="#cb54-50"></a><span class="cf">if</span> m.status.value <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb54-51"><a href="#cb54-51"></a>    val <span class="op">=</span> x.astype(<span class="bu">float</span>, subok <span class="op">=</span> <span class="va">False</span>).<span class="bu">round</span>().astype(<span class="bu">int</span>)</span>
+<span id="cb54-52"><a href="#cb54-52"></a>    result <span class="op">=</span> (np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>,]).reshape(<span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">*</span> val).<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb54-53"><a href="#cb54-53"></a>    show(result)</span>
+<span id="cb54-54"><a href="#cb54-54"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>m<span class="sc">.</span>objective_value<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    ０１２３４５６
+安藤: 休日日休日夜夜
+佐藤: 日夜休夜日日日
+高橋: 日休夜日夜日休
+山田: 夜日日日休休日
+m.objective_value=6.0</code></pre>
+</div>
+</div>
+<div id="cell-48" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>ans <span class="op">=</span> x[val <span class="op">&gt;</span> <span class="fl">.5</span>]</span>
+<span id="cb56-2"><a href="#cb56-2"></a></span>
+<span id="cb56-3"><a href="#cb56-3"></a><span class="co"># 1つ目の解を禁止</span></span>
+<span id="cb56-4"><a href="#cb56-4"></a>m <span class="op">+=</span> xsum(ans) <span class="op">&lt;=</span> <span class="bu">len</span>(ans) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb56-5"><a href="#cb56-5"></a></span>
+<span id="cb56-6"><a href="#cb56-6"></a>m.optimize()</span>
+<span id="cb56-7"><a href="#cb56-7"></a><span class="cf">if</span> m.status.value <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb56-8"><a href="#cb56-8"></a>    val2 <span class="op">=</span> x.astype(<span class="bu">float</span>, subok <span class="op">=</span> <span class="va">False</span>).<span class="bu">round</span>().astype(<span class="bu">int</span>)</span>
+<span id="cb56-9"><a href="#cb56-9"></a>    result2 <span class="op">=</span> (np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>,]).reshape(<span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">*</span> val).<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb56-10"><a href="#cb56-10"></a>    show(result2)</span>
+<span id="cb56-11"><a href="#cb56-11"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>m<span class="sc">.</span>objective_value<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb56-12"><a href="#cb56-12"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    ０１２３４５６
+安藤: 休日日休日夜夜
+佐藤: 日夜休夜日日日
+高橋: 日休夜日夜日休
+山田: 夜日日日休休日
+m.objective_value=6.0</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
