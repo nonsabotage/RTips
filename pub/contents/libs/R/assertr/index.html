@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Tips – assertr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../contents/libs/R/ggtext/working.html" rel="next">
+<link href="../../../../contents/libs/R/base/working.html" rel="prev">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">
+ ALL</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/udemy_database-specialist/am-2-note.html">
+ <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">
+ R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">
+ Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+ <span class="dropdown-text">Numpy Infinity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+ <span class="dropdown-text">LightGBMハンドブック</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
+ <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">
+ R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/assertr/index.html">
+ <span class="dropdown-text">assertr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/corrr/working.html">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/igraph/index.html">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/patchwork/working.html">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggspatial/working.html">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/duckdb/working.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/DBI/working.html">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">
+ Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">
+ Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">
+ Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">
+ DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/mytips/01_.html">
+ <span class="dropdown-text">My Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">
+ Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/python/notebook.html">
+ <span class="dropdown-text">Python</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/assertr/index.html">assertr</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/assertr/index.html">Introduction</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">base</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/base/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">assertr</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/assertr/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">ggtext</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggtext/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">ggfittext</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggfittext/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">gganimate</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/gganimate/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">ggmosaic</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggmosaic/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">treemapify</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/treemapify/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">corrr</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/corrr/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">ComplexHeatmap</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ComplexHeatmap/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">GGally</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/GGally/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">sf</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/sf/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+ <span class="menu-text">igraph</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/igraph/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/igraph/r_interface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R インターフェイス</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">pathcwork</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/patchwork/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+ <span class="menu-text">ggspatial</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggspatial/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+ <span class="menu-text">duckdb</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/duckdb/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+ <span class="menu-text">DBI</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/DBI/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="true">
+ <span class="menu-text">Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+ <span class="menu-text">pydantic</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/Python/pydantic/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false">
+ <span class="menu-text">pandera</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/Python/pandera/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  <li><a href="#get-startd" id="toc-get-startd" class="nav-link" data-scroll-target="#get-startd"><span class="header-section-number">2</span> Get Startd</a>
+  <ul class="collapse">
+  <li><a href="#concrete-data-errors" id="toc-concrete-data-errors" class="nav-link" data-scroll-target="#concrete-data-errors"><span class="header-section-number">2.1</span> Concrete data errors</a></li>
+  <li><a href="#enter-assertr" id="toc-enter-assertr" class="nav-link" data-scroll-target="#enter-assertr"><span class="header-section-number">2.2</span> enter assertr</a></li>
+  <li><a href="#verify-vs.-assert" id="toc-verify-vs.-assert" class="nav-link" data-scroll-target="#verify-vs.-assert"><span class="header-section-number">2.3</span> verify vs.&nbsp;assert</a></li>
+  <li><a href="#asserts-predicates" id="toc-asserts-predicates" class="nav-link" data-scroll-target="#asserts-predicates"><span class="header-section-number">2.4</span> asserts predicates</a></li>
+  <li><a href="#cusotm-predicates" id="toc-cusotm-predicates" class="nav-link" data-scroll-target="#cusotm-predicates"><span class="header-section-number">2.5</span> cusotm predicates</a></li>
+  <li><a href="#enter-insist-and-predicate-generators" id="toc-enter-insist-and-predicate-generators" class="nav-link" data-scroll-target="#enter-insist-and-predicate-generators"><span class="header-section-number">2.6</span> enter <code>insist</code> and predicate <code>generators</code></a></li>
+  <li><a href="#row-wise-assertions-and-row-reduction-functions" id="toc-row-wise-assertions-and-row-reduction-functions" class="nav-link" data-scroll-target="#row-wise-assertions-and-row-reduction-functions"><span class="header-section-number">2.7</span> row-wise assertions and row reduction functions</a></li>
+  <li><a href="#success-error-and-defect-functions" id="toc-success-error-and-defect-functions" class="nav-link" data-scroll-target="#success-error-and-defect-functions"><span class="header-section-number">2.8</span> success, error, and defect functions</a></li>
+  <li><a href="#obligatory-assertions" id="toc-obligatory-assertions" class="nav-link" data-scroll-target="#obligatory-assertions"><span class="header-section-number">2.9</span> Obligatory assertions</a></li>
+  <li><a href="#combining-chains-of-assertions" id="toc-combining-chains-of-assertions" class="nav-link" data-scroll-target="#combining-chains-of-assertions"><span class="header-section-number">2.10</span> combining chains of assertions</a></li>
+  <li><a href="#advanced-creating-your-own-predicate-generators-for-insist" id="toc-advanced-creating-your-own-predicate-generators-for-insist" class="nav-link" data-scroll-target="#advanced-creating-your-own-predicate-generators-for-insist"><span class="header-section-number">2.11</span> advanced: creating your own predicate generators for insist</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/assertr/index.html">assertr</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/assertr/index.html">Introduction</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">assertr</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">May 10, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/R/assertr"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">setwd</span>(cur_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  assertr[...],</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  igraph[...],</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  ggplot2[...],</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  cowplot[...], </span>
+<span id="cb2-6"><a href="#cb2-6"></a>  showtext[showtext_auto], </span>
+<span id="cb2-7"><a href="#cb2-7"></a>  sysfonts[font_add_google],</span>
+<span id="cb2-8"><a href="#cb2-8"></a>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">library</span>(assertr)</span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
+<p><a href="https://docs.ropensci.org/assertr/">assertr</a>はアサーションのためのライブラリである。 特にデータフレーム操作に対して特化されており、パイプラインと連携して利用することができる。 データフレームの品質をチェックする、つまりPythonのpanderaのような使い方に適している、とのことである。</p>
+<p>関数には次がある。</p>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"- {objects('package:assertr')}"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">cat</span>(<span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<ul>
+<li>assert</li>
+<li>assert_rows</li>
+<li>chain_end</li>
+<li>chain_start</li>
+<li>col_concat</li>
+<li>defect_append</li>
+<li>defect_df_return</li>
+<li>defect_report</li>
+<li>duplicates_across_cols</li>
+<li>error_append</li>
+<li>error_df_return</li>
+<li>error_logical</li>
+<li>error_report</li>
+<li>error_return</li>
+<li>error_stop</li>
+<li>has_all_names</li>
+<li>has_class</li>
+<li>has_only_names</li>
+<li>in_set</li>
+<li>insist</li>
+<li>insist_rows</li>
+<li>is_uniq</li>
+<li>just_warn</li>
+<li>maha_dist</li>
+<li>not_na</li>
+<li>num_row_NAs</li>
+<li>success_append</li>
+<li>success_continue</li>
+<li>success_df_return</li>
+<li>success_logical</li>
+<li>success_report</li>
+<li>verify</li>
+<li>warn_report</li>
+<li>warning_append</li>
+<li>within_bounds</li>
+<li>within_n_mads</li>
+<li>within_n_sds</li>
+</ul>
+<p>たとえば次のような演算を考える。</p>
+<blockquote class="blockquote">
+<p>エンジンのシリンダー数ごとにガロンあたりの平均走行距離を求めたいとします。まず、列 “mpg”、“vs”、および “am” があること、データセットに 10 個以上の観測値が含まれていること、‘miles per gallon’ (mpg) の列が正の数であること、‘miles per gallon’ (mpg) の列に平均から 4 標準偏差の外側のデータムが含まれていないことを確認します。 - AM列とVS列(それぞれ自動/手動とV/ストレートエンジン)に0と1のみが含まれていること - 各行には最大2つのNAが含まれます - 各行は、“mpg”、“am”、および “wt” 列の間で一意です。 - 各行のマハラノビス距離は、すべての距離の絶対偏差の中央値の10以内です(外れ値検出の場合)</p>
+</blockquote>
+<p>上記の問題は次のように上から順番に条件を記述することで対応できる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; Warning: パッケージ 'dplyr' はバージョン 4.3.2 の R の下で造られました</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; </span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;  次のパッケージを付け加えます: 'dplyr'</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;  以下のオブジェクトは 'package:stats' からマスクされています:</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;     filter, lag</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  以下のオブジェクトは 'package:base' からマスクされています:</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">library</span>(assertr)</span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co"># 失敗するとデータフレームで結果が返される</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co"># tryCatchはquartoで記述しているから必要である。本来は必要ない。</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb4-16"><a href="#cb4-16"></a>  mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"unko"</span>))</span>
+<span id="cb4-18"><a href="#cb4-18"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; verification [has_all_names("unko")] failed! (1 failure)</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; </span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt;     verb redux_fn             predicate column index value</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; 1 verify       NA has_all_names("unko")     NA     1    NA</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; </span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; &lt;simpleError: assertr stopped execution&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># 成功した場合には処理を経たデータが返される</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"mpg"</span>, <span class="st">"vs"</span>, <span class="st">"am"</span>, <span class="st">"wt"</span>))</span>
+<span id="cb5-5"><a href="#cb5-5"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt; Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt; Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt; Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt; Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt; Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#&gt; Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#&gt; Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="co">#&gt; Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt; Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a><span class="co">#&gt; Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># もともとやりたかった処理をまとめる</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"mpg"</span>, <span class="st">"vs"</span>, <span class="st">"am"</span>, <span class="st">"wt"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">verify</span>(<span class="fu">nrow</span>(.) <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">verify</span>(mpg <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">insist</span>(<span class="fu">within_n_sds</span>(<span class="dv">4</span>), mpg) <span class="sc">|&gt;</span>  <span class="co"># insistは「主張する」という意味である</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">assert</span>(<span class="fu">in_set</span>(<span class="dv">0</span>, <span class="dv">1</span>), am, vs) <span class="sc">|&gt;</span> </span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">assert_rows</span>(num_row_NAs, <span class="fu">within_bounds</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="fu">everything</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">assert_rows</span>(col_concat, is_uniq, mpg, am, wt) <span class="sc">|&gt;</span> </span>
+<span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">insist_rows</span>(maha_dist, <span class="fu">within_n_mads</span>(<span class="dv">10</span>), <span class="fu">everything</span>()) <span class="sc">|&gt;</span> <span class="co"># マハラノビス距離と中央絶対偏差</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span> </span>
+<span id="cb6-12"><a href="#cb6-12"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;     cyl avg.mpg</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; 1     4    26.7</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; 2     6    19.7</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; 3     8    15.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>これを見ただけでもかなり使い方がイメージできる。</p>
+</section>
+<section id="get-startd" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Get Startd</h1>
+<p><a href="https://docs.ropensci.org/assertr/articles/assertr.html">Assertive R Programming with assertr</a>をマネする。</p>
+<section id="concrete-data-errors" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="concrete-data-errors"><span class="header-section-number">2.1</span> Concrete data errors</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">head</span>(mtcars)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>our.data <span class="ot">&lt;-</span> mtcars</span>
+<span id="cb8-2"><a href="#cb8-2"></a>our.data<span class="sc">$</span>mpg[<span class="dv">5</span>] <span class="ot">&lt;-</span> our.data<span class="sc">$</span>mpg[<span class="dv">5</span>] <span class="sc">*</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>our.data[<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>,]</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt;                     mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; Hornet 4 Drive     21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; Hornet Sportabout -18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; Valiant            18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>このまま計算すると何か間違えている・・・？負の値を入り込ましているのでデータ気付かないうちに計算を間違う。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>our.data <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt;     cyl avg.mpg</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; 1     4    26.7</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; 2     6    19.7</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; 3     8    12.4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="enter-assertr" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="enter-assertr"><span class="header-section-number">2.2</span> enter assertr</h2>
+<p>次のような<code>verify</code>を使うことで計算が失敗するようになる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(assertr)</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb10-4"><a href="#cb10-4"></a>our.data <span class="sc">|&gt;</span> </span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">verify</span>(mpg <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb10-8"><a href="#cb10-8"></a></span>
+<span id="cb10-9"><a href="#cb10-9"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; verification [mpg &gt;= 0] failed! (1 failure)</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; </span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt;     verb redux_fn predicate column index value</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; 1 verify       NA  mpg &gt;= 0     NA     5    NA</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; </span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt; &lt;simpleError: assertr stopped execution&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><code>assert</code>関数を使うと次のように記述することができる。結果をみると行単位で評価結果を得られてることがわかる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>our.data <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">assert</span>(<span class="fu">within_bounds</span>(<span class="dv">0</span>, <span class="cn">Inf</span>), mpg) <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span> </span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb11-7"><a href="#cb11-7"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))  </span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt; Column 'mpg' violates assertion 'within_bounds(0, Inf)' 1 time</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt;     verb redux_fn             predicate column index value</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt; 1 assert       NA within_bounds(0, Inf)    mpg     5 -18.7</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt; </span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt; &lt;simpleError: assertr stopped execution&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>dplyrのselect関数が使える。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(assertr)</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a>our.data <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">assert</span>(<span class="fu">within_bounds</span>(<span class="dv">0</span>,<span class="cn">Inf</span>, <span class="at">include.lower=</span><span class="cn">FALSE</span>), <span class="sc">-</span>mpg) <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb12-9"><a href="#cb12-9"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt; Column 'vs' violates assertion 'within_bounds(0, Inf, include.lower = FALSE)' 18 times</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt;     verb redux_fn                                    predicate column index</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt; 1 assert       NA within_bounds(0, Inf, include.lower = FALSE)     vs     1</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt; 2 assert       NA within_bounds(0, Inf, include.lower = FALSE)     vs     2</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt; 3 assert       NA within_bounds(0, Inf, include.lower = FALSE)     vs     5</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; 4 assert       NA within_bounds(0, Inf, include.lower = FALSE)     vs     7</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt; 5 assert       NA within_bounds(0, Inf, include.lower = FALSE)     vs    12</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt;   value</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt; 1     0</span></span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt; 2     0</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a><span class="co">#&gt; 3     0</span></span>
+<span id="cb12-21"><a href="#cb12-21"></a><span class="co">#&gt; 4     0</span></span>
+<span id="cb12-22"><a href="#cb12-22"></a><span class="co">#&gt; 5     0</span></span>
+<span id="cb12-23"><a href="#cb12-23"></a><span class="co">#&gt;   [omitted 13 rows]</span></span>
+<span id="cb12-24"><a href="#cb12-24"></a><span class="co">#&gt; </span></span>
+<span id="cb12-25"><a href="#cb12-25"></a><span class="co">#&gt; </span></span>
+<span id="cb12-26"><a href="#cb12-26"></a><span class="co">#&gt; Column 'am' violates assertion 'within_bounds(0, Inf, include.lower = FALSE)' 19 times</span></span>
+<span id="cb12-27"><a href="#cb12-27"></a><span class="co">#&gt;     verb redux_fn                                    predicate column index</span></span>
+<span id="cb12-28"><a href="#cb12-28"></a><span class="co">#&gt; 1 assert       NA within_bounds(0, Inf, include.lower = FALSE)     am     4</span></span>
+<span id="cb12-29"><a href="#cb12-29"></a><span class="co">#&gt; 2 assert       NA within_bounds(0, Inf, include.lower = FALSE)     am     5</span></span>
+<span id="cb12-30"><a href="#cb12-30"></a><span class="co">#&gt; 3 assert       NA within_bounds(0, Inf, include.lower = FALSE)     am     6</span></span>
+<span id="cb12-31"><a href="#cb12-31"></a><span class="co">#&gt; 4 assert       NA within_bounds(0, Inf, include.lower = FALSE)     am     7</span></span>
+<span id="cb12-32"><a href="#cb12-32"></a><span class="co">#&gt; 5 assert       NA within_bounds(0, Inf, include.lower = FALSE)     am     8</span></span>
+<span id="cb12-33"><a href="#cb12-33"></a><span class="co">#&gt;   value</span></span>
+<span id="cb12-34"><a href="#cb12-34"></a><span class="co">#&gt; 1     0</span></span>
+<span id="cb12-35"><a href="#cb12-35"></a><span class="co">#&gt; 2     0</span></span>
+<span id="cb12-36"><a href="#cb12-36"></a><span class="co">#&gt; 3     0</span></span>
+<span id="cb12-37"><a href="#cb12-37"></a><span class="co">#&gt; 4     0</span></span>
+<span id="cb12-38"><a href="#cb12-38"></a><span class="co">#&gt; 5     0</span></span>
+<span id="cb12-39"><a href="#cb12-39"></a><span class="co">#&gt;   [omitted 14 rows]</span></span>
+<span id="cb12-40"><a href="#cb12-40"></a><span class="co">#&gt; </span></span>
+<span id="cb12-41"><a href="#cb12-41"></a><span class="co">#&gt; </span></span>
+<span id="cb12-42"><a href="#cb12-42"></a><span class="co">#&gt; &lt;simpleError: assertr stopped execution&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="verify-vs.-assert" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="verify-vs.-assert"><span class="header-section-number">2.3</span> verify vs.&nbsp;assert</h2>
+<p>式を引数にとるか、述語関数やカラムを引数にとるかが異なる。 またverifyは引数全体に対する評価であり、全体を評価してから違反がないかを考えている。 このため行単位での問題の特定が出来ない。</p>
+</section>
+<section id="asserts-predicates" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="asserts-predicates"><span class="header-section-number">2.4</span> asserts predicates</h2>
+<p>述語関数には次のようなものがある。</p>
+<ul>
+<li><code>not_na</code>はNAじゃないことを確認する</li>
+<li><code>within_bounds</code>は数値が与えられた範囲に含まれているかを確認する</li>
+<li><code>in_set</code>は集合のメンバーであるかどうかを確認する</li>
+<li><code>is_uniq</code>はユニークかどうかを確認する</li>
+</ul>
+</section>
+<section id="cusotm-predicates" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="cusotm-predicates"><span class="header-section-number">2.5</span> cusotm predicates</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>not.empty.p <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="cf">if</span>(x<span class="sc">==</span><span class="st">""</span>) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>ほかには</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>seven.digit.p <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">nchar</span>(x)<span class="sc">==</span><span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="enter-insist-and-predicate-generators" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="enter-insist-and-predicate-generators"><span class="header-section-number">2.6</span> enter <code>insist</code> and predicate <code>generators</code></h2>
+<p>たぶんだけどSQLのWindows関数のように自分の行以外の情報が評価に必要なものに対して有効、ということだと思う。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">insist</span>(<span class="fu">within_n_sds</span>(<span class="dv">3</span>), mpg) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt;     cyl avg.mpg</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; 1     4    26.7</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; 2     6    19.7</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt; 3     8    15.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">insist</span>(<span class="fu">within_n_sds</span>(<span class="dv">10</span>), mpg<span class="sc">:</span>carb) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="co">#&gt;     cyl avg.mpg</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="co">#&gt; 1     4    26.7</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co">#&gt; 2     6    19.7</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="co">#&gt; 3     8    15.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>お試しの計算です。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>example.vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.4</span>, <span class="fl">7.1</span>, <span class="fl">7.2</span>, <span class="fl">72.1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">within_n_sds</span>(<span class="dv">2</span>)(example.vector)(example.vector)</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&gt; [1] TRUE TRUE TRUE TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="row-wise-assertions-and-row-reduction-functions" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="row-wise-assertions-and-row-reduction-functions"><span class="header-section-number">2.7</span> row-wise assertions and row reduction functions</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>example.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>,</span>
+<span id="cb18-2"><a href="#cb18-2"></a>                             <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>),</span>
+<span id="cb18-3"><a href="#cb18-3"></a>                         <span class="at">y=</span><span class="fu">c</span>(<span class="dv">82</span>, <span class="dv">91</span>, <span class="dv">61</span>, <span class="dv">49</span>, <span class="dv">40</span>, <span class="dv">49</span>, <span class="dv">57</span>,</span>
+<span id="cb18-4"><a href="#cb18-4"></a>                             <span class="dv">74</span>, <span class="dv">78</span>, <span class="dv">90</span>, <span class="dv">61</span>, <span class="dv">49</span>, <span class="dv">51</span>, <span class="dv">62</span>, <span class="dv">68</span>))</span>
+<span id="cb18-5"><a href="#cb18-5"></a>(example.data)</span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="co">#&gt;    x  y</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="co">#&gt; 1  8 82</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co">#&gt; 2  9 91</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co">#&gt; 3  6 61</span></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co">#&gt; 4  5 49</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="co">#&gt; 5  9 40</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a><span class="co">#&gt; 6  5 49</span></span>
+<span id="cb18-13"><a href="#cb18-13"></a><span class="co">#&gt; 7  6 57</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a><span class="co">#&gt; 8  7 74</span></span>
+<span id="cb18-15"><a href="#cb18-15"></a><span class="co">#&gt; 9  8 78</span></span>
+<span id="cb18-16"><a href="#cb18-16"></a><span class="co">#&gt; 10 9 90</span></span>
+<span id="cb18-17"><a href="#cb18-17"></a><span class="co">#&gt; 11 6 61</span></span>
+<span id="cb18-18"><a href="#cb18-18"></a><span class="co">#&gt; 12 5 49</span></span>
+<span id="cb18-19"><a href="#cb18-19"></a><span class="co">#&gt; 13 5 51</span></span>
+<span id="cb18-20"><a href="#cb18-20"></a><span class="co">#&gt; 14 6 62</span></span>
+<span id="cb18-21"><a href="#cb18-21"></a><span class="co">#&gt; 15 7 68</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">plot</span>(example.data<span class="sc">$</span>x, example.data<span class="sc">$</span>y, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>多変量の検証にはマハラノビス距離が使える。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">maha_dist</span>(example.data)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="co">#&gt;  [1]  1.28106379  3.10992407  0.25081851  1.35993969 12.81898913  1.35993969</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="co">#&gt;  [7]  0.26181283  0.47714597  0.87804987  2.95741956  0.25081851  1.35993969</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="co">#&gt; [13]  1.29208587  0.28235776  0.05969507</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">maha_dist</span>(example.data) <span class="sc">%&gt;%</span> <span class="fu">hist</span>(<span class="at">main=</span><span class="st">""</span>, <span class="at">xlab=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>マハラノビス距離を評価に組み込む。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a>example.data <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">insist_rows</span>(maha_dist, <span class="fu">within_n_mads</span>(<span class="dv">3</span>), dplyr<span class="sc">::</span><span class="fu">everything</span>())</span>
+<span id="cb22-5"><a href="#cb22-5"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="co">#&gt; Data frame row reduction 'maha_dist' violates predicate 'within_n_mads(3)' 1 time</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="co">#&gt;          verb  redux_fn        predicate               column index    value</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="co">#&gt; 1 insist_rows maha_dist within_n_mads(3) ~dplyr::everything()     5 12.81899</span></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="co">#&gt; </span></span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="co">#&gt; &lt;simpleError: assertr stopped execution&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="success-error-and-defect-functions" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="success-error-and-defect-functions"><span class="header-section-number">2.8</span> success, error, and defect functions</h2>
+<p>成功・失敗時の処理の挙動を制御できる。</p>
+</section>
+<section id="obligatory-assertions" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="obligatory-assertions"><span class="header-section-number">2.9</span> Obligatory assertions</h2>
+<p>独立でないルールを適用することがある。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a>mtcars_without_am <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>am)</span>
+<span id="cb23-5"><a href="#cb23-5"></a>mtcars_without_am <span class="sc">%&gt;%</span> </span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"am"</span>, <span class="st">"vs"</span>), <span class="at">error_fun =</span> error_append) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="fu">assert</span>(<span class="fu">in_set</span>(<span class="dv">0</span>, <span class="dv">1</span>), am, vs, <span class="at">error_fun =</span> error_report)</span>
+<span id="cb23-8"><a href="#cb23-8"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="co">#&gt; &lt;error/vctrs_error_subscript_oob&gt;</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="co">#&gt; Error in `dplyr::select()`:</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a><span class="co">#&gt; ! Can't subset columns that don't exist.</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a><span class="co">#&gt; ✖ Column `am` doesn't exist.</span></span>
+<span id="cb23-13"><a href="#cb23-13"></a><span class="co">#&gt; ---</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a><span class="co">#&gt; Backtrace:</span></span>
+<span id="cb23-15"><a href="#cb23-15"></a><span class="co">#&gt;     ▆</span></span>
+<span id="cb23-16"><a href="#cb23-16"></a><span class="co">#&gt;  1. ├─base::tryCatch(...)</span></span>
+<span id="cb23-17"><a href="#cb23-17"></a><span class="co">#&gt;  2. │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)</span></span>
+<span id="cb23-18"><a href="#cb23-18"></a><span class="co">#&gt;  3. │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])</span></span>
+<span id="cb23-19"><a href="#cb23-19"></a><span class="co">#&gt;  4. │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)</span></span>
+<span id="cb23-20"><a href="#cb23-20"></a><span class="co">#&gt;  5. ├─... %&gt;% ...</span></span>
+<span id="cb23-21"><a href="#cb23-21"></a><span class="co">#&gt;  6. └─assertr::assert(., in_set(0, 1), am, vs, error_fun = error_report)</span></span>
+<span id="cb23-22"><a href="#cb23-22"></a><span class="co">#&gt;  7.   ├─dplyr::select(data, !!!(keeper.vars))</span></span>
+<span id="cb23-23"><a href="#cb23-23"></a><span class="co">#&gt;  8.   └─dplyr:::select.data.frame(data, !!!(keeper.vars))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>上記はverifyと関係ないところでエラーが出ている。 その場合には次のようにする。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">tryCatch</span>({</span>
+<span id="cb24-2"><a href="#cb24-2"></a></span>
+<span id="cb24-3"><a href="#cb24-3"></a>mtcars_without_am <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>am)</span>
+<span id="cb24-5"><a href="#cb24-5"></a>mtcars_without_am <span class="sc">%&gt;%</span> </span>
+<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">verify</span>(<span class="fu">has_all_names</span>(<span class="st">"am"</span>, <span class="st">"vs"</span>), <span class="at">obligatory=</span><span class="cn">TRUE</span>, <span class="at">error_fun=</span>error_append) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-7"><a href="#cb24-7"></a>  <span class="fu">assert</span>(<span class="fu">in_set</span>(<span class="dv">0</span>, <span class="dv">1</span>), am, vs, <span class="at">defect_fun=</span>defect_report)</span>
+<span id="cb24-8"><a href="#cb24-8"></a>}, <span class="at">error =</span> \(e) <span class="fu">print</span>(e))</span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#&gt; assert: verification [in_set(0, 1)] omitted due to data defect! Columns passed to assertion: am vs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="combining-chains-of-assertions" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="combining-chains-of-assertions"><span class="header-section-number">2.10</span> combining chains of assertions</h2>
+<p>パイプラインだと1つの処理が失敗するとそこから先の処理は実施されない。 一方で、複数のチェックをリポートしてもらいたいときがある。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>  chain_start <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">verify</span>(<span class="fu">nrow</span>(mtcars) <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">verify</span>(mpg <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">insist</span>(<span class="fu">within_n_sds</span>(<span class="dv">4</span>), mpg) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">assert</span>(<span class="fu">in_set</span>(<span class="dv">0</span>,<span class="dv">1</span>), am, vs) <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a>  chain_end <span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a>  <span class="fu">summarise</span>(<span class="at">avg.mpg=</span><span class="fu">mean</span>(mpg))</span>
+<span id="cb25-10"><a href="#cb25-10"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb25-11"><a href="#cb25-11"></a><span class="co">#&gt;     cyl avg.mpg</span></span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="co">#&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt; 1     4    26.7</span></span>
+<span id="cb25-14"><a href="#cb25-14"></a><span class="co">#&gt; 2     6    19.7</span></span>
+<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#&gt; 3     8    15.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="advanced-creating-your-own-predicate-generators-for-insist" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="advanced-creating-your-own-predicate-generators-for-insist"><span class="header-section-number">2.11</span> advanced: creating your own predicate generators for insist</h2>
+<p>within_3_iqrs &lt;- function(a_vector){ the_median &lt;- median(a_vector) the_iqr &lt;- IQR(a_vector) within_bounds((the_median-the_iqr<em>3), (the_median+the_iqr</em>3)) } mtcars %&gt;% insist(within_3_iqrs, mpg) %&gt;% group_by(cyl) %&gt;% summarise(avg.mpg=mean(mpg))</p>
+<pre><code>
+
+
+
+:::{#quarto-navigation-envelope .hidden}
+[libs]{.hidden render-id="quarto-int-sidebar-title"}
+[R Tips]{.hidden render-id="quarto-int-navbar-title"}
+[Introduction]{.hidden render-id="quarto-int-next"}
+[Introduction]{.hidden render-id="quarto-int-prev"}
+[R]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-1"}
+[base]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-2"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/base/working.html"}
+[assertr]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-3"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/assertr/index.html"}
+[ggtext]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-4"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ggtext/working.html"}
+[ggfittext]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-5"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ggfittext/working.html"}
+[gganimate]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-6"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/gganimate/working.html"}
+[ggmosaic]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-7"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ggmosaic/working.html"}
+[treemapify]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-8"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/treemapify/working.html"}
+[corrr]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-9"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/corrr/working.html"}
+[ComplexHeatmap]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-10"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ComplexHeatmap/working.html"}
+[GGally]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-11"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/GGally/working.html"}
+[sf]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-12"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/sf/working.html"}
+[igraph]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-13"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/igraph/index.html"}
+[R インターフェイス]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/igraph/r_interface.html"}
+[pathcwork]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-14"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/patchwork/working.html"}
+[ggspatial]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-15"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/ggspatial/working.html"}
+[duckdb]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-16"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/duckdb/working.html"}
+[DBI]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-17"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/R/DBI/working.html"}
+[Python]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-18"}
+[pydantic]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-19"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/Python/pydantic/index.html"}
+[pandera]{.hidden render-id="quarto-int-sidebar:quarto-sidebar-section-20"}
+[Introduction]{.hidden render-id="quarto-int-sidebar:/contents/libs/Python/pandera/index.html"}
+[Home]{.hidden render-id="quarto-int-navbar:Home"}
+[/index.html]{.hidden render-id="quarto-int-navbar:/index.html"}
+[Web Site]{.hidden render-id="quarto-int-navbar:Web Site"}
+[ALL]{.hidden render-id="quarto-int-navbar:ALL"}
+[R for Data Science 2e]{.hidden render-id="quarto-int-navbar:R for Data Science 2e"}
+[/contents/website/r4ds2e/index.html]{.hidden render-id="quarto-int-navbar:/contents/website/r4ds2e/index.html"}
+[Leaflet for R]{.hidden render-id="quarto-int-navbar:Leaflet for R"}
+[/contents/website/leaflet4r/index.html]{.hidden render-id="quarto-int-navbar:/contents/website/leaflet4r/index.html"}
+[Analyzing US Census Data]{.hidden render-id="quarto-int-navbar:Analyzing US Census Data"}
+[/contents/website/analizeUSCensus/index.html]{.hidden render-id="quarto-int-navbar:/contents/website/analizeUSCensus/index.html"}
+[Graphic Design with ggplot2]{.hidden render-id="quarto-int-navbar:Graphic Design with ggplot2"}
+[/contents/website/graphic_design_with_ggplot2/index.html]{.hidden render-id="quarto-int-navbar:/contents/website/graphic_design_with_ggplot2/index.html"}
+[Udemyデータベーススペシャリスト]{.hidden render-id="quarto-int-navbar:Udemyデータベーススペシャリスト"}
+[/contents/website/udemy_database-specialist/am-2-note.html]{.hidden render-id="quarto-int-navbar:/contents/website/udemy_database-specialist/am-2-note.html"}
+[books]{.hidden render-id="quarto-int-navbar:books"}
+[R]{.hidden render-id="quarto-int-navbar:R"}
+[Rによる実証分析2e]{.hidden render-id="quarto-int-navbar:Rによる実証分析2e"}
+[/contents/books/01_Rによる実証分析_2e/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/01_Rによる実証分析_2e/index.html"}
+[因果推論ミックステープ]{.hidden render-id="quarto-int-navbar:因果推論ミックステープ"}
+[/contents/books/02_因果推論ミックステープ/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/02_因果推論ミックステープ/index.html"}
+[数値シミュレーションで学ぶ統計の仕組み]{.hidden render-id="quarto-int-navbar:数値シミュレーションで学ぶ統計の仕組み"}
+[/contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html"}
+[統計的因果推論の理論と実際]{.hidden render-id="quarto-int-navbar:統計的因果推論の理論と実際"}
+[/contents/books/05_統計的因果推論の理論と実際/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/05_統計的因果推論の理論と実際/index.html"}
+[---]{.hidden render-id="quarto-int-navbar:---"}
+[Python]{.hidden render-id="quarto-int-navbar:Python"}
+[Pythonではじめる数理最適化 2nd]{.hidden render-id="quarto-int-navbar:Pythonではじめる数理最適化 2nd"}
+[/contents/books/06_Pythonではじめる数理最適化/index.html]{.hidden render-id="quarto-int-navbar:/contents/books/06_Pythonではじめる数理最適化/index.html"}
+[Numpy Infinity]{.hidden render-id="quarto-int-navbar:Numpy Infinity"}
+[/contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html]{.hidden render-id="quarto-int-navbar:/contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html"}
+[LightGBMハンドブック]{.hidden render-id="quarto-int-navbar:LightGBMハンドブック"}
+[/contents/books/08_handbook_lightgbm/cl02_データ理解.html]{.hidden render-id="quarto-int-navbar:/contents/books/08_handbook_lightgbm/cl02_データ理解.html"}
+[Pythonで学ぶ数理最適化]{.hidden render-id="quarto-int-navbar:Pythonで学ぶ数理最適化"}
+[/contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html]{.hidden render-id="quarto-int-navbar:/contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html"}
+[libs]{.hidden render-id="quarto-int-navbar:libs"}
+[base]{.hidden render-id="quarto-int-navbar:base"}
+[/contents/libs/R/base/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/base/working.html"}
+[assertr]{.hidden render-id="quarto-int-navbar:assertr"}
+[/contents/libs/R/assertr/index.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/assertr/index.html"}
+[ggtext]{.hidden render-id="quarto-int-navbar:ggtext"}
+[/contents/libs/R/ggtext/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ggtext/working.html"}
+[ggfittext]{.hidden render-id="quarto-int-navbar:ggfittext"}
+[/contents/libs/R/ggfittext/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ggfittext/working.html"}
+[gganimate]{.hidden render-id="quarto-int-navbar:gganimate"}
+[/contents/libs/R/gganimate/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/gganimate/working.html"}
+[ggmosaic]{.hidden render-id="quarto-int-navbar:ggmosaic"}
+[/contents/libs/R/ggmosaic/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ggmosaic/working.html"}
+[treemapify]{.hidden render-id="quarto-int-navbar:treemapify"}
+[/contents/libs/R/treemapify/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/treemapify/working.html"}
+[corrr]{.hidden render-id="quarto-int-navbar:corrr"}
+[/contents/libs/R/corrr/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/corrr/working.html"}
+[ComplexHeatmap]{.hidden render-id="quarto-int-navbar:ComplexHeatmap"}
+[/contents/libs/R/ComplexHeatmap/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ComplexHeatmap/working.html"}
+[GGally]{.hidden render-id="quarto-int-navbar:GGally"}
+[/contents/libs/R/GGally/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/GGally/working.html"}
+[sf]{.hidden render-id="quarto-int-navbar:sf"}
+[/contents/libs/R/sf/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/sf/working.html"}
+[igraph]{.hidden render-id="quarto-int-navbar:igraph"}
+[/contents/libs/R/igraph/index.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/igraph/index.html"}
+[pathcwork]{.hidden render-id="quarto-int-navbar:pathcwork"}
+[/contents/libs/R/patchwork/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/patchwork/working.html"}
+[ggspatial]{.hidden render-id="quarto-int-navbar:ggspatial"}
+[/contents/libs/R/ggspatial/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/ggspatial/working.html"}
+[duckdb]{.hidden render-id="quarto-int-navbar:duckdb"}
+[/contents/libs/R/duckdb/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/duckdb/working.html"}
+[DBI]{.hidden render-id="quarto-int-navbar:DBI"}
+[/contents/libs/R/DBI/working.html]{.hidden render-id="quarto-int-navbar:/contents/libs/R/DBI/working.html"}
+[pydantic]{.hidden render-id="quarto-int-navbar:pydantic"}
+[/contents/libs/Python/pydantic/index.html]{.hidden render-id="quarto-int-navbar:/contents/libs/Python/pydantic/index.html"}
+[pandera]{.hidden render-id="quarto-int-navbar:pandera"}
+[/contents/libs/Python/pandera/index.html]{.hidden render-id="quarto-int-navbar:/contents/libs/Python/pandera/index.html"}
+[Notes]{.hidden render-id="quarto-int-navbar:Notes"}
+[ggplot2]{.hidden render-id="quarto-int-navbar:ggplot2"}
+[/contents/notes/ggplot2/working.html]{.hidden render-id="quarto-int-navbar:/contents/notes/ggplot2/working.html"}
+[Utils]{.hidden render-id="quarto-int-navbar:Utils"}
+[01_写真GPS]{.hidden render-id="quarto-int-navbar:01_写真GPS"}
+[/contents/utils/01_写真GPS/index.html]{.hidden render-id="quarto-int-navbar:/contents/utils/01_写真GPS/index.html"}
+[sql]{.hidden render-id="quarto-int-navbar:sql"}
+[DuckDB]{.hidden render-id="quarto-int-navbar:DuckDB"}
+[Documentaion]{.hidden render-id="quarto-int-navbar:Documentaion"}
+[/contents/sql/duckdb/documentaion/index.html]{.hidden render-id="quarto-int-navbar:/contents/sql/duckdb/documentaion/index.html"}
+[ビッグデータレシピ]{.hidden render-id="quarto-int-navbar:ビッグデータレシピ"}
+[/contents/sql/duckdb/sql-bigdata/index.html]{.hidden render-id="quarto-int-navbar:/contents/sql/duckdb/sql-bigdata/index.html"}
+[My Tips]{.hidden render-id="quarto-int-navbar:My Tips"}
+[/contents/sql/duckdb/mytips/01_.html]{.hidden render-id="quarto-int-navbar:/contents/sql/duckdb/mytips/01_.html"}
+[Spatial DataAnalysis with DuckDB]{.hidden render-id="quarto-int-navbar:Spatial DataAnalysis with DuckDB"}
+[/contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html]{.hidden render-id="quarto-int-navbar:/contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html"}
+[Test]{.hidden render-id="quarto-int-navbar:Test"}
+[Bash]{.hidden render-id="quarto-int-navbar:Bash"}
+[/contents/test/bash/quick_sample.html]{.hidden render-id="quarto-int-navbar:/contents/test/bash/quick_sample.html"}
+[/contents/test/R/renv.html]{.hidden render-id="quarto-int-navbar:/contents/test/R/renv.html"}
+[R2]{.hidden render-id="quarto-int-navbar:R2"}
+[/contents/test/R2/renv.html]{.hidden render-id="quarto-int-navbar:/contents/test/R2/renv.html"}
+[/contents/test/python/notebook.html]{.hidden render-id="quarto-int-navbar:/contents/test/python/notebook.html"}
+[R]{.hidden render-id="quarto-breadcrumbs-e1e1d3d40573127e9ee0480caf1283d6"}
+[assertr]{.hidden render-id="quarto-breadcrumbs-555c67c3cf2136a7f4c29f9b79d23b33"}
+[Introduction]{.hidden render-id="quarto-breadcrumbs-0b79795d3efc95b9976c7c5b933afce2"}
+:::
+
+
+
+:::{#quarto-meta-markdown .hidden}
+[R Tips - assertr]{.hidden render-id="quarto-metatitle"}
+[R Tips - assertr]{.hidden render-id="quarto-twittercardtitle"}
+[R Tips - assertr]{.hidden render-id="quarto-ogcardtitle"}
+[R Tips]{.hidden render-id="quarto-metasitename"}
+[]{.hidden render-id="quarto-twittercarddesc"}
+[]{.hidden render-id="quarto-ogcardddesc"}
+:::
+
+
+
+
+&lt;!-- --&gt;
+
+::: {.quarto-embedded-source-code}
+```````````````````{.markdown shortcodes="false"}
+---
+title: "assertr"
+execute: 
+  cache: true
+date-modified: last-modified
+filters:
+   - lightbox
+lightbox: auto
+---
+
+quarto-executable-code-5450563D
+
+```r
+renv::activate(here::here())
+cur_dir &lt;- here::here("contents/libs/R/assertr")
+setwd(cur_dir)
+```
+
+quarto-executable-code-5450563D
+
+```r
+#| warning: false
+#| message: false
+box::use(
+  assertr[...],
+  igraph[...],
+  ggplot2[...],
+  cowplot[...], 
+  showtext[showtext_auto], 
+  sysfonts[font_add_google],
+)
+
+library(assertr)
+library(stringr)
+showtext_auto()
+font_add_google("Noto Sans")
+```
+
+
+# はじめに
+
+[assertr](https://docs.ropensci.org/assertr/)はアサーションのためのライブラリである。
+特にデータフレーム操作に対して特化されており、パイプラインと連携して利用することができる。
+データフレームの品質をチェックする、つまりPythonのpanderaのような使い方に適している、とのことである。
+
+関数には次がある。
+
+quarto-executable-code-5450563D
+
+```r
+#| output: asis
+glue::glue("- {objects('package:assertr')}") |&gt; 
+  cat(sep = "\n")
+```
+
+たとえば次のような演算を考える。
+
+&gt; エンジンのシリンダー数ごとにガロンあたりの平均走行距離を求めたいとします。まず、列 "mpg"、"vs"、および "am" があること、データセットに 10 個以上の観測値が含まれていること、'miles per gallon' (mpg) の列が正の数であること、'miles per gallon' (mpg) の列に平均から 4 標準偏差の外側のデータムが含まれていないことを確認します。 - AM列とVS列(それぞれ自動/手動とV/ストレートエンジン)に0と1のみが含まれていること - 各行には最大2つのNAが含まれます - 各行は、"mpg"、"am"、および "wt" 列の間で一意です。 - 各行のマハラノビス距離は、すべての距離の絶対偏差の中央値の10以内です(外れ値検出の場合)
+
+
+上記の問題は次のように上から順番に条件を記述することで対応できる。
+
+
+quarto-executable-code-5450563D
+
+```r
+library(dplyr)
+library(assertr)
+
+# 失敗するとデータフレームで結果が返される
+# tryCatchはquartoで記述しているから必要である。本来は必要ない。
+tryCatch({
+  mtcars |&gt; 
+    verify(has_all_names("unko"))
+}, error = \(e) print(e))
+
+```
+
+quarto-executable-code-5450563D
+
+```r
+# 成功した場合には処理を経たデータが返される
+tryCatch({
+  mtcars |&gt; 
+    verify(has_all_names("mpg", "vs", "am", "wt"))
+}, error = \(e) print(e))
+
+```
+
+
+quarto-executable-code-5450563D
+
+```r
+# もともとやりたかった処理をまとめる
+mtcars |&gt; 
+  verify(has_all_names("mpg", "vs", "am", "wt")) %&gt;%
+  verify(nrow(.) &gt; 10) |&gt; 
+  verify(mpg &gt; 0) |&gt; 
+  insist(within_n_sds(4), mpg) |&gt;  # insistは「主張する」という意味である
+  assert(in_set(0, 1), am, vs) |&gt; 
+  assert_rows(num_row_NAs, within_bounds(0, 2), everything()) |&gt; 
+  assert_rows(col_concat, is_uniq, mpg, am, wt) |&gt; 
+  insist_rows(maha_dist, within_n_mads(10), everything()) |&gt; # マハラノビス距離と中央絶対偏差
+  group_by(cyl) |&gt; 
+  summarise(avg.mpg = mean(mpg))
+
+
+
+```
+
+
+
+これを見ただけでもかなり使い方がイメージできる。
+
+# Get Startd
+
+[Assertive R Programming with assertr](https://docs.ropensci.org/assertr/articles/assertr.html)をマネする。
+
+
+## Concrete data errors
+
+quarto-executable-code-5450563D
+
+```r
+head(mtcars)
+```
+
+quarto-executable-code-5450563D
+
+```r
+our.data &lt;- mtcars
+our.data$mpg[5] &lt;- our.data$mpg[5] * -1
+our.data[4:6,]
+```
+
+このまま計算すると何か間違えている・・・？負の値を入り込ましているのでデータ気付かないうちに計算を間違う。
+
+quarto-executable-code-5450563D
+
+```r
+library(dplyr)
+
+our.data %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+```
+
+
+## enter assertr
+
+次のような`verify`を使うことで計算が失敗するようになる。
+
+
+quarto-executable-code-5450563D
+
+```r
+library(assertr)
+
+tryCatch({
+our.data |&gt; 
+  verify(mpg &gt;= 0) |&gt; 
+  group_by(cyl) |&gt; 
+  summarise(avg.mpg = mean(mpg))
+
+}, error = \(e) print(e))
+
+
+```
+
+
+
+`assert`関数を使うと次のように記述することができる。結果をみると行単位で評価結果を得られてることがわかる。
+
+
+quarto-executable-code-5450563D
+
+```r
+tryCatch({
+
+our.data |&gt; 
+  assert(within_bounds(0, Inf), mpg) |&gt; 
+  group_by(cyl) |&gt; 
+  summarise(avg.mpg = mean(mpg))
+}, error = \(e) print(e))  
+```
+
+
+dplyrのselect関数が使える。
+
+
+quarto-executable-code-5450563D
+
+```r
+library(assertr)
+
+tryCatch({
+
+our.data %&gt;%
+  assert(within_bounds(0,Inf, include.lower=FALSE), -mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+}, error = \(e) print(e))
+```
+
+
+
+## verify vs. assert
+
+式を引数にとるか、述語関数やカラムを引数にとるかが異なる。
+またverifyは引数全体に対する評価であり、全体を評価してから違反がないかを考えている。
+このため行単位での問題の特定が出来ない。
+
+## asserts predicates
+
+述語関数には次のようなものがある。
+
+- `not_na`はNAじゃないことを確認する
+- `within_bounds`は数値が与えられた範囲に含まれているかを確認する
+- `in_set`は集合のメンバーであるかどうかを確認する
+- `is_uniq`はユニークかどうかを確認する
+
+
+## cusotm predicates
+
+
+quarto-executable-code-5450563D
+
+```r
+not.empty.p &lt;- function(x) if(x=="") return(FALSE)
+```
+
+ほかには
+
+quarto-executable-code-5450563D
+
+```r
+seven.digit.p &lt;- function(x) nchar(x)==7
+```
+
+
+
+## enter `insist` and predicate `generators`
+
+たぶんだけどSQLのWindows関数のように自分の行以外の情報が評価に必要なものに対して有効、ということだと思う。
+
+
+quarto-executable-code-5450563D
+
+```r
+mtcars %&gt;%
+  insist(within_n_sds(3), mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+```
+
+
+quarto-executable-code-5450563D
+
+```r
+mtcars %&gt;%
+  insist(within_n_sds(10), mpg:carb) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+```
+
+
+お試しの計算です。
+
+quarto-executable-code-5450563D
+
+```r
+example.vector &lt;- c(7.4, 7.1, 7.2, 72.1)
+within_n_sds(2)(example.vector)(example.vector)
+```
+
+
+## row-wise assertions and row reduction functions
+
+quarto-executable-code-5450563D
+
+```r
+example.data &lt;- data.frame(x=c(8, 9, 6, 5, 9, 5, 6, 7,
+                             8, 9, 6, 5, 5, 6, 7),
+                         y=c(82, 91, 61, 49, 40, 49, 57,
+                             74, 78, 90, 61, 49, 51, 62, 68))
+(example.data)
+```
+
+quarto-executable-code-5450563D
+
+```r
+plot(example.data$x, example.data$y, xlab="", ylab="")
+```
+
+多変量の検証にはマハラノビス距離が使える。
+
+quarto-executable-code-5450563D
+
+```r
+maha_dist(example.data)
+```
+
+quarto-executable-code-5450563D
+
+```r
+maha_dist(example.data) %&gt;% hist(main="", xlab="")
+```
+
+
+マハラノビス距離を評価に組み込む。
+
+
+quarto-executable-code-5450563D
+
+```r
+tryCatch({
+
+example.data %&gt;%
+  insist_rows(maha_dist, within_n_mads(3), dplyr::everything())
+}, error = \(e) print(e))
+```
+
+
+
+## success, error, and defect functions
+
+成功・失敗時の処理の挙動を制御できる。
+
+## Obligatory assertions
+
+独立でないルールを適用することがある。
+
+
+quarto-executable-code-5450563D
+
+```r
+tryCatch({
+
+mtcars_without_am &lt;- mtcars %&gt;% 
+  dplyr::select(-am)
+mtcars_without_am %&gt;% 
+  verify(has_all_names("am", "vs"), error_fun = error_append) %&gt;% 
+  assert(in_set(0, 1), am, vs, error_fun = error_report)
+}, error = \(e) print(e))
+```
+
+
+上記はverifyと関係ないところでエラーが出ている。
+その場合には次のようにする。
+
+
+quarto-executable-code-5450563D
+
+```r
+tryCatch({
+
+mtcars_without_am &lt;- mtcars %&gt;% 
+  dplyr::select(-am)
+mtcars_without_am %&gt;% 
+  verify(has_all_names("am", "vs"), obligatory=TRUE, error_fun=error_append) %&gt;% 
+  assert(in_set(0, 1), am, vs, defect_fun=defect_report)
+}, error = \(e) print(e))
+```
+
+
+## combining chains of assertions
+
+パイプラインだと1つの処理が失敗するとそこから先の処理は実施されない。
+一方で、複数のチェックをリポートしてもらいたいときがある。
+
+quarto-executable-code-5450563D
+
+```r
+mtcars %&gt;%
+  chain_start %&gt;%
+  verify(nrow(mtcars) &gt; 10) %&gt;%
+  verify(mpg &gt; 0) %&gt;%
+  insist(within_n_sds(4), mpg) %&gt;%
+  assert(in_set(0,1), am, vs) %&gt;%
+  chain_end %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+```
+
+## advanced: creating your own predicate generators for insist
+
+
+quarto-executable-code-5450563D
+
+```r
+within_3_iqrs &lt;- function(a_vector){
+  the_median &lt;- median(a_vector)
+  the_iqr &lt;- IQR(a_vector)
+  within_bounds((the_median-the_iqr*3), (the_median+the_iqr*3))
+}
+mtcars %&gt;%
+  insist(within_3_iqrs, mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))</code></pre>
+<p>``````````````````` :::</p>
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../../contents/libs/R/base/working.html" class="pagination-link  aria-label=" introduction"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../../contents/libs/R/ggtext/working.html" class="pagination-link" aria-label="Introduction">
+        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","loop":false});</script>
+
+
+
+
+</body></html>
