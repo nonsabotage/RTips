@@ -561,6 +561,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#install-and-load-duckdb-httpsfs-extensions" id="toc-install-and-load-duckdb-httpsfs-extensions" class="nav-link" data-scroll-target="#install-and-load-duckdb-httpsfs-extensions"><span class="header-section-number">3.1</span> Install and load DuckDB httpsfs Extensions</a></li>
   </ul></li>
+  <li><a href="#python-function-api" id="toc-python-function-api" class="nav-link" data-scroll-target="#python-function-api"><span class="header-section-number">4</span> Python Function API</a>
+  <ul class="collapse">
+  <li><a href="#null-handling" id="toc-null-handling" class="nav-link" data-scroll-target="#null-handling"><span class="header-section-number">4.1</span> NULL Handling</a></li>
+  <li><a href="#exception-handling" id="toc-exception-handling" class="nav-link" data-scroll-target="#exception-handling"><span class="header-section-number">4.2</span> Exception Handling</a></li>
+  <li><a href="#side-effects" id="toc-side-effects" class="nav-link" data-scroll-target="#side-effects"><span class="header-section-number">4.3</span> Side Effects</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1318,6 +1324,173 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="guides_python_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
+</div>
+</div>
+</section>
+</section>
+<section id="python-function-api" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Python Function API</h1>
+<p>duckdbはストアドプロージャがない。一方で、<a href="https://duckdb.org/docs/api/python/function.html">Pythonで関数を定義する</a>ことができる。</p>
+<p>以下は、その例である。</p>
+<div id="cell-27" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="im">import</span> duckdb</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="im">from</span> duckdb.typing <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="im">from</span> faker <span class="im">import</span> Faker</span>
+<span id="cb20-4"><a href="#cb20-4"></a></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="kw">def</span> generate_random_name():</span>
+<span id="cb20-6"><a href="#cb20-6"></a>    fake <span class="op">=</span> Faker()</span>
+<span id="cb20-7"><a href="#cb20-7"></a>    <span class="cf">return</span> fake.name()</span>
+<span id="cb20-8"><a href="#cb20-8"></a></span>
+<span id="cb20-9"><a href="#cb20-9"></a></span>
+<span id="cb20-10"><a href="#cb20-10"></a></span>
+<span id="cb20-11"><a href="#cb20-11"></a>duckdb.create_function(<span class="st">"random_name"</span>, generate_random_name, [], VARCHAR)</span>
+<span id="cb20-12"><a href="#cb20-12"></a>res <span class="op">=</span> duckdb.sql(<span class="st">"SELECT random_name()"</span>).fetchall()</span>
+<span id="cb20-13"><a href="#cb20-13"></a><span class="bu">print</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[('Justin Barnes',)]</code></pre>
+</div>
+</div>
+<div id="cell-28" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="im">import</span> duckdb</span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="kw">def</span> my_function(x: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb22-4"><a href="#cb22-4"></a>    <span class="cf">return</span> x</span>
+<span id="cb22-5"><a href="#cb22-5"></a></span>
+<span id="cb22-6"><a href="#cb22-6"></a>duckdb.create_function(<span class="st">"my_func"</span>, my_function)</span>
+<span id="cb22-7"><a href="#cb22-7"></a>duckdb.sql(<span class="st">"SELECT my_func(42)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>┌─────────────┐
+│ my_func(42) │
+│   varchar   │
+├─────────────┤
+│ 42          │
+└─────────────┘</code></pre>
+</div>
+</div>
+<section id="null-handling" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="null-handling"><span class="header-section-number">4.1</span> NULL Handling</h2>
+<div id="cell-30" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="im">import</span> duckdb</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="im">from</span> duckdb.typing <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="kw">def</span> dont_intercept_null(x):</span>
+<span id="cb24-5"><a href="#cb24-5"></a>    <span class="cf">return</span> <span class="dv">5</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a></span>
+<span id="cb24-7"><a href="#cb24-7"></a>duckdb.create_function(<span class="st">"dont_intercept"</span>, dont_intercept_null, [BIGINT], BIGINT)</span>
+<span id="cb24-8"><a href="#cb24-8"></a>res <span class="op">=</span> duckdb.sql(<span class="st">"SELECT dont_intercept(NULL)"</span>).fetchall()</span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="bu">print</span>(res)</span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="co"># [(None,)]</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a></span>
+<span id="cb24-12"><a href="#cb24-12"></a>duckdb.remove_function(<span class="st">"dont_intercept"</span>)</span>
+<span id="cb24-13"><a href="#cb24-13"></a>duckdb.create_function(<span class="st">"dont_intercept"</span>, dont_intercept_null, [BIGINT], BIGINT, null_handling<span class="op">=</span><span class="st">"special"</span>)</span>
+<span id="cb24-14"><a href="#cb24-14"></a>res <span class="op">=</span> duckdb.sql(<span class="st">"SELECT dont_intercept(NULL)"</span>).fetchall()</span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="bu">print</span>(res)</span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="co"># [(5,)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[(None,)]
+[(5,)]</code></pre>
+</div>
+</div>
+</section>
+<section id="exception-handling" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="exception-handling"><span class="header-section-number">4.2</span> Exception Handling</h2>
+<div id="cell-32" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="im">import</span> duckdb</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="im">from</span> duckdb.typing <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="kw">def</span> will_throw():</span>
+<span id="cb26-5"><a href="#cb26-5"></a>    <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"ERROR"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6"></a></span>
+<span id="cb26-7"><a href="#cb26-7"></a>duckdb.create_function(<span class="st">"throws"</span>, will_throw, [], BIGINT)</span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="cf">try</span>:</span>
+<span id="cb26-9"><a href="#cb26-9"></a>    res <span class="op">=</span> duckdb.sql(<span class="st">"SELECT throws()"</span>).fetchall()</span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="cf">except</span> duckdb.InvalidInputException <span class="im">as</span> e:</span>
+<span id="cb26-11"><a href="#cb26-11"></a>    <span class="bu">print</span>(e)</span>
+<span id="cb26-12"><a href="#cb26-12"></a></span>
+<span id="cb26-13"><a href="#cb26-13"></a>duckdb.create_function(<span class="st">"doesnt_throw"</span>, will_throw, [], BIGINT, exception_handling<span class="op">=</span><span class="st">"return_null"</span>)</span>
+<span id="cb26-14"><a href="#cb26-14"></a>res <span class="op">=</span> duckdb.sql(<span class="st">"SELECT doesnt_throw()"</span>).fetchall()</span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="bu">print</span>(res)</span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co"># [(None,)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Invalid Input Error: Python exception occurred while executing the UDF: ValueError: ERROR
+
+At:
+  C:\Users\suzuk\AppData\Local\Temp\ipykernel_2440\2917477593.py(5): will_throw
+  C:\Users\suzuk\AppData\Local\Temp\ipykernel_2440\2917477593.py(9): &lt;module&gt;
+  c:\pyenv\py312\Lib\site-packages\IPython\core\interactiveshell.py(3526): run_code
+  c:\pyenv\py312\Lib\site-packages\IPython\core\interactiveshell.py(3466): run_ast_nodes
+  c:\pyenv\py312\Lib\site-packages\IPython\core\interactiveshell.py(3284): run_cell_async
+  c:\pyenv\py312\Lib\site-packages\IPython\core\async_helpers.py(129): _pseudo_sync_runner
+  c:\pyenv\py312\Lib\site-packages\IPython\core\interactiveshell.py(3079): _run_cell
+  c:\pyenv\py312\Lib\site-packages\IPython\core\interactiveshell.py(3024): run_cell
+  c:\pyenv\py312\Lib\site-packages\ipykernel\zmqshell.py(546): run_cell
+  c:\pyenv\py312\Lib\site-packages\ipykernel\ipkernel.py(422): do_execute
+  c:\pyenv\py312\Lib\site-packages\ipykernel\kernelbase.py(740): execute_request
+  c:\pyenv\py312\Lib\site-packages\ipykernel\kernelbase.py(412): dispatch_shell
+  c:\pyenv\py312\Lib\site-packages\ipykernel\kernelbase.py(505): process_one
+  c:\pyenv\py312\Lib\site-packages\ipykernel\kernelbase.py(516): dispatch_queue
+  C:\Program Files\Python312\Lib\asyncio\events.py(84): _run
+  C:\Program Files\Python312\Lib\asyncio\base_events.py(1951): _run_once
+  C:\Program Files\Python312\Lib\asyncio\base_events.py(618): run_forever
+  c:\pyenv\py312\Lib\site-packages\tornado\platform\asyncio.py(195): start
+  c:\pyenv\py312\Lib\site-packages\ipykernel\kernelapp.py(736): start
+  c:\pyenv\py312\Lib\site-packages\traitlets\config\application.py(1053): launch_instance
+  c:\pyenv\py312\Lib\site-packages\ipykernel_launcher.py(17): &lt;module&gt;
+  &lt;frozen runpy&gt;(88): _run_code
+  &lt;frozen runpy&gt;(198): _run_module_as_main
+
+[(None,)]</code></pre>
+</div>
+</div>
+</section>
+<section id="side-effects" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="side-effects"><span class="header-section-number">4.3</span> Side Effects</h2>
+<p>グローバルの<code>count</code>が使われているのがわかる。</p>
+<div id="cell-34" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">def</span> count() <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb28-2"><a href="#cb28-2"></a>    old <span class="op">=</span> count.counter<span class="op">;</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>    count.counter <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a>    <span class="cf">return</span> old</span>
+<span id="cb28-5"><a href="#cb28-5"></a></span>
+<span id="cb28-6"><a href="#cb28-6"></a>count.counter <span class="op">=</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-35" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>con <span class="op">=</span> duckdb.<span class="ex">connect</span>()</span>
+<span id="cb29-2"><a href="#cb29-2"></a>con.create_function(<span class="st">"my_counter"</span>, count, side_effects <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb29-3"><a href="#cb29-3"></a>res <span class="op">=</span> con.sql(<span class="st">"SELECT my_counter() FROM range(10)"</span>).fetchall()</span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="bu">print</span>(res)</span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="co"># [(0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[(0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,)]</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>con.create_function(<span class="st">"my_counter3"</span>, count, side_effects <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb31-2"><a href="#cb31-2"></a>res <span class="op">=</span> con.sql(<span class="st">"SELECT my_counter3() FROM range(10)"</span>).fetchall()</span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="bu">print</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[(1,), (2,), (3,), (4,), (5,), (6,), (7,), (8,), (9,), (10,)]</code></pre>
 </div>
 </div>
 

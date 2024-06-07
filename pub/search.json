@@ -60,6 +60,42 @@
     ]
   },
   {
+    "objectID": "contents/sql/duckdb/documentaion/guides_python.html#null-handling",
+    "href": "contents/sql/duckdb/documentaion/guides_python.html#null-handling",
+    "title": "Jupyter Notebooks",
+    "section": "4.1 NULL Handling",
+    "text": "4.1 NULL Handling\n\n\nCode\nimport duckdb\nfrom duckdb.typing import *\n\ndef dont_intercept_null(x):\n    return 5\n\nduckdb.create_function(\"dont_intercept\", dont_intercept_null, [BIGINT], BIGINT)\nres = duckdb.sql(\"SELECT dont_intercept(NULL)\").fetchall()\nprint(res)\n# [(None,)]\n\nduckdb.remove_function(\"dont_intercept\")\nduckdb.create_function(\"dont_intercept\", dont_intercept_null, [BIGINT], BIGINT, null_handling=\"special\")\nres = duckdb.sql(\"SELECT dont_intercept(NULL)\").fetchall()\nprint(res)\n# [(5,)]\n\n\n[(None,)]\n[(5,)]",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Jupyter Notebooks"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guides_python.html#exception-handling",
+    "href": "contents/sql/duckdb/documentaion/guides_python.html#exception-handling",
+    "title": "Jupyter Notebooks",
+    "section": "4.2 Exception Handling",
+    "text": "4.2 Exception Handling\n\n\nCode\nimport duckdb\nfrom duckdb.typing import *\n\ndef will_throw():\n    raise ValueError(\"ERROR\")\n\nduckdb.create_function(\"throws\", will_throw, [], BIGINT)\ntry:\n    res = duckdb.sql(\"SELECT throws()\").fetchall()\nexcept duckdb.InvalidInputException as e:\n    print(e)\n\nduckdb.create_function(\"doesnt_throw\", will_throw, [], BIGINT, exception_handling=\"return_null\")\nres = duckdb.sql(\"SELECT doesnt_throw()\").fetchall()\nprint(res)\n# [(None,)]\n\n\nInvalid Input Error: Python exception occurred while executing the UDF: ValueError: ERROR\n\nAt:\n  C:\\Users\\suzuk\\AppData\\Local\\Temp\\ipykernel_2440\\2917477593.py(5): will_throw\n  C:\\Users\\suzuk\\AppData\\Local\\Temp\\ipykernel_2440\\2917477593.py(9): &lt;module&gt;\n  c:\\pyenv\\py312\\Lib\\site-packages\\IPython\\core\\interactiveshell.py(3526): run_code\n  c:\\pyenv\\py312\\Lib\\site-packages\\IPython\\core\\interactiveshell.py(3466): run_ast_nodes\n  c:\\pyenv\\py312\\Lib\\site-packages\\IPython\\core\\interactiveshell.py(3284): run_cell_async\n  c:\\pyenv\\py312\\Lib\\site-packages\\IPython\\core\\async_helpers.py(129): _pseudo_sync_runner\n  c:\\pyenv\\py312\\Lib\\site-packages\\IPython\\core\\interactiveshell.py(3079): _run_cell\n  c:\\pyenv\\py312\\Lib\\site-packages\\IPython\\core\\interactiveshell.py(3024): run_cell\n  c:\\pyenv\\py312\\Lib\\site-packages\\ipykernel\\zmqshell.py(546): run_cell\n  c:\\pyenv\\py312\\Lib\\site-packages\\ipykernel\\ipkernel.py(422): do_execute\n  c:\\pyenv\\py312\\Lib\\site-packages\\ipykernel\\kernelbase.py(740): execute_request\n  c:\\pyenv\\py312\\Lib\\site-packages\\ipykernel\\kernelbase.py(412): dispatch_shell\n  c:\\pyenv\\py312\\Lib\\site-packages\\ipykernel\\kernelbase.py(505): process_one\n  c:\\pyenv\\py312\\Lib\\site-packages\\ipykernel\\kernelbase.py(516): dispatch_queue\n  C:\\Program Files\\Python312\\Lib\\asyncio\\events.py(84): _run\n  C:\\Program Files\\Python312\\Lib\\asyncio\\base_events.py(1951): _run_once\n  C:\\Program Files\\Python312\\Lib\\asyncio\\base_events.py(618): run_forever\n  c:\\pyenv\\py312\\Lib\\site-packages\\tornado\\platform\\asyncio.py(195): start\n  c:\\pyenv\\py312\\Lib\\site-packages\\ipykernel\\kernelapp.py(736): start\n  c:\\pyenv\\py312\\Lib\\site-packages\\traitlets\\config\\application.py(1053): launch_instance\n  c:\\pyenv\\py312\\Lib\\site-packages\\ipykernel_launcher.py(17): &lt;module&gt;\n  &lt;frozen runpy&gt;(88): _run_code\n  &lt;frozen runpy&gt;(198): _run_module_as_main\n\n[(None,)]",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Jupyter Notebooks"
+    ]
+  },
+  {
+    "objectID": "contents/sql/duckdb/documentaion/guides_python.html#side-effects",
+    "href": "contents/sql/duckdb/documentaion/guides_python.html#side-effects",
+    "title": "Jupyter Notebooks",
+    "section": "4.3 Side Effects",
+    "text": "4.3 Side Effects\nグローバルのcountが使われているのがわかる。\n\n\nCode\ndef count() -&gt; int:\n    old = count.counter;\n    count.counter += 1\n    return old\n\ncount.counter = 0\n\n\n\n\nCode\ncon = duckdb.connect()\ncon.create_function(\"my_counter\", count, side_effects = False)\nres = con.sql(\"SELECT my_counter() FROM range(10)\").fetchall()\nprint(res)\n# [(0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,)]\n\n\n[(0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,), (0,)]\n\n\n\n\nCode\ncon.create_function(\"my_counter3\", count, side_effects = True)\nres = con.sql(\"SELECT my_counter3() FROM range(10)\").fetchall()\nprint(res)\n\n\n[(1,), (2,), (3,), (4,), (5,), (6,), (7,), (8,), (9,), (10,)]",
+    "crumbs": [
+      "DuckDB",
+      "Documentaion",
+      "Jupyter Notebooks"
+    ]
+  },
+  {
     "objectID": "contents/sql/duckdb/sql-bigdata/chap07_.html",
     "href": "contents/sql/duckdb/sql-bigdata/chap07_.html",
     "title": "データ活用の精度を高めるための分析術",
