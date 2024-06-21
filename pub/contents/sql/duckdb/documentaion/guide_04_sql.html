@@ -562,19 +562,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#updates" id="toc-updates" class="nav-link" data-scroll-target="#updates"><span class="header-section-number">2.5</span> Updates</a></li>
   <li><a href="#deletions" id="toc-deletions" class="nav-link" data-scroll-target="#deletions"><span class="header-section-number">2.6</span> Deletions</a></li>
   </ul></li>
-  <li><a href="#widnow-functions" id="toc-widnow-functions" class="nav-link" data-scroll-target="#widnow-functions"><span class="header-section-number">3</span> Widnow Functions</a>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"><span class="header-section-number">3</span> Data Types</a>
   <ul class="collapse">
-  <li><a href="#general-purpose-window-functions" id="toc-general-purpose-window-functions" class="nav-link" data-scroll-target="#general-purpose-window-functions"><span class="header-section-number">3.1</span> General-Purpose Window Functions</a></li>
-  <li><a href="#ignoring-nulls" id="toc-ignoring-nulls" class="nav-link" data-scroll-target="#ignoring-nulls"><span class="header-section-number">3.2</span> Ignoring NULLs</a></li>
-  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">3.3</span> Evaluation</a>
+  <li><a href="#array-type" id="toc-array-type" class="nav-link" data-scroll-target="#array-type"><span class="header-section-number">3.1</span> Array Type</a></li>
+  </ul></li>
+  <li><a href="#widnow-functions" id="toc-widnow-functions" class="nav-link" data-scroll-target="#widnow-functions"><span class="header-section-number">4</span> Widnow Functions</a>
   <ul class="collapse">
-  <li><a href="#partition-and-ordering" id="toc-partition-and-ordering" class="nav-link" data-scroll-target="#partition-and-ordering"><span class="header-section-number">3.3.1</span> Partition and Ordering</a></li>
-  <li><a href="#framing" id="toc-framing" class="nav-link" data-scroll-target="#framing"><span class="header-section-number">3.3.2</span> Framing</a></li>
-  <li><a href="#window-clauses" id="toc-window-clauses" class="nav-link" data-scroll-target="#window-clauses"><span class="header-section-number">3.3.3</span> WINDOW Clauses</a></li>
-  <li><a href="#filtering-the-results-of-window-functions-using-qualify" id="toc-filtering-the-results-of-window-functions-using-qualify" class="nav-link" data-scroll-target="#filtering-the-results-of-window-functions-using-qualify"><span class="header-section-number">3.3.4</span> Filtering the Results of Window Functions Using QUALIFY</a></li>
+  <li><a href="#general-purpose-window-functions" id="toc-general-purpose-window-functions" class="nav-link" data-scroll-target="#general-purpose-window-functions"><span class="header-section-number">4.1</span> General-Purpose Window Functions</a></li>
+  <li><a href="#ignoring-nulls" id="toc-ignoring-nulls" class="nav-link" data-scroll-target="#ignoring-nulls"><span class="header-section-number">4.2</span> Ignoring NULLs</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">4.3</span> Evaluation</a>
+  <ul class="collapse">
+  <li><a href="#partition-and-ordering" id="toc-partition-and-ordering" class="nav-link" data-scroll-target="#partition-and-ordering"><span class="header-section-number">4.3.1</span> Partition and Ordering</a></li>
+  <li><a href="#framing" id="toc-framing" class="nav-link" data-scroll-target="#framing"><span class="header-section-number">4.3.2</span> Framing</a></li>
+  <li><a href="#window-clauses" id="toc-window-clauses" class="nav-link" data-scroll-target="#window-clauses"><span class="header-section-number">4.3.3</span> WINDOW Clauses</a></li>
+  <li><a href="#filtering-the-results-of-window-functions-using-qualify" id="toc-filtering-the-results-of-window-functions-using-qualify" class="nav-link" data-scroll-target="#filtering-the-results-of-window-functions-using-qualify"><span class="header-section-number">4.3.4</span> Filtering the Results of Window Functions Using QUALIFY</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#disconnect" id="toc-disconnect" class="nav-link" data-scroll-target="#disconnect"><span class="header-section-number">4</span> Disconnect</a></li>
+  <li><a href="#disconnect" id="toc-disconnect" class="nav-link" data-scroll-target="#disconnect"><span class="header-section-number">5</span> Disconnect</a></li>
   </ul>
 </nav>
     </div>
@@ -595,7 +599,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">March 22, 2024</p>
+      <p class="date-modified">June 15, 2024</p>
     </div>
   </div>
     
@@ -1324,30 +1328,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="widnow-functions" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Widnow Functions</h1>
-<p>いわゆるWindow関数が使える</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb31-1"><a href="#cb31-1"></a><span class="co">-- generate a "row_number" column with containing incremental identifiers for each row</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> () <span class="kw">FROM</span> sales;</span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="co">-- generate a "row_number" column, by order of time</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="co">-- generate a "row_number" column, by order of time partitioned by region</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> region <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
-<span id="cb31-7"><a href="#cb31-7"></a><span class="co">-- compute the difference between the current amount, and the previous amount,</span></span>
-<span id="cb31-8"><a href="#cb31-8"></a><span class="co">-- by order of time</span></span>
-<span id="cb31-9"><a href="#cb31-9"></a><span class="kw">SELECT</span> amount <span class="op">-</span> <span class="fu">lag</span>(amount) <span class="kw">OVER</span> (<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
-<span id="cb31-10"><a href="#cb31-10"></a><span class="co">-- compute the percentage of the total amount of sales per region for each row</span></span>
-<span id="cb31-11"><a href="#cb31-11"></a><span class="kw">SELECT</span> amount <span class="op">/</span> <span class="fu">sum</span>(amount) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> region) <span class="kw">FROM</span> sales;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="data-types" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data Types</h1>
+<section id="array-type" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="array-type"><span class="header-section-number">3.1</span> Array Type</h2>
+<p><code>duckdb</code>のパッケージバージョンが1.0.0になったけど、 <code>array</code>はまだ使うことが出来なかった・・・</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb31-1"><a href="#cb31-1"></a>#| connection: con</span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="kw">SELECT</span> [<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]:<span class="ch">:INTEGER</span>[<span class="dv">3</span>];</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="widnow-functions" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Widnow Functions</h1>
+<p>いわゆるWindow関数が使えるs</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">-- generate a "row_number" column with containing incremental identifiers for each row</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> () <span class="kw">FROM</span> sales;</span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="co">-- generate a "row_number" column, by order of time</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="co">-- generate a "row_number" column, by order of time partitioned by region</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> region <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="co">-- compute the difference between the current amount, and the previous amount,</span></span>
+<span id="cb32-8"><a href="#cb32-8"></a><span class="co">-- by order of time</span></span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="kw">SELECT</span> amount <span class="op">-</span> <span class="fu">lag</span>(amount) <span class="kw">OVER</span> (<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
+<span id="cb32-10"><a href="#cb32-10"></a><span class="co">-- compute the percentage of the total amount of sales per region for each row</span></span>
+<span id="cb32-11"><a href="#cb32-11"></a><span class="kw">SELECT</span> amount <span class="op">/</span> <span class="fu">sum</span>(amount) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> region) <span class="kw">FROM</span> sales;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> penguins <span class="kw">AS</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_parquet(<span class="st">'penguins.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> penguins <span class="kw">AS</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_parquet(<span class="st">'penguins.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> () <span class="kw">as</span> <span class="fu">row_number</span>, <span class="op">*</span> <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> () <span class="kw">as</span> <span class="fu">row_number</span>, <span class="op">*</span> <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1494,7 +1507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">ORDER</span> <span class="kw">BY</span> bill_length_mm), bill_length_mm <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">ORDER</span> <span class="kw">BY</span> bill_length_mm), bill_length_mm <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1553,7 +1566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> species, island <span class="kw">ORDER</span> <span class="kw">BY</span> bill_length_mm), species, island, bill_length_mm <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">SELECT</span> <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> species, island <span class="kw">ORDER</span> <span class="kw">BY</span> bill_length_mm), species, island, bill_length_mm <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1640,10 +1653,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">SELECT</span> bill_length_mm <span class="op">/</span> <span class="fu">AVG</span>(bill_length_mm) <span class="kw">OVER</span>(<span class="kw">PARTITION</span> <span class="kw">BY</span> species, island) A,  </span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="fu">AVG</span>(bill_length_mm) <span class="kw">OVER</span>(<span class="kw">PARTITION</span> <span class="kw">BY</span> species, island) B, </span>
-<span id="cb36-3"><a href="#cb36-3"></a>species, island, bill_length_mm</span>
-<span id="cb36-4"><a href="#cb36-4"></a><span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">SELECT</span> bill_length_mm <span class="op">/</span> <span class="fu">AVG</span>(bill_length_mm) <span class="kw">OVER</span>(<span class="kw">PARTITION</span> <span class="kw">BY</span> species, island) A,  </span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="fu">AVG</span>(bill_length_mm) <span class="kw">OVER</span>(<span class="kw">PARTITION</span> <span class="kw">BY</span> species, island) B, </span>
+<span id="cb37-3"><a href="#cb37-3"></a>species, island, bill_length_mm</span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1732,8 +1745,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<section id="general-purpose-window-functions" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="general-purpose-window-functions"><span class="header-section-number">3.1</span> General-Purpose Window Functions</h2>
+<section id="general-purpose-window-functions" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="general-purpose-window-functions"><span class="header-section-number">4.1</span> General-Purpose Window Functions</h2>
 <ul>
 <li>cume_dist</li>
 <li>dense_rank</li>
@@ -1754,14 +1767,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">WITH</span> tiled <span class="kw">as</span> (</span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="kw">SELECT</span> <span class="fu">ntile</span>(<span class="dv">10</span>) <span class="kw">OVER</span>() T, <span class="op">*</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a>  <span class="kw">FROM</span> penguins</span>
-<span id="cb37-4"><a href="#cb37-4"></a>)</span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="kw">SELECT</span> T, <span class="fu">COUNT</span>(<span class="op">*</span>)</span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="kw">FROM</span> tiled</span>
-<span id="cb37-7"><a href="#cb37-7"></a><span class="kw">GROUP</span> <span class="kw">BY</span> T</span>
-<span id="cb37-8"><a href="#cb37-8"></a><span class="kw">ORDER</span> <span class="kw">BY</span> T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">WITH</span> tiled <span class="kw">as</span> (</span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="kw">SELECT</span> <span class="fu">ntile</span>(<span class="dv">10</span>) <span class="kw">OVER</span>() T, <span class="op">*</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="kw">FROM</span> penguins</span>
+<span id="cb38-4"><a href="#cb38-4"></a>)</span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="kw">SELECT</span> T, <span class="fu">COUNT</span>(<span class="op">*</span>)</span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="kw">FROM</span> tiled</span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="kw">GROUP</span> <span class="kw">BY</span> T</span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="kw">ORDER</span> <span class="kw">BY</span> T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1818,8 +1831,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ignoring-nulls" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="ignoring-nulls"><span class="header-section-number">3.2</span> Ignoring NULLs</h2>
+<section id="ignoring-nulls" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="ignoring-nulls"><span class="header-section-number">4.2</span> Ignoring NULLs</h2>
 <p>下記の関数はNULLを無視することができる。</p>
 <ol type="1">
 <li>lag</li>
@@ -1830,21 +1843,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p><code>lag(column, 3 IGNORE NULLS)</code>となる。</p>
 </section>
-<section id="evaluation" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">3.3</span> Evaluation</h2>
-<section id="partition-and-ordering" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="partition-and-ordering"><span class="header-section-number">3.3.1</span> Partition and Ordering</h3>
+<section id="evaluation" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">4.3</span> Evaluation</h2>
+<section id="partition-and-ordering" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="partition-and-ordering"><span class="header-section-number">4.3.1</span> Partition and Ordering</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> <span class="ot">"Generation History"</span> <span class="kw">AS</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a>  <span class="kw">FROM</span> <span class="st">'data/csv/power-plant-generation-history.csv'</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> <span class="ot">"Generation History"</span> <span class="kw">AS</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="kw">FROM</span> <span class="st">'data/csv/power-plant-generation-history.csv'</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="ot">"Generation History"</span> <span class="kw">LIMIT</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="ot">"Generation History"</span> <span class="kw">LIMIT</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1890,12 +1903,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">SELECT</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>    <span class="ot">"Plant"</span>,</span>
-<span id="cb40-3"><a href="#cb40-3"></a>    <span class="ot">"Date"</span>,</span>
-<span id="cb40-4"><a href="#cb40-4"></a>    <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span> <span class="kw">ORDER</span>  <span class="kw">BY</span> <span class="ot">"Date"</span>) <span class="kw">AS</span> <span class="ot">"Row"</span></span>
-<span id="cb40-5"><a href="#cb40-5"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
-<span id="cb40-6"><a href="#cb40-6"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">SELECT</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>    <span class="ot">"Plant"</span>,</span>
+<span id="cb41-3"><a href="#cb41-3"></a>    <span class="ot">"Date"</span>,</span>
+<span id="cb41-4"><a href="#cb41-4"></a>    <span class="fu">row_number</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span> <span class="kw">ORDER</span>  <span class="kw">BY</span> <span class="ot">"Date"</span>) <span class="kw">AS</span> <span class="ot">"Row"</span></span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1963,23 +1976,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="framing" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="framing"><span class="header-section-number">3.3.2</span> Framing</h3>
+<section id="framing" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="framing"><span class="header-section-number">4.3.2</span> Framing</h3>
 <p><code>PRECEDING</code>や<code>FOLLOWING</code>を使うことで、相対的な位置関係を使うことが可能である。 この距離はROWSの整数としても指定することができる。 フレームのデフォルト値は<code>UNBOUNDED PRECEDING</code>から<code>CURRENT ROW</code>である。 <code>EXCLUDE</code>句は使用するうと現在の行の周りの行をフレームから除外することができる。</p>
 <p><a href="./images/framing-row.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="./images/framing-row.png" class="img-fluid"></a></p>
 <p><code>RANGE</code>フレーミングを行う。</p>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">SELECT</span> <span class="ot">"Plant"</span>, <span class="ot">"Date"</span>,</span>
-<span id="cb41-2"><a href="#cb41-2"></a>    <span class="fu">avg</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> (</span>
-<span id="cb41-3"><a href="#cb41-3"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
-<span id="cb41-4"><a href="#cb41-4"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb41-5"><a href="#cb41-5"></a>        <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
-<span id="cb41-6"><a href="#cb41-6"></a>                  <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span>)</span>
-<span id="cb41-7"><a href="#cb41-7"></a>        <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Average"</span></span>
-<span id="cb41-8"><a href="#cb41-8"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
-<span id="cb41-9"><a href="#cb41-9"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">SELECT</span> <span class="ot">"Plant"</span>, <span class="ot">"Date"</span>,</span>
+<span id="cb42-2"><a href="#cb42-2"></a>    <span class="fu">avg</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> (</span>
+<span id="cb42-3"><a href="#cb42-3"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a>        <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a>                  <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span>)</span>
+<span id="cb42-7"><a href="#cb42-7"></a>        <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Average"</span></span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
+<span id="cb42-9"><a href="#cb42-9"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -2050,25 +2063,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">SELECT</span> <span class="ot">"Plant"</span>, <span class="ot">"Date"</span>,</span>
-<span id="cb42-2"><a href="#cb42-2"></a>    <span class="cf">CASE</span></span>
-<span id="cb42-3"><a href="#cb42-3"></a>        <span class="cf">WHEN</span> <span class="fu">COUNT</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> (</span>
-<span id="cb42-4"><a href="#cb42-4"></a>            <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
-<span id="cb42-5"><a href="#cb42-5"></a>            <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb42-6"><a href="#cb42-6"></a>            <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
-<span id="cb42-7"><a href="#cb42-7"></a>                      <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span></span>
-<span id="cb42-8"><a href="#cb42-8"></a>        ) <span class="op">&gt;=</span> <span class="dv">7</span> <span class="cf">THEN</span></span>
-<span id="cb42-9"><a href="#cb42-9"></a>            <span class="fu">avg</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> (</span>
-<span id="cb42-10"><a href="#cb42-10"></a>                <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
-<span id="cb42-11"><a href="#cb42-11"></a>                <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb42-12"><a href="#cb42-12"></a>                <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
-<span id="cb42-13"><a href="#cb42-13"></a>                          <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span></span>
-<span id="cb42-14"><a href="#cb42-14"></a>            )</span>
-<span id="cb42-15"><a href="#cb42-15"></a>        <span class="cf">ELSE</span></span>
-<span id="cb42-16"><a href="#cb42-16"></a>            <span class="kw">NULL</span></span>
-<span id="cb42-17"><a href="#cb42-17"></a>    <span class="cf">END</span> <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Average"</span></span>
-<span id="cb42-18"><a href="#cb42-18"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
-<span id="cb42-19"><a href="#cb42-19"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">SELECT</span> <span class="ot">"Plant"</span>, <span class="ot">"Date"</span>,</span>
+<span id="cb43-2"><a href="#cb43-2"></a>    <span class="cf">CASE</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>        <span class="cf">WHEN</span> <span class="fu">COUNT</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> (</span>
+<span id="cb43-4"><a href="#cb43-4"></a>            <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a>            <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a>            <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
+<span id="cb43-7"><a href="#cb43-7"></a>                      <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span></span>
+<span id="cb43-8"><a href="#cb43-8"></a>        ) <span class="op">&gt;=</span> <span class="dv">7</span> <span class="cf">THEN</span></span>
+<span id="cb43-9"><a href="#cb43-9"></a>            <span class="fu">avg</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> (</span>
+<span id="cb43-10"><a href="#cb43-10"></a>                <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
+<span id="cb43-11"><a href="#cb43-11"></a>                <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb43-12"><a href="#cb43-12"></a>                <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
+<span id="cb43-13"><a href="#cb43-13"></a>                          <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span></span>
+<span id="cb43-14"><a href="#cb43-14"></a>            )</span>
+<span id="cb43-15"><a href="#cb43-15"></a>        <span class="cf">ELSE</span></span>
+<span id="cb43-16"><a href="#cb43-16"></a>            <span class="kw">NULL</span></span>
+<span id="cb43-17"><a href="#cb43-17"></a>    <span class="cf">END</span> <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Average"</span></span>
+<span id="cb43-18"><a href="#cb43-18"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
+<span id="cb43-19"><a href="#cb43-19"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -2136,32 +2149,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="window-clauses" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="window-clauses"><span class="header-section-number">3.3.3</span> WINDOW Clauses</h3>
+<section id="window-clauses" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="window-clauses"><span class="header-section-number">4.3.3</span> WINDOW Clauses</h3>
 <p>WINDOWを選言することでマクロのような使い方ができる。</p>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">SELECT</span> <span class="ot">"Plant"</span>, <span class="ot">"Date"</span>,</span>
-<span id="cb43-2"><a href="#cb43-2"></a>    <span class="fu">min</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Minimum"</span>,</span>
-<span id="cb43-3"><a href="#cb43-3"></a>    <span class="fu">avg</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Average"</span>,</span>
-<span id="cb43-4"><a href="#cb43-4"></a>    <span class="fu">max</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Maximum"</span>,</span>
-<span id="cb43-5"><a href="#cb43-5"></a>    <span class="fu">min</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> three <span class="kw">AS</span> <span class="ot">"MWh 3-day Moving Minimum"</span>,</span>
-<span id="cb43-6"><a href="#cb43-6"></a>    <span class="fu">avg</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> three <span class="kw">AS</span> <span class="ot">"MWh 3-day Moving Average"</span>,</span>
-<span id="cb43-7"><a href="#cb43-7"></a>    <span class="fu">max</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> three <span class="kw">AS</span> <span class="ot">"MWh 3-day Moving Maximum"</span></span>
-<span id="cb43-8"><a href="#cb43-8"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
-<span id="cb43-9"><a href="#cb43-9"></a>WINDOW</span>
-<span id="cb43-10"><a href="#cb43-10"></a>    seven <span class="kw">AS</span> (</span>
-<span id="cb43-11"><a href="#cb43-11"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
-<span id="cb43-12"><a href="#cb43-12"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb43-13"><a href="#cb43-13"></a>        <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
-<span id="cb43-14"><a href="#cb43-14"></a>                  <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span>),</span>
-<span id="cb43-15"><a href="#cb43-15"></a>    three <span class="kw">AS</span> (</span>
-<span id="cb43-16"><a href="#cb43-16"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
-<span id="cb43-17"><a href="#cb43-17"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb43-18"><a href="#cb43-18"></a>        <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">1</span> DAYS <span class="kw">PRECEDING</span></span>
-<span id="cb43-19"><a href="#cb43-19"></a>        <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">1</span> DAYS <span class="kw">FOLLOWING</span>)</span>
-<span id="cb43-20"><a href="#cb43-20"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">SELECT</span> <span class="ot">"Plant"</span>, <span class="ot">"Date"</span>,</span>
+<span id="cb44-2"><a href="#cb44-2"></a>    <span class="fu">min</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Minimum"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3"></a>    <span class="fu">avg</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Average"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4"></a>    <span class="fu">max</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Maximum"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5"></a>    <span class="fu">min</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> three <span class="kw">AS</span> <span class="ot">"MWh 3-day Moving Minimum"</span>,</span>
+<span id="cb44-6"><a href="#cb44-6"></a>    <span class="fu">avg</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> three <span class="kw">AS</span> <span class="ot">"MWh 3-day Moving Average"</span>,</span>
+<span id="cb44-7"><a href="#cb44-7"></a>    <span class="fu">max</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> three <span class="kw">AS</span> <span class="ot">"MWh 3-day Moving Maximum"</span></span>
+<span id="cb44-8"><a href="#cb44-8"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a>WINDOW</span>
+<span id="cb44-10"><a href="#cb44-10"></a>    seven <span class="kw">AS</span> (</span>
+<span id="cb44-11"><a href="#cb44-11"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
+<span id="cb44-12"><a href="#cb44-12"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb44-13"><a href="#cb44-13"></a>        <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
+<span id="cb44-14"><a href="#cb44-14"></a>                  <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span>),</span>
+<span id="cb44-15"><a href="#cb44-15"></a>    three <span class="kw">AS</span> (</span>
+<span id="cb44-16"><a href="#cb44-16"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
+<span id="cb44-17"><a href="#cb44-17"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb44-18"><a href="#cb44-18"></a>        <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">1</span> DAYS <span class="kw">PRECEDING</span></span>
+<span id="cb44-19"><a href="#cb44-19"></a>        <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">1</span> DAYS <span class="kw">FOLLOWING</span>)</span>
+<span id="cb44-20"><a href="#cb44-20"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -2294,23 +2307,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="filtering-the-results-of-window-functions-using-qualify" class="level3" data-number="3.3.4">
-<h3 data-number="3.3.4" class="anchored" data-anchor-id="filtering-the-results-of-window-functions-using-qualify"><span class="header-section-number">3.3.4</span> Filtering the Results of Window Functions Using QUALIFY</h3>
+<section id="filtering-the-results-of-window-functions-using-qualify" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="filtering-the-results-of-window-functions-using-qualify"><span class="header-section-number">4.3.4</span> Filtering the Results of Window Functions Using QUALIFY</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">SELECT</span> <span class="ot">"Plant"</span>, <span class="ot">"Date"</span>,</span>
-<span id="cb44-2"><a href="#cb44-2"></a>    <span class="fu">min</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Minimum"</span>,</span>
-<span id="cb44-3"><a href="#cb44-3"></a>    quantile_cont(<span class="ot">"MWh"</span>, [<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>]) <span class="kw">OVER</span> seven</span>
-<span id="cb44-4"><a href="#cb44-4"></a>        <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving IQR"</span>,</span>
-<span id="cb44-5"><a href="#cb44-5"></a>    <span class="fu">max</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Maximum"</span>,</span>
-<span id="cb44-6"><a href="#cb44-6"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
-<span id="cb44-7"><a href="#cb44-7"></a>WINDOW seven <span class="kw">AS</span> (</span>
-<span id="cb44-8"><a href="#cb44-8"></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
-<span id="cb44-9"><a href="#cb44-9"></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb44-10"><a href="#cb44-10"></a>    <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
-<span id="cb44-11"><a href="#cb44-11"></a>              <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span>)</span>
-<span id="cb44-12"><a href="#cb44-12"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">SELECT</span> <span class="ot">"Plant"</span>, <span class="ot">"Date"</span>,</span>
+<span id="cb45-2"><a href="#cb45-2"></a>    <span class="fu">min</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Minimum"</span>,</span>
+<span id="cb45-3"><a href="#cb45-3"></a>    quantile_cont(<span class="ot">"MWh"</span>, [<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>]) <span class="kw">OVER</span> seven</span>
+<span id="cb45-4"><a href="#cb45-4"></a>        <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving IQR"</span>,</span>
+<span id="cb45-5"><a href="#cb45-5"></a>    <span class="fu">max</span>(<span class="ot">"MWh"</span>) <span class="kw">OVER</span> seven <span class="kw">AS</span> <span class="ot">"MWh 7-day Moving Maximum"</span>,</span>
+<span id="cb45-6"><a href="#cb45-6"></a><span class="kw">FROM</span> <span class="ot">"Generation History"</span></span>
+<span id="cb45-7"><a href="#cb45-7"></a>WINDOW seven <span class="kw">AS</span> (</span>
+<span id="cb45-8"><a href="#cb45-8"></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> <span class="ot">"Plant"</span></span>
+<span id="cb45-9"><a href="#cb45-9"></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb45-10"><a href="#cb45-10"></a>    <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">PRECEDING</span></span>
+<span id="cb45-11"><a href="#cb45-11"></a>              <span class="kw">AND</span> <span class="dt">INTERVAL</span> <span class="dv">3</span> DAYS <span class="kw">FOLLOWING</span>)</span>
+<span id="cb45-12"><a href="#cb45-12"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -2409,12 +2422,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 </section>
-<section id="disconnect" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Disconnect</h1>
+<section id="disconnect" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Disconnect</h1>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
@@ -2884,517 +2897,530 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb46" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1"></a><span class="co">---</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a><span class="an">title:</span><span class="co"> "SQL"</span></span>
-<span id="cb46-3"><a href="#cb46-3"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb46-4"><a href="#cb46-4"></a><span class="co">  cache: true</span></span>
-<span id="cb46-5"><a href="#cb46-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
-<span id="cb46-6"><a href="#cb46-6"></a><span class="an">filters:</span></span>
-<span id="cb46-7"><a href="#cb46-7"></a><span class="co">   - lightbox</span></span>
-<span id="cb46-8"><a href="#cb46-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
-<span id="cb46-9"><a href="#cb46-9"></a><span class="co">---</span></span>
-<span id="cb46-10"><a href="#cb46-10"></a></span>
-<span id="cb46-11"><a href="#cb46-11"></a></span>
-<span id="cb46-14"><a href="#cb46-14"></a><span class="in">```{r}</span></span>
-<span id="cb46-15"><a href="#cb46-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
-<span id="cb46-16"><a href="#cb46-16"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/documentation"</span>)</span>
-<span id="cb46-17"><a href="#cb46-17"></a><span class="in">```</span></span>
-<span id="cb46-18"><a href="#cb46-18"></a></span>
-<span id="cb46-19"><a href="#cb46-19"></a></span>
-<span id="cb46-22"><a href="#cb46-22"></a><span class="in">```{r}</span></span>
-<span id="cb46-23"><a href="#cb46-23"></a><span class="co">#| warning: false</span></span>
-<span id="cb46-24"><a href="#cb46-24"></a><span class="co">#| message: false</span></span>
-<span id="cb46-25"><a href="#cb46-25"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb46-26"><a href="#cb46-26"></a><span class="fu">library</span>(duckdb)</span>
-<span id="cb46-27"><a href="#cb46-27"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb46-28"><a href="#cb46-28"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb46-29"><a href="#cb46-29"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb46-30"><a href="#cb46-30"></a><span class="fu">library</span>(dbplyr)</span>
-<span id="cb46-31"><a href="#cb46-31"></a><span class="fu">library</span>(arrow)</span>
-<span id="cb46-32"><a href="#cb46-32"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb46-33"><a href="#cb46-33"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb46-34"><a href="#cb46-34"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
-<span id="cb46-35"><a href="#cb46-35"></a><span class="in">```</span></span>
-<span id="cb46-36"><a href="#cb46-36"></a></span>
-<span id="cb46-37"><a href="#cb46-37"></a></span>
-<span id="cb46-38"><a href="#cb46-38"></a>ポスグレのチュートリアルを参考としたSQLのチュートリアルである。</span>
-<span id="cb46-39"><a href="#cb46-39"></a></span>
-<span id="cb46-40"><a href="#cb46-40"></a><span class="fu"># Setup </span></span>
-<span id="cb46-41"><a href="#cb46-41"></a></span>
-<span id="cb46-44"><a href="#cb46-44"></a><span class="in">```{r}</span></span>
-<span id="cb46-45"><a href="#cb46-45"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>())</span>
-<span id="cb46-46"><a href="#cb46-46"></a><span class="in">```</span></span>
-<span id="cb46-47"><a href="#cb46-47"></a></span>
-<span id="cb46-48"><a href="#cb46-48"></a><span class="fu"># Introduction</span></span>
-<span id="cb46-49"><a href="#cb46-49"></a></span>
-<span id="cb46-50"><a href="#cb46-50"></a>テーブルの作成例。</span>
-<span id="cb46-51"><a href="#cb46-51"></a></span>
-<span id="cb46-52"><a href="#cb46-52"></a><span class="in">```sql</span></span>
-<span id="cb46-53"><a href="#cb46-53"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> cities (</span>
-<span id="cb46-54"><a href="#cb46-54"></a>    name <span class="dt">VARCHAR</span>,</span>
-<span id="cb46-55"><a href="#cb46-55"></a>    lat  <span class="dt">DECIMAL</span>,</span>
-<span id="cb46-56"><a href="#cb46-56"></a>    lon  <span class="dt">DECIMAL</span></span>
-<span id="cb46-57"><a href="#cb46-57"></a>);</span>
-<span id="cb46-58"><a href="#cb46-58"></a><span class="in">```</span></span>
-<span id="cb46-59"><a href="#cb46-59"></a></span>
-<span id="cb46-60"><a href="#cb46-60"></a>テーブルの削除例。</span>
-<span id="cb46-61"><a href="#cb46-61"></a></span>
-<span id="cb46-62"><a href="#cb46-62"></a><span class="in">```sql</span></span>
-<span id="cb46-63"><a href="#cb46-63"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> ⟨tablename⟩;</span>
-<span id="cb46-64"><a href="#cb46-64"></a><span class="in">```</span></span>
-<span id="cb46-65"><a href="#cb46-65"></a></span>
-<span id="cb46-66"><a href="#cb46-66"></a><span class="fu">## Populating a Table with Rows</span></span>
-<span id="cb46-67"><a href="#cb46-67"></a></span>
-<span id="cb46-68"><a href="#cb46-68"></a><span class="in">`INSERT`</span>は行単位でデータを追加するときに使われる。</span>
-<span id="cb46-69"><a href="#cb46-69"></a></span>
-<span id="cb46-70"><a href="#cb46-70"></a></span>
-<span id="cb46-71"><a href="#cb46-71"></a><span class="in">```sql</span></span>
-<span id="cb46-72"><a href="#cb46-72"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> weather</span>
-<span id="cb46-73"><a href="#cb46-73"></a><span class="kw">VALUES</span> (<span class="st">'San Francisco'</span>, <span class="dv">46</span>, <span class="dv">50</span>, <span class="fl">0.25</span>, <span class="st">'1994-11-27'</span>);</span>
-<span id="cb46-74"><a href="#cb46-74"></a><span class="in">```</span></span>
-<span id="cb46-75"><a href="#cb46-75"></a></span>
-<span id="cb46-76"><a href="#cb46-76"></a>数値でないときには**シングルクォーテションで値をかこむ**必要がある。</span>
-<span id="cb46-77"><a href="#cb46-77"></a></span>
-<span id="cb46-78"><a href="#cb46-78"></a><span class="in">```sql</span></span>
-<span id="cb46-79"><a href="#cb46-79"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> weather</span>
-<span id="cb46-80"><a href="#cb46-80"></a><span class="kw">VALUES</span> (<span class="st">'San Francisco'</span>, <span class="dv">46</span>, <span class="dv">50</span>, <span class="fl">0.25</span>, <span class="st">'1994-11-27'</span>);</span>
-<span id="cb46-81"><a href="#cb46-81"></a><span class="in">```</span></span>
-<span id="cb46-82"><a href="#cb46-82"></a></span>
-<span id="cb46-83"><a href="#cb46-83"></a>インサートするときにカラムの順序は異なっていても大丈夫である。</span>
-<span id="cb46-84"><a href="#cb46-84"></a></span>
-<span id="cb46-85"><a href="#cb46-85"></a></span>
-<span id="cb46-86"><a href="#cb46-86"></a><span class="in">```sql</span></span>
-<span id="cb46-87"><a href="#cb46-87"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> weather (<span class="dt">date</span>, city, temp_hi, temp_lo)</span>
-<span id="cb46-88"><a href="#cb46-88"></a><span class="kw">VALUES</span> (<span class="st">'1994-11-29'</span>, <span class="st">'Hayward'</span>, <span class="dv">54</span>, <span class="dv">37</span>);</span>
-<span id="cb46-89"><a href="#cb46-89"></a><span class="in">```</span></span>
-<span id="cb46-90"><a href="#cb46-90"></a></span>
-<span id="cb46-91"><a href="#cb46-91"></a><span class="at">&gt; Many developers consider explicitly listing the columns better style than relying on the order implicitly.</span></span>
-<span id="cb46-92"><a href="#cb46-92"></a></span>
-<span id="cb46-93"><a href="#cb46-93"></a>バルクロードするときには<span class="in">`COPY`</span>を使うことでより高速になる。</span>
-<span id="cb46-94"><a href="#cb46-94"></a></span>
-<span id="cb46-95"><a href="#cb46-95"></a><span class="in">```sql</span></span>
-<span id="cb46-96"><a href="#cb46-96"></a>COPY weather</span>
-<span id="cb46-97"><a href="#cb46-97"></a><span class="kw">FROM</span> <span class="st">'weather.csv'</span></span>
-<span id="cb46-98"><a href="#cb46-98"></a><span class="in">```</span></span>
-<span id="cb46-99"><a href="#cb46-99"></a></span>
-<span id="cb46-100"><a href="#cb46-100"></a><span class="fu">## Querying a Table</span></span>
-<span id="cb46-101"><a href="#cb46-101"></a></span>
-<span id="cb46-102"><a href="#cb46-102"></a></span>
-<span id="cb46-105"><a href="#cb46-105"></a><span class="in">```{sql}</span></span>
-<span id="cb46-106"><a href="#cb46-106"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-107"><a href="#cb46-107"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> weather <span class="kw">as</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_csv(<span class="st">'weather.csv'</span>)</span>
-<span id="cb46-108"><a href="#cb46-108"></a><span class="in">```</span></span>
-<span id="cb46-109"><a href="#cb46-109"></a></span>
-<span id="cb46-110"><a href="#cb46-110"></a></span>
-<span id="cb46-113"><a href="#cb46-113"></a><span class="in">```{sql}</span></span>
-<span id="cb46-114"><a href="#cb46-114"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-115"><a href="#cb46-115"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb46-116"><a href="#cb46-116"></a><span class="kw">FROM</span> weather;</span>
-<span id="cb46-117"><a href="#cb46-117"></a><span class="in">```</span></span>
-<span id="cb46-118"><a href="#cb46-118"></a></span>
-<span id="cb46-119"><a href="#cb46-119"></a></span>
-<span id="cb46-122"><a href="#cb46-122"></a><span class="in">```{sql}</span></span>
-<span id="cb46-123"><a href="#cb46-123"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-124"><a href="#cb46-124"></a><span class="kw">SELECT</span> city, (temp_hi <span class="op">+</span> temp_lo) <span class="op">/</span> <span class="dv">2</span> <span class="kw">AS</span> temp_avg, <span class="dt">date</span></span>
-<span id="cb46-125"><a href="#cb46-125"></a><span class="kw">FROM</span> weather;</span>
-<span id="cb46-126"><a href="#cb46-126"></a><span class="in">```</span></span>
-<span id="cb46-127"><a href="#cb46-127"></a></span>
-<span id="cb46-128"><a href="#cb46-128"></a></span>
-<span id="cb46-129"><a href="#cb46-129"></a></span>
-<span id="cb46-132"><a href="#cb46-132"></a><span class="in">```{sql}</span></span>
-<span id="cb46-133"><a href="#cb46-133"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-134"><a href="#cb46-134"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb46-135"><a href="#cb46-135"></a><span class="kw">FROM</span> weather</span>
-<span id="cb46-136"><a href="#cb46-136"></a><span class="kw">WHERE</span> city <span class="op">=</span> <span class="st">'San Francisco'</span> <span class="kw">AND</span> prcp <span class="op">&gt;</span> <span class="fl">0.0</span>;</span>
-<span id="cb46-137"><a href="#cb46-137"></a><span class="in">```</span></span>
-<span id="cb46-138"><a href="#cb46-138"></a></span>
-<span id="cb46-139"><a href="#cb46-139"></a></span>
-<span id="cb46-142"><a href="#cb46-142"></a><span class="in">```{sql}</span></span>
-<span id="cb46-143"><a href="#cb46-143"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-144"><a href="#cb46-144"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> city</span>
-<span id="cb46-145"><a href="#cb46-145"></a><span class="kw">FROM</span> weather;</span>
-<span id="cb46-146"><a href="#cb46-146"></a><span class="in">```</span></span>
-<span id="cb46-147"><a href="#cb46-147"></a></span>
-<span id="cb46-148"><a href="#cb46-148"></a></span>
-<span id="cb46-149"><a href="#cb46-149"></a></span>
-<span id="cb46-152"><a href="#cb46-152"></a><span class="in">```{sql}</span></span>
-<span id="cb46-153"><a href="#cb46-153"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-154"><a href="#cb46-154"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> city</span>
-<span id="cb46-155"><a href="#cb46-155"></a><span class="kw">FROM</span> weather</span>
-<span id="cb46-156"><a href="#cb46-156"></a><span class="kw">ORDER</span> <span class="kw">BY</span> city;</span>
-<span id="cb46-157"><a href="#cb46-157"></a><span class="in">```</span></span>
-<span id="cb46-158"><a href="#cb46-158"></a></span>
-<span id="cb46-159"><a href="#cb46-159"></a><span class="fu">## Joins between Tables</span></span>
-<span id="cb46-160"><a href="#cb46-160"></a></span>
-<span id="cb46-161"><a href="#cb46-161"></a></span>
-<span id="cb46-164"><a href="#cb46-164"></a><span class="in">```{sql}</span></span>
-<span id="cb46-165"><a href="#cb46-165"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-166"><a href="#cb46-166"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> cities <span class="kw">as</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_csv(<span class="st">'city.csv'</span>)</span>
-<span id="cb46-167"><a href="#cb46-167"></a><span class="in">```</span></span>
-<span id="cb46-168"><a href="#cb46-168"></a></span>
-<span id="cb46-169"><a href="#cb46-169"></a></span>
-<span id="cb46-170"><a href="#cb46-170"></a>２つのテーブルを組合せる方法として、用意したすべての組合せを考えた上でフィルターをかける方法がある。</span>
-<span id="cb46-171"><a href="#cb46-171"></a></span>
-<span id="cb46-174"><a href="#cb46-174"></a><span class="in">```{sql}</span></span>
-<span id="cb46-175"><a href="#cb46-175"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-176"><a href="#cb46-176"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb46-177"><a href="#cb46-177"></a><span class="kw">FROM</span> weather, cities</span>
-<span id="cb46-178"><a href="#cb46-178"></a><span class="in">```</span></span>
-<span id="cb46-179"><a href="#cb46-179"></a></span>
-<span id="cb46-182"><a href="#cb46-182"></a><span class="in">```{sql}</span></span>
-<span id="cb46-183"><a href="#cb46-183"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-184"><a href="#cb46-184"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb46-185"><a href="#cb46-185"></a><span class="kw">FROM</span> weather, cities</span>
-<span id="cb46-186"><a href="#cb46-186"></a><span class="kw">WHERE</span> city <span class="op">=</span> name;</span>
-<span id="cb46-187"><a href="#cb46-187"></a><span class="in">```</span></span>
-<span id="cb46-188"><a href="#cb46-188"></a></span>
-<span id="cb46-189"><a href="#cb46-189"></a>もしカラム名が被るときには次のようにテーブル名をつける。</span>
-<span id="cb46-190"><a href="#cb46-190"></a>見てわかるようにテーブル名にエイリアスを使うことが可能である。</span>
-<span id="cb46-191"><a href="#cb46-191"></a></span>
-<span id="cb46-194"><a href="#cb46-194"></a><span class="in">```{sql}</span></span>
-<span id="cb46-195"><a href="#cb46-195"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-196"><a href="#cb46-196"></a><span class="kw">SELECT</span> t<span class="ch">.</span>city, t<span class="ch">.</span>temp_lo, t<span class="ch">.</span>temp_hi, t<span class="ch">.</span>prcp, t<span class="ch">.</span><span class="dt">date</span>, cities<span class="ch">.</span>lon, cities<span class="ch">.</span>lat</span>
-<span id="cb46-197"><a href="#cb46-197"></a><span class="kw">FROM</span> weather t, cities</span>
-<span id="cb46-198"><a href="#cb46-198"></a><span class="kw">WHERE</span> cities<span class="ch">.</span>name <span class="op">=</span> t<span class="ch">.</span>city;</span>
-<span id="cb46-199"><a href="#cb46-199"></a><span class="in">```</span></span>
-<span id="cb46-200"><a href="#cb46-200"></a></span>
-<span id="cb46-201"><a href="#cb46-201"></a>左外部結合を考える。</span>
-<span id="cb46-202"><a href="#cb46-202"></a></span>
-<span id="cb46-205"><a href="#cb46-205"></a><span class="in">```{sql}</span></span>
-<span id="cb46-206"><a href="#cb46-206"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-207"><a href="#cb46-207"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb46-208"><a href="#cb46-208"></a><span class="kw">FROM</span> weather</span>
-<span id="cb46-209"><a href="#cb46-209"></a><span class="kw">LEFT</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> cities <span class="kw">ON</span> weather<span class="ch">.</span>city <span class="op">=</span> cities<span class="ch">.</span>name;</span>
-<span id="cb46-210"><a href="#cb46-210"></a><span class="in">```</span></span>
-<span id="cb46-211"><a href="#cb46-211"></a></span>
-<span id="cb46-212"><a href="#cb46-212"></a><span class="fu">## Aggregate Functions</span></span>
-<span id="cb46-213"><a href="#cb46-213"></a></span>
-<span id="cb46-214"><a href="#cb46-214"></a><span class="ss">- </span>count, sum, avg, max, min</span>
-<span id="cb46-215"><a href="#cb46-215"></a></span>
-<span id="cb46-216"><a href="#cb46-216"></a></span>
-<span id="cb46-219"><a href="#cb46-219"></a><span class="in">```{sql}</span></span>
-<span id="cb46-220"><a href="#cb46-220"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-221"><a href="#cb46-221"></a><span class="kw">SELECT</span> <span class="fu">max</span>(temp_lo)</span>
-<span id="cb46-222"><a href="#cb46-222"></a><span class="kw">FROM</span> weather;</span>
-<span id="cb46-223"><a href="#cb46-223"></a><span class="in">```</span></span>
-<span id="cb46-224"><a href="#cb46-224"></a></span>
-<span id="cb46-225"><a href="#cb46-225"></a>集約関数は次のようにWHERE句で使えない。</span>
-<span id="cb46-226"><a href="#cb46-226"></a>これは集約計算の対象がWHEREで絞った結果であるため。</span>
-<span id="cb46-227"><a href="#cb46-227"></a></span>
-<span id="cb46-228"><a href="#cb46-228"></a><span class="in">```sql</span></span>
-<span id="cb46-229"><a href="#cb46-229"></a><span class="co">-- これはエラーになる</span></span>
-<span id="cb46-230"><a href="#cb46-230"></a><span class="kw">SELECT</span> city</span>
-<span id="cb46-231"><a href="#cb46-231"></a><span class="kw">FROM</span> weather</span>
-<span id="cb46-232"><a href="#cb46-232"></a><span class="kw">WHERE</span> temp_lo <span class="op">=</span> <span class="fu">max</span>(temp_lo);     <span class="co">-- WRONG</span></span>
-<span id="cb46-233"><a href="#cb46-233"></a><span class="in">```</span></span>
-<span id="cb46-234"><a href="#cb46-234"></a></span>
-<span id="cb46-235"><a href="#cb46-235"></a>WHERE句で使うにはスカラー値をクエリする必要がある。サブクエリにすることで独立したクエリとして計算が行える。。</span>
-<span id="cb46-236"><a href="#cb46-236"></a></span>
-<span id="cb46-237"><a href="#cb46-237"></a></span>
-<span id="cb46-240"><a href="#cb46-240"></a><span class="in">```{sql}</span></span>
-<span id="cb46-241"><a href="#cb46-241"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-242"><a href="#cb46-242"></a><span class="kw">SELECT</span> city</span>
-<span id="cb46-243"><a href="#cb46-243"></a><span class="kw">FROM</span> weather</span>
-<span id="cb46-244"><a href="#cb46-244"></a><span class="kw">WHERE</span> temp_lo <span class="op">=</span> (<span class="kw">SELECT</span> <span class="fu">max</span>(temp_lo) <span class="kw">FROM</span> weather);</span>
-<span id="cb46-245"><a href="#cb46-245"></a><span class="in">```</span></span>
-<span id="cb46-246"><a href="#cb46-246"></a></span>
-<span id="cb46-247"><a href="#cb46-247"></a></span>
-<span id="cb46-250"><a href="#cb46-250"></a><span class="in">```{sql}</span></span>
-<span id="cb46-251"><a href="#cb46-251"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-252"><a href="#cb46-252"></a><span class="kw">SELECT</span> city, <span class="fu">max</span>(temp_lo)</span>
-<span id="cb46-253"><a href="#cb46-253"></a><span class="kw">FROM</span> weather</span>
-<span id="cb46-254"><a href="#cb46-254"></a><span class="kw">GROUP</span> <span class="kw">BY</span> city;</span>
-<span id="cb46-255"><a href="#cb46-255"></a><span class="in">```</span></span>
-<span id="cb46-256"><a href="#cb46-256"></a></span>
-<span id="cb46-257"><a href="#cb46-257"></a></span>
-<span id="cb46-258"><a href="#cb46-258"></a>計算結果に対してフィルターすることが可能である。</span>
-<span id="cb46-259"><a href="#cb46-259"></a></span>
-<span id="cb46-260"><a href="#cb46-260"></a></span>
-<span id="cb46-263"><a href="#cb46-263"></a><span class="in">```{sql}</span></span>
-<span id="cb46-264"><a href="#cb46-264"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-265"><a href="#cb46-265"></a><span class="kw">SELECT</span> city, <span class="fu">max</span>(temp_lo) <span class="kw">as</span> A</span>
-<span id="cb46-266"><a href="#cb46-266"></a><span class="kw">FROM</span> weather</span>
-<span id="cb46-267"><a href="#cb46-267"></a><span class="kw">GROUP</span> <span class="kw">BY</span> city</span>
-<span id="cb46-268"><a href="#cb46-268"></a><span class="kw">HAVING</span> A <span class="op">&lt;</span> <span class="dv">40</span>;</span>
-<span id="cb46-269"><a href="#cb46-269"></a><span class="in">```</span></span>
-<span id="cb46-270"><a href="#cb46-270"></a></span>
-<span id="cb46-273"><a href="#cb46-273"></a><span class="in">```{sql}</span></span>
-<span id="cb46-274"><a href="#cb46-274"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-275"><a href="#cb46-275"></a><span class="kw">SELECT</span> city, <span class="fu">max</span>(temp_lo)</span>
-<span id="cb46-276"><a href="#cb46-276"></a><span class="kw">FROM</span> weather</span>
-<span id="cb46-277"><a href="#cb46-277"></a><span class="kw">WHERE</span> city <span class="kw">LIKE</span> <span class="st">'S%'</span>            <span class="co">-- (1)</span></span>
-<span id="cb46-278"><a href="#cb46-278"></a><span class="kw">GROUP</span> <span class="kw">BY</span> city</span>
-<span id="cb46-279"><a href="#cb46-279"></a><span class="kw">HAVING</span> <span class="fu">max</span>(temp_lo) <span class="op">&lt;</span> <span class="dv">40</span>;</span>
-<span id="cb46-280"><a href="#cb46-280"></a><span class="in">```</span></span>
-<span id="cb46-281"><a href="#cb46-281"></a></span>
-<span id="cb46-282"><a href="#cb46-282"></a><span class="in">`HAVING`</span>は常に集約値を使うことに注意する。</span>
-<span id="cb46-283"><a href="#cb46-283"></a></span>
-<span id="cb46-284"><a href="#cb46-284"></a></span>
-<span id="cb46-285"><a href="#cb46-285"></a><span class="fu">## Updates</span></span>
-<span id="cb46-286"><a href="#cb46-286"></a></span>
-<span id="cb46-287"><a href="#cb46-287"></a><span class="in">`UPDATE`</span>コマンドを使うことで、既存の行を更新することができる。</span>
-<span id="cb46-288"><a href="#cb46-288"></a></span>
-<span id="cb46-291"><a href="#cb46-291"></a><span class="in">```{sql}</span></span>
-<span id="cb46-292"><a href="#cb46-292"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-293"><a href="#cb46-293"></a><span class="kw">UPDATE</span> weather</span>
-<span id="cb46-294"><a href="#cb46-294"></a><span class="kw">SET</span> temp_hi <span class="op">=</span> temp_hi <span class="op">-</span> <span class="dv">2</span>,  temp_lo <span class="op">=</span> temp_lo <span class="op">-</span> <span class="dv">2</span></span>
-<span id="cb46-295"><a href="#cb46-295"></a><span class="kw">WHERE</span> <span class="dt">date</span> <span class="op">&gt;</span> <span class="st">'1994-11-28'</span>;</span>
-<span id="cb46-296"><a href="#cb46-296"></a><span class="in">```</span></span>
-<span id="cb46-297"><a href="#cb46-297"></a></span>
-<span id="cb46-298"><a href="#cb46-298"></a></span>
-<span id="cb46-301"><a href="#cb46-301"></a><span class="in">```{sql}</span></span>
-<span id="cb46-302"><a href="#cb46-302"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-303"><a href="#cb46-303"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb46-304"><a href="#cb46-304"></a><span class="kw">FROM</span> weather;</span>
-<span id="cb46-305"><a href="#cb46-305"></a><span class="in">```</span></span>
-<span id="cb46-306"><a href="#cb46-306"></a></span>
-<span id="cb46-307"><a href="#cb46-307"></a><span class="fu">## Deletions</span></span>
-<span id="cb46-308"><a href="#cb46-308"></a></span>
-<span id="cb46-311"><a href="#cb46-311"></a><span class="in">```{sql}</span></span>
-<span id="cb46-312"><a href="#cb46-312"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-313"><a href="#cb46-313"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> weather</span>
-<span id="cb46-314"><a href="#cb46-314"></a><span class="kw">WHERE</span> city <span class="op">=</span> <span class="st">'Hayward'</span>;</span>
-<span id="cb46-315"><a href="#cb46-315"></a><span class="in">```</span></span>
-<span id="cb46-316"><a href="#cb46-316"></a></span>
-<span id="cb46-319"><a href="#cb46-319"></a><span class="in">```{sql}</span></span>
-<span id="cb46-320"><a href="#cb46-320"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-321"><a href="#cb46-321"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb46-322"><a href="#cb46-322"></a><span class="kw">FROM</span> weather;</span>
-<span id="cb46-323"><a href="#cb46-323"></a><span class="in">```</span></span>
-<span id="cb46-324"><a href="#cb46-324"></a></span>
-<span id="cb46-325"><a href="#cb46-325"></a><span class="fu"># Widnow Functions</span></span>
-<span id="cb46-326"><a href="#cb46-326"></a></span>
-<span id="cb46-327"><a href="#cb46-327"></a>いわゆるWindow関数が使える</span>
-<span id="cb46-328"><a href="#cb46-328"></a></span>
-<span id="cb46-329"><a href="#cb46-329"></a></span>
-<span id="cb46-330"><a href="#cb46-330"></a></span>
-<span id="cb46-331"><a href="#cb46-331"></a></span>
-<span id="cb46-332"><a href="#cb46-332"></a><span class="in">```sql</span></span>
-<span id="cb46-333"><a href="#cb46-333"></a><span class="co">-- generate a "row_number" column with containing incremental identifiers for each row</span></span>
-<span id="cb46-334"><a href="#cb46-334"></a><span class="kw">SELECT</span> row_number() OVER () <span class="kw">FROM</span> sales;</span>
-<span id="cb46-335"><a href="#cb46-335"></a><span class="co">-- generate a "row_number" column, by order of time</span></span>
-<span id="cb46-336"><a href="#cb46-336"></a><span class="kw">SELECT</span> row_number() OVER (<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
-<span id="cb46-337"><a href="#cb46-337"></a><span class="co">-- generate a "row_number" column, by order of time partitioned by region</span></span>
-<span id="cb46-338"><a href="#cb46-338"></a><span class="kw">SELECT</span> row_number() OVER (PARTITION <span class="kw">BY</span> region <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
-<span id="cb46-339"><a href="#cb46-339"></a><span class="co">-- compute the difference between the current amount, and the previous amount,</span></span>
-<span id="cb46-340"><a href="#cb46-340"></a><span class="co">-- by order of time</span></span>
-<span id="cb46-341"><a href="#cb46-341"></a><span class="kw">SELECT</span> amount <span class="op">-</span> lag(amount) OVER (<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
-<span id="cb46-342"><a href="#cb46-342"></a><span class="co">-- compute the percentage of the total amount of sales per region for each row</span></span>
-<span id="cb46-343"><a href="#cb46-343"></a><span class="kw">SELECT</span> amount <span class="op">/</span> <span class="fu">sum</span>(amount) OVER (PARTITION <span class="kw">BY</span> region) <span class="kw">FROM</span> sales;</span>
-<span id="cb46-344"><a href="#cb46-344"></a></span>
-<span id="cb46-345"><a href="#cb46-345"></a><span class="in">```</span></span>
-<span id="cb46-346"><a href="#cb46-346"></a></span>
-<span id="cb46-349"><a href="#cb46-349"></a><span class="in">```{sql}</span></span>
-<span id="cb46-350"><a href="#cb46-350"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-351"><a href="#cb46-351"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> penguins <span class="kw">AS</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_parquet(<span class="st">'penguins.parquet'</span>)</span>
-<span id="cb46-352"><a href="#cb46-352"></a><span class="in">```</span></span>
-<span id="cb46-353"><a href="#cb46-353"></a></span>
-<span id="cb46-354"><a href="#cb46-354"></a></span>
-<span id="cb46-357"><a href="#cb46-357"></a><span class="in">```{sql}</span></span>
-<span id="cb46-358"><a href="#cb46-358"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-359"><a href="#cb46-359"></a><span class="kw">SELECT</span> row_number() OVER () <span class="kw">as</span> row_number, <span class="op">*</span> <span class="kw">FROM</span> penguins;</span>
-<span id="cb46-360"><a href="#cb46-360"></a><span class="in">```</span></span>
-<span id="cb46-361"><a href="#cb46-361"></a></span>
-<span id="cb46-364"><a href="#cb46-364"></a><span class="in">```{sql}</span></span>
-<span id="cb46-365"><a href="#cb46-365"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-366"><a href="#cb46-366"></a><span class="kw">SELECT</span> row_number() OVER (<span class="kw">ORDER</span> <span class="kw">BY</span> bill_length_mm), bill_length_mm <span class="kw">FROM</span> penguins;</span>
-<span id="cb46-367"><a href="#cb46-367"></a><span class="in">```</span></span>
-<span id="cb46-368"><a href="#cb46-368"></a></span>
-<span id="cb46-371"><a href="#cb46-371"></a><span class="in">```{sql}</span></span>
-<span id="cb46-372"><a href="#cb46-372"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-373"><a href="#cb46-373"></a><span class="kw">SELECT</span> row_number() OVER (PARTITION <span class="kw">BY</span> species, island <span class="kw">ORDER</span> <span class="kw">BY</span> bill_length_mm), species, island, bill_length_mm <span class="kw">FROM</span> penguins;</span>
-<span id="cb46-374"><a href="#cb46-374"></a><span class="in">```</span></span>
-<span id="cb46-375"><a href="#cb46-375"></a></span>
-<span id="cb46-378"><a href="#cb46-378"></a><span class="in">```{sql}</span></span>
-<span id="cb46-379"><a href="#cb46-379"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-380"><a href="#cb46-380"></a><span class="kw">SELECT</span> bill_length_mm <span class="op">/</span> <span class="fu">AVG</span>(bill_length_mm) OVER(PARTITION <span class="kw">BY</span> species, island) A,  </span>
-<span id="cb46-381"><a href="#cb46-381"></a><span class="fu">AVG</span>(bill_length_mm) OVER(PARTITION <span class="kw">BY</span> species, island) B, </span>
-<span id="cb46-382"><a href="#cb46-382"></a>species, island, bill_length_mm</span>
-<span id="cb46-383"><a href="#cb46-383"></a><span class="kw">FROM</span> penguins;</span>
-<span id="cb46-384"><a href="#cb46-384"></a><span class="in">```</span></span>
-<span id="cb46-385"><a href="#cb46-385"></a></span>
-<span id="cb46-386"><a href="#cb46-386"></a><span class="fu">## General-Purpose Window Functions</span></span>
-<span id="cb46-387"><a href="#cb46-387"></a></span>
-<span id="cb46-388"><a href="#cb46-388"></a><span class="ss">- </span>cume_dist</span>
-<span id="cb46-389"><a href="#cb46-389"></a><span class="ss">- </span>dense_rank</span>
-<span id="cb46-390"><a href="#cb46-390"></a><span class="ss">- </span>first_value</span>
-<span id="cb46-391"><a href="#cb46-391"></a><span class="ss">- </span>first</span>
-<span id="cb46-392"><a href="#cb46-392"></a><span class="ss">- </span>lag</span>
-<span id="cb46-393"><a href="#cb46-393"></a><span class="ss">- </span>last_value</span>
-<span id="cb46-394"><a href="#cb46-394"></a><span class="ss">- </span>last</span>
-<span id="cb46-395"><a href="#cb46-395"></a><span class="ss">- </span>lead</span>
-<span id="cb46-396"><a href="#cb46-396"></a><span class="ss">- </span>nth_value</span>
-<span id="cb46-397"><a href="#cb46-397"></a><span class="ss">- </span>ntile：区分化</span>
-<span id="cb46-398"><a href="#cb46-398"></a><span class="ss">- </span>percent_rank</span>
-<span id="cb46-399"><a href="#cb46-399"></a><span class="ss">- </span>rank_dense</span>
-<span id="cb46-400"><a href="#cb46-400"></a><span class="ss">- </span>rank</span>
-<span id="cb46-401"><a href="#cb46-401"></a><span class="ss">- </span>row_number</span>
-<span id="cb46-402"><a href="#cb46-402"></a></span>
-<span id="cb46-403"><a href="#cb46-403"></a></span>
-<span id="cb46-404"><a href="#cb46-404"></a>タイル化でデータを分割してみる。</span>
-<span id="cb46-405"><a href="#cb46-405"></a></span>
-<span id="cb46-408"><a href="#cb46-408"></a><span class="in">```{sql}</span></span>
-<span id="cb46-409"><a href="#cb46-409"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-410"><a href="#cb46-410"></a><span class="kw">WITH</span> tiled <span class="kw">as</span> (</span>
-<span id="cb46-411"><a href="#cb46-411"></a>  <span class="kw">SELECT</span> ntile(<span class="dv">10</span>) OVER() T, <span class="op">*</span></span>
-<span id="cb46-412"><a href="#cb46-412"></a>  <span class="kw">FROM</span> penguins</span>
-<span id="cb46-413"><a href="#cb46-413"></a>)</span>
-<span id="cb46-414"><a href="#cb46-414"></a><span class="kw">SELECT</span> T, <span class="fu">COUNT</span>(<span class="op">*</span>)</span>
-<span id="cb46-415"><a href="#cb46-415"></a><span class="kw">FROM</span> tiled</span>
-<span id="cb46-416"><a href="#cb46-416"></a><span class="kw">GROUP</span> <span class="kw">BY</span> T</span>
-<span id="cb46-417"><a href="#cb46-417"></a><span class="kw">ORDER</span> <span class="kw">BY</span> T</span>
-<span id="cb46-418"><a href="#cb46-418"></a><span class="in">```</span></span>
-<span id="cb46-419"><a href="#cb46-419"></a></span>
-<span id="cb46-420"><a href="#cb46-420"></a><span class="fu">## Ignoring NULLs</span></span>
-<span id="cb46-421"><a href="#cb46-421"></a></span>
-<span id="cb46-422"><a href="#cb46-422"></a>下記の関数はNULLを無視することができる。</span>
-<span id="cb46-423"><a href="#cb46-423"></a></span>
-<span id="cb46-424"><a href="#cb46-424"></a><span class="ss">1. </span>lag</span>
-<span id="cb46-425"><a href="#cb46-425"></a><span class="ss">2. </span>lead</span>
-<span id="cb46-426"><a href="#cb46-426"></a><span class="ss">3. </span>first_value</span>
-<span id="cb46-427"><a href="#cb46-427"></a><span class="ss">4. </span>last_value</span>
-<span id="cb46-428"><a href="#cb46-428"></a><span class="ss">5. </span>nth_value</span>
-<span id="cb46-429"><a href="#cb46-429"></a></span>
-<span id="cb46-430"><a href="#cb46-430"></a><span class="in">`lag(column, 3 IGNORE NULLS)`</span>となる。</span>
-<span id="cb46-431"><a href="#cb46-431"></a></span>
-<span id="cb46-432"><a href="#cb46-432"></a></span>
-<span id="cb46-433"><a href="#cb46-433"></a><span class="fu">## Evaluation</span></span>
-<span id="cb46-434"><a href="#cb46-434"></a></span>
-<span id="cb46-435"><a href="#cb46-435"></a><span class="fu">### Partition and Ordering</span></span>
-<span id="cb46-436"><a href="#cb46-436"></a></span>
-<span id="cb46-439"><a href="#cb46-439"></a><span class="in">```{sql}</span></span>
-<span id="cb46-440"><a href="#cb46-440"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-441"><a href="#cb46-441"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> <span class="st">"Generation History"</span> <span class="kw">AS</span></span>
-<span id="cb46-442"><a href="#cb46-442"></a>  <span class="kw">FROM</span> <span class="st">'data/csv/power-plant-generation-history.csv'</span>;</span>
-<span id="cb46-443"><a href="#cb46-443"></a><span class="in">```</span></span>
-<span id="cb46-444"><a href="#cb46-444"></a></span>
-<span id="cb46-447"><a href="#cb46-447"></a><span class="in">```{sql}</span></span>
-<span id="cb46-448"><a href="#cb46-448"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-449"><a href="#cb46-449"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">"Generation History"</span> <span class="kw">LIMIT</span> <span class="dv">5</span>;</span>
-<span id="cb46-450"><a href="#cb46-450"></a><span class="in">```</span></span>
-<span id="cb46-451"><a href="#cb46-451"></a></span>
-<span id="cb46-452"><a href="#cb46-452"></a>まずは<span class="in">`row_number`</span>の挙動をみる。</span>
-<span id="cb46-453"><a href="#cb46-453"></a></span>
-<span id="cb46-456"><a href="#cb46-456"></a><span class="in">```{sql}</span></span>
-<span id="cb46-457"><a href="#cb46-457"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-458"><a href="#cb46-458"></a><span class="kw">SELECT</span></span>
-<span id="cb46-459"><a href="#cb46-459"></a>    <span class="st">"Plant"</span>,</span>
-<span id="cb46-460"><a href="#cb46-460"></a>    <span class="st">"Date"</span>,</span>
-<span id="cb46-461"><a href="#cb46-461"></a>    row_number() OVER (PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span> <span class="kw">ORDER</span>  <span class="kw">BY</span> <span class="st">"Date"</span>) <span class="kw">AS</span> <span class="st">"Row"</span></span>
-<span id="cb46-462"><a href="#cb46-462"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
-<span id="cb46-463"><a href="#cb46-463"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
-<span id="cb46-464"><a href="#cb46-464"></a><span class="in">```</span></span>
-<span id="cb46-465"><a href="#cb46-465"></a></span>
-<span id="cb46-466"><a href="#cb46-466"></a><span class="fu">### Framing</span></span>
-<span id="cb46-467"><a href="#cb46-467"></a></span>
-<span id="cb46-468"><a href="#cb46-468"></a><span class="in">`PRECEDING`</span>や<span class="in">`FOLLOWING`</span>を使うことで、相対的な位置関係を使うことが可能である。</span>
-<span id="cb46-469"><a href="#cb46-469"></a>この距離はROWSの整数としても指定することができる。</span>
-<span id="cb46-470"><a href="#cb46-470"></a>フレームのデフォルト値は<span class="in">`UNBOUNDED PRECEDING`</span>から<span class="in">`CURRENT ROW`</span>である。</span>
-<span id="cb46-471"><a href="#cb46-471"></a><span class="in">`EXCLUDE`</span>句は使用するうと現在の行の周りの行をフレームから除外することができる。</span>
-<span id="cb46-472"><a href="#cb46-472"></a></span>
-<span id="cb46-473"><a href="#cb46-473"></a><span class="al">![](./images/framing-row.png)</span></span>
-<span id="cb46-474"><a href="#cb46-474"></a></span>
-<span id="cb46-475"><a href="#cb46-475"></a><span class="in">`RANGE`</span>フレーミングを行う。</span>
-<span id="cb46-476"><a href="#cb46-476"></a></span>
-<span id="cb46-479"><a href="#cb46-479"></a><span class="in">```{sql}</span></span>
-<span id="cb46-480"><a href="#cb46-480"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-481"><a href="#cb46-481"></a><span class="kw">SELECT</span> <span class="st">"Plant"</span>, <span class="st">"Date"</span>,</span>
-<span id="cb46-482"><a href="#cb46-482"></a>    <span class="fu">avg</span>(<span class="st">"MWh"</span>) OVER (</span>
-<span id="cb46-483"><a href="#cb46-483"></a>        PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
-<span id="cb46-484"><a href="#cb46-484"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb46-485"><a href="#cb46-485"></a>        RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
-<span id="cb46-486"><a href="#cb46-486"></a>                  <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING)</span>
-<span id="cb46-487"><a href="#cb46-487"></a>        <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Average"</span></span>
-<span id="cb46-488"><a href="#cb46-488"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
-<span id="cb46-489"><a href="#cb46-489"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
-<span id="cb46-490"><a href="#cb46-490"></a><span class="in">```</span></span>
-<span id="cb46-491"><a href="#cb46-491"></a></span>
-<span id="cb46-492"><a href="#cb46-492"></a>範囲がないときにNULLになるようにする。</span>
-<span id="cb46-493"><a href="#cb46-493"></a></span>
-<span id="cb46-496"><a href="#cb46-496"></a><span class="in">```{sql}</span></span>
-<span id="cb46-497"><a href="#cb46-497"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-498"><a href="#cb46-498"></a><span class="kw">SELECT</span> <span class="st">"Plant"</span>, <span class="st">"Date"</span>,</span>
-<span id="cb46-499"><a href="#cb46-499"></a>    <span class="cf">CASE</span></span>
-<span id="cb46-500"><a href="#cb46-500"></a>        <span class="cf">WHEN</span> <span class="fu">COUNT</span>(<span class="st">"MWh"</span>) OVER (</span>
-<span id="cb46-501"><a href="#cb46-501"></a>            PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
-<span id="cb46-502"><a href="#cb46-502"></a>            <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb46-503"><a href="#cb46-503"></a>            RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
-<span id="cb46-504"><a href="#cb46-504"></a>                      <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING</span>
-<span id="cb46-505"><a href="#cb46-505"></a>        ) <span class="op">&gt;=</span> <span class="dv">7</span> <span class="cf">THEN</span></span>
-<span id="cb46-506"><a href="#cb46-506"></a>            <span class="fu">avg</span>(<span class="st">"MWh"</span>) OVER (</span>
-<span id="cb46-507"><a href="#cb46-507"></a>                PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
-<span id="cb46-508"><a href="#cb46-508"></a>                <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb46-509"><a href="#cb46-509"></a>                RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
-<span id="cb46-510"><a href="#cb46-510"></a>                          <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING</span>
-<span id="cb46-511"><a href="#cb46-511"></a>            )</span>
-<span id="cb46-512"><a href="#cb46-512"></a>        <span class="cf">ELSE</span></span>
-<span id="cb46-513"><a href="#cb46-513"></a>            <span class="kw">NULL</span></span>
-<span id="cb46-514"><a href="#cb46-514"></a>    <span class="cf">END</span> <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Average"</span></span>
-<span id="cb46-515"><a href="#cb46-515"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
-<span id="cb46-516"><a href="#cb46-516"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
-<span id="cb46-517"><a href="#cb46-517"></a></span>
-<span id="cb46-518"><a href="#cb46-518"></a><span class="in">```</span></span>
-<span id="cb46-519"><a href="#cb46-519"></a></span>
-<span id="cb46-520"><a href="#cb46-520"></a><span class="fu">### WINDOW Clauses</span></span>
-<span id="cb46-521"><a href="#cb46-521"></a></span>
-<span id="cb46-522"><a href="#cb46-522"></a>WINDOWを選言することでマクロのような使い方ができる。</span>
-<span id="cb46-523"><a href="#cb46-523"></a></span>
-<span id="cb46-526"><a href="#cb46-526"></a><span class="in">```{sql}</span></span>
-<span id="cb46-527"><a href="#cb46-527"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-528"><a href="#cb46-528"></a><span class="kw">SELECT</span> <span class="st">"Plant"</span>, <span class="st">"Date"</span>,</span>
-<span id="cb46-529"><a href="#cb46-529"></a>    <span class="fu">min</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Minimum"</span>,</span>
-<span id="cb46-530"><a href="#cb46-530"></a>    <span class="fu">avg</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Average"</span>,</span>
-<span id="cb46-531"><a href="#cb46-531"></a>    <span class="fu">max</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Maximum"</span>,</span>
-<span id="cb46-532"><a href="#cb46-532"></a>    <span class="fu">min</span>(<span class="st">"MWh"</span>) OVER three <span class="kw">AS</span> <span class="st">"MWh 3-day Moving Minimum"</span>,</span>
-<span id="cb46-533"><a href="#cb46-533"></a>    <span class="fu">avg</span>(<span class="st">"MWh"</span>) OVER three <span class="kw">AS</span> <span class="st">"MWh 3-day Moving Average"</span>,</span>
-<span id="cb46-534"><a href="#cb46-534"></a>    <span class="fu">max</span>(<span class="st">"MWh"</span>) OVER three <span class="kw">AS</span> <span class="st">"MWh 3-day Moving Maximum"</span></span>
-<span id="cb46-535"><a href="#cb46-535"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
-<span id="cb46-536"><a href="#cb46-536"></a>WINDOW</span>
-<span id="cb46-537"><a href="#cb46-537"></a>    seven <span class="kw">AS</span> (</span>
-<span id="cb46-538"><a href="#cb46-538"></a>        PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
-<span id="cb46-539"><a href="#cb46-539"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb46-540"><a href="#cb46-540"></a>        RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
-<span id="cb46-541"><a href="#cb46-541"></a>                  <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING),</span>
-<span id="cb46-542"><a href="#cb46-542"></a>    three <span class="kw">AS</span> (</span>
-<span id="cb46-543"><a href="#cb46-543"></a>        PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
-<span id="cb46-544"><a href="#cb46-544"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb46-545"><a href="#cb46-545"></a>        RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">1</span> DAYS PRECEDING</span>
-<span id="cb46-546"><a href="#cb46-546"></a>        <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">1</span> DAYS FOLLOWING)</span>
-<span id="cb46-547"><a href="#cb46-547"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
-<span id="cb46-548"><a href="#cb46-548"></a><span class="in">```</span></span>
-<span id="cb46-549"><a href="#cb46-549"></a></span>
-<span id="cb46-550"><a href="#cb46-550"></a><span class="fu">### Filtering the Results of Window Functions Using QUALIFY</span></span>
-<span id="cb46-551"><a href="#cb46-551"></a></span>
-<span id="cb46-552"><a href="#cb46-552"></a></span>
-<span id="cb46-555"><a href="#cb46-555"></a><span class="in">```{sql}</span></span>
-<span id="cb46-556"><a href="#cb46-556"></a><span class="co">#| connection: con</span></span>
-<span id="cb46-557"><a href="#cb46-557"></a><span class="kw">SELECT</span> <span class="st">"Plant"</span>, <span class="st">"Date"</span>,</span>
-<span id="cb46-558"><a href="#cb46-558"></a>    <span class="fu">min</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Minimum"</span>,</span>
-<span id="cb46-559"><a href="#cb46-559"></a>    quantile_cont(<span class="st">"MWh"</span>, [<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>]) OVER seven</span>
-<span id="cb46-560"><a href="#cb46-560"></a>        <span class="kw">AS</span> <span class="st">"MWh 7-day Moving IQR"</span>,</span>
-<span id="cb46-561"><a href="#cb46-561"></a>    <span class="fu">max</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Maximum"</span>,</span>
-<span id="cb46-562"><a href="#cb46-562"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
-<span id="cb46-563"><a href="#cb46-563"></a>WINDOW seven <span class="kw">AS</span> (</span>
-<span id="cb46-564"><a href="#cb46-564"></a>    PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
-<span id="cb46-565"><a href="#cb46-565"></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
-<span id="cb46-566"><a href="#cb46-566"></a>    RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
-<span id="cb46-567"><a href="#cb46-567"></a>              <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING)</span>
-<span id="cb46-568"><a href="#cb46-568"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
-<span id="cb46-569"><a href="#cb46-569"></a><span class="in">```</span></span>
-<span id="cb46-570"><a href="#cb46-570"></a></span>
-<span id="cb46-571"><a href="#cb46-571"></a></span>
-<span id="cb46-572"><a href="#cb46-572"></a></span>
-<span id="cb46-573"><a href="#cb46-573"></a></span>
-<span id="cb46-574"><a href="#cb46-574"></a></span>
-<span id="cb46-575"><a href="#cb46-575"></a><span class="fu"># Disconnect</span></span>
-<span id="cb46-576"><a href="#cb46-576"></a></span>
-<span id="cb46-579"><a href="#cb46-579"></a><span class="in">```{r}</span></span>
-<span id="cb46-580"><a href="#cb46-580"></a><span class="fu">dbDisconnect</span>(con)</span>
-<span id="cb46-581"><a href="#cb46-581"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb47" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1"></a><span class="co">---</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="an">title:</span><span class="co"> "SQL"</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb47-4"><a href="#cb47-4"></a><span class="co">  cache: true</span></span>
+<span id="cb47-5"><a href="#cb47-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb47-6"><a href="#cb47-6"></a><span class="an">filters:</span></span>
+<span id="cb47-7"><a href="#cb47-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb47-8"><a href="#cb47-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb47-9"><a href="#cb47-9"></a><span class="co">---</span></span>
+<span id="cb47-10"><a href="#cb47-10"></a></span>
+<span id="cb47-11"><a href="#cb47-11"></a></span>
+<span id="cb47-14"><a href="#cb47-14"></a><span class="in">```{r}</span></span>
+<span id="cb47-15"><a href="#cb47-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb47-16"><a href="#cb47-16"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/documentation"</span>)</span>
+<span id="cb47-17"><a href="#cb47-17"></a><span class="in">```</span></span>
+<span id="cb47-18"><a href="#cb47-18"></a></span>
+<span id="cb47-19"><a href="#cb47-19"></a></span>
+<span id="cb47-22"><a href="#cb47-22"></a><span class="in">```{r}</span></span>
+<span id="cb47-23"><a href="#cb47-23"></a><span class="co">#| warning: false</span></span>
+<span id="cb47-24"><a href="#cb47-24"></a><span class="co">#| message: false</span></span>
+<span id="cb47-25"><a href="#cb47-25"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb47-26"><a href="#cb47-26"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb47-27"><a href="#cb47-27"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb47-28"><a href="#cb47-28"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb47-29"><a href="#cb47-29"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb47-30"><a href="#cb47-30"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb47-31"><a href="#cb47-31"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb47-32"><a href="#cb47-32"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb47-33"><a href="#cb47-33"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb47-34"><a href="#cb47-34"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb47-35"><a href="#cb47-35"></a><span class="in">```</span></span>
+<span id="cb47-36"><a href="#cb47-36"></a></span>
+<span id="cb47-37"><a href="#cb47-37"></a></span>
+<span id="cb47-38"><a href="#cb47-38"></a>ポスグレのチュートリアルを参考としたSQLのチュートリアルである。</span>
+<span id="cb47-39"><a href="#cb47-39"></a></span>
+<span id="cb47-40"><a href="#cb47-40"></a><span class="fu"># Setup </span></span>
+<span id="cb47-41"><a href="#cb47-41"></a></span>
+<span id="cb47-44"><a href="#cb47-44"></a><span class="in">```{r}</span></span>
+<span id="cb47-45"><a href="#cb47-45"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>())</span>
+<span id="cb47-46"><a href="#cb47-46"></a><span class="in">```</span></span>
+<span id="cb47-47"><a href="#cb47-47"></a></span>
+<span id="cb47-48"><a href="#cb47-48"></a><span class="fu"># Introduction</span></span>
+<span id="cb47-49"><a href="#cb47-49"></a></span>
+<span id="cb47-50"><a href="#cb47-50"></a>テーブルの作成例。</span>
+<span id="cb47-51"><a href="#cb47-51"></a></span>
+<span id="cb47-52"><a href="#cb47-52"></a><span class="in">```sql</span></span>
+<span id="cb47-53"><a href="#cb47-53"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> cities (</span>
+<span id="cb47-54"><a href="#cb47-54"></a>    name <span class="dt">VARCHAR</span>,</span>
+<span id="cb47-55"><a href="#cb47-55"></a>    lat  <span class="dt">DECIMAL</span>,</span>
+<span id="cb47-56"><a href="#cb47-56"></a>    lon  <span class="dt">DECIMAL</span></span>
+<span id="cb47-57"><a href="#cb47-57"></a>);</span>
+<span id="cb47-58"><a href="#cb47-58"></a><span class="in">```</span></span>
+<span id="cb47-59"><a href="#cb47-59"></a></span>
+<span id="cb47-60"><a href="#cb47-60"></a>テーブルの削除例。</span>
+<span id="cb47-61"><a href="#cb47-61"></a></span>
+<span id="cb47-62"><a href="#cb47-62"></a><span class="in">```sql</span></span>
+<span id="cb47-63"><a href="#cb47-63"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> ⟨tablename⟩;</span>
+<span id="cb47-64"><a href="#cb47-64"></a><span class="in">```</span></span>
+<span id="cb47-65"><a href="#cb47-65"></a></span>
+<span id="cb47-66"><a href="#cb47-66"></a><span class="fu">## Populating a Table with Rows</span></span>
+<span id="cb47-67"><a href="#cb47-67"></a></span>
+<span id="cb47-68"><a href="#cb47-68"></a><span class="in">`INSERT`</span>は行単位でデータを追加するときに使われる。</span>
+<span id="cb47-69"><a href="#cb47-69"></a></span>
+<span id="cb47-70"><a href="#cb47-70"></a></span>
+<span id="cb47-71"><a href="#cb47-71"></a><span class="in">```sql</span></span>
+<span id="cb47-72"><a href="#cb47-72"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> weather</span>
+<span id="cb47-73"><a href="#cb47-73"></a><span class="kw">VALUES</span> (<span class="st">'San Francisco'</span>, <span class="dv">46</span>, <span class="dv">50</span>, <span class="fl">0.25</span>, <span class="st">'1994-11-27'</span>);</span>
+<span id="cb47-74"><a href="#cb47-74"></a><span class="in">```</span></span>
+<span id="cb47-75"><a href="#cb47-75"></a></span>
+<span id="cb47-76"><a href="#cb47-76"></a>数値でないときには**シングルクォーテションで値をかこむ**必要がある。</span>
+<span id="cb47-77"><a href="#cb47-77"></a></span>
+<span id="cb47-78"><a href="#cb47-78"></a><span class="in">```sql</span></span>
+<span id="cb47-79"><a href="#cb47-79"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> weather</span>
+<span id="cb47-80"><a href="#cb47-80"></a><span class="kw">VALUES</span> (<span class="st">'San Francisco'</span>, <span class="dv">46</span>, <span class="dv">50</span>, <span class="fl">0.25</span>, <span class="st">'1994-11-27'</span>);</span>
+<span id="cb47-81"><a href="#cb47-81"></a><span class="in">```</span></span>
+<span id="cb47-82"><a href="#cb47-82"></a></span>
+<span id="cb47-83"><a href="#cb47-83"></a>インサートするときにカラムの順序は異なっていても大丈夫である。</span>
+<span id="cb47-84"><a href="#cb47-84"></a></span>
+<span id="cb47-85"><a href="#cb47-85"></a></span>
+<span id="cb47-86"><a href="#cb47-86"></a><span class="in">```sql</span></span>
+<span id="cb47-87"><a href="#cb47-87"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> weather (<span class="dt">date</span>, city, temp_hi, temp_lo)</span>
+<span id="cb47-88"><a href="#cb47-88"></a><span class="kw">VALUES</span> (<span class="st">'1994-11-29'</span>, <span class="st">'Hayward'</span>, <span class="dv">54</span>, <span class="dv">37</span>);</span>
+<span id="cb47-89"><a href="#cb47-89"></a><span class="in">```</span></span>
+<span id="cb47-90"><a href="#cb47-90"></a></span>
+<span id="cb47-91"><a href="#cb47-91"></a><span class="at">&gt; Many developers consider explicitly listing the columns better style than relying on the order implicitly.</span></span>
+<span id="cb47-92"><a href="#cb47-92"></a></span>
+<span id="cb47-93"><a href="#cb47-93"></a>バルクロードするときには<span class="in">`COPY`</span>を使うことでより高速になる。</span>
+<span id="cb47-94"><a href="#cb47-94"></a></span>
+<span id="cb47-95"><a href="#cb47-95"></a><span class="in">```sql</span></span>
+<span id="cb47-96"><a href="#cb47-96"></a>COPY weather</span>
+<span id="cb47-97"><a href="#cb47-97"></a><span class="kw">FROM</span> <span class="st">'weather.csv'</span></span>
+<span id="cb47-98"><a href="#cb47-98"></a><span class="in">```</span></span>
+<span id="cb47-99"><a href="#cb47-99"></a></span>
+<span id="cb47-100"><a href="#cb47-100"></a><span class="fu">## Querying a Table</span></span>
+<span id="cb47-101"><a href="#cb47-101"></a></span>
+<span id="cb47-102"><a href="#cb47-102"></a></span>
+<span id="cb47-105"><a href="#cb47-105"></a><span class="in">```{sql}</span></span>
+<span id="cb47-106"><a href="#cb47-106"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-107"><a href="#cb47-107"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> weather <span class="kw">as</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_csv(<span class="st">'weather.csv'</span>)</span>
+<span id="cb47-108"><a href="#cb47-108"></a><span class="in">```</span></span>
+<span id="cb47-109"><a href="#cb47-109"></a></span>
+<span id="cb47-110"><a href="#cb47-110"></a></span>
+<span id="cb47-113"><a href="#cb47-113"></a><span class="in">```{sql}</span></span>
+<span id="cb47-114"><a href="#cb47-114"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-115"><a href="#cb47-115"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb47-116"><a href="#cb47-116"></a><span class="kw">FROM</span> weather;</span>
+<span id="cb47-117"><a href="#cb47-117"></a><span class="in">```</span></span>
+<span id="cb47-118"><a href="#cb47-118"></a></span>
+<span id="cb47-119"><a href="#cb47-119"></a></span>
+<span id="cb47-122"><a href="#cb47-122"></a><span class="in">```{sql}</span></span>
+<span id="cb47-123"><a href="#cb47-123"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-124"><a href="#cb47-124"></a><span class="kw">SELECT</span> city, (temp_hi <span class="op">+</span> temp_lo) <span class="op">/</span> <span class="dv">2</span> <span class="kw">AS</span> temp_avg, <span class="dt">date</span></span>
+<span id="cb47-125"><a href="#cb47-125"></a><span class="kw">FROM</span> weather;</span>
+<span id="cb47-126"><a href="#cb47-126"></a><span class="in">```</span></span>
+<span id="cb47-127"><a href="#cb47-127"></a></span>
+<span id="cb47-128"><a href="#cb47-128"></a></span>
+<span id="cb47-129"><a href="#cb47-129"></a></span>
+<span id="cb47-132"><a href="#cb47-132"></a><span class="in">```{sql}</span></span>
+<span id="cb47-133"><a href="#cb47-133"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-134"><a href="#cb47-134"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb47-135"><a href="#cb47-135"></a><span class="kw">FROM</span> weather</span>
+<span id="cb47-136"><a href="#cb47-136"></a><span class="kw">WHERE</span> city <span class="op">=</span> <span class="st">'San Francisco'</span> <span class="kw">AND</span> prcp <span class="op">&gt;</span> <span class="fl">0.0</span>;</span>
+<span id="cb47-137"><a href="#cb47-137"></a><span class="in">```</span></span>
+<span id="cb47-138"><a href="#cb47-138"></a></span>
+<span id="cb47-139"><a href="#cb47-139"></a></span>
+<span id="cb47-142"><a href="#cb47-142"></a><span class="in">```{sql}</span></span>
+<span id="cb47-143"><a href="#cb47-143"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-144"><a href="#cb47-144"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> city</span>
+<span id="cb47-145"><a href="#cb47-145"></a><span class="kw">FROM</span> weather;</span>
+<span id="cb47-146"><a href="#cb47-146"></a><span class="in">```</span></span>
+<span id="cb47-147"><a href="#cb47-147"></a></span>
+<span id="cb47-148"><a href="#cb47-148"></a></span>
+<span id="cb47-149"><a href="#cb47-149"></a></span>
+<span id="cb47-152"><a href="#cb47-152"></a><span class="in">```{sql}</span></span>
+<span id="cb47-153"><a href="#cb47-153"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-154"><a href="#cb47-154"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> city</span>
+<span id="cb47-155"><a href="#cb47-155"></a><span class="kw">FROM</span> weather</span>
+<span id="cb47-156"><a href="#cb47-156"></a><span class="kw">ORDER</span> <span class="kw">BY</span> city;</span>
+<span id="cb47-157"><a href="#cb47-157"></a><span class="in">```</span></span>
+<span id="cb47-158"><a href="#cb47-158"></a></span>
+<span id="cb47-159"><a href="#cb47-159"></a><span class="fu">## Joins between Tables</span></span>
+<span id="cb47-160"><a href="#cb47-160"></a></span>
+<span id="cb47-161"><a href="#cb47-161"></a></span>
+<span id="cb47-164"><a href="#cb47-164"></a><span class="in">```{sql}</span></span>
+<span id="cb47-165"><a href="#cb47-165"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-166"><a href="#cb47-166"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> cities <span class="kw">as</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_csv(<span class="st">'city.csv'</span>)</span>
+<span id="cb47-167"><a href="#cb47-167"></a><span class="in">```</span></span>
+<span id="cb47-168"><a href="#cb47-168"></a></span>
+<span id="cb47-169"><a href="#cb47-169"></a></span>
+<span id="cb47-170"><a href="#cb47-170"></a>２つのテーブルを組合せる方法として、用意したすべての組合せを考えた上でフィルターをかける方法がある。</span>
+<span id="cb47-171"><a href="#cb47-171"></a></span>
+<span id="cb47-174"><a href="#cb47-174"></a><span class="in">```{sql}</span></span>
+<span id="cb47-175"><a href="#cb47-175"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-176"><a href="#cb47-176"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb47-177"><a href="#cb47-177"></a><span class="kw">FROM</span> weather, cities</span>
+<span id="cb47-178"><a href="#cb47-178"></a><span class="in">```</span></span>
+<span id="cb47-179"><a href="#cb47-179"></a></span>
+<span id="cb47-182"><a href="#cb47-182"></a><span class="in">```{sql}</span></span>
+<span id="cb47-183"><a href="#cb47-183"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-184"><a href="#cb47-184"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb47-185"><a href="#cb47-185"></a><span class="kw">FROM</span> weather, cities</span>
+<span id="cb47-186"><a href="#cb47-186"></a><span class="kw">WHERE</span> city <span class="op">=</span> name;</span>
+<span id="cb47-187"><a href="#cb47-187"></a><span class="in">```</span></span>
+<span id="cb47-188"><a href="#cb47-188"></a></span>
+<span id="cb47-189"><a href="#cb47-189"></a>もしカラム名が被るときには次のようにテーブル名をつける。</span>
+<span id="cb47-190"><a href="#cb47-190"></a>見てわかるようにテーブル名にエイリアスを使うことが可能である。</span>
+<span id="cb47-191"><a href="#cb47-191"></a></span>
+<span id="cb47-194"><a href="#cb47-194"></a><span class="in">```{sql}</span></span>
+<span id="cb47-195"><a href="#cb47-195"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-196"><a href="#cb47-196"></a><span class="kw">SELECT</span> t<span class="ch">.</span>city, t<span class="ch">.</span>temp_lo, t<span class="ch">.</span>temp_hi, t<span class="ch">.</span>prcp, t<span class="ch">.</span><span class="dt">date</span>, cities<span class="ch">.</span>lon, cities<span class="ch">.</span>lat</span>
+<span id="cb47-197"><a href="#cb47-197"></a><span class="kw">FROM</span> weather t, cities</span>
+<span id="cb47-198"><a href="#cb47-198"></a><span class="kw">WHERE</span> cities<span class="ch">.</span>name <span class="op">=</span> t<span class="ch">.</span>city;</span>
+<span id="cb47-199"><a href="#cb47-199"></a><span class="in">```</span></span>
+<span id="cb47-200"><a href="#cb47-200"></a></span>
+<span id="cb47-201"><a href="#cb47-201"></a>左外部結合を考える。</span>
+<span id="cb47-202"><a href="#cb47-202"></a></span>
+<span id="cb47-205"><a href="#cb47-205"></a><span class="in">```{sql}</span></span>
+<span id="cb47-206"><a href="#cb47-206"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-207"><a href="#cb47-207"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb47-208"><a href="#cb47-208"></a><span class="kw">FROM</span> weather</span>
+<span id="cb47-209"><a href="#cb47-209"></a><span class="kw">LEFT</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> cities <span class="kw">ON</span> weather<span class="ch">.</span>city <span class="op">=</span> cities<span class="ch">.</span>name;</span>
+<span id="cb47-210"><a href="#cb47-210"></a><span class="in">```</span></span>
+<span id="cb47-211"><a href="#cb47-211"></a></span>
+<span id="cb47-212"><a href="#cb47-212"></a><span class="fu">## Aggregate Functions</span></span>
+<span id="cb47-213"><a href="#cb47-213"></a></span>
+<span id="cb47-214"><a href="#cb47-214"></a><span class="ss">- </span>count, sum, avg, max, min</span>
+<span id="cb47-215"><a href="#cb47-215"></a></span>
+<span id="cb47-216"><a href="#cb47-216"></a></span>
+<span id="cb47-219"><a href="#cb47-219"></a><span class="in">```{sql}</span></span>
+<span id="cb47-220"><a href="#cb47-220"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-221"><a href="#cb47-221"></a><span class="kw">SELECT</span> <span class="fu">max</span>(temp_lo)</span>
+<span id="cb47-222"><a href="#cb47-222"></a><span class="kw">FROM</span> weather;</span>
+<span id="cb47-223"><a href="#cb47-223"></a><span class="in">```</span></span>
+<span id="cb47-224"><a href="#cb47-224"></a></span>
+<span id="cb47-225"><a href="#cb47-225"></a>集約関数は次のようにWHERE句で使えない。</span>
+<span id="cb47-226"><a href="#cb47-226"></a>これは集約計算の対象がWHEREで絞った結果であるため。</span>
+<span id="cb47-227"><a href="#cb47-227"></a></span>
+<span id="cb47-228"><a href="#cb47-228"></a><span class="in">```sql</span></span>
+<span id="cb47-229"><a href="#cb47-229"></a><span class="co">-- これはエラーになる</span></span>
+<span id="cb47-230"><a href="#cb47-230"></a><span class="kw">SELECT</span> city</span>
+<span id="cb47-231"><a href="#cb47-231"></a><span class="kw">FROM</span> weather</span>
+<span id="cb47-232"><a href="#cb47-232"></a><span class="kw">WHERE</span> temp_lo <span class="op">=</span> <span class="fu">max</span>(temp_lo);     <span class="co">-- WRONG</span></span>
+<span id="cb47-233"><a href="#cb47-233"></a><span class="in">```</span></span>
+<span id="cb47-234"><a href="#cb47-234"></a></span>
+<span id="cb47-235"><a href="#cb47-235"></a>WHERE句で使うにはスカラー値をクエリする必要がある。サブクエリにすることで独立したクエリとして計算が行える。。</span>
+<span id="cb47-236"><a href="#cb47-236"></a></span>
+<span id="cb47-237"><a href="#cb47-237"></a></span>
+<span id="cb47-240"><a href="#cb47-240"></a><span class="in">```{sql}</span></span>
+<span id="cb47-241"><a href="#cb47-241"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-242"><a href="#cb47-242"></a><span class="kw">SELECT</span> city</span>
+<span id="cb47-243"><a href="#cb47-243"></a><span class="kw">FROM</span> weather</span>
+<span id="cb47-244"><a href="#cb47-244"></a><span class="kw">WHERE</span> temp_lo <span class="op">=</span> (<span class="kw">SELECT</span> <span class="fu">max</span>(temp_lo) <span class="kw">FROM</span> weather);</span>
+<span id="cb47-245"><a href="#cb47-245"></a><span class="in">```</span></span>
+<span id="cb47-246"><a href="#cb47-246"></a></span>
+<span id="cb47-247"><a href="#cb47-247"></a></span>
+<span id="cb47-250"><a href="#cb47-250"></a><span class="in">```{sql}</span></span>
+<span id="cb47-251"><a href="#cb47-251"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-252"><a href="#cb47-252"></a><span class="kw">SELECT</span> city, <span class="fu">max</span>(temp_lo)</span>
+<span id="cb47-253"><a href="#cb47-253"></a><span class="kw">FROM</span> weather</span>
+<span id="cb47-254"><a href="#cb47-254"></a><span class="kw">GROUP</span> <span class="kw">BY</span> city;</span>
+<span id="cb47-255"><a href="#cb47-255"></a><span class="in">```</span></span>
+<span id="cb47-256"><a href="#cb47-256"></a></span>
+<span id="cb47-257"><a href="#cb47-257"></a></span>
+<span id="cb47-258"><a href="#cb47-258"></a>計算結果に対してフィルターすることが可能である。</span>
+<span id="cb47-259"><a href="#cb47-259"></a></span>
+<span id="cb47-260"><a href="#cb47-260"></a></span>
+<span id="cb47-263"><a href="#cb47-263"></a><span class="in">```{sql}</span></span>
+<span id="cb47-264"><a href="#cb47-264"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-265"><a href="#cb47-265"></a><span class="kw">SELECT</span> city, <span class="fu">max</span>(temp_lo) <span class="kw">as</span> A</span>
+<span id="cb47-266"><a href="#cb47-266"></a><span class="kw">FROM</span> weather</span>
+<span id="cb47-267"><a href="#cb47-267"></a><span class="kw">GROUP</span> <span class="kw">BY</span> city</span>
+<span id="cb47-268"><a href="#cb47-268"></a><span class="kw">HAVING</span> A <span class="op">&lt;</span> <span class="dv">40</span>;</span>
+<span id="cb47-269"><a href="#cb47-269"></a><span class="in">```</span></span>
+<span id="cb47-270"><a href="#cb47-270"></a></span>
+<span id="cb47-273"><a href="#cb47-273"></a><span class="in">```{sql}</span></span>
+<span id="cb47-274"><a href="#cb47-274"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-275"><a href="#cb47-275"></a><span class="kw">SELECT</span> city, <span class="fu">max</span>(temp_lo)</span>
+<span id="cb47-276"><a href="#cb47-276"></a><span class="kw">FROM</span> weather</span>
+<span id="cb47-277"><a href="#cb47-277"></a><span class="kw">WHERE</span> city <span class="kw">LIKE</span> <span class="st">'S%'</span>            <span class="co">-- (1)</span></span>
+<span id="cb47-278"><a href="#cb47-278"></a><span class="kw">GROUP</span> <span class="kw">BY</span> city</span>
+<span id="cb47-279"><a href="#cb47-279"></a><span class="kw">HAVING</span> <span class="fu">max</span>(temp_lo) <span class="op">&lt;</span> <span class="dv">40</span>;</span>
+<span id="cb47-280"><a href="#cb47-280"></a><span class="in">```</span></span>
+<span id="cb47-281"><a href="#cb47-281"></a></span>
+<span id="cb47-282"><a href="#cb47-282"></a><span class="in">`HAVING`</span>は常に集約値を使うことに注意する。</span>
+<span id="cb47-283"><a href="#cb47-283"></a></span>
+<span id="cb47-284"><a href="#cb47-284"></a></span>
+<span id="cb47-285"><a href="#cb47-285"></a><span class="fu">## Updates</span></span>
+<span id="cb47-286"><a href="#cb47-286"></a></span>
+<span id="cb47-287"><a href="#cb47-287"></a><span class="in">`UPDATE`</span>コマンドを使うことで、既存の行を更新することができる。</span>
+<span id="cb47-288"><a href="#cb47-288"></a></span>
+<span id="cb47-291"><a href="#cb47-291"></a><span class="in">```{sql}</span></span>
+<span id="cb47-292"><a href="#cb47-292"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-293"><a href="#cb47-293"></a><span class="kw">UPDATE</span> weather</span>
+<span id="cb47-294"><a href="#cb47-294"></a><span class="kw">SET</span> temp_hi <span class="op">=</span> temp_hi <span class="op">-</span> <span class="dv">2</span>,  temp_lo <span class="op">=</span> temp_lo <span class="op">-</span> <span class="dv">2</span></span>
+<span id="cb47-295"><a href="#cb47-295"></a><span class="kw">WHERE</span> <span class="dt">date</span> <span class="op">&gt;</span> <span class="st">'1994-11-28'</span>;</span>
+<span id="cb47-296"><a href="#cb47-296"></a><span class="in">```</span></span>
+<span id="cb47-297"><a href="#cb47-297"></a></span>
+<span id="cb47-298"><a href="#cb47-298"></a></span>
+<span id="cb47-301"><a href="#cb47-301"></a><span class="in">```{sql}</span></span>
+<span id="cb47-302"><a href="#cb47-302"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-303"><a href="#cb47-303"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb47-304"><a href="#cb47-304"></a><span class="kw">FROM</span> weather;</span>
+<span id="cb47-305"><a href="#cb47-305"></a><span class="in">```</span></span>
+<span id="cb47-306"><a href="#cb47-306"></a></span>
+<span id="cb47-307"><a href="#cb47-307"></a><span class="fu">## Deletions</span></span>
+<span id="cb47-308"><a href="#cb47-308"></a></span>
+<span id="cb47-311"><a href="#cb47-311"></a><span class="in">```{sql}</span></span>
+<span id="cb47-312"><a href="#cb47-312"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-313"><a href="#cb47-313"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> weather</span>
+<span id="cb47-314"><a href="#cb47-314"></a><span class="kw">WHERE</span> city <span class="op">=</span> <span class="st">'Hayward'</span>;</span>
+<span id="cb47-315"><a href="#cb47-315"></a><span class="in">```</span></span>
+<span id="cb47-316"><a href="#cb47-316"></a></span>
+<span id="cb47-319"><a href="#cb47-319"></a><span class="in">```{sql}</span></span>
+<span id="cb47-320"><a href="#cb47-320"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-321"><a href="#cb47-321"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb47-322"><a href="#cb47-322"></a><span class="kw">FROM</span> weather;</span>
+<span id="cb47-323"><a href="#cb47-323"></a><span class="in">```</span></span>
+<span id="cb47-324"><a href="#cb47-324"></a></span>
+<span id="cb47-325"><a href="#cb47-325"></a><span class="fu"># Data Types</span></span>
+<span id="cb47-326"><a href="#cb47-326"></a></span>
+<span id="cb47-327"><a href="#cb47-327"></a><span class="fu">## Array Type</span></span>
+<span id="cb47-328"><a href="#cb47-328"></a></span>
+<span id="cb47-329"><a href="#cb47-329"></a><span class="in">`duckdb`</span>のパッケージバージョンが1.0.0になったけど、</span>
+<span id="cb47-330"><a href="#cb47-330"></a><span class="in">`array`</span>はまだ使うことが出来なかった・・・</span>
+<span id="cb47-331"><a href="#cb47-331"></a></span>
+<span id="cb47-332"><a href="#cb47-332"></a><span class="in">```sql</span></span>
+<span id="cb47-333"><a href="#cb47-333"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-334"><a href="#cb47-334"></a><span class="kw">SELECT</span> [<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]<span class="ch">::</span><span class="dt">INTEGER</span>[<span class="dv">3</span>];</span>
+<span id="cb47-335"><a href="#cb47-335"></a><span class="in">```</span></span>
+<span id="cb47-336"><a href="#cb47-336"></a></span>
+<span id="cb47-337"><a href="#cb47-337"></a></span>
+<span id="cb47-338"><a href="#cb47-338"></a><span class="fu"># Widnow Functions</span></span>
+<span id="cb47-339"><a href="#cb47-339"></a></span>
+<span id="cb47-340"><a href="#cb47-340"></a>いわゆるWindow関数が使えるs</span>
+<span id="cb47-341"><a href="#cb47-341"></a></span>
+<span id="cb47-342"><a href="#cb47-342"></a></span>
+<span id="cb47-343"><a href="#cb47-343"></a></span>
+<span id="cb47-344"><a href="#cb47-344"></a></span>
+<span id="cb47-345"><a href="#cb47-345"></a><span class="in">```sql</span></span>
+<span id="cb47-346"><a href="#cb47-346"></a><span class="co">-- generate a "row_number" column with containing incremental identifiers for each row</span></span>
+<span id="cb47-347"><a href="#cb47-347"></a><span class="kw">SELECT</span> row_number() OVER () <span class="kw">FROM</span> sales;</span>
+<span id="cb47-348"><a href="#cb47-348"></a><span class="co">-- generate a "row_number" column, by order of time</span></span>
+<span id="cb47-349"><a href="#cb47-349"></a><span class="kw">SELECT</span> row_number() OVER (<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
+<span id="cb47-350"><a href="#cb47-350"></a><span class="co">-- generate a "row_number" column, by order of time partitioned by region</span></span>
+<span id="cb47-351"><a href="#cb47-351"></a><span class="kw">SELECT</span> row_number() OVER (PARTITION <span class="kw">BY</span> region <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
+<span id="cb47-352"><a href="#cb47-352"></a><span class="co">-- compute the difference between the current amount, and the previous amount,</span></span>
+<span id="cb47-353"><a href="#cb47-353"></a><span class="co">-- by order of time</span></span>
+<span id="cb47-354"><a href="#cb47-354"></a><span class="kw">SELECT</span> amount <span class="op">-</span> lag(amount) OVER (<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">time</span>) <span class="kw">FROM</span> sales;</span>
+<span id="cb47-355"><a href="#cb47-355"></a><span class="co">-- compute the percentage of the total amount of sales per region for each row</span></span>
+<span id="cb47-356"><a href="#cb47-356"></a><span class="kw">SELECT</span> amount <span class="op">/</span> <span class="fu">sum</span>(amount) OVER (PARTITION <span class="kw">BY</span> region) <span class="kw">FROM</span> sales;</span>
+<span id="cb47-357"><a href="#cb47-357"></a></span>
+<span id="cb47-358"><a href="#cb47-358"></a><span class="in">```</span></span>
+<span id="cb47-359"><a href="#cb47-359"></a></span>
+<span id="cb47-362"><a href="#cb47-362"></a><span class="in">```{sql}</span></span>
+<span id="cb47-363"><a href="#cb47-363"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-364"><a href="#cb47-364"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> penguins <span class="kw">AS</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_parquet(<span class="st">'penguins.parquet'</span>)</span>
+<span id="cb47-365"><a href="#cb47-365"></a><span class="in">```</span></span>
+<span id="cb47-366"><a href="#cb47-366"></a></span>
+<span id="cb47-367"><a href="#cb47-367"></a></span>
+<span id="cb47-370"><a href="#cb47-370"></a><span class="in">```{sql}</span></span>
+<span id="cb47-371"><a href="#cb47-371"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-372"><a href="#cb47-372"></a><span class="kw">SELECT</span> row_number() OVER () <span class="kw">as</span> row_number, <span class="op">*</span> <span class="kw">FROM</span> penguins;</span>
+<span id="cb47-373"><a href="#cb47-373"></a><span class="in">```</span></span>
+<span id="cb47-374"><a href="#cb47-374"></a></span>
+<span id="cb47-377"><a href="#cb47-377"></a><span class="in">```{sql}</span></span>
+<span id="cb47-378"><a href="#cb47-378"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-379"><a href="#cb47-379"></a><span class="kw">SELECT</span> row_number() OVER (<span class="kw">ORDER</span> <span class="kw">BY</span> bill_length_mm), bill_length_mm <span class="kw">FROM</span> penguins;</span>
+<span id="cb47-380"><a href="#cb47-380"></a><span class="in">```</span></span>
+<span id="cb47-381"><a href="#cb47-381"></a></span>
+<span id="cb47-384"><a href="#cb47-384"></a><span class="in">```{sql}</span></span>
+<span id="cb47-385"><a href="#cb47-385"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-386"><a href="#cb47-386"></a><span class="kw">SELECT</span> row_number() OVER (PARTITION <span class="kw">BY</span> species, island <span class="kw">ORDER</span> <span class="kw">BY</span> bill_length_mm), species, island, bill_length_mm <span class="kw">FROM</span> penguins;</span>
+<span id="cb47-387"><a href="#cb47-387"></a><span class="in">```</span></span>
+<span id="cb47-388"><a href="#cb47-388"></a></span>
+<span id="cb47-391"><a href="#cb47-391"></a><span class="in">```{sql}</span></span>
+<span id="cb47-392"><a href="#cb47-392"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-393"><a href="#cb47-393"></a><span class="kw">SELECT</span> bill_length_mm <span class="op">/</span> <span class="fu">AVG</span>(bill_length_mm) OVER(PARTITION <span class="kw">BY</span> species, island) A,  </span>
+<span id="cb47-394"><a href="#cb47-394"></a><span class="fu">AVG</span>(bill_length_mm) OVER(PARTITION <span class="kw">BY</span> species, island) B, </span>
+<span id="cb47-395"><a href="#cb47-395"></a>species, island, bill_length_mm</span>
+<span id="cb47-396"><a href="#cb47-396"></a><span class="kw">FROM</span> penguins;</span>
+<span id="cb47-397"><a href="#cb47-397"></a><span class="in">```</span></span>
+<span id="cb47-398"><a href="#cb47-398"></a></span>
+<span id="cb47-399"><a href="#cb47-399"></a><span class="fu">## General-Purpose Window Functions</span></span>
+<span id="cb47-400"><a href="#cb47-400"></a></span>
+<span id="cb47-401"><a href="#cb47-401"></a><span class="ss">- </span>cume_dist</span>
+<span id="cb47-402"><a href="#cb47-402"></a><span class="ss">- </span>dense_rank</span>
+<span id="cb47-403"><a href="#cb47-403"></a><span class="ss">- </span>first_value</span>
+<span id="cb47-404"><a href="#cb47-404"></a><span class="ss">- </span>first</span>
+<span id="cb47-405"><a href="#cb47-405"></a><span class="ss">- </span>lag</span>
+<span id="cb47-406"><a href="#cb47-406"></a><span class="ss">- </span>last_value</span>
+<span id="cb47-407"><a href="#cb47-407"></a><span class="ss">- </span>last</span>
+<span id="cb47-408"><a href="#cb47-408"></a><span class="ss">- </span>lead</span>
+<span id="cb47-409"><a href="#cb47-409"></a><span class="ss">- </span>nth_value</span>
+<span id="cb47-410"><a href="#cb47-410"></a><span class="ss">- </span>ntile：区分化</span>
+<span id="cb47-411"><a href="#cb47-411"></a><span class="ss">- </span>percent_rank</span>
+<span id="cb47-412"><a href="#cb47-412"></a><span class="ss">- </span>rank_dense</span>
+<span id="cb47-413"><a href="#cb47-413"></a><span class="ss">- </span>rank</span>
+<span id="cb47-414"><a href="#cb47-414"></a><span class="ss">- </span>row_number</span>
+<span id="cb47-415"><a href="#cb47-415"></a></span>
+<span id="cb47-416"><a href="#cb47-416"></a></span>
+<span id="cb47-417"><a href="#cb47-417"></a>タイル化でデータを分割してみる。</span>
+<span id="cb47-418"><a href="#cb47-418"></a></span>
+<span id="cb47-421"><a href="#cb47-421"></a><span class="in">```{sql}</span></span>
+<span id="cb47-422"><a href="#cb47-422"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-423"><a href="#cb47-423"></a><span class="kw">WITH</span> tiled <span class="kw">as</span> (</span>
+<span id="cb47-424"><a href="#cb47-424"></a>  <span class="kw">SELECT</span> ntile(<span class="dv">10</span>) OVER() T, <span class="op">*</span></span>
+<span id="cb47-425"><a href="#cb47-425"></a>  <span class="kw">FROM</span> penguins</span>
+<span id="cb47-426"><a href="#cb47-426"></a>)</span>
+<span id="cb47-427"><a href="#cb47-427"></a><span class="kw">SELECT</span> T, <span class="fu">COUNT</span>(<span class="op">*</span>)</span>
+<span id="cb47-428"><a href="#cb47-428"></a><span class="kw">FROM</span> tiled</span>
+<span id="cb47-429"><a href="#cb47-429"></a><span class="kw">GROUP</span> <span class="kw">BY</span> T</span>
+<span id="cb47-430"><a href="#cb47-430"></a><span class="kw">ORDER</span> <span class="kw">BY</span> T</span>
+<span id="cb47-431"><a href="#cb47-431"></a><span class="in">```</span></span>
+<span id="cb47-432"><a href="#cb47-432"></a></span>
+<span id="cb47-433"><a href="#cb47-433"></a><span class="fu">## Ignoring NULLs</span></span>
+<span id="cb47-434"><a href="#cb47-434"></a></span>
+<span id="cb47-435"><a href="#cb47-435"></a>下記の関数はNULLを無視することができる。</span>
+<span id="cb47-436"><a href="#cb47-436"></a></span>
+<span id="cb47-437"><a href="#cb47-437"></a><span class="ss">1. </span>lag</span>
+<span id="cb47-438"><a href="#cb47-438"></a><span class="ss">2. </span>lead</span>
+<span id="cb47-439"><a href="#cb47-439"></a><span class="ss">3. </span>first_value</span>
+<span id="cb47-440"><a href="#cb47-440"></a><span class="ss">4. </span>last_value</span>
+<span id="cb47-441"><a href="#cb47-441"></a><span class="ss">5. </span>nth_value</span>
+<span id="cb47-442"><a href="#cb47-442"></a></span>
+<span id="cb47-443"><a href="#cb47-443"></a><span class="in">`lag(column, 3 IGNORE NULLS)`</span>となる。</span>
+<span id="cb47-444"><a href="#cb47-444"></a></span>
+<span id="cb47-445"><a href="#cb47-445"></a></span>
+<span id="cb47-446"><a href="#cb47-446"></a><span class="fu">## Evaluation</span></span>
+<span id="cb47-447"><a href="#cb47-447"></a></span>
+<span id="cb47-448"><a href="#cb47-448"></a><span class="fu">### Partition and Ordering</span></span>
+<span id="cb47-449"><a href="#cb47-449"></a></span>
+<span id="cb47-452"><a href="#cb47-452"></a><span class="in">```{sql}</span></span>
+<span id="cb47-453"><a href="#cb47-453"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-454"><a href="#cb47-454"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> <span class="st">"Generation History"</span> <span class="kw">AS</span></span>
+<span id="cb47-455"><a href="#cb47-455"></a>  <span class="kw">FROM</span> <span class="st">'data/csv/power-plant-generation-history.csv'</span>;</span>
+<span id="cb47-456"><a href="#cb47-456"></a><span class="in">```</span></span>
+<span id="cb47-457"><a href="#cb47-457"></a></span>
+<span id="cb47-460"><a href="#cb47-460"></a><span class="in">```{sql}</span></span>
+<span id="cb47-461"><a href="#cb47-461"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-462"><a href="#cb47-462"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">"Generation History"</span> <span class="kw">LIMIT</span> <span class="dv">5</span>;</span>
+<span id="cb47-463"><a href="#cb47-463"></a><span class="in">```</span></span>
+<span id="cb47-464"><a href="#cb47-464"></a></span>
+<span id="cb47-465"><a href="#cb47-465"></a>まずは<span class="in">`row_number`</span>の挙動をみる。</span>
+<span id="cb47-466"><a href="#cb47-466"></a></span>
+<span id="cb47-469"><a href="#cb47-469"></a><span class="in">```{sql}</span></span>
+<span id="cb47-470"><a href="#cb47-470"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-471"><a href="#cb47-471"></a><span class="kw">SELECT</span></span>
+<span id="cb47-472"><a href="#cb47-472"></a>    <span class="st">"Plant"</span>,</span>
+<span id="cb47-473"><a href="#cb47-473"></a>    <span class="st">"Date"</span>,</span>
+<span id="cb47-474"><a href="#cb47-474"></a>    row_number() OVER (PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span> <span class="kw">ORDER</span>  <span class="kw">BY</span> <span class="st">"Date"</span>) <span class="kw">AS</span> <span class="st">"Row"</span></span>
+<span id="cb47-475"><a href="#cb47-475"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
+<span id="cb47-476"><a href="#cb47-476"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
+<span id="cb47-477"><a href="#cb47-477"></a><span class="in">```</span></span>
+<span id="cb47-478"><a href="#cb47-478"></a></span>
+<span id="cb47-479"><a href="#cb47-479"></a><span class="fu">### Framing</span></span>
+<span id="cb47-480"><a href="#cb47-480"></a></span>
+<span id="cb47-481"><a href="#cb47-481"></a><span class="in">`PRECEDING`</span>や<span class="in">`FOLLOWING`</span>を使うことで、相対的な位置関係を使うことが可能である。</span>
+<span id="cb47-482"><a href="#cb47-482"></a>この距離はROWSの整数としても指定することができる。</span>
+<span id="cb47-483"><a href="#cb47-483"></a>フレームのデフォルト値は<span class="in">`UNBOUNDED PRECEDING`</span>から<span class="in">`CURRENT ROW`</span>である。</span>
+<span id="cb47-484"><a href="#cb47-484"></a><span class="in">`EXCLUDE`</span>句は使用するうと現在の行の周りの行をフレームから除外することができる。</span>
+<span id="cb47-485"><a href="#cb47-485"></a></span>
+<span id="cb47-486"><a href="#cb47-486"></a><span class="al">![](./images/framing-row.png)</span></span>
+<span id="cb47-487"><a href="#cb47-487"></a></span>
+<span id="cb47-488"><a href="#cb47-488"></a><span class="in">`RANGE`</span>フレーミングを行う。</span>
+<span id="cb47-489"><a href="#cb47-489"></a></span>
+<span id="cb47-492"><a href="#cb47-492"></a><span class="in">```{sql}</span></span>
+<span id="cb47-493"><a href="#cb47-493"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-494"><a href="#cb47-494"></a><span class="kw">SELECT</span> <span class="st">"Plant"</span>, <span class="st">"Date"</span>,</span>
+<span id="cb47-495"><a href="#cb47-495"></a>    <span class="fu">avg</span>(<span class="st">"MWh"</span>) OVER (</span>
+<span id="cb47-496"><a href="#cb47-496"></a>        PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
+<span id="cb47-497"><a href="#cb47-497"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb47-498"><a href="#cb47-498"></a>        RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
+<span id="cb47-499"><a href="#cb47-499"></a>                  <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING)</span>
+<span id="cb47-500"><a href="#cb47-500"></a>        <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Average"</span></span>
+<span id="cb47-501"><a href="#cb47-501"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
+<span id="cb47-502"><a href="#cb47-502"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
+<span id="cb47-503"><a href="#cb47-503"></a><span class="in">```</span></span>
+<span id="cb47-504"><a href="#cb47-504"></a></span>
+<span id="cb47-505"><a href="#cb47-505"></a>範囲がないときにNULLになるようにする。</span>
+<span id="cb47-506"><a href="#cb47-506"></a></span>
+<span id="cb47-509"><a href="#cb47-509"></a><span class="in">```{sql}</span></span>
+<span id="cb47-510"><a href="#cb47-510"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-511"><a href="#cb47-511"></a><span class="kw">SELECT</span> <span class="st">"Plant"</span>, <span class="st">"Date"</span>,</span>
+<span id="cb47-512"><a href="#cb47-512"></a>    <span class="cf">CASE</span></span>
+<span id="cb47-513"><a href="#cb47-513"></a>        <span class="cf">WHEN</span> <span class="fu">COUNT</span>(<span class="st">"MWh"</span>) OVER (</span>
+<span id="cb47-514"><a href="#cb47-514"></a>            PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
+<span id="cb47-515"><a href="#cb47-515"></a>            <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb47-516"><a href="#cb47-516"></a>            RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
+<span id="cb47-517"><a href="#cb47-517"></a>                      <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING</span>
+<span id="cb47-518"><a href="#cb47-518"></a>        ) <span class="op">&gt;=</span> <span class="dv">7</span> <span class="cf">THEN</span></span>
+<span id="cb47-519"><a href="#cb47-519"></a>            <span class="fu">avg</span>(<span class="st">"MWh"</span>) OVER (</span>
+<span id="cb47-520"><a href="#cb47-520"></a>                PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
+<span id="cb47-521"><a href="#cb47-521"></a>                <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb47-522"><a href="#cb47-522"></a>                RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
+<span id="cb47-523"><a href="#cb47-523"></a>                          <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING</span>
+<span id="cb47-524"><a href="#cb47-524"></a>            )</span>
+<span id="cb47-525"><a href="#cb47-525"></a>        <span class="cf">ELSE</span></span>
+<span id="cb47-526"><a href="#cb47-526"></a>            <span class="kw">NULL</span></span>
+<span id="cb47-527"><a href="#cb47-527"></a>    <span class="cf">END</span> <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Average"</span></span>
+<span id="cb47-528"><a href="#cb47-528"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
+<span id="cb47-529"><a href="#cb47-529"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
+<span id="cb47-530"><a href="#cb47-530"></a></span>
+<span id="cb47-531"><a href="#cb47-531"></a><span class="in">```</span></span>
+<span id="cb47-532"><a href="#cb47-532"></a></span>
+<span id="cb47-533"><a href="#cb47-533"></a><span class="fu">### WINDOW Clauses</span></span>
+<span id="cb47-534"><a href="#cb47-534"></a></span>
+<span id="cb47-535"><a href="#cb47-535"></a>WINDOWを選言することでマクロのような使い方ができる。</span>
+<span id="cb47-536"><a href="#cb47-536"></a></span>
+<span id="cb47-539"><a href="#cb47-539"></a><span class="in">```{sql}</span></span>
+<span id="cb47-540"><a href="#cb47-540"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-541"><a href="#cb47-541"></a><span class="kw">SELECT</span> <span class="st">"Plant"</span>, <span class="st">"Date"</span>,</span>
+<span id="cb47-542"><a href="#cb47-542"></a>    <span class="fu">min</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Minimum"</span>,</span>
+<span id="cb47-543"><a href="#cb47-543"></a>    <span class="fu">avg</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Average"</span>,</span>
+<span id="cb47-544"><a href="#cb47-544"></a>    <span class="fu">max</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Maximum"</span>,</span>
+<span id="cb47-545"><a href="#cb47-545"></a>    <span class="fu">min</span>(<span class="st">"MWh"</span>) OVER three <span class="kw">AS</span> <span class="st">"MWh 3-day Moving Minimum"</span>,</span>
+<span id="cb47-546"><a href="#cb47-546"></a>    <span class="fu">avg</span>(<span class="st">"MWh"</span>) OVER three <span class="kw">AS</span> <span class="st">"MWh 3-day Moving Average"</span>,</span>
+<span id="cb47-547"><a href="#cb47-547"></a>    <span class="fu">max</span>(<span class="st">"MWh"</span>) OVER three <span class="kw">AS</span> <span class="st">"MWh 3-day Moving Maximum"</span></span>
+<span id="cb47-548"><a href="#cb47-548"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
+<span id="cb47-549"><a href="#cb47-549"></a>WINDOW</span>
+<span id="cb47-550"><a href="#cb47-550"></a>    seven <span class="kw">AS</span> (</span>
+<span id="cb47-551"><a href="#cb47-551"></a>        PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
+<span id="cb47-552"><a href="#cb47-552"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb47-553"><a href="#cb47-553"></a>        RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
+<span id="cb47-554"><a href="#cb47-554"></a>                  <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING),</span>
+<span id="cb47-555"><a href="#cb47-555"></a>    three <span class="kw">AS</span> (</span>
+<span id="cb47-556"><a href="#cb47-556"></a>        PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
+<span id="cb47-557"><a href="#cb47-557"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb47-558"><a href="#cb47-558"></a>        RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">1</span> DAYS PRECEDING</span>
+<span id="cb47-559"><a href="#cb47-559"></a>        <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">1</span> DAYS FOLLOWING)</span>
+<span id="cb47-560"><a href="#cb47-560"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
+<span id="cb47-561"><a href="#cb47-561"></a><span class="in">```</span></span>
+<span id="cb47-562"><a href="#cb47-562"></a></span>
+<span id="cb47-563"><a href="#cb47-563"></a><span class="fu">### Filtering the Results of Window Functions Using QUALIFY</span></span>
+<span id="cb47-564"><a href="#cb47-564"></a></span>
+<span id="cb47-565"><a href="#cb47-565"></a></span>
+<span id="cb47-568"><a href="#cb47-568"></a><span class="in">```{sql}</span></span>
+<span id="cb47-569"><a href="#cb47-569"></a><span class="co">#| connection: con</span></span>
+<span id="cb47-570"><a href="#cb47-570"></a><span class="kw">SELECT</span> <span class="st">"Plant"</span>, <span class="st">"Date"</span>,</span>
+<span id="cb47-571"><a href="#cb47-571"></a>    <span class="fu">min</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Minimum"</span>,</span>
+<span id="cb47-572"><a href="#cb47-572"></a>    quantile_cont(<span class="st">"MWh"</span>, [<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>]) OVER seven</span>
+<span id="cb47-573"><a href="#cb47-573"></a>        <span class="kw">AS</span> <span class="st">"MWh 7-day Moving IQR"</span>,</span>
+<span id="cb47-574"><a href="#cb47-574"></a>    <span class="fu">max</span>(<span class="st">"MWh"</span>) OVER seven <span class="kw">AS</span> <span class="st">"MWh 7-day Moving Maximum"</span>,</span>
+<span id="cb47-575"><a href="#cb47-575"></a><span class="kw">FROM</span> <span class="st">"Generation History"</span></span>
+<span id="cb47-576"><a href="#cb47-576"></a>WINDOW seven <span class="kw">AS</span> (</span>
+<span id="cb47-577"><a href="#cb47-577"></a>    PARTITION <span class="kw">BY</span> <span class="st">"Plant"</span></span>
+<span id="cb47-578"><a href="#cb47-578"></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="st">"Date"</span> <span class="kw">ASC</span></span>
+<span id="cb47-579"><a href="#cb47-579"></a>    RANGE <span class="kw">BETWEEN</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS PRECEDING</span>
+<span id="cb47-580"><a href="#cb47-580"></a>              <span class="kw">AND</span> <span class="kw">INTERVAL</span> <span class="dv">3</span> DAYS FOLLOWING)</span>
+<span id="cb47-581"><a href="#cb47-581"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">1</span>, <span class="dv">2</span>;</span>
+<span id="cb47-582"><a href="#cb47-582"></a><span class="in">```</span></span>
+<span id="cb47-583"><a href="#cb47-583"></a></span>
+<span id="cb47-584"><a href="#cb47-584"></a></span>
+<span id="cb47-585"><a href="#cb47-585"></a></span>
+<span id="cb47-586"><a href="#cb47-586"></a></span>
+<span id="cb47-587"><a href="#cb47-587"></a></span>
+<span id="cb47-588"><a href="#cb47-588"></a><span class="fu"># Disconnect</span></span>
+<span id="cb47-589"><a href="#cb47-589"></a></span>
+<span id="cb47-592"><a href="#cb47-592"></a><span class="in">```{r}</span></span>
+<span id="cb47-593"><a href="#cb47-593"></a><span class="fu">dbDisconnect</span>(con)</span>
+<span id="cb47-594"><a href="#cb47-594"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false});</script>
 
 
 

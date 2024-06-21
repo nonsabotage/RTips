@@ -554,13 +554,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">3</span> FILTER</a></li>
   <li><a href="#乱数" id="toc-乱数" class="nav-link" data-scroll-target="#乱数"><span class="header-section-number">4</span> 乱数</a></li>
   <li><a href="#マテリアルズ-with" id="toc-マテリアルズ-with" class="nav-link" data-scroll-target="#マテリアルズ-with"><span class="header-section-number">5</span> マテリアルズ WITH</a></li>
-  <li><a href="#再帰共通表式" id="toc-再帰共通表式" class="nav-link" data-scroll-target="#再帰共通表式"><span class="header-section-number">6</span> 再帰共通表式</a>
+  <li><a href="#縦持ち横持ち変換" id="toc-縦持ち横持ち変換" class="nav-link" data-scroll-target="#縦持ち横持ち変換"><span class="header-section-number">6</span> 縦持ち・横持ち変換</a></li>
+  <li><a href="#再帰共通表式" id="toc-再帰共通表式" class="nav-link" data-scroll-target="#再帰共通表式"><span class="header-section-number">7</span> 再帰共通表式</a>
   <ul class="collapse">
-  <li><a href="#再帰共通表式グラフ" id="toc-再帰共通表式グラフ" class="nav-link" data-scroll-target="#再帰共通表式グラフ"><span class="header-section-number">6.1</span> 再帰共通表式：グラフ</a></li>
-  <li><a href="#ノードから重み付けされていない最短パスの列挙" id="toc-ノードから重み付けされていない最短パスの列挙" class="nav-link" data-scroll-target="#ノードから重み付けされていない最短パスの列挙"><span class="header-section-number">6.2</span> ノードから重み付けされていない最短パスの列挙</a></li>
-  <li><a href="#つのノード間の重み付けされていあに最短パスの列挙" id="toc-つのノード間の重み付けされていあに最短パスの列挙" class="nav-link" data-scroll-target="#つのノード間の重み付けされていあに最短パスの列挙"><span class="header-section-number">6.3</span> 2つのノード間の重み付けされていあに最短パスの列挙</a></li>
+  <li><a href="#再帰共通表式グラフ" id="toc-再帰共通表式グラフ" class="nav-link" data-scroll-target="#再帰共通表式グラフ"><span class="header-section-number">7.1</span> 再帰共通表式：グラフ</a></li>
+  <li><a href="#ノードから重み付けされていない最短パスの列挙" id="toc-ノードから重み付けされていない最短パスの列挙" class="nav-link" data-scroll-target="#ノードから重み付けされていない最短パスの列挙"><span class="header-section-number">7.2</span> ノードから重み付けされていない最短パスの列挙</a></li>
+  <li><a href="#つのノード間の重み付けされていあに最短パスの列挙" id="toc-つのノード間の重み付けされていあに最短パスの列挙" class="nav-link" data-scroll-target="#つのノード間の重み付けされていあに最短パスの列挙"><span class="header-section-number">7.3</span> 2つのノード間の重み付けされていあに最短パスの列挙</a></li>
   </ul></li>
-  <li><a href="#disconnect" id="toc-disconnect" class="nav-link" data-scroll-target="#disconnect"><span class="header-section-number">7</span> Disconnect</a></li>
+  <li><a href="#disconnect" id="toc-disconnect" class="nav-link" data-scroll-target="#disconnect"><span class="header-section-number">8</span> Disconnect</a></li>
   </ul>
 </nav>
     </div>
@@ -581,7 +582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 20, 2024</p>
+      <p class="date-modified">June 21, 2024</p>
     </div>
   </div>
     
@@ -676,21 +677,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <colgroup>
 <col style="width: 3%">
 <col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 3%">
-<col style="width: 30%">
 <col style="width: 2%">
 <col style="width: 3%">
-<col style="width: 7%">
-<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 26%">
+<col style="width: 1%">
+<col style="width: 1%">
 <col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 1%">
 <col style="width: 4%">
 <col style="width: 4%">
 <col style="width: 2%">
 <col style="width: 3%">
-<col style="width: 12%">
-<col style="width: 3%">
+<col style="width: 17%">
+<col style="width: 2%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -701,6 +703,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th style="text-align: left;">function_type</th>
 <th style="text-align: left;">description</th>
 <th style="text-align: left;">comment</th>
+<th style="text-align: left;">tags</th>
 <th style="text-align: left;">return_type</th>
 <th style="text-align: left;">parameters</th>
 <th style="text-align: left;">parameter_types</th>
@@ -718,48 +721,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">system</td>
 <td style="text-align: left;">0</td>
 <td style="text-align: left;">main</td>
-<td style="text-align: left;">st_read_meta</td>
-<td style="text-align: left;">table</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">col0</td>
-<td style="text-align: left;">VARCHAR</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1531</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">system</td>
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">main</td>
-<td style="text-align: left;">st_read_meta</td>
-<td style="text-align: left;">table</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">col0</td>
-<td style="text-align: left;">VARCHAR[]</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1531</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">system</td>
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">main</td>
 <td style="text-align: left;">starts_with</td>
 <td style="text-align: left;">scalar</td>
 <td style="text-align: left;">Returns true if string begins with search_string</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">BOOLEAN</td>
 <td style="text-align: left;">string , search_string</td>
 <td style="text-align: left;">VARCHAR, VARCHAR</td>
@@ -767,7 +733,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">934</td>
+<td style="text-align: right;">936</td>
 <td style="text-align: left;">starts_with(‘abc’,‘a’)</td>
 <td style="text-align: left;">CONSISTENT</td>
 </tr>
@@ -779,6 +745,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">scalar</td>
 <td style="text-align: left;">Returns a string with statistics about the expression. Expression can be a column, constant, or SQL expression</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">VARCHAR</td>
 <td style="text-align: left;">expression</td>
 <td style="text-align: left;">ANY</td>
@@ -786,7 +753,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">936</td>
+<td style="text-align: right;">938</td>
 <td style="text-align: left;">stats(5)</td>
 <td style="text-align: left;">VOLATILE</td>
 </tr>
@@ -798,6 +765,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">aggregate</td>
 <td style="text-align: left;">Returns the sample standard deviation</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">DOUBLE</td>
 <td style="text-align: left;">x</td>
 <td style="text-align: left;">DOUBLE</td>
@@ -805,7 +773,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">938</td>
+<td style="text-align: right;">940</td>
 <td style="text-align: left;">sqrt(var_samp(x))</td>
 <td style="text-align: left;">CONSISTENT</td>
 </tr>
@@ -817,6 +785,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">aggregate</td>
 <td style="text-align: left;">Returns the population standard deviation.</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">DOUBLE</td>
 <td style="text-align: left;">x</td>
 <td style="text-align: left;">DOUBLE</td>
@@ -824,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">940</td>
+<td style="text-align: right;">942</td>
 <td style="text-align: left;">sqrt(var_pop(x))</td>
 <td style="text-align: left;">CONSISTENT</td>
 </tr>
@@ -836,6 +805,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">aggregate</td>
 <td style="text-align: left;">Returns the sample standard deviation</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">DOUBLE</td>
 <td style="text-align: left;">x</td>
 <td style="text-align: left;">DOUBLE</td>
@@ -843,7 +813,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">942</td>
+<td style="text-align: right;">944</td>
 <td style="text-align: left;">sqrt(var_samp(x))</td>
 <td style="text-align: left;">CONSISTENT</td>
 </tr>
@@ -855,6 +825,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">pragma</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">col0</td>
 <td style="text-align: left;">VARCHAR</td>
@@ -862,7 +833,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">302</td>
+<td style="text-align: right;">304</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
@@ -874,6 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">scalar</td>
 <td style="text-align: left;">Splits the string along the separator</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">VARCHAR[]</td>
 <td style="text-align: left;">string , separator</td>
 <td style="text-align: left;">VARCHAR, VARCHAR</td>
@@ -881,7 +853,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">944</td>
+<td style="text-align: right;">946</td>
 <td style="text-align: left;">string_split(‘hello-world’, ‘-’)</td>
 <td style="text-align: left;">CONSISTENT</td>
 </tr>
@@ -893,6 +865,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">scalar</td>
 <td style="text-align: left;">Splits the string along the regex</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">VARCHAR[]</td>
+<td style="text-align: left;">string , separator, col2</td>
+<td style="text-align: left;">VARCHAR, VARCHAR, VARCHAR</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">948</td>
+<td style="text-align: left;">string_split_regex(‘hello␣world; 42’, ‘;?␣’)</td>
+<td style="text-align: left;">CONSISTENT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">str_split_regex</td>
+<td style="text-align: left;">scalar</td>
+<td style="text-align: left;">Splits the string along the regex</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">VARCHAR[]</td>
 <td style="text-align: left;">string , separator</td>
 <td style="text-align: left;">VARCHAR, VARCHAR</td>
@@ -900,8 +893,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">946</td>
+<td style="text-align: right;">948</td>
 <td style="text-align: left;">string_split_regex(‘hello␣world; 42’, ‘;?␣’)</td>
+<td style="text-align: left;">CONSISTENT</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">system</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">strftime</td>
+<td style="text-align: left;">scalar</td>
+<td style="text-align: left;">Converts timestamp to string according to the format string</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">VARCHAR</td>
+<td style="text-align: left;">text , format</td>
+<td style="text-align: left;">TIMESTAMP WITH TIME ZONE, VARCHAR</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">950</td>
+<td style="text-align: left;">strftime(timestamp ‘1992-01-01 20:38:40’, ‘%a, %-d %B %Y - %I:%M:%S %p’)</td>
 <td style="text-align: left;">CONSISTENT</td>
 </tr>
 </tbody>
@@ -1107,11 +1120,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">12148737</td>
-<td style="text-align: right;">37609473</td>
-<td style="text-align: right;">54730753</td>
-<td style="text-align: right;">85467137</td>
-<td style="text-align: right;">99033089</td>
+<td style="text-align: right;">2285569</td>
+<td style="text-align: right;">35504129</td>
+<td style="text-align: right;">67371009</td>
+<td style="text-align: right;">82780161</td>
+<td style="text-align: right;">93003777</td>
 </tr>
 </tbody>
 </table>
@@ -1140,43 +1153,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.4100095</td>
+<td style="text-align: right;">0.8780213</td>
 <td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.5596891</td>
+<td style="text-align: right;">0.6176126</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.0635540</td>
+<td style="text-align: right;">0.0665071</td>
 <td style="text-align: right;">3</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.2721096</td>
+<td style="text-align: right;">0.4690372</td>
 <td style="text-align: right;">4</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.7975421</td>
+<td style="text-align: right;">0.8988304</td>
 <td style="text-align: right;">5</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.5215980</td>
+<td style="text-align: right;">0.9039158</td>
 <td style="text-align: right;">6</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.2613982</td>
+<td style="text-align: right;">0.6087153</td>
 <td style="text-align: right;">7</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.6723294</td>
+<td style="text-align: right;">0.3919204</td>
 <td style="text-align: right;">8</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.6745760</td>
+<td style="text-align: right;">0.2480044</td>
 <td style="text-align: right;">9</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.8514902</td>
+<td style="text-align: right;">0.2779227</td>
 <td style="text-align: right;">10</td>
 </tr>
 </tbody>
@@ -1283,36 +1296,283 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="再帰共通表式" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 再帰共通表式</h1>
+<section id="縦持ち横持ち変換" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> 縦持ち・横持ち変換</h1>
+<p>PIVOT、UNPIVOTがあるので、Duckdbには不要であるが、SQLの練習として縦持ち・横持ち変換を書いてみる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> <span class="dt">long</span> (z <span class="dt">VARCHAR</span>, x <span class="dt">VARCHAR</span>, y <span class="dt">INTEGER</span>);</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> <span class="dt">long</span> <span class="kw">VALUES</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>(<span class="st">'s'</span>, <span class="st">'a'</span>, <span class="dv">1</span>),</span>
+<span id="cb16-4"><a href="#cb16-4"></a>(<span class="st">'s'</span>, <span class="st">'b'</span>, <span class="dv">2</span>),</span>
+<span id="cb16-5"><a href="#cb16-5"></a>(<span class="st">'s'</span>, <span class="st">'c'</span>, <span class="dv">3</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>縦持ちから横持ちへの変換。こちらは集約関数があれば簡単におこなうことができる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  z</span>
+<span id="cb17-3"><a href="#cb17-3"></a>  ,  <span class="fu">SUM</span>(<span class="cf">CASE</span> x <span class="cf">WHEN</span> <span class="st">'a'</span> <span class="cf">THEN</span> y <span class="cf">ELSE</span> <span class="kw">NULL</span> <span class="cf">END</span>) <span class="kw">AS</span> <span class="st">'a'</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>  ,  <span class="fu">SUM</span>(<span class="cf">CASE</span> x <span class="cf">WHEN</span> <span class="st">'b'</span> <span class="cf">THEN</span> y <span class="cf">ELSE</span> <span class="kw">NULL</span> <span class="cf">END</span>) <span class="kw">AS</span> <span class="st">'b'</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>  ,  <span class="fu">SUM</span>(<span class="cf">CASE</span> x <span class="cf">WHEN</span> <span class="st">'c'</span> <span class="cf">THEN</span> y <span class="cf">ELSE</span> <span class="kw">NULL</span> <span class="cf">END</span>) <span class="kw">AS</span> <span class="st">'c'</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="kw">FROM</span> <span class="dt">long</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="kw">GROUP</span> <span class="kw">BY</span> z;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>1 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">z</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">b</th>
+<th style="text-align: right;">c</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">s</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>横持ちから縦持ちの変換をおこなう。 <code>SELECT</code>で切り出した後に、<code>UNION</code>でつなぐというのが１つの方法である。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> wide (z <span class="dt">VARCHAR</span>, a <span class="dt">INTEGER</span>, b <span class="dt">INTEGER</span>, c <span class="dt">INTEGER</span>);</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> wide <span class="kw">VALUES</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>(<span class="st">'s'</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb18-4"><a href="#cb18-4"></a>(<span class="st">'t'</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>),</span>
+<span id="cb18-5"><a href="#cb18-5"></a>(<span class="st">'u'</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> wide;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>3 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">z</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">b</th>
+<th style="text-align: right;">c</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">s</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">t</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">u</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>とにかく、展開、つまり行を延ばす必要があるので、ここでは<code>CROSS JOIN</code>で行を延ばしてから、 行番号の繰り返しから<code>CASE</code>で値を取得している。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">SELECT</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  z</span>
+<span id="cb20-3"><a href="#cb20-3"></a>  , <span class="cf">CASE</span> ii </span>
+<span id="cb20-4"><a href="#cb20-4"></a>      <span class="cf">WHEN</span> <span class="dv">0</span> <span class="cf">THEN</span> a </span>
+<span id="cb20-5"><a href="#cb20-5"></a>      <span class="cf">WHEN</span> <span class="dv">1</span> <span class="cf">THEN</span> b</span>
+<span id="cb20-6"><a href="#cb20-6"></a>      <span class="cf">WHEN</span> <span class="dv">2</span> <span class="cf">THEN</span> c</span>
+<span id="cb20-7"><a href="#cb20-7"></a>      <span class="cf">ELSE</span> <span class="kw">NULL</span> <span class="cf">END</span> <span class="kw">as</span> v</span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="kw">FROM</span> wide</span>
+<span id="cb20-9"><a href="#cb20-9"></a><span class="kw">CROSS</span> <span class="kw">JOIN</span> <span class="kw">range</span>(<span class="dv">3</span>) t(ii);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>9 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">z</th>
+<th style="text-align: right;">v</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">s</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">s</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">s</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">t</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">t</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">t</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">u</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">u</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">u</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>シーケンシャルスキャンが１度であることがわかる。</p>
+<div class="cell" data-output.var="a">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">EXPLAIN</span> <span class="kw">SELECT</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>  z</span>
+<span id="cb21-3"><a href="#cb21-3"></a>  , <span class="cf">CASE</span> ii </span>
+<span id="cb21-4"><a href="#cb21-4"></a>      <span class="cf">WHEN</span> <span class="dv">0</span> <span class="cf">THEN</span> a </span>
+<span id="cb21-5"><a href="#cb21-5"></a>      <span class="cf">WHEN</span> <span class="dv">1</span> <span class="cf">THEN</span> b</span>
+<span id="cb21-6"><a href="#cb21-6"></a>      <span class="cf">WHEN</span> <span class="dv">2</span> <span class="cf">THEN</span> c</span>
+<span id="cb21-7"><a href="#cb21-7"></a>      <span class="cf">ELSE</span> <span class="kw">NULL</span> <span class="cf">END</span> <span class="kw">as</span> v</span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="kw">FROM</span> wide</span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="kw">CROSS</span> <span class="kw">JOIN</span> <span class="kw">range</span>(<span class="dv">3</span>) t(ii);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>a</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co">#&gt; physical_plan</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="co">#&gt; ┌───────────────────────────┐                             </span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="co">#&gt; │         PROJECTION        │                             </span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="co">#&gt; │   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │                             </span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="co">#&gt; │             z             │                             </span></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="co">#&gt; │             v             │                             </span></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="co">#&gt; └─────────────┬─────────────┘                                                          </span></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="co">#&gt; ┌─────────────┴─────────────┐                             </span></span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="co">#&gt; │       CROSS_PRODUCT       ├──────────────┐              </span></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="co">#&gt; └─────────────┬─────────────┘              │                                           </span></span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="co">#&gt; ┌─────────────┴─────────────┐┌─────────────┴─────────────┐</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a><span class="co">#&gt; │           RANGE           ││         SEQ_SCAN          │</span></span>
+<span id="cb22-14"><a href="#cb22-14"></a><span class="co">#&gt; │   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   ││   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │</span></span>
+<span id="cb22-15"><a href="#cb22-15"></a><span class="co">#&gt; │           EC: 3           ││            wide           │</span></span>
+<span id="cb22-16"><a href="#cb22-16"></a><span class="co">#&gt; │                           ││   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │</span></span>
+<span id="cb22-17"><a href="#cb22-17"></a><span class="co">#&gt; │                           ││             z             │</span></span>
+<span id="cb22-18"><a href="#cb22-18"></a><span class="co">#&gt; │                           ││             a             │</span></span>
+<span id="cb22-19"><a href="#cb22-19"></a><span class="co">#&gt; │                           ││             b             │</span></span>
+<span id="cb22-20"><a href="#cb22-20"></a><span class="co">#&gt; │                           ││             c             │</span></span>
+<span id="cb22-21"><a href="#cb22-21"></a><span class="co">#&gt; │                           ││   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │</span></span>
+<span id="cb22-22"><a href="#cb22-22"></a><span class="co">#&gt; │                           ││           EC: 3           │</span></span>
+<span id="cb22-23"><a href="#cb22-23"></a><span class="co">#&gt; └───────────────────────────┘└───────────────────────────┘</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-output.var="a">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">EXPLAIN</span> </span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="kw">SELECT</span> z, a <span class="kw">FROM</span> wide</span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="kw">SELECT</span> z, b <span class="kw">FROM</span> wide</span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="kw">SELECT</span> z, c <span class="kw">FROM</span> wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><code>UNION</code>をおこなうテーブル毎に、シーケンシャルスキャンが走ってることがわかる。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>a</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co">#&gt; physical_plan</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#&gt; ┌───────────────────────────┐                                                          </span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt; │           UNION           ├───────────────────────────────────────────┐              </span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#&gt; └─────────────┬─────────────┘                                           │                                           </span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; ┌─────────────┴─────────────┐                             ┌─────────────┴─────────────┐</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co">#&gt; │           UNION           │                             │         SEQ_SCAN          │</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="co">#&gt; │                           │                             │   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#&gt; │                           │                             │            wide           │</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="co">#&gt; │                           │                             │   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="co">#&gt; │                           ├──────────────┐              │             z             │</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="co">#&gt; │                           │              │              │             c             │</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="co">#&gt; │                           │              │              │   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="co">#&gt; │                           │              │              │           EC: 3           │</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="co">#&gt; └─────────────┬─────────────┘              │              └───────────────────────────┘                             </span></span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="co">#&gt; ┌─────────────┴─────────────┐┌─────────────┴─────────────┐                             </span></span>
+<span id="cb24-17"><a href="#cb24-17"></a><span class="co">#&gt; │         SEQ_SCAN          ││         SEQ_SCAN          │                             </span></span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="co">#&gt; │   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   ││   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │                             </span></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="co">#&gt; │            wide           ││            wide           │                             </span></span>
+<span id="cb24-20"><a href="#cb24-20"></a><span class="co">#&gt; │   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   ││   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │                             </span></span>
+<span id="cb24-21"><a href="#cb24-21"></a><span class="co">#&gt; │             z             ││             z             │                             </span></span>
+<span id="cb24-22"><a href="#cb24-22"></a><span class="co">#&gt; │             a             ││             b             │                             </span></span>
+<span id="cb24-23"><a href="#cb24-23"></a><span class="co">#&gt; │   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   ││   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │                             </span></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="co">#&gt; │           EC: 3           ││           EC: 3           │                             </span></span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="co">#&gt; └───────────────────────────┘└───────────────────────────┘</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="再帰共通表式" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> 再帰共通表式</h1>
 <p>これがあることでSQLで解ける問題の幅が大きく広がる。すごい！！！ ポスグレやMySQLは10年前から実装されていることからミドルウェアが変わってもだいたい実装されているらしい。</p>
 <p>実は<code>WITH RECURSIVE</code>を使うことで再帰的な計算をおこなうことができる。 下記は公式ドキュメントにあるようにフィボナッチ数列を計算する。 実装をみると第1行を定義したのち<code>UNION ALL</code>で自分を参照する形になっている。</p>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">WITH</span> RECURSIVE FibonacciNumbers (RecursionDepth, FibonacciNumber, NextNumber) <span class="kw">AS</span> (</span>
-<span id="cb16-2"><a href="#cb16-2"></a>    <span class="co">-- Base case</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>    <span class="kw">SELECT</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>        <span class="dv">0</span>  <span class="kw">AS</span> RecursionDepth,</span>
-<span id="cb16-5"><a href="#cb16-5"></a>        <span class="dv">0</span>  <span class="kw">AS</span> FibonacciNumber,</span>
-<span id="cb16-6"><a href="#cb16-6"></a>        <span class="dv">1</span>  <span class="kw">AS</span> NextNumber</span>
-<span id="cb16-7"><a href="#cb16-7"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>    <span class="co">-- Recursive step</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a>    <span class="kw">SELECT</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a>        fib.RecursionDepth <span class="op">+</span> <span class="dv">1</span> <span class="kw">AS</span> RecursionDepth,</span>
-<span id="cb16-11"><a href="#cb16-11"></a>        fib.NextNumber <span class="kw">AS</span> FibonacciNumber,</span>
-<span id="cb16-12"><a href="#cb16-12"></a>        fib.FibonacciNumber <span class="op">+</span> fib.NextNumber <span class="kw">AS</span> NextNumber</span>
-<span id="cb16-13"><a href="#cb16-13"></a>    <span class="kw">FROM</span></span>
-<span id="cb16-14"><a href="#cb16-14"></a>        FibonacciNumbers fib</span>
-<span id="cb16-15"><a href="#cb16-15"></a>    <span class="kw">WHERE</span></span>
-<span id="cb16-16"><a href="#cb16-16"></a>        fib.RecursionDepth <span class="op">+</span> <span class="dv">1</span> <span class="op">&lt;</span> <span class="dv">24</span></span>
-<span id="cb16-17"><a href="#cb16-17"></a>)</span>
-<span id="cb16-18"><a href="#cb16-18"></a><span class="co">-- Query the CTE</span></span>
-<span id="cb16-19"><a href="#cb16-19"></a><span class="kw">SELECT</span></span>
-<span id="cb16-20"><a href="#cb16-20"></a>    fn.RecursionDepth <span class="kw">AS</span> FibonacciNumberIndex,</span>
-<span id="cb16-21"><a href="#cb16-21"></a>    fn.FibonacciNumber</span>
-<span id="cb16-22"><a href="#cb16-22"></a><span class="kw">FROM</span></span>
-<span id="cb16-23"><a href="#cb16-23"></a>    FibonacciNumbers fn;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">WITH</span> RECURSIVE FibonacciNumbers (RecursionDepth, FibonacciNumber, NextNumber) <span class="kw">AS</span> (</span>
+<span id="cb25-2"><a href="#cb25-2"></a>    <span class="co">-- Base case</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>    <span class="kw">SELECT</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>        <span class="dv">0</span>  <span class="kw">AS</span> RecursionDepth,</span>
+<span id="cb25-5"><a href="#cb25-5"></a>        <span class="dv">0</span>  <span class="kw">AS</span> FibonacciNumber,</span>
+<span id="cb25-6"><a href="#cb25-6"></a>        <span class="dv">1</span>  <span class="kw">AS</span> NextNumber</span>
+<span id="cb25-7"><a href="#cb25-7"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a>    <span class="co">-- Recursive step</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a>    <span class="kw">SELECT</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a>        fib.RecursionDepth <span class="op">+</span> <span class="dv">1</span> <span class="kw">AS</span> RecursionDepth,</span>
+<span id="cb25-11"><a href="#cb25-11"></a>        fib.NextNumber <span class="kw">AS</span> FibonacciNumber,</span>
+<span id="cb25-12"><a href="#cb25-12"></a>        fib.FibonacciNumber <span class="op">+</span> fib.NextNumber <span class="kw">AS</span> NextNumber</span>
+<span id="cb25-13"><a href="#cb25-13"></a>    <span class="kw">FROM</span></span>
+<span id="cb25-14"><a href="#cb25-14"></a>        FibonacciNumbers fib</span>
+<span id="cb25-15"><a href="#cb25-15"></a>    <span class="kw">WHERE</span></span>
+<span id="cb25-16"><a href="#cb25-16"></a>        fib.RecursionDepth <span class="op">+</span> <span class="dv">1</span> <span class="op">&lt;</span> <span class="dv">24</span></span>
+<span id="cb25-17"><a href="#cb25-17"></a>)</span>
+<span id="cb25-18"><a href="#cb25-18"></a><span class="co">-- Query the CTE</span></span>
+<span id="cb25-19"><a href="#cb25-19"></a><span class="kw">SELECT</span></span>
+<span id="cb25-20"><a href="#cb25-20"></a>    fn.RecursionDepth <span class="kw">AS</span> FibonacciNumberIndex,</span>
+<span id="cb25-21"><a href="#cb25-21"></a>    fn.FibonacciNumber</span>
+<span id="cb25-22"><a href="#cb25-22"></a><span class="kw">FROM</span></span>
+<span id="cb25-23"><a href="#cb25-23"></a>    FibonacciNumbers fn;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1368,43 +1628,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<section id="再帰共通表式グラフ" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="再帰共通表式グラフ"><span class="header-section-number">6.1</span> 再帰共通表式：グラフ</h2>
+<section id="再帰共通表式グラフ" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="再帰共通表式グラフ"><span class="header-section-number">7.1</span> 再帰共通表式：グラフ</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> edge (node1id <span class="dt">INTEGER</span>, node2id <span class="dt">INTEGER</span>);</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> edge</span>
-<span id="cb17-3"><a href="#cb17-3"></a>    <span class="kw">VALUES</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a>        (<span class="dv">1</span>, <span class="dv">3</span>), (<span class="dv">1</span>, <span class="dv">5</span>), (<span class="dv">2</span>, <span class="dv">4</span>), (<span class="dv">2</span>, <span class="dv">5</span>), (<span class="dv">2</span>, <span class="dv">10</span>), (<span class="dv">3</span>, <span class="dv">1</span>), (<span class="dv">3</span>, <span class="dv">5</span>), (<span class="dv">3</span>, <span class="dv">8</span>), (<span class="dv">3</span>, <span class="dv">10</span>),</span>
-<span id="cb17-5"><a href="#cb17-5"></a>        (<span class="dv">5</span>, <span class="dv">3</span>), (<span class="dv">5</span>, <span class="dv">4</span>), (<span class="dv">5</span>, <span class="dv">8</span>), (<span class="dv">6</span>, <span class="dv">3</span>), (<span class="dv">6</span>, <span class="dv">4</span>), (<span class="dv">7</span>, <span class="dv">4</span>), (<span class="dv">8</span>, <span class="dv">1</span>), (<span class="dv">9</span>, <span class="dv">4</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> edge (node1id <span class="dt">INTEGER</span>, node2id <span class="dt">INTEGER</span>);</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> edge</span>
+<span id="cb26-3"><a href="#cb26-3"></a>    <span class="kw">VALUES</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a>        (<span class="dv">1</span>, <span class="dv">3</span>), (<span class="dv">1</span>, <span class="dv">5</span>), (<span class="dv">2</span>, <span class="dv">4</span>), (<span class="dv">2</span>, <span class="dv">5</span>), (<span class="dv">2</span>, <span class="dv">10</span>), (<span class="dv">3</span>, <span class="dv">1</span>), (<span class="dv">3</span>, <span class="dv">5</span>), (<span class="dv">3</span>, <span class="dv">8</span>), (<span class="dv">3</span>, <span class="dv">10</span>),</span>
+<span id="cb26-5"><a href="#cb26-5"></a>        (<span class="dv">5</span>, <span class="dv">3</span>), (<span class="dv">5</span>, <span class="dv">4</span>), (<span class="dv">5</span>, <span class="dv">8</span>), (<span class="dv">6</span>, <span class="dv">3</span>), (<span class="dv">6</span>, <span class="dv">4</span>), (<span class="dv">7</span>, <span class="dv">4</span>), (<span class="dv">8</span>, <span class="dv">1</span>), (<span class="dv">9</span>, <span class="dv">4</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>上記の隣接グラフからあるノードから始まる全てのパスを列挙する。</p>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">WITH</span> RECURSIVE paths(startNode, endNode, path) <span class="kw">AS</span> (</span>
-<span id="cb18-2"><a href="#cb18-2"></a>    <span class="kw">SELECT</span> <span class="co">-- define the path as the first edge of the traversal</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>        node1id <span class="kw">AS</span> startNode,</span>
-<span id="cb18-4"><a href="#cb18-4"></a>        node2id <span class="kw">AS</span> endNode,</span>
-<span id="cb18-5"><a href="#cb18-5"></a>        [node1id, node2id] <span class="kw">AS</span> path</span>
-<span id="cb18-6"><a href="#cb18-6"></a>    <span class="kw">FROM</span> edge</span>
-<span id="cb18-7"><a href="#cb18-7"></a>    <span class="kw">WHERE</span> startNode <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb18-9"><a href="#cb18-9"></a>    <span class="kw">SELECT</span> <span class="co">-- concatenate new edge to the path</span></span>
-<span id="cb18-10"><a href="#cb18-10"></a>        paths.startNode <span class="kw">AS</span> startNode,</span>
-<span id="cb18-11"><a href="#cb18-11"></a>        node2id <span class="kw">AS</span> endNode,</span>
-<span id="cb18-12"><a href="#cb18-12"></a>        array_append(path, node2id) <span class="kw">AS</span> path</span>
-<span id="cb18-13"><a href="#cb18-13"></a>    <span class="kw">FROM</span> paths</span>
-<span id="cb18-14"><a href="#cb18-14"></a>    <span class="kw">JOIN</span> edge <span class="kw">ON</span> paths.endNode <span class="op">=</span> node1id</span>
-<span id="cb18-15"><a href="#cb18-15"></a>    <span class="co">-- Prevent adding a repeated node to the path.</span></span>
-<span id="cb18-16"><a href="#cb18-16"></a>    <span class="co">-- This ensures that no cycles occur.</span></span>
-<span id="cb18-17"><a href="#cb18-17"></a>    <span class="kw">WHERE</span> node2id <span class="op">!=</span> <span class="kw">ALL</span>(paths.path)</span>
-<span id="cb18-18"><a href="#cb18-18"></a>)</span>
-<span id="cb18-19"><a href="#cb18-19"></a><span class="kw">SELECT</span> startNode, endNode, path</span>
-<span id="cb18-20"><a href="#cb18-20"></a><span class="kw">FROM</span> paths</span>
-<span id="cb18-21"><a href="#cb18-21"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">length</span>(path), path;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">WITH</span> RECURSIVE paths(startNode, endNode, path) <span class="kw">AS</span> (</span>
+<span id="cb27-2"><a href="#cb27-2"></a>    <span class="kw">SELECT</span> <span class="co">-- define the path as the first edge of the traversal</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>        node1id <span class="kw">AS</span> startNode,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>        node2id <span class="kw">AS</span> endNode,</span>
+<span id="cb27-5"><a href="#cb27-5"></a>        [node1id, node2id] <span class="kw">AS</span> path</span>
+<span id="cb27-6"><a href="#cb27-6"></a>    <span class="kw">FROM</span> edge</span>
+<span id="cb27-7"><a href="#cb27-7"></a>    <span class="kw">WHERE</span> startNode <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a>    <span class="kw">SELECT</span> <span class="co">-- concatenate new edge to the path</span></span>
+<span id="cb27-10"><a href="#cb27-10"></a>        paths.startNode <span class="kw">AS</span> startNode,</span>
+<span id="cb27-11"><a href="#cb27-11"></a>        node2id <span class="kw">AS</span> endNode,</span>
+<span id="cb27-12"><a href="#cb27-12"></a>        array_append(path, node2id) <span class="kw">AS</span> path</span>
+<span id="cb27-13"><a href="#cb27-13"></a>    <span class="kw">FROM</span> paths</span>
+<span id="cb27-14"><a href="#cb27-14"></a>    <span class="kw">JOIN</span> edge <span class="kw">ON</span> paths.endNode <span class="op">=</span> node1id</span>
+<span id="cb27-15"><a href="#cb27-15"></a>    <span class="co">-- Prevent adding a repeated node to the path.</span></span>
+<span id="cb27-16"><a href="#cb27-16"></a>    <span class="co">-- This ensures that no cycles occur.</span></span>
+<span id="cb27-17"><a href="#cb27-17"></a>    <span class="kw">WHERE</span> node2id <span class="op">!=</span> <span class="kw">ALL</span>(paths.path)</span>
+<span id="cb27-18"><a href="#cb27-18"></a>)</span>
+<span id="cb27-19"><a href="#cb27-19"></a><span class="kw">SELECT</span> startNode, endNode, path</span>
+<span id="cb27-20"><a href="#cb27-20"></a><span class="kw">FROM</span> paths</span>
+<span id="cb27-21"><a href="#cb27-21"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">length</span>(path), path;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1472,35 +1732,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ノードから重み付けされていない最短パスの列挙" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="ノードから重み付けされていない最短パスの列挙"><span class="header-section-number">6.2</span> ノードから重み付けされていない最短パスの列挙</h2>
+<section id="ノードから重み付けされていない最短パスの列挙" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="ノードから重み付けされていない最短パスの列挙"><span class="header-section-number">7.2</span> ノードから重み付けされていない最短パスの列挙</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">WITH</span> RECURSIVE paths(startNode, endNode, path) <span class="kw">AS</span> (</span>
-<span id="cb19-2"><a href="#cb19-2"></a>   <span class="kw">SELECT</span> <span class="co">-- define the path as the first edge of the traversal</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>        node1id <span class="kw">AS</span> startNode,</span>
-<span id="cb19-4"><a href="#cb19-4"></a>        node2id <span class="kw">AS</span> endNode,</span>
-<span id="cb19-5"><a href="#cb19-5"></a>        [node1id, node2id] <span class="kw">AS</span> path</span>
-<span id="cb19-6"><a href="#cb19-6"></a>     <span class="kw">FROM</span> edge</span>
-<span id="cb19-7"><a href="#cb19-7"></a>     <span class="kw">WHERE</span> startNode <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>   <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb19-9"><a href="#cb19-9"></a>   <span class="kw">SELECT</span> <span class="co">-- concatenate new edge to the path</span></span>
-<span id="cb19-10"><a href="#cb19-10"></a>        paths.startNode <span class="kw">AS</span> startNode,</span>
-<span id="cb19-11"><a href="#cb19-11"></a>        node2id <span class="kw">AS</span> endNode,</span>
-<span id="cb19-12"><a href="#cb19-12"></a>        array_append(path, node2id) <span class="kw">AS</span> path</span>
-<span id="cb19-13"><a href="#cb19-13"></a>     <span class="kw">FROM</span> paths</span>
-<span id="cb19-14"><a href="#cb19-14"></a>     <span class="kw">JOIN</span> edge <span class="kw">ON</span> paths.endNode <span class="op">=</span> node1id</span>
-<span id="cb19-15"><a href="#cb19-15"></a>    <span class="co">-- Prevent adding a node that was visited previously by any path.</span></span>
-<span id="cb19-16"><a href="#cb19-16"></a>    <span class="co">-- This ensures that (1) no cycles occur and (2) only nodes that</span></span>
-<span id="cb19-17"><a href="#cb19-17"></a>    <span class="co">-- were not visited by previous (shorter) paths are added to a path.</span></span>
-<span id="cb19-18"><a href="#cb19-18"></a>    <span class="kw">WHERE</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> (<span class="kw">SELECT</span> <span class="dv">1</span></span>
-<span id="cb19-19"><a href="#cb19-19"></a>                      <span class="kw">FROM</span> paths previous_paths</span>
-<span id="cb19-20"><a href="#cb19-20"></a>                      <span class="kw">WHERE</span> list_contains(previous_paths.path, node2id))</span>
-<span id="cb19-21"><a href="#cb19-21"></a>)</span>
-<span id="cb19-22"><a href="#cb19-22"></a><span class="kw">SELECT</span> startNode, endNode, path</span>
-<span id="cb19-23"><a href="#cb19-23"></a><span class="kw">FROM</span> paths</span>
-<span id="cb19-24"><a href="#cb19-24"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">length</span>(path), path;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">WITH</span> RECURSIVE paths(startNode, endNode, path) <span class="kw">AS</span> (</span>
+<span id="cb28-2"><a href="#cb28-2"></a>   <span class="kw">SELECT</span> <span class="co">-- define the path as the first edge of the traversal</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>        node1id <span class="kw">AS</span> startNode,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>        node2id <span class="kw">AS</span> endNode,</span>
+<span id="cb28-5"><a href="#cb28-5"></a>        [node1id, node2id] <span class="kw">AS</span> path</span>
+<span id="cb28-6"><a href="#cb28-6"></a>     <span class="kw">FROM</span> edge</span>
+<span id="cb28-7"><a href="#cb28-7"></a>     <span class="kw">WHERE</span> startNode <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a>   <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb28-9"><a href="#cb28-9"></a>   <span class="kw">SELECT</span> <span class="co">-- concatenate new edge to the path</span></span>
+<span id="cb28-10"><a href="#cb28-10"></a>        paths.startNode <span class="kw">AS</span> startNode,</span>
+<span id="cb28-11"><a href="#cb28-11"></a>        node2id <span class="kw">AS</span> endNode,</span>
+<span id="cb28-12"><a href="#cb28-12"></a>        array_append(path, node2id) <span class="kw">AS</span> path</span>
+<span id="cb28-13"><a href="#cb28-13"></a>     <span class="kw">FROM</span> paths</span>
+<span id="cb28-14"><a href="#cb28-14"></a>     <span class="kw">JOIN</span> edge <span class="kw">ON</span> paths.endNode <span class="op">=</span> node1id</span>
+<span id="cb28-15"><a href="#cb28-15"></a>    <span class="co">-- Prevent adding a node that was visited previously by any path.</span></span>
+<span id="cb28-16"><a href="#cb28-16"></a>    <span class="co">-- This ensures that (1) no cycles occur and (2) only nodes that</span></span>
+<span id="cb28-17"><a href="#cb28-17"></a>    <span class="co">-- were not visited by previous (shorter) paths are added to a path.</span></span>
+<span id="cb28-18"><a href="#cb28-18"></a>    <span class="kw">WHERE</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> (<span class="kw">SELECT</span> <span class="dv">1</span></span>
+<span id="cb28-19"><a href="#cb28-19"></a>                      <span class="kw">FROM</span> paths previous_paths</span>
+<span id="cb28-20"><a href="#cb28-20"></a>                      <span class="kw">WHERE</span> list_contains(previous_paths.path, node2id))</span>
+<span id="cb28-21"><a href="#cb28-21"></a>)</span>
+<span id="cb28-22"><a href="#cb28-22"></a><span class="kw">SELECT</span> startNode, endNode, path</span>
+<span id="cb28-23"><a href="#cb28-23"></a><span class="kw">FROM</span> paths</span>
+<span id="cb28-24"><a href="#cb28-24"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">length</span>(path), path;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1548,38 +1808,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="つのノード間の重み付けされていあに最短パスの列挙" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="つのノード間の重み付けされていあに最短パスの列挙"><span class="header-section-number">6.3</span> 2つのノード間の重み付けされていあに最短パスの列挙</h2>
+<section id="つのノード間の重み付けされていあに最短パスの列挙" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="つのノード間の重み付けされていあに最短パスの列挙"><span class="header-section-number">7.3</span> 2つのノード間の重み付けされていあに最短パスの列挙</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">WITH</span> RECURSIVE paths(startNode, endNode, path, endReached) <span class="kw">AS</span> (</span>
-<span id="cb20-2"><a href="#cb20-2"></a>   <span class="kw">SELECT</span> <span class="co">-- define the path as the first edge of the traversal</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>        node1id <span class="kw">AS</span> startNode,</span>
-<span id="cb20-4"><a href="#cb20-4"></a>        node2id <span class="kw">AS</span> endNode,</span>
-<span id="cb20-5"><a href="#cb20-5"></a>        [node1id, node2id] <span class="kw">AS</span> path,</span>
-<span id="cb20-6"><a href="#cb20-6"></a>        (node2id <span class="op">=</span> <span class="dv">8</span>) <span class="kw">AS</span> endReached</span>
-<span id="cb20-7"><a href="#cb20-7"></a>     <span class="kw">FROM</span> edge</span>
-<span id="cb20-8"><a href="#cb20-8"></a>     <span class="kw">WHERE</span> startNode <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb20-9"><a href="#cb20-9"></a>   <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb20-10"><a href="#cb20-10"></a>   <span class="kw">SELECT</span> <span class="co">-- concatenate new edge to the path</span></span>
-<span id="cb20-11"><a href="#cb20-11"></a>        paths.startNode <span class="kw">AS</span> startNode,</span>
-<span id="cb20-12"><a href="#cb20-12"></a>        node2id <span class="kw">AS</span> endNode,</span>
-<span id="cb20-13"><a href="#cb20-13"></a>        array_append(path, node2id) <span class="kw">AS</span> path,</span>
-<span id="cb20-14"><a href="#cb20-14"></a>        <span class="fu">max</span>(<span class="cf">CASE</span> <span class="cf">WHEN</span> node2id <span class="op">=</span> <span class="dv">8</span> <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">ELSE</span> <span class="dv">0</span> <span class="cf">END</span>)</span>
-<span id="cb20-15"><a href="#cb20-15"></a>            <span class="kw">OVER</span> (<span class="kw">ROWS</span> <span class="kw">BETWEEN</span> <span class="kw">UNBOUNDED</span> <span class="kw">PRECEDING</span></span>
-<span id="cb20-16"><a href="#cb20-16"></a>                           <span class="kw">AND</span> <span class="kw">UNBOUNDED</span> <span class="kw">FOLLOWING</span>) <span class="kw">AS</span> endReached</span>
-<span id="cb20-17"><a href="#cb20-17"></a>     <span class="kw">FROM</span> paths</span>
-<span id="cb20-18"><a href="#cb20-18"></a>     <span class="kw">JOIN</span> edge <span class="kw">ON</span> paths.endNode <span class="op">=</span> node1id</span>
-<span id="cb20-19"><a href="#cb20-19"></a>    <span class="kw">WHERE</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> (<span class="kw">SELECT</span> <span class="dv">1</span></span>
-<span id="cb20-20"><a href="#cb20-20"></a>                      <span class="kw">FROM</span> paths previous_paths</span>
-<span id="cb20-21"><a href="#cb20-21"></a>                      <span class="kw">WHERE</span> list_contains(previous_paths.path, node2id))</span>
-<span id="cb20-22"><a href="#cb20-22"></a>      <span class="kw">AND</span> paths.endReached <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb20-23"><a href="#cb20-23"></a>)</span>
-<span id="cb20-24"><a href="#cb20-24"></a><span class="kw">SELECT</span> startNode, endNode, path</span>
-<span id="cb20-25"><a href="#cb20-25"></a><span class="kw">FROM</span> paths</span>
-<span id="cb20-26"><a href="#cb20-26"></a><span class="kw">WHERE</span> endNode <span class="op">=</span> <span class="dv">8</span></span>
-<span id="cb20-27"><a href="#cb20-27"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">length</span>(path), path;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">WITH</span> RECURSIVE paths(startNode, endNode, path, endReached) <span class="kw">AS</span> (</span>
+<span id="cb29-2"><a href="#cb29-2"></a>   <span class="kw">SELECT</span> <span class="co">-- define the path as the first edge of the traversal</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>        node1id <span class="kw">AS</span> startNode,</span>
+<span id="cb29-4"><a href="#cb29-4"></a>        node2id <span class="kw">AS</span> endNode,</span>
+<span id="cb29-5"><a href="#cb29-5"></a>        [node1id, node2id] <span class="kw">AS</span> path,</span>
+<span id="cb29-6"><a href="#cb29-6"></a>        (node2id <span class="op">=</span> <span class="dv">8</span>) <span class="kw">AS</span> endReached</span>
+<span id="cb29-7"><a href="#cb29-7"></a>     <span class="kw">FROM</span> edge</span>
+<span id="cb29-8"><a href="#cb29-8"></a>     <span class="kw">WHERE</span> startNode <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a>   <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb29-10"><a href="#cb29-10"></a>   <span class="kw">SELECT</span> <span class="co">-- concatenate new edge to the path</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a>        paths.startNode <span class="kw">AS</span> startNode,</span>
+<span id="cb29-12"><a href="#cb29-12"></a>        node2id <span class="kw">AS</span> endNode,</span>
+<span id="cb29-13"><a href="#cb29-13"></a>        array_append(path, node2id) <span class="kw">AS</span> path,</span>
+<span id="cb29-14"><a href="#cb29-14"></a>        <span class="fu">max</span>(<span class="cf">CASE</span> <span class="cf">WHEN</span> node2id <span class="op">=</span> <span class="dv">8</span> <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">ELSE</span> <span class="dv">0</span> <span class="cf">END</span>)</span>
+<span id="cb29-15"><a href="#cb29-15"></a>            <span class="kw">OVER</span> (<span class="kw">ROWS</span> <span class="kw">BETWEEN</span> <span class="kw">UNBOUNDED</span> <span class="kw">PRECEDING</span></span>
+<span id="cb29-16"><a href="#cb29-16"></a>                           <span class="kw">AND</span> <span class="kw">UNBOUNDED</span> <span class="kw">FOLLOWING</span>) <span class="kw">AS</span> endReached</span>
+<span id="cb29-17"><a href="#cb29-17"></a>     <span class="kw">FROM</span> paths</span>
+<span id="cb29-18"><a href="#cb29-18"></a>     <span class="kw">JOIN</span> edge <span class="kw">ON</span> paths.endNode <span class="op">=</span> node1id</span>
+<span id="cb29-19"><a href="#cb29-19"></a>    <span class="kw">WHERE</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> (<span class="kw">SELECT</span> <span class="dv">1</span></span>
+<span id="cb29-20"><a href="#cb29-20"></a>                      <span class="kw">FROM</span> paths previous_paths</span>
+<span id="cb29-21"><a href="#cb29-21"></a>                      <span class="kw">WHERE</span> list_contains(previous_paths.path, node2id))</span>
+<span id="cb29-22"><a href="#cb29-22"></a>      <span class="kw">AND</span> paths.endReached <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb29-23"><a href="#cb29-23"></a>)</span>
+<span id="cb29-24"><a href="#cb29-24"></a><span class="kw">SELECT</span> startNode, endNode, path</span>
+<span id="cb29-25"><a href="#cb29-25"></a><span class="kw">FROM</span> paths</span>
+<span id="cb29-26"><a href="#cb29-26"></a><span class="kw">WHERE</span> endNode <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb29-27"><a href="#cb29-27"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">length</span>(path), path;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1609,13 +1869,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">SELECT</span> <span class="co">-- define the path as the first edge of the traversal</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>    node1id <span class="kw">AS</span> startNode,</span>
-<span id="cb21-3"><a href="#cb21-3"></a>    node2id <span class="kw">AS</span> endNode,</span>
-<span id="cb21-4"><a href="#cb21-4"></a>    [node1id, node2id] <span class="kw">AS</span> path,</span>
-<span id="cb21-5"><a href="#cb21-5"></a>    (node2id <span class="op">=</span> <span class="dv">8</span>) <span class="kw">AS</span> endReached</span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="kw">FROM</span> edge</span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="kw">WHERE</span> startNode <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">SELECT</span> <span class="co">-- define the path as the first edge of the traversal</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>    node1id <span class="kw">AS</span> startNode,</span>
+<span id="cb30-3"><a href="#cb30-3"></a>    node2id <span class="kw">AS</span> endNode,</span>
+<span id="cb30-4"><a href="#cb30-4"></a>    [node1id, node2id] <span class="kw">AS</span> path,</span>
+<span id="cb30-5"><a href="#cb30-5"></a>    (node2id <span class="op">=</span> <span class="dv">8</span>) <span class="kw">AS</span> endReached</span>
+<span id="cb30-6"><a href="#cb30-6"></a><span class="kw">FROM</span> edge</span>
+<span id="cb30-7"><a href="#cb30-7"></a><span class="kw">WHERE</span> startNode <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="knitsql-table">
 <table class="table table-sm table-striped small">
@@ -1647,12 +1907,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="disconnect" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Disconnect</h1>
+<section id="disconnect" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Disconnect</h1>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
@@ -2122,355 +2382,456 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb23" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">---</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="an">title:</span><span class="co"> "クイックメモ"</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="co">  cache: true</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
-<span id="cb23-6"><a href="#cb23-6"></a><span class="an">filters:</span></span>
-<span id="cb23-7"><a href="#cb23-7"></a><span class="co">   - lightbox</span></span>
-<span id="cb23-8"><a href="#cb23-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
-<span id="cb23-9"><a href="#cb23-9"></a><span class="co">---</span></span>
-<span id="cb23-10"><a href="#cb23-10"></a></span>
-<span id="cb23-11"><a href="#cb23-11"></a></span>
-<span id="cb23-14"><a href="#cb23-14"></a><span class="in">```{r}</span></span>
-<span id="cb23-15"><a href="#cb23-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
-<span id="cb23-16"><a href="#cb23-16"></a><span class="in">```</span></span>
-<span id="cb23-17"><a href="#cb23-17"></a></span>
-<span id="cb23-18"><a href="#cb23-18"></a></span>
-<span id="cb23-19"><a href="#cb23-19"></a></span>
-<span id="cb23-22"><a href="#cb23-22"></a><span class="in">```{r}</span></span>
-<span id="cb23-23"><a href="#cb23-23"></a><span class="co">#| warning: false</span></span>
-<span id="cb23-24"><a href="#cb23-24"></a><span class="co">#| message: false</span></span>
-<span id="cb23-25"><a href="#cb23-25"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/mytips"</span>)</span>
-<span id="cb23-26"><a href="#cb23-26"></a></span>
-<span id="cb23-27"><a href="#cb23-27"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb23-28"><a href="#cb23-28"></a><span class="fu">library</span>(duckdb)</span>
-<span id="cb23-29"><a href="#cb23-29"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb23-30"><a href="#cb23-30"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb23-31"><a href="#cb23-31"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb23-32"><a href="#cb23-32"></a><span class="fu">library</span>(dbplyr)</span>
-<span id="cb23-33"><a href="#cb23-33"></a><span class="fu">library</span>(arrow)</span>
-<span id="cb23-34"><a href="#cb23-34"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb23-35"><a href="#cb23-35"></a><span class="fu">library</span>(here)</span>
-<span id="cb23-36"><a href="#cb23-36"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb23-37"><a href="#cb23-37"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
-<span id="cb23-38"><a href="#cb23-38"></a><span class="in">```</span></span>
-<span id="cb23-39"><a href="#cb23-39"></a></span>
-<span id="cb23-40"><a href="#cb23-40"></a><span class="fu"># Setup </span></span>
-<span id="cb23-41"><a href="#cb23-41"></a></span>
-<span id="cb23-44"><a href="#cb23-44"></a><span class="in">```{r}</span></span>
-<span id="cb23-45"><a href="#cb23-45"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(<span class="st">":memory:"</span>))</span>
-<span id="cb23-46"><a href="#cb23-46"></a><span class="in">```</span></span>
-<span id="cb23-47"><a href="#cb23-47"></a></span>
-<span id="cb23-50"><a href="#cb23-50"></a><span class="in">```{sql}</span></span>
-<span id="cb23-51"><a href="#cb23-51"></a><span class="co">#| eval: false</span></span>
-<span id="cb23-52"><a href="#cb23-52"></a><span class="co">#| connection: con</span></span>
-<span id="cb23-53"><a href="#cb23-53"></a>INSTALL icu;</span>
-<span id="cb23-54"><a href="#cb23-54"></a>INSTALL spatial;</span>
-<span id="cb23-55"><a href="#cb23-55"></a>INSTALL httpfs;</span>
-<span id="cb23-56"><a href="#cb23-56"></a>INSTALL json;</span>
-<span id="cb23-57"><a href="#cb23-57"></a><span class="in">```</span></span>
-<span id="cb23-58"><a href="#cb23-58"></a></span>
-<span id="cb23-59"><a href="#cb23-59"></a></span>
-<span id="cb23-62"><a href="#cb23-62"></a><span class="in">```{sql}</span></span>
-<span id="cb23-63"><a href="#cb23-63"></a><span class="co">#| connection: con</span></span>
-<span id="cb23-64"><a href="#cb23-64"></a><span class="kw">LOAD</span> icu;</span>
-<span id="cb23-65"><a href="#cb23-65"></a><span class="kw">LOAD</span> spatial;</span>
-<span id="cb23-66"><a href="#cb23-66"></a><span class="kw">LOAD</span> httpfs;</span>
-<span id="cb23-67"><a href="#cb23-67"></a><span class="kw">LOAD</span> json;</span>
-<span id="cb23-68"><a href="#cb23-68"></a><span class="in">```</span></span>
-<span id="cb23-69"><a href="#cb23-69"></a></span>
-<span id="cb23-72"><a href="#cb23-72"></a><span class="in">```{sql}</span></span>
-<span id="cb23-73"><a href="#cb23-73"></a><span class="co">#| connection: con</span></span>
-<span id="cb23-74"><a href="#cb23-74"></a><span class="kw">SHOW</span> <span class="kw">ALL</span> <span class="kw">TABLES</span>;</span>
-<span id="cb23-75"><a href="#cb23-75"></a><span class="in">```</span></span>
-<span id="cb23-76"><a href="#cb23-76"></a></span>
-<span id="cb23-77"><a href="#cb23-77"></a></span>
-<span id="cb23-78"><a href="#cb23-78"></a></span>
-<span id="cb23-79"><a href="#cb23-79"></a></span>
-<span id="cb23-82"><a href="#cb23-82"></a><span class="in">```{sql}</span></span>
-<span id="cb23-83"><a href="#cb23-83"></a><span class="co">#| connection: con</span></span>
-<span id="cb23-84"><a href="#cb23-84"></a></span>
-<span id="cb23-85"><a href="#cb23-85"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> <span class="op">*</span> <span class="kw">FROM</span> duckdb_functions() <span class="kw">WHERE</span> function_name <span class="kw">LIKE</span> <span class="st">'st_%'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> function_name;</span>
-<span id="cb23-86"><a href="#cb23-86"></a></span>
-<span id="cb23-87"><a href="#cb23-87"></a><span class="in">```</span></span>
-<span id="cb23-88"><a href="#cb23-88"></a></span>
-<span id="cb23-89"><a href="#cb23-89"></a></span>
-<span id="cb23-90"><a href="#cb23-90"></a><span class="fu"># QUALIFY</span></span>
-<span id="cb23-91"><a href="#cb23-91"></a></span>
-<span id="cb23-92"><a href="#cb23-92"></a>WINDOW()関数の結果を使ったクエリができる。データの読込が１度であるため、相関サブクエリでフィルターしているときにはより効率的、高速になることがある。履歴データから最新時間断面を抽出することも簡単にできる。</span>
-<span id="cb23-93"><a href="#cb23-93"></a></span>
-<span id="cb23-94"><a href="#cb23-94"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-95"><a href="#cb23-95"></a><span class="in">CREATE OR REPLACE TABLE Temp (x INTEGER, y STRING);</span></span>
-<span id="cb23-96"><a href="#cb23-96"></a><span class="in">INSERT INTO Temp VALUES </span></span>
-<span id="cb23-97"><a href="#cb23-97"></a><span class="in">(1, 'a'), </span></span>
-<span id="cb23-98"><a href="#cb23-98"></a><span class="in">(2, 'a'), </span></span>
-<span id="cb23-99"><a href="#cb23-99"></a><span class="in">(3, 'b'), </span></span>
-<span id="cb23-100"><a href="#cb23-100"></a><span class="in">(-1, 'b');</span></span>
-<span id="cb23-101"><a href="#cb23-101"></a></span>
-<span id="cb23-102"><a href="#cb23-102"></a><span class="in">```</span></span>
-<span id="cb23-103"><a href="#cb23-103"></a></span>
-<span id="cb23-104"><a href="#cb23-104"></a></span>
-<span id="cb23-105"><a href="#cb23-105"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-106"><a href="#cb23-106"></a><span class="in">SELECT * FROM Temp;</span></span>
-<span id="cb23-107"><a href="#cb23-107"></a><span class="in">```</span></span>
-<span id="cb23-108"><a href="#cb23-108"></a></span>
-<span id="cb23-109"><a href="#cb23-109"></a>次の用に<span class="in">`QUAFLIFY`</span>につづいてWindow関数を使うことで、Widnow関数の結果に対するフィルタが行える。</span>
-<span id="cb23-110"><a href="#cb23-110"></a>これをIdと時間でおこなえばIdごと最新の時間断面データを作成することができる。</span>
-<span id="cb23-111"><a href="#cb23-111"></a></span>
-<span id="cb23-112"><a href="#cb23-112"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-113"><a href="#cb23-113"></a><span class="in">SELECT * </span></span>
-<span id="cb23-114"><a href="#cb23-114"></a><span class="in">FROM Temp</span></span>
-<span id="cb23-115"><a href="#cb23-115"></a><span class="in">QUALIFY ROW_NUMBER() </span></span>
-<span id="cb23-116"><a href="#cb23-116"></a><span class="in">  OVER(</span></span>
-<span id="cb23-117"><a href="#cb23-117"></a><span class="in">    PARTITION BY y</span></span>
-<span id="cb23-118"><a href="#cb23-118"></a><span class="in">    ORDER BY x DESC</span></span>
-<span id="cb23-119"><a href="#cb23-119"></a><span class="in">  ) = 1</span></span>
-<span id="cb23-120"><a href="#cb23-120"></a><span class="in">ORDER BY y</span></span>
-<span id="cb23-121"><a href="#cb23-121"></a><span class="in">;</span></span>
-<span id="cb23-122"><a href="#cb23-122"></a><span class="in">```</span></span>
-<span id="cb23-123"><a href="#cb23-123"></a></span>
-<span id="cb23-124"><a href="#cb23-124"></a></span>
-<span id="cb23-125"><a href="#cb23-125"></a><span class="fu"># FILTER</span></span>
-<span id="cb23-126"><a href="#cb23-126"></a></span>
-<span id="cb23-127"><a href="#cb23-127"></a>SELECT句でのAGG関数において使えるオプション関数である。</span>
-<span id="cb23-128"><a href="#cb23-128"></a>AGG関数に食わせるデータの行に対してWHERE句と同じように</span>
-<span id="cb23-129"><a href="#cb23-129"></a>使うことが買おうである。</span>
-<span id="cb23-130"><a href="#cb23-130"></a>Window関数ではいまのところ使うことができない。</span>
-<span id="cb23-131"><a href="#cb23-131"></a></span>
-<span id="cb23-132"><a href="#cb23-132"></a></span>
-<span id="cb23-133"><a href="#cb23-133"></a></span>
-<span id="cb23-134"><a href="#cb23-134"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-135"><a href="#cb23-135"></a><span class="in">-- Compare total row count to:</span></span>
-<span id="cb23-136"><a href="#cb23-136"></a><span class="in">--   The number of rows where i &lt;= 5</span></span>
-<span id="cb23-137"><a href="#cb23-137"></a><span class="in">--   The number of rows where i is odd</span></span>
-<span id="cb23-138"><a href="#cb23-138"></a><span class="in">SELECT</span></span>
-<span id="cb23-139"><a href="#cb23-139"></a><span class="in">    count(*) AS total_rows,</span></span>
-<span id="cb23-140"><a href="#cb23-140"></a><span class="in">    count(*) FILTER (i &lt;= 5) AS lte_five,</span></span>
-<span id="cb23-141"><a href="#cb23-141"></a><span class="in">    count(*) FILTER (i % 2 = 1) AS odds</span></span>
-<span id="cb23-142"><a href="#cb23-142"></a><span class="in">FROM generate_series(1, 10) tbl(i);</span></span>
-<span id="cb23-143"><a href="#cb23-143"></a><span class="in">```</span></span>
-<span id="cb23-144"><a href="#cb23-144"></a></span>
-<span id="cb23-145"><a href="#cb23-145"></a></span>
-<span id="cb23-146"><a href="#cb23-146"></a></span>
-<span id="cb23-147"><a href="#cb23-147"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-148"><a href="#cb23-148"></a></span>
-<span id="cb23-149"><a href="#cb23-149"></a><span class="in">-- Different aggregate functions may be used, and multiple WHERE expressions are also permitted</span></span>
-<span id="cb23-150"><a href="#cb23-150"></a><span class="in">--   The sum of i for rows where i &lt;= 5</span></span>
-<span id="cb23-151"><a href="#cb23-151"></a><span class="in">--   The median of i where i is odd</span></span>
-<span id="cb23-152"><a href="#cb23-152"></a><span class="in">SELECT</span></span>
-<span id="cb23-153"><a href="#cb23-153"></a><span class="in">    sum(i) FILTER (i &lt;= 5) AS lte_five_sum,</span></span>
-<span id="cb23-154"><a href="#cb23-154"></a><span class="in">    median(i) FILTER (i % 2 = 1) AS odds_median,</span></span>
-<span id="cb23-155"><a href="#cb23-155"></a><span class="in">    median(i) FILTER (i % 2 = 1 AND i &lt;= 5) AS odds_lte_five_median</span></span>
-<span id="cb23-156"><a href="#cb23-156"></a><span class="in">FROM generate_series(1, 10) tbl(i);</span></span>
-<span id="cb23-157"><a href="#cb23-157"></a><span class="in">```</span></span>
-<span id="cb23-158"><a href="#cb23-158"></a></span>
-<span id="cb23-159"><a href="#cb23-159"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-160"><a href="#cb23-160"></a><span class="in">-- First generate an example dataset</span></span>
-<span id="cb23-161"><a href="#cb23-161"></a><span class="in">CREATE TEMP TABLE stacked_data AS</span></span>
-<span id="cb23-162"><a href="#cb23-162"></a><span class="in">    SELECT</span></span>
-<span id="cb23-163"><a href="#cb23-163"></a><span class="in">        i,</span></span>
-<span id="cb23-164"><a href="#cb23-164"></a><span class="in">        CASE WHEN i &lt;= rows * 0.25  THEN 2022</span></span>
-<span id="cb23-165"><a href="#cb23-165"></a><span class="in">             WHEN i &lt;= rows * 0.5   THEN 2023</span></span>
-<span id="cb23-166"><a href="#cb23-166"></a><span class="in">             WHEN i &lt;= rows * 0.75  THEN 2024</span></span>
-<span id="cb23-167"><a href="#cb23-167"></a><span class="in">             WHEN i &lt;= rows * 0.875 THEN 2025</span></span>
-<span id="cb23-168"><a href="#cb23-168"></a><span class="in">             ELSE NULL</span></span>
-<span id="cb23-169"><a href="#cb23-169"></a><span class="in">             END AS year</span></span>
-<span id="cb23-170"><a href="#cb23-170"></a><span class="in">    FROM (</span></span>
-<span id="cb23-171"><a href="#cb23-171"></a><span class="in">        SELECT</span></span>
-<span id="cb23-172"><a href="#cb23-172"></a><span class="in">            i,</span></span>
-<span id="cb23-173"><a href="#cb23-173"></a><span class="in">            count(*) OVER () AS rows</span></span>
-<span id="cb23-174"><a href="#cb23-174"></a><span class="in">        FROM generate_series(1, 100_000_000) tbl(i)</span></span>
-<span id="cb23-175"><a href="#cb23-175"></a><span class="in">    ) tbl;</span></span>
-<span id="cb23-176"><a href="#cb23-176"></a></span>
-<span id="cb23-177"><a href="#cb23-177"></a></span>
-<span id="cb23-178"><a href="#cb23-178"></a><span class="in">-- "Pivot" the data out by year (move each year out to a separate column)</span></span>
-<span id="cb23-179"><a href="#cb23-179"></a><span class="in">SELECT</span></span>
-<span id="cb23-180"><a href="#cb23-180"></a><span class="in">    first(i) FILTER (year = 2022) AS "2022",</span></span>
-<span id="cb23-181"><a href="#cb23-181"></a><span class="in">    first(i) FILTER (year = 2023) AS "2023",</span></span>
-<span id="cb23-182"><a href="#cb23-182"></a><span class="in">    first(i) FILTER (year = 2024) AS "2024",</span></span>
-<span id="cb23-183"><a href="#cb23-183"></a><span class="in">    first(i) FILTER (year = 2025) AS "2025",</span></span>
-<span id="cb23-184"><a href="#cb23-184"></a><span class="in">    first(i) FILTER (year IS NULL) AS "NULLs"</span></span>
-<span id="cb23-185"><a href="#cb23-185"></a><span class="in">FROM stacked_data;</span></span>
-<span id="cb23-186"><a href="#cb23-186"></a><span class="in">```</span></span>
-<span id="cb23-187"><a href="#cb23-187"></a></span>
-<span id="cb23-188"><a href="#cb23-188"></a></span>
-<span id="cb23-189"><a href="#cb23-189"></a><span class="fu"># 乱数</span></span>
-<span id="cb23-190"><a href="#cb23-190"></a></span>
-<span id="cb23-191"><a href="#cb23-191"></a></span>
-<span id="cb23-192"><a href="#cb23-192"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-193"><a href="#cb23-193"></a><span class="in">select </span></span>
-<span id="cb23-194"><a href="#cb23-194"></a><span class="in">  random() rnd, </span></span>
-<span id="cb23-195"><a href="#cb23-195"></a><span class="in">  t.v</span></span>
-<span id="cb23-196"><a href="#cb23-196"></a><span class="in">from </span></span>
-<span id="cb23-197"><a href="#cb23-197"></a><span class="in">  generate_series(1, 100) as t(v)</span></span>
-<span id="cb23-198"><a href="#cb23-198"></a><span class="in">```</span></span>
-<span id="cb23-199"><a href="#cb23-199"></a></span>
-<span id="cb23-200"><a href="#cb23-200"></a></span>
-<span id="cb23-201"><a href="#cb23-201"></a><span class="fu"># マテリアルズ WITH</span></span>
-<span id="cb23-202"><a href="#cb23-202"></a></span>
-<span id="cb23-203"><a href="#cb23-203"></a>デフォルトのWITHは、インラインされるだけなので、同じ処理を重複しておこなう可能性がある。</span>
-<span id="cb23-204"><a href="#cb23-204"></a>もし同じテーブルを複数回使うことやWITHの内容が重たい処理の場合であるときには、<span class="in">`Materialized CTEs`</span>を使う方が性能がよくなる。</span>
-<span id="cb23-205"><a href="#cb23-205"></a></span>
-<span id="cb23-206"><a href="#cb23-206"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-207"><a href="#cb23-207"></a><span class="in">WITH iris As MATERIALIZED (</span></span>
-<span id="cb23-208"><a href="#cb23-208"></a><span class="in">  SELECT * FROM read_csv('./data/iris.csv')</span></span>
-<span id="cb23-209"><a href="#cb23-209"></a><span class="in">)</span></span>
-<span id="cb23-210"><a href="#cb23-210"></a><span class="in">SELECT * FROM iris;</span></span>
-<span id="cb23-211"><a href="#cb23-211"></a><span class="in">```</span></span>
-<span id="cb23-212"><a href="#cb23-212"></a></span>
-<span id="cb23-213"><a href="#cb23-213"></a></span>
-<span id="cb23-214"><a href="#cb23-214"></a><span class="fu"># 再帰共通表式</span></span>
-<span id="cb23-215"><a href="#cb23-215"></a></span>
-<span id="cb23-216"><a href="#cb23-216"></a>これがあることでSQLで解ける問題の幅が大きく広がる。すごい！！！</span>
-<span id="cb23-217"><a href="#cb23-217"></a>ポスグレやMySQLは10年前から実装されていることからミドルウェアが変わってもだいたい実装されているらしい。</span>
-<span id="cb23-218"><a href="#cb23-218"></a></span>
-<span id="cb23-219"><a href="#cb23-219"></a>実は<span class="in">`WITH RECURSIVE`</span>を使うことで再帰的な計算をおこなうことができる。</span>
-<span id="cb23-220"><a href="#cb23-220"></a>下記は公式ドキュメントにあるようにフィボナッチ数列を計算する。</span>
-<span id="cb23-221"><a href="#cb23-221"></a>実装をみると第1行を定義したのち<span class="in">`UNION ALL`</span>で自分を参照する形になっている。</span>
-<span id="cb23-222"><a href="#cb23-222"></a></span>
-<span id="cb23-223"><a href="#cb23-223"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-224"><a href="#cb23-224"></a><span class="in">WITH RECURSIVE FibonacciNumbers (RecursionDepth, FibonacciNumber, NextNumber) AS (</span></span>
-<span id="cb23-225"><a href="#cb23-225"></a><span class="in">    -- Base case</span></span>
-<span id="cb23-226"><a href="#cb23-226"></a><span class="in">    SELECT</span></span>
-<span id="cb23-227"><a href="#cb23-227"></a><span class="in">        0  AS RecursionDepth,</span></span>
-<span id="cb23-228"><a href="#cb23-228"></a><span class="in">        0  AS FibonacciNumber,</span></span>
-<span id="cb23-229"><a href="#cb23-229"></a><span class="in">        1  AS NextNumber</span></span>
-<span id="cb23-230"><a href="#cb23-230"></a><span class="in">    UNION ALL</span></span>
-<span id="cb23-231"><a href="#cb23-231"></a><span class="in">    -- Recursive step</span></span>
-<span id="cb23-232"><a href="#cb23-232"></a><span class="in">    SELECT</span></span>
-<span id="cb23-233"><a href="#cb23-233"></a><span class="in">        fib.RecursionDepth + 1 AS RecursionDepth,</span></span>
-<span id="cb23-234"><a href="#cb23-234"></a><span class="in">        fib.NextNumber AS FibonacciNumber,</span></span>
-<span id="cb23-235"><a href="#cb23-235"></a><span class="in">        fib.FibonacciNumber + fib.NextNumber AS NextNumber</span></span>
-<span id="cb23-236"><a href="#cb23-236"></a><span class="in">    FROM</span></span>
-<span id="cb23-237"><a href="#cb23-237"></a><span class="in">        FibonacciNumbers fib</span></span>
-<span id="cb23-238"><a href="#cb23-238"></a><span class="in">    WHERE</span></span>
-<span id="cb23-239"><a href="#cb23-239"></a><span class="in">        fib.RecursionDepth + 1 &lt; 24</span></span>
-<span id="cb23-240"><a href="#cb23-240"></a><span class="in">)</span></span>
-<span id="cb23-241"><a href="#cb23-241"></a><span class="in">-- Query the CTE</span></span>
-<span id="cb23-242"><a href="#cb23-242"></a><span class="in">SELECT</span></span>
-<span id="cb23-243"><a href="#cb23-243"></a><span class="in">    fn.RecursionDepth AS FibonacciNumberIndex,</span></span>
-<span id="cb23-244"><a href="#cb23-244"></a><span class="in">    fn.FibonacciNumber</span></span>
-<span id="cb23-245"><a href="#cb23-245"></a><span class="in">FROM</span></span>
-<span id="cb23-246"><a href="#cb23-246"></a><span class="in">    FibonacciNumbers fn;</span></span>
-<span id="cb23-247"><a href="#cb23-247"></a><span class="in">```</span></span>
-<span id="cb23-248"><a href="#cb23-248"></a></span>
-<span id="cb23-249"><a href="#cb23-249"></a></span>
-<span id="cb23-250"><a href="#cb23-250"></a><span class="fu">## 再帰共通表式：グラフ</span></span>
-<span id="cb23-251"><a href="#cb23-251"></a></span>
-<span id="cb23-252"><a href="#cb23-252"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-253"><a href="#cb23-253"></a><span class="in">CREATE TABLE edge (node1id INTEGER, node2id INTEGER);</span></span>
-<span id="cb23-254"><a href="#cb23-254"></a><span class="in">INSERT INTO edge</span></span>
-<span id="cb23-255"><a href="#cb23-255"></a><span class="in">    VALUES</span></span>
-<span id="cb23-256"><a href="#cb23-256"></a><span class="in">        (1, 3), (1, 5), (2, 4), (2, 5), (2, 10), (3, 1), (3, 5), (3, 8), (3, 10),</span></span>
-<span id="cb23-257"><a href="#cb23-257"></a><span class="in">        (5, 3), (5, 4), (5, 8), (6, 3), (6, 4), (7, 4), (8, 1), (9, 4);</span></span>
-<span id="cb23-258"><a href="#cb23-258"></a><span class="in">```</span></span>
-<span id="cb23-259"><a href="#cb23-259"></a></span>
-<span id="cb23-260"><a href="#cb23-260"></a>上記の隣接グラフからあるノードから始まる全てのパスを列挙する。</span>
-<span id="cb23-261"><a href="#cb23-261"></a></span>
-<span id="cb23-262"><a href="#cb23-262"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-263"><a href="#cb23-263"></a><span class="in">WITH RECURSIVE paths(startNode, endNode, path) AS (</span></span>
-<span id="cb23-264"><a href="#cb23-264"></a><span class="in">    SELECT -- define the path as the first edge of the traversal</span></span>
-<span id="cb23-265"><a href="#cb23-265"></a><span class="in">        node1id AS startNode,</span></span>
-<span id="cb23-266"><a href="#cb23-266"></a><span class="in">        node2id AS endNode,</span></span>
-<span id="cb23-267"><a href="#cb23-267"></a><span class="in">        [node1id, node2id] AS path</span></span>
-<span id="cb23-268"><a href="#cb23-268"></a><span class="in">    FROM edge</span></span>
-<span id="cb23-269"><a href="#cb23-269"></a><span class="in">    WHERE startNode = 1</span></span>
-<span id="cb23-270"><a href="#cb23-270"></a><span class="in">    UNION ALL</span></span>
-<span id="cb23-271"><a href="#cb23-271"></a><span class="in">    SELECT -- concatenate new edge to the path</span></span>
-<span id="cb23-272"><a href="#cb23-272"></a><span class="in">        paths.startNode AS startNode,</span></span>
-<span id="cb23-273"><a href="#cb23-273"></a><span class="in">        node2id AS endNode,</span></span>
-<span id="cb23-274"><a href="#cb23-274"></a><span class="in">        array_append(path, node2id) AS path</span></span>
-<span id="cb23-275"><a href="#cb23-275"></a><span class="in">    FROM paths</span></span>
-<span id="cb23-276"><a href="#cb23-276"></a><span class="in">    JOIN edge ON paths.endNode = node1id</span></span>
-<span id="cb23-277"><a href="#cb23-277"></a><span class="in">    -- Prevent adding a repeated node to the path.</span></span>
-<span id="cb23-278"><a href="#cb23-278"></a><span class="in">    -- This ensures that no cycles occur.</span></span>
-<span id="cb23-279"><a href="#cb23-279"></a><span class="in">    WHERE node2id != ALL(paths.path)</span></span>
-<span id="cb23-280"><a href="#cb23-280"></a><span class="in">)</span></span>
-<span id="cb23-281"><a href="#cb23-281"></a><span class="in">SELECT startNode, endNode, path</span></span>
-<span id="cb23-282"><a href="#cb23-282"></a><span class="in">FROM paths</span></span>
-<span id="cb23-283"><a href="#cb23-283"></a><span class="in">ORDER BY length(path), path;</span></span>
-<span id="cb23-284"><a href="#cb23-284"></a><span class="in">```</span></span>
-<span id="cb23-285"><a href="#cb23-285"></a></span>
-<span id="cb23-286"><a href="#cb23-286"></a><span class="fu">## ノードから重み付けされていない最短パスの列挙</span></span>
-<span id="cb23-287"><a href="#cb23-287"></a></span>
-<span id="cb23-288"><a href="#cb23-288"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-289"><a href="#cb23-289"></a><span class="in">WITH RECURSIVE paths(startNode, endNode, path) AS (</span></span>
-<span id="cb23-290"><a href="#cb23-290"></a><span class="in">   SELECT -- define the path as the first edge of the traversal</span></span>
-<span id="cb23-291"><a href="#cb23-291"></a><span class="in">        node1id AS startNode,</span></span>
-<span id="cb23-292"><a href="#cb23-292"></a><span class="in">        node2id AS endNode,</span></span>
-<span id="cb23-293"><a href="#cb23-293"></a><span class="in">        [node1id, node2id] AS path</span></span>
-<span id="cb23-294"><a href="#cb23-294"></a><span class="in">     FROM edge</span></span>
-<span id="cb23-295"><a href="#cb23-295"></a><span class="in">     WHERE startNode = 1</span></span>
-<span id="cb23-296"><a href="#cb23-296"></a><span class="in">   UNION ALL</span></span>
-<span id="cb23-297"><a href="#cb23-297"></a><span class="in">   SELECT -- concatenate new edge to the path</span></span>
-<span id="cb23-298"><a href="#cb23-298"></a><span class="in">        paths.startNode AS startNode,</span></span>
-<span id="cb23-299"><a href="#cb23-299"></a><span class="in">        node2id AS endNode,</span></span>
-<span id="cb23-300"><a href="#cb23-300"></a><span class="in">        array_append(path, node2id) AS path</span></span>
-<span id="cb23-301"><a href="#cb23-301"></a><span class="in">     FROM paths</span></span>
-<span id="cb23-302"><a href="#cb23-302"></a><span class="in">     JOIN edge ON paths.endNode = node1id</span></span>
-<span id="cb23-303"><a href="#cb23-303"></a><span class="in">    -- Prevent adding a node that was visited previously by any path.</span></span>
-<span id="cb23-304"><a href="#cb23-304"></a><span class="in">    -- This ensures that (1) no cycles occur and (2) only nodes that</span></span>
-<span id="cb23-305"><a href="#cb23-305"></a><span class="in">    -- were not visited by previous (shorter) paths are added to a path.</span></span>
-<span id="cb23-306"><a href="#cb23-306"></a><span class="in">    WHERE NOT EXISTS (SELECT 1</span></span>
-<span id="cb23-307"><a href="#cb23-307"></a><span class="in">                      FROM paths previous_paths</span></span>
-<span id="cb23-308"><a href="#cb23-308"></a><span class="in">                      WHERE list_contains(previous_paths.path, node2id))</span></span>
-<span id="cb23-309"><a href="#cb23-309"></a><span class="in">)</span></span>
-<span id="cb23-310"><a href="#cb23-310"></a><span class="in">SELECT startNode, endNode, path</span></span>
-<span id="cb23-311"><a href="#cb23-311"></a><span class="in">FROM paths</span></span>
-<span id="cb23-312"><a href="#cb23-312"></a><span class="in">ORDER BY length(path), path;</span></span>
-<span id="cb23-313"><a href="#cb23-313"></a><span class="in">```</span></span>
-<span id="cb23-314"><a href="#cb23-314"></a></span>
-<span id="cb23-315"><a href="#cb23-315"></a><span class="fu">## 2つのノード間の重み付けされていあに最短パスの列挙</span></span>
-<span id="cb23-316"><a href="#cb23-316"></a></span>
-<span id="cb23-317"><a href="#cb23-317"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-318"><a href="#cb23-318"></a><span class="in">WITH RECURSIVE paths(startNode, endNode, path, endReached) AS (</span></span>
-<span id="cb23-319"><a href="#cb23-319"></a><span class="in">   SELECT -- define the path as the first edge of the traversal</span></span>
-<span id="cb23-320"><a href="#cb23-320"></a><span class="in">        node1id AS startNode,</span></span>
-<span id="cb23-321"><a href="#cb23-321"></a><span class="in">        node2id AS endNode,</span></span>
-<span id="cb23-322"><a href="#cb23-322"></a><span class="in">        [node1id, node2id] AS path,</span></span>
-<span id="cb23-323"><a href="#cb23-323"></a><span class="in">        (node2id = 8) AS endReached</span></span>
-<span id="cb23-324"><a href="#cb23-324"></a><span class="in">     FROM edge</span></span>
-<span id="cb23-325"><a href="#cb23-325"></a><span class="in">     WHERE startNode = 1</span></span>
-<span id="cb23-326"><a href="#cb23-326"></a><span class="in">   UNION ALL</span></span>
-<span id="cb23-327"><a href="#cb23-327"></a><span class="in">   SELECT -- concatenate new edge to the path</span></span>
-<span id="cb23-328"><a href="#cb23-328"></a><span class="in">        paths.startNode AS startNode,</span></span>
-<span id="cb23-329"><a href="#cb23-329"></a><span class="in">        node2id AS endNode,</span></span>
-<span id="cb23-330"><a href="#cb23-330"></a><span class="in">        array_append(path, node2id) AS path,</span></span>
-<span id="cb23-331"><a href="#cb23-331"></a><span class="in">        max(CASE WHEN node2id = 8 THEN 1 ELSE 0 END)</span></span>
-<span id="cb23-332"><a href="#cb23-332"></a><span class="in">            OVER (ROWS BETWEEN UNBOUNDED PRECEDING</span></span>
-<span id="cb23-333"><a href="#cb23-333"></a><span class="in">                           AND UNBOUNDED FOLLOWING) AS endReached</span></span>
-<span id="cb23-334"><a href="#cb23-334"></a><span class="in">     FROM paths</span></span>
-<span id="cb23-335"><a href="#cb23-335"></a><span class="in">     JOIN edge ON paths.endNode = node1id</span></span>
-<span id="cb23-336"><a href="#cb23-336"></a><span class="in">    WHERE NOT EXISTS (SELECT 1</span></span>
-<span id="cb23-337"><a href="#cb23-337"></a><span class="in">                      FROM paths previous_paths</span></span>
-<span id="cb23-338"><a href="#cb23-338"></a><span class="in">                      WHERE list_contains(previous_paths.path, node2id))</span></span>
-<span id="cb23-339"><a href="#cb23-339"></a><span class="in">      AND paths.endReached = 0</span></span>
-<span id="cb23-340"><a href="#cb23-340"></a><span class="in">)</span></span>
-<span id="cb23-341"><a href="#cb23-341"></a><span class="in">SELECT startNode, endNode, path</span></span>
-<span id="cb23-342"><a href="#cb23-342"></a><span class="in">FROM paths</span></span>
-<span id="cb23-343"><a href="#cb23-343"></a><span class="in">WHERE endNode = 8</span></span>
-<span id="cb23-344"><a href="#cb23-344"></a><span class="in">ORDER BY length(path), path;</span></span>
-<span id="cb23-345"><a href="#cb23-345"></a><span class="in">```</span></span>
-<span id="cb23-346"><a href="#cb23-346"></a></span>
-<span id="cb23-347"><a href="#cb23-347"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb23-348"><a href="#cb23-348"></a><span class="in">SELECT -- define the path as the first edge of the traversal</span></span>
-<span id="cb23-349"><a href="#cb23-349"></a><span class="in">    node1id AS startNode,</span></span>
-<span id="cb23-350"><a href="#cb23-350"></a><span class="in">    node2id AS endNode,</span></span>
-<span id="cb23-351"><a href="#cb23-351"></a><span class="in">    [node1id, node2id] AS path,</span></span>
-<span id="cb23-352"><a href="#cb23-352"></a><span class="in">    (node2id = 8) AS endReached</span></span>
-<span id="cb23-353"><a href="#cb23-353"></a><span class="in">FROM edge</span></span>
-<span id="cb23-354"><a href="#cb23-354"></a><span class="in">WHERE startNode = 1</span></span>
-<span id="cb23-355"><a href="#cb23-355"></a><span class="in">```</span></span>
-<span id="cb23-356"><a href="#cb23-356"></a></span>
-<span id="cb23-357"><a href="#cb23-357"></a></span>
-<span id="cb23-358"><a href="#cb23-358"></a></span>
-<span id="cb23-359"><a href="#cb23-359"></a><span class="fu"># Disconnect</span></span>
-<span id="cb23-360"><a href="#cb23-360"></a></span>
-<span id="cb23-363"><a href="#cb23-363"></a><span class="in">```{r}</span></span>
-<span id="cb23-364"><a href="#cb23-364"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
-<span id="cb23-365"><a href="#cb23-365"></a><span class="in">```</span> </span>
+<div class="sourceCode" id="cb32" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">---</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="an">title:</span><span class="co"> "クイックメモ"</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co">  cache: true</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="an">filters:</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb32-8"><a href="#cb32-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="co">---</span></span>
+<span id="cb32-10"><a href="#cb32-10"></a></span>
+<span id="cb32-11"><a href="#cb32-11"></a></span>
+<span id="cb32-14"><a href="#cb32-14"></a><span class="in">```{r}</span></span>
+<span id="cb32-15"><a href="#cb32-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb32-16"><a href="#cb32-16"></a><span class="in">```</span></span>
+<span id="cb32-17"><a href="#cb32-17"></a></span>
+<span id="cb32-18"><a href="#cb32-18"></a></span>
+<span id="cb32-19"><a href="#cb32-19"></a></span>
+<span id="cb32-22"><a href="#cb32-22"></a><span class="in">```{r}</span></span>
+<span id="cb32-23"><a href="#cb32-23"></a><span class="co">#| warning: false</span></span>
+<span id="cb32-24"><a href="#cb32-24"></a><span class="co">#| message: false</span></span>
+<span id="cb32-25"><a href="#cb32-25"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/mytips"</span>)</span>
+<span id="cb32-26"><a href="#cb32-26"></a></span>
+<span id="cb32-27"><a href="#cb32-27"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb32-28"><a href="#cb32-28"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb32-29"><a href="#cb32-29"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb32-30"><a href="#cb32-30"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb32-31"><a href="#cb32-31"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb32-32"><a href="#cb32-32"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb32-33"><a href="#cb32-33"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb32-34"><a href="#cb32-34"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb32-35"><a href="#cb32-35"></a><span class="fu">library</span>(here)</span>
+<span id="cb32-36"><a href="#cb32-36"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb32-37"><a href="#cb32-37"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb32-38"><a href="#cb32-38"></a><span class="in">```</span></span>
+<span id="cb32-39"><a href="#cb32-39"></a></span>
+<span id="cb32-40"><a href="#cb32-40"></a><span class="fu"># Setup </span></span>
+<span id="cb32-41"><a href="#cb32-41"></a></span>
+<span id="cb32-44"><a href="#cb32-44"></a><span class="in">```{r}</span></span>
+<span id="cb32-45"><a href="#cb32-45"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(<span class="st">":memory:"</span>))</span>
+<span id="cb32-46"><a href="#cb32-46"></a><span class="in">```</span></span>
+<span id="cb32-47"><a href="#cb32-47"></a></span>
+<span id="cb32-50"><a href="#cb32-50"></a><span class="in">```{sql}</span></span>
+<span id="cb32-51"><a href="#cb32-51"></a><span class="co">#| eval: false</span></span>
+<span id="cb32-52"><a href="#cb32-52"></a><span class="co">#| connection: con</span></span>
+<span id="cb32-53"><a href="#cb32-53"></a>INSTALL icu;</span>
+<span id="cb32-54"><a href="#cb32-54"></a>INSTALL spatial;</span>
+<span id="cb32-55"><a href="#cb32-55"></a>INSTALL httpfs;</span>
+<span id="cb32-56"><a href="#cb32-56"></a>INSTALL json;</span>
+<span id="cb32-57"><a href="#cb32-57"></a><span class="in">```</span></span>
+<span id="cb32-58"><a href="#cb32-58"></a></span>
+<span id="cb32-59"><a href="#cb32-59"></a></span>
+<span id="cb32-62"><a href="#cb32-62"></a><span class="in">```{sql}</span></span>
+<span id="cb32-63"><a href="#cb32-63"></a><span class="co">#| connection: con</span></span>
+<span id="cb32-64"><a href="#cb32-64"></a><span class="kw">LOAD</span> icu;</span>
+<span id="cb32-65"><a href="#cb32-65"></a><span class="kw">LOAD</span> spatial;</span>
+<span id="cb32-66"><a href="#cb32-66"></a><span class="kw">LOAD</span> httpfs;</span>
+<span id="cb32-67"><a href="#cb32-67"></a><span class="kw">LOAD</span> json;</span>
+<span id="cb32-68"><a href="#cb32-68"></a><span class="in">```</span></span>
+<span id="cb32-69"><a href="#cb32-69"></a></span>
+<span id="cb32-72"><a href="#cb32-72"></a><span class="in">```{sql}</span></span>
+<span id="cb32-73"><a href="#cb32-73"></a><span class="co">#| connection: con</span></span>
+<span id="cb32-74"><a href="#cb32-74"></a><span class="kw">SHOW</span> <span class="kw">ALL</span> <span class="kw">TABLES</span>;</span>
+<span id="cb32-75"><a href="#cb32-75"></a><span class="in">```</span></span>
+<span id="cb32-76"><a href="#cb32-76"></a></span>
+<span id="cb32-77"><a href="#cb32-77"></a></span>
+<span id="cb32-78"><a href="#cb32-78"></a></span>
+<span id="cb32-79"><a href="#cb32-79"></a></span>
+<span id="cb32-82"><a href="#cb32-82"></a><span class="in">```{sql}</span></span>
+<span id="cb32-83"><a href="#cb32-83"></a><span class="co">#| connection: con</span></span>
+<span id="cb32-84"><a href="#cb32-84"></a></span>
+<span id="cb32-85"><a href="#cb32-85"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> <span class="op">*</span> <span class="kw">FROM</span> duckdb_functions() <span class="kw">WHERE</span> function_name <span class="kw">LIKE</span> <span class="st">'st_%'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> function_name;</span>
+<span id="cb32-86"><a href="#cb32-86"></a></span>
+<span id="cb32-87"><a href="#cb32-87"></a><span class="in">```</span></span>
+<span id="cb32-88"><a href="#cb32-88"></a></span>
+<span id="cb32-89"><a href="#cb32-89"></a></span>
+<span id="cb32-90"><a href="#cb32-90"></a><span class="fu"># QUALIFY</span></span>
+<span id="cb32-91"><a href="#cb32-91"></a></span>
+<span id="cb32-92"><a href="#cb32-92"></a>WINDOW()関数の結果を使ったクエリができる。データの読込が１度であるため、相関サブクエリでフィルターしているときにはより効率的、高速になることがある。履歴データから最新時間断面を抽出することも簡単にできる。</span>
+<span id="cb32-93"><a href="#cb32-93"></a></span>
+<span id="cb32-94"><a href="#cb32-94"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-95"><a href="#cb32-95"></a><span class="in">CREATE OR REPLACE TABLE Temp (x INTEGER, y STRING);</span></span>
+<span id="cb32-96"><a href="#cb32-96"></a><span class="in">INSERT INTO Temp VALUES </span></span>
+<span id="cb32-97"><a href="#cb32-97"></a><span class="in">(1, 'a'), </span></span>
+<span id="cb32-98"><a href="#cb32-98"></a><span class="in">(2, 'a'), </span></span>
+<span id="cb32-99"><a href="#cb32-99"></a><span class="in">(3, 'b'), </span></span>
+<span id="cb32-100"><a href="#cb32-100"></a><span class="in">(-1, 'b');</span></span>
+<span id="cb32-101"><a href="#cb32-101"></a></span>
+<span id="cb32-102"><a href="#cb32-102"></a><span class="in">```</span></span>
+<span id="cb32-103"><a href="#cb32-103"></a></span>
+<span id="cb32-104"><a href="#cb32-104"></a></span>
+<span id="cb32-105"><a href="#cb32-105"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-106"><a href="#cb32-106"></a><span class="in">SELECT * FROM Temp;</span></span>
+<span id="cb32-107"><a href="#cb32-107"></a><span class="in">```</span></span>
+<span id="cb32-108"><a href="#cb32-108"></a></span>
+<span id="cb32-109"><a href="#cb32-109"></a>次の用に<span class="in">`QUAFLIFY`</span>につづいてWindow関数を使うことで、Widnow関数の結果に対するフィルタが行える。</span>
+<span id="cb32-110"><a href="#cb32-110"></a>これをIdと時間でおこなえばIdごと最新の時間断面データを作成することができる。</span>
+<span id="cb32-111"><a href="#cb32-111"></a></span>
+<span id="cb32-112"><a href="#cb32-112"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-113"><a href="#cb32-113"></a><span class="in">SELECT * </span></span>
+<span id="cb32-114"><a href="#cb32-114"></a><span class="in">FROM Temp</span></span>
+<span id="cb32-115"><a href="#cb32-115"></a><span class="in">QUALIFY ROW_NUMBER() </span></span>
+<span id="cb32-116"><a href="#cb32-116"></a><span class="in">  OVER(</span></span>
+<span id="cb32-117"><a href="#cb32-117"></a><span class="in">    PARTITION BY y</span></span>
+<span id="cb32-118"><a href="#cb32-118"></a><span class="in">    ORDER BY x DESC</span></span>
+<span id="cb32-119"><a href="#cb32-119"></a><span class="in">  ) = 1</span></span>
+<span id="cb32-120"><a href="#cb32-120"></a><span class="in">ORDER BY y</span></span>
+<span id="cb32-121"><a href="#cb32-121"></a><span class="in">;</span></span>
+<span id="cb32-122"><a href="#cb32-122"></a><span class="in">```</span></span>
+<span id="cb32-123"><a href="#cb32-123"></a></span>
+<span id="cb32-124"><a href="#cb32-124"></a></span>
+<span id="cb32-125"><a href="#cb32-125"></a><span class="fu"># FILTER</span></span>
+<span id="cb32-126"><a href="#cb32-126"></a></span>
+<span id="cb32-127"><a href="#cb32-127"></a>SELECT句でのAGG関数において使えるオプション関数である。</span>
+<span id="cb32-128"><a href="#cb32-128"></a>AGG関数に食わせるデータの行に対してWHERE句と同じように</span>
+<span id="cb32-129"><a href="#cb32-129"></a>使うことが買おうである。</span>
+<span id="cb32-130"><a href="#cb32-130"></a>Window関数ではいまのところ使うことができない。</span>
+<span id="cb32-131"><a href="#cb32-131"></a></span>
+<span id="cb32-132"><a href="#cb32-132"></a></span>
+<span id="cb32-133"><a href="#cb32-133"></a></span>
+<span id="cb32-134"><a href="#cb32-134"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-135"><a href="#cb32-135"></a><span class="in">-- Compare total row count to:</span></span>
+<span id="cb32-136"><a href="#cb32-136"></a><span class="in">--   The number of rows where i &lt;= 5</span></span>
+<span id="cb32-137"><a href="#cb32-137"></a><span class="in">--   The number of rows where i is odd</span></span>
+<span id="cb32-138"><a href="#cb32-138"></a><span class="in">SELECT</span></span>
+<span id="cb32-139"><a href="#cb32-139"></a><span class="in">    count(*) AS total_rows,</span></span>
+<span id="cb32-140"><a href="#cb32-140"></a><span class="in">    count(*) FILTER (i &lt;= 5) AS lte_five,</span></span>
+<span id="cb32-141"><a href="#cb32-141"></a><span class="in">    count(*) FILTER (i % 2 = 1) AS odds</span></span>
+<span id="cb32-142"><a href="#cb32-142"></a><span class="in">FROM generate_series(1, 10) tbl(i);</span></span>
+<span id="cb32-143"><a href="#cb32-143"></a><span class="in">```</span></span>
+<span id="cb32-144"><a href="#cb32-144"></a></span>
+<span id="cb32-145"><a href="#cb32-145"></a></span>
+<span id="cb32-146"><a href="#cb32-146"></a></span>
+<span id="cb32-147"><a href="#cb32-147"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-148"><a href="#cb32-148"></a></span>
+<span id="cb32-149"><a href="#cb32-149"></a><span class="in">-- Different aggregate functions may be used, and multiple WHERE expressions are also permitted</span></span>
+<span id="cb32-150"><a href="#cb32-150"></a><span class="in">--   The sum of i for rows where i &lt;= 5</span></span>
+<span id="cb32-151"><a href="#cb32-151"></a><span class="in">--   The median of i where i is odd</span></span>
+<span id="cb32-152"><a href="#cb32-152"></a><span class="in">SELECT</span></span>
+<span id="cb32-153"><a href="#cb32-153"></a><span class="in">    sum(i) FILTER (i &lt;= 5) AS lte_five_sum,</span></span>
+<span id="cb32-154"><a href="#cb32-154"></a><span class="in">    median(i) FILTER (i % 2 = 1) AS odds_median,</span></span>
+<span id="cb32-155"><a href="#cb32-155"></a><span class="in">    median(i) FILTER (i % 2 = 1 AND i &lt;= 5) AS odds_lte_five_median</span></span>
+<span id="cb32-156"><a href="#cb32-156"></a><span class="in">FROM generate_series(1, 10) tbl(i);</span></span>
+<span id="cb32-157"><a href="#cb32-157"></a><span class="in">```</span></span>
+<span id="cb32-158"><a href="#cb32-158"></a></span>
+<span id="cb32-159"><a href="#cb32-159"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-160"><a href="#cb32-160"></a><span class="in">-- First generate an example dataset</span></span>
+<span id="cb32-161"><a href="#cb32-161"></a><span class="in">CREATE TEMP TABLE stacked_data AS</span></span>
+<span id="cb32-162"><a href="#cb32-162"></a><span class="in">    SELECT</span></span>
+<span id="cb32-163"><a href="#cb32-163"></a><span class="in">        i,</span></span>
+<span id="cb32-164"><a href="#cb32-164"></a><span class="in">        CASE WHEN i &lt;= rows * 0.25  THEN 2022</span></span>
+<span id="cb32-165"><a href="#cb32-165"></a><span class="in">             WHEN i &lt;= rows * 0.5   THEN 2023</span></span>
+<span id="cb32-166"><a href="#cb32-166"></a><span class="in">             WHEN i &lt;= rows * 0.75  THEN 2024</span></span>
+<span id="cb32-167"><a href="#cb32-167"></a><span class="in">             WHEN i &lt;= rows * 0.875 THEN 2025</span></span>
+<span id="cb32-168"><a href="#cb32-168"></a><span class="in">             ELSE NULL</span></span>
+<span id="cb32-169"><a href="#cb32-169"></a><span class="in">             END AS year</span></span>
+<span id="cb32-170"><a href="#cb32-170"></a><span class="in">    FROM (</span></span>
+<span id="cb32-171"><a href="#cb32-171"></a><span class="in">        SELECT</span></span>
+<span id="cb32-172"><a href="#cb32-172"></a><span class="in">            i,</span></span>
+<span id="cb32-173"><a href="#cb32-173"></a><span class="in">            count(*) OVER () AS rows</span></span>
+<span id="cb32-174"><a href="#cb32-174"></a><span class="in">        FROM generate_series(1, 100_000_000) tbl(i)</span></span>
+<span id="cb32-175"><a href="#cb32-175"></a><span class="in">    ) tbl;</span></span>
+<span id="cb32-176"><a href="#cb32-176"></a></span>
+<span id="cb32-177"><a href="#cb32-177"></a></span>
+<span id="cb32-178"><a href="#cb32-178"></a><span class="in">-- "Pivot" the data out by year (move each year out to a separate column)</span></span>
+<span id="cb32-179"><a href="#cb32-179"></a><span class="in">SELECT</span></span>
+<span id="cb32-180"><a href="#cb32-180"></a><span class="in">    first(i) FILTER (year = 2022) AS "2022",</span></span>
+<span id="cb32-181"><a href="#cb32-181"></a><span class="in">    first(i) FILTER (year = 2023) AS "2023",</span></span>
+<span id="cb32-182"><a href="#cb32-182"></a><span class="in">    first(i) FILTER (year = 2024) AS "2024",</span></span>
+<span id="cb32-183"><a href="#cb32-183"></a><span class="in">    first(i) FILTER (year = 2025) AS "2025",</span></span>
+<span id="cb32-184"><a href="#cb32-184"></a><span class="in">    first(i) FILTER (year IS NULL) AS "NULLs"</span></span>
+<span id="cb32-185"><a href="#cb32-185"></a><span class="in">FROM stacked_data;</span></span>
+<span id="cb32-186"><a href="#cb32-186"></a><span class="in">```</span></span>
+<span id="cb32-187"><a href="#cb32-187"></a></span>
+<span id="cb32-188"><a href="#cb32-188"></a></span>
+<span id="cb32-189"><a href="#cb32-189"></a><span class="fu"># 乱数</span></span>
+<span id="cb32-190"><a href="#cb32-190"></a></span>
+<span id="cb32-191"><a href="#cb32-191"></a></span>
+<span id="cb32-192"><a href="#cb32-192"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-193"><a href="#cb32-193"></a><span class="in">select </span></span>
+<span id="cb32-194"><a href="#cb32-194"></a><span class="in">  random() rnd, </span></span>
+<span id="cb32-195"><a href="#cb32-195"></a><span class="in">  t.v</span></span>
+<span id="cb32-196"><a href="#cb32-196"></a><span class="in">from </span></span>
+<span id="cb32-197"><a href="#cb32-197"></a><span class="in">  generate_series(1, 100) as t(v)</span></span>
+<span id="cb32-198"><a href="#cb32-198"></a><span class="in">```</span></span>
+<span id="cb32-199"><a href="#cb32-199"></a></span>
+<span id="cb32-200"><a href="#cb32-200"></a></span>
+<span id="cb32-201"><a href="#cb32-201"></a><span class="fu"># マテリアルズ WITH</span></span>
+<span id="cb32-202"><a href="#cb32-202"></a></span>
+<span id="cb32-203"><a href="#cb32-203"></a>デフォルトのWITHは、インラインされるだけなので、同じ処理を重複しておこなう可能性がある。</span>
+<span id="cb32-204"><a href="#cb32-204"></a>もし同じテーブルを複数回使うことやWITHの内容が重たい処理の場合であるときには、<span class="in">`Materialized CTEs`</span>を使う方が性能がよくなる。</span>
+<span id="cb32-205"><a href="#cb32-205"></a></span>
+<span id="cb32-206"><a href="#cb32-206"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-207"><a href="#cb32-207"></a><span class="in">WITH iris As MATERIALIZED (</span></span>
+<span id="cb32-208"><a href="#cb32-208"></a><span class="in">  SELECT * FROM read_csv('./data/iris.csv')</span></span>
+<span id="cb32-209"><a href="#cb32-209"></a><span class="in">)</span></span>
+<span id="cb32-210"><a href="#cb32-210"></a><span class="in">SELECT * FROM iris;</span></span>
+<span id="cb32-211"><a href="#cb32-211"></a><span class="in">```</span></span>
+<span id="cb32-212"><a href="#cb32-212"></a></span>
+<span id="cb32-213"><a href="#cb32-213"></a></span>
+<span id="cb32-214"><a href="#cb32-214"></a><span class="fu"># 縦持ち・横持ち変換</span></span>
+<span id="cb32-215"><a href="#cb32-215"></a></span>
+<span id="cb32-216"><a href="#cb32-216"></a>PIVOT、UNPIVOTがあるので、Duckdbには不要であるが、SQLの練習として縦持ち・横持ち変換を書いてみる。</span>
+<span id="cb32-217"><a href="#cb32-217"></a></span>
+<span id="cb32-218"><a href="#cb32-218"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-219"><a href="#cb32-219"></a><span class="in">CREATE OR REPLACE TABLE long (z VARCHAR, x VARCHAR, y INTEGER);</span></span>
+<span id="cb32-220"><a href="#cb32-220"></a><span class="in">INSERT INTO long VALUES</span></span>
+<span id="cb32-221"><a href="#cb32-221"></a><span class="in">('s', 'a', 1),</span></span>
+<span id="cb32-222"><a href="#cb32-222"></a><span class="in">('s', 'b', 2),</span></span>
+<span id="cb32-223"><a href="#cb32-223"></a><span class="in">('s', 'c', 3);</span></span>
+<span id="cb32-224"><a href="#cb32-224"></a><span class="in">```</span></span>
+<span id="cb32-225"><a href="#cb32-225"></a></span>
+<span id="cb32-226"><a href="#cb32-226"></a></span>
+<span id="cb32-227"><a href="#cb32-227"></a>縦持ちから横持ちへの変換。こちらは集約関数があれば簡単におこなうことができる。</span>
+<span id="cb32-228"><a href="#cb32-228"></a></span>
+<span id="cb32-229"><a href="#cb32-229"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-230"><a href="#cb32-230"></a><span class="in">SELECT </span></span>
+<span id="cb32-231"><a href="#cb32-231"></a><span class="in">  z</span></span>
+<span id="cb32-232"><a href="#cb32-232"></a><span class="in">  ,  SUM(CASE x WHEN 'a' THEN y ELSE NULL END) AS 'a'</span></span>
+<span id="cb32-233"><a href="#cb32-233"></a><span class="in">  ,  SUM(CASE x WHEN 'b' THEN y ELSE NULL END) AS 'b'</span></span>
+<span id="cb32-234"><a href="#cb32-234"></a><span class="in">  ,  SUM(CASE x WHEN 'c' THEN y ELSE NULL END) AS 'c'</span></span>
+<span id="cb32-235"><a href="#cb32-235"></a><span class="in">FROM long</span></span>
+<span id="cb32-236"><a href="#cb32-236"></a><span class="in">GROUP BY z;</span></span>
+<span id="cb32-237"><a href="#cb32-237"></a><span class="in">```</span></span>
+<span id="cb32-238"><a href="#cb32-238"></a></span>
+<span id="cb32-239"><a href="#cb32-239"></a>横持ちから縦持ちの変換をおこなう。</span>
+<span id="cb32-240"><a href="#cb32-240"></a><span class="in">`SELECT`</span>で切り出した後に、<span class="in">`UNION`</span>でつなぐというのが１つの方法である。</span>
+<span id="cb32-241"><a href="#cb32-241"></a></span>
+<span id="cb32-242"><a href="#cb32-242"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-243"><a href="#cb32-243"></a><span class="in">CREATE OR REPLACE TABLE wide (z VARCHAR, a INTEGER, b INTEGER, c INTEGER);</span></span>
+<span id="cb32-244"><a href="#cb32-244"></a><span class="in">INSERT INTO wide VALUES</span></span>
+<span id="cb32-245"><a href="#cb32-245"></a><span class="in">('s', 1, 2, 3),</span></span>
+<span id="cb32-246"><a href="#cb32-246"></a><span class="in">('t', 4, 5, 6),</span></span>
+<span id="cb32-247"><a href="#cb32-247"></a><span class="in">('u', 7, 8, 9);</span></span>
+<span id="cb32-248"><a href="#cb32-248"></a></span>
+<span id="cb32-249"><a href="#cb32-249"></a><span class="in">```</span></span>
+<span id="cb32-250"><a href="#cb32-250"></a></span>
+<span id="cb32-251"><a href="#cb32-251"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-252"><a href="#cb32-252"></a><span class="in">select * from wide;</span></span>
+<span id="cb32-253"><a href="#cb32-253"></a><span class="in">```</span></span>
+<span id="cb32-254"><a href="#cb32-254"></a></span>
+<span id="cb32-255"><a href="#cb32-255"></a></span>
+<span id="cb32-256"><a href="#cb32-256"></a>とにかく、展開、つまり行を延ばす必要があるので、ここでは<span class="in">`CROSS JOIN`</span>で行を延ばしてから、</span>
+<span id="cb32-257"><a href="#cb32-257"></a>行番号の繰り返しから<span class="in">`CASE`</span>で値を取得している。</span>
+<span id="cb32-258"><a href="#cb32-258"></a></span>
+<span id="cb32-259"><a href="#cb32-259"></a></span>
+<span id="cb32-260"><a href="#cb32-260"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-261"><a href="#cb32-261"></a><span class="in">SELECT</span></span>
+<span id="cb32-262"><a href="#cb32-262"></a><span class="in">  z</span></span>
+<span id="cb32-263"><a href="#cb32-263"></a><span class="in">  , CASE ii </span></span>
+<span id="cb32-264"><a href="#cb32-264"></a><span class="in">      WHEN 0 THEN a </span></span>
+<span id="cb32-265"><a href="#cb32-265"></a><span class="in">      WHEN 1 THEN b</span></span>
+<span id="cb32-266"><a href="#cb32-266"></a><span class="in">      WHEN 2 THEN c</span></span>
+<span id="cb32-267"><a href="#cb32-267"></a><span class="in">      ELSE NULL END as v</span></span>
+<span id="cb32-268"><a href="#cb32-268"></a><span class="in">FROM wide</span></span>
+<span id="cb32-269"><a href="#cb32-269"></a><span class="in">CROSS JOIN range(3) t(ii);</span></span>
+<span id="cb32-270"><a href="#cb32-270"></a><span class="in">```</span></span>
+<span id="cb32-271"><a href="#cb32-271"></a></span>
+<span id="cb32-272"><a href="#cb32-272"></a></span>
+<span id="cb32-273"><a href="#cb32-273"></a>シーケンシャルスキャンが１度であることがわかる。</span>
+<span id="cb32-274"><a href="#cb32-274"></a></span>
+<span id="cb32-275"><a href="#cb32-275"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-276"><a href="#cb32-276"></a><span class="in">#| output.var: a</span></span>
+<span id="cb32-277"><a href="#cb32-277"></a><span class="in">EXPLAIN SELECT</span></span>
+<span id="cb32-278"><a href="#cb32-278"></a><span class="in">  z</span></span>
+<span id="cb32-279"><a href="#cb32-279"></a><span class="in">  , CASE ii </span></span>
+<span id="cb32-280"><a href="#cb32-280"></a><span class="in">      WHEN 0 THEN a </span></span>
+<span id="cb32-281"><a href="#cb32-281"></a><span class="in">      WHEN 1 THEN b</span></span>
+<span id="cb32-282"><a href="#cb32-282"></a><span class="in">      WHEN 2 THEN c</span></span>
+<span id="cb32-283"><a href="#cb32-283"></a><span class="in">      ELSE NULL END as v</span></span>
+<span id="cb32-284"><a href="#cb32-284"></a><span class="in">FROM wide</span></span>
+<span id="cb32-285"><a href="#cb32-285"></a><span class="in">CROSS JOIN range(3) t(ii);</span></span>
+<span id="cb32-286"><a href="#cb32-286"></a><span class="in">```</span></span>
+<span id="cb32-287"><a href="#cb32-287"></a></span>
+<span id="cb32-288"><a href="#cb32-288"></a></span>
+<span id="cb32-291"><a href="#cb32-291"></a><span class="in">```{r}</span></span>
+<span id="cb32-292"><a href="#cb32-292"></a>a</span>
+<span id="cb32-293"><a href="#cb32-293"></a><span class="in">```</span></span>
+<span id="cb32-294"><a href="#cb32-294"></a></span>
+<span id="cb32-295"><a href="#cb32-295"></a></span>
+<span id="cb32-296"><a href="#cb32-296"></a></span>
+<span id="cb32-297"><a href="#cb32-297"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-298"><a href="#cb32-298"></a><span class="in">#| output.var: a</span></span>
+<span id="cb32-299"><a href="#cb32-299"></a><span class="in">EXPLAIN </span></span>
+<span id="cb32-300"><a href="#cb32-300"></a><span class="in">SELECT z, a FROM wide</span></span>
+<span id="cb32-301"><a href="#cb32-301"></a><span class="in">UNION ALL</span></span>
+<span id="cb32-302"><a href="#cb32-302"></a><span class="in">SELECT z, b FROM wide</span></span>
+<span id="cb32-303"><a href="#cb32-303"></a><span class="in">UNION ALL</span></span>
+<span id="cb32-304"><a href="#cb32-304"></a><span class="in">SELECT z, c FROM wide</span></span>
+<span id="cb32-305"><a href="#cb32-305"></a><span class="in">```</span></span>
+<span id="cb32-306"><a href="#cb32-306"></a></span>
+<span id="cb32-307"><a href="#cb32-307"></a></span>
+<span id="cb32-308"><a href="#cb32-308"></a><span class="in">`UNION`</span>をおこなうテーブル毎に、シーケンシャルスキャンが走ってることがわかる。</span>
+<span id="cb32-309"><a href="#cb32-309"></a></span>
+<span id="cb32-310"><a href="#cb32-310"></a></span>
+<span id="cb32-313"><a href="#cb32-313"></a><span class="in">```{r}</span></span>
+<span id="cb32-314"><a href="#cb32-314"></a>a</span>
+<span id="cb32-315"><a href="#cb32-315"></a><span class="in">```</span></span>
+<span id="cb32-316"><a href="#cb32-316"></a></span>
+<span id="cb32-317"><a href="#cb32-317"></a></span>
+<span id="cb32-318"><a href="#cb32-318"></a></span>
+<span id="cb32-319"><a href="#cb32-319"></a><span class="fu"># 再帰共通表式</span></span>
+<span id="cb32-320"><a href="#cb32-320"></a></span>
+<span id="cb32-321"><a href="#cb32-321"></a>これがあることでSQLで解ける問題の幅が大きく広がる。すごい！！！</span>
+<span id="cb32-322"><a href="#cb32-322"></a>ポスグレやMySQLは10年前から実装されていることからミドルウェアが変わってもだいたい実装されているらしい。</span>
+<span id="cb32-323"><a href="#cb32-323"></a></span>
+<span id="cb32-324"><a href="#cb32-324"></a>実は<span class="in">`WITH RECURSIVE`</span>を使うことで再帰的な計算をおこなうことができる。</span>
+<span id="cb32-325"><a href="#cb32-325"></a>下記は公式ドキュメントにあるようにフィボナッチ数列を計算する。</span>
+<span id="cb32-326"><a href="#cb32-326"></a>実装をみると第1行を定義したのち<span class="in">`UNION ALL`</span>で自分を参照する形になっている。</span>
+<span id="cb32-327"><a href="#cb32-327"></a></span>
+<span id="cb32-328"><a href="#cb32-328"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-329"><a href="#cb32-329"></a><span class="in">WITH RECURSIVE FibonacciNumbers (RecursionDepth, FibonacciNumber, NextNumber) AS (</span></span>
+<span id="cb32-330"><a href="#cb32-330"></a><span class="in">    -- Base case</span></span>
+<span id="cb32-331"><a href="#cb32-331"></a><span class="in">    SELECT</span></span>
+<span id="cb32-332"><a href="#cb32-332"></a><span class="in">        0  AS RecursionDepth,</span></span>
+<span id="cb32-333"><a href="#cb32-333"></a><span class="in">        0  AS FibonacciNumber,</span></span>
+<span id="cb32-334"><a href="#cb32-334"></a><span class="in">        1  AS NextNumber</span></span>
+<span id="cb32-335"><a href="#cb32-335"></a><span class="in">    UNION ALL</span></span>
+<span id="cb32-336"><a href="#cb32-336"></a><span class="in">    -- Recursive step</span></span>
+<span id="cb32-337"><a href="#cb32-337"></a><span class="in">    SELECT</span></span>
+<span id="cb32-338"><a href="#cb32-338"></a><span class="in">        fib.RecursionDepth + 1 AS RecursionDepth,</span></span>
+<span id="cb32-339"><a href="#cb32-339"></a><span class="in">        fib.NextNumber AS FibonacciNumber,</span></span>
+<span id="cb32-340"><a href="#cb32-340"></a><span class="in">        fib.FibonacciNumber + fib.NextNumber AS NextNumber</span></span>
+<span id="cb32-341"><a href="#cb32-341"></a><span class="in">    FROM</span></span>
+<span id="cb32-342"><a href="#cb32-342"></a><span class="in">        FibonacciNumbers fib</span></span>
+<span id="cb32-343"><a href="#cb32-343"></a><span class="in">    WHERE</span></span>
+<span id="cb32-344"><a href="#cb32-344"></a><span class="in">        fib.RecursionDepth + 1 &lt; 24</span></span>
+<span id="cb32-345"><a href="#cb32-345"></a><span class="in">)</span></span>
+<span id="cb32-346"><a href="#cb32-346"></a><span class="in">-- Query the CTE</span></span>
+<span id="cb32-347"><a href="#cb32-347"></a><span class="in">SELECT</span></span>
+<span id="cb32-348"><a href="#cb32-348"></a><span class="in">    fn.RecursionDepth AS FibonacciNumberIndex,</span></span>
+<span id="cb32-349"><a href="#cb32-349"></a><span class="in">    fn.FibonacciNumber</span></span>
+<span id="cb32-350"><a href="#cb32-350"></a><span class="in">FROM</span></span>
+<span id="cb32-351"><a href="#cb32-351"></a><span class="in">    FibonacciNumbers fn;</span></span>
+<span id="cb32-352"><a href="#cb32-352"></a><span class="in">```</span></span>
+<span id="cb32-353"><a href="#cb32-353"></a></span>
+<span id="cb32-354"><a href="#cb32-354"></a></span>
+<span id="cb32-355"><a href="#cb32-355"></a><span class="fu">## 再帰共通表式：グラフ</span></span>
+<span id="cb32-356"><a href="#cb32-356"></a></span>
+<span id="cb32-357"><a href="#cb32-357"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-358"><a href="#cb32-358"></a><span class="in">CREATE TABLE edge (node1id INTEGER, node2id INTEGER);</span></span>
+<span id="cb32-359"><a href="#cb32-359"></a><span class="in">INSERT INTO edge</span></span>
+<span id="cb32-360"><a href="#cb32-360"></a><span class="in">    VALUES</span></span>
+<span id="cb32-361"><a href="#cb32-361"></a><span class="in">        (1, 3), (1, 5), (2, 4), (2, 5), (2, 10), (3, 1), (3, 5), (3, 8), (3, 10),</span></span>
+<span id="cb32-362"><a href="#cb32-362"></a><span class="in">        (5, 3), (5, 4), (5, 8), (6, 3), (6, 4), (7, 4), (8, 1), (9, 4);</span></span>
+<span id="cb32-363"><a href="#cb32-363"></a><span class="in">```</span></span>
+<span id="cb32-364"><a href="#cb32-364"></a></span>
+<span id="cb32-365"><a href="#cb32-365"></a>上記の隣接グラフからあるノードから始まる全てのパスを列挙する。</span>
+<span id="cb32-366"><a href="#cb32-366"></a></span>
+<span id="cb32-367"><a href="#cb32-367"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-368"><a href="#cb32-368"></a><span class="in">WITH RECURSIVE paths(startNode, endNode, path) AS (</span></span>
+<span id="cb32-369"><a href="#cb32-369"></a><span class="in">    SELECT -- define the path as the first edge of the traversal</span></span>
+<span id="cb32-370"><a href="#cb32-370"></a><span class="in">        node1id AS startNode,</span></span>
+<span id="cb32-371"><a href="#cb32-371"></a><span class="in">        node2id AS endNode,</span></span>
+<span id="cb32-372"><a href="#cb32-372"></a><span class="in">        [node1id, node2id] AS path</span></span>
+<span id="cb32-373"><a href="#cb32-373"></a><span class="in">    FROM edge</span></span>
+<span id="cb32-374"><a href="#cb32-374"></a><span class="in">    WHERE startNode = 1</span></span>
+<span id="cb32-375"><a href="#cb32-375"></a><span class="in">    UNION ALL</span></span>
+<span id="cb32-376"><a href="#cb32-376"></a><span class="in">    SELECT -- concatenate new edge to the path</span></span>
+<span id="cb32-377"><a href="#cb32-377"></a><span class="in">        paths.startNode AS startNode,</span></span>
+<span id="cb32-378"><a href="#cb32-378"></a><span class="in">        node2id AS endNode,</span></span>
+<span id="cb32-379"><a href="#cb32-379"></a><span class="in">        array_append(path, node2id) AS path</span></span>
+<span id="cb32-380"><a href="#cb32-380"></a><span class="in">    FROM paths</span></span>
+<span id="cb32-381"><a href="#cb32-381"></a><span class="in">    JOIN edge ON paths.endNode = node1id</span></span>
+<span id="cb32-382"><a href="#cb32-382"></a><span class="in">    -- Prevent adding a repeated node to the path.</span></span>
+<span id="cb32-383"><a href="#cb32-383"></a><span class="in">    -- This ensures that no cycles occur.</span></span>
+<span id="cb32-384"><a href="#cb32-384"></a><span class="in">    WHERE node2id != ALL(paths.path)</span></span>
+<span id="cb32-385"><a href="#cb32-385"></a><span class="in">)</span></span>
+<span id="cb32-386"><a href="#cb32-386"></a><span class="in">SELECT startNode, endNode, path</span></span>
+<span id="cb32-387"><a href="#cb32-387"></a><span class="in">FROM paths</span></span>
+<span id="cb32-388"><a href="#cb32-388"></a><span class="in">ORDER BY length(path), path;</span></span>
+<span id="cb32-389"><a href="#cb32-389"></a><span class="in">```</span></span>
+<span id="cb32-390"><a href="#cb32-390"></a></span>
+<span id="cb32-391"><a href="#cb32-391"></a><span class="fu">## ノードから重み付けされていない最短パスの列挙</span></span>
+<span id="cb32-392"><a href="#cb32-392"></a></span>
+<span id="cb32-393"><a href="#cb32-393"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-394"><a href="#cb32-394"></a><span class="in">WITH RECURSIVE paths(startNode, endNode, path) AS (</span></span>
+<span id="cb32-395"><a href="#cb32-395"></a><span class="in">   SELECT -- define the path as the first edge of the traversal</span></span>
+<span id="cb32-396"><a href="#cb32-396"></a><span class="in">        node1id AS startNode,</span></span>
+<span id="cb32-397"><a href="#cb32-397"></a><span class="in">        node2id AS endNode,</span></span>
+<span id="cb32-398"><a href="#cb32-398"></a><span class="in">        [node1id, node2id] AS path</span></span>
+<span id="cb32-399"><a href="#cb32-399"></a><span class="in">     FROM edge</span></span>
+<span id="cb32-400"><a href="#cb32-400"></a><span class="in">     WHERE startNode = 1</span></span>
+<span id="cb32-401"><a href="#cb32-401"></a><span class="in">   UNION ALL</span></span>
+<span id="cb32-402"><a href="#cb32-402"></a><span class="in">   SELECT -- concatenate new edge to the path</span></span>
+<span id="cb32-403"><a href="#cb32-403"></a><span class="in">        paths.startNode AS startNode,</span></span>
+<span id="cb32-404"><a href="#cb32-404"></a><span class="in">        node2id AS endNode,</span></span>
+<span id="cb32-405"><a href="#cb32-405"></a><span class="in">        array_append(path, node2id) AS path</span></span>
+<span id="cb32-406"><a href="#cb32-406"></a><span class="in">     FROM paths</span></span>
+<span id="cb32-407"><a href="#cb32-407"></a><span class="in">     JOIN edge ON paths.endNode = node1id</span></span>
+<span id="cb32-408"><a href="#cb32-408"></a><span class="in">    -- Prevent adding a node that was visited previously by any path.</span></span>
+<span id="cb32-409"><a href="#cb32-409"></a><span class="in">    -- This ensures that (1) no cycles occur and (2) only nodes that</span></span>
+<span id="cb32-410"><a href="#cb32-410"></a><span class="in">    -- were not visited by previous (shorter) paths are added to a path.</span></span>
+<span id="cb32-411"><a href="#cb32-411"></a><span class="in">    WHERE NOT EXISTS (SELECT 1</span></span>
+<span id="cb32-412"><a href="#cb32-412"></a><span class="in">                      FROM paths previous_paths</span></span>
+<span id="cb32-413"><a href="#cb32-413"></a><span class="in">                      WHERE list_contains(previous_paths.path, node2id))</span></span>
+<span id="cb32-414"><a href="#cb32-414"></a><span class="in">)</span></span>
+<span id="cb32-415"><a href="#cb32-415"></a><span class="in">SELECT startNode, endNode, path</span></span>
+<span id="cb32-416"><a href="#cb32-416"></a><span class="in">FROM paths</span></span>
+<span id="cb32-417"><a href="#cb32-417"></a><span class="in">ORDER BY length(path), path;</span></span>
+<span id="cb32-418"><a href="#cb32-418"></a><span class="in">```</span></span>
+<span id="cb32-419"><a href="#cb32-419"></a></span>
+<span id="cb32-420"><a href="#cb32-420"></a><span class="fu">## 2つのノード間の重み付けされていあに最短パスの列挙</span></span>
+<span id="cb32-421"><a href="#cb32-421"></a></span>
+<span id="cb32-422"><a href="#cb32-422"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-423"><a href="#cb32-423"></a><span class="in">WITH RECURSIVE paths(startNode, endNode, path, endReached) AS (</span></span>
+<span id="cb32-424"><a href="#cb32-424"></a><span class="in">   SELECT -- define the path as the first edge of the traversal</span></span>
+<span id="cb32-425"><a href="#cb32-425"></a><span class="in">        node1id AS startNode,</span></span>
+<span id="cb32-426"><a href="#cb32-426"></a><span class="in">        node2id AS endNode,</span></span>
+<span id="cb32-427"><a href="#cb32-427"></a><span class="in">        [node1id, node2id] AS path,</span></span>
+<span id="cb32-428"><a href="#cb32-428"></a><span class="in">        (node2id = 8) AS endReached</span></span>
+<span id="cb32-429"><a href="#cb32-429"></a><span class="in">     FROM edge</span></span>
+<span id="cb32-430"><a href="#cb32-430"></a><span class="in">     WHERE startNode = 1</span></span>
+<span id="cb32-431"><a href="#cb32-431"></a><span class="in">   UNION ALL</span></span>
+<span id="cb32-432"><a href="#cb32-432"></a><span class="in">   SELECT -- concatenate new edge to the path</span></span>
+<span id="cb32-433"><a href="#cb32-433"></a><span class="in">        paths.startNode AS startNode,</span></span>
+<span id="cb32-434"><a href="#cb32-434"></a><span class="in">        node2id AS endNode,</span></span>
+<span id="cb32-435"><a href="#cb32-435"></a><span class="in">        array_append(path, node2id) AS path,</span></span>
+<span id="cb32-436"><a href="#cb32-436"></a><span class="in">        max(CASE WHEN node2id = 8 THEN 1 ELSE 0 END)</span></span>
+<span id="cb32-437"><a href="#cb32-437"></a><span class="in">            OVER (ROWS BETWEEN UNBOUNDED PRECEDING</span></span>
+<span id="cb32-438"><a href="#cb32-438"></a><span class="in">                           AND UNBOUNDED FOLLOWING) AS endReached</span></span>
+<span id="cb32-439"><a href="#cb32-439"></a><span class="in">     FROM paths</span></span>
+<span id="cb32-440"><a href="#cb32-440"></a><span class="in">     JOIN edge ON paths.endNode = node1id</span></span>
+<span id="cb32-441"><a href="#cb32-441"></a><span class="in">    WHERE NOT EXISTS (SELECT 1</span></span>
+<span id="cb32-442"><a href="#cb32-442"></a><span class="in">                      FROM paths previous_paths</span></span>
+<span id="cb32-443"><a href="#cb32-443"></a><span class="in">                      WHERE list_contains(previous_paths.path, node2id))</span></span>
+<span id="cb32-444"><a href="#cb32-444"></a><span class="in">      AND paths.endReached = 0</span></span>
+<span id="cb32-445"><a href="#cb32-445"></a><span class="in">)</span></span>
+<span id="cb32-446"><a href="#cb32-446"></a><span class="in">SELECT startNode, endNode, path</span></span>
+<span id="cb32-447"><a href="#cb32-447"></a><span class="in">FROM paths</span></span>
+<span id="cb32-448"><a href="#cb32-448"></a><span class="in">WHERE endNode = 8</span></span>
+<span id="cb32-449"><a href="#cb32-449"></a><span class="in">ORDER BY length(path), path;</span></span>
+<span id="cb32-450"><a href="#cb32-450"></a><span class="in">```</span></span>
+<span id="cb32-451"><a href="#cb32-451"></a></span>
+<span id="cb32-452"><a href="#cb32-452"></a><span class="in">```{sql connection=con}</span></span>
+<span id="cb32-453"><a href="#cb32-453"></a><span class="in">SELECT -- define the path as the first edge of the traversal</span></span>
+<span id="cb32-454"><a href="#cb32-454"></a><span class="in">    node1id AS startNode,</span></span>
+<span id="cb32-455"><a href="#cb32-455"></a><span class="in">    node2id AS endNode,</span></span>
+<span id="cb32-456"><a href="#cb32-456"></a><span class="in">    [node1id, node2id] AS path,</span></span>
+<span id="cb32-457"><a href="#cb32-457"></a><span class="in">    (node2id = 8) AS endReached</span></span>
+<span id="cb32-458"><a href="#cb32-458"></a><span class="in">FROM edge</span></span>
+<span id="cb32-459"><a href="#cb32-459"></a><span class="in">WHERE startNode = 1</span></span>
+<span id="cb32-460"><a href="#cb32-460"></a><span class="in">```</span></span>
+<span id="cb32-461"><a href="#cb32-461"></a></span>
+<span id="cb32-462"><a href="#cb32-462"></a></span>
+<span id="cb32-463"><a href="#cb32-463"></a></span>
+<span id="cb32-464"><a href="#cb32-464"></a><span class="fu"># Disconnect</span></span>
+<span id="cb32-465"><a href="#cb32-465"></a></span>
+<span id="cb32-468"><a href="#cb32-468"></a><span class="in">```{r}</span></span>
+<span id="cb32-469"><a href="#cb32-469"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
+<span id="cb32-470"><a href="#cb32-470"></a><span class="in">```</span> </span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
