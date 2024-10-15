@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.515">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,13 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -113,9 +107,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
@@ -127,262 +121,270 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../index.html">
+    <a class="dropdown-item" href="../../../index.html" rel="" target="">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">ALL</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html" rel="" target="">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html" rel="" target="">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html" rel="" target="">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html">
+    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html" rel="" target="">
  <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" rel="" target="">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" rel="" target="">
  <span class="dropdown-text">Numpy Infinity</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" rel="" target="">
  <span class="dropdown-text">LightGBMハンドブック</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
+    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html" rel="" target="">
  <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html" rel="" target="">
+ <span class="dropdown-text">爆速Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html" rel="" target="">
+ <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html" rel="" target="">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html" rel="" target="">
  <span class="dropdown-text">argparse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html" rel="" target="">
  <span class="dropdown-text">assertr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html" rel="" target="">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html" rel="" target="">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html" rel="" target="">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html" rel="" target="">
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html" rel="" target="">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html" rel="" target="">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html" rel="" target="">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html" rel="" target="">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html" rel="" target="">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html" rel="" target="">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html" rel="" target="">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/working.html" rel="" target="">
  <span class="dropdown-text">tidyverse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html" rel="" target="">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html" rel="" target="">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html" rel="" target="">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html" rel="" target="">
  <span class="dropdown-text">pydantic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html" rel="" target="">
  <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html" rel="" target="">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html" rel="" target="">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html" rel="" target="">
  <span class="dropdown-text">My Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html" rel="" target="">
  <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html" rel="" target="">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html" rel="" target="">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html" rel="" target="">
  <span class="dropdown-text">R2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/python/notebook.html">
+    <a class="dropdown-item" href="../../../contents/test/python/notebook.html" rel="" target="">
  <span class="dropdown-text">Python</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools ms-auto">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">Numpy Infinity</a></li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch03_行列の導入.html">行列の導入</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">Numpy Infinity</a></li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch03_行列の導入.html">行列の導入</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -392,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -910,12 +912,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">爆速Python</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">組込み機能のパフォーマンスを最大限に引き出す</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/10_爆速Python/ch03_並行性_並列性_非同期処理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ch03 並行性 並列性 非同期処理</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">Pythonではじめる時系列分析</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
       </ul>
   </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -978,14 +1038,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">Numpy Infinity</a></li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch03_行列の導入.html">行列の導入</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">行列の導入</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta column-body">
+<div class="quarto-title-meta">
 
     
   
@@ -993,9 +1053,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-
 </header>
-
 
 <section id="学ぶこと" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="学ぶこと"><span class="header-section-number">1</span> 学ぶこと</h2>
@@ -1009,8 +1067,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2" class="anchored" data-anchor-id="配列の結合"><span class="header-section-number">2</span> 配列の結合</h2>
 <section id="concatenate" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="concatenate"><span class="header-section-number">2.1</span> concatenate</h3>
-<div id="cell-4" class="cell" data-execution_count="1">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="1">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
 <span id="cb1-2"><a href="#cb1-2"></a>b <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">101</span>, <span class="dv">102</span>]</span>
@@ -1020,8 +1078,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1, 2, 3, 100, 101, 102]</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="2">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="2">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>a.append(b)</span>
 <span id="cb3-2"><a href="#cb3-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1030,8 +1088,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1, 2, 3, [100, 101, 102]]</code></pre>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="3">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="3">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
@@ -1045,8 +1103,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([  1,   2,   3, 100, 101, 102])</code></pre>
 </div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="4">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="4">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>np.concatenate([x, x, y])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1054,8 +1112,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([  1,   2,   3,   1,   2,   3, 100, 101, 102])</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="5">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="5">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>np.concatenate([x] <span class="op">*</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1063,8 +1121,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3])</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="6">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="6">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>np.array([x] <span class="op">*</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1079,8 +1137,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ベストプラクティス" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="ベストプラクティス"><span class="header-section-number">2.2</span> ベストプラクティス</h3>
 <p>appendを使ってリストにためてからnp.arrayを適用するのと，np.concatenateでNumpy配列を結合するのではどちらが早いのだろうか?</p>
-<div id="cell-11" class="cell" data-execution_count="7">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="7">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">from</span> mypy.mymodule <span class="im">import</span> TimeExecute</span>
 <span id="cb13-2"><a href="#cb13-2"></a></span>
@@ -1110,8 +1168,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-26"><a href="#cb13-26"></a>        x <span class="op">=</span> np.concatenate([x, np.arange(chunk_size)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-12" class="cell" data-execution_count="8">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="8">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">with</span> TimeExecute():</span>
 <span id="cb14-2"><a href="#cb14-2"></a>    pattern1()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1120,8 +1178,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>114.722 [msec]</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="9">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="9">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="cf">with</span> TimeExecute():</span>
 <span id="cb16-2"><a href="#cb16-2"></a>    pattern2()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1130,8 +1188,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>85.800 [msec]</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="10">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="10">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="cf">with</span> TimeExecute():</span>
 <span id="cb18-2"><a href="#cb18-2"></a>    pattern3()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1140,8 +1198,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>15.957 [msec]</code></pre>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="11">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="11">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="cf">with</span> TimeExecute():</span>
 <span id="cb20-2"><a href="#cb20-2"></a>    pattern4()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1163,8 +1221,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="np.split" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="np.split"><span class="header-section-number">3.2</span> np.split</h3>
 <p>あまり使う機会はあにが指定した数に要素を当分する.</p>
-<div id="cell-21" class="cell" data-execution_count="12">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="12">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>x    <span class="op">=</span> np.arange(<span class="dv">8</span>)</span>
 <span id="cb22-2"><a href="#cb22-2"></a>a, b <span class="op">=</span> np.split(x, <span class="dv">2</span>)</span>
@@ -1180,8 +1238,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="多次元リストと多次元配列" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="多次元リストと多次元配列"><span class="header-section-number">4</span> 多次元リストと多次元配列</h2>
-<div id="cell-23" class="cell" data-execution_count="13">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="13">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>x <span class="op">=</span> np.array([np.arange(<span class="dv">1</span>, <span class="dv">4</span>)] <span class="op">*</span> <span class="dv">4</span>) <span class="op">+</span> np.array(np.arange(<span class="dv">4</span>) <span class="op">*</span> <span class="dv">10</span>).reshape(<span class="dv">4</span>, <span class="dv">1</span>)</span>
 <span id="cb24-2"><a href="#cb24-2"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1193,8 +1251,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        [31, 32, 33]])</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="14">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="14">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># 1行目</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>x[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1203,8 +1261,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([1, 2, 3])</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="15">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="15">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># 1列目</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a>x[:, <span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1213,8 +1271,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([ 1, 11, 21, 31])</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="16">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="16">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># 1要素</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>x[<span class="dv">0</span>,<span class="dv">0</span>], x[<span class="dv">0</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1223,8 +1281,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>(1, 1)</code></pre>
 </div>
 </div>
-<div id="cell-27" class="cell" data-execution_count="17">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="17">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># 1要素を配列で</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a>x[<span class="dv">0</span>, <span class="dv">0</span>:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1236,8 +1294,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="行列の積み上げ" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="行列の積み上げ"><span class="header-section-number">4.1</span> 行列の積み上げ</h3>
 <p>np.concatenateは末尾への結合であったが，np.stackは配列を積み重ねていくことが可能である.</p>
-<div id="cell-29" class="cell" data-execution_count="18">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="18">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>x1 <span class="op">=</span> np.arange(<span class="dv">3</span>)</span>
 <span id="cb34-2"><a href="#cb34-2"></a>x2 <span class="op">=</span> <span class="dv">3</span> <span class="op">+</span> np.arange(<span class="dv">3</span>)</span>
@@ -1247,8 +1305,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([0, 1, 2, 3, 4, 5])</code></pre>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="19">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="19">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>np.stack([x1, x2])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1261,8 +1319,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="多次元配列のスライスの解釈" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="多次元配列のスライスの解釈"><span class="header-section-number">5</span> 多次元配列のスライスの解釈</h2>
-<div id="cell-32" class="cell" data-execution_count="20">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="20">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>anko_sell <span class="op">=</span> np.array([[<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">50</span>], [<span class="dv">50</span>, <span class="dv">30</span>, <span class="dv">100</span>],[<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">70</span>], [<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">100</span>]])</span>
 <span id="cb38-2"><a href="#cb38-2"></a>anko_sell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1274,8 +1332,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        [100,  50, 100]])</code></pre>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="21">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="21">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>anko_sell[<span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1283,8 +1341,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([100,  50,  50])</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="22">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="22">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>anko_sell[:, <span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1292,8 +1350,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([100,  50,  50, 100])</code></pre>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="23">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="23">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>anko_sell[::<span class="dv">2</span>, ::]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1304,8 +1362,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="行と列が反転したときのスライス" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="行と列が反転したときのスライス"><span class="header-section-number">5.1</span> 行と列が反転したときのスライス</h3>
-<div id="cell-37" class="cell" data-execution_count="24">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="24">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a>annko_vertical <span class="op">=</span> anko_sell.T</span>
 <span id="cb46-2"><a href="#cb46-2"></a>annko_vertical</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1322,8 +1380,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>スライスしたときに作成されるのは元の変数のViewである．</p>
 <p>スライスで作ったViewと元の変数は識別しが異なる，ということになる.</p>
 <p>ただし配列を抜けるとそれは数値になるので，そこでも識別子は異なる.</p>
-<div id="cell-39" class="cell" data-execution_count="25">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="25">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a>x <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
 <span id="cb48-2"><a href="#cb48-2"></a><span class="bu">print</span>(<span class="bu">id</span>(x[::]))</span>
@@ -1336,8 +1394,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2627982384544</code></pre>
 </div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="26">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="26">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>x <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>], [<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">23</span>]])</span>
 <span id="cb50-2"><a href="#cb50-2"></a><span class="bu">print</span>(<span class="bu">id</span>(x[<span class="dv">1</span>,::]))</span>
@@ -1356,8 +1414,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="numpy配列のshape" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="numpy配列のshape"><span class="header-section-number">6</span> NumPy配列のshape</h2>
-<div id="cell-42" class="cell" data-execution_count="27">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="27">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>x <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
 <span id="cb52-2"><a href="#cb52-2"></a><span class="bu">print</span>(x.shape)</span>
@@ -1368,8 +1426,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5</code></pre>
 </div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="28">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="28">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a>x <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">3</span>,<span class="dv">4</span>], [<span class="dv">5</span>,<span class="dv">6</span>]])</span>
 <span id="cb54-2"><a href="#cb54-2"></a><span class="bu">print</span>(x.shape)</span>
@@ -1383,8 +1441,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="集約関数" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="集約関数"><span class="header-section-number">7</span> 集約関数</h2>
-<div id="cell-45" class="cell" data-execution_count="29">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="29">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>x <span class="op">=</span> np.array([<span class="dv">16</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">11</span>])</span>
 <span id="cb56-2"><a href="#cb56-2"></a><span class="bu">print</span>(np.<span class="bu">sum</span>(x)) <span class="co"># 62</span></span>
@@ -1412,8 +1470,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>集約関数ではないが，いわゆる最大値の管理，最小値の管理とう面で活用出来るのがnp.maxmium/minimumである．これらの関数はnp.clipと等価である.</p>
-<div id="cell-47" class="cell" data-execution_count="30">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="30">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a>x <span class="op">=</span> np.arange(<span class="dv">10</span>)</span>
 <span id="cb58-2"><a href="#cb58-2"></a><span class="bu">print</span>(np.maximum(np.minimum(x, <span class="dv">7</span>), <span class="dv">3</span>)) <span class="co"># [3 3 3 3 4 5 6 7 7 7]</span></span>
@@ -1424,8 +1482,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [3 3 3 3 4 5 6 7 7 7]</code></pre>
 </div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="31">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="31">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a>np.clip(x, <span class="dv">3</span>, <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1436,8 +1494,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="多次元配列と集約関数のaxis" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="多次元配列と集約関数のaxis"><span class="header-section-number">8</span> 多次元配列と集約関数のaxis</h2>
-<div id="cell-50" class="cell" data-execution_count="32">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="32">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a>anko_sell <span class="op">=</span> np.array(</span>
 <span id="cb62-2"><a href="#cb62-2"></a>    [[<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">50</span>], [<span class="dv">50</span>, <span class="dv">30</span>, <span class="dv">100</span>],[<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">70</span>], [<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">100</span>]])</span>
@@ -1447,8 +1505,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>800</code></pre>
 </div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="33">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="33">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a><span class="co"># 月単位</span></span>
 <span id="cb64-2"><a href="#cb64-2"></a><span class="bu">print</span>(<span class="st">"月単位"</span>, np.<span class="bu">sum</span>(anko_sell, axis <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1457,8 +1515,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>月単位 [200 180 170 250]</code></pre>
 </div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="34">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="34">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a><span class="co"># 商品単位</span></span>
 <span id="cb66-2"><a href="#cb66-2"></a><span class="bu">print</span>(<span class="st">"商品単位"</span>, np.<span class="bu">sum</span>(anko_sell, axis <span class="op">=</span> <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1476,8 +1534,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10" class="anchored" data-anchor-id="多次元配列化出来ないリストのリスト"><span class="header-section-number">10</span> 多次元配列化出来ない「リストのリスト」</h2>
 <p>リストのリストは通常，NumPyヘア塚しても多次元配列にはならないが，入れ子になった内側のリストの要素数が全て同じ，つまり多次元リストに限定すれば多次元配列となる.</p>
 <p>とはいえ，下記とおり思わぬエラーが発生するもとであるので，基本的にはリストのリストか直接多次元配列を作成することはやめておいた方が良い.</p>
-<div id="cell-55" class="cell" data-execution_count="35">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="35">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1"></a>x <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>], [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]]</span>
 <span id="cb68-2"><a href="#cb68-2"></a><span class="bu">print</span>(x)</span>
@@ -1503,8 +1561,8 @@ object
 </section>
 <section id="行列の導入" class="level2" data-number="12">
 <h2 data-number="12" class="anchored" data-anchor-id="行列の導入"><span class="header-section-number">12</span> 行列の導入</h2>
-<div id="cell-58" class="cell" data-execution_count="37">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="37">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a>sell_amount <span class="op">=</span> np.array([[<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">15</span>], [<span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">20</span>],[<span class="dv">30</span>, <span class="dv">25</span>, <span class="dv">25</span>]])</span>
 <span id="cb71-2"><a href="#cb71-2"></a>price <span class="op">=</span> np.array([<span class="dv">120</span>, <span class="dv">120</span>, <span class="dv">180</span>])</span>
@@ -1528,8 +1586,8 @@ object
 <h2 data-number="13" class="anchored" data-anchor-id="演習問題"><span class="header-section-number">13</span> 演習問題</h2>
 <section id="q1np.concatenate" class="level3" data-number="13.1">
 <h3 data-number="13.1" class="anchored" data-anchor-id="q1np.concatenate"><span class="header-section-number">13.1</span> q1:np.concatenate</h3>
-<div id="cell-60" class="cell" data-execution_count="41">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="41">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a>a <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
 <span id="cb73-2"><a href="#cb73-2"></a>b <span class="op">=</span> np.arange(<span class="dv">3</span>)</span>
@@ -1539,8 +1597,8 @@ object
 <pre><code>array([0, 1, 2, 3, 4, 0, 1, 2])</code></pre>
 </div>
 </div>
-<div id="cell-61" class="cell" data-execution_count="42">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="42">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1"></a>a <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
 <span id="cb75-2"><a href="#cb75-2"></a>b <span class="op">=</span> <span class="dv">0</span></span>
@@ -1550,8 +1608,8 @@ object
 <pre><code>ValueError: all the input arrays must have same number of dimensions, but the array at index 0 has 1 dimension(s) and the array at index 1 has 0 dimension(s)</code></pre>
 </div>
 </div>
-<div id="cell-62" class="cell" data-execution_count="44">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="44">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1"></a>a <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
 <span id="cb77-2"><a href="#cb77-2"></a>b <span class="op">=</span> np.arange(<span class="dv">7</span>)</span>
@@ -1561,8 +1619,8 @@ object
 <pre><code>array([0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 6])</code></pre>
 </div>
 </div>
-<div id="cell-63" class="cell" data-execution_count="45">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="45">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1"></a>np.concatenate([a, b], axis <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1570,8 +1628,8 @@ object
 <pre><code>AxisError: axis 1 is out of bounds for array of dimension 1</code></pre>
 </div>
 </div>
-<div id="cell-64" class="cell" data-execution_count="47">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="47">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1"></a>np.concatenate([np.arange(<span class="dv">9</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1586,8 +1644,8 @@ object
 </section>
 <section id="q2np.stack" class="level3" data-number="13.2">
 <h3 data-number="13.2" class="anchored" data-anchor-id="q2np.stack"><span class="header-section-number">13.2</span> q2:np.stack</h3>
-<div id="cell-66" class="cell" data-execution_count="48">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="48">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1"></a>np.stack([np.arange(<span class="dv">5</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>)], axis <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1596,8 +1654,8 @@ object
        [0, 1, 2, 3, 4]])</code></pre>
 </div>
 </div>
-<div id="cell-67" class="cell" data-execution_count="49">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="49">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1"></a>np.vstack([np.arange(<span class="dv">5</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1606,8 +1664,8 @@ object
        [0, 1, 2, 3, 4]])</code></pre>
 </div>
 </div>
-<div id="cell-68" class="cell" data-execution_count="50">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="50">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1"></a>np.stack([np.arange(<span class="dv">5</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>)], axis <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1619,8 +1677,8 @@ object
        [4, 4]])</code></pre>
 </div>
 </div>
-<div id="cell-69" class="cell" data-execution_count="52">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="52">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1"></a>np.stack([np.arange(i <span class="op">+</span> <span class="dv">2</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)], axis <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1628,8 +1686,8 @@ object
 <pre><code>ValueError: all input arrays must have the same shape</code></pre>
 </div>
 </div>
-<div id="cell-70" class="cell" data-execution_count="54">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="54">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1"></a>np.stack([np.arange(<span class="dv">2</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">8</span>)], axis <span class="op">=</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1637,8 +1695,8 @@ object
 <pre><code>AxisError: axis 2 is out of bounds for array of dimension 2</code></pre>
 </div>
 </div>
-<div id="cell-71" class="cell" data-execution_count="55">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="55">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1"></a>np.stack([np.arange(<span class="dv">2</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">8</span>)], axis <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1647,8 +1705,8 @@ object
        [1, 1, 1, 1, 1, 1, 1, 1]])</code></pre>
 </div>
 </div>
-<div id="cell-72" class="cell" data-execution_count="56">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="56">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1"></a>np.stack([np.arange(<span class="dv">2</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">8</span>)], axis <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1663,8 +1721,8 @@ object
        [0, 1]])</code></pre>
 </div>
 </div>
-<div id="cell-73" class="cell" data-execution_count="57">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="57">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1"></a>np.stack([np.arange(<span class="dv">2</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">8</span>)], axis <span class="op">=</span> <span class="op">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1675,8 +1733,8 @@ object
 </section>
 <section id="q3スライスのshape" class="level3" data-number="13.3">
 <h3 data-number="13.3" class="anchored" data-anchor-id="q3スライスのshape"><span class="header-section-number">13.3</span> q3:スライスのshape</h3>
-<div id="cell-75" class="cell" data-execution_count="59">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="59">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1"></a>np.random.seed(<span class="dv">123</span>)</span>
 <span id="cb99-2"><a href="#cb99-2"></a>A <span class="op">=</span> np.random.randn(<span class="dv">16</span>, <span class="dv">12</span>)</span>
@@ -1686,8 +1744,8 @@ object
 <pre><code>(16, 12)</code></pre>
 </div>
 </div>
-<div id="cell-76" class="cell" data-execution_count="60">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="60">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1"></a>A[<span class="dv">3</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1697,8 +1755,8 @@ object
         2.39236527,  0.41291216])</code></pre>
 </div>
 </div>
-<div id="cell-77" class="cell" data-execution_count="61">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="61">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1"></a>A[:, <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1709,8 +1767,8 @@ object
         1.39535293])</code></pre>
 </div>
 </div>
-<div id="cell-78" class="cell" data-execution_count="63">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="63">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb105"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1"></a>A[<span class="dv">1</span>:<span class="dv">3</span>, :].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1718,8 +1776,8 @@ object
 <pre><code>(2, 12)</code></pre>
 </div>
 </div>
-<div id="cell-79" class="cell" data-execution_count="64">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="64">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1"></a>A[<span class="dv">2</span>:<span class="dv">3</span>, <span class="dv">4</span>:<span class="dv">8</span>].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1727,8 +1785,8 @@ object
 <pre><code>(1, 4)</code></pre>
 </div>
 </div>
-<div id="cell-80" class="cell" data-execution_count="67">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="67">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1"></a>A[<span class="dv">4</span>,<span class="dv">6</span>:<span class="dv">7</span>].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1736,8 +1794,8 @@ object
 <pre><code>(1,)</code></pre>
 </div>
 </div>
-<div id="cell-81" class="cell" data-execution_count="69">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="69">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1"></a>A[::<span class="dv">2</span>, ::<span class="dv">2</span>].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1745,8 +1803,8 @@ object
 <pre><code>(8, 6)</code></pre>
 </div>
 </div>
-<div id="cell-82" class="cell" data-execution_count="70">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="70">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1"></a>A[<span class="dv">2</span>::<span class="dv">3</span>, <span class="dv">1</span>::<span class="dv">4</span>].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1754,8 +1812,8 @@ object
 <pre><code>(5, 3)</code></pre>
 </div>
 </div>
-<div id="cell-83" class="cell" data-execution_count="71">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="71">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1"></a>A[<span class="op">-</span><span class="dv">5</span>::, <span class="op">-</span><span class="dv">7</span>:<span class="op">-</span><span class="dv">4</span>:<span class="dv">2</span>].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1766,8 +1824,8 @@ object
 </section>
 <section id="q4ベクトルの結合" class="level3" data-number="13.4">
 <h3 data-number="13.4" class="anchored" data-anchor-id="q4ベクトルの結合"><span class="header-section-number">13.4</span> q4:ベクトルの結合</h3>
-<div id="cell-85" class="cell" data-execution_count="77">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="77">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb117"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1"></a><span class="im">from</span> mypy.mymodule <span class="im">import</span> TimeExecute</span>
 <span id="cb117-2"><a href="#cb117-2"></a>N <span class="op">=</span> <span class="dv">10000</span></span>
@@ -1784,8 +1842,8 @@ object
 </section>
 <section id="q5ベクトルの行列化１" class="level3" data-number="13.5">
 <h3 data-number="13.5" class="anchored" data-anchor-id="q5ベクトルの行列化１"><span class="header-section-number">13.5</span> q5:ベクトルの行列化（１）</h3>
-<div id="cell-87" class="cell" data-execution_count="81">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="81">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb119"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1"></a>jan <span class="op">=</span> np.array([<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">50</span>])</span>
 <span id="cb119-2"><a href="#cb119-2"></a>feb <span class="op">=</span> np.array([<span class="dv">50</span>, <span class="dv">30</span>, <span class="dv">100</span>])</span>
@@ -1803,8 +1861,8 @@ object
 </section>
 <section id="q6ベクトルの行列化" class="level3" data-number="13.6">
 <h3 data-number="13.6" class="anchored" data-anchor-id="q6ベクトルの行列化"><span class="header-section-number">13.6</span> q6:ベクトルの行列化</h3>
-<div id="cell-89" class="cell" data-execution_count="83">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="83">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb121-1"><a href="#cb121-1"></a>koshian <span class="op">=</span> np.array([<span class="dv">100</span>, <span class="dv">50</span>])</span>
 <span id="cb121-2"><a href="#cb121-2"></a>tsubuan <span class="op">=</span> np.array([<span class="dv">50</span>, <span class="dv">30</span>])</span>
@@ -1821,8 +1879,8 @@ object
 </section>
 <section id="q8分散と標準偏差" class="level3" data-number="13.7">
 <h3 data-number="13.7" class="anchored" data-anchor-id="q8分散と標準偏差"><span class="header-section-number">13.7</span> q8:分散と標準偏差</h3>
-<div id="cell-91" class="cell" data-execution_count="84">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="84">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb123"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb123-1"><a href="#cb123-1"></a>x <span class="op">=</span> np.arange(<span class="dv">100</span>) <span class="op">**</span> <span class="dv">2</span></span>
 <span id="cb123-2"><a href="#cb123-2"></a></span>
@@ -1833,8 +1891,8 @@ object
 <pre><code>3283.5</code></pre>
 </div>
 </div>
-<div id="cell-92" class="cell" data-execution_count="86">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="86">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb125"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb125-1"><a href="#cb125-1"></a>np.var(x), np.mean((x <span class="op">-</span> x_mean) <span class="op">**</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1842,8 +1900,8 @@ object
 <pre><code>(8721961.05, 8721961.05)</code></pre>
 </div>
 </div>
-<div id="cell-93" class="cell" data-execution_count="87">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="87">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb127"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb127-1"><a href="#cb127-1"></a>np.std(x), np.sqrt(np.mean((x <span class="op">-</span> x_mean) <span class="op">**</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1854,8 +1912,8 @@ object
 </section>
 <section id="q9平均値と中央時" class="level3" data-number="13.8">
 <h3 data-number="13.8" class="anchored" data-anchor-id="q9平均値と中央時"><span class="header-section-number">13.8</span> q9:平均値と中央時</h3>
-<div id="cell-95" class="cell" data-execution_count="88">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="88">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb129"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb129-1"><a href="#cb129-1"></a>data_file <span class="op">=</span> <span class="st">"numpy_book/data/income.npz"</span></span>
 <span id="cb129-2"><a href="#cb129-2"></a>income <span class="op">=</span> np.load(data_file)[<span class="st">"income"</span>]</span>
@@ -1865,8 +1923,8 @@ object
 <pre><code>array([ 675,  777, 1166, ...,  279,  315,  232])</code></pre>
 </div>
 </div>
-<div id="cell-96" class="cell" data-execution_count="91">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="91">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb131"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb131-1"><a href="#cb131-1"></a>np.mean(income), <span class="op">\</span></span>
 <span id="cb131-2"><a href="#cb131-2"></a>np.median(income), <span class="op">\</span></span>
@@ -1879,8 +1937,8 @@ object
 </section>
 <section id="q10-ポケモンの分析" class="level3" data-number="13.9">
 <h3 data-number="13.9" class="anchored" data-anchor-id="q10-ポケモンの分析"><span class="header-section-number">13.9</span> q10: ポケモンの分析</h3>
-<div id="cell-98" class="cell" data-execution_count="38">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="38">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb133"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb133-1"><a href="#cb133-1"></a>data_file <span class="op">=</span> <span class="st">"numpy_book/data/pokemon.npz"</span></span>
 <span id="cb133-2"><a href="#cb133-2"></a>pokemon   <span class="op">=</span> np.load(data_file, allow_pickle <span class="op">=</span> <span class="va">True</span>)</span>
@@ -2076,8 +2134,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 <li>names:ポケモンの名前</li>
 <li>numbers:ポケモン図鑑No.</li>
 </ul>
-<div id="cell-100" class="cell" data-execution_count="39">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="39">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb135"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb135-1"><a href="#cb135-1"></a>total_params <span class="op">=</span> np.<span class="bu">sum</span>(pokemon[<span class="st">"params"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb135-2"><a href="#cb135-2"></a><span class="bu">print</span>(<span class="ss">f"""</span></span>
@@ -2097,8 +2155,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 </section>
 <section id="q12種族値の集約" class="level3" data-number="13.11">
 <h3 data-number="13.11" class="anchored" data-anchor-id="q12種族値の集約"><span class="header-section-number">13.11</span> q12:種族値の集約</h3>
-<div id="cell-102" class="cell" data-execution_count="40">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="40">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb137"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb137-1"><a href="#cb137-1"></a><span class="cf">for</span> i, v <span class="kw">in</span> <span class="bu">enumerate</span>(pokemon[<span class="st">"params_header"</span>]):</span>
 <span id="cb137-2"><a href="#cb137-2"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -2160,22 +2218,22 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 <h3 data-number="13.12" class="anchored" data-anchor-id="q13種族値のランキング"><span class="header-section-number">13.12</span> q13:種族値のランキング</h3>
 <p><code>np.argsort</code>により，ソート結果がインデックスで表示されるので，わたしがやっているようにわざわざ構造体の 配列を作成して処理行う必要はなかった。</p>
 <p>とはいえ，いい勉強になった気がする.</p>
-<div id="cell-104" class="cell" data-execution_count="41">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="41">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb139"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb139-1"><a href="#cb139-1"></a>dtype  <span class="op">=</span> [(<span class="st">"name"</span>, <span class="st">"U10"</span>), (<span class="st">"param"</span>, <span class="bu">int</span>)]</span>
 <span id="cb139-2"><a href="#cb139-2"></a>values <span class="op">=</span> [(x, y) <span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(pokemon[<span class="st">"names"</span>], total_params)]</span>
 <span id="cb139-3"><a href="#cb139-3"></a>tbl <span class="op">=</span> np.array(values, dtype <span class="op">=</span> dtype)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-105" class="cell" data-execution_count="42">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="42">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb140"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1"></a>tbl.sort(order <span class="op">=</span> <span class="st">"param"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-106" class="cell" data-execution_count="43">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="43">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb141"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb141-1"><a href="#cb141-1"></a><span class="co"># worst 10</span></span>
 <span id="cb141-2"><a href="#cb141-2"></a>tbl[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2187,8 +2245,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
       dtype=[('name', '&lt;U10'), ('param', '&lt;i4')])</code></pre>
 </div>
 </div>
-<div id="cell-107" class="cell" data-execution_count="44">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="44">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb143"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb143-1"><a href="#cb143-1"></a><span class="co"># top10</span></span>
 <span id="cb143-2"><a href="#cb143-2"></a>tbl[<span class="op">-</span><span class="dv">10</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2200,8 +2258,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
       dtype=[('name', '&lt;U10'), ('param', '&lt;i4')])</code></pre>
 </div>
 </div>
-<div id="cell-108" class="cell" data-execution_count="45">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="45">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb145"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb145-1"><a href="#cb145-1"></a>hensachi <span class="op">=</span> (total_params <span class="op">-</span> np.mean(total_params)) <span class="op">*</span> <span class="dv">10</span> <span class="op">/</span> np.std(total_params) <span class="op">+</span> <span class="dv">50</span></span>
 <span id="cb145-2"><a href="#cb145-2"></a>np.<span class="bu">min</span>(hensachi), np.<span class="bu">max</span>(hensachi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2213,8 +2271,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 </section>
 <section id="q15-偏差値ソート" class="level3" data-number="13.13">
 <h3 data-number="13.13" class="anchored" data-anchor-id="q15-偏差値ソート"><span class="header-section-number">13.13</span> q15: 偏差値ソート</h3>
-<div id="cell-110" class="cell" data-execution_count="46">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="46">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb147"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb147-1"><a href="#cb147-1"></a>dtype  <span class="op">=</span> [(<span class="st">"name"</span>, <span class="st">"U10"</span>), (<span class="st">"param"</span>, <span class="bu">float</span>)]</span>
 <span id="cb147-2"><a href="#cb147-2"></a>values <span class="op">=</span> [(x, y) <span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(pokemon[<span class="st">"names"</span>], hensachi)]</span>
@@ -2237,8 +2295,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
        dtype=[('name', '&lt;U10'), ('param', '&lt;f8')]))</code></pre>
 </div>
 </div>
-<div id="cell-111" class="cell" data-execution_count="47">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="47">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb149"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb149-1"><a href="#cb149-1"></a>v <span class="op">=</span> pokemon[<span class="st">"params"</span>]</span>
 <span id="cb149-2"><a href="#cb149-2"></a>hensachi2 <span class="op">=</span> (v <span class="op">-</span> np.mean(v, axis <span class="op">=</span> <span class="dv">0</span>, keepdims<span class="op">=</span><span class="va">True</span>)) <span class="op">*</span> <span class="dv">10</span>  <span class="op">/</span> np.std(v, axis <span class="op">=</span> <span class="dv">0</span>, keepdims<span class="op">=</span><span class="va">True</span>) <span class="op">+</span> <span class="dv">50</span></span>
@@ -2270,8 +2328,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 <pre><code>IndexError: index 6 is out of bounds for axis 1 with size 6</code></pre>
 </div>
 </div>
-<div id="cell-112" class="cell" data-execution_count="48">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="48">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb152"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb152-1"><a href="#cb152-1"></a>total_hensachi <span class="op">=</span> np.<span class="bu">sum</span>(hensachi2, axis <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb152-2"><a href="#cb152-2"></a>total_hensachi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2317,8 +2375,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
        371.95806505, 399.76472594, 371.65554495])</code></pre>
 </div>
 </div>
-<div id="cell-113" class="cell" data-execution_count="49">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="49">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb154"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb154-1"><a href="#cb154-1"></a>dtype  <span class="op">=</span> [(<span class="st">"name"</span>, <span class="st">"U10"</span>), (<span class="st">"param"</span>, <span class="bu">float</span>)]</span>
 <span id="cb154-2"><a href="#cb154-2"></a>values <span class="op">=</span> [(x, y) <span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(pokemon[<span class="st">"names"</span>], total_hensachi)]</span>
@@ -2344,8 +2402,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 </section>
 <section id="q18コサイン類似度" class="level3" data-number="13.14">
 <h3 data-number="13.14" class="anchored" data-anchor-id="q18コサイン類似度"><span class="header-section-number">13.14</span> q18：コサイン類似度</h3>
-<div id="cell-115" class="cell" data-execution_count="63">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="63">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb156"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb156-1"><a href="#cb156-1"></a>idx_purin, <span class="op">*</span>_ <span class="op">=</span> np.where(pokemon[<span class="st">"names"</span>] <span class="op">==</span> <span class="st">"プリン"</span>)</span>
 <span id="cb156-2"><a href="#cb156-2"></a>idx_purin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2354,8 +2412,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 <pre><code>array([38], dtype=int64)</code></pre>
 </div>
 </div>
-<div id="cell-116" class="cell" data-execution_count="54">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="54">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb158"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb158-1"><a href="#cb158-1"></a>params <span class="op">=</span> pokemon[<span class="st">"params"</span>]</span>
 <span id="cb158-2"><a href="#cb158-2"></a>params_norm <span class="op">=</span> np.sqrt(np.<span class="bu">sum</span>(params <span class="op">*</span> params, axis <span class="op">=</span> <span class="dv">1</span>))</span>
@@ -2402,14 +2460,14 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
        248.31834407, 283.11128554, 244.94897428])</code></pre>
 </div>
 </div>
-<div id="cell-117" class="cell" data-execution_count="69">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="69">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb160"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb160-1"><a href="#cb160-1"></a>params_inner_dot <span class="op">=</span> np.<span class="bu">sum</span>(params <span class="op">*</span> params[idx_purin, :], axis <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-118" class="cell" data-execution_count="70">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="70">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb161"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb161-1"><a href="#cb161-1"></a>cos_norm <span class="op">=</span> params_inner_dot <span class="op">/</span> params_norm <span class="op">/</span> params_norm[idx_purin]</span>
 <span id="cb161-2"><a href="#cb161-2"></a>cos_norm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2448,8 +2506,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
        0.80605994])</code></pre>
 </div>
 </div>
-<div id="cell-119" class="cell" data-execution_count="71">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="71">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb163"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb163-1"><a href="#cb163-1"></a>dtype  <span class="op">=</span> [(<span class="st">"name"</span>, <span class="st">"U10"</span>), (<span class="st">"param"</span>, <span class="bu">float</span>)]</span>
 <span id="cb163-2"><a href="#cb163-2"></a>values <span class="op">=</span> [(x, y) <span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(pokemon[<span class="st">"names"</span>], cos_norm)]</span>
@@ -2471,8 +2529,8 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 </div>
 </div>
 <p>なんかすべてのポケモンをまとめて計算出来そうな気がする.</p>
-<div id="cell-121" class="cell" data-execution_count="72">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="72">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb165"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb165-1"><a href="#cb165-1"></a><span class="co"># ポケモン vs ポケモン のノルム表</span></span>
 <span id="cb165-2"><a href="#cb165-2"></a>inner_prd <span class="op">=</span> np.<span class="bu">sum</span>(params[np.newaxis, :, :] <span class="op">*</span> params[:, np.newaxis, :], axis <span class="op">=</span> <span class="dv">2</span>)</span>
@@ -2482,20 +2540,20 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 <pre><code>(151, 151)</code></pre>
 </div>
 </div>
-<div id="cell-122" class="cell" data-execution_count="82">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="82">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb167"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb167-1"><a href="#cb167-1"></a>norms <span class="op">=</span> np.outer(params_norm, params_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-123" class="cell" data-execution_count="85">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="85">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb168"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb168-1"><a href="#cb168-1"></a>cos_norm <span class="op">=</span> inner_prd <span class="op">/</span> norms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-124" class="cell" data-execution_count="88">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="88">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb169"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb169-1"><a href="#cb169-1"></a>cos_norm[idx_purin, :<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -2506,60 +2564,58 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 </section>
 <section id="q19画像入門" class="level3" data-number="13.15">
 <h3 data-number="13.15" class="anchored" data-anchor-id="q19画像入門"><span class="header-section-number">13.15</span> q19:画像入門</h3>
-<div id="cell-126" class="cell" data-execution_count="90">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="90">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb171"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb171-1"><a href="#cb171-1"></a>img <span class="op">=</span> np.zeros((<span class="dv">400</span>, <span class="dv">400</span>), dtype <span class="op">=</span> np.uint8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-127" class="cell" data-execution_count="91">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="91">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb172"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb172-1"><a href="#cb172-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-128" class="cell" data-execution_count="93">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="93">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb173"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb173-1"><a href="#cb173-1"></a>img[<span class="dv">100</span>:<span class="dv">200</span>, <span class="dv">100</span>:<span class="dv">200</span>] <span class="op">=</span> <span class="dv">255</span></span>
 <span id="cb173-2"><a href="#cb173-2"></a>plt.imshow(img, cmap <span class="op">=</span> <span class="st">"gray"</span>, vmin <span class="op">=</span> <span class="dv">0</span>, vmax <span class="op">=</span> <span class="dv">255</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display" data-execution_count="93">
+<pre><code>&lt;matplotlib.image.AxesImage at 0x263e3e22040&gt;</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ch03_行列の導入_files/figure-html/cell-91-output-1.svg" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="ch03_行列の導入_files/figure-html/cell-91-output-2.svg" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-129" class="cell" data-execution_count="95">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="95">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb174-1"><a href="#cb174-1"></a>img[<span class="dv">200</span>:<span class="dv">350</span>, <span class="dv">100</span>:<span class="dv">200</span>] <span class="op">=</span> <span class="dv">255</span></span>
-<span id="cb174-2"><a href="#cb174-2"></a>plt.imshow(img, cmap <span class="op">=</span> <span class="st">"gray"</span>, vmin <span class="op">=</span> <span class="dv">0</span>, vmax <span class="op">=</span> <span class="dv">255</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb175-1"><a href="#cb175-1"></a>img[<span class="dv">200</span>:<span class="dv">350</span>, <span class="dv">100</span>:<span class="dv">200</span>] <span class="op">=</span> <span class="dv">255</span></span>
+<span id="cb175-2"><a href="#cb175-2"></a>plt.imshow(img, cmap <span class="op">=</span> <span class="st">"gray"</span>, vmin <span class="op">=</span> <span class="dv">0</span>, vmax <span class="op">=</span> <span class="dv">255</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ch03_行列の導入_files/figure-html/cell-92-output-1.svg" class="img-fluid figure-img"></p>
-</figure>
+<div class="cell-output cell-output-display" data-execution_count="95">
+<pre><code>&lt;matplotlib.image.AxesImage at 0x263e3a6bc70&gt;</code></pre>
 </div>
+<div class="cell-output cell-output-display">
+<p><img src="ch03_行列の導入_files/figure-html/cell-92-output-2.svg" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="q20行列積の可換性" class="level3" data-number="13.16">
 <h3 data-number="13.16" class="anchored" data-anchor-id="q20行列積の可換性"><span class="header-section-number">13.16</span> q20:行列積の可換性</h3>
-<div id="cell-131" class="cell" data-execution_count="96">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="96">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb175-1"><a href="#cb175-1"></a>A <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]])</span>
-<span id="cb175-2"><a href="#cb175-2"></a>B <span class="op">=</span> np.array([[<span class="op">-</span><span class="dv">4</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">2</span>], [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb177"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb177-1"><a href="#cb177-1"></a>A <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]])</span>
+<span id="cb177-2"><a href="#cb177-2"></a>B <span class="op">=</span> np.array([[<span class="op">-</span><span class="dv">4</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">2</span>], [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-132" class="cell" data-execution_count="97">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="97">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb176-1"><a href="#cb176-1"></a>A.dot(B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb178-1"><a href="#cb178-1"></a>A.dot(B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="97">
 <pre><code>array([[  0,   6,  12],
@@ -2567,11 +2623,11 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
        [-18,   6,  30]])</code></pre>
 </div>
 </div>
-<div id="cell-133" class="cell" data-execution_count="98">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="98">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb178-1"><a href="#cb178-1"></a></span>
-<span id="cb178-2"><a href="#cb178-2"></a>B.dot(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb180-1"><a href="#cb180-1"></a></span>
+<span id="cb180-2"><a href="#cb180-2"></a>B.dot(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="98">
 <pre><code>array([[-30, -39, -48],
@@ -2582,22 +2638,22 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 </section>
 <section id="q22あんこ商店" class="level3" data-number="13.17">
 <h3 data-number="13.17" class="anchored" data-anchor-id="q22あんこ商店"><span class="header-section-number">13.17</span> q22:あんこ商店</h3>
-<div id="cell-135" class="cell" data-execution_count="103">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="103">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb180-1"><a href="#cb180-1"></a>data_file <span class="op">=</span> <span class="st">"numpy_book/data/anko_shop.npz"</span></span>
-<span id="cb180-2"><a href="#cb180-2"></a>anko_sell <span class="op">=</span> np.load(data_file)[<span class="st">"sell"</span>]</span>
-<span id="cb180-3"><a href="#cb180-3"></a>anko_sell.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb182-1"><a href="#cb182-1"></a>data_file <span class="op">=</span> <span class="st">"numpy_book/data/anko_shop.npz"</span></span>
+<span id="cb182-2"><a href="#cb182-2"></a>anko_sell <span class="op">=</span> np.load(data_file)[<span class="st">"sell"</span>]</span>
+<span id="cb182-3"><a href="#cb182-3"></a>anko_sell.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="103">
 <pre><code>(100, 4)</code></pre>
 </div>
 </div>
-<div id="cell-136" class="cell" data-execution_count="109">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="109">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb182-1"><a href="#cb182-1"></a>nontax_price <span class="op">=</span> np.diag([<span class="dv">120</span>, <span class="dv">180</span>, <span class="dv">270</span>, <span class="dv">120</span>])</span>
-<span id="cb182-2"><a href="#cb182-2"></a>nontax_price</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb184"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb184-1"><a href="#cb184-1"></a>nontax_price <span class="op">=</span> np.diag([<span class="dv">120</span>, <span class="dv">180</span>, <span class="dv">270</span>, <span class="dv">120</span>])</span>
+<span id="cb184-2"><a href="#cb184-2"></a>nontax_price</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="109">
 <pre><code>array([[ 120,    0,    0,    0],
@@ -2606,10 +2662,10 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
        [   0,    0,    0, 1200]])</code></pre>
 </div>
 </div>
-<div id="cell-137" class="cell" data-execution_count="111">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="111">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb184"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb184-1"><a href="#cb184-1"></a>anko_sell.dot(nontax_price).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb186"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb186-1"><a href="#cb186-1"></a>anko_sell.dot(nontax_price).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="111">
 <pre><code>287970</code></pre>
@@ -2618,98 +2674,56 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 </section>
 <section id="q23アファイン変換入門" class="level3" data-number="13.18">
 <h3 data-number="13.18" class="anchored" data-anchor-id="q23アファイン変換入門"><span class="header-section-number">13.18</span> q23:アファイン変換入門</h3>
-<div id="cell-139" class="cell" data-execution_count="113">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="113">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb186"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb186-1"><a href="#cb186-1"></a>character <span class="op">=</span> np.load(<span class="st">"numpy_book/data/ankochan.npz"</span>)[<span class="st">"points"</span>]</span>
-<span id="cb186-2"><a href="#cb186-2"></a><span class="bu">print</span>(character.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb188-1"><a href="#cb188-1"></a>character <span class="op">=</span> np.load(<span class="st">"numpy_book/data/ankochan.npz"</span>)[<span class="st">"points"</span>]</span>
+<span id="cb188-2"><a href="#cb188-2"></a><span class="bu">print</span>(character.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>(2, 3465)</code></pre>
 </div>
 </div>
-<div id="cell-140" class="cell" data-execution_count="115">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="115">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb188-1"><a href="#cb188-1"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">8</span>))</span>
-<span id="cb188-2"><a href="#cb188-2"></a>ax <span class="op">=</span> fig.gca()</span>
-<span id="cb188-3"><a href="#cb188-3"></a>ax.plot(</span>
-<span id="cb188-4"><a href="#cb188-4"></a>    character[<span class="dv">0</span>], </span>
-<span id="cb188-5"><a href="#cb188-5"></a>    character[<span class="dv">1</span>], </span>
-<span id="cb188-6"><a href="#cb188-6"></a>    linewidth <span class="op">=</span> <span class="dv">0</span>, </span>
-<span id="cb188-7"><a href="#cb188-7"></a>    markersize <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb188-8"><a href="#cb188-8"></a>    marker <span class="op">=</span> <span class="st">"o"</span></span>
-<span id="cb188-9"><a href="#cb188-9"></a>)</span>
-<span id="cb188-10"><a href="#cb188-10"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb190"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb190-1"><a href="#cb190-1"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb190-2"><a href="#cb190-2"></a>ax <span class="op">=</span> fig.gca()</span>
+<span id="cb190-3"><a href="#cb190-3"></a>ax.plot(</span>
+<span id="cb190-4"><a href="#cb190-4"></a>    character[<span class="dv">0</span>], </span>
+<span id="cb190-5"><a href="#cb190-5"></a>    character[<span class="dv">1</span>], </span>
+<span id="cb190-6"><a href="#cb190-6"></a>    linewidth <span class="op">=</span> <span class="dv">0</span>, </span>
+<span id="cb190-7"><a href="#cb190-7"></a>    markersize <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb190-8"><a href="#cb190-8"></a>    marker <span class="op">=</span> <span class="st">"o"</span></span>
+<span id="cb190-9"><a href="#cb190-9"></a>)</span>
+<span id="cb190-10"><a href="#cb190-10"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ch03_行列の導入_files/figure-html/cell-100-output-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="ch03_行列の導入_files/figure-html/cell-100-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="q24アファイン変換ー回転" class="level3" data-number="13.19">
 <h3 data-number="13.19" class="anchored" data-anchor-id="q24アファイン変換ー回転"><span class="header-section-number">13.19</span> q24:アファイン変換ー回転</h3>
-<div id="cell-142" class="cell" data-execution_count="121">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="121">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb189"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb189-1"><a href="#cb189-1"></a><span class="kw">def</span> gen_pmat(theta):</span>
-<span id="cb189-2"><a href="#cb189-2"></a>    c <span class="op">=</span> np.cos(theta)</span>
-<span id="cb189-3"><a href="#cb189-3"></a>    s <span class="op">=</span> np.sin(theta)</span>
-<span id="cb189-4"><a href="#cb189-4"></a>    <span class="cf">return</span> np.array([c, <span class="op">-</span>s, s, c]).reshape((<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb189-5"><a href="#cb189-5"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb191-1"><a href="#cb191-1"></a><span class="kw">def</span> gen_pmat(theta):</span>
+<span id="cb191-2"><a href="#cb191-2"></a>    c <span class="op">=</span> np.cos(theta)</span>
+<span id="cb191-3"><a href="#cb191-3"></a>    s <span class="op">=</span> np.sin(theta)</span>
+<span id="cb191-4"><a href="#cb191-4"></a>    <span class="cf">return</span> np.array([c, <span class="op">-</span>s, s, c]).reshape((<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb191-5"><a href="#cb191-5"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-143" class="cell" data-execution_count="122">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb190"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb190-1"><a href="#cb190-1"></a>thetas <span class="op">=</span> [np.pi <span class="op">/</span> <span class="dv">6</span>, np.pi <span class="op">/</span> <span class="dv">3</span>, np.pi <span class="op">/</span> <span class="dv">2</span>, <span class="dv">4</span> <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">3</span>]</span>
-<span id="cb190-2"><a href="#cb190-2"></a></span>
-<span id="cb190-3"><a href="#cb190-3"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">14</span>, <span class="dv">12</span>))</span>
-<span id="cb190-4"><a href="#cb190-4"></a></span>
-<span id="cb190-5"><a href="#cb190-5"></a><span class="cf">for</span> i, theta <span class="kw">in</span> <span class="bu">enumerate</span>(thetas):</span>
-<span id="cb190-6"><a href="#cb190-6"></a>    rotated_points <span class="op">=</span> np.dot(gen_pmat(theta), character)</span>
-<span id="cb190-7"><a href="#cb190-7"></a>    ax <span class="op">=</span> fig.add_subplot(<span class="dv">2</span>, <span class="dv">2</span>, i <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb190-8"><a href="#cb190-8"></a>    ax.plot(</span>
-<span id="cb190-9"><a href="#cb190-9"></a>        rotated_points[<span class="dv">0</span>], </span>
-<span id="cb190-10"><a href="#cb190-10"></a>        rotated_points[<span class="dv">1</span>], </span>
-<span id="cb190-11"><a href="#cb190-11"></a>        linewidth <span class="op">=</span> <span class="dv">0</span>, </span>
-<span id="cb190-12"><a href="#cb190-12"></a>        markersize <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb190-13"><a href="#cb190-13"></a>        marker <span class="op">=</span> <span class="st">"o"</span></span>
-<span id="cb190-14"><a href="#cb190-14"></a>    )</span>
-<span id="cb190-15"><a href="#cb190-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ch03_行列の導入_files/figure-html/cell-102-output-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="q25-せん断変形" class="level3" data-number="13.20">
-<h3 data-number="13.20" class="anchored" data-anchor-id="q25-せん断変形"><span class="header-section-number">13.20</span> q25: せん断変形</h3>
-<div id="cell-145" class="cell" data-execution_count="125">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb191-1"><a href="#cb191-1"></a><span class="kw">def</span> gen_skewmat(theta):</span>
-<span id="cb191-2"><a href="#cb191-2"></a>    t <span class="op">=</span> np.tan(theta)</span>
-<span id="cb191-3"><a href="#cb191-3"></a>    <span class="cf">return</span> np.array([<span class="dv">1</span>, <span class="dv">0</span>, t, <span class="dv">1</span>]).reshape((<span class="dv">2</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="cell-146" class="cell" data-execution_count="126">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="122">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb192"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb192-1"><a href="#cb192-1"></a>thetas <span class="op">=</span> [np.pi <span class="op">/</span> <span class="dv">6</span>, np.pi <span class="op">/</span> <span class="dv">3</span>, np.pi <span class="op">/</span> <span class="dv">2</span>, <span class="dv">4</span> <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">3</span>]</span>
 <span id="cb192-2"><a href="#cb192-2"></a></span>
 <span id="cb192-3"><a href="#cb192-3"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">14</span>, <span class="dv">12</span>))</span>
 <span id="cb192-4"><a href="#cb192-4"></a></span>
 <span id="cb192-5"><a href="#cb192-5"></a><span class="cf">for</span> i, theta <span class="kw">in</span> <span class="bu">enumerate</span>(thetas):</span>
-<span id="cb192-6"><a href="#cb192-6"></a>    rotated_points <span class="op">=</span> np.dot(gen_skewmat(theta), character)</span>
+<span id="cb192-6"><a href="#cb192-6"></a>    rotated_points <span class="op">=</span> np.dot(gen_pmat(theta), character)</span>
 <span id="cb192-7"><a href="#cb192-7"></a>    ax <span class="op">=</span> fig.add_subplot(<span class="dv">2</span>, <span class="dv">2</span>, i <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb192-8"><a href="#cb192-8"></a>    ax.plot(</span>
 <span id="cb192-9"><a href="#cb192-9"></a>        rotated_points[<span class="dv">0</span>], </span>
@@ -2721,11 +2735,41 @@ numbers [  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 <span id="cb192-15"><a href="#cb192-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ch03_行列の導入_files/figure-html/cell-104-output-1.svg" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="ch03_行列の導入_files/figure-html/cell-102-output-1.svg" class="img-fluid"></p>
 </div>
+</div>
+</section>
+<section id="q25-せん断変形" class="level3" data-number="13.20">
+<h3 data-number="13.20" class="anchored" data-anchor-id="q25-せん断変形"><span class="header-section-number">13.20</span> q25: せん断変形</h3>
+<div class="cell" data-execution_count="125">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb193-1"><a href="#cb193-1"></a><span class="kw">def</span> gen_skewmat(theta):</span>
+<span id="cb193-2"><a href="#cb193-2"></a>    t <span class="op">=</span> np.tan(theta)</span>
+<span id="cb193-3"><a href="#cb193-3"></a>    <span class="cf">return</span> np.array([<span class="dv">1</span>, <span class="dv">0</span>, t, <span class="dv">1</span>]).reshape((<span class="dv">2</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="126">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb194"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb194-1"><a href="#cb194-1"></a>thetas <span class="op">=</span> [np.pi <span class="op">/</span> <span class="dv">6</span>, np.pi <span class="op">/</span> <span class="dv">3</span>, np.pi <span class="op">/</span> <span class="dv">2</span>, <span class="dv">4</span> <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">3</span>]</span>
+<span id="cb194-2"><a href="#cb194-2"></a></span>
+<span id="cb194-3"><a href="#cb194-3"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">14</span>, <span class="dv">12</span>))</span>
+<span id="cb194-4"><a href="#cb194-4"></a></span>
+<span id="cb194-5"><a href="#cb194-5"></a><span class="cf">for</span> i, theta <span class="kw">in</span> <span class="bu">enumerate</span>(thetas):</span>
+<span id="cb194-6"><a href="#cb194-6"></a>    rotated_points <span class="op">=</span> np.dot(gen_skewmat(theta), character)</span>
+<span id="cb194-7"><a href="#cb194-7"></a>    ax <span class="op">=</span> fig.add_subplot(<span class="dv">2</span>, <span class="dv">2</span>, i <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb194-8"><a href="#cb194-8"></a>    ax.plot(</span>
+<span id="cb194-9"><a href="#cb194-9"></a>        rotated_points[<span class="dv">0</span>], </span>
+<span id="cb194-10"><a href="#cb194-10"></a>        rotated_points[<span class="dv">1</span>], </span>
+<span id="cb194-11"><a href="#cb194-11"></a>        linewidth <span class="op">=</span> <span class="dv">0</span>, </span>
+<span id="cb194-12"><a href="#cb194-12"></a>        markersize <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb194-13"><a href="#cb194-13"></a>        marker <span class="op">=</span> <span class="st">"o"</span></span>
+<span id="cb194-14"><a href="#cb194-14"></a>    )</span>
+<span id="cb194-15"><a href="#cb194-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="ch03_行列の導入_files/figure-html/cell-104-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 
@@ -2864,9 +2908,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2876,17 +2921,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2899,135 +2935,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        typesetMath(container);
-        return container.innerHTML
-      } else {
-        typesetMath(note);
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      typesetMath(note);
-      return note.innerHTML;
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -3071,7 +2978,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -3097,32 +3003,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -3184,18 +3064,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../contents/books/07_NumpyInfinity/ch02_numpyの導入.html" class="pagination-link  aria-label=" numpyの導入"="">
+      <a href="../../../contents/books/07_NumpyInfinity/ch02_numpyの導入.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">numpyの導入</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../contents/books/07_NumpyInfinity/ch04_テンソルと画像処理.html" class="pagination-link" aria-label="テンソルと画像処理">
+      <a href="../../../contents/books/07_NumpyInfinity/ch04_テンソルと画像処理.html" class="pagination-link">
         <span class="nav-page-text">テンソルと画像処理</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-
 
 
 

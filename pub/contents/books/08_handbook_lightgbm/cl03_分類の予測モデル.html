@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.515">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -81,13 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -102,7 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -118,9 +112,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
@@ -132,262 +126,270 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../index.html">
+    <a class="dropdown-item" href="../../../index.html" rel="" target="">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">ALL</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html" rel="" target="">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html" rel="" target="">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html" rel="" target="">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html">
+    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html" rel="" target="">
  <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" rel="" target="">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" rel="" target="">
  <span class="dropdown-text">Numpy Infinity</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" rel="" target="">
  <span class="dropdown-text">LightGBMハンドブック</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
+    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html" rel="" target="">
  <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html" rel="" target="">
+ <span class="dropdown-text">爆速Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html" rel="" target="">
+ <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html" rel="" target="">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html" rel="" target="">
  <span class="dropdown-text">argparse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html" rel="" target="">
  <span class="dropdown-text">assertr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html" rel="" target="">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html" rel="" target="">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html" rel="" target="">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html" rel="" target="">
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html" rel="" target="">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html" rel="" target="">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html" rel="" target="">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html" rel="" target="">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html" rel="" target="">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html" rel="" target="">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html" rel="" target="">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/working.html" rel="" target="">
  <span class="dropdown-text">tidyverse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html" rel="" target="">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html" rel="" target="">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html" rel="" target="">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html" rel="" target="">
  <span class="dropdown-text">pydantic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html">
+    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html" rel="" target="">
  <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html" rel="" target="">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html" rel="" target="">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html" rel="" target="">
  <span class="dropdown-text">My Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html" rel="" target="">
  <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html" rel="" target="">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html" rel="" target="">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html" rel="" target="">
  <span class="dropdown-text">R2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/python/notebook.html">
+    <a class="dropdown-item" href="../../../contents/test/python/notebook.html" rel="" target="">
  <span class="dropdown-text">Python</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools ms-auto">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">LightGBMハンドブック</a></li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl03_分類の予測モデル.html">はじめに</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">LightGBMハンドブック</a></li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl03_分類の予測モデル.html">はじめに</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -397,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -915,12 +917,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">爆速Python</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">組込み機能のパフォーマンスを最大限に引き出す</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/10_爆速Python/ch03_並行性_並列性_非同期処理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ch03 並行性 並列性 非同期処理</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">Pythonではじめる時系列分析</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
       </ul>
   </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -946,14 +1006,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">LightGBMハンドブック</a></li><li class="breadcrumb-item"><a href="../../../contents/books/08_handbook_lightgbm/cl03_分類の予測モデル.html">はじめに</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">はじめに</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta column-body">
+<div class="quarto-title-meta">
 
     
   
@@ -961,12 +1021,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-
 </header>
 
-
-<div id="cell-1" class="cell" data-execution_count="54">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="54">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> importlib.util</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> os</span>
@@ -1007,8 +1065,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>収入が「5万ドル以下」、「5万ドル超え」の２値になる</li>
 </ul></li>
 </ul>
-<div id="cell-3" class="cell" data-execution_count="55">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="55">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df <span class="op">=</span> pd.read_csv(</span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"</span>, </span>
@@ -1156,8 +1214,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="56">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="56">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1165,8 +1223,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>(32561, 15)</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="57">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="57">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># 欠損値</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>df.isnull().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1190,8 +1248,8 @@ income            0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="58">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="58">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># データ型</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1223,8 +1281,8 @@ memory usage: 3.7+ MB</code></pre>
 </div>
 <section id="数値変数" class="level2" data-number="0.1">
 <h2 data-number="0.1" class="anchored" data-anchor-id="数値変数"><span class="header-section-number">0.1</span> 数値変数</h2>
-<div id="cell-8" class="cell" data-execution_count="59">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="59">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>df.select_dtypes(include <span class="op">=</span> [<span class="st">"float"</span>, <span class="st">"int"</span>]).describe().T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1319,8 +1377,8 @@ memory usage: 3.7+ MB</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="60">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="60">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># ヒストグラム</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -1332,18 +1390,14 @@ memory usage: 3.7+ MB</code></pre>
 <pre><code>&lt;Figure size 1000x600 with 0 Axes&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="カテゴリ変数eda" class="level2" data-number="0.2">
 <h2 data-number="0.2" class="anchored" data-anchor-id="カテゴリ変数eda"><span class="header-section-number">0.2</span> カテゴリ変数EDA</h2>
-<div id="cell-11" class="cell" data-execution_count="61">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="61">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>df.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).describe().T.reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1441,8 +1495,8 @@ memory usage: 3.7+ MB</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="62">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="62">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># ユニーク値を確認する</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="co"># カテゴリー値の前に半角スペースが含まれていることがわかる</span></span>
@@ -1481,8 +1535,8 @@ native-country: [' United-States' ' Cuba' ' Jamaica' ' India' ' ?' ' Mexico' ' S
 income: [' &lt;=50K' ' &gt;50K']</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="63">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="63">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># カテゴリー別の頻度を確認</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="co"># この確認方法は簡単でわかりやすい気がするいい方法だね</span></span>
@@ -1495,23 +1549,19 @@ income: [' &lt;=50K' ' &gt;50K']</code></pre>
 <span id="cb16-9"><a href="#cb16-9"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-14" class="cell" data-execution_count="64">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="64">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># カテゴリー変数の前処理を実装する</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="cf">for</span> s <span class="kw">in</span> unique_levels.columns:</span>
 <span id="cb17-3"><a href="#cb17-3"></a>    df[s] <span class="op">=</span> df[s].<span class="bu">str</span>.replace(<span class="st">" "</span>, <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-15" class="cell" data-execution_count="65">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="65">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># 特徴量native-countryがUnited-Statesの条件でデータセットのレコードを絞る</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>df <span class="op">=</span> (</span>
@@ -1527,8 +1577,8 @@ income: [' &lt;=50K' ' &gt;50K']</code></pre>
 <pre><code>(29170, 14)</code></pre>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="66">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="66">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># 目的変数の分布</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="co"># 図書と値が異なるのが気になる・・・？</span></span>
@@ -1541,25 +1591,24 @@ income: [' &lt;=50K' ' &gt;50K']</code></pre>
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="67">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="67">
+<details open="">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
 <span id="cb22-2"><a href="#cb22-2"></a>sns.countplot(x <span class="op">=</span> <span class="st">"income"</span>, data <span class="op">=</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display" data-execution_count="67">
+<pre><code>&lt;Axes: xlabel='income', ylabel='count'&gt;</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-15-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-18" class="cell" data-execution_count="68">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="68">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># 正解ラベルをエンコーディング</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>df[<span class="st">"income"</span>] <span class="op">=</span> (df[<span class="st">"income"</span>] <span class="op">!=</span> <span class="st">"&lt;=50K"</span>).astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># 正解ラベルをエンコーディング</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>df[<span class="st">"income"</span>] <span class="op">=</span> (df[<span class="st">"income"</span>] <span class="op">!=</span> <span class="st">"&lt;=50K"</span>).astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -1568,24 +1617,24 @@ Name: count, dtype: int64</code></pre>
 <ul>
 <li><code>stratify</code>を使うと、学習セット、テストセットで分布のバランスを保つことが出来る</li>
 </ul>
-<div id="cell-20" class="cell" data-execution_count="69">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="69">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>X <span class="op">=</span> df.drop([<span class="st">"income"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb24-2"><a href="#cb24-2"></a>y <span class="op">=</span> df[<span class="st">"income"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>X <span class="op">=</span> df.drop([<span class="st">"income"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>y <span class="op">=</span> df[<span class="st">"income"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-21" class="cell" data-execution_count="70">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="70">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size <span class="op">=</span> <span class="fl">.2</span>, shuffle <span class="op">=</span> <span class="va">True</span>, stratify <span class="op">=</span> y, random_state <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size <span class="op">=</span> <span class="fl">.2</span>, shuffle <span class="op">=</span> <span class="va">True</span>, stratify <span class="op">=</span> y, random_state <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-22" class="cell" data-execution_count="71">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="71">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># stratifyを指定しているのでyの分布を保つことが出来てる</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>y_test.value_counts() <span class="op">/</span> <span class="bu">len</span>(y_test), y_train.value_counts() <span class="op">/</span> <span class="bu">len</span>(y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># stratifyを指定しているのでyの分布を保つことが出来てる</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>y_test.value_counts() <span class="op">/</span> <span class="bu">len</span>(y_test), y_train.value_counts() <span class="op">/</span> <span class="bu">len</span>(y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="71">
 <pre><code>(income
@@ -1599,37 +1648,33 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>予測値を適当に当てはめて各種の評価指標の値を確認する.</p>
-<div id="cell-24" class="cell" data-execution_count="72">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="72">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>y_test_zeros <span class="op">=</span> np.zeros(<span class="bu">len</span>(y_test))</span>
-<span id="cb28-2"><a href="#cb28-2"></a></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="co"># 混同行列</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_test_zeros)</span>
-<span id="cb28-5"><a href="#cb28-5"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
-<span id="cb28-6"><a href="#cb28-6"></a>sns.heatmap(cm, annot <span class="op">=</span> <span class="va">True</span>, fmt <span class="op">=</span> <span class="st">"d"</span>, cmap <span class="op">=</span> <span class="st">"Blues"</span>)</span>
-<span id="cb28-7"><a href="#cb28-7"></a></span>
-<span id="cb28-8"><a href="#cb28-8"></a>plt.xlabel(<span class="st">"pred"</span>)</span>
-<span id="cb28-9"><a href="#cb28-9"></a>plt.ylabel(<span class="st">"label"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>y_test_zeros <span class="op">=</span> np.zeros(<span class="bu">len</span>(y_test))</span>
+<span id="cb29-2"><a href="#cb29-2"></a></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="co"># 混同行列</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_test_zeros)</span>
+<span id="cb29-5"><a href="#cb29-5"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb29-6"><a href="#cb29-6"></a>sns.heatmap(cm, annot <span class="op">=</span> <span class="va">True</span>, fmt <span class="op">=</span> <span class="st">"d"</span>, cmap <span class="op">=</span> <span class="st">"Blues"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7"></a></span>
+<span id="cb29-8"><a href="#cb29-8"></a>plt.xlabel(<span class="st">"pred"</span>)</span>
+<span id="cb29-9"><a href="#cb29-9"></a>plt.ylabel(<span class="st">"label"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="72">
 <pre><code>Text(45.722222222222214, 0.5, 'label')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-20-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-25" class="cell" data-execution_count="73">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="73">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># 正解率、精度、再現率、F1スコアを並べる</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>scores <span class="op">=</span> {<span class="st">"accuracy"</span>:accuracy_score, <span class="st">"precision"</span>: precision_score, <span class="st">"recall"</span>: recall_score, <span class="st">"f1"</span>:f1_score, }</span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="cf">for</span> name <span class="kw">in</span> scores:</span>
-<span id="cb30-4"><a href="#cb30-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>scores[name](y_test, y_test_zeros)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># 正解率、精度、再現率、F1スコアを並べる</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>scores <span class="op">=</span> {<span class="st">"accuracy"</span>:accuracy_score, <span class="st">"precision"</span>: precision_score, <span class="st">"recall"</span>: recall_score, <span class="st">"f1"</span>:f1_score, }</span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="cf">for</span> name <span class="kw">in</span> scores:</span>
+<span id="cb31-4"><a href="#cb31-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>scores[name](y_test, y_test_zeros)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>accuracy = 0.7541995200548509
@@ -1642,13 +1687,13 @@ f1 = 0.0</code></pre>
   _warn_prf(average, modifier, msg_start, len(result))</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="76">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="76">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># 正解率、精度、再現率、F1スコアをすべて1と予測した場合で試す</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>scores <span class="op">=</span> {<span class="st">"accuracy"</span>:accuracy_score, <span class="st">"precision"</span>: precision_score, <span class="st">"recall"</span>: recall_score, <span class="st">"f1"</span>:f1_score, }</span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="cf">for</span> name <span class="kw">in</span> scores:</span>
-<span id="cb33-4"><a href="#cb33-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>scores[name](y_test, np.ones(<span class="bu">len</span>(y_test)))<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># 正解率、精度、再現率、F1スコアをすべて1と予測した場合で試す</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>scores <span class="op">=</span> {<span class="st">"accuracy"</span>:accuracy_score, <span class="st">"precision"</span>: precision_score, <span class="st">"recall"</span>: recall_score, <span class="st">"f1"</span>:f1_score, }</span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="cf">for</span> name <span class="kw">in</span> scores:</span>
+<span id="cb34-4"><a href="#cb34-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>scores[name](y_test, np.ones(<span class="bu">len</span>(y_test)))<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>accuracy = 0.24580047994514911
@@ -1661,23 +1706,23 @@ f1 = 0.3946064942212438</code></pre>
 <section id="ロジスティック回帰の学習予測評価" class="level2" data-number="0.4">
 <h2 data-number="0.4" class="anchored" data-anchor-id="ロジスティック回帰の学習予測評価"><span class="header-section-number">0.4</span> ロジスティック回帰の学習、予測、評価</h2>
 <p>これまでの処理に加えて、カテゴリ変数文字列をone-hot encodingする。</p>
-<div id="cell-29" class="cell" data-execution_count="99">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="99">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>x_category_columns <span class="op">=</span> X.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).columns</span>
-<span id="cb35-2"><a href="#cb35-2"></a>X_dummied_category <span class="op">=</span> [</span>
-<span id="cb35-3"><a href="#cb35-3"></a>    pd.get_dummies(X[col], prefix <span class="op">=</span> col, drop_first<span class="op">=</span><span class="va">True</span>).astype(<span class="bu">int</span>)</span>
-<span id="cb35-4"><a href="#cb35-4"></a>    <span class="cf">for</span> col <span class="kw">in</span> X.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).columns</span>
-<span id="cb35-5"><a href="#cb35-5"></a>]</span>
-<span id="cb35-6"><a href="#cb35-6"></a>X_dummied_category.append(X.select_dtypes(include <span class="op">=</span> [<span class="st">"float"</span>, <span class="st">"int"</span>]))</span>
-<span id="cb35-7"><a href="#cb35-7"></a>X <span class="op">=</span> pd.concat(X_dummied_category, axis <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>x_category_columns <span class="op">=</span> X.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).columns</span>
+<span id="cb36-2"><a href="#cb36-2"></a>X_dummied_category <span class="op">=</span> [</span>
+<span id="cb36-3"><a href="#cb36-3"></a>    pd.get_dummies(X[col], prefix <span class="op">=</span> col, drop_first<span class="op">=</span><span class="va">True</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb36-4"><a href="#cb36-4"></a>    <span class="cf">for</span> col <span class="kw">in</span> X.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).columns</span>
+<span id="cb36-5"><a href="#cb36-5"></a>]</span>
+<span id="cb36-6"><a href="#cb36-6"></a>X_dummied_category.append(X.select_dtypes(include <span class="op">=</span> [<span class="st">"float"</span>, <span class="st">"int"</span>]))</span>
+<span id="cb36-7"><a href="#cb36-7"></a>X <span class="op">=</span> pd.concat(X_dummied_category, axis <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-30" class="cell" data-execution_count="100">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="100">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size <span class="op">=</span> <span class="fl">.2</span>, shuffle <span class="op">=</span> <span class="va">True</span>, stratify<span class="op">=</span>y, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb36-2"><a href="#cb36-2"></a>y_train.value_counts() <span class="op">/</span> <span class="bu">len</span>(y_train), y_test.value_counts() <span class="op">/</span> <span class="bu">len</span>(y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size <span class="op">=</span> <span class="fl">.2</span>, shuffle <span class="op">=</span> <span class="va">True</span>, stratify<span class="op">=</span>y, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb37-2"><a href="#cb37-2"></a>y_train.value_counts() <span class="op">/</span> <span class="bu">len</span>(y_train), y_test.value_counts() <span class="op">/</span> <span class="bu">len</span>(y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="100">
 <pre><code>(income
@@ -1690,22 +1735,22 @@ f1 = 0.3946064942212438</code></pre>
  Name: count, dtype: float64)</code></pre>
 </div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="102">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="102">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># 特徴量の標準化</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb38-3"><a href="#cb38-3"></a></span>
-<span id="cb38-4"><a href="#cb38-4"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb38-5"><a href="#cb38-5"></a>num_cols <span class="op">=</span> X.columns[<span class="op">-</span><span class="dv">6</span>:]</span>
-<span id="cb38-6"><a href="#cb38-6"></a>X_train[num_cols] <span class="op">=</span> scaler.fit_transform(X_train[num_cols])</span>
-<span id="cb38-7"><a href="#cb38-7"></a>X_test[num_cols] <span class="op">=</span> scaler.transform(X_test[num_cols])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># 特徴量の標準化</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb39-3"><a href="#cb39-3"></a></span>
+<span id="cb39-4"><a href="#cb39-4"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb39-5"><a href="#cb39-5"></a>num_cols <span class="op">=</span> X.columns[<span class="op">-</span><span class="dv">6</span>:]</span>
+<span id="cb39-6"><a href="#cb39-6"></a>X_train[num_cols] <span class="op">=</span> scaler.fit_transform(X_train[num_cols])</span>
+<span id="cb39-7"><a href="#cb39-7"></a>X_test[num_cols] <span class="op">=</span> scaler.transform(X_test[num_cols])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-32" class="cell" data-execution_count="103">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="103">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>X_train[num_cols].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>X_train[num_cols].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="103">
 <div>
@@ -1802,24 +1847,24 @@ f1 = 0.3946064942212438</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="104">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="104">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>params <span class="op">=</span> {</span>
-<span id="cb40-2"><a href="#cb40-2"></a>    <span class="st">"penalty"</span>: <span class="st">"l1"</span>, <span class="co"># Noneは正則化なし, elasticnetもある</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a>    <span class="st">"C"</span>: <span class="fl">.1</span>, <span class="co"># 正則化項の強さ</span></span>
-<span id="cb40-4"><a href="#cb40-4"></a>    <span class="st">"solver"</span>: <span class="st">"liblinear"</span>,  <span class="co"># L1のときは固定</span></span>
-<span id="cb40-5"><a href="#cb40-5"></a>    <span class="st">"max_iter"</span>: <span class="dv">100</span>, </span>
-<span id="cb40-6"><a href="#cb40-6"></a>    <span class="st">"multi_class"</span>: <span class="st">"ovr"</span>, <span class="co"># 出力クラスのクラス数はautoで自動判定</span></span>
-<span id="cb40-7"><a href="#cb40-7"></a>    <span class="co"># "l1_rato": None, # elasticetのときのL1の強さ</span></span>
-<span id="cb40-8"><a href="#cb40-8"></a>    <span class="st">"random_state"</span>:<span class="dv">0</span></span>
-<span id="cb40-9"><a href="#cb40-9"></a>}</span>
-<span id="cb40-10"><a href="#cb40-10"></a></span>
-<span id="cb40-11"><a href="#cb40-11"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb40-12"><a href="#cb40-12"></a></span>
-<span id="cb40-13"><a href="#cb40-13"></a>model <span class="op">=</span> LogisticRegression(<span class="op">**</span>params)</span>
-<span id="cb40-14"><a href="#cb40-14"></a>model.fit(X_train, y_train)</span>
-<span id="cb40-15"><a href="#cb40-15"></a>model.get_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>params <span class="op">=</span> {</span>
+<span id="cb41-2"><a href="#cb41-2"></a>    <span class="st">"penalty"</span>: <span class="st">"l1"</span>, <span class="co"># Noneは正則化なし, elasticnetもある</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>    <span class="st">"C"</span>: <span class="fl">.1</span>, <span class="co"># 正則化項の強さ</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>    <span class="st">"solver"</span>: <span class="st">"liblinear"</span>,  <span class="co"># L1のときは固定</span></span>
+<span id="cb41-5"><a href="#cb41-5"></a>    <span class="st">"max_iter"</span>: <span class="dv">100</span>, </span>
+<span id="cb41-6"><a href="#cb41-6"></a>    <span class="st">"multi_class"</span>: <span class="st">"ovr"</span>, <span class="co"># 出力クラスのクラス数はautoで自動判定</span></span>
+<span id="cb41-7"><a href="#cb41-7"></a>    <span class="co"># "l1_rato": None, # elasticetのときのL1の強さ</span></span>
+<span id="cb41-8"><a href="#cb41-8"></a>    <span class="st">"random_state"</span>:<span class="dv">0</span></span>
+<span id="cb41-9"><a href="#cb41-9"></a>}</span>
+<span id="cb41-10"><a href="#cb41-10"></a></span>
+<span id="cb41-11"><a href="#cb41-11"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb41-12"><a href="#cb41-12"></a></span>
+<span id="cb41-13"><a href="#cb41-13"></a>model <span class="op">=</span> LogisticRegression(<span class="op">**</span>params)</span>
+<span id="cb41-14"><a href="#cb41-14"></a>model.fit(X_train, y_train)</span>
+<span id="cb41-15"><a href="#cb41-15"></a>model.get_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="104">
 <pre><code>{'C': 0.1,
@@ -1839,11 +1884,11 @@ f1 = 0.3946064942212438</code></pre>
  'warm_start': False}</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="106">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="106">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># 予測確立の出力</span></span>
-<span id="cb42-2"><a href="#cb42-2"></a>model.predict_proba(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># 予測確立の出力</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>model.predict_proba(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="106">
 <pre><code>array([[0.61191144, 0.38808856],
@@ -1855,23 +1900,23 @@ f1 = 0.3946064942212438</code></pre>
        [0.97352058, 0.02647942]])</code></pre>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="107">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="107">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># 予測値の出力</span></span>
-<span id="cb44-2"><a href="#cb44-2"></a>model.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="co"># 予測値の出力</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>model.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="107">
 <pre><code>array([0, 0, 0, ..., 1, 0, 0])</code></pre>
 </div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="111">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="111">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># スコアを評価する</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a>y_test_pred <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb46-3"><a href="#cb46-3"></a><span class="cf">for</span> name <span class="kw">in</span> scores:</span>
-<span id="cb46-4"><a href="#cb46-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>scores[name](y_test, y_test_pred)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="co"># スコアを評価する</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>y_test_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="cf">for</span> name <span class="kw">in</span> scores:</span>
+<span id="cb47-4"><a href="#cb47-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>scores[name](y_test, y_test_pred)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>accuracy = 0.8402468289338362
@@ -1880,34 +1925,30 @@ recall = 0.5718270571827058
 f1 = 0.6376360808709176</code></pre>
 </div>
 </div>
-<div id="cell-37" class="cell" data-execution_count="112">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="112">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># 混同行列</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_test_pred)</span>
-<span id="cb48-3"><a href="#cb48-3"></a>plt.figure(figsize <span class="op">=</span>  (<span class="dv">6</span>, <span class="dv">4</span>))</span>
-<span id="cb48-4"><a href="#cb48-4"></a>sns.heatmap(cm, annot <span class="op">=</span> <span class="va">True</span>, fmt <span class="op">=</span> <span class="st">"d"</span>, cmap <span class="op">=</span> <span class="st">"Blues"</span>)</span>
-<span id="cb48-5"><a href="#cb48-5"></a>plt.xlabel(<span class="st">"pred"</span>)</span>
-<span id="cb48-6"><a href="#cb48-6"></a>plt.ylabel(<span class="st">"label"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># 混同行列</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_test_pred)</span>
+<span id="cb49-3"><a href="#cb49-3"></a>plt.figure(figsize <span class="op">=</span>  (<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb49-4"><a href="#cb49-4"></a>sns.heatmap(cm, annot <span class="op">=</span> <span class="va">True</span>, fmt <span class="op">=</span> <span class="st">"d"</span>, cmap <span class="op">=</span> <span class="st">"Blues"</span>)</span>
+<span id="cb49-5"><a href="#cb49-5"></a>plt.xlabel(<span class="st">"pred"</span>)</span>
+<span id="cb49-6"><a href="#cb49-6"></a>plt.ylabel(<span class="st">"label"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="112">
 <pre><code>Text(45.722222222222214, 0.5, 'label')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-31-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-31-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="回帰係数について" class="level2" data-number="0.5">
 <h2 data-number="0.5" class="anchored" data-anchor-id="回帰係数について"><span class="header-section-number">0.5</span> 回帰係数について</h2>
-<div id="cell-39" class="cell" data-execution_count="114">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="114">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a><span class="bu">print</span>(<span class="ss">f"w = [w1, w2, ...] = </span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a><span class="bu">print</span>(<span class="ss">f"w = [w1, w2, ...] = </span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>w = [w1, w2, ...] = [ 6.06250675e-01  0.00000000e+00  0.00000000e+00  2.09047854e-01
@@ -1927,43 +1968,21 @@ f1 = 0.6376360808709176</code></pre>
   2.34070420e+00  2.49978055e-01  3.74810953e-01]</code></pre>
 </div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="115">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="115">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>model.intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>model.intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="115">
 <pre><code>array([-3.22038751])</code></pre>
 </div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="116">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="116">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a><span class="co"># 回帰係数の上位30件を可視化する</span></span>
-<span id="cb54-2"><a href="#cb54-2"></a>importances <span class="op">=</span> model.coef_[<span class="dv">0</span>]</span>
-<span id="cb54-3"><a href="#cb54-3"></a>indices <span class="op">=</span> np.argsort(importances)[::<span class="op">-</span><span class="dv">1</span>][:<span class="dv">30</span>]</span>
-<span id="cb54-4"><a href="#cb54-4"></a></span>
-<span id="cb54-5"><a href="#cb54-5"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb54-6"><a href="#cb54-6"></a>plt.title(<span class="st">"Regression coefficeint"</span>)</span>
-<span id="cb54-7"><a href="#cb54-7"></a>plt.bar(<span class="bu">range</span>(<span class="bu">len</span>(indices)), importances[indices])</span>
-<span id="cb54-8"><a href="#cb54-8"></a>plt.xticks(<span class="bu">range</span>(<span class="bu">len</span>(indices)), X.columns[indices], rotation <span class="op">=</span> <span class="dv">90</span>)</span>
-<span id="cb54-9"><a href="#cb54-9"></a></span>
-<span id="cb54-10"><a href="#cb54-10"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-34-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-42" class="cell" data-execution_count="117">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a><span class="co"># 回帰係数の下位30件を可視化する</span></span>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a><span class="co"># 回帰係数の上位30件を可視化する</span></span>
 <span id="cb55-2"><a href="#cb55-2"></a>importances <span class="op">=</span> model.coef_[<span class="dv">0</span>]</span>
-<span id="cb55-3"><a href="#cb55-3"></a>indices <span class="op">=</span> np.argsort(importances)[:<span class="dv">30</span>]</span>
+<span id="cb55-3"><a href="#cb55-3"></a>indices <span class="op">=</span> np.argsort(importances)[::<span class="op">-</span><span class="dv">1</span>][:<span class="dv">30</span>]</span>
 <span id="cb55-4"><a href="#cb55-4"></a></span>
 <span id="cb55-5"><a href="#cb55-5"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">4</span>))</span>
 <span id="cb55-6"><a href="#cb55-6"></a>plt.title(<span class="st">"Regression coefficeint"</span>)</span>
@@ -1973,11 +1992,25 @@ f1 = 0.6376360808709176</code></pre>
 <span id="cb55-10"><a href="#cb55-10"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-35-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-34-output-1.png" class="img-fluid"></p>
 </div>
+</div>
+<div class="cell" data-execution_count="117">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># 回帰係数の下位30件を可視化する</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a>importances <span class="op">=</span> model.coef_[<span class="dv">0</span>]</span>
+<span id="cb56-3"><a href="#cb56-3"></a>indices <span class="op">=</span> np.argsort(importances)[:<span class="dv">30</span>]</span>
+<span id="cb56-4"><a href="#cb56-4"></a></span>
+<span id="cb56-5"><a href="#cb56-5"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb56-6"><a href="#cb56-6"></a>plt.title(<span class="st">"Regression coefficeint"</span>)</span>
+<span id="cb56-7"><a href="#cb56-7"></a>plt.bar(<span class="bu">range</span>(<span class="bu">len</span>(indices)), importances[indices])</span>
+<span id="cb56-8"><a href="#cb56-8"></a>plt.xticks(<span class="bu">range</span>(<span class="bu">len</span>(indices)), X.columns[indices], rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb56-9"><a href="#cb56-9"></a></span>
+<span id="cb56-10"><a href="#cb56-10"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-35-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1991,23 +2024,23 @@ p = \frac{1}{1 + \text{exp}(-(\hat{y}^{(0)}+\sum_{k=1}^K w_k(x)))}
 <p><span class="math display">\[
 \text{logit}(p(y=1\|X))=\log\frac{p(y=1\|X)}{1-p(y=1\|X)}=\hat{y}^{(0)}+\sum_{k=1}^K w_k(x)
 \]</span></p>
-<div id="cell-44" class="cell" data-execution_count="121">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="121">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>X <span class="op">=</span> df.drop(labels <span class="op">=</span> [<span class="st">"income"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb56-2"><a href="#cb56-2"></a>y <span class="op">=</span> df[<span class="st">"income"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a>X <span class="op">=</span> df.drop(labels <span class="op">=</span> [<span class="st">"income"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb57-2"><a href="#cb57-2"></a>y <span class="op">=</span> df[<span class="st">"income"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-45" class="cell" data-execution_count="144">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="144">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
-<span id="cb57-2"><a href="#cb57-2"></a>    X, y, </span>
-<span id="cb57-3"><a href="#cb57-3"></a>    test_size<span class="op">=</span><span class="fl">.2</span>, </span>
-<span id="cb57-4"><a href="#cb57-4"></a>    shuffle<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb57-5"><a href="#cb57-5"></a>    stratify<span class="op">=</span>y, </span>
-<span id="cb57-6"><a href="#cb57-6"></a>    random_state<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb57-7"><a href="#cb57-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb58-2"><a href="#cb58-2"></a>    X, y, </span>
+<span id="cb58-3"><a href="#cb58-3"></a>    test_size<span class="op">=</span><span class="fl">.2</span>, </span>
+<span id="cb58-4"><a href="#cb58-4"></a>    shuffle<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb58-5"><a href="#cb58-5"></a>    stratify<span class="op">=</span>y, </span>
+<span id="cb58-6"><a href="#cb58-6"></a>    random_state<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb58-7"><a href="#cb58-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p><code>label encoding</code>を使いカテゴリ変数の数値に変換する。<strong>決定木系のアルゴリズムではlabel encoding</strong>を使うとのことである。</p>
@@ -2016,21 +2049,21 @@ p = \frac{1}{1 + \text{exp}(-(\hat{y}^{(0)}+\sum_{k=1}^K w_k(x)))}
 <p>ここではとりあえず本の通りに処理を進めてみる。</p>
 <p>木を可視化してみるとカテゴリ変数を使った「0||5」という条件がでてきた。これは０か５のときということなので、どうやらlightGBMのときには素直にラベルエンコーディングしても大丈夫のようである。</p>
 <p>なお、LightGBMは自動で数値に変換する機能がついているが、後後に使うSHAP値は数値しか受け付けないためこの処理が必要である。</p>
-<div id="cell-47" class="cell" data-execution_count="145">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="145">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
-<span id="cb58-2"><a href="#cb58-2"></a></span>
-<span id="cb58-3"><a href="#cb58-3"></a>cat_cols <span class="op">=</span> X.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).columns</span>
-<span id="cb58-4"><a href="#cb58-4"></a><span class="cf">for</span> c <span class="kw">in</span> cat_cols:</span>
-<span id="cb58-5"><a href="#cb58-5"></a>    le <span class="op">=</span> LabelEncoder()</span>
-<span id="cb58-6"><a href="#cb58-6"></a>    le.fit(X_train[c])</span>
-<span id="cb58-7"><a href="#cb58-7"></a>    X_train[c] <span class="op">=</span> (le.transform(X_train[c]))</span>
-<span id="cb58-8"><a href="#cb58-8"></a>    X_train[c] <span class="op">=</span> X_train[c].astype(<span class="st">"category"</span>)</span>
-<span id="cb58-9"><a href="#cb58-9"></a>    X_test[c] <span class="op">=</span> (le.transform(X_test[c]))    </span>
-<span id="cb58-10"><a href="#cb58-10"></a>    X_test[c] <span class="op">=</span> X_test[c].astype(<span class="st">"category"</span>)</span>
-<span id="cb58-11"><a href="#cb58-11"></a>    </span>
-<span id="cb58-12"><a href="#cb58-12"></a>X_train.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
+<span id="cb59-2"><a href="#cb59-2"></a></span>
+<span id="cb59-3"><a href="#cb59-3"></a>cat_cols <span class="op">=</span> X.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).columns</span>
+<span id="cb59-4"><a href="#cb59-4"></a><span class="cf">for</span> c <span class="kw">in</span> cat_cols:</span>
+<span id="cb59-5"><a href="#cb59-5"></a>    le <span class="op">=</span> LabelEncoder()</span>
+<span id="cb59-6"><a href="#cb59-6"></a>    le.fit(X_train[c])</span>
+<span id="cb59-7"><a href="#cb59-7"></a>    X_train[c] <span class="op">=</span> (le.transform(X_train[c]))</span>
+<span id="cb59-8"><a href="#cb59-8"></a>    X_train[c] <span class="op">=</span> X_train[c].astype(<span class="st">"category"</span>)</span>
+<span id="cb59-9"><a href="#cb59-9"></a>    X_test[c] <span class="op">=</span> (le.transform(X_test[c]))    </span>
+<span id="cb59-10"><a href="#cb59-10"></a>    X_test[c] <span class="op">=</span> X_test[c].astype(<span class="st">"category"</span>)</span>
+<span id="cb59-11"><a href="#cb59-11"></a>    </span>
+<span id="cb59-12"><a href="#cb59-12"></a>X_train.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -2055,10 +2088,10 @@ dtypes: category(7), int64(6)
 memory usage: 1.4 MB</code></pre>
 </div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="146">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="146">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a>X_train[<span class="st">"education"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a>X_train[<span class="st">"education"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="146">
 <pre><code>education
@@ -2081,27 +2114,27 @@ memory usage: 1.4 MB</code></pre>
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-49" class="cell" data-execution_count="152">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="152">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a><span class="im">import</span> lightgbm <span class="im">as</span> lgb</span>
-<span id="cb62-2"><a href="#cb62-2"></a>lgb_train <span class="op">=</span> lgb.Dataset(X_train, y_train)</span>
-<span id="cb62-3"><a href="#cb62-3"></a></span>
-<span id="cb62-4"><a href="#cb62-4"></a>params <span class="op">=</span> {</span>
-<span id="cb62-5"><a href="#cb62-5"></a>    <span class="st">"objective"</span>: <span class="st">"binary"</span>, </span>
-<span id="cb62-6"><a href="#cb62-6"></a>    <span class="st">"num_leaves"</span>: <span class="dv">5</span>, </span>
-<span id="cb62-7"><a href="#cb62-7"></a>    <span class="st">"seed"</span>: <span class="dv">0</span>, </span>
-<span id="cb62-8"><a href="#cb62-8"></a>    <span class="st">"verbose"</span>: <span class="op">-</span><span class="dv">1</span>, </span>
-<span id="cb62-9"><a href="#cb62-9"></a>}</span>
-<span id="cb62-10"><a href="#cb62-10"></a></span>
-<span id="cb62-11"><a href="#cb62-11"></a>model <span class="op">=</span> lgb.train(</span>
-<span id="cb62-12"><a href="#cb62-12"></a>    params <span class="op">=</span> params, </span>
-<span id="cb62-13"><a href="#cb62-13"></a>    train_set <span class="op">=</span> lgb_train, </span>
-<span id="cb62-14"><a href="#cb62-14"></a>    num_boost_round <span class="op">=</span> <span class="dv">1500</span>, </span>
-<span id="cb62-15"><a href="#cb62-15"></a>    valid_sets <span class="op">=</span> [lgb_train], </span>
-<span id="cb62-16"><a href="#cb62-16"></a>    valid_names <span class="op">=</span> [<span class="st">"train"</span>], </span>
-<span id="cb62-17"><a href="#cb62-17"></a>    callbacks <span class="op">=</span> [lgb.log_evaluation(<span class="dv">100</span>)], </span>
-<span id="cb62-18"><a href="#cb62-18"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a><span class="im">import</span> lightgbm <span class="im">as</span> lgb</span>
+<span id="cb63-2"><a href="#cb63-2"></a>lgb_train <span class="op">=</span> lgb.Dataset(X_train, y_train)</span>
+<span id="cb63-3"><a href="#cb63-3"></a></span>
+<span id="cb63-4"><a href="#cb63-4"></a>params <span class="op">=</span> {</span>
+<span id="cb63-5"><a href="#cb63-5"></a>    <span class="st">"objective"</span>: <span class="st">"binary"</span>, </span>
+<span id="cb63-6"><a href="#cb63-6"></a>    <span class="st">"num_leaves"</span>: <span class="dv">5</span>, </span>
+<span id="cb63-7"><a href="#cb63-7"></a>    <span class="st">"seed"</span>: <span class="dv">0</span>, </span>
+<span id="cb63-8"><a href="#cb63-8"></a>    <span class="st">"verbose"</span>: <span class="op">-</span><span class="dv">1</span>, </span>
+<span id="cb63-9"><a href="#cb63-9"></a>}</span>
+<span id="cb63-10"><a href="#cb63-10"></a></span>
+<span id="cb63-11"><a href="#cb63-11"></a>model <span class="op">=</span> lgb.train(</span>
+<span id="cb63-12"><a href="#cb63-12"></a>    params <span class="op">=</span> params, </span>
+<span id="cb63-13"><a href="#cb63-13"></a>    train_set <span class="op">=</span> lgb_train, </span>
+<span id="cb63-14"><a href="#cb63-14"></a>    num_boost_round <span class="op">=</span> <span class="dv">1500</span>, </span>
+<span id="cb63-15"><a href="#cb63-15"></a>    valid_sets <span class="op">=</span> [lgb_train], </span>
+<span id="cb63-16"><a href="#cb63-16"></a>    valid_names <span class="op">=</span> [<span class="st">"train"</span>], </span>
+<span id="cb63-17"><a href="#cb63-17"></a>    callbacks <span class="op">=</span> [lgb.log_evaluation(<span class="dv">100</span>)], </span>
+<span id="cb63-18"><a href="#cb63-18"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[100]   train's binary_logloss: 0.287802
@@ -2121,15 +2154,15 @@ Name: count, dtype: int64</code></pre>
 [1500]  train's binary_logloss: 0.223335</code></pre>
 </div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="153">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="153">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a><span class="co"># テストデータの予測と評価</span></span>
-<span id="cb64-2"><a href="#cb64-2"></a>y_test_pred_proba <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb64-3"><a href="#cb64-3"></a>y_test_pred <span class="op">=</span> (model.predict(X_test) <span class="op">&gt;=</span> <span class="fl">.5</span>).astype(<span class="bu">int</span>)</span>
-<span id="cb64-4"><a href="#cb64-4"></a></span>
-<span id="cb64-5"><a href="#cb64-5"></a><span class="cf">for</span> name <span class="kw">in</span> scores:</span>
-<span id="cb64-6"><a href="#cb64-6"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>scores[name](y_test_pred, y_test)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a><span class="co"># テストデータの予測と評価</span></span>
+<span id="cb65-2"><a href="#cb65-2"></a>y_test_pred_proba <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb65-3"><a href="#cb65-3"></a>y_test_pred <span class="op">=</span> (model.predict(X_test) <span class="op">&gt;=</span> <span class="fl">.5</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb65-4"><a href="#cb65-4"></a></span>
+<span id="cb65-5"><a href="#cb65-5"></a><span class="cf">for</span> name <span class="kw">in</span> scores:</span>
+<span id="cb65-6"><a href="#cb65-6"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>scores[name](y_test_pred, y_test)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>accuracy = 0.8637298594446349
@@ -2138,45 +2171,40 @@ recall = 0.7669172932330827
 f1 = 0.6978335233751425</code></pre>
 </div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="154">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="154">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a><span class="co"># 混同行列を作成する</span></span>
-<span id="cb66-2"><a href="#cb66-2"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_test_pred)</span>
-<span id="cb66-3"><a href="#cb66-3"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
-<span id="cb66-4"><a href="#cb66-4"></a>sns.heatmap(cm, annot <span class="op">=</span> <span class="va">True</span>, fmt <span class="op">=</span> <span class="st">"d"</span>, cmap <span class="op">=</span> <span class="st">"Blues"</span>)</span>
-<span id="cb66-5"><a href="#cb66-5"></a>plt.xlabel(<span class="st">"pred"</span>)</span>
-<span id="cb66-6"><a href="#cb66-6"></a>plt.ylabel(<span class="st">"label"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a><span class="co"># 混同行列を作成する</span></span>
+<span id="cb67-2"><a href="#cb67-2"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_test_pred)</span>
+<span id="cb67-3"><a href="#cb67-3"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb67-4"><a href="#cb67-4"></a>sns.heatmap(cm, annot <span class="op">=</span> <span class="va">True</span>, fmt <span class="op">=</span> <span class="st">"d"</span>, cmap <span class="op">=</span> <span class="st">"Blues"</span>)</span>
+<span id="cb67-5"><a href="#cb67-5"></a>plt.xlabel(<span class="st">"pred"</span>)</span>
+<span id="cb67-6"><a href="#cb67-6"></a>plt.ylabel(<span class="st">"label"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="154">
 <pre><code>Text(45.722222222222214, 0.5, 'label')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-42-output-2.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-42-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-52" class="cell" data-execution_count="155">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="155">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1"></a><span class="co"># ある木の可視化</span></span>
-<span id="cb68-2"><a href="#cb68-2"></a>lgb.plot_tree(model, tree_index<span class="op">=</span><span class="dv">0</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a><span class="co"># ある木の可視化</span></span>
+<span id="cb69-2"><a href="#cb69-2"></a>lgb.plot_tree(model, tree_index<span class="op">=</span><span class="dv">0</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display" data-execution_count="155">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-43-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-43-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-53" class="cell" data-execution_count="156">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="156">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a>X_train[<span class="st">"relationship"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a>X_train[<span class="st">"relationship"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="156">
 <pre><code>14415    1
@@ -2196,145 +2224,137 @@ Categories (6, int32): [0, 1, 2, 3, 4, 5]</code></pre>
 </div>
 <section id="shapでの可視化" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="shapでの可視化"><span class="header-section-number">1.1</span> shapでの可視化</h2>
-<div id="cell-55" class="cell" data-execution_count="158">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="158">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a><span class="im">import</span> shap</span>
-<span id="cb71-2"><a href="#cb71-2"></a>explainer <span class="op">=</span> shap.TreeExplainer(</span>
-<span id="cb71-3"><a href="#cb71-3"></a>    model <span class="op">=</span> model, </span>
-<span id="cb71-4"><a href="#cb71-4"></a>    feature_pertubation <span class="op">=</span> <span class="st">"tree_path_dependent"</span></span>
-<span id="cb71-5"><a href="#cb71-5"></a>)</span>
-<span id="cb71-6"><a href="#cb71-6"></a></span>
-<span id="cb71-7"><a href="#cb71-7"></a>shap_values <span class="op">=</span> explainer(X_test)</span>
-<span id="cb71-8"><a href="#cb71-8"></a></span>
-<span id="cb71-9"><a href="#cb71-9"></a><span class="co"># ロジット値の平均である</span></span>
-<span id="cb71-10"><a href="#cb71-10"></a>explainer.expected_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a><span class="im">import</span> shap</span>
+<span id="cb73-2"><a href="#cb73-2"></a>explainer <span class="op">=</span> shap.TreeExplainer(</span>
+<span id="cb73-3"><a href="#cb73-3"></a>    model <span class="op">=</span> model, </span>
+<span id="cb73-4"><a href="#cb73-4"></a>    feature_pertubation <span class="op">=</span> <span class="st">"tree_path_dependent"</span></span>
+<span id="cb73-5"><a href="#cb73-5"></a>)</span>
+<span id="cb73-6"><a href="#cb73-6"></a></span>
+<span id="cb73-7"><a href="#cb73-7"></a>shap_values <span class="op">=</span> explainer(X_test)</span>
+<span id="cb73-8"><a href="#cb73-8"></a></span>
+<span id="cb73-9"><a href="#cb73-9"></a><span class="co"># ロジット値の平均である</span></span>
+<span id="cb73-10"><a href="#cb73-10"></a>explainer.expected_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="158">
 <pre><code>[2.8079953643772746, -2.8079953643772746]</code></pre>
 </div>
 </div>
-<div id="cell-56" class="cell" data-execution_count="159">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="159">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a><span class="co"># ラベル1の値に絞り込み</span></span>
-<span id="cb73-2"><a href="#cb73-2"></a>shap_values.values <span class="op">=</span> shap_values.values[:, :, <span class="dv">1</span>]</span>
-<span id="cb73-3"><a href="#cb73-3"></a>shap_values.base_values <span class="op">=</span> explainer.expected_value[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1"></a><span class="co"># ラベル1の値に絞り込み</span></span>
+<span id="cb75-2"><a href="#cb75-2"></a>shap_values.values <span class="op">=</span> shap_values.values[:, :, <span class="dv">1</span>]</span>
+<span id="cb75-3"><a href="#cb75-3"></a>shap_values.base_values <span class="op">=</span> explainer.expected_value[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-57" class="cell" data-execution_count="160">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="160">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1"></a><span class="co"># 個別の値をみてshap値が正しく計算できているのかを試す</span></span>
-<span id="cb74-2"><a href="#cb74-2"></a>logit <span class="op">=</span> shap_values[<span class="op">-</span><span class="dv">3</span>].base_values <span class="op">+</span> shap_values.values[<span class="op">-</span><span class="dv">3</span>].<span class="bu">sum</span>()</span>
-<span id="cb74-3"><a href="#cb74-3"></a></span>
-<span id="cb74-4"><a href="#cb74-4"></a><span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>logit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a><span class="co"># 個別の値をみてshap値が正しく計算できているのかを試す</span></span>
+<span id="cb76-2"><a href="#cb76-2"></a>logit <span class="op">=</span> shap_values[<span class="op">-</span><span class="dv">3</span>].base_values <span class="op">+</span> shap_values.values[<span class="op">-</span><span class="dv">3</span>].<span class="bu">sum</span>()</span>
+<span id="cb76-3"><a href="#cb76-3"></a></span>
+<span id="cb76-4"><a href="#cb76-4"></a><span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>logit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="160">
 <pre><code>0.9990514154242494</code></pre>
 </div>
 </div>
-<div id="cell-58" class="cell" data-execution_count="161">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="161">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a>y_test_pred_proba[<span class="op">-</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a>y_test_pred_proba[<span class="op">-</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="161">
 <pre><code>0.9990514154242494</code></pre>
 </div>
 </div>
-<div id="cell-59" class="cell" data-execution_count="163">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="163">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a><span class="co"># 最後から3件目のshap値の可視化</span></span>
-<span id="cb78-2"><a href="#cb78-2"></a>shap.plots.waterfall(shap_values[<span class="op">-</span><span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a><span class="co"># 最後から3件目のshap値の可視化</span></span>
+<span id="cb80-2"><a href="#cb80-2"></a>shap.plots.waterfall(shap_values[<span class="op">-</span><span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-49-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-49-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-60" class="cell" data-execution_count="164">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="164">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1"></a>shap.plots.bar(shap_values<span class="op">=</span>shap_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1"></a>shap.plots.bar(shap_values<span class="op">=</span>shap_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-50-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-50-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 </section>
 <section id="検証データの作成" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> 検証データの作成</h1>
-<div id="cell-62" class="cell" data-execution_count="165">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="165">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a>X <span class="op">=</span> df.drop([<span class="st">"income"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb80-2"><a href="#cb80-2"></a>y <span class="op">=</span> df[<span class="st">"income"</span>]</span>
-<span id="cb80-3"><a href="#cb80-3"></a></span>
-<span id="cb80-4"><a href="#cb80-4"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
-<span id="cb80-5"><a href="#cb80-5"></a>    X, y, </span>
-<span id="cb80-6"><a href="#cb80-6"></a>    test_size<span class="op">=</span><span class="fl">.2</span>, </span>
-<span id="cb80-7"><a href="#cb80-7"></a>    shuffle<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb80-8"><a href="#cb80-8"></a>    stratify<span class="op">=</span>y, </span>
-<span id="cb80-9"><a href="#cb80-9"></a>    random_state<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb80-10"><a href="#cb80-10"></a>)</span>
-<span id="cb80-11"><a href="#cb80-11"></a></span>
-<span id="cb80-12"><a href="#cb80-12"></a>cat_cols <span class="op">=</span> X.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).columns</span>
-<span id="cb80-13"><a href="#cb80-13"></a><span class="cf">for</span> c <span class="kw">in</span> cat_cols:</span>
-<span id="cb80-14"><a href="#cb80-14"></a>    le <span class="op">=</span> LabelEncoder()</span>
-<span id="cb80-15"><a href="#cb80-15"></a>    le.fit(X_train[c])</span>
-<span id="cb80-16"><a href="#cb80-16"></a>    X_train[c] <span class="op">=</span> (le.transform(X_train[c]))</span>
-<span id="cb80-17"><a href="#cb80-17"></a>    X_train[c] <span class="op">=</span> X_train[c].astype(<span class="st">"category"</span>)</span>
-<span id="cb80-18"><a href="#cb80-18"></a>    X_test[c] <span class="op">=</span> (le.transform(X_test[c]))    </span>
-<span id="cb80-19"><a href="#cb80-19"></a>    X_test[c] <span class="op">=</span> X_test[c].astype(<span class="st">"category"</span>)</span>
-<span id="cb80-20"><a href="#cb80-20"></a>    </span>
-<span id="cb80-21"><a href="#cb80-21"></a></span>
-<span id="cb80-22"><a href="#cb80-22"></a>X_tr, X_va, y_tr, y_va <span class="op">=</span> train_test_split(</span>
-<span id="cb80-23"><a href="#cb80-23"></a>    X_train, y_train, </span>
-<span id="cb80-24"><a href="#cb80-24"></a>    test_size <span class="op">=</span> <span class="fl">.2</span>, </span>
-<span id="cb80-25"><a href="#cb80-25"></a>    shuffle <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb80-26"><a href="#cb80-26"></a>    stratify <span class="op">=</span> y_train, </span>
-<span id="cb80-27"><a href="#cb80-27"></a>    random_state <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb80-28"><a href="#cb80-28"></a>)</span>
-<span id="cb80-29"><a href="#cb80-29"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1"></a>X <span class="op">=</span> df.drop([<span class="st">"income"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb82-2"><a href="#cb82-2"></a>y <span class="op">=</span> df[<span class="st">"income"</span>]</span>
+<span id="cb82-3"><a href="#cb82-3"></a></span>
+<span id="cb82-4"><a href="#cb82-4"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb82-5"><a href="#cb82-5"></a>    X, y, </span>
+<span id="cb82-6"><a href="#cb82-6"></a>    test_size<span class="op">=</span><span class="fl">.2</span>, </span>
+<span id="cb82-7"><a href="#cb82-7"></a>    shuffle<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb82-8"><a href="#cb82-8"></a>    stratify<span class="op">=</span>y, </span>
+<span id="cb82-9"><a href="#cb82-9"></a>    random_state<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb82-10"><a href="#cb82-10"></a>)</span>
+<span id="cb82-11"><a href="#cb82-11"></a></span>
+<span id="cb82-12"><a href="#cb82-12"></a>cat_cols <span class="op">=</span> X.select_dtypes(include <span class="op">=</span> [<span class="st">"object"</span>]).columns</span>
+<span id="cb82-13"><a href="#cb82-13"></a><span class="cf">for</span> c <span class="kw">in</span> cat_cols:</span>
+<span id="cb82-14"><a href="#cb82-14"></a>    le <span class="op">=</span> LabelEncoder()</span>
+<span id="cb82-15"><a href="#cb82-15"></a>    le.fit(X_train[c])</span>
+<span id="cb82-16"><a href="#cb82-16"></a>    X_train[c] <span class="op">=</span> (le.transform(X_train[c]))</span>
+<span id="cb82-17"><a href="#cb82-17"></a>    X_train[c] <span class="op">=</span> X_train[c].astype(<span class="st">"category"</span>)</span>
+<span id="cb82-18"><a href="#cb82-18"></a>    X_test[c] <span class="op">=</span> (le.transform(X_test[c]))    </span>
+<span id="cb82-19"><a href="#cb82-19"></a>    X_test[c] <span class="op">=</span> X_test[c].astype(<span class="st">"category"</span>)</span>
+<span id="cb82-20"><a href="#cb82-20"></a>    </span>
+<span id="cb82-21"><a href="#cb82-21"></a></span>
+<span id="cb82-22"><a href="#cb82-22"></a>X_tr, X_va, y_tr, y_va <span class="op">=</span> train_test_split(</span>
+<span id="cb82-23"><a href="#cb82-23"></a>    X_train, y_train, </span>
+<span id="cb82-24"><a href="#cb82-24"></a>    test_size <span class="op">=</span> <span class="fl">.2</span>, </span>
+<span id="cb82-25"><a href="#cb82-25"></a>    shuffle <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb82-26"><a href="#cb82-26"></a>    stratify <span class="op">=</span> y_train, </span>
+<span id="cb82-27"><a href="#cb82-27"></a>    random_state <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb82-28"><a href="#cb82-28"></a>)</span>
+<span id="cb82-29"><a href="#cb82-29"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-63" class="cell" data-execution_count="166">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="166">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1"></a>lgb_train<span class="op">=</span> lgb.Dataset(X_tr, y_tr)</span>
-<span id="cb81-2"><a href="#cb81-2"></a>lgb_eval <span class="op">=</span> lgb.Dataset(X_va, y_va, reference<span class="op">=</span> lgb_train)</span>
-<span id="cb81-3"><a href="#cb81-3"></a></span>
-<span id="cb81-4"><a href="#cb81-4"></a>params <span class="op">=</span> {</span>
-<span id="cb81-5"><a href="#cb81-5"></a>    <span class="st">"objective"</span>: <span class="st">"binary"</span>, </span>
-<span id="cb81-6"><a href="#cb81-6"></a>    <span class="st">"num_leaves"</span>: <span class="dv">5</span>, </span>
-<span id="cb81-7"><a href="#cb81-7"></a>    <span class="st">"seed"</span>: <span class="dv">0</span>, </span>
-<span id="cb81-8"><a href="#cb81-8"></a>    <span class="st">"verbose"</span>: <span class="op">-</span><span class="dv">1</span>, </span>
-<span id="cb81-9"><a href="#cb81-9"></a>}</span>
-<span id="cb81-10"><a href="#cb81-10"></a></span>
-<span id="cb81-11"><a href="#cb81-11"></a>evals_result <span class="op">=</span> {}</span>
-<span id="cb81-12"><a href="#cb81-12"></a></span>
-<span id="cb81-13"><a href="#cb81-13"></a>model <span class="op">=</span> lgb.train(</span>
-<span id="cb81-14"><a href="#cb81-14"></a>    params, </span>
-<span id="cb81-15"><a href="#cb81-15"></a>    lgb_train, </span>
-<span id="cb81-16"><a href="#cb81-16"></a>    num_boost_round <span class="op">=</span> <span class="dv">500</span>, </span>
-<span id="cb81-17"><a href="#cb81-17"></a>    valid_sets <span class="op">=</span> [lgb_train, lgb_eval], </span>
-<span id="cb81-18"><a href="#cb81-18"></a>    valid_names <span class="op">=</span> [<span class="st">"train"</span>, <span class="st">"valid"</span>], </span>
-<span id="cb81-19"><a href="#cb81-19"></a>    callbacks <span class="op">=</span> [</span>
-<span id="cb81-20"><a href="#cb81-20"></a>        lgb.early_stopping(<span class="dv">10</span>), </span>
-<span id="cb81-21"><a href="#cb81-21"></a>        lgb.log_evaluation(<span class="dv">100</span>), </span>
-<span id="cb81-22"><a href="#cb81-22"></a>        lgb.record_evaluation(evals_result)</span>
-<span id="cb81-23"><a href="#cb81-23"></a>    ]</span>
-<span id="cb81-24"><a href="#cb81-24"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1"></a>lgb_train<span class="op">=</span> lgb.Dataset(X_tr, y_tr)</span>
+<span id="cb83-2"><a href="#cb83-2"></a>lgb_eval <span class="op">=</span> lgb.Dataset(X_va, y_va, reference<span class="op">=</span> lgb_train)</span>
+<span id="cb83-3"><a href="#cb83-3"></a></span>
+<span id="cb83-4"><a href="#cb83-4"></a>params <span class="op">=</span> {</span>
+<span id="cb83-5"><a href="#cb83-5"></a>    <span class="st">"objective"</span>: <span class="st">"binary"</span>, </span>
+<span id="cb83-6"><a href="#cb83-6"></a>    <span class="st">"num_leaves"</span>: <span class="dv">5</span>, </span>
+<span id="cb83-7"><a href="#cb83-7"></a>    <span class="st">"seed"</span>: <span class="dv">0</span>, </span>
+<span id="cb83-8"><a href="#cb83-8"></a>    <span class="st">"verbose"</span>: <span class="op">-</span><span class="dv">1</span>, </span>
+<span id="cb83-9"><a href="#cb83-9"></a>}</span>
+<span id="cb83-10"><a href="#cb83-10"></a></span>
+<span id="cb83-11"><a href="#cb83-11"></a>evals_result <span class="op">=</span> {}</span>
+<span id="cb83-12"><a href="#cb83-12"></a></span>
+<span id="cb83-13"><a href="#cb83-13"></a>model <span class="op">=</span> lgb.train(</span>
+<span id="cb83-14"><a href="#cb83-14"></a>    params, </span>
+<span id="cb83-15"><a href="#cb83-15"></a>    lgb_train, </span>
+<span id="cb83-16"><a href="#cb83-16"></a>    num_boost_round <span class="op">=</span> <span class="dv">500</span>, </span>
+<span id="cb83-17"><a href="#cb83-17"></a>    valid_sets <span class="op">=</span> [lgb_train, lgb_eval], </span>
+<span id="cb83-18"><a href="#cb83-18"></a>    valid_names <span class="op">=</span> [<span class="st">"train"</span>, <span class="st">"valid"</span>], </span>
+<span id="cb83-19"><a href="#cb83-19"></a>    callbacks <span class="op">=</span> [</span>
+<span id="cb83-20"><a href="#cb83-20"></a>        lgb.early_stopping(<span class="dv">10</span>), </span>
+<span id="cb83-21"><a href="#cb83-21"></a>        lgb.log_evaluation(<span class="dv">100</span>), </span>
+<span id="cb83-22"><a href="#cb83-22"></a>        lgb.record_evaluation(evals_result)</span>
+<span id="cb83-23"><a href="#cb83-23"></a>    ]</span>
+<span id="cb83-24"><a href="#cb83-24"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Training until validation scores don't improve for 10 rounds
@@ -2344,70 +2364,69 @@ Early stopping, best iteration is:
 [200]   train's binary_logloss: 0.271357    valid's binary_logloss: 0.291118</code></pre>
 </div>
 </div>
-<div id="cell-64" class="cell" data-execution_count="167">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="167">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1"></a>lgb.plot_metric(evals_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1"></a>lgb.plot_metric(evals_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cl03_分類の予測モデル_files/figure-html/cell-53-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<div class="cell-output cell-output-display" data-execution_count="167">
+<pre><code>&lt;Axes: title={'center': 'Metric during training'}, xlabel='Iterations', ylabel='binary_logloss'&gt;</code></pre>
 </div>
+<div class="cell-output cell-output-display">
+<p><img src="cl03_分類の予測モデル_files/figure-html/cell-53-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <section id="クロスヴァリデーション" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="クロスヴァリデーション"><span class="header-section-number">2.1</span> クロスヴァリデーション</h2>
-<div id="cell-66" class="cell" data-execution_count="168">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="168">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> log_loss</span>
-<span id="cb84-2"><a href="#cb84-2"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
-<span id="cb84-3"><a href="#cb84-3"></a></span>
-<span id="cb84-4"><a href="#cb84-4"></a>params <span class="op">=</span> {</span>
-<span id="cb84-5"><a href="#cb84-5"></a>    <span class="st">"objective"</span>: <span class="st">"binary"</span>, </span>
-<span id="cb84-6"><a href="#cb84-6"></a>    <span class="st">"num_leaves"</span>: <span class="dv">5</span>, </span>
-<span id="cb84-7"><a href="#cb84-7"></a>    <span class="st">"seed"</span>: <span class="dv">0</span>, </span>
-<span id="cb84-8"><a href="#cb84-8"></a>    <span class="st">"verbose"</span>: <span class="op">-</span><span class="dv">1</span>, </span>
-<span id="cb84-9"><a href="#cb84-9"></a>}</span>
-<span id="cb84-10"><a href="#cb84-10"></a></span>
-<span id="cb84-11"><a href="#cb84-11"></a>acc_scores <span class="op">=</span> []</span>
-<span id="cb84-12"><a href="#cb84-12"></a>los_scores <span class="op">=</span> []</span>
-<span id="cb84-13"><a href="#cb84-13"></a>models <span class="op">=</span> []</span>
-<span id="cb84-14"><a href="#cb84-14"></a>oof <span class="op">=</span> np.zeros(<span class="bu">len</span>(X_train))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> log_loss</span>
+<span id="cb87-2"><a href="#cb87-2"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb87-3"><a href="#cb87-3"></a></span>
+<span id="cb87-4"><a href="#cb87-4"></a>params <span class="op">=</span> {</span>
+<span id="cb87-5"><a href="#cb87-5"></a>    <span class="st">"objective"</span>: <span class="st">"binary"</span>, </span>
+<span id="cb87-6"><a href="#cb87-6"></a>    <span class="st">"num_leaves"</span>: <span class="dv">5</span>, </span>
+<span id="cb87-7"><a href="#cb87-7"></a>    <span class="st">"seed"</span>: <span class="dv">0</span>, </span>
+<span id="cb87-8"><a href="#cb87-8"></a>    <span class="st">"verbose"</span>: <span class="op">-</span><span class="dv">1</span>, </span>
+<span id="cb87-9"><a href="#cb87-9"></a>}</span>
+<span id="cb87-10"><a href="#cb87-10"></a></span>
+<span id="cb87-11"><a href="#cb87-11"></a>acc_scores <span class="op">=</span> []</span>
+<span id="cb87-12"><a href="#cb87-12"></a>los_scores <span class="op">=</span> []</span>
+<span id="cb87-13"><a href="#cb87-13"></a>models <span class="op">=</span> []</span>
+<span id="cb87-14"><a href="#cb87-14"></a>oof <span class="op">=</span> np.zeros(<span class="bu">len</span>(X_train))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-67" class="cell" data-execution_count="169">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="169">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1"></a>kf <span class="op">=</span> StratifiedKFold(n_splits <span class="op">=</span> <span class="dv">5</span>, shuffle <span class="op">=</span> <span class="va">True</span>, random_state <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb85-2"><a href="#cb85-2"></a><span class="cf">for</span> fold, (tr_idx, va_idx) <span class="kw">in</span> <span class="bu">enumerate</span>(kf.split(X_train, y_train)):</span>
-<span id="cb85-3"><a href="#cb85-3"></a>    X_tr <span class="op">=</span> X_train.iloc[tr_idx]</span>
-<span id="cb85-4"><a href="#cb85-4"></a>    X_va <span class="op">=</span> X_train.iloc[va_idx]</span>
-<span id="cb85-5"><a href="#cb85-5"></a>    y_tr <span class="op">=</span> y_train.iloc[tr_idx]</span>
-<span id="cb85-6"><a href="#cb85-6"></a>    y_va <span class="op">=</span> y_train.iloc[va_idx]</span>
-<span id="cb85-7"><a href="#cb85-7"></a>    </span>
-<span id="cb85-8"><a href="#cb85-8"></a>    lgb_train <span class="op">=</span> lgb.Dataset(X_tr, y_tr)</span>
-<span id="cb85-9"><a href="#cb85-9"></a>    lgb_eval <span class="op">=</span> lgb.Dataset(X_va, y_va, reference <span class="op">=</span> lgb_train)</span>
-<span id="cb85-10"><a href="#cb85-10"></a>    </span>
-<span id="cb85-11"><a href="#cb85-11"></a>    model <span class="op">=</span> lgb.train(</span>
-<span id="cb85-12"><a href="#cb85-12"></a>        params, </span>
-<span id="cb85-13"><a href="#cb85-13"></a>        lgb_train, </span>
-<span id="cb85-14"><a href="#cb85-14"></a>        num_boost_round<span class="op">=</span> <span class="dv">500</span>, </span>
-<span id="cb85-15"><a href="#cb85-15"></a>        valid_sets <span class="op">=</span> [lgb_train, lgb_eval], </span>
-<span id="cb85-16"><a href="#cb85-16"></a>        valid_names<span class="op">=</span>[<span class="st">"train"</span>, <span class="st">"valid"</span>], </span>
-<span id="cb85-17"><a href="#cb85-17"></a>        callbacks <span class="op">=</span> [lgb.early_stopping(<span class="dv">10</span>), lgb.log_evaluation(<span class="dv">100</span>)]</span>
-<span id="cb85-18"><a href="#cb85-18"></a>    )</span>
-<span id="cb85-19"><a href="#cb85-19"></a>    </span>
-<span id="cb85-20"><a href="#cb85-20"></a>    y_va_pred<span class="op">=</span>model.predict(X_va, num_iteration<span class="op">=</span>model.best_iteration)</span>
-<span id="cb85-21"><a href="#cb85-21"></a>    acc_scores.append(accuracy_score(y_va, np.<span class="bu">round</span>(y_va_pred)))</span>
-<span id="cb85-22"><a href="#cb85-22"></a>    los_scores.append(log_loss(y_va, y_va_pred))</span>
-<span id="cb85-23"><a href="#cb85-23"></a>    models.append(model)</span>
-<span id="cb85-24"><a href="#cb85-24"></a>    oof[va_idx] <span class="op">=</span> y_va_pred</span>
-<span id="cb85-25"><a href="#cb85-25"></a>    </span>
-<span id="cb85-26"><a href="#cb85-26"></a>cv_accuracy_score <span class="op">=</span>  np.mean(acc_scores)</span>
-<span id="cb85-27"><a href="#cb85-27"></a>cv_logloss_score <span class="op">=</span> np.mean(los_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1"></a>kf <span class="op">=</span> StratifiedKFold(n_splits <span class="op">=</span> <span class="dv">5</span>, shuffle <span class="op">=</span> <span class="va">True</span>, random_state <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb88-2"><a href="#cb88-2"></a><span class="cf">for</span> fold, (tr_idx, va_idx) <span class="kw">in</span> <span class="bu">enumerate</span>(kf.split(X_train, y_train)):</span>
+<span id="cb88-3"><a href="#cb88-3"></a>    X_tr <span class="op">=</span> X_train.iloc[tr_idx]</span>
+<span id="cb88-4"><a href="#cb88-4"></a>    X_va <span class="op">=</span> X_train.iloc[va_idx]</span>
+<span id="cb88-5"><a href="#cb88-5"></a>    y_tr <span class="op">=</span> y_train.iloc[tr_idx]</span>
+<span id="cb88-6"><a href="#cb88-6"></a>    y_va <span class="op">=</span> y_train.iloc[va_idx]</span>
+<span id="cb88-7"><a href="#cb88-7"></a>    </span>
+<span id="cb88-8"><a href="#cb88-8"></a>    lgb_train <span class="op">=</span> lgb.Dataset(X_tr, y_tr)</span>
+<span id="cb88-9"><a href="#cb88-9"></a>    lgb_eval <span class="op">=</span> lgb.Dataset(X_va, y_va, reference <span class="op">=</span> lgb_train)</span>
+<span id="cb88-10"><a href="#cb88-10"></a>    </span>
+<span id="cb88-11"><a href="#cb88-11"></a>    model <span class="op">=</span> lgb.train(</span>
+<span id="cb88-12"><a href="#cb88-12"></a>        params, </span>
+<span id="cb88-13"><a href="#cb88-13"></a>        lgb_train, </span>
+<span id="cb88-14"><a href="#cb88-14"></a>        num_boost_round<span class="op">=</span> <span class="dv">500</span>, </span>
+<span id="cb88-15"><a href="#cb88-15"></a>        valid_sets <span class="op">=</span> [lgb_train, lgb_eval], </span>
+<span id="cb88-16"><a href="#cb88-16"></a>        valid_names<span class="op">=</span>[<span class="st">"train"</span>, <span class="st">"valid"</span>], </span>
+<span id="cb88-17"><a href="#cb88-17"></a>        callbacks <span class="op">=</span> [lgb.early_stopping(<span class="dv">10</span>), lgb.log_evaluation(<span class="dv">100</span>)]</span>
+<span id="cb88-18"><a href="#cb88-18"></a>    )</span>
+<span id="cb88-19"><a href="#cb88-19"></a>    </span>
+<span id="cb88-20"><a href="#cb88-20"></a>    y_va_pred<span class="op">=</span>model.predict(X_va, num_iteration<span class="op">=</span>model.best_iteration)</span>
+<span id="cb88-21"><a href="#cb88-21"></a>    acc_scores.append(accuracy_score(y_va, np.<span class="bu">round</span>(y_va_pred)))</span>
+<span id="cb88-22"><a href="#cb88-22"></a>    los_scores.append(log_loss(y_va, y_va_pred))</span>
+<span id="cb88-23"><a href="#cb88-23"></a>    models.append(model)</span>
+<span id="cb88-24"><a href="#cb88-24"></a>    oof[va_idx] <span class="op">=</span> y_va_pred</span>
+<span id="cb88-25"><a href="#cb88-25"></a>    </span>
+<span id="cb88-26"><a href="#cb88-26"></a>cv_accuracy_score <span class="op">=</span>  np.mean(acc_scores)</span>
+<span id="cb88-27"><a href="#cb88-27"></a>cv_logloss_score <span class="op">=</span> np.mean(los_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Training until validation scores don't improve for 10 rounds
@@ -2438,10 +2457,10 @@ Early stopping, best iteration is:
 [243]   train's binary_logloss: 0.26774 valid's binary_logloss: 0.287875</code></pre>
 </div>
 </div>
-<div id="cell-68" class="cell" data-execution_count="170">
-<details open="" class="code-fold">
+<div class="cell" data-execution_count="170">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1"></a>cv_accuracy_score, cv_logloss_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1"></a>cv_accuracy_score, cv_logloss_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="170">
 <pre><code>(0.8712717729122911, 0.2840031778817057)</code></pre>
@@ -2583,9 +2602,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2595,17 +2615,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2618,135 +2629,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        typesetMath(container);
-        return container.innerHTML
-      } else {
-        typesetMath(note);
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      typesetMath(note);
-      return note.innerHTML;
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2790,7 +2672,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2816,32 +2697,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2903,18 +2758,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" class="pagination-link  aria-label=" setup"="">
+      <a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Setup</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../contents/books/08_handbook_lightgbm/cl04_回帰の予測モデル改善.html" class="pagination-link" aria-label="はじめに">
+      <a href="../../../contents/books/08_handbook_lightgbm/cl04_回帰の予測モデル改善.html" class="pagination-link">
         <span class="nav-page-text">はじめに</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-
 
 
 

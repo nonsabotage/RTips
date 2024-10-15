@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.515">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,13 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -113,9 +107,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
@@ -127,262 +121,270 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../../index.html">
+    <a class="dropdown-item" href="../../../../index.html" rel="" target="">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">ALL</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html">
+    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html" rel="" target="">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html">
+    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html" rel="" target="">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html">
+    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html" rel="" target="">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html">
+    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/udemy_database-specialist/am-2-note.html">
+    <a class="dropdown-item" href="../../../../contents/website/udemy_database-specialist/am-2-note.html" rel="" target="">
  <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+    <a class="dropdown-item" href="../../../../contents/books/06_Pythonではじめる数理最適化/index.html" rel="" target="">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+    <a class="dropdown-item" href="../../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" rel="" target="">
  <span class="dropdown-text">Numpy Infinity</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+    <a class="dropdown-item" href="../../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" rel="" target="">
  <span class="dropdown-text">LightGBMハンドブック</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
+    <a class="dropdown-item" href="../../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html" rel="" target="">
  <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html" rel="" target="">
+ <span class="dropdown-text">爆速Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/11_Pythonではじめる時系列分析入門/index.html" rel="" target="">
+ <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/base/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/base/working.html" rel="" target="">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/argparse/index.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/argparse/index.html" rel="" target="">
  <span class="dropdown-text">argparse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/assertr/index.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/assertr/index.html" rel="" target="">
  <span class="dropdown-text">assertr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/corrr/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/corrr/working.html" rel="" target="">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ComplexHeatmap/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ComplexHeatmap/working.html" rel="" target="">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/duckdb/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/duckdb/working.html" rel="" target="">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/DBI/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/DBI/working.html" rel="" target="">
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ggspatial/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggspatial/working.html" rel="" target="">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/GGally/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/GGally/working.html" rel="" target="">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ggtext/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggtext/working.html" rel="" target="">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ggfittext/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggfittext/working.html" rel="" target="">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/gganimate/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/gganimate/working.html" rel="" target="">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ggmosaic/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggmosaic/working.html" rel="" target="">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/treemapify/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/treemapify/working.html" rel="" target="">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/tidyverse/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/tidyverse/working.html" rel="" target="">
  <span class="dropdown-text">tidyverse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/sf/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/sf/working.html" rel="" target="">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/igraph/index.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/igraph/index.html" rel="" target="">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/patchwork/working.html">
+    <a class="dropdown-item" href="../../../../contents/libs/R/patchwork/working.html" rel="" target="">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/Python/pydantic/index.html">
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pydantic/index.html" rel="" target="">
  <span class="dropdown-text">pydantic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/Python/pandera/index.html">
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pandera/index.html" rel="" target="">
  <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html">
+    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html" rel="" target="">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html">
+    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html" rel="" target="">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/sql/duckdb/mytips/01_.html">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/mytips/01_.html" rel="" target="">
  <span class="dropdown-text">My Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html" rel="" target="">
  <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html">
+    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html" rel="" target="">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/test/R/renv.html">
+    <a class="dropdown-item" href="../../../../contents/test/R/renv.html" rel="" target="">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html">
+    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html" rel="" target="">
  <span class="dropdown-text">R2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/test/python/notebook.html">
+    <a class="dropdown-item" href="../../../../contents/test/python/notebook.html" rel="" target="">
  <span class="dropdown-text">Python</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools ms-auto">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/DBI/working.html">DBI</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/DBI/working.html">Introduction</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/DBI/working.html">DBI</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/DBI/working.html">Introduction</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -392,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -771,7 +773,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -789,7 +791,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#manual-flow" id="toc-manual-flow" class="nav-link" data-scroll-target="#manual-flow"><span class="header-section-number">3.5</span> Manual flow</a></li>
   <li><a href="#writing-data" id="toc-writing-data" class="nav-link" data-scroll-target="#writing-data"><span class="header-section-number">3.6</span> Writing Data</a></li>
   <li><a href="#appending-data" id="toc-appending-data" class="nav-link" data-scroll-target="#appending-data"><span class="header-section-number">3.7</span> Appending Data</a></li>
-  <li><a href="#coculution" id="toc-coculution" class="nav-link" data-scroll-target="#coculution"><span class="header-section-number">3.8</span> Coculution</a></li>
+  <li><a href="#disconnect" id="toc-disconnect" class="nav-link" data-scroll-target="#disconnect"><span class="header-section-number">3.8</span> disconnect</a></li>
+  </ul></li>
+  <li><a href="#connect-snowflake" id="toc-connect-snowflake" class="nav-link" data-scroll-target="#connect-snowflake"><span class="header-section-number">4</span> Connect Snowflake</a>
+  <ul class="collapse">
+  <li><a href="#connect" id="toc-connect" class="nav-link" data-scroll-target="#connect"><span class="header-section-number">4.1</span> Connect</a></li>
+  <li><a href="#run-query" id="toc-run-query" class="nav-link" data-scroll-target="#run-query"><span class="header-section-number">4.2</span> run query</a></li>
+  <li><a href="#disconnect-1" id="toc-disconnect-1" class="nav-link" data-scroll-target="#disconnect-1"><span class="header-section-number">4.3</span> disconnect</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -797,52 +805,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/DBI/working.html">DBI</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/DBI/working.html">Introduction</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">DBI</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta column-body">
+<div class="quarto-title-meta">
 
     
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 3, 2024</p>
+      <p class="date-modified">October 14, 2024</p>
     </div>
   </div>
     
   </div>
   
 
-
 </header>
 
-
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-2_182509ac891ff6bdae8a1f77a98d2c06">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
-<span id="cb1-2"><a href="#cb1-2"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/R/DBI"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(duckdb)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(dbplyr)</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">library</span>(arrow)</span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">library</span>(nanoarrow)</span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(nanoarrow)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(odbc)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb1-13"><a href="#cb1-13"></a>dotenv<span class="sc">::</span><span class="fu">load_dot_env</span>(<span class="fu">file.path</span>(here<span class="sc">::</span><span class="fu">here</span>(), <span class="st">".env"</span>))</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="はじめに" class="level1" data-number="1">
@@ -852,134 +855,134 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="basic-api-usage" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Basic API Usage</h1>
 <p><a href="https://solutions.posit.co/connections/db/r-packages/dbi/">ここ</a>を参照している。</p>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-3_76fe4a45da0141afa3ca020cee372d4e">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># Create an ephemeral in-memory RSQLite database</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">":memory:"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">dbListTables</span>(con)</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; character(0)</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"mtcars"</span>, mtcars)</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="fu">dbListTables</span>(con)</span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; [1] "mtcars"</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="fu">dbListFields</span>(con, <span class="st">"mtcars"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; [11] "carb"</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="fu">dbReadTable</span>(con, <span class="st">"mtcars"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;     mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; 3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; 4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; 6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; 7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; 8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; 9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; 10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt; 11 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; 12 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; 13 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; 14 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; 15 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4</span></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt; 16 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt; 17 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; 18 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt; 19 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt; 20 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</span></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt; 21 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt; 22 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2</span></span>
-<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt; 23 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2</span></span>
-<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; 24 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4</span></span>
-<span id="cb3-40"><a href="#cb3-40"></a><span class="co">#&gt; 25 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2</span></span>
-<span id="cb3-41"><a href="#cb3-41"></a><span class="co">#&gt; 26 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1</span></span>
-<span id="cb3-42"><a href="#cb3-42"></a><span class="co">#&gt; 27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2</span></span>
-<span id="cb3-43"><a href="#cb3-43"></a><span class="co">#&gt; 28 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2</span></span>
-<span id="cb3-44"><a href="#cb3-44"></a><span class="co">#&gt; 29 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a><span class="co">#&gt; 30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</span></span>
-<span id="cb3-46"><a href="#cb3-46"></a><span class="co">#&gt; 31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8</span></span>
-<span id="cb3-47"><a href="#cb3-47"></a><span class="co">#&gt; 32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a></span>
-<span id="cb3-49"><a href="#cb3-49"></a><span class="co"># You can fetch all results:</span></span>
-<span id="cb3-50"><a href="#cb3-50"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
-<span id="cb3-51"><a href="#cb3-51"></a><span class="fu">dbFetch</span>(res)</span>
-<span id="cb3-52"><a href="#cb3-52"></a><span class="co">#&gt;     mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span></span>
-<span id="cb3-53"><a href="#cb3-53"></a><span class="co">#&gt; 1  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1</span></span>
-<span id="cb3-54"><a href="#cb3-54"></a><span class="co">#&gt; 2  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</span></span>
-<span id="cb3-55"><a href="#cb3-55"></a><span class="co">#&gt; 3  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2</span></span>
-<span id="cb3-56"><a href="#cb3-56"></a><span class="co">#&gt; 4  32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1</span></span>
-<span id="cb3-57"><a href="#cb3-57"></a><span class="co">#&gt; 5  30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2</span></span>
-<span id="cb3-58"><a href="#cb3-58"></a><span class="co">#&gt; 6  33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</span></span>
-<span id="cb3-59"><a href="#cb3-59"></a><span class="co">#&gt; 7  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1</span></span>
-<span id="cb3-60"><a href="#cb3-60"></a><span class="co">#&gt; 8  27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1</span></span>
-<span id="cb3-61"><a href="#cb3-61"></a><span class="co">#&gt; 9  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2</span></span>
-<span id="cb3-62"><a href="#cb3-62"></a><span class="co">#&gt; 10 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2</span></span>
-<span id="cb3-63"><a href="#cb3-63"></a><span class="co">#&gt; 11 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</span></span>
-<span id="cb3-64"><a href="#cb3-64"></a><span class="fu">dbClearResult</span>(res)</span>
-<span id="cb3-65"><a href="#cb3-65"></a></span>
-<span id="cb3-66"><a href="#cb3-66"></a><span class="co"># Or a chunk at a time</span></span>
-<span id="cb3-67"><a href="#cb3-67"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
-<span id="cb3-68"><a href="#cb3-68"></a><span class="cf">while</span>(<span class="sc">!</span><span class="fu">dbHasCompleted</span>(res)){</span>
-<span id="cb3-69"><a href="#cb3-69"></a>  chunk <span class="ot">&lt;-</span> <span class="fu">dbFetch</span>(res, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb3-70"><a href="#cb3-70"></a>  <span class="fu">print</span>(<span class="fu">nrow</span>(chunk))</span>
-<span id="cb3-71"><a href="#cb3-71"></a>}</span>
-<span id="cb3-72"><a href="#cb3-72"></a><span class="co">#&gt; [1] 5</span></span>
-<span id="cb3-73"><a href="#cb3-73"></a><span class="co">#&gt; [1] 5</span></span>
-<span id="cb3-74"><a href="#cb3-74"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb3-75"><a href="#cb3-75"></a><span class="fu">dbClearResult</span>(res)</span>
-<span id="cb3-76"><a href="#cb3-76"></a></span>
-<span id="cb3-77"><a href="#cb3-77"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># Create an ephemeral in-memory RSQLite database</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">":memory:"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">dbListTables</span>(con)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; character(0)</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"mtcars"</span>, mtcars)</span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">dbListTables</span>(con)</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; [1] "mtcars"</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="fu">dbListFields</span>(con, <span class="st">"mtcars"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt;  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; [11] "carb"</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">dbReadTable</span>(con, <span class="st">"mtcars"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt;     mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; 3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; 4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt; 5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; 6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; 7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt; 8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt; 9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt; 10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; 11 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co">#&gt; 12 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="co">#&gt; 13 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co">#&gt; 14 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="co">#&gt; 15 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="co">#&gt; 16 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#&gt; 17 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4</span></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#&gt; 18 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="co">#&gt; 19 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a><span class="co">#&gt; 20 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="co">#&gt; 21 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a><span class="co">#&gt; 22 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a><span class="co">#&gt; 23 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a><span class="co">#&gt; 24 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="co">#&gt; 25 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="co">#&gt; 26 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a><span class="co">#&gt; 27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a><span class="co">#&gt; 28 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a><span class="co">#&gt; 29 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="co">#&gt; 30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a><span class="co">#&gt; 31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a><span class="co">#&gt; 32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</span></span>
+<span id="cb2-48"><a href="#cb2-48"></a></span>
+<span id="cb2-49"><a href="#cb2-49"></a><span class="co"># You can fetch all results:</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
+<span id="cb2-51"><a href="#cb2-51"></a><span class="fu">dbFetch</span>(res)</span>
+<span id="cb2-52"><a href="#cb2-52"></a><span class="co">#&gt;     mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="co">#&gt; 1  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="co">#&gt; 2  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</span></span>
+<span id="cb2-55"><a href="#cb2-55"></a><span class="co">#&gt; 3  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="co">#&gt; 4  32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a><span class="co">#&gt; 5  30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a><span class="co">#&gt; 6  33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a><span class="co">#&gt; 7  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a><span class="co">#&gt; 8  27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a><span class="co">#&gt; 9  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2</span></span>
+<span id="cb2-62"><a href="#cb2-62"></a><span class="co">#&gt; 10 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2</span></span>
+<span id="cb2-63"><a href="#cb2-63"></a><span class="co">#&gt; 11 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a><span class="fu">dbClearResult</span>(res)</span>
+<span id="cb2-65"><a href="#cb2-65"></a></span>
+<span id="cb2-66"><a href="#cb2-66"></a><span class="co"># Or a chunk at a time</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
+<span id="cb2-68"><a href="#cb2-68"></a><span class="cf">while</span>(<span class="sc">!</span><span class="fu">dbHasCompleted</span>(res)){</span>
+<span id="cb2-69"><a href="#cb2-69"></a>  chunk <span class="ot">&lt;-</span> <span class="fu">dbFetch</span>(res, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb2-70"><a href="#cb2-70"></a>  <span class="fu">print</span>(<span class="fu">nrow</span>(chunk))</span>
+<span id="cb2-71"><a href="#cb2-71"></a>}</span>
+<span id="cb2-72"><a href="#cb2-72"></a><span class="co">#&gt; [1] 5</span></span>
+<span id="cb2-73"><a href="#cb2-73"></a><span class="co">#&gt; [1] 5</span></span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb2-75"><a href="#cb2-75"></a><span class="fu">dbClearResult</span>(res)</span>
+<span id="cb2-76"><a href="#cb2-76"></a></span>
+<span id="cb2-77"><a href="#cb2-77"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-4_fe4e77541a9c209f29ec24c3142b364c">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"cars"</span>, <span class="fu">head</span>(cars, <span class="dv">3</span>))</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are 3 rows</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;   speed dist</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; 1     4    2</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; 2     4   10</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 3     7    4</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">dbExecute</span>(</span>
-<span id="cb4-10"><a href="#cb4-10"></a>  con,</span>
-<span id="cb4-11"><a href="#cb4-11"></a>  <span class="st">"INSERT INTO cars (speed, dist) VALUES (1, 1), (2, 2), (3, 3)"</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a>)</span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; [1] 3</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are now 6 rows</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;   speed dist</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 1     4    2</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; 2     4   10</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 3     7    4</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; 4     1    1</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; 5     2    2</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; 6     3    3</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co"># Pass values using the param argument:</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="fu">dbExecute</span>(</span>
-<span id="cb4-25"><a href="#cb4-25"></a>  con,</span>
-<span id="cb4-26"><a href="#cb4-26"></a>  <span class="st">"INSERT INTO cars (speed, dist) VALUES (?, ?)"</span>,</span>
-<span id="cb4-27"><a href="#cb4-27"></a>  <span class="at">params =</span> <span class="fu">list</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>)</span>
-<span id="cb4-28"><a href="#cb4-28"></a>)</span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; [1] 4</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are now 10 rows</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt;    speed dist</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt; 1      4    2</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a><span class="co">#&gt; 2      4   10</span></span>
-<span id="cb4-34"><a href="#cb4-34"></a><span class="co">#&gt; 3      7    4</span></span>
-<span id="cb4-35"><a href="#cb4-35"></a><span class="co">#&gt; 4      1    1</span></span>
-<span id="cb4-36"><a href="#cb4-36"></a><span class="co">#&gt; 5      2    2</span></span>
-<span id="cb4-37"><a href="#cb4-37"></a><span class="co">#&gt; 6      3    3</span></span>
-<span id="cb4-38"><a href="#cb4-38"></a><span class="co">#&gt; 7      4    5</span></span>
-<span id="cb4-39"><a href="#cb4-39"></a><span class="co">#&gt; 8      5    6</span></span>
-<span id="cb4-40"><a href="#cb4-40"></a><span class="co">#&gt; 9      6    7</span></span>
-<span id="cb4-41"><a href="#cb4-41"></a><span class="co">#&gt; 10     7    8</span></span>
-<span id="cb4-42"><a href="#cb4-42"></a></span>
-<span id="cb4-43"><a href="#cb4-43"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"cars"</span>, <span class="fu">head</span>(cars, <span class="dv">3</span>))</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are 3 rows</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;   speed dist</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 1     4    2</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 2     4   10</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 3     7    4</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="fu">dbExecute</span>(</span>
+<span id="cb3-10"><a href="#cb3-10"></a>  con,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>  <span class="st">"INSERT INTO cars (speed, dist) VALUES (1, 1), (2, 2), (3, 3)"</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; [1] 3</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are now 6 rows</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;   speed dist</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 1     4    2</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; 2     4   10</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; 3     7    4</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; 4     1    1</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 5     2    2</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; 6     3    3</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co"># Pass values using the param argument:</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="fu">dbExecute</span>(</span>
+<span id="cb3-25"><a href="#cb3-25"></a>  con,</span>
+<span id="cb3-26"><a href="#cb3-26"></a>  <span class="st">"INSERT INTO cars (speed, dist) VALUES (?, ?)"</span>,</span>
+<span id="cb3-27"><a href="#cb3-27"></a>  <span class="at">params =</span> <span class="fu">list</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb3-28"><a href="#cb3-28"></a>)</span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; [1] 4</span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are now 10 rows</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt;    speed dist</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt; 1      4    2</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; 2      4   10</span></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt; 3      7    4</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt; 4      1    1</span></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt; 5      2    2</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt; 6      3    3</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt; 7      4    5</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; 8      5    6</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a><span class="co">#&gt; 9      6    7</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a><span class="co">#&gt; 10     7    8</span></span>
+<span id="cb3-42"><a href="#cb3-42"></a></span>
+<span id="cb3-43"><a href="#cb3-43"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -1001,241 +1004,282 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="prepare" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="prepare"><span class="header-section-number">3.1</span> Prepare</h2>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-5_812b3868197e4dd7a950645e0a2d8f57">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>())</span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>  <span class="at">b =</span> <span class="fl">4.5</span>,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>  <span class="at">c =</span> <span class="st">"five"</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a>)</span>
-<span id="cb5-8"><a href="#cb5-8"></a></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"tbl"</span>, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>())</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="at">b =</span> <span class="fl">4.5</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="at">c =</span> <span class="st">"five"</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"tbl"</span>, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="read-all-rows-from-table" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="read-all-rows-from-table"><span class="header-section-number">3.2</span> Read all rows from table</h2>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-6_daa1d9eb609dfd35e8d056561a09d0e2">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbReadTableArrow</span>(con, <span class="st">"tbl"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>stream</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; &lt;nanoarrow_array_stream struct&lt;a: int32, b: double, c: string&gt;&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;  $ get_schema:function ()  </span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;  $ get_next  :function (schema = x$get_schema(), validate = TRUE)  </span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;  $ release   :function ()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbReadTableArrow</span>(con, <span class="st">"tbl"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>stream</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; &lt;nanoarrow_array_stream struct&lt;a: int32, b: double, c: string&gt;&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;  $ get_schema:function ()  </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;  $ get_next  :function (schema = x$get_schema(), validate = TRUE)  </span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;  $ release   :function ()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-7_70cbdceb19de753f4a70faafadd74ea2">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>stream<span class="sc">$</span><span class="fu">get_schema</span>()</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; &lt;nanoarrow_schema struct&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt;  $ format    : chr "+s"</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;  $ name      : chr ""</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt;  $ metadata  : list()</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;  $ flags     : int 0</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt;  $ children  :List of 3</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;   ..$ a:&lt;nanoarrow_schema int32&gt;</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;   .. ..$ format    : chr "i"</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;   .. ..$ name      : chr "a"</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;   .. ..$ metadata  : list()</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;   .. ..$ flags     : int 2</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;   .. ..$ children  : list()</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;   .. ..$ dictionary: NULL</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;   ..$ b:&lt;nanoarrow_schema double&gt;</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;   .. ..$ format    : chr "g"</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt;   .. ..$ name      : chr "b"</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt;   .. ..$ metadata  : list()</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;   .. ..$ flags     : int 2</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;   .. ..$ children  : list()</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;   .. ..$ dictionary: NULL</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt;   ..$ c:&lt;nanoarrow_schema string&gt;</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt;   .. ..$ format    : chr "u"</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt;   .. ..$ name      : chr "c"</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt;   .. ..$ metadata  : list()</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt;   .. ..$ flags     : int 2</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt;   .. ..$ children  : list()</span></span>
-<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt;   .. ..$ dictionary: NULL</span></span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt;  $ dictionary: NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>stream<span class="sc">$</span><span class="fu">get_schema</span>()</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; &lt;nanoarrow_schema struct&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt;  $ format    : chr "+s"</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;  $ name      : chr ""</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;  $ metadata  : list()</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;  $ flags     : int 0</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;  $ children  :List of 3</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;   ..$ a:&lt;nanoarrow_schema int32&gt;</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;   .. ..$ format    : chr "i"</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;   .. ..$ name      : chr "a"</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;   .. ..$ metadata  : list()</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;   .. ..$ flags     : int 2</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;   .. ..$ children  : list()</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;   .. ..$ dictionary: NULL</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;   ..$ b:&lt;nanoarrow_schema double&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;   .. ..$ format    : chr "g"</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;   .. ..$ name      : chr "b"</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;   .. ..$ metadata  : list()</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;   .. ..$ flags     : int 2</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;   .. ..$ children  : list()</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;   .. ..$ dictionary: NULL</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt;   ..$ c:&lt;nanoarrow_schema string&gt;</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt;   .. ..$ format    : chr "u"</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt;   .. ..$ name      : chr "c"</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt;   .. ..$ metadata  : list()</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt;   .. ..$ flags     : int 2</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt;   .. ..$ children  : list()</span></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt;   .. ..$ dictionary: NULL</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt;  $ dictionary: NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-8_1574dc46e11748ed6f3fd167fabbff67">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">as_tibble</span>(stream)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt;       a     b c    </span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; 1     1   4.5 five </span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; 2     2   4.5 five </span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; 3     3   4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">as_tibble</span>(stream)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt;       a     b c    </span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; 1     1   4.5 five </span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; 2     2   4.5 five </span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; 3     3   4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="run-queries" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="run-queries"><span class="header-section-number">3.3</span> Run queries</h2>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-9_40da22f158b6be8fc9d2f5881dfc3ea3">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT COUNT(*) AS n FROM tbl WHERE a &lt; 3"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>stream</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; &lt;nanoarrow_array_stream struct&lt;n: int32&gt;&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt;  $ get_schema:function ()  </span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt;  $ get_next  :function (schema = x$get_schema(), validate = TRUE)  </span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt;  $ release   :function ()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT COUNT(*) AS n FROM tbl WHERE a &lt; 3"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>stream</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; &lt;nanoarrow_array_stream struct&lt;n: int32&gt;&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt;  $ get_schema:function ()  </span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt;  $ get_next  :function (schema = x$get_schema(), validate = TRUE)  </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt;  $ release   :function ()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>ファイルに書き出す。</p>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-10_33363f7a3cec48b0100db1b40de70a14">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>path <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(arrow<span class="sc">::</span><span class="fu">as_record_batch_reader</span>(stream), path)</span>
-<span id="cb10-3"><a href="#cb10-3"></a>arrow<span class="sc">::</span><span class="fu">read_parquet</span>(path)</span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; # A tibble: 1 × 1</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt;       n</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt;   &lt;int&gt;</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; 1     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>path <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(arrow<span class="sc">::</span><span class="fu">as_record_batch_reader</span>(stream), path)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>arrow<span class="sc">::</span><span class="fu">read_parquet</span>(path)</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; # A tibble: 1 × 1</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt;       n</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt;   &lt;int&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt; 1     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="prepared-queries" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="prepared-queries"><span class="header-section-number">3.4</span> Prepared queries</h2>
 <p>クエリに使うパラメータをデータフレームから渡すことができる。</p>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-11_05fcc55785f7f556f100686103a579d4">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">3</span>L)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">as.data.frame</span>(stream)</span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt; 1     3 1 4.5 five</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; 2     3 2 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> 3L)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">as.data.frame</span>(stream)</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; 1     3 1 4.5 five</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; 2     3 2 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>パラメータが不足するときには最期の値がrecursiveする。</p>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-12_d21b750f9478710bf3734aa016dd3dd6">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">2</span>L, <span class="dv">4</span>L))</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># Equivalent to dbBind()</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">as.data.frame</span>(stream)</span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt;   batch a   b    c</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt; 1     2 1 4.5 five</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt; 2     4 1 4.5 five</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt; 3     4 2 4.5 five</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt; 4     4 3 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(2L, 4L))</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co"># Equivalent to dbBind()</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">as.data.frame</span>(stream)</span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt;   batch a   b    c</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; 1     2 1 4.5 five</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt; 2     4 1 4.5 five</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt; 3     4 2 4.5 five</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; 4     4 3 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="manual-flow" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="manual-flow"><span class="header-section-number">3.5</span> Manual flow</h2>
 <p><code>dbSendQueryArrow</code>を使うとクエリを送付し、<code>dbFetchArrow</code>で結果を取得する。 これらは<code>dbBindArrow</code>を使うことでもできる。処理後は必ず<code>dbClearResult</code>を使いクリアすることになる。</p>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-13_9d123c1e48b20aad32f03186f4b3c55c">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>rs <span class="ot">&lt;-</span> <span class="fu">dbSendQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a></span>
-<span id="cb13-3"><a href="#cb13-3"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span>L))</span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; [1] batch a     b     c    </span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt; &lt;0 rows&gt; (or 0-length row.names)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>rs <span class="ot">&lt;-</span> <span class="fu">dbSendQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 1L))</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt; [1] batch a     b     c    </span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt; &lt;0 rows&gt; (or 0-length row.names)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-14_f569634bcefddfa69242e5f4d4823697">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">2</span>L))</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 2L))</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt; 1     2 1 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-15_18c765d12c0c591ad189221f6b0c2ed6">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 3L))</span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb14-3"><a href="#cb14-3"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt; 1     2 1 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt; 1     3 1 4.5 five</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt; 2     3 2 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-16_80841ce201c13e9fbc0776b12af18307">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">3</span>L))</span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span>4L))</span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
 <span id="cb15-3"><a href="#cb15-3"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
 <span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; 1     3 1 4.5 five</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; 2     3 2 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>L))</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="co">#&gt;   batch a   b    c</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="co">#&gt; 1     2 1 4.5 five</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="co">#&gt; 2     3 1 4.5 five</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt; 3     3 2 4.5 five</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a><span class="co">#&gt; 4     4 1 4.5 five</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a><span class="co">#&gt; 5     4 2 4.5 five</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="co">#&gt; 6     4 3 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; 1     2 1 4.5 five</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; 2     3 1 4.5 five</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; 3     3 2 4.5 five</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; 4     4 1 4.5 five</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; 5     4 2 4.5 five</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt; 6     4 3 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="writing-data" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="writing-data"><span class="header-section-number">3.6</span> Writing Data</h2>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-17_3a088cbd24fd5f2abe4f33a3c90859eb">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&gt; Warning: Closing open result set, pending rows</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">dbWriteTableArrow</span>(con, <span class="st">"tbl_new"</span>, stream)</span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_new"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="co">#&gt;   a   b    c</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="co">#&gt; 1 1 4.5 five</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="co">#&gt; 2 2 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co">#&gt; Warning: Closing open result set, pending rows</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="fu">dbWriteTableArrow</span>(con, <span class="st">"tbl_new"</span>, stream)</span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_new"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="co">#&gt;   a   b    c</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="co">#&gt; 1 1 4.5 five</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt; 2 2 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="appending-data" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="appending-data"><span class="header-section-number">3.7</span> Appending Data</h2>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-18_937011681a95254625c8ccdc8c45f986">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">dbCreateTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="co">#&gt; [1] 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">dbCreateTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co">#&gt; [1] 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-19_a64af615cf2ccbd02167413e72161567">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &gt;= 3"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="co">#&gt; [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &gt;= 3"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co">#&gt; [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details open="" class="code-fold">
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-20_15063229c3b400fe11d521d820ed6ddf">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_split"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="co">#&gt;   a   b    c</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="co">#&gt; 1 1 4.5 five</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="co">#&gt; 2 2 4.5 five</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a><span class="co">#&gt; 3 3 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_split"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="co">#&gt;   a   b    c</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co">#&gt; 1 1 4.5 five</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="co">#&gt; 2 2 4.5 five</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="co">#&gt; 3 3 4.5 five</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
-<section id="coculution" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="coculution"><span class="header-section-number">3.8</span> Coculution</h2>
-<div class="cell">
-<details open="" class="code-fold">
+<section id="disconnect" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="disconnect"><span class="header-section-number">3.8</span> disconnect</h2>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-21_bda882b160e23a3187f06d77990aa01f">
+<details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="connect-snowflake" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Connect Snowflake</h1>
+<section id="connect" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="connect"><span class="header-section-number">4.1</span> Connect</h2>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-22_447e127cdece7c8d5a53ce92fcda14f7">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
+<span id="cb21-2"><a href="#cb21-2"></a>  odbc<span class="sc">::</span><span class="fu">odbc</span>(), </span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="at">Driver =</span> <span class="st">"SnowflakeDSIIDriver"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="at">Server =</span> <span class="fu">paste0</span>(<span class="fu">Sys.getenv</span>(<span class="st">"SNOW_ACCOUNT"</span>), <span class="st">".snowflakecomputing.com"</span>), </span>
+<span id="cb21-5"><a href="#cb21-5"></a>  <span class="at">UID =</span> <span class="fu">Sys.getenv</span>(<span class="st">"USER"</span>), </span>
+<span id="cb21-6"><a href="#cb21-6"></a>  <span class="at">PWD =</span> <span class="fu">Sys.getenv</span>(<span class="st">"PASSWORD"</span>), </span>
+<span id="cb21-7"><a href="#cb21-7"></a>  <span class="at">warehouse =</span> <span class="fu">Sys.getenv</span>(<span class="st">"SNOW_WAREHOUSE"</span>), </span>
+<span id="cb21-8"><a href="#cb21-8"></a>  <span class="at">role =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ROLE"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="run-query" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="run-query"><span class="header-section-number">4.2</span> run query</h2>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-23_6547972d008df46ff81d44939307792e">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM SZK_DEV.PUBLIC.JAPANESE LIMIT 5"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co">#&gt;               日本語 START_DATE     START_TIMESTAMP</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="co">#&gt; 1 日本語のカラムです 2024-01-01 2024-06-10 16:17:26</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="co">#&gt; 2 日本語のカラムです 2024-01-01 2024-06-10 16:18:02</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="disconnect-1" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="disconnect-1"><span class="header-section-number">4.3</span> disconnect</h2>
+<div class="cell" data-hash="working_cache/html/unnamed-chunk-24_8deb6ea9add6cf148a8c2ffafb1be171">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
@@ -1376,9 +1420,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1388,17 +1433,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1411,135 +1447,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        typesetMath(container);
-        return container.innerHTML
-      } else {
-        typesetMath(note);
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      typesetMath(note);
-      return note.innerHTML;
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1583,7 +1490,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1609,32 +1515,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1696,271 +1576,313 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../../contents/libs/R/duckdb/working.html" class="pagination-link  aria-label=" introduction"="">
+      <a href="../../../../contents/libs/R/duckdb/working.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../../contents/libs/R/ggspatial/working.html" class="pagination-link" aria-label="Introduction">
+      <a href="../../../../contents/libs/R/ggspatial/working.html" class="pagination-link">
         <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb22" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">---</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="an">title:</span><span class="co"> "DBI"</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="co">  cache: true</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="an">filters:</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="co">   - lightbox</span></span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
-<span id="cb22-9"><a href="#cb22-9"></a><span class="co">---</span></span>
-<span id="cb22-10"><a href="#cb22-10"></a></span>
-<span id="cb22-13"><a href="#cb22-13"></a><span class="in">```{r}</span></span>
-<span id="cb22-14"><a href="#cb22-14"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
-<span id="cb22-15"><a href="#cb22-15"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/R/DBI"</span>)</span>
-<span id="cb22-16"><a href="#cb22-16"></a><span class="in">```</span></span>
-<span id="cb22-17"><a href="#cb22-17"></a></span>
-<span id="cb22-20"><a href="#cb22-20"></a><span class="in">```{r}</span></span>
-<span id="cb22-21"><a href="#cb22-21"></a><span class="co">#| warning: false</span></span>
-<span id="cb22-22"><a href="#cb22-22"></a><span class="co">#| message: false</span></span>
-<span id="cb22-23"><a href="#cb22-23"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb22-24"><a href="#cb22-24"></a><span class="fu">library</span>(duckdb)</span>
-<span id="cb22-25"><a href="#cb22-25"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb22-26"><a href="#cb22-26"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb22-27"><a href="#cb22-27"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb22-28"><a href="#cb22-28"></a><span class="fu">library</span>(dbplyr)</span>
-<span id="cb22-29"><a href="#cb22-29"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb22-30"><a href="#cb22-30"></a><span class="fu">library</span>(arrow)</span>
-<span id="cb22-31"><a href="#cb22-31"></a><span class="fu">library</span>(nanoarrow)</span>
-<span id="cb22-32"><a href="#cb22-32"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb22-33"><a href="#cb22-33"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
-<span id="cb22-34"><a href="#cb22-34"></a><span class="in">```</span></span>
-<span id="cb22-35"><a href="#cb22-35"></a></span>
-<span id="cb22-36"><a href="#cb22-36"></a><span class="fu"># はじめに</span></span>
-<span id="cb22-37"><a href="#cb22-37"></a></span>
-<span id="cb22-38"><a href="#cb22-38"></a>ODBCクライアントAPIである。</span>
-<span id="cb22-39"><a href="#cb22-39"></a></span>
-<span id="cb22-40"><a href="#cb22-40"></a><span class="fu"># Basic API Usage</span></span>
-<span id="cb22-41"><a href="#cb22-41"></a></span>
-<span id="cb22-42"><a href="#cb22-42"></a><span class="co">[</span><span class="ot">ここ</span><span class="co">](https://solutions.posit.co/connections/db/r-packages/dbi/)</span>を参照している。</span>
-<span id="cb22-43"><a href="#cb22-43"></a></span>
-<span id="cb22-46"><a href="#cb22-46"></a><span class="in">```{r}</span></span>
-<span id="cb22-47"><a href="#cb22-47"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb22-48"><a href="#cb22-48"></a><span class="co"># Create an ephemeral in-memory RSQLite database</span></span>
-<span id="cb22-49"><a href="#cb22-49"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">":memory:"</span>)</span>
-<span id="cb22-50"><a href="#cb22-50"></a></span>
-<span id="cb22-51"><a href="#cb22-51"></a><span class="fu">dbListTables</span>(con)</span>
-<span id="cb22-52"><a href="#cb22-52"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"mtcars"</span>, mtcars)</span>
-<span id="cb22-53"><a href="#cb22-53"></a><span class="fu">dbListTables</span>(con)</span>
-<span id="cb22-54"><a href="#cb22-54"></a></span>
-<span id="cb22-55"><a href="#cb22-55"></a><span class="fu">dbListFields</span>(con, <span class="st">"mtcars"</span>)</span>
-<span id="cb22-56"><a href="#cb22-56"></a><span class="fu">dbReadTable</span>(con, <span class="st">"mtcars"</span>)</span>
-<span id="cb22-57"><a href="#cb22-57"></a></span>
-<span id="cb22-58"><a href="#cb22-58"></a><span class="co"># You can fetch all results:</span></span>
-<span id="cb22-59"><a href="#cb22-59"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
-<span id="cb22-60"><a href="#cb22-60"></a><span class="fu">dbFetch</span>(res)</span>
-<span id="cb22-61"><a href="#cb22-61"></a><span class="fu">dbClearResult</span>(res)</span>
-<span id="cb22-62"><a href="#cb22-62"></a></span>
-<span id="cb22-63"><a href="#cb22-63"></a><span class="co"># Or a chunk at a time</span></span>
-<span id="cb22-64"><a href="#cb22-64"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
-<span id="cb22-65"><a href="#cb22-65"></a><span class="cf">while</span>(<span class="sc">!</span><span class="fu">dbHasCompleted</span>(res)){</span>
-<span id="cb22-66"><a href="#cb22-66"></a>  chunk <span class="ot">&lt;-</span> <span class="fu">dbFetch</span>(res, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb22-67"><a href="#cb22-67"></a>  <span class="fu">print</span>(<span class="fu">nrow</span>(chunk))</span>
-<span id="cb22-68"><a href="#cb22-68"></a>}</span>
-<span id="cb22-69"><a href="#cb22-69"></a><span class="fu">dbClearResult</span>(res)</span>
-<span id="cb22-70"><a href="#cb22-70"></a></span>
-<span id="cb22-71"><a href="#cb22-71"></a><span class="fu">dbDisconnect</span>(con)</span>
-<span id="cb22-72"><a href="#cb22-72"></a><span class="in">```</span></span>
-<span id="cb22-73"><a href="#cb22-73"></a></span>
-<span id="cb22-74"><a href="#cb22-74"></a></span>
-<span id="cb22-75"><a href="#cb22-75"></a></span>
-<span id="cb22-78"><a href="#cb22-78"></a><span class="in">```{r}</span></span>
-<span id="cb22-79"><a href="#cb22-79"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
-<span id="cb22-80"><a href="#cb22-80"></a></span>
-<span id="cb22-81"><a href="#cb22-81"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"cars"</span>, <span class="fu">head</span>(cars, <span class="dv">3</span>))</span>
-<span id="cb22-82"><a href="#cb22-82"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are 3 rows</span></span>
-<span id="cb22-83"><a href="#cb22-83"></a><span class="fu">dbExecute</span>(</span>
-<span id="cb22-84"><a href="#cb22-84"></a>  con,</span>
-<span id="cb22-85"><a href="#cb22-85"></a>  <span class="st">"INSERT INTO cars (speed, dist) VALUES (1, 1), (2, 2), (3, 3)"</span></span>
-<span id="cb22-86"><a href="#cb22-86"></a>)</span>
-<span id="cb22-87"><a href="#cb22-87"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are now 6 rows</span></span>
-<span id="cb22-88"><a href="#cb22-88"></a></span>
-<span id="cb22-89"><a href="#cb22-89"></a><span class="co"># Pass values using the param argument:</span></span>
-<span id="cb22-90"><a href="#cb22-90"></a><span class="fu">dbExecute</span>(</span>
-<span id="cb22-91"><a href="#cb22-91"></a>  con,</span>
-<span id="cb22-92"><a href="#cb22-92"></a>  <span class="st">"INSERT INTO cars (speed, dist) VALUES (?, ?)"</span>,</span>
-<span id="cb22-93"><a href="#cb22-93"></a>  <span class="at">params =</span> <span class="fu">list</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>)</span>
-<span id="cb22-94"><a href="#cb22-94"></a>)</span>
-<span id="cb22-95"><a href="#cb22-95"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are now 10 rows</span></span>
-<span id="cb22-96"><a href="#cb22-96"></a></span>
-<span id="cb22-97"><a href="#cb22-97"></a><span class="fu">dbDisconnect</span>(con)</span>
-<span id="cb22-98"><a href="#cb22-98"></a><span class="in">```</span></span>
-<span id="cb22-99"><a href="#cb22-99"></a></span>
-<span id="cb22-100"><a href="#cb22-100"></a></span>
-<span id="cb22-101"><a href="#cb22-101"></a></span>
-<span id="cb22-102"><a href="#cb22-102"></a></span>
-<span id="cb22-103"><a href="#cb22-103"></a><span class="fu"># Using DBI with Arrow</span></span>
-<span id="cb22-104"><a href="#cb22-104"></a></span>
-<span id="cb22-105"><a href="#cb22-105"></a>Apache Arrowを使うための次のAPIが追加されている。</span>
-<span id="cb22-106"><a href="#cb22-106"></a></span>
-<span id="cb22-107"><a href="#cb22-107"></a><span class="ss">- </span><span class="in">`dbReadTableArrow()`</span></span>
-<span id="cb22-108"><a href="#cb22-108"></a><span class="ss">- </span><span class="in">`dbWriteTableArrow()`</span></span>
-<span id="cb22-109"><a href="#cb22-109"></a><span class="ss">- </span><span class="in">`dbCreateTableArrow()`</span></span>
-<span id="cb22-110"><a href="#cb22-110"></a><span class="ss">- </span><span class="in">`dbAppendTableArrow()`</span></span>
-<span id="cb22-111"><a href="#cb22-111"></a><span class="ss">- </span><span class="in">`dbGetQueryArrow()`</span></span>
-<span id="cb22-112"><a href="#cb22-112"></a><span class="ss">- </span><span class="in">`dbSendQueryArrow()`</span></span>
-<span id="cb22-113"><a href="#cb22-113"></a><span class="ss">- </span><span class="in">`dbBindArrow()`</span></span>
-<span id="cb22-114"><a href="#cb22-114"></a><span class="ss">- </span><span class="in">`dbFetchArrow()`</span></span>
-<span id="cb22-115"><a href="#cb22-115"></a><span class="ss">- </span><span class="in">`dbFetchArrowChunk()`</span></span>
-<span id="cb22-116"><a href="#cb22-116"></a><span class="ss">- </span><span class="in">`DBIResultArrow-class`</span></span>
-<span id="cb22-117"><a href="#cb22-117"></a><span class="ss">- </span><span class="in">`DBIResultArrowDefault-class`</span></span>
-<span id="cb22-118"><a href="#cb22-118"></a></span>
-<span id="cb22-119"><a href="#cb22-119"></a></span>
-<span id="cb22-120"><a href="#cb22-120"></a><span class="fu">## Prepare</span></span>
-<span id="cb22-121"><a href="#cb22-121"></a></span>
-<span id="cb22-124"><a href="#cb22-124"></a><span class="in">```{r}</span></span>
-<span id="cb22-125"><a href="#cb22-125"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>())</span>
-<span id="cb22-126"><a href="#cb22-126"></a></span>
-<span id="cb22-127"><a href="#cb22-127"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb22-128"><a href="#cb22-128"></a>  <span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb22-129"><a href="#cb22-129"></a>  <span class="at">b =</span> <span class="fl">4.5</span>,</span>
-<span id="cb22-130"><a href="#cb22-130"></a>  <span class="at">c =</span> <span class="st">"five"</span></span>
-<span id="cb22-131"><a href="#cb22-131"></a>)</span>
-<span id="cb22-132"><a href="#cb22-132"></a></span>
-<span id="cb22-133"><a href="#cb22-133"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"tbl"</span>, data)</span>
-<span id="cb22-134"><a href="#cb22-134"></a><span class="in">```</span></span>
-<span id="cb22-135"><a href="#cb22-135"></a></span>
-<span id="cb22-136"><a href="#cb22-136"></a></span>
-<span id="cb22-137"><a href="#cb22-137"></a></span>
-<span id="cb22-138"><a href="#cb22-138"></a><span class="fu">## Read all rows from table</span></span>
-<span id="cb22-139"><a href="#cb22-139"></a></span>
-<span id="cb22-142"><a href="#cb22-142"></a><span class="in">```{r}</span></span>
-<span id="cb22-143"><a href="#cb22-143"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbReadTableArrow</span>(con, <span class="st">"tbl"</span>)</span>
-<span id="cb22-144"><a href="#cb22-144"></a>stream</span>
-<span id="cb22-145"><a href="#cb22-145"></a><span class="in">```</span></span>
-<span id="cb22-146"><a href="#cb22-146"></a></span>
-<span id="cb22-147"><a href="#cb22-147"></a></span>
-<span id="cb22-150"><a href="#cb22-150"></a><span class="in">```{r}</span></span>
-<span id="cb22-151"><a href="#cb22-151"></a>stream<span class="sc">$</span><span class="fu">get_schema</span>()</span>
-<span id="cb22-152"><a href="#cb22-152"></a><span class="in">```</span></span>
-<span id="cb22-153"><a href="#cb22-153"></a></span>
-<span id="cb22-154"><a href="#cb22-154"></a></span>
-<span id="cb22-157"><a href="#cb22-157"></a><span class="in">```{r}</span></span>
-<span id="cb22-158"><a href="#cb22-158"></a><span class="fu">as_tibble</span>(stream)</span>
-<span id="cb22-159"><a href="#cb22-159"></a><span class="in">```</span></span>
-<span id="cb22-160"><a href="#cb22-160"></a></span>
-<span id="cb22-161"><a href="#cb22-161"></a></span>
-<span id="cb22-162"><a href="#cb22-162"></a></span>
-<span id="cb22-163"><a href="#cb22-163"></a><span class="fu">## Run queries</span></span>
-<span id="cb22-164"><a href="#cb22-164"></a></span>
-<span id="cb22-167"><a href="#cb22-167"></a><span class="in">```{r}</span></span>
-<span id="cb22-168"><a href="#cb22-168"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT COUNT(*) AS n FROM tbl WHERE a &lt; 3"</span>)</span>
-<span id="cb22-169"><a href="#cb22-169"></a>stream</span>
-<span id="cb22-170"><a href="#cb22-170"></a><span class="in">```</span></span>
-<span id="cb22-171"><a href="#cb22-171"></a></span>
-<span id="cb22-172"><a href="#cb22-172"></a></span>
-<span id="cb22-173"><a href="#cb22-173"></a>ファイルに書き出す。</span>
-<span id="cb22-174"><a href="#cb22-174"></a></span>
-<span id="cb22-175"><a href="#cb22-175"></a></span>
-<span id="cb22-178"><a href="#cb22-178"></a><span class="in">```{r}</span></span>
-<span id="cb22-179"><a href="#cb22-179"></a>path <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
-<span id="cb22-180"><a href="#cb22-180"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(arrow<span class="sc">::</span><span class="fu">as_record_batch_reader</span>(stream), path)</span>
-<span id="cb22-181"><a href="#cb22-181"></a>arrow<span class="sc">::</span><span class="fu">read_parquet</span>(path)</span>
-<span id="cb22-182"><a href="#cb22-182"></a><span class="in">```</span></span>
-<span id="cb22-183"><a href="#cb22-183"></a></span>
-<span id="cb22-184"><a href="#cb22-184"></a></span>
-<span id="cb22-185"><a href="#cb22-185"></a><span class="fu">## Prepared queries</span></span>
-<span id="cb22-186"><a href="#cb22-186"></a></span>
-<span id="cb22-187"><a href="#cb22-187"></a>クエリに使うパラメータをデータフレームから渡すことができる。</span>
-<span id="cb22-188"><a href="#cb22-188"></a></span>
-<span id="cb22-191"><a href="#cb22-191"></a><span class="in">```{r}</span></span>
-<span id="cb22-192"><a href="#cb22-192"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">3</span>L)</span>
-<span id="cb22-193"><a href="#cb22-193"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
-<span id="cb22-194"><a href="#cb22-194"></a><span class="fu">as.data.frame</span>(stream)</span>
-<span id="cb22-195"><a href="#cb22-195"></a><span class="in">```</span></span>
-<span id="cb22-196"><a href="#cb22-196"></a></span>
-<span id="cb22-197"><a href="#cb22-197"></a></span>
-<span id="cb22-198"><a href="#cb22-198"></a>パラメータが不足するときには最期の値がrecursiveする。</span>
-<span id="cb22-199"><a href="#cb22-199"></a></span>
-<span id="cb22-202"><a href="#cb22-202"></a><span class="in">```{r}</span></span>
-<span id="cb22-203"><a href="#cb22-203"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">2</span>L, <span class="dv">4</span>L))</span>
-<span id="cb22-204"><a href="#cb22-204"></a><span class="co"># Equivalent to dbBind()</span></span>
-<span id="cb22-205"><a href="#cb22-205"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
-<span id="cb22-206"><a href="#cb22-206"></a><span class="fu">as.data.frame</span>(stream)</span>
-<span id="cb22-207"><a href="#cb22-207"></a><span class="in">```</span></span>
-<span id="cb22-208"><a href="#cb22-208"></a></span>
-<span id="cb22-209"><a href="#cb22-209"></a></span>
-<span id="cb22-210"><a href="#cb22-210"></a><span class="fu">## Manual flow</span></span>
-<span id="cb22-211"><a href="#cb22-211"></a></span>
-<span id="cb22-212"><a href="#cb22-212"></a><span class="in">`dbSendQueryArrow`</span>を使うとクエリを送付し、<span class="in">`dbFetchArrow`</span>で結果を取得する。</span>
-<span id="cb22-213"><a href="#cb22-213"></a>これらは<span class="in">`dbBindArrow`</span>を使うことでもできる。処理後は必ず<span class="in">`dbClearResult`</span>を使いクリアすることになる。</span>
-<span id="cb22-214"><a href="#cb22-214"></a></span>
-<span id="cb22-217"><a href="#cb22-217"></a><span class="in">```{r}</span></span>
-<span id="cb22-218"><a href="#cb22-218"></a>rs <span class="ot">&lt;-</span> <span class="fu">dbSendQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>)</span>
-<span id="cb22-219"><a href="#cb22-219"></a></span>
-<span id="cb22-220"><a href="#cb22-220"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span>L))</span>
-<span id="cb22-221"><a href="#cb22-221"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
-<span id="cb22-222"><a href="#cb22-222"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
-<span id="cb22-223"><a href="#cb22-223"></a><span class="in">```</span></span>
-<span id="cb22-224"><a href="#cb22-224"></a></span>
-<span id="cb22-227"><a href="#cb22-227"></a><span class="in">```{r}</span></span>
-<span id="cb22-228"><a href="#cb22-228"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">2</span>L))</span>
-<span id="cb22-229"><a href="#cb22-229"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
-<span id="cb22-230"><a href="#cb22-230"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
-<span id="cb22-231"><a href="#cb22-231"></a><span class="in">```</span></span>
-<span id="cb22-232"><a href="#cb22-232"></a></span>
-<span id="cb22-235"><a href="#cb22-235"></a><span class="in">```{r}</span></span>
-<span id="cb22-236"><a href="#cb22-236"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">3</span>L))</span>
-<span id="cb22-237"><a href="#cb22-237"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
-<span id="cb22-238"><a href="#cb22-238"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
-<span id="cb22-239"><a href="#cb22-239"></a><span class="in">```</span></span>
-<span id="cb22-240"><a href="#cb22-240"></a></span>
-<span id="cb22-243"><a href="#cb22-243"></a><span class="in">```{r}</span></span>
-<span id="cb22-244"><a href="#cb22-244"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>L))</span>
-<span id="cb22-245"><a href="#cb22-245"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
-<span id="cb22-246"><a href="#cb22-246"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
-<span id="cb22-247"><a href="#cb22-247"></a><span class="in">```</span></span>
-<span id="cb22-248"><a href="#cb22-248"></a></span>
-<span id="cb22-249"><a href="#cb22-249"></a></span>
-<span id="cb22-250"><a href="#cb22-250"></a><span class="fu">## Writing Data</span></span>
-<span id="cb22-251"><a href="#cb22-251"></a></span>
-<span id="cb22-254"><a href="#cb22-254"></a><span class="in">```{r}</span></span>
-<span id="cb22-255"><a href="#cb22-255"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
-<span id="cb22-256"><a href="#cb22-256"></a><span class="fu">dbWriteTableArrow</span>(con, <span class="st">"tbl_new"</span>, stream)</span>
-<span id="cb22-257"><a href="#cb22-257"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_new"</span>)</span>
-<span id="cb22-258"><a href="#cb22-258"></a><span class="in">```</span></span>
-<span id="cb22-259"><a href="#cb22-259"></a></span>
-<span id="cb22-260"><a href="#cb22-260"></a><span class="fu">## Appending Data</span></span>
-<span id="cb22-261"><a href="#cb22-261"></a></span>
-<span id="cb22-264"><a href="#cb22-264"></a><span class="in">```{r}</span></span>
-<span id="cb22-265"><a href="#cb22-265"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
-<span id="cb22-266"><a href="#cb22-266"></a><span class="fu">dbCreateTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
-<span id="cb22-267"><a href="#cb22-267"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
-<span id="cb22-268"><a href="#cb22-268"></a><span class="in">```</span></span>
-<span id="cb22-269"><a href="#cb22-269"></a></span>
-<span id="cb22-270"><a href="#cb22-270"></a></span>
-<span id="cb22-273"><a href="#cb22-273"></a><span class="in">```{r}</span></span>
-<span id="cb22-274"><a href="#cb22-274"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &gt;= 3"</span>)</span>
-<span id="cb22-275"><a href="#cb22-275"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
-<span id="cb22-276"><a href="#cb22-276"></a><span class="in">```</span></span>
-<span id="cb22-277"><a href="#cb22-277"></a></span>
-<span id="cb22-280"><a href="#cb22-280"></a><span class="in">```{r}</span></span>
-<span id="cb22-281"><a href="#cb22-281"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_split"</span>)</span>
-<span id="cb22-282"><a href="#cb22-282"></a><span class="in">```</span></span>
-<span id="cb22-283"><a href="#cb22-283"></a></span>
-<span id="cb22-284"><a href="#cb22-284"></a></span>
-<span id="cb22-285"><a href="#cb22-285"></a><span class="fu">## Coculution</span></span>
-<span id="cb22-286"><a href="#cb22-286"></a></span>
-<span id="cb22-289"><a href="#cb22-289"></a><span class="in">```{r}</span></span>
-<span id="cb22-290"><a href="#cb22-290"></a><span class="fu">dbDisconnect</span>(con)</span>
-<span id="cb22-291"><a href="#cb22-291"></a><span class="in">```</span></span>
-<span id="cb22-292"><a href="#cb22-292"></a></span>
-<span id="cb22-293"><a href="#cb22-293"></a></span>
+<div class="sourceCode" id="cb24" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">---</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="an">title:</span><span class="co"> "DBI"</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">  cache: true</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="an">filters:</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">---</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="in">```{r}</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="co">#| include: false</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb24-16"><a href="#cb24-16"></a></span>
+<span id="cb24-17"><a href="#cb24-17"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/R/DBI"</span>)</span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="fu">print</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="fu">print</span>(cur_dir)</span>
+<span id="cb24-20"><a href="#cb24-20"></a><span class="in">```</span></span>
+<span id="cb24-21"><a href="#cb24-21"></a></span>
+<span id="cb24-22"><a href="#cb24-22"></a></span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="in">```{r}</span></span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="co">#| warning: false</span></span>
+<span id="cb24-27"><a href="#cb24-27"></a><span class="co">#| message: false</span></span>
+<span id="cb24-28"><a href="#cb24-28"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb24-29"><a href="#cb24-29"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb24-30"><a href="#cb24-30"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb24-31"><a href="#cb24-31"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb24-32"><a href="#cb24-32"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb24-33"><a href="#cb24-33"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb24-34"><a href="#cb24-34"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb24-35"><a href="#cb24-35"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb24-36"><a href="#cb24-36"></a><span class="fu">library</span>(nanoarrow)</span>
+<span id="cb24-37"><a href="#cb24-37"></a><span class="fu">library</span>(odbc)</span>
+<span id="cb24-38"><a href="#cb24-38"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb24-39"><a href="#cb24-39"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb24-40"><a href="#cb24-40"></a>dotenv<span class="sc">::</span><span class="fu">load_dot_env</span>(<span class="fu">file.path</span>(here<span class="sc">::</span><span class="fu">here</span>(), <span class="st">".env"</span>))</span>
+<span id="cb24-41"><a href="#cb24-41"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb24-42"><a href="#cb24-42"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb24-43"><a href="#cb24-43"></a></span>
+<span id="cb24-44"><a href="#cb24-44"></a><span class="in">```</span></span>
+<span id="cb24-45"><a href="#cb24-45"></a></span>
+<span id="cb24-46"><a href="#cb24-46"></a><span class="fu"># はじめに</span></span>
+<span id="cb24-47"><a href="#cb24-47"></a></span>
+<span id="cb24-48"><a href="#cb24-48"></a>ODBCクライアントAPIである。</span>
+<span id="cb24-49"><a href="#cb24-49"></a></span>
+<span id="cb24-50"><a href="#cb24-50"></a><span class="fu"># Basic API Usage</span></span>
+<span id="cb24-51"><a href="#cb24-51"></a></span>
+<span id="cb24-52"><a href="#cb24-52"></a><span class="co">[</span><span class="ot">ここ</span><span class="co">](https://solutions.posit.co/connections/db/r-packages/dbi/)</span>を参照している。</span>
+<span id="cb24-53"><a href="#cb24-53"></a></span>
+<span id="cb24-56"><a href="#cb24-56"></a><span class="in">```{r}</span></span>
+<span id="cb24-57"><a href="#cb24-57"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb24-58"><a href="#cb24-58"></a><span class="co"># Create an ephemeral in-memory RSQLite database</span></span>
+<span id="cb24-59"><a href="#cb24-59"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">":memory:"</span>)</span>
+<span id="cb24-60"><a href="#cb24-60"></a></span>
+<span id="cb24-61"><a href="#cb24-61"></a><span class="fu">dbListTables</span>(con)</span>
+<span id="cb24-62"><a href="#cb24-62"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"mtcars"</span>, mtcars)</span>
+<span id="cb24-63"><a href="#cb24-63"></a><span class="fu">dbListTables</span>(con)</span>
+<span id="cb24-64"><a href="#cb24-64"></a></span>
+<span id="cb24-65"><a href="#cb24-65"></a><span class="fu">dbListFields</span>(con, <span class="st">"mtcars"</span>)</span>
+<span id="cb24-66"><a href="#cb24-66"></a><span class="fu">dbReadTable</span>(con, <span class="st">"mtcars"</span>)</span>
+<span id="cb24-67"><a href="#cb24-67"></a></span>
+<span id="cb24-68"><a href="#cb24-68"></a><span class="co"># You can fetch all results:</span></span>
+<span id="cb24-69"><a href="#cb24-69"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
+<span id="cb24-70"><a href="#cb24-70"></a><span class="fu">dbFetch</span>(res)</span>
+<span id="cb24-71"><a href="#cb24-71"></a><span class="fu">dbClearResult</span>(res)</span>
+<span id="cb24-72"><a href="#cb24-72"></a></span>
+<span id="cb24-73"><a href="#cb24-73"></a><span class="co"># Or a chunk at a time</span></span>
+<span id="cb24-74"><a href="#cb24-74"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
+<span id="cb24-75"><a href="#cb24-75"></a><span class="cf">while</span>(<span class="sc">!</span><span class="fu">dbHasCompleted</span>(res)){</span>
+<span id="cb24-76"><a href="#cb24-76"></a>  chunk <span class="ot">&lt;-</span> <span class="fu">dbFetch</span>(res, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb24-77"><a href="#cb24-77"></a>  <span class="fu">print</span>(<span class="fu">nrow</span>(chunk))</span>
+<span id="cb24-78"><a href="#cb24-78"></a>}</span>
+<span id="cb24-79"><a href="#cb24-79"></a><span class="fu">dbClearResult</span>(res)</span>
+<span id="cb24-80"><a href="#cb24-80"></a></span>
+<span id="cb24-81"><a href="#cb24-81"></a><span class="fu">dbDisconnect</span>(con)</span>
+<span id="cb24-82"><a href="#cb24-82"></a><span class="in">```</span></span>
+<span id="cb24-83"><a href="#cb24-83"></a></span>
+<span id="cb24-84"><a href="#cb24-84"></a></span>
+<span id="cb24-85"><a href="#cb24-85"></a></span>
+<span id="cb24-88"><a href="#cb24-88"></a><span class="in">```{r}</span></span>
+<span id="cb24-89"><a href="#cb24-89"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb24-90"><a href="#cb24-90"></a></span>
+<span id="cb24-91"><a href="#cb24-91"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"cars"</span>, <span class="fu">head</span>(cars, <span class="dv">3</span>))</span>
+<span id="cb24-92"><a href="#cb24-92"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are 3 rows</span></span>
+<span id="cb24-93"><a href="#cb24-93"></a><span class="fu">dbExecute</span>(</span>
+<span id="cb24-94"><a href="#cb24-94"></a>  con,</span>
+<span id="cb24-95"><a href="#cb24-95"></a>  <span class="st">"INSERT INTO cars (speed, dist) VALUES (1, 1), (2, 2), (3, 3)"</span></span>
+<span id="cb24-96"><a href="#cb24-96"></a>)</span>
+<span id="cb24-97"><a href="#cb24-97"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are now 6 rows</span></span>
+<span id="cb24-98"><a href="#cb24-98"></a></span>
+<span id="cb24-99"><a href="#cb24-99"></a><span class="co"># Pass values using the param argument:</span></span>
+<span id="cb24-100"><a href="#cb24-100"></a><span class="fu">dbExecute</span>(</span>
+<span id="cb24-101"><a href="#cb24-101"></a>  con,</span>
+<span id="cb24-102"><a href="#cb24-102"></a>  <span class="st">"INSERT INTO cars (speed, dist) VALUES (?, ?)"</span>,</span>
+<span id="cb24-103"><a href="#cb24-103"></a>  <span class="at">params =</span> <span class="fu">list</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb24-104"><a href="#cb24-104"></a>)</span>
+<span id="cb24-105"><a href="#cb24-105"></a><span class="fu">dbReadTable</span>(con, <span class="st">"cars"</span>)   <span class="co"># there are now 10 rows</span></span>
+<span id="cb24-106"><a href="#cb24-106"></a></span>
+<span id="cb24-107"><a href="#cb24-107"></a><span class="fu">dbDisconnect</span>(con)</span>
+<span id="cb24-108"><a href="#cb24-108"></a><span class="in">```</span></span>
+<span id="cb24-109"><a href="#cb24-109"></a></span>
+<span id="cb24-110"><a href="#cb24-110"></a></span>
+<span id="cb24-111"><a href="#cb24-111"></a></span>
+<span id="cb24-112"><a href="#cb24-112"></a></span>
+<span id="cb24-113"><a href="#cb24-113"></a><span class="fu"># Using DBI with Arrow</span></span>
+<span id="cb24-114"><a href="#cb24-114"></a></span>
+<span id="cb24-115"><a href="#cb24-115"></a>Apache Arrowを使うための次のAPIが追加されている。</span>
+<span id="cb24-116"><a href="#cb24-116"></a></span>
+<span id="cb24-117"><a href="#cb24-117"></a><span class="ss">- </span><span class="in">`dbReadTableArrow()`</span></span>
+<span id="cb24-118"><a href="#cb24-118"></a><span class="ss">- </span><span class="in">`dbWriteTableArrow()`</span></span>
+<span id="cb24-119"><a href="#cb24-119"></a><span class="ss">- </span><span class="in">`dbCreateTableArrow()`</span></span>
+<span id="cb24-120"><a href="#cb24-120"></a><span class="ss">- </span><span class="in">`dbAppendTableArrow()`</span></span>
+<span id="cb24-121"><a href="#cb24-121"></a><span class="ss">- </span><span class="in">`dbGetQueryArrow()`</span></span>
+<span id="cb24-122"><a href="#cb24-122"></a><span class="ss">- </span><span class="in">`dbSendQueryArrow()`</span></span>
+<span id="cb24-123"><a href="#cb24-123"></a><span class="ss">- </span><span class="in">`dbBindArrow()`</span></span>
+<span id="cb24-124"><a href="#cb24-124"></a><span class="ss">- </span><span class="in">`dbFetchArrow()`</span></span>
+<span id="cb24-125"><a href="#cb24-125"></a><span class="ss">- </span><span class="in">`dbFetchArrowChunk()`</span></span>
+<span id="cb24-126"><a href="#cb24-126"></a><span class="ss">- </span><span class="in">`DBIResultArrow-class`</span></span>
+<span id="cb24-127"><a href="#cb24-127"></a><span class="ss">- </span><span class="in">`DBIResultArrowDefault-class`</span></span>
+<span id="cb24-128"><a href="#cb24-128"></a></span>
+<span id="cb24-129"><a href="#cb24-129"></a></span>
+<span id="cb24-130"><a href="#cb24-130"></a><span class="fu">## Prepare</span></span>
+<span id="cb24-131"><a href="#cb24-131"></a></span>
+<span id="cb24-134"><a href="#cb24-134"></a><span class="in">```{r}</span></span>
+<span id="cb24-135"><a href="#cb24-135"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>())</span>
+<span id="cb24-136"><a href="#cb24-136"></a></span>
+<span id="cb24-137"><a href="#cb24-137"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb24-138"><a href="#cb24-138"></a>  <span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb24-139"><a href="#cb24-139"></a>  <span class="at">b =</span> <span class="fl">4.5</span>,</span>
+<span id="cb24-140"><a href="#cb24-140"></a>  <span class="at">c =</span> <span class="st">"five"</span></span>
+<span id="cb24-141"><a href="#cb24-141"></a>)</span>
+<span id="cb24-142"><a href="#cb24-142"></a></span>
+<span id="cb24-143"><a href="#cb24-143"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"tbl"</span>, data)</span>
+<span id="cb24-144"><a href="#cb24-144"></a><span class="in">```</span></span>
+<span id="cb24-145"><a href="#cb24-145"></a></span>
+<span id="cb24-146"><a href="#cb24-146"></a></span>
+<span id="cb24-147"><a href="#cb24-147"></a></span>
+<span id="cb24-148"><a href="#cb24-148"></a><span class="fu">## Read all rows from table</span></span>
+<span id="cb24-149"><a href="#cb24-149"></a></span>
+<span id="cb24-152"><a href="#cb24-152"></a><span class="in">```{r}</span></span>
+<span id="cb24-153"><a href="#cb24-153"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbReadTableArrow</span>(con, <span class="st">"tbl"</span>)</span>
+<span id="cb24-154"><a href="#cb24-154"></a>stream</span>
+<span id="cb24-155"><a href="#cb24-155"></a><span class="in">```</span></span>
+<span id="cb24-156"><a href="#cb24-156"></a></span>
+<span id="cb24-157"><a href="#cb24-157"></a></span>
+<span id="cb24-160"><a href="#cb24-160"></a><span class="in">```{r}</span></span>
+<span id="cb24-161"><a href="#cb24-161"></a>stream<span class="sc">$</span><span class="fu">get_schema</span>()</span>
+<span id="cb24-162"><a href="#cb24-162"></a><span class="in">```</span></span>
+<span id="cb24-163"><a href="#cb24-163"></a></span>
+<span id="cb24-164"><a href="#cb24-164"></a></span>
+<span id="cb24-167"><a href="#cb24-167"></a><span class="in">```{r}</span></span>
+<span id="cb24-168"><a href="#cb24-168"></a><span class="fu">as_tibble</span>(stream)</span>
+<span id="cb24-169"><a href="#cb24-169"></a><span class="in">```</span></span>
+<span id="cb24-170"><a href="#cb24-170"></a></span>
+<span id="cb24-171"><a href="#cb24-171"></a></span>
+<span id="cb24-172"><a href="#cb24-172"></a></span>
+<span id="cb24-173"><a href="#cb24-173"></a><span class="fu">## Run queries</span></span>
+<span id="cb24-174"><a href="#cb24-174"></a></span>
+<span id="cb24-177"><a href="#cb24-177"></a><span class="in">```{r}</span></span>
+<span id="cb24-178"><a href="#cb24-178"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT COUNT(*) AS n FROM tbl WHERE a &lt; 3"</span>)</span>
+<span id="cb24-179"><a href="#cb24-179"></a>stream</span>
+<span id="cb24-180"><a href="#cb24-180"></a><span class="in">```</span></span>
+<span id="cb24-181"><a href="#cb24-181"></a></span>
+<span id="cb24-182"><a href="#cb24-182"></a></span>
+<span id="cb24-183"><a href="#cb24-183"></a>ファイルに書き出す。</span>
+<span id="cb24-184"><a href="#cb24-184"></a></span>
+<span id="cb24-185"><a href="#cb24-185"></a></span>
+<span id="cb24-188"><a href="#cb24-188"></a><span class="in">```{r}</span></span>
+<span id="cb24-189"><a href="#cb24-189"></a>path <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
+<span id="cb24-190"><a href="#cb24-190"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(arrow<span class="sc">::</span><span class="fu">as_record_batch_reader</span>(stream), path)</span>
+<span id="cb24-191"><a href="#cb24-191"></a>arrow<span class="sc">::</span><span class="fu">read_parquet</span>(path)</span>
+<span id="cb24-192"><a href="#cb24-192"></a><span class="in">```</span></span>
+<span id="cb24-193"><a href="#cb24-193"></a></span>
+<span id="cb24-194"><a href="#cb24-194"></a></span>
+<span id="cb24-195"><a href="#cb24-195"></a><span class="fu">## Prepared queries</span></span>
+<span id="cb24-196"><a href="#cb24-196"></a></span>
+<span id="cb24-197"><a href="#cb24-197"></a>クエリに使うパラメータをデータフレームから渡すことができる。</span>
+<span id="cb24-198"><a href="#cb24-198"></a></span>
+<span id="cb24-201"><a href="#cb24-201"></a><span class="in">```{r}</span></span>
+<span id="cb24-202"><a href="#cb24-202"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> 3L)</span>
+<span id="cb24-203"><a href="#cb24-203"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
+<span id="cb24-204"><a href="#cb24-204"></a><span class="fu">as.data.frame</span>(stream)</span>
+<span id="cb24-205"><a href="#cb24-205"></a><span class="in">```</span></span>
+<span id="cb24-206"><a href="#cb24-206"></a></span>
+<span id="cb24-207"><a href="#cb24-207"></a></span>
+<span id="cb24-208"><a href="#cb24-208"></a>パラメータが不足するときには最期の値がrecursiveする。</span>
+<span id="cb24-209"><a href="#cb24-209"></a></span>
+<span id="cb24-212"><a href="#cb24-212"></a><span class="in">```{r}</span></span>
+<span id="cb24-213"><a href="#cb24-213"></a>params <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(2L, 4L))</span>
+<span id="cb24-214"><a href="#cb24-214"></a><span class="co"># Equivalent to dbBind()</span></span>
+<span id="cb24-215"><a href="#cb24-215"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>, <span class="at">params =</span> params)</span>
+<span id="cb24-216"><a href="#cb24-216"></a><span class="fu">as.data.frame</span>(stream)</span>
+<span id="cb24-217"><a href="#cb24-217"></a><span class="in">```</span></span>
+<span id="cb24-218"><a href="#cb24-218"></a></span>
+<span id="cb24-219"><a href="#cb24-219"></a></span>
+<span id="cb24-220"><a href="#cb24-220"></a><span class="fu">## Manual flow</span></span>
+<span id="cb24-221"><a href="#cb24-221"></a></span>
+<span id="cb24-222"><a href="#cb24-222"></a><span class="in">`dbSendQueryArrow`</span>を使うとクエリを送付し、<span class="in">`dbFetchArrow`</span>で結果を取得する。</span>
+<span id="cb24-223"><a href="#cb24-223"></a>これらは<span class="in">`dbBindArrow`</span>を使うことでもできる。処理後は必ず<span class="in">`dbClearResult`</span>を使いクリアすることになる。</span>
+<span id="cb24-224"><a href="#cb24-224"></a></span>
+<span id="cb24-227"><a href="#cb24-227"></a><span class="in">```{r}</span></span>
+<span id="cb24-228"><a href="#cb24-228"></a>rs <span class="ot">&lt;-</span> <span class="fu">dbSendQueryArrow</span>(con, <span class="st">"SELECT $a AS batch, * FROM tbl WHERE a &lt; $a"</span>)</span>
+<span id="cb24-229"><a href="#cb24-229"></a></span>
+<span id="cb24-230"><a href="#cb24-230"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 1L))</span>
+<span id="cb24-231"><a href="#cb24-231"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
+<span id="cb24-232"><a href="#cb24-232"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
+<span id="cb24-233"><a href="#cb24-233"></a><span class="in">```</span></span>
+<span id="cb24-234"><a href="#cb24-234"></a></span>
+<span id="cb24-237"><a href="#cb24-237"></a><span class="in">```{r}</span></span>
+<span id="cb24-238"><a href="#cb24-238"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 2L))</span>
+<span id="cb24-239"><a href="#cb24-239"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
+<span id="cb24-240"><a href="#cb24-240"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
+<span id="cb24-241"><a href="#cb24-241"></a><span class="in">```</span></span>
+<span id="cb24-242"><a href="#cb24-242"></a></span>
+<span id="cb24-245"><a href="#cb24-245"></a><span class="in">```{r}</span></span>
+<span id="cb24-246"><a href="#cb24-246"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> 3L))</span>
+<span id="cb24-247"><a href="#cb24-247"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
+<span id="cb24-248"><a href="#cb24-248"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
+<span id="cb24-249"><a href="#cb24-249"></a><span class="in">```</span></span>
+<span id="cb24-250"><a href="#cb24-250"></a></span>
+<span id="cb24-253"><a href="#cb24-253"></a><span class="in">```{r}</span></span>
+<span id="cb24-254"><a href="#cb24-254"></a>in_arrow <span class="ot">&lt;-</span> nanoarrow<span class="sc">::</span><span class="fu">as_nanoarrow_array</span>(<span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span>4L))</span>
+<span id="cb24-255"><a href="#cb24-255"></a><span class="fu">dbBindArrow</span>(rs, in_arrow)</span>
+<span id="cb24-256"><a href="#cb24-256"></a><span class="fu">as.data.frame</span>(<span class="fu">dbFetchArrow</span>(rs))</span>
+<span id="cb24-257"><a href="#cb24-257"></a><span class="in">```</span></span>
+<span id="cb24-258"><a href="#cb24-258"></a></span>
+<span id="cb24-259"><a href="#cb24-259"></a></span>
+<span id="cb24-260"><a href="#cb24-260"></a><span class="fu">## Writing Data</span></span>
+<span id="cb24-261"><a href="#cb24-261"></a></span>
+<span id="cb24-264"><a href="#cb24-264"></a><span class="in">```{r}</span></span>
+<span id="cb24-265"><a href="#cb24-265"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
+<span id="cb24-266"><a href="#cb24-266"></a><span class="fu">dbWriteTableArrow</span>(con, <span class="st">"tbl_new"</span>, stream)</span>
+<span id="cb24-267"><a href="#cb24-267"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_new"</span>)</span>
+<span id="cb24-268"><a href="#cb24-268"></a><span class="in">```</span></span>
+<span id="cb24-269"><a href="#cb24-269"></a></span>
+<span id="cb24-270"><a href="#cb24-270"></a><span class="fu">## Appending Data</span></span>
+<span id="cb24-271"><a href="#cb24-271"></a></span>
+<span id="cb24-274"><a href="#cb24-274"></a><span class="in">```{r}</span></span>
+<span id="cb24-275"><a href="#cb24-275"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &lt; 3"</span>)</span>
+<span id="cb24-276"><a href="#cb24-276"></a><span class="fu">dbCreateTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
+<span id="cb24-277"><a href="#cb24-277"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
+<span id="cb24-278"><a href="#cb24-278"></a><span class="in">```</span></span>
+<span id="cb24-279"><a href="#cb24-279"></a></span>
+<span id="cb24-280"><a href="#cb24-280"></a></span>
+<span id="cb24-283"><a href="#cb24-283"></a><span class="in">```{r}</span></span>
+<span id="cb24-284"><a href="#cb24-284"></a>stream <span class="ot">&lt;-</span> <span class="fu">dbGetQueryArrow</span>(con, <span class="st">"SELECT * FROM tbl WHERE a &gt;= 3"</span>)</span>
+<span id="cb24-285"><a href="#cb24-285"></a><span class="fu">dbAppendTableArrow</span>(con, <span class="st">"tbl_split"</span>, stream)</span>
+<span id="cb24-286"><a href="#cb24-286"></a><span class="in">```</span></span>
+<span id="cb24-287"><a href="#cb24-287"></a></span>
+<span id="cb24-290"><a href="#cb24-290"></a><span class="in">```{r}</span></span>
+<span id="cb24-291"><a href="#cb24-291"></a><span class="fu">dbReadTable</span>(con, <span class="st">"tbl_split"</span>)</span>
+<span id="cb24-292"><a href="#cb24-292"></a><span class="in">```</span></span>
+<span id="cb24-293"><a href="#cb24-293"></a></span>
+<span id="cb24-294"><a href="#cb24-294"></a></span>
+<span id="cb24-295"><a href="#cb24-295"></a><span class="fu">## disconnect</span></span>
+<span id="cb24-296"><a href="#cb24-296"></a></span>
+<span id="cb24-299"><a href="#cb24-299"></a><span class="in">```{r}</span></span>
+<span id="cb24-300"><a href="#cb24-300"></a><span class="fu">dbDisconnect</span>(con)</span>
+<span id="cb24-301"><a href="#cb24-301"></a><span class="in">```</span></span>
+<span id="cb24-302"><a href="#cb24-302"></a></span>
+<span id="cb24-303"><a href="#cb24-303"></a></span>
+<span id="cb24-304"><a href="#cb24-304"></a><span class="fu"># Connect Snowflake</span></span>
+<span id="cb24-305"><a href="#cb24-305"></a></span>
+<span id="cb24-306"><a href="#cb24-306"></a><span class="fu">## Connect</span></span>
+<span id="cb24-307"><a href="#cb24-307"></a></span>
+<span id="cb24-310"><a href="#cb24-310"></a><span class="in">```{r}</span></span>
+<span id="cb24-311"><a href="#cb24-311"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
+<span id="cb24-312"><a href="#cb24-312"></a>  odbc<span class="sc">::</span><span class="fu">odbc</span>(), </span>
+<span id="cb24-313"><a href="#cb24-313"></a>  <span class="at">Driver =</span> <span class="st">"SnowflakeDSIIDriver"</span>,</span>
+<span id="cb24-314"><a href="#cb24-314"></a>  <span class="at">Server =</span> <span class="fu">paste0</span>(<span class="fu">Sys.getenv</span>(<span class="st">"SNOW_ACCOUNT"</span>), <span class="st">".snowflakecomputing.com"</span>), </span>
+<span id="cb24-315"><a href="#cb24-315"></a>  <span class="at">UID =</span> <span class="fu">Sys.getenv</span>(<span class="st">"USER"</span>), </span>
+<span id="cb24-316"><a href="#cb24-316"></a>  <span class="at">PWD =</span> <span class="fu">Sys.getenv</span>(<span class="st">"PASSWORD"</span>), </span>
+<span id="cb24-317"><a href="#cb24-317"></a>  <span class="at">warehouse =</span> <span class="fu">Sys.getenv</span>(<span class="st">"SNOW_WAREHOUSE"</span>), </span>
+<span id="cb24-318"><a href="#cb24-318"></a>  <span class="at">role =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ROLE"</span>)</span>
+<span id="cb24-319"><a href="#cb24-319"></a>)</span>
+<span id="cb24-320"><a href="#cb24-320"></a><span class="in">```</span></span>
+<span id="cb24-321"><a href="#cb24-321"></a></span>
+<span id="cb24-322"><a href="#cb24-322"></a></span>
+<span id="cb24-323"><a href="#cb24-323"></a><span class="fu">## run query</span></span>
+<span id="cb24-324"><a href="#cb24-324"></a></span>
+<span id="cb24-327"><a href="#cb24-327"></a><span class="in">```{r}</span></span>
+<span id="cb24-328"><a href="#cb24-328"></a><span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM SZK_DEV.PUBLIC.JAPANESE LIMIT 5"</span>)</span>
+<span id="cb24-329"><a href="#cb24-329"></a><span class="in">```</span></span>
+<span id="cb24-330"><a href="#cb24-330"></a></span>
+<span id="cb24-331"><a href="#cb24-331"></a></span>
+<span id="cb24-332"><a href="#cb24-332"></a><span class="fu">## disconnect</span></span>
+<span id="cb24-333"><a href="#cb24-333"></a></span>
+<span id="cb24-336"><a href="#cb24-336"></a><span class="in">```{r}</span></span>
+<span id="cb24-337"><a href="#cb24-337"></a><span class="fu">dbDisconnect</span>(con)</span>
+<span id="cb24-338"><a href="#cb24-338"></a><span class="in">```</span></span>
+<span id="cb24-339"><a href="#cb24-339"></a></span>
+<span id="cb24-340"><a href="#cb24-340"></a></span>
+<span id="cb24-341"><a href="#cb24-341"></a></span>
+<span id="cb24-342"><a href="#cb24-342"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-
 
 
 
