@@ -1,0 +1,55 @@
+/* css styles */
+p {
+    line-height: 1.6em;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+p::first-letter {
+    padding-left: 1em;
+}
+ul, li, dl, td {
+    line-height: 1.8em;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+strong {
+    color:tomato;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+}
+
+section[class~=level1] > h1 {
+  border-bottom: .2rem solid #2c3e50;
+}
+
+#quarto-content {
+  max-width: 1500px;
+  width: calc(100vw - 15px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.sidebar-item-container {
+  font-size: 0.775rem;
+}
+
+div.cell {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+section[class~=level1] > h1 {
+  color: #2c3e50;/*文字色*/
+  background: transparent;/*背景透明に*/
+}
+section[class~=level2] > h2 {
+  color: #2c3e50;/*文字色*/
+}
+section[class~=level3] > h3 {
+  color: #2c3e50;/*文字色*/
+}
+img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
