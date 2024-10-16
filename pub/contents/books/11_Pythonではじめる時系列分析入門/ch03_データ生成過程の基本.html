@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tips - はじめに</title>
+<title>R Tips - データ生成過程の基本</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch04_pandasによる日付処理の基本.html" rel="next">
 <link href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -349,7 +350,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">Pythonではじめる時系列分析</a></li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html">はじめに</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">Pythonではじめる時系列分析</a></li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html">データ生成過程の基本</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -920,19 +921,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">時系列分析をはじめよう</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">時系列データの構造</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">データ生成過程の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch04_pandasによる日付処理の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pandasによる日付処理の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch05_Pythonによる時系列分析の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pythonによる時系列分析の基本</span></a>
   </div>
 </li>
       </ul>
@@ -949,11 +962,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#表記" id="toc-表記" class="nav-link active" data-scroll-target="#表記"><span class="header-section-number">1</span> 表記</a></li>
-  <li><a href="#分析が楽なデータ生成過程" id="toc-分析が楽なデータ生成過程" class="nav-link" data-scroll-target="#分析が楽なデータ生成過程"><span class="header-section-number">2</span> 分析が楽なデータ生成過程</a></li>
-  <li><a href="#自己共分散と自己相関" id="toc-自己共分散と自己相関" class="nav-link" data-scroll-target="#自己共分散と自己相関"><span class="header-section-number">3</span> 自己共分散と自己相関</a></li>
-  <li><a href="#強定常過程" id="toc-強定常過程" class="nav-link" data-scroll-target="#強定常過程"><span class="header-section-number">4</span> 強定常過程</a></li>
-  <li><a href="#弱定常過程" id="toc-弱定常過程" class="nav-link" data-scroll-target="#弱定常過程"><span class="header-section-number">5</span> 弱定常過程</a></li>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  <li><a href="#表記" id="toc-表記" class="nav-link" data-scroll-target="#表記"><span class="header-section-number">2</span> 表記</a></li>
+  <li><a href="#分析が楽なデータ生成過程" id="toc-分析が楽なデータ生成過程" class="nav-link" data-scroll-target="#分析が楽なデータ生成過程"><span class="header-section-number">3</span> 分析が楽なデータ生成過程</a></li>
+  <li><a href="#自己共分散と自己相関" id="toc-自己共分散と自己相関" class="nav-link" data-scroll-target="#自己共分散と自己相関"><span class="header-section-number">4</span> 自己共分散と自己相関</a></li>
+  <li><a href="#強定常過程" id="toc-強定常過程" class="nav-link" data-scroll-target="#強定常過程"><span class="header-section-number">5</span> 強定常過程</a></li>
+  <li><a href="#弱定常過程" id="toc-弱定常過程" class="nav-link" data-scroll-target="#弱定常過程"><span class="header-section-number">6</span> 弱定常過程</a></li>
   </ul>
 </nav>
     </div>
@@ -962,7 +976,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">はじめに</h1>
+<h1 class="title">データ生成過程の基本</h1>
 </div>
 
 
@@ -977,15 +991,18 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
 <p>表記方法⇒分析が楽なデータ生成過程⇒自己共分散と自己相関⇒定常過程⇒ホワイトノイズと正規ホワイトノイズ⇒ランダウォーク⇒確定的トレンドと確率的トレンド</p>
-<section id="表記" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> 表記</h1>
+</section>
+<section id="表記" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 表記</h1>
 <ul>
 <li><span class="math inline">\(y_t\)</span>は確率変数でもあり、その実現値でもある</li>
 </ul>
 </section>
-<section id="分析が楽なデータ生成過程" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 分析が楽なデータ生成過程</h1>
+<section id="分析が楽なデータ生成過程" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 分析が楽なデータ生成過程</h1>
 <ul>
 <li><p>定常データは楽</p></li>
 <li><p><span class="math inline">\(\hat{Cov}_k\)</span>は<span class="math inline">\(k\)</span>次の標本自己共分散である</p></li>
@@ -999,8 +1016,8 @@ ul.task-list li input[type="checkbox"] {
 \end{align}
 \]</span></p>
 </section>
-<section id="自己共分散と自己相関" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 自己共分散と自己相関</h1>
+<section id="自己共分散と自己相関" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 自己共分散と自己相関</h1>
 <p><span class="math display">\[
 \begin{align}
 \mathrm{Cov}(y_t, y_{t-k}) &amp;= \mathrm{E}[(y_t-\mu_t)(y_{t-k}-\mu_{t-k})] \\
@@ -1009,13 +1026,13 @@ ul.task-list li input[type="checkbox"] {
 \end{align}
 \]</span></p>
 </section>
-<section id="強定常過程" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 強定常過程</h1>
+<section id="強定常過程" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 強定常過程</h1>
 <p>時系列データ<span class="math inline">\(y_t, y_{t+1}, \dots, y_{t+k}\)</span>を<span class="math inline">\(h\)</span>シフトした<span class="math inline">\(y_{t+h}, y_{t+h+1}, \dots, y_{t+h+k}\)</span>を考えたときに、両者の同時分布が常に等しくなるようなデータの生成過程のこと</p>
 </section>
-<section id="弱定常過程" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 弱定常過程</h1>
-<p>平均値と共分散が時間によらない</p>
+<section id="弱定常過程" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> 弱定常過程</h1>
+<p>平均値と共分散が時間によらずシフト量だけに影響する</p>
 <p><span class="math display">\[
 \begin{align}
 E(y_t) &amp;= \mu \\
@@ -1316,10 +1333,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
       <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">はじめに</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">時系列データの構造</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch04_pandasによる日付処理の基本.html" class="pagination-link">
+        <span class="nav-page-text">pandasによる日付処理の基本</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

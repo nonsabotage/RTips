@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tips - はじめに</title>
+<title>R Tips - 時系列データの構造</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -348,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">Pythonではじめる時系列分析</a></li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html">はじめに</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">Pythonではじめる時系列分析</a></li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html">時系列データの構造</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -919,19 +919,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">時系列分析をはじめよう</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">時系列データの構造</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">データ生成過程の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch04_pandasによる日付処理の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pandasによる日付処理の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch05_Pythonによる時系列分析の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pythonによる時系列分析の基本</span></a>
   </div>
 </li>
       </ul>
@@ -943,15 +955,21 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">はじめに</h1>
+<h1 class="title">時系列データの構造</h1>
 </div>
 
 
@@ -966,9 +984,12 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
 <p>時系列データの構造⇒自己相関⇒トレンド⇒季節性⇒外因性⇒ノイズ</p>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1255,15 +1276,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
       <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">はじめに</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">時系列分析をはじめよう</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html" class="pagination-link">
-        <span class="nav-page-text">はじめに</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">データ生成過程の基本</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

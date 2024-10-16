@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tips - はじめに</title>
+<title>R Tips - 時系列分析をはじめよう</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -348,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">Pythonではじめる時系列分析</a></li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html">はじめに</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">Pythonではじめる時系列分析</a></li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html">時系列分析をはじめよう</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -919,19 +919,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">時系列分析をはじめよう</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">時系列データの構造</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">はじめに</span></a>
+ <span class="menu-text">データ生成過程の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch04_pandasによる日付処理の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pandasによる日付処理の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch05_Pythonによる時系列分析の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pythonによる時系列分析の基本</span></a>
   </div>
 </li>
       </ul>
@@ -948,10 +960,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#時系列データとは" id="toc-時系列データとは" class="nav-link active" data-scroll-target="#時系列データとは"><span class="header-section-number">1</span> 時系列データとは</a></li>
-  <li><a href="#時系列でないデータを用いた推測" id="toc-時系列でないデータを用いた推測" class="nav-link" data-scroll-target="#時系列でないデータを用いた推測"><span class="header-section-number">2</span> 時系列でないデータを用いた推測</a></li>
-  <li><a href="#単純ランダムサンプリングからの乖離" id="toc-単純ランダムサンプリングからの乖離" class="nav-link" data-scroll-target="#単純ランダムサンプリングからの乖離"><span class="header-section-number">3</span> 単純ランダムサンプリングからの乖離</a></li>
-  <li><a href="#時系列データの回帰分析の問題" id="toc-時系列データの回帰分析の問題" class="nav-link" data-scroll-target="#時系列データの回帰分析の問題"><span class="header-section-number">4</span> 時系列データの回帰分析の問題</a></li>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  <li><a href="#時系列データとは" id="toc-時系列データとは" class="nav-link" data-scroll-target="#時系列データとは"><span class="header-section-number">2</span> 時系列データとは</a></li>
+  <li><a href="#時系列でないデータを用いた推測" id="toc-時系列でないデータを用いた推測" class="nav-link" data-scroll-target="#時系列でないデータを用いた推測"><span class="header-section-number">3</span> 時系列でないデータを用いた推測</a></li>
+  <li><a href="#単純ランダムサンプリングからの乖離" id="toc-単純ランダムサンプリングからの乖離" class="nav-link" data-scroll-target="#単純ランダムサンプリングからの乖離"><span class="header-section-number">4</span> 単純ランダムサンプリングからの乖離</a></li>
+  <li><a href="#時系列データの回帰分析の問題" id="toc-時系列データの回帰分析の問題" class="nav-link" data-scroll-target="#時系列データの回帰分析の問題"><span class="header-section-number">5</span> 時系列データの回帰分析の問題</a></li>
   </ul>
 </nav>
     </div>
@@ -960,7 +973,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">はじめに</h1>
+<h1 class="title">時系列分析をはじめよう</h1>
 </div>
 
 
@@ -975,27 +988,30 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
 <ul>
 <li>時系列データとは⇒ジエ亀裂データを集計するときの注意点</li>
 <li>時系列でないデータを用いた推測⇒単純ランダムサンプリングからの乖離</li>
 <li>時系列データの推測における問題⇒データ生成過程と時系列モデル</li>
 <li>時系列データへの回帰分析の問題⇒時系列モデルの作成</li>
 </ul>
-<section id="時系列データとは" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> 時系列データとは</h1>
+</section>
+<section id="時系列データとは" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 時系列データとは</h1>
 <p>「日付ごとの駅の乗降者数」のように時間の順番で並びかえたデータ（逆にいうと時間で並び変えることができるデータ）のことをいう。 時系列データは<strong>並び順</strong>に意味がある、つまり情報を有しているデータである。</p>
 <p>時系列ではないデータは「クロスセクションデータ」という。「ある日の複数の駅の乗降者数」はクロスセクションデータとなる。</p>
 </section>
-<section id="時系列でないデータを用いた推測" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 時系列でないデータを用いた推測</h1>
+<section id="時系列でないデータを用いた推測" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 時系列でないデータを用いた推測</h1>
 <p>単純ランダムサンプリングとは母集団からある事象が発生する確率が等しいということ。</p>
 </section>
-<section id="単純ランダムサンプリングからの乖離" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 単純ランダムサンプリングからの乖離</h1>
+<section id="単純ランダムサンプリングからの乖離" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 単純ランダムサンプリングからの乖離</h1>
 <p>時系列データのある観測値があったとき、ランダムサンプリングのようにその日の値を再び観測するということはできない。</p>
 </section>
-<section id="時系列データの回帰分析の問題" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 時系列データの回帰分析の問題</h1>
+<section id="時系列データの回帰分析の問題" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 時系列データの回帰分析の問題</h1>
 <p>時系列データはデータが独立であるとは容易には仮定できない。</p>
 
 
@@ -1294,7 +1310,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" class="pagination-link">
-        <span class="nav-page-text">はじめに</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">時系列データの構造</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
