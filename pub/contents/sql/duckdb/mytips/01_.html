@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.6.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tips - 交差演算</title>
+<title>交差演算 – R Tips</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -71,17 +71,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-3ca10592e571c480e0d0902a3fb6025a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -107,285 +114,285 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../../index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../index.html">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">ALL</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/website/udemy_database-specialist/am-2-note.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/website/udemy_database-specialist/am-2-note.html">
  <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/06_Pythonではじめる数理最適化/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/06_Pythonではじめる数理最適化/index.html">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
  <span class="dropdown-text">Numpy Infinity</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
  <span class="dropdown-text">LightGBMハンドブック</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
  <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html">
  <span class="dropdown-text">爆速Python</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/books/11_Pythonではじめる時系列分析入門/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">
  <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/base/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/base/working.html">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/argparse/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/argparse/index.html">
  <span class="dropdown-text">argparse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/assertr/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/assertr/index.html">
  <span class="dropdown-text">assertr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/corrr/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/corrr/working.html">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ComplexHeatmap/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ComplexHeatmap/working.html">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/duckdb/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/duckdb/working.html">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/DBI/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/DBI/working.html">
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ggspatial/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggspatial/working.html">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/GGally/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/GGally/working.html">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ggtext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggtext/working.html">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ggfittext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggfittext/working.html">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/gganimate/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/gganimate/working.html">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/ggmosaic/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggmosaic/working.html">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/treemapify/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/treemapify/working.html">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/tidyverse/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/tidyverse/working.html">
  <span class="dropdown-text">tidyverse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/sf/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/sf/working.html">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/igraph/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/igraph/index.html">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/R/patchwork/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/R/patchwork/working.html">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/Python/pydantic/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pydantic/index.html">
  <span class="dropdown-text">pydantic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/libs/Python/pandera/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pandera/index.html">
  <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/sql/duckdb/mytips/01_.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/mytips/01_.html">
  <span class="dropdown-text">My Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
  <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/test/R/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/test/R/renv.html">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html">
  <span class="dropdown-text">R2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../../contents/test/python/notebook.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../contents/test/python/notebook.html">
  <span class="dropdown-text">Python</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DuckDB</li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/mytips/01_.html">My Tips</a></li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/mytips/01_.html">交差演算</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DuckDB</li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/mytips/01_.html">My Tips</a></li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/mytips/01_.html">交差演算</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -394,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -404,18 +411,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">DuckDB</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Documentaion</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -454,9 +461,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">ビッグデータレシピ</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -501,9 +508,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">My Tips</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -524,9 +531,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Spatial DataAnalysis with DuckDB</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -544,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -560,14 +567,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DuckDB</li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/mytips/01_.html">My Tips</a></li><li class="breadcrumb-item"><a href="../../../../contents/sql/duckdb/mytips/01_.html">交差演算</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">交差演算</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -581,16 +588,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
+
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/sql/duckdb/mytips"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
@@ -610,13 +619,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="setup" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(<span class="fu">here</span>(cur_dir, <span class="st">"data.db"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1"></a>INSTALL icu;</span>
 <span id="cb4-2"><a href="#cb4-2"></a>INSTALL spatial;</span>
@@ -625,7 +634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1"></a>LOAD icu;</span>
 <span id="cb5-2"><a href="#cb5-2"></a>LOAD spatial;</span>
@@ -634,12 +643,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1"></a>SHOW <span class="kw">ALL</span> <span class="kw">TABLES</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
 <colgroup>
 <col style="width: 0%">
@@ -705,12 +714,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> <span class="op">*</span> <span class="kw">FROM</span> duckdb_functions() <span class="kw">WHERE</span> function_name <span class="kw">LIKE</span> <span class="st">'st_%'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> function_name;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 3%">
@@ -964,7 +973,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="2"><span class="header-section-number">2</span> 交差演算</h1>
 <p>国土数値情報の行政区域データと農業地域データの交差集合を作成する。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> pref <span class="kw">AS</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/N03-20240101_GML/N03-20240101.shp'</span>;</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> ag <span class="kw">AS</span> (</span>
@@ -1065,12 +1074,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1"></a>describe pref;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>7 records</caption>
 <thead>
 <tr class="header">
@@ -1144,12 +1153,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1"></a>describe ag;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
@@ -1247,12 +1256,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>), ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span>  <span class="kw">from</span> pref <span class="kw">group</span> <span class="kw">by</span> ST_GeometryType(geom) ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>1 records</caption>
 <thead>
 <tr class="header">
@@ -1270,7 +1279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">select</span> </span>
 <span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
@@ -1281,8 +1290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-7"><a href="#cb12-7"></a><span class="kw">group</span> <span class="kw">by</span> </span>
 <span id="cb12-8"><a href="#cb12-8"></a>  ST_GeometryType(geom) ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>1 records</caption>
 <thead>
 <tr class="header">
@@ -1302,12 +1311,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>), ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span>  <span class="kw">from</span> ag <span class="kw">group</span> <span class="kw">by</span> ST_GeometryType(geom) ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>1 records</caption>
 <thead>
 <tr class="header">
@@ -1326,7 +1335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>約10万どおしの演算であるが、数分で処理できる。すごい！</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">table</span> ag_pref_intersection <span class="kw">as</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="kw">select</span></span>
@@ -1343,7 +1352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">print</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"{difftime(Sys.time(), s, units = 'secs')} 秒"</span>))</span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; 191.446138143539 秒</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1351,13 +1360,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>データ方を確認すると少し形状タイプがおかしいかも。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="kw">from</span> ag_pref_intersection ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>1 records</caption>
 <thead>
 <tr class="header">
@@ -1374,7 +1383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>次の結果をみるとどうやら混じっている。コレクションについて、QGISで具体的に確認したところ、行政境界とメッシュ境界がタッチしているところや一致しているところで発生する事象である。マルチポリゴンもそうであるが基本的にはsimplifyしてポリゴンだけ残せば大丈夫だと思う。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">select</span> </span>
 <span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
@@ -1385,8 +1394,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-7"><a href="#cb17-7"></a><span class="kw">group</span> <span class="kw">by</span> </span>
 <span id="cb17-8"><a href="#cb17-8"></a>  ST_GeometryType(geom) ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>3 records</caption>
 <thead>
 <tr class="header">
@@ -1417,7 +1426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>どうやらWITH句でランダムを使うと変わってしまうらしい。またマルチポリゴンをポリゴンにキャストする方法は実装されてないようである。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">with</span> </span>
 <span id="cb18-2"><a href="#cb18-2"></a>ta <span class="kw">as</span> (</span>
@@ -1455,8 +1464,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-34"><a href="#cb18-34"></a>  ta_tb</span>
 <span id="cb18-35"><a href="#cb18-35"></a>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
 <colgroup>
 <col style="width: 0%">
@@ -1537,7 +1546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>ある行を展開それぞれ別の行数で展開したいときの処理は次となる。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">select</span> </span>
 <span id="cb19-2"><a href="#cb19-2"></a>  i, </span>
@@ -1547,8 +1556,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-6"><a href="#cb19-6"></a></span>
 <span id="cb19-7"><a href="#cb19-7"></a>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
@@ -1603,7 +1612,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>計算結果をGeoJSONに書き出す。時間がかかるので未実行です。</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">COPY</span> (</span>
 <span id="cb20-2"><a href="#cb20-2"></a>  <span class="kw">select</span> <span class="op">*</span></span>
@@ -1618,7 +1627,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="disconnect" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Disconnect</h1>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1665,18 +1674,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1708,7 +1706,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -1760,10 +1780,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1773,8 +1810,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1786,7 +1832,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1830,6 +1999,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1855,6 +2025,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1916,12 +2112,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../../contents/sql/duckdb/sql-bigdata/chap07_.html" class="pagination-link">
+      <a href="../../../../contents/sql/duckdb/sql-bigdata/chap07_.html" class="pagination-link" aria-label="データ活用の精度を高めるための分析術">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">データ活用の精度を高めるための分析術</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../../contents/sql/duckdb/mytips/02_.html" class="pagination-link">
+      <a href="../../../../contents/sql/duckdb/mytips/02_.html" class="pagination-link" aria-label="クイックメモ">
         <span class="nav-page-text">クイックメモ</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -2009,133 +2205,133 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-95"><a href="#cb22-95"></a></span>
 <span id="cb22-96"><a href="#cb22-96"></a></span>
 <span id="cb22-97"><a href="#cb22-97"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-98"><a href="#cb22-98"></a><span class="co">#| eval: false</span></span>
-<span id="cb22-99"><a href="#cb22-99"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> pref <span class="kw">AS</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/N03-20240101_GML/N03-20240101.shp'</span>;</span>
-<span id="cb22-100"><a href="#cb22-100"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> ag <span class="kw">AS</span> (</span>
-<span id="cb22-101"><a href="#cb22-101"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_01.shp'</span></span>
-<span id="cb22-102"><a href="#cb22-102"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-103"><a href="#cb22-103"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_02.shp'</span></span>
-<span id="cb22-104"><a href="#cb22-104"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-105"><a href="#cb22-105"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_03.shp'</span></span>
-<span id="cb22-106"><a href="#cb22-106"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-107"><a href="#cb22-107"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_04.shp'</span></span>
-<span id="cb22-108"><a href="#cb22-108"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-109"><a href="#cb22-109"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_05.shp'</span>  </span>
-<span id="cb22-110"><a href="#cb22-110"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-111"><a href="#cb22-111"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_06.shp'</span>  </span>
-<span id="cb22-112"><a href="#cb22-112"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-113"><a href="#cb22-113"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_07.shp'</span>  </span>
-<span id="cb22-114"><a href="#cb22-114"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-115"><a href="#cb22-115"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_08.shp'</span>  </span>
-<span id="cb22-116"><a href="#cb22-116"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-117"><a href="#cb22-117"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_09.shp'</span>  </span>
-<span id="cb22-118"><a href="#cb22-118"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-119"><a href="#cb22-119"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_10.shp'</span>  </span>
-<span id="cb22-120"><a href="#cb22-120"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-121"><a href="#cb22-121"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_11.shp'</span>  </span>
-<span id="cb22-122"><a href="#cb22-122"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-123"><a href="#cb22-123"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_12.shp'</span>  </span>
-<span id="cb22-124"><a href="#cb22-124"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-125"><a href="#cb22-125"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_13.shp'</span>  </span>
-<span id="cb22-126"><a href="#cb22-126"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-127"><a href="#cb22-127"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_14.shp'</span>  </span>
-<span id="cb22-128"><a href="#cb22-128"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-129"><a href="#cb22-129"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_15.shp'</span></span>
-<span id="cb22-130"><a href="#cb22-130"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-131"><a href="#cb22-131"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_16.shp'</span></span>
-<span id="cb22-132"><a href="#cb22-132"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-133"><a href="#cb22-133"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_17.shp'</span></span>
-<span id="cb22-134"><a href="#cb22-134"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-135"><a href="#cb22-135"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_18.shp'</span></span>
-<span id="cb22-136"><a href="#cb22-136"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-137"><a href="#cb22-137"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_19.shp'</span></span>
-<span id="cb22-138"><a href="#cb22-138"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-139"><a href="#cb22-139"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_20.shp'</span></span>
-<span id="cb22-140"><a href="#cb22-140"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-141"><a href="#cb22-141"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_21.shp'</span></span>
-<span id="cb22-142"><a href="#cb22-142"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-143"><a href="#cb22-143"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_22.shp'</span></span>
-<span id="cb22-144"><a href="#cb22-144"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-145"><a href="#cb22-145"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_23.shp'</span></span>
-<span id="cb22-146"><a href="#cb22-146"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-147"><a href="#cb22-147"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_24.shp'</span></span>
-<span id="cb22-148"><a href="#cb22-148"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-149"><a href="#cb22-149"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_25.shp'</span></span>
-<span id="cb22-150"><a href="#cb22-150"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-151"><a href="#cb22-151"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_26.shp'</span></span>
-<span id="cb22-152"><a href="#cb22-152"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-153"><a href="#cb22-153"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_27.shp'</span></span>
-<span id="cb22-154"><a href="#cb22-154"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-155"><a href="#cb22-155"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_28.shp'</span></span>
-<span id="cb22-156"><a href="#cb22-156"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-157"><a href="#cb22-157"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_29.shp'</span></span>
-<span id="cb22-158"><a href="#cb22-158"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-159"><a href="#cb22-159"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_30.shp'</span></span>
-<span id="cb22-160"><a href="#cb22-160"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-161"><a href="#cb22-161"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_31.shp'</span></span>
-<span id="cb22-162"><a href="#cb22-162"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-163"><a href="#cb22-163"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_32.shp'</span></span>
-<span id="cb22-164"><a href="#cb22-164"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-165"><a href="#cb22-165"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_33.shp'</span></span>
-<span id="cb22-166"><a href="#cb22-166"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-167"><a href="#cb22-167"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_34.shp'</span></span>
-<span id="cb22-168"><a href="#cb22-168"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-169"><a href="#cb22-169"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_35.shp'</span></span>
-<span id="cb22-170"><a href="#cb22-170"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-171"><a href="#cb22-171"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_36.shp'</span></span>
-<span id="cb22-172"><a href="#cb22-172"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-173"><a href="#cb22-173"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_37.shp'</span></span>
-<span id="cb22-174"><a href="#cb22-174"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-175"><a href="#cb22-175"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_38.shp'</span></span>
-<span id="cb22-176"><a href="#cb22-176"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-177"><a href="#cb22-177"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_39.shp'</span></span>
-<span id="cb22-178"><a href="#cb22-178"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-179"><a href="#cb22-179"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_40.shp'</span></span>
-<span id="cb22-180"><a href="#cb22-180"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-181"><a href="#cb22-181"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_41.shp'</span></span>
-<span id="cb22-182"><a href="#cb22-182"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-183"><a href="#cb22-183"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_42.shp'</span></span>
-<span id="cb22-184"><a href="#cb22-184"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-185"><a href="#cb22-185"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_43.shp'</span></span>
-<span id="cb22-186"><a href="#cb22-186"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-187"><a href="#cb22-187"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_44.shp'</span></span>
-<span id="cb22-188"><a href="#cb22-188"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-189"><a href="#cb22-189"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_45.shp'</span></span>
-<span id="cb22-190"><a href="#cb22-190"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-191"><a href="#cb22-191"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_46.shp'</span></span>
-<span id="cb22-192"><a href="#cb22-192"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb22-193"><a href="#cb22-193"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_47.shp'</span></span>
-<span id="cb22-194"><a href="#cb22-194"></a>);</span>
+<span id="cb22-98"><a href="#cb22-98"></a><span class="in">#| eval: false</span></span>
+<span id="cb22-99"><a href="#cb22-99"></a><span class="in">CREATE OR REPLACE TABLE pref AS SELECT * FROM './data/N03-20240101_GML/N03-20240101.shp';</span></span>
+<span id="cb22-100"><a href="#cb22-100"></a><span class="in">CREATE OR REPLACE TABLE ag AS (</span></span>
+<span id="cb22-101"><a href="#cb22-101"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_01.shp'</span></span>
+<span id="cb22-102"><a href="#cb22-102"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-103"><a href="#cb22-103"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_02.shp'</span></span>
+<span id="cb22-104"><a href="#cb22-104"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-105"><a href="#cb22-105"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_03.shp'</span></span>
+<span id="cb22-106"><a href="#cb22-106"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-107"><a href="#cb22-107"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_04.shp'</span></span>
+<span id="cb22-108"><a href="#cb22-108"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-109"><a href="#cb22-109"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_05.shp'  </span></span>
+<span id="cb22-110"><a href="#cb22-110"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-111"><a href="#cb22-111"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_06.shp'  </span></span>
+<span id="cb22-112"><a href="#cb22-112"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-113"><a href="#cb22-113"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_07.shp'  </span></span>
+<span id="cb22-114"><a href="#cb22-114"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-115"><a href="#cb22-115"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_08.shp'  </span></span>
+<span id="cb22-116"><a href="#cb22-116"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-117"><a href="#cb22-117"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_09.shp'  </span></span>
+<span id="cb22-118"><a href="#cb22-118"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-119"><a href="#cb22-119"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_10.shp'  </span></span>
+<span id="cb22-120"><a href="#cb22-120"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-121"><a href="#cb22-121"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_11.shp'  </span></span>
+<span id="cb22-122"><a href="#cb22-122"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-123"><a href="#cb22-123"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_12.shp'  </span></span>
+<span id="cb22-124"><a href="#cb22-124"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-125"><a href="#cb22-125"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_13.shp'  </span></span>
+<span id="cb22-126"><a href="#cb22-126"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-127"><a href="#cb22-127"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_14.shp'  </span></span>
+<span id="cb22-128"><a href="#cb22-128"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-129"><a href="#cb22-129"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_15.shp'</span></span>
+<span id="cb22-130"><a href="#cb22-130"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-131"><a href="#cb22-131"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_16.shp'</span></span>
+<span id="cb22-132"><a href="#cb22-132"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-133"><a href="#cb22-133"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_17.shp'</span></span>
+<span id="cb22-134"><a href="#cb22-134"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-135"><a href="#cb22-135"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_18.shp'</span></span>
+<span id="cb22-136"><a href="#cb22-136"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-137"><a href="#cb22-137"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_19.shp'</span></span>
+<span id="cb22-138"><a href="#cb22-138"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-139"><a href="#cb22-139"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_20.shp'</span></span>
+<span id="cb22-140"><a href="#cb22-140"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-141"><a href="#cb22-141"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_21.shp'</span></span>
+<span id="cb22-142"><a href="#cb22-142"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-143"><a href="#cb22-143"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_22.shp'</span></span>
+<span id="cb22-144"><a href="#cb22-144"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-145"><a href="#cb22-145"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_23.shp'</span></span>
+<span id="cb22-146"><a href="#cb22-146"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-147"><a href="#cb22-147"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_24.shp'</span></span>
+<span id="cb22-148"><a href="#cb22-148"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-149"><a href="#cb22-149"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_25.shp'</span></span>
+<span id="cb22-150"><a href="#cb22-150"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-151"><a href="#cb22-151"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_26.shp'</span></span>
+<span id="cb22-152"><a href="#cb22-152"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-153"><a href="#cb22-153"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_27.shp'</span></span>
+<span id="cb22-154"><a href="#cb22-154"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-155"><a href="#cb22-155"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_28.shp'</span></span>
+<span id="cb22-156"><a href="#cb22-156"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-157"><a href="#cb22-157"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_29.shp'</span></span>
+<span id="cb22-158"><a href="#cb22-158"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-159"><a href="#cb22-159"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_30.shp'</span></span>
+<span id="cb22-160"><a href="#cb22-160"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-161"><a href="#cb22-161"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_31.shp'</span></span>
+<span id="cb22-162"><a href="#cb22-162"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-163"><a href="#cb22-163"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_32.shp'</span></span>
+<span id="cb22-164"><a href="#cb22-164"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-165"><a href="#cb22-165"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_33.shp'</span></span>
+<span id="cb22-166"><a href="#cb22-166"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-167"><a href="#cb22-167"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_34.shp'</span></span>
+<span id="cb22-168"><a href="#cb22-168"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-169"><a href="#cb22-169"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_35.shp'</span></span>
+<span id="cb22-170"><a href="#cb22-170"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-171"><a href="#cb22-171"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_36.shp'</span></span>
+<span id="cb22-172"><a href="#cb22-172"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-173"><a href="#cb22-173"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_37.shp'</span></span>
+<span id="cb22-174"><a href="#cb22-174"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-175"><a href="#cb22-175"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_38.shp'</span></span>
+<span id="cb22-176"><a href="#cb22-176"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-177"><a href="#cb22-177"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_39.shp'</span></span>
+<span id="cb22-178"><a href="#cb22-178"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-179"><a href="#cb22-179"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_40.shp'</span></span>
+<span id="cb22-180"><a href="#cb22-180"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-181"><a href="#cb22-181"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_41.shp'</span></span>
+<span id="cb22-182"><a href="#cb22-182"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-183"><a href="#cb22-183"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_42.shp'</span></span>
+<span id="cb22-184"><a href="#cb22-184"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-185"><a href="#cb22-185"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_43.shp'</span></span>
+<span id="cb22-186"><a href="#cb22-186"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-187"><a href="#cb22-187"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_44.shp'</span></span>
+<span id="cb22-188"><a href="#cb22-188"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-189"><a href="#cb22-189"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_45.shp'</span></span>
+<span id="cb22-190"><a href="#cb22-190"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-191"><a href="#cb22-191"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_46.shp'</span></span>
+<span id="cb22-192"><a href="#cb22-192"></a><span class="in">    UNION ALL</span></span>
+<span id="cb22-193"><a href="#cb22-193"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_47.shp'</span></span>
+<span id="cb22-194"><a href="#cb22-194"></a><span class="in">);</span></span>
 <span id="cb22-195"><a href="#cb22-195"></a><span class="in">```</span></span>
 <span id="cb22-196"><a href="#cb22-196"></a></span>
 <span id="cb22-197"><a href="#cb22-197"></a></span>
 <span id="cb22-198"><a href="#cb22-198"></a></span>
 <span id="cb22-199"><a href="#cb22-199"></a></span>
 <span id="cb22-200"><a href="#cb22-200"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-201"><a href="#cb22-201"></a><span class="kw">describe</span> pref;</span>
+<span id="cb22-201"><a href="#cb22-201"></a><span class="in">describe pref;</span></span>
 <span id="cb22-202"><a href="#cb22-202"></a><span class="in">```</span></span>
 <span id="cb22-203"><a href="#cb22-203"></a></span>
 <span id="cb22-204"><a href="#cb22-204"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-205"><a href="#cb22-205"></a><span class="kw">describe</span> ag;</span>
+<span id="cb22-205"><a href="#cb22-205"></a><span class="in">describe ag;</span></span>
 <span id="cb22-206"><a href="#cb22-206"></a><span class="in">```</span></span>
 <span id="cb22-207"><a href="#cb22-207"></a></span>
 <span id="cb22-208"><a href="#cb22-208"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-209"><a href="#cb22-209"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>), ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span>  <span class="kw">from</span> pref <span class="kw">group</span> <span class="kw">by</span> ST_GeometryType(geom) ;</span>
+<span id="cb22-209"><a href="#cb22-209"></a><span class="in">select count(*), ST_GeometryType(geom) as type  from pref group by ST_GeometryType(geom) ;</span></span>
 <span id="cb22-210"><a href="#cb22-210"></a><span class="in">```</span></span>
 <span id="cb22-211"><a href="#cb22-211"></a></span>
 <span id="cb22-212"><a href="#cb22-212"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-213"><a href="#cb22-213"></a><span class="kw">select</span> </span>
-<span id="cb22-214"><a href="#cb22-214"></a>  <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
-<span id="cb22-215"><a href="#cb22-215"></a>  , <span class="fu">sum</span>(<span class="fu">cast</span>(ST_IsRing(geom) <span class="kw">as</span> <span class="dt">integer</span>)) <span class="kw">as</span> has_ring </span>
-<span id="cb22-216"><a href="#cb22-216"></a>  , ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span></span>
-<span id="cb22-217"><a href="#cb22-217"></a><span class="kw">from</span> </span>
-<span id="cb22-218"><a href="#cb22-218"></a>  ag </span>
-<span id="cb22-219"><a href="#cb22-219"></a><span class="kw">group</span> <span class="kw">by</span> </span>
-<span id="cb22-220"><a href="#cb22-220"></a>  ST_GeometryType(geom) ;</span>
+<span id="cb22-213"><a href="#cb22-213"></a><span class="in">select </span></span>
+<span id="cb22-214"><a href="#cb22-214"></a><span class="in">  count(*) as cnt</span></span>
+<span id="cb22-215"><a href="#cb22-215"></a><span class="in">  , sum(cast(ST_IsRing(geom) as integer)) as has_ring </span></span>
+<span id="cb22-216"><a href="#cb22-216"></a><span class="in">  , ST_GeometryType(geom) as type</span></span>
+<span id="cb22-217"><a href="#cb22-217"></a><span class="in">from </span></span>
+<span id="cb22-218"><a href="#cb22-218"></a><span class="in">  ag </span></span>
+<span id="cb22-219"><a href="#cb22-219"></a><span class="in">group by </span></span>
+<span id="cb22-220"><a href="#cb22-220"></a><span class="in">  ST_GeometryType(geom) ;</span></span>
 <span id="cb22-221"><a href="#cb22-221"></a><span class="in">```</span></span>
 <span id="cb22-222"><a href="#cb22-222"></a></span>
 <span id="cb22-223"><a href="#cb22-223"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-224"><a href="#cb22-224"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>), ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span>  <span class="kw">from</span> ag <span class="kw">group</span> <span class="kw">by</span> ST_GeometryType(geom) ;</span>
+<span id="cb22-224"><a href="#cb22-224"></a><span class="in">select count(*), ST_GeometryType(geom) as type  from ag group by ST_GeometryType(geom) ;</span></span>
 <span id="cb22-225"><a href="#cb22-225"></a><span class="in">```</span></span>
 <span id="cb22-226"><a href="#cb22-226"></a></span>
 <span id="cb22-227"><a href="#cb22-227"></a></span>
@@ -2150,18 +2346,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-238"><a href="#cb22-238"></a><span class="in">```</span></span>
 <span id="cb22-239"><a href="#cb22-239"></a></span>
 <span id="cb22-240"><a href="#cb22-240"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-241"><a href="#cb22-241"></a><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">table</span> ag_pref_intersection <span class="kw">as</span></span>
-<span id="cb22-242"><a href="#cb22-242"></a><span class="kw">select</span></span>
-<span id="cb22-243"><a href="#cb22-243"></a>  <span class="kw">COLUMNS</span>(pref<span class="ch">.</span><span class="op">*</span> EXCLUDE(geom)), </span>
-<span id="cb22-244"><a href="#cb22-244"></a>  ag<span class="ch">.</span>MESH_ID, </span>
-<span id="cb22-245"><a href="#cb22-245"></a>  ag<span class="ch">.</span>SHICODE, </span>
-<span id="cb22-246"><a href="#cb22-246"></a>  ag<span class="ch">.</span>PTN_2015,</span>
-<span id="cb22-247"><a href="#cb22-247"></a>  st_intersection(pref<span class="ch">.</span>geom, ag<span class="ch">.</span>geom) <span class="kw">as</span> geom</span>
-<span id="cb22-248"><a href="#cb22-248"></a><span class="kw">from</span> </span>
-<span id="cb22-249"><a href="#cb22-249"></a>  pref</span>
-<span id="cb22-250"><a href="#cb22-250"></a>  <span class="kw">inner</span> <span class="kw">join</span> ag</span>
-<span id="cb22-251"><a href="#cb22-251"></a>  <span class="kw">on</span> st_intersects(pref<span class="ch">.</span>geom, ag<span class="ch">.</span>geom)</span>
-<span id="cb22-252"><a href="#cb22-252"></a>;</span>
+<span id="cb22-241"><a href="#cb22-241"></a><span class="in">create or replace table ag_pref_intersection as</span></span>
+<span id="cb22-242"><a href="#cb22-242"></a><span class="in">select</span></span>
+<span id="cb22-243"><a href="#cb22-243"></a><span class="in">  COLUMNS(pref.* EXCLUDE(geom)), </span></span>
+<span id="cb22-244"><a href="#cb22-244"></a><span class="in">  ag.MESH_ID, </span></span>
+<span id="cb22-245"><a href="#cb22-245"></a><span class="in">  ag.SHICODE, </span></span>
+<span id="cb22-246"><a href="#cb22-246"></a><span class="in">  ag.PTN_2015,</span></span>
+<span id="cb22-247"><a href="#cb22-247"></a><span class="in">  st_intersection(pref.geom, ag.geom) as geom</span></span>
+<span id="cb22-248"><a href="#cb22-248"></a><span class="in">from </span></span>
+<span id="cb22-249"><a href="#cb22-249"></a><span class="in">  pref</span></span>
+<span id="cb22-250"><a href="#cb22-250"></a><span class="in">  inner join ag</span></span>
+<span id="cb22-251"><a href="#cb22-251"></a><span class="in">  on st_intersects(pref.geom, ag.geom)</span></span>
+<span id="cb22-252"><a href="#cb22-252"></a><span class="in">;</span></span>
 <span id="cb22-253"><a href="#cb22-253"></a><span class="in">```</span></span>
 <span id="cb22-254"><a href="#cb22-254"></a></span>
 <span id="cb22-257"><a href="#cb22-257"></a><span class="in">```{r}</span></span>
@@ -2171,63 +2367,63 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-261"><a href="#cb22-261"></a>データ方を確認すると少し形状タイプがおかしいかも。</span>
 <span id="cb22-262"><a href="#cb22-262"></a></span>
 <span id="cb22-263"><a href="#cb22-263"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-264"><a href="#cb22-264"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
-<span id="cb22-265"><a href="#cb22-265"></a><span class="kw">from</span> ag_pref_intersection ;</span>
+<span id="cb22-264"><a href="#cb22-264"></a><span class="in">select count(*) as cnt</span></span>
+<span id="cb22-265"><a href="#cb22-265"></a><span class="in">from ag_pref_intersection ;</span></span>
 <span id="cb22-266"><a href="#cb22-266"></a><span class="in">```</span></span>
 <span id="cb22-267"><a href="#cb22-267"></a></span>
 <span id="cb22-268"><a href="#cb22-268"></a></span>
 <span id="cb22-269"><a href="#cb22-269"></a>次の結果をみるとどうやら混じっている。コレクションについて、QGISで具体的に確認したところ、行政境界とメッシュ境界がタッチしているところや一致しているところで発生する事象である。マルチポリゴンもそうであるが基本的にはsimplifyしてポリゴンだけ残せば大丈夫だと思う。</span>
 <span id="cb22-270"><a href="#cb22-270"></a></span>
 <span id="cb22-271"><a href="#cb22-271"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-272"><a href="#cb22-272"></a><span class="kw">select</span> </span>
-<span id="cb22-273"><a href="#cb22-273"></a>  <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
-<span id="cb22-274"><a href="#cb22-274"></a>  , COUNT_IF(ST_IsRing(geom)) <span class="kw">as</span> has_ring </span>
-<span id="cb22-275"><a href="#cb22-275"></a>  , ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span></span>
-<span id="cb22-276"><a href="#cb22-276"></a><span class="kw">from</span> </span>
-<span id="cb22-277"><a href="#cb22-277"></a>  ag_pref_intersection </span>
-<span id="cb22-278"><a href="#cb22-278"></a><span class="kw">group</span> <span class="kw">by</span> </span>
-<span id="cb22-279"><a href="#cb22-279"></a>  ST_GeometryType(geom) ;</span>
+<span id="cb22-272"><a href="#cb22-272"></a><span class="in">select </span></span>
+<span id="cb22-273"><a href="#cb22-273"></a><span class="in">  COUNT(*) as cnt</span></span>
+<span id="cb22-274"><a href="#cb22-274"></a><span class="in">  , COUNT_IF(ST_IsRing(geom)) as has_ring </span></span>
+<span id="cb22-275"><a href="#cb22-275"></a><span class="in">  , ST_GeometryType(geom) as type</span></span>
+<span id="cb22-276"><a href="#cb22-276"></a><span class="in">from </span></span>
+<span id="cb22-277"><a href="#cb22-277"></a><span class="in">  ag_pref_intersection </span></span>
+<span id="cb22-278"><a href="#cb22-278"></a><span class="in">group by </span></span>
+<span id="cb22-279"><a href="#cb22-279"></a><span class="in">  ST_GeometryType(geom) ;</span></span>
 <span id="cb22-280"><a href="#cb22-280"></a><span class="in">```</span></span>
 <span id="cb22-281"><a href="#cb22-281"></a></span>
 <span id="cb22-282"><a href="#cb22-282"></a></span>
 <span id="cb22-283"><a href="#cb22-283"></a>どうやらWITH句でランダムを使うと変わってしまうらしい。またマルチポリゴンをポリゴンにキャストする方法は実装されてないようである。</span>
 <span id="cb22-284"><a href="#cb22-284"></a></span>
 <span id="cb22-285"><a href="#cb22-285"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-286"><a href="#cb22-286"></a><span class="kw">with</span> </span>
-<span id="cb22-287"><a href="#cb22-287"></a>ta <span class="kw">as</span> (</span>
-<span id="cb22-288"><a href="#cb22-288"></a>  <span class="kw">select</span> </span>
-<span id="cb22-289"><a href="#cb22-289"></a>    gen_random_uuid() <span class="kw">as</span> id</span>
-<span id="cb22-290"><a href="#cb22-290"></a>    , ST_NGeometries(geom) <span class="kw">as</span> ng</span>
-<span id="cb22-291"><a href="#cb22-291"></a>    , ROW_NUMBER() OVER() <span class="kw">as</span> row</span>
-<span id="cb22-292"><a href="#cb22-292"></a>    , geom</span>
-<span id="cb22-293"><a href="#cb22-293"></a>  <span class="kw">from</span> </span>
-<span id="cb22-294"><a href="#cb22-294"></a>    ag_pref_intersection</span>
-<span id="cb22-295"><a href="#cb22-295"></a>  <span class="kw">where</span></span>
-<span id="cb22-296"><a href="#cb22-296"></a>    ST_GeometryType(geom) <span class="op">=</span> <span class="st">'MULTIPOLYGON'</span></span>
-<span id="cb22-297"><a href="#cb22-297"></a>  <span class="kw">limit</span> <span class="dv">2</span></span>
-<span id="cb22-298"><a href="#cb22-298"></a>) </span>
-<span id="cb22-299"><a href="#cb22-299"></a>, tb <span class="kw">as</span> (</span>
-<span id="cb22-300"><a href="#cb22-300"></a>  <span class="kw">select</span> </span>
-<span id="cb22-301"><a href="#cb22-301"></a>    id, ng, row</span>
-<span id="cb22-302"><a href="#cb22-302"></a>  <span class="kw">from</span> </span>
-<span id="cb22-303"><a href="#cb22-303"></a>    ta</span>
-<span id="cb22-304"><a href="#cb22-304"></a>  <span class="kw">limit</span> <span class="dv">2</span></span>
-<span id="cb22-305"><a href="#cb22-305"></a>)</span>
-<span id="cb22-306"><a href="#cb22-306"></a>, ta_tb <span class="kw">as</span> (</span>
-<span id="cb22-307"><a href="#cb22-307"></a>  <span class="kw">select</span> </span>
-<span id="cb22-308"><a href="#cb22-308"></a>    <span class="op">*</span>, </span>
-<span id="cb22-309"><a href="#cb22-309"></a>    unnest(generate_series(<span class="dv">1</span>, ta<span class="ch">.</span>ng)) <span class="kw">as</span> idx</span>
-<span id="cb22-310"><a href="#cb22-310"></a>  <span class="kw">from</span></span>
-<span id="cb22-311"><a href="#cb22-311"></a>   ta</span>
-<span id="cb22-312"><a href="#cb22-312"></a>   <span class="kw">inner</span> <span class="kw">join</span> tb</span>
-<span id="cb22-313"><a href="#cb22-313"></a>   <span class="kw">on</span> ta<span class="ch">.</span>row <span class="op">=</span> tb<span class="ch">.</span>row</span>
-<span id="cb22-314"><a href="#cb22-314"></a>)</span>
+<span id="cb22-286"><a href="#cb22-286"></a><span class="in">with </span></span>
+<span id="cb22-287"><a href="#cb22-287"></a><span class="in">ta as (</span></span>
+<span id="cb22-288"><a href="#cb22-288"></a><span class="in">  select </span></span>
+<span id="cb22-289"><a href="#cb22-289"></a><span class="in">    gen_random_uuid() as id</span></span>
+<span id="cb22-290"><a href="#cb22-290"></a><span class="in">    , ST_NGeometries(geom) as ng</span></span>
+<span id="cb22-291"><a href="#cb22-291"></a><span class="in">    , ROW_NUMBER() OVER() as row</span></span>
+<span id="cb22-292"><a href="#cb22-292"></a><span class="in">    , geom</span></span>
+<span id="cb22-293"><a href="#cb22-293"></a><span class="in">  from </span></span>
+<span id="cb22-294"><a href="#cb22-294"></a><span class="in">    ag_pref_intersection</span></span>
+<span id="cb22-295"><a href="#cb22-295"></a><span class="in">  where</span></span>
+<span id="cb22-296"><a href="#cb22-296"></a><span class="in">    ST_GeometryType(geom) = 'MULTIPOLYGON'</span></span>
+<span id="cb22-297"><a href="#cb22-297"></a><span class="in">  limit 2</span></span>
+<span id="cb22-298"><a href="#cb22-298"></a><span class="in">) </span></span>
+<span id="cb22-299"><a href="#cb22-299"></a><span class="in">, tb as (</span></span>
+<span id="cb22-300"><a href="#cb22-300"></a><span class="in">  select </span></span>
+<span id="cb22-301"><a href="#cb22-301"></a><span class="in">    id, ng, row</span></span>
+<span id="cb22-302"><a href="#cb22-302"></a><span class="in">  from </span></span>
+<span id="cb22-303"><a href="#cb22-303"></a><span class="in">    ta</span></span>
+<span id="cb22-304"><a href="#cb22-304"></a><span class="in">  limit 2</span></span>
+<span id="cb22-305"><a href="#cb22-305"></a><span class="in">)</span></span>
+<span id="cb22-306"><a href="#cb22-306"></a><span class="in">, ta_tb as (</span></span>
+<span id="cb22-307"><a href="#cb22-307"></a><span class="in">  select </span></span>
+<span id="cb22-308"><a href="#cb22-308"></a><span class="in">    *, </span></span>
+<span id="cb22-309"><a href="#cb22-309"></a><span class="in">    unnest(generate_series(1, ta.ng)) as idx</span></span>
+<span id="cb22-310"><a href="#cb22-310"></a><span class="in">  from</span></span>
+<span id="cb22-311"><a href="#cb22-311"></a><span class="in">   ta</span></span>
+<span id="cb22-312"><a href="#cb22-312"></a><span class="in">   inner join tb</span></span>
+<span id="cb22-313"><a href="#cb22-313"></a><span class="in">   on ta.row = tb.row</span></span>
+<span id="cb22-314"><a href="#cb22-314"></a><span class="in">)</span></span>
 <span id="cb22-315"><a href="#cb22-315"></a></span>
-<span id="cb22-316"><a href="#cb22-316"></a><span class="kw">select</span> </span>
-<span id="cb22-317"><a href="#cb22-317"></a>    <span class="op">*</span></span>
-<span id="cb22-318"><a href="#cb22-318"></a><span class="kw">from</span></span>
-<span id="cb22-319"><a href="#cb22-319"></a>  ta_tb</span>
-<span id="cb22-320"><a href="#cb22-320"></a>;</span>
+<span id="cb22-316"><a href="#cb22-316"></a><span class="in">select </span></span>
+<span id="cb22-317"><a href="#cb22-317"></a><span class="in">    *</span></span>
+<span id="cb22-318"><a href="#cb22-318"></a><span class="in">from</span></span>
+<span id="cb22-319"><a href="#cb22-319"></a><span class="in">  ta_tb</span></span>
+<span id="cb22-320"><a href="#cb22-320"></a><span class="in">;</span></span>
 <span id="cb22-321"><a href="#cb22-321"></a></span>
 <span id="cb22-322"><a href="#cb22-322"></a></span>
 <span id="cb22-323"><a href="#cb22-323"></a><span class="in">```</span></span>
@@ -2237,13 +2433,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-327"><a href="#cb22-327"></a></span>
 <span id="cb22-328"><a href="#cb22-328"></a></span>
 <span id="cb22-329"><a href="#cb22-329"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-330"><a href="#cb22-330"></a><span class="kw">select</span> </span>
-<span id="cb22-331"><a href="#cb22-331"></a>  i, </span>
-<span id="cb22-332"><a href="#cb22-332"></a>  unnest(generate_series(<span class="dv">1</span>, i))</span>
-<span id="cb22-333"><a href="#cb22-333"></a><span class="kw">from</span> </span>
-<span id="cb22-334"><a href="#cb22-334"></a>  generate_series(<span class="dv">1</span>, <span class="dv">10</span>) tbl(i)</span>
+<span id="cb22-330"><a href="#cb22-330"></a><span class="in">select </span></span>
+<span id="cb22-331"><a href="#cb22-331"></a><span class="in">  i, </span></span>
+<span id="cb22-332"><a href="#cb22-332"></a><span class="in">  unnest(generate_series(1, i))</span></span>
+<span id="cb22-333"><a href="#cb22-333"></a><span class="in">from </span></span>
+<span id="cb22-334"><a href="#cb22-334"></a><span class="in">  generate_series(1, 10) tbl(i)</span></span>
 <span id="cb22-335"><a href="#cb22-335"></a></span>
-<span id="cb22-336"><a href="#cb22-336"></a>;</span>
+<span id="cb22-336"><a href="#cb22-336"></a><span class="in">;</span></span>
 <span id="cb22-337"><a href="#cb22-337"></a></span>
 <span id="cb22-338"><a href="#cb22-338"></a><span class="in">```</span></span>
 <span id="cb22-339"><a href="#cb22-339"></a></span>
@@ -2256,14 +2452,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-346"><a href="#cb22-346"></a>計算結果をGeoJSONに書き出す。時間がかかるので未実行です。</span>
 <span id="cb22-347"><a href="#cb22-347"></a></span>
 <span id="cb22-348"><a href="#cb22-348"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-349"><a href="#cb22-349"></a><span class="co">#| eval: false</span></span>
-<span id="cb22-350"><a href="#cb22-350"></a>COPY (</span>
-<span id="cb22-351"><a href="#cb22-351"></a>  <span class="kw">select</span> <span class="op">*</span></span>
-<span id="cb22-352"><a href="#cb22-352"></a>  <span class="kw">from</span> ag_pref_intersection</span>
-<span id="cb22-353"><a href="#cb22-353"></a>)</span>
-<span id="cb22-354"><a href="#cb22-354"></a><span class="kw">TO</span> <span class="st">'./data/intersection_ag_n03.geojson'</span></span>
-<span id="cb22-355"><a href="#cb22-355"></a><span class="kw">WITH</span> (<span class="fu">FORMAT</span> GDAL, DRIVER <span class="st">'GeoJSON'</span>, SRS <span class="st">'4612'</span>)</span>
-<span id="cb22-356"><a href="#cb22-356"></a>;</span>
+<span id="cb22-349"><a href="#cb22-349"></a><span class="in">#| eval: false</span></span>
+<span id="cb22-350"><a href="#cb22-350"></a><span class="in">COPY (</span></span>
+<span id="cb22-351"><a href="#cb22-351"></a><span class="in">  select *</span></span>
+<span id="cb22-352"><a href="#cb22-352"></a><span class="in">  from ag_pref_intersection</span></span>
+<span id="cb22-353"><a href="#cb22-353"></a><span class="in">)</span></span>
+<span id="cb22-354"><a href="#cb22-354"></a><span class="in">TO './data/intersection_ag_n03.geojson'</span></span>
+<span id="cb22-355"><a href="#cb22-355"></a><span class="in">WITH (FORMAT GDAL, DRIVER 'GeoJSON', SRS '4612')</span></span>
+<span id="cb22-356"><a href="#cb22-356"></a><span class="in">;</span></span>
 <span id="cb22-357"><a href="#cb22-357"></a><span class="in">```</span></span>
 <span id="cb22-358"><a href="#cb22-358"></a></span>
 <span id="cb22-359"><a href="#cb22-359"></a></span>
@@ -2277,9 +2473,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-369"><a href="#cb22-369"></a><span class="in">```{r}</span></span>
 <span id="cb22-370"><a href="#cb22-370"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
 <span id="cb22-371"><a href="#cb22-371"></a><span class="in">```</span> </span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+
 
 
 

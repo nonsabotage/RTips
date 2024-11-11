@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.6.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tips - numpyの導入</title>
+<title>numpyの導入 – R Tips</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -71,17 +71,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-3ca10592e571c480e0d0902a3fb6025a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -107,285 +114,285 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R Tips</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Home</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
         <li>
-    <a class="dropdown-item" href="../../../index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../index.html">
  <span class="dropdown-text">Home</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Web Site</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
         <li class="dropdown-header">ALL</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
  <span class="dropdown-text">R for Data Science 2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
  <span class="dropdown-text">Leaflet for R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
  <span class="dropdown-text">Analyzing US Census Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
  <span class="dropdown-text">Graphic Design with ggplot2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html">
  <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
  <span class="dropdown-text">Rによる実証分析2e</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
  <span class="dropdown-text">因果推論ミックステープ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
  <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
  <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
  <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
  <span class="dropdown-text">Numpy Infinity</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
  <span class="dropdown-text">LightGBMハンドブック</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
  <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html">
  <span class="dropdown-text">爆速Python</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">
  <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">libs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html">
  <span class="dropdown-text">base</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html">
  <span class="dropdown-text">argparse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html">
  <span class="dropdown-text">assertr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html">
  <span class="dropdown-text">corrr</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html">
  <span class="dropdown-text">ComplexHeatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html">
  <span class="dropdown-text">duckdb</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html">
  <span class="dropdown-text">DBI</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html">
  <span class="dropdown-text">ggspatial</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html">
  <span class="dropdown-text">GGally</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html">
  <span class="dropdown-text">ggtext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html">
  <span class="dropdown-text">ggfittext</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html">
  <span class="dropdown-text">gganimate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html">
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/working.html">
  <span class="dropdown-text">tidyverse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html">
  <span class="dropdown-text">sf</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html">
  <span class="dropdown-text">igraph</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html">
  <span class="dropdown-text">pathcwork</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html">
  <span class="dropdown-text">pydantic</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html">
  <span class="dropdown-text">pandera</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
  <span class="dropdown-text">ggplot2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Utils</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
         <li class="dropdown-header">Utils</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
  <span class="dropdown-text">01_写真GPS</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">sql</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li class="dropdown-header">DuckDB</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
  <span class="dropdown-text">Documentaion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
  <span class="dropdown-text">ビッグデータレシピ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
  <span class="dropdown-text">My Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
  <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Test</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
         <li class="dropdown-header">Test</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
  <span class="dropdown-text">Bash</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
  <span class="dropdown-text">R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/R2/renv.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
  <span class="dropdown-text">R2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/test/python/notebook.html" rel="" target="">
+    <a class="dropdown-item" href="../../../contents/test/python/notebook.html">
  <span class="dropdown-text">Python</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">Numpy Infinity</a></li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch02_numpyの導入.html">numpyの導入</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">Numpy Infinity</a></li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch02_numpyの導入.html">numpyの導入</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -394,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -404,18 +411,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">R</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Rによる実証分析2e</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -502,9 +509,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">因果推論ミックステープ</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -585,9 +592,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -644,9 +651,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">統計的因果推論の理論と実際</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -759,18 +766,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Python</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">Pythonではじめる数理最適化 2nd</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -809,9 +816,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">Numpy Infinity</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -862,9 +869,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">LightGBMハンドブック</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -891,9 +898,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
  <span class="menu-text">Pythonで学ぶ数理最適化</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -914,9 +921,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
  <span class="menu-text">爆速Python</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -937,9 +944,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
  <span class="menu-text">Pythonではじめる時系列分析</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -980,6 +987,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Pythonによる時系列分析の基本</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch06_時系列データのシミュレーションと見せかけの回帰.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">時系列データのシミュレーションと見せかけの回帰</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch31_単純な時系列予測の手法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">単純な時系列予測</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch32_季節調整とトレンド除去.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">季節調整とトレンド除去</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch33_sktimeの使い方.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sktimeの使い方</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch34_指数平滑化法とその周辺.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">指数平滑化方とその周辺</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch41_box-jenkins法からの自動予測アプローチ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Box-Jenkins法からの自動予測アプローチ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch42_ARIMAモデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARIMAモデル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch43_SARIMAモデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SARIMAモデル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch44_モデル選択.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">モデル選択</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch51_状態空間モデルの概要.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">状態空間モデルの概要</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch52_ローカルレベルモデルの基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ローカルレベルモデルの基本</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -987,7 +1060,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -1030,14 +1103,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">Numpy Infinity</a></li><li class="breadcrumb-item"><a href="../../../contents/books/07_NumpyInfinity/ch02_numpyの導入.html">numpyの導入</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">numpyの導入</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -1045,7 +1118,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <section id="学ぶこと" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="学ぶこと"><span class="header-section-number">1</span> 学ぶこと</h2>
@@ -1060,16 +1135,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="numpy配列の初期化" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="numpy配列の初期化"><span class="header-section-number">3</span> NumPy配列の初期化</h2>
-<div class="cell" data-execution_count="1">
-<details open="">
+<div id="cell-4" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="2">
-<details open="">
+<div id="cell-5" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>d <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">5</span>))</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="bu">print</span>(d) <span class="co"># Pythonのリスト</span></span>
@@ -1085,8 +1160,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="numpy配列のインデックスによるアクセス" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="numpy配列のインデックスによるアクセス"><span class="header-section-number">4</span> NumPy配列のインデックスによるアクセス</h2>
-<div class="cell" data-execution_count="3">
-<details open="">
+<div id="cell-7" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>x <span class="op">=</span> np.ones(<span class="dv">5</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1095,8 +1170,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1. 1. 1. 1. 1.]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="4">
-<details open="">
+<div id="cell-8" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>x[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">8</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1106,8 +1181,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>スライスを使った直接の代入も可能である．</p>
-<div class="cell" data-execution_count="5">
-<details open="">
+<div id="cell-10" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>x[:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1118,8 +1193,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>リストのスライスを使った代入は，要素数を変える<strong>黒魔術</strong>であることに注意．</p>
 <p>基本的には使わないこと.</p>
-<div class="cell" data-execution_count="6">
-<details open="">
+<div id="cell-12" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>x <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">5</span>))</span>
 <span id="cb10-2"><a href="#cb10-2"></a>x[<span class="dv">1</span>:<span class="dv">4</span>] <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]</span>
@@ -1130,8 +1205,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>numpyの配列はインプレイスな演算もサポートしている.</p>
-<div class="cell" data-execution_count="7">
-<details open="">
+<div id="cell-14" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>x <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
 <span id="cb12-2"><a href="#cb12-2"></a>x[:<span class="dv">4</span>] <span class="op">+=</span> <span class="dv">10</span></span>
@@ -1145,8 +1220,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="numpy配列の計算" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="numpy配列の計算"><span class="header-section-number">5</span> NumPy配列の計算</h2>
-<div class="cell" data-execution_count="8">
-<details open="">
+<div id="cell-16" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># 直接関数を適用することが可能</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>np.exp(np.arange(<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1159,14 +1234,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ベストプラクティス" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="ベストプラクティス"><span class="header-section-number">6</span> ベストプラクティス</h2>
 <p>上記のようにNumPy配列はループを使わない処理が可能である． 数値演算を高速化する場合には，ループ（ピュアなPython）に依存しないようにすることが重要.</p>
-<div class="cell" data-execution_count="9">
-<details open="">
+<div id="cell-18" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="im">from</span> mypy.mymodule <span class="im">import</span> TimeExecute</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="10">
-<details open="">
+<div id="cell-19" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>x <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="bu">int</span>(<span class="fl">1e7</span>)))</span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="cf">with</span> TimeExecute():</span>
@@ -1178,8 +1253,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>1,260.662 [msec]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="11">
-<details open="">
+<div id="cell-20" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>x <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="bu">int</span>(<span class="fl">1e7</span>)))</span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="cf">with</span> TimeExecute():</span>
@@ -1206,8 +1281,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>np.empty</li>
 <li>np.concatenate</li>
 </ul>
-<div class="cell" data-execution_count="12">
-<details open="">
+<div id="cell-22" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>a <span class="op">=</span> np.arange(<span class="dv">2</span>)</span>
 <span id="cb21-2"><a href="#cb21-2"></a>b <span class="op">=</span> np.arange(<span class="dv">3</span>, <span class="dv">5</span>)</span>
@@ -1217,8 +1292,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([0, 1, 3, 4])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="13">
-<details open="">
+<div id="cell-23" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb23-2"><a href="#cb23-2"></a><span class="op">%</span>matplotlib inline</span>
@@ -1231,11 +1306,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-9"><a href="#cb23-9"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="ch02_numpyの導入_files/figure-html/cell-14-output-1.svg" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="ch02_numpyの導入_files/figure-html/cell-14-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="14">
-<details open="">
+</div>
+<div id="cell-24" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>np.full((<span class="dv">3</span>, <span class="dv">2</span>), [<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1245,8 +1324,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        [3, 2]])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="15">
-<details open="">
+<div id="cell-25" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># すべｔ同じ要素の時にもfullを使う</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a><span class="co"># np.ones(N) * aなどよりも早い</span></span>
@@ -1256,8 +1335,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="16">
-<details open="">
+<div id="cell-26" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># 領域だけ確保の場合にもnp.zero等を使うより関数を使う. </span></span>
 <span id="cb28-2"><a href="#cb28-2"></a>np.empty((<span class="dv">3</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1271,8 +1350,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="データ型" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="データ型"><span class="header-section-number">8</span> データ型</h2>
-<div class="cell" data-execution_count="17">
-<details open="">
+<div id="cell-28" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># データ型ごとのバイト数を確認</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>dtypes <span class="op">=</span> [np.uint8, np.int32, np.float64, np.<span class="bu">object</span>, np.dtype(<span class="st">"U10"</span>), np.<span class="bu">bool</span>]</span>
@@ -1293,8 +1372,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ブーリアンマスク" class="level2" data-number="9">
 <h2 data-number="9" class="anchored" data-anchor-id="ブーリアンマスク"><span class="header-section-number">9</span> ブーリアンマスク</h2>
 <p>NumPyの配列のスライスは，インデックスだけでなく，ブール型でも可能である.</p>
-<div class="cell" data-execution_count="18">
-<details open="">
+<div id="cell-30" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>x <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
 <span id="cb32-2"><a href="#cb32-2"></a>is_even <span class="op">=</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span></span>
@@ -1309,8 +1388,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="キャスト" class="level2" data-number="10">
 <h2 data-number="10" class="anchored" data-anchor-id="キャスト"><span class="header-section-number">10</span> キャスト</h2>
 <p><strong>astype</strong>メソッドを使う.</p>
-<div class="cell" data-execution_count="19">
-<details open="">
+<div id="cell-32" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>a <span class="op">=</span> np.arange(<span class="dv">10</span>, dtype <span class="op">=</span> np.int32)</span>
 <span id="cb34-2"><a href="#cb34-2"></a>a.astype(np.uint8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1319,8 +1398,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=uint8)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="20">
-<details open="">
+<div id="cell-33" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>a.astype(np.dtype(<span class="st">"U10"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1328,8 +1407,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], dtype='&lt;U10')</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="21">
-<details open="">
+<div id="cell-34" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>np.array([<span class="st">"10"</span>]).astype(np.int32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1342,8 +1421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11" class="anchored" data-anchor-id="演習問題"><span class="header-section-number">11</span> 演習問題</h2>
 <section id="question-01" class="level3" data-number="11.1">
 <h3 data-number="11.1" class="anchored" data-anchor-id="question-01"><span class="header-section-number">11.1</span> question 01</h3>
-<div class="cell" data-execution_count="22">
-<details open="">
+<div id="cell-36" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a></span>
 <span id="cb40-2"><a href="#cb40-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1354,8 +1433,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>array([1., 1., 1.])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="23">
-<details open="">
+<div id="cell-37" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>np.zeros((<span class="dv">7</span>,))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1366,8 +1445,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-02" class="level3" data-number="11.2">
 <h3 data-number="11.2" class="anchored" data-anchor-id="question-02"><span class="header-section-number">11.2</span> question 02</h3>
-<div class="cell" data-execution_count="24">
-<details open="">
+<div id="cell-39" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>a <span class="op">=</span> np.ones((<span class="dv">3</span>, ), dtype <span class="op">=</span> np.int32)</span>
 <span id="cb44-2"><a href="#cb44-2"></a><span class="bu">print</span>(a, a.dtype)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1379,8 +1458,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-03" class="level3" data-number="11.3">
 <h3 data-number="11.3" class="anchored" data-anchor-id="question-03"><span class="header-section-number">11.3</span> question 03</h3>
-<div class="cell" data-execution_count="25">
-<details open="">
+<div id="cell-41" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a>x <span class="op">=</span> np.zeros(<span class="dv">5</span>, dtype <span class="op">=</span> np.int32)</span>
 <span id="cb46-2"><a href="#cb46-2"></a>x[<span class="bu">len</span>(x) <span class="op">//</span> <span class="dv">2</span>] <span class="op">+=</span> <span class="dv">1</span></span>
@@ -1393,8 +1472,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-04" class="level3" data-number="11.4">
 <h3 data-number="11.4" class="anchored" data-anchor-id="question-04"><span class="header-section-number">11.4</span> question 04</h3>
-<div class="cell" data-execution_count="26">
-<details open="">
+<div id="cell-43" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a>x <span class="op">=</span> np.empty(<span class="dv">10</span>, dtype <span class="op">=</span> np.int32)</span>
 <span id="cb48-2"><a href="#cb48-2"></a>is_even <span class="op">=</span> np.arange(<span class="bu">len</span>(x)) <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span></span>
@@ -1409,8 +1488,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-06" class="level3" data-number="11.5">
 <h3 data-number="11.5" class="anchored" data-anchor-id="question-06"><span class="header-section-number">11.5</span> question 06</h3>
-<div class="cell" data-execution_count="27">
-<details open="">
+<div id="cell-45" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>N   <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb50-2"><a href="#cb50-2"></a>ret <span class="op">=</span> np.arange(<span class="dv">1</span>, N <span class="op">+</span> <span class="dv">1</span>, dtype <span class="op">=</span> np.<span class="bu">object</span>)</span>
@@ -1437,8 +1516,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-07" class="level3" data-number="11.6">
 <h3 data-number="11.6" class="anchored" data-anchor-id="question-07"><span class="header-section-number">11.6</span> question 07</h3>
-<div class="cell" data-execution_count="28">
-<details open="">
+<div id="cell-47" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>N  <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb52-2"><a href="#cb52-2"></a>ret <span class="op">=</span> np.full((N <span class="op">+</span> <span class="dv">1</span>), <span class="st">""</span>, dtype <span class="op">=</span> np.<span class="bu">object</span>)</span>
@@ -1463,8 +1542,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-08" class="level3" data-number="11.7">
 <h3 data-number="11.7" class="anchored" data-anchor-id="question-08"><span class="header-section-number">11.7</span> question 08</h3>
-<div class="cell" data-execution_count="29">
-<details open="">
+<div id="cell-49" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a><span class="im">import</span> re</span>
 <span id="cb54-2"><a href="#cb54-2"></a>reg <span class="op">=</span> re.<span class="bu">compile</span>(<span class="st">"3"</span>)</span>
@@ -1491,8 +1570,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-09" class="level3" data-number="11.8">
 <h3 data-number="11.8" class="anchored" data-anchor-id="question-09"><span class="header-section-number">11.8</span> question 09</h3>
-<div class="cell" data-execution_count="38">
-<details open="">
+<div id="cell-51" class="cell" data-execution_count="38">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>N <span class="op">=</span> <span class="dv">200</span></span>
 <span id="cb56-2"><a href="#cb56-2"></a>x <span class="op">=</span> np.zeros((N, ), dtype <span class="op">=</span> np.int32)</span>
@@ -1522,8 +1601,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-10" class="level3" data-number="11.9">
 <h3 data-number="11.9" class="anchored" data-anchor-id="question-10"><span class="header-section-number">11.9</span> question 10</h3>
-<div class="cell" data-execution_count="43">
-<details open="">
+<div id="cell-53" class="cell" data-execution_count="43">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a>velocity_km_per_m <span class="op">=</span> (<span class="dv">65</span> <span class="op">-</span> <span class="dv">15</span>) <span class="op">/</span> <span class="dv">60</span></span>
 <span id="cb58-2"><a href="#cb58-2"></a>x_seq <span class="op">=</span> <span class="dv">15</span> <span class="op">+</span> velocity_km_per_m <span class="op">*</span> np.arange(<span class="dv">61</span>)</span>
@@ -1542,8 +1621,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-11" class="level3" data-number="11.10">
 <h3 data-number="11.10" class="anchored" data-anchor-id="question-11"><span class="header-section-number">11.10</span> question 11</h3>
-<div class="cell" data-execution_count="41">
-<details open="">
+<div id="cell-55" class="cell" data-execution_count="41">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a></span>
 <span id="cb60-2"><a href="#cb60-2"></a>x <span class="op">=</span> np.arange(<span class="dv">10</span>)</span>
@@ -1558,8 +1637,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-12" class="level3" data-number="11.11">
 <h3 data-number="11.11" class="anchored" data-anchor-id="question-12"><span class="header-section-number">11.11</span> question 12</h3>
-<div class="cell" data-execution_count="45">
-<details open="">
+<div id="cell-57" class="cell" data-execution_count="45">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a>alpha_arr <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span> np.pi, <span class="dv">50</span>)</span>
 <span id="cb62-2"><a href="#cb62-2"></a>beta_arr  <span class="op">=</span> np.arange(<span class="dv">50</span>)</span>
@@ -1574,8 +1653,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         -0.59883364,  0.46725577,  0.99904896,  0.38845266, -0.66633031]))</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="46">
-<details open="">
+<div id="cell-58" class="cell" data-execution_count="46">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a><span class="cf">for</span> a, b <span class="kw">in</span> <span class="bu">zip</span>(x, y):</span>
 <span id="cb64-2"><a href="#cb64-2"></a>    <span class="cf">if</span> <span class="kw">not</span> np.isclose(a, b):</span>
@@ -1585,8 +1664,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-13" class="level3" data-number="11.12">
 <h3 data-number="11.12" class="anchored" data-anchor-id="question-13"><span class="header-section-number">11.12</span> question 13</h3>
-<div class="cell" data-execution_count="50">
-<details open="">
+<div id="cell-60" class="cell" data-execution_count="50">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a><span class="co"># 1円未満は切り捨て</span></span>
 <span id="cb65-2"><a href="#cb65-2"></a>return_fee_rate <span class="op">=</span> <span class="fl">.35</span></span>
@@ -1606,8 +1685,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        28000, 28500, 29000, 29500, 30000])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="52">
-<details open="">
+<div id="cell-61" class="cell" data-execution_count="52">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a>apparent_fee <span class="op">=</span> fee_arr <span class="op">-</span> np.floor(fee_arr <span class="op">*</span> return_fee_rate).astype(np.<span class="bu">int</span>)</span>
 <span id="cb67-2"><a href="#cb67-2"></a>apparent_fee</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1622,8 +1701,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        18200, 18525, 18850, 19175, 19500])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="82">
-<details open="">
+<div id="cell-62" class="cell" data-execution_count="82">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a> x <span class="op">=</span> fee_arr <span class="op">*</span> return_coupon_rate</span>
 <span id="cb69-2"><a href="#cb69-2"></a> z <span class="op">=</span> (x <span class="op">//</span> <span class="dv">1000</span>).astype(np.<span class="bu">int</span>)</span>
@@ -1641,8 +1720,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        4000., 4000., 4000., 4000., 5000.])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="83">
-<details open="">
+<div id="cell-63" class="cell" data-execution_count="83">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a>apparent_fee <span class="op">-</span> coupen</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1660,14 +1739,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-14" class="level3" data-number="11.13">
 <h3 data-number="11.13" class="anchored" data-anchor-id="question-14"><span class="header-section-number">11.13</span> question 14</h3>
-<div class="cell" data-execution_count="99">
-<details open="">
+<div id="cell-65" class="cell" data-execution_count="99">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a>a <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="98">
-<details open="">
+<div id="cell-66" class="cell" data-execution_count="98">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1"></a><span class="cf">for</span> x, b, c, d, e <span class="kw">in</span> <span class="bu">zip</span>(a, np.floor(a), np.ceil(a), np.<span class="bu">round</span>(a), a.astype(np.<span class="bu">int</span>)):</span>
 <span id="cb74-2"><a href="#cb74-2"></a>    <span class="bu">print</span> (<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:&gt;5.2f}</span><span class="ss">, </span><span class="sc">{</span>b<span class="sc">:&gt;5.2f}</span><span class="ss">, </span><span class="sc">{</span>c<span class="sc">:&gt;5.2f}</span><span class="ss">, </span><span class="sc">{</span>d<span class="sc">:&gt;5.2f}</span><span class="ss">, </span><span class="sc">{</span>e<span class="sc">:&gt;5.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1687,8 +1766,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-15" class="level3" data-number="11.14">
 <h3 data-number="11.14" class="anchored" data-anchor-id="question-15"><span class="header-section-number">11.14</span> question 15</h3>
-<div class="cell" data-execution_count="101">
-<details open="">
+<div id="cell-68" class="cell" data-execution_count="101">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a>size <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb76-2"><a href="#cb76-2"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
@@ -1708,8 +1787,8 @@ p = 5, n = 5</code></pre>
 </section>
 <section id="question-16" class="level3" data-number="11.15">
 <h3 data-number="11.15" class="anchored" data-anchor-id="question-16"><span class="header-section-number">11.15</span> question 16</h3>
-<div class="cell" data-execution_count="105">
-<details open="">
+<div id="cell-70" class="cell" data-execution_count="105">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a>x <span class="op">=</span> np.arange(<span class="dv">50</span>)</span>
 <span id="cb78-2"><a href="#cb78-2"></a>y <span class="op">=</span> x <span class="op">//</span> <span class="dv">10</span></span>
@@ -1721,8 +1800,8 @@ p = 5, n = 5</code></pre>
        4, 4, 4, 4, 4, 4], dtype=int32)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="106">
-<details open="">
+<div id="cell-71" class="cell" data-execution_count="106">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a><span class="cf">for</span> a <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
 <span id="cb80-2"><a href="#cb80-2"></a>    <span class="bu">print</span>(np.<span class="bu">sum</span>(y <span class="op">==</span> a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1738,14 +1817,14 @@ p = 5, n = 5</code></pre>
 </section>
 <section id="question-17" class="level3" data-number="11.16">
 <h3 data-number="11.16" class="anchored" data-anchor-id="question-17"><span class="header-section-number">11.16</span> question 17</h3>
-<div class="cell" data-execution_count="107">
-<details open="">
+<div id="cell-73" class="cell" data-execution_count="107">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1"></a>x <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">253</span>, <span class="dv">254</span>, <span class="dv">255</span>], dtype <span class="op">=</span> np.uint8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="108">
-<details open="">
+<div id="cell-74" class="cell" data-execution_count="108">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1"></a>x <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1753,8 +1832,8 @@ p = 5, n = 5</code></pre>
 <pre><code>array([  1,   2,   3, 254, 255,   0], dtype=uint8)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="109">
-<details open="">
+<div id="cell-75" class="cell" data-execution_count="109">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1"></a>x <span class="op">-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1762,8 +1841,8 @@ p = 5, n = 5</code></pre>
 <pre><code>array([255,   0,   1, 252, 253, 254], dtype=uint8)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="110">
-<details open="">
+<div id="cell-76" class="cell" data-execution_count="110">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1"></a>x <span class="op">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1771,8 +1850,8 @@ p = 5, n = 5</code></pre>
 <pre><code>array([  0,   2,   4, 250, 252, 254], dtype=uint8)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="111">
-<details open="">
+<div id="cell-77" class="cell" data-execution_count="111">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1"></a><span class="dv">254</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">%</span> <span class="dv">256</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1780,8 +1859,8 @@ p = 5, n = 5</code></pre>
 <pre><code>252</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="112">
-<details open="">
+<div id="cell-78" class="cell" data-execution_count="112">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1"></a>x <span class="op">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1789,8 +1868,8 @@ p = 5, n = 5</code></pre>
 <pre><code>array([  0. ,   0.5,   1. , 126.5, 127. , 127.5])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="114">
-<details open="">
+<div id="cell-79" class="cell" data-execution_count="114">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1"></a>(x <span class="op">/</span> <span class="dv">2</span>).dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1798,8 +1877,8 @@ p = 5, n = 5</code></pre>
 <pre><code>dtype('float64')</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="115">
-<details open="">
+<div id="cell-80" class="cell" data-execution_count="115">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1"></a>x <span class="op">//</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1810,8 +1889,8 @@ p = 5, n = 5</code></pre>
 </section>
 <section id="question-18" class="level3" data-number="11.17">
 <h3 data-number="11.17" class="anchored" data-anchor-id="question-18"><span class="header-section-number">11.17</span> question 18</h3>
-<div class="cell" data-execution_count="117">
-<details open="">
+<div id="cell-82" class="cell" data-execution_count="117">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1"></a><span class="co"># 任意の範囲で頭打ちのを作成するには</span></span>
 <span id="cb97-2"><a href="#cb97-2"></a>np.clip(np.arange(<span class="dv">10</span>), <span class="dv">3</span>, <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1862,18 +1941,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1905,7 +1973,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -1957,10 +2047,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1970,8 +2077,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1983,7 +2099,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2027,6 +2266,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2052,6 +2292,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2113,17 +2379,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" class="pagination-link">
+      <a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" class="pagination-link" aria-label="Pythonの基礎">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Pythonの基礎</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../contents/books/07_NumpyInfinity/ch03_行列の導入.html" class="pagination-link">
+      <a href="../../../contents/books/07_NumpyInfinity/ch03_行列の導入.html" class="pagination-link" aria-label="行列の導入">
         <span class="nav-page-text">行列の導入</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 

@@ -1,0 +1,3509 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>sktimeの使い方 – R Tips</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch34_指数平滑化法とその周辺.html" rel="next">
+<link href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch32_季節調整とトレンド除去.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3ca10592e571c480e0d0902a3fb6025a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">ALL</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html">
+ <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+ <span class="dropdown-text">Numpy Infinity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+ <span class="dropdown-text">LightGBMハンドブック</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
+ <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html">
+ <span class="dropdown-text">爆速Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">
+ <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html">
+ <span class="dropdown-text">argparse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html">
+ <span class="dropdown-text">assertr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/working.html">
+ <span class="dropdown-text">tidyverse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
+ <span class="dropdown-text">My Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/python/notebook.html">
+ <span class="dropdown-text">Python</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">Pythonではじめる時系列分析</a></li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch33_sktimeの使い方.html">sktimeの使い方</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Rによる実証分析2e</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch01_回帰分析の目的.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 回帰分析の目的</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch02_統計の基礎知識.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 統計の基礎知識</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch03_確率論の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 確率論の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch04_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch05_推測統計の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 推測統計の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch06_相関関係と因果関係.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 相関関係と因果関係</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch07_外生変数と内生変数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 内生変数と外生変数</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch08_ランダム化実験.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch08 ランダム化実験</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch09_マッチング法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch09 マッチング法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch10_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch10 回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch11_操作変数法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch11 操作変数法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/01_Rによる実証分析_2e/ch12_パネルデータ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch12 パネルデータ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">因果推論ミックステープ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch01_導入.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 導入</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch02_確率と回帰の概要.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 確率と回帰の概要</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch03_非巡回的有向グラフ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 非巡回的有向グラフ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch04_潜在アウトカム因果モデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 潜在アウトカム因果モデル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch05_マッチングと層別化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 マッチングと層別化</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch06_回帰不連続デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch07_操作変数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 操作変数</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch08_パネルデータ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch08 パネルデータ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch09_差分の差デザイン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch09 差分の差デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch10_合成コントロール法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch10 合成コントロール</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/02_因果推論ミックステープ/ch11_結論.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch11 結論</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch01_本書の狙い.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch01 本書のねらい</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch02_プログラミングの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch02 プログラミングの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch03_乱数生成シミュレーションの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch03 乱数生成シミュレーションの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch04_母数の推定のシミュレーション.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch04 母数の推定</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch05_統計検定の論理とエラー確率のコントロール - コピー (2).html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch05 統計検定の論理</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch06_適切な検定のためのサンプルサイズ設計.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch06 サンプルサイズ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/ch07_回帰分析とシミュレーション.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ch07 回帰分析</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">統計的因果推論の理論と実際</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/101_統計的因果推論の基礎の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">基礎の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/102_潜在的結果変数の枠組み.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">潜在的結果変数の枠組み</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/103_統計的因果推論における重要な仮定.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">重要な仮定</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/104_推測統計の基礎：標準誤差と信頼区間.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">標準誤差と信頼区間</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/105_回帰分析の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/106_図で理解する重回帰モデルの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">重回帰分析の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/107_最小二乗法による重回帰モデルの仮定と診断1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">最小二乗法の仮定と診断1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/108_最小二乗法による重回帰モデルの仮定と診断2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">最小二乗法の仮定と診断2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/109_交互作用項のある共分散分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交互作用項のある共分散分析</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/110_傾向スコア.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコア</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/111_傾向スコアマッチング.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコアマッチング</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/112_傾向スコアによる層化解析法および重み付き法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">傾向スコアによる層化解析法および重み付き法</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/113_操作変数法の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">操作変数法の基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/114_操作変数法による非遵守への対処.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">操作変数の非遵守への対処</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/115_回帰不連続デザインの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">回帰不連続デザイン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/05_統計的因果推論の理論と実際/119_欠測データ処理の基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">欠損データ処理</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Pythonではじめる数理最適化 2nd</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch02_チュートリアル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">数理最適化チュートリアル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch03_学校のクラス編成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">学校のクラス編成</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch04_クーポン.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">クーポン</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/06_Pythonではじめる数理最適化/ch05_配送計画.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">配送計画</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">Numpy Infinity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pythonの基礎</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch02_numpyの導入.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">numpyの導入</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch03_行列の導入.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">行列の導入</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch04_テンソルと画像処理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">テンソルと画像処理</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch04_テンソルと画像処理_Q52.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Q52：セピア化</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch04_テンソルと画像処理_Q72.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Q84：CMYK色空間</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/07_NumpyInfinity/ch05_ブロードキャストの応用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ブロードキャストの応用</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">LightGBMハンドブック</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/08_handbook_lightgbm/cl03_分類の予測モデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/08_handbook_lightgbm/cl04_回帰の予測モデル改善.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">Pythonで学ぶ数理最適化</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">基礎編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch02_応用編.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">応用編</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+ <span class="menu-text">爆速Python</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">組込み機能のパフォーマンスを最大限に引き出す</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/10_爆速Python/ch03_並行性_並列性_非同期処理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ch03 並行性 並列性 非同期処理</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pythonではじめる時系列分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch01_時系列分析をはじめよう.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">時系列分析をはじめよう</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch02_時系列データの構造.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">時系列データの構造</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch03_データ生成過程の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">データ生成過程の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch04_pandasによる日付処理の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pandasによる日付処理の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch05_Pythonによる時系列分析の基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pythonによる時系列分析の基本</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch06_時系列データのシミュレーションと見せかけの回帰.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">時系列データのシミュレーションと見せかけの回帰</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch31_単純な時系列予測の手法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">単純な時系列予測</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch32_季節調整とトレンド除去.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">季節調整とトレンド除去</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch33_sktimeの使い方.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">sktimeの使い方</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch34_指数平滑化法とその周辺.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">指数平滑化方とその周辺</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch41_box-jenkins法からの自動予測アプローチ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Box-Jenkins法からの自動予測アプローチ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch42_ARIMAモデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARIMAモデル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch43_SARIMAモデル.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SARIMAモデル</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch44_モデル選択.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">モデル選択</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch51_状態空間モデルの概要.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">状態空間モデルの概要</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch52_ローカルレベルモデルの基本.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ローカルレベルモデルの基本</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sktimeの利用" id="toc-sktimeの利用" class="nav-link active" data-scroll-target="#sktimeの利用"><span class="header-section-number">1</span> sktimeの利用</a></li>
+  <li><a href="#分析準備" id="toc-分析準備" class="nav-link" data-scroll-target="#分析準備"><span class="header-section-number">2</span> 分析準備</a></li>
+  <li><a href="#予測の流れ" id="toc-予測の流れ" class="nav-link" data-scroll-target="#予測の流れ"><span class="header-section-number">3</span> 予測の流れ</a></li>
+  <li><a href="#データの指定と予測期間の指定" id="toc-データの指定と予測期間の指定" class="nav-link" data-scroll-target="#データの指定と予測期間の指定"><span class="header-section-number">4</span> データの指定と予測期間の指定</a>
+  <ul class="collapse">
+  <li><a href="#持続予測" id="toc-持続予測" class="nav-link" data-scroll-target="#持続予測"><span class="header-section-number">4.1</span> 持続予測</a></li>
+  <li><a href="#ドリフト予測" id="toc-ドリフト予測" class="nav-link" data-scroll-target="#ドリフト予測"><span class="header-section-number">4.2</span> ドリフト予測</a></li>
+  </ul></li>
+  <li><a href="#時系列データに対する交差検証" id="toc-時系列データに対する交差検証" class="nav-link" data-scroll-target="#時系列データに対する交差検証"><span class="header-section-number">5</span> 時系列データに対する交差検証</a></li>
+  <li><a href="#sktimeによる交差検証" id="toc-sktimeによる交差検証" class="nav-link" data-scroll-target="#sktimeによる交差検証"><span class="header-section-number">6</span> sktimeによる交差検証</a></li>
+  <li><a href="#パイプラインの利用" id="toc-パイプラインの利用" class="nav-link" data-scroll-target="#パイプラインの利用"><span class="header-section-number">7</span> パイプラインの利用</a>
+  <ul class="collapse">
+  <li><a href="#事例1-季節調整-トレンド除去-持続予測" id="toc-事例1-季節調整-トレンド除去-持続予測" class="nav-link" data-scroll-target="#事例1-季節調整-トレンド除去-持続予測"><span class="header-section-number">7.1</span> 事例1: 季節調整 + トレンド除去 + 持続予測</a></li>
+  <li><a href="#事例2-差分によるトレンド除去-季節ナイーブ予測" id="toc-事例2-差分によるトレンド除去-季節ナイーブ予測" class="nav-link" data-scroll-target="#事例2-差分によるトレンド除去-季節ナイーブ予測"><span class="header-section-number">7.2</span> 事例2: 差分によるトレンド除去 + 季節ナイーブ予測</a></li>
+  <li><a href="#ハイパーパラメータのチューニング" id="toc-ハイパーパラメータのチューニング" class="nav-link" data-scroll-target="#ハイパーパラメータのチューニング"><span class="header-section-number">7.3</span> ハイパーパラメータのチューニング</a></li>
+  </ul></li>
+  <li><a href="#分析手法の半自動選択" id="toc-分析手法の半自動選択" class="nav-link" data-scroll-target="#分析手法の半自動選択"><span class="header-section-number">8</span> 分析手法の半自動選択</a>
+  <ul class="collapse">
+  <li><a href="#事例複数の予測モデルからの選択" id="toc-事例複数の予測モデルからの選択" class="nav-link" data-scroll-target="#事例複数の予測モデルからの選択"><span class="header-section-number">8.1</span> 事例:複数の予測モデルからの選択</a></li>
+  <li><a href="#対数変換の必要性の選択" id="toc-対数変換の必要性の選択" class="nav-link" data-scroll-target="#対数変換の必要性の選択"><span class="header-section-number">8.2</span> 対数変換の必要性の選択</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python</li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">Pythonではじめる時系列分析</a></li><li class="breadcrumb-item"><a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch33_sktimeの使い方.html">sktimeの使い方</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">sktimeの使い方</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<ul>
+<li>PeriodIndex</li>
+<li>sktimeを用いた予測の流れ</li>
+<li>データの分割と予測期間の指定</li>
+<li>sktimeによる予測</li>
+<li>時系列データに対する交差検証</li>
+<li>sktimeによる交差検証</li>
+<li>パイプラインの利用</li>
+<li>ハイパーパラメータのチューニング</li>
+<li>分析手法の自動選択</li>
+</ul>
+<section id="sktimeの利用" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> sktimeの利用</h1>
+<p><a href="https://www.sktime.net/en/latest/index.html">公式ドキュメント</a></p>
+</section>
+<section id="分析準備" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 分析準備</h1>
+<div id="cell-3" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9"></a>sns.<span class="bu">set</span>()</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="im">import</span> statsmodels.tsa.api <span class="im">as</span> tsa</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="im">from</span> sktime.utils.plotting <span class="im">import</span> plot_series</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="im">from</span> sktime.performance_metrics.forecasting <span class="im">import</span> (</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    mean_absolute_percentage_error,</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    mean_absolute_scaled_error, </span>
+<span id="cb1-20"><a href="#cb1-20"></a>    mean_squared_error,</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    mean_absolute_error,</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    MeanAbsoluteError,</span>
+<span id="cb1-23"><a href="#cb1-23"></a>)</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="im">from</span> sktime.transformations.series.detrend <span class="im">import</span> (</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    Deseasonalizer, </span>
+<span id="cb1-27"><a href="#cb1-27"></a>    Detrender,</span>
+<span id="cb1-28"><a href="#cb1-28"></a>)</span>
+<span id="cb1-29"><a href="#cb1-29"></a></span>
+<span id="cb1-30"><a href="#cb1-30"></a></span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="im">from</span> sktime.forecasting.trend <span class="im">import</span> PolynomialTrendForecaster</span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="im">from</span> sktime.forecasting.naive <span class="im">import</span> NaiveForecaster</span>
+<span id="cb1-33"><a href="#cb1-33"></a></span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="im">from</span> sktime.transformations.series.difference <span class="im">import</span> Differencer</span>
+<span id="cb1-35"><a href="#cb1-35"></a><span class="im">from</span> sktime.transformations.series.boxcox <span class="im">import</span> LogTransformer</span>
+<span id="cb1-36"><a href="#cb1-36"></a></span>
+<span id="cb1-37"><a href="#cb1-37"></a><span class="im">from</span> sktime.forecasting.compose <span class="im">import</span> (</span>
+<span id="cb1-38"><a href="#cb1-38"></a>    TransformedTargetForecaster,</span>
+<span id="cb1-39"><a href="#cb1-39"></a>    EnsembleForecaster,</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    MultiplexForecaster,</span>
+<span id="cb1-41"><a href="#cb1-41"></a>    StackingForecaster, </span>
+<span id="cb1-42"><a href="#cb1-42"></a>)</span>
+<span id="cb1-43"><a href="#cb1-43"></a><span class="im">from</span> sktime.transformations.compose <span class="im">import</span> OptionalPassthrough</span>
+<span id="cb1-44"><a href="#cb1-44"></a></span>
+<span id="cb1-45"><a href="#cb1-45"></a><span class="im">from</span> sktime.forecasting.model_selection <span class="im">import</span> (</span>
+<span id="cb1-46"><a href="#cb1-46"></a>    temporal_train_test_split,</span>
+<span id="cb1-47"><a href="#cb1-47"></a>    ForecastingGridSearchCV,</span>
+<span id="cb1-48"><a href="#cb1-48"></a>    SlidingWindowSplitter,</span>
+<span id="cb1-49"><a href="#cb1-49"></a>    ExpandingWindowSplitter</span>
+<span id="cb1-50"><a href="#cb1-50"></a>)</span>
+<span id="cb1-51"><a href="#cb1-51"></a><span class="im">from</span> sktime.forecasting.model_evaluation <span class="im">import</span> evaluate</span>
+<span id="cb1-52"><a href="#cb1-52"></a></span>
+<span id="cb1-53"><a href="#cb1-53"></a><span class="im">from</span> statsmodels.tsa.deterministic <span class="im">import</span> TimeTrend</span>
+<span id="cb1-54"><a href="#cb1-54"></a></span>
+<span id="cb1-55"><a href="#cb1-55"></a><span class="im">import</span> dask.dataframe <span class="im">as</span> dd</span>
+<span id="cb1-56"><a href="#cb1-56"></a></span>
+<span id="cb1-57"><a href="#cb1-57"></a><span class="im">from</span> matplotlib <span class="im">import</span> rcParams</span>
+<span id="cb1-58"><a href="#cb1-58"></a>rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'sans-serif'</span></span>
+<span id="cb1-59"><a href="#cb1-59"></a>rcParams[<span class="st">'font.sans-serif'</span>] <span class="op">=</span> <span class="st">'Meiryo'</span></span>
+<span id="cb1-60"><a href="#cb1-60"></a></span>
+<span id="cb1-61"><a href="#cb1-61"></a>pd.set_option(<span class="st">'display.unicode.east_asian_width'</span>, <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-4" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>air_passengers <span class="op">=</span> sm.datasets.get_rdataset(<span class="st">"AirPassengers"</span>).data</span>
+<span id="cb2-2"><a href="#cb2-2"></a>air_passengers.index <span class="op">=</span> pd.period_range(</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    start<span class="op">=</span><span class="st">'1949-01'</span>, periods<span class="op">=</span><span class="bu">len</span>(air_passengers), freq<span class="op">=</span><span class="st">'M'</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>air_passengers <span class="op">=</span> air_passengers.drop(air_passengers.columns[<span class="dv">0</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>air_passengers.head(), air_passengers.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>(         value
+ 1949-01    112
+ 1949-02    118
+ 1949-03    132
+ 1949-04    129
+ 1949-05    121,
+          value
+ 1960-08    606
+ 1960-09    508
+ 1960-10    461
+ 1960-11    390
+ 1960-12    432)</code></pre>
+</div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a>air_passengers.plot(ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ch33_sktimeの使い方_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="予測の流れ" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 予測の流れ</h1>
+<ol type="1">
+<li>データの指定</li>
+<li>予測期間の指定</li>
+<li>予測手法の指定</li>
+<li>データへの当てはめ</li>
+<li>予測の実施</li>
+</ol>
+</section>
+<section id="データの指定と予測期間の指定" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> データの指定と予測期間の指定</h1>
+<div id="cell-8" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>train, test <span class="op">=</span> temporal_train_test_split(air_passengers, test_size<span class="op">=</span><span class="dv">36</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>test.index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>PeriodIndex(['1958-01', '1958-02', '1958-03', '1958-04', '1958-05', '1958-06',
+             '1958-07', '1958-08', '1958-09', '1958-10', '1958-11', '1958-12',
+             '1959-01', '1959-02', '1959-03', '1959-04', '1959-05', '1959-06',
+             '1959-07', '1959-08', '1959-09', '1959-10', '1959-11', '1959-12',
+             '1960-01', '1960-02', '1960-03', '1960-04', '1960-05', '1960-06',
+             '1960-07', '1960-08', '1960-09', '1960-10', '1960-11', '1960-12'],
+            dtype='period[M]')</code></pre>
+</div>
+</div>
+<div id="cell-9" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>train.index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>PeriodIndex(['1949-01', '1949-02', '1949-03', '1949-04', '1949-05', '1949-06',
+             '1949-07', '1949-08', '1949-09', '1949-10',
+             ...
+             '1957-03', '1957-04', '1957-05', '1957-06', '1957-07', '1957-08',
+             '1957-09', '1957-10', '1957-11', '1957-12'],
+            dtype='period[M]', length=108)</code></pre>
+</div>
+</div>
+<div id="cell-10" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># 予測期間</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>fh <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="bu">len</span>(test) <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>fh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17,
+       18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+       35, 36])</code></pre>
+</div>
+</div>
+<section id="持続予測" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="持続予測"><span class="header-section-number">4.1</span> 持続予測</h2>
+<div id="cell-12" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>naive_forecaster <span class="op">=</span> NaiveForecaster(strategy<span class="op">=</span><span class="st">"last"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>naive_forecaster.fit(train)</span>
+<span id="cb11-4"><a href="#cb11-4"></a></span>
+<span id="cb11-5"><a href="#cb11-5"></a>naive_pred <span class="op">=</span> naive_forecaster.predict(fh)</span>
+<span id="cb11-6"><a href="#cb11-6"></a>naive_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-01</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-02</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-03</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-04</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-05</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-06</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-07</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-08</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-09</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-10</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-11</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-12</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-01</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-02</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-03</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-04</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-05</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-06</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-07</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-08</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-09</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-10</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-11</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-12</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-01</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-02</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-03</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-04</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-05</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-06</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-07</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-08</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-09</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-10</td>
+<td>336.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-11</td>
+<td>336.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-12</td>
+<td>336.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="ドリフト予測" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="ドリフト予測"><span class="header-section-number">4.2</span> ドリフト予測</h2>
+<div id="cell-14" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>drift_forecaster <span class="op">=</span> NaiveForecaster(strategy<span class="op">=</span><span class="st">"drift"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>drift_forecaster.fit(train)</span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a>drift_pred <span class="op">=</span> drift_forecaster.predict(fh)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-15" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>drift_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-01</td>
+<td>338.093458</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-02</td>
+<td>340.186916</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-03</td>
+<td>342.280374</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-04</td>
+<td>344.373832</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-05</td>
+<td>346.467290</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-06</td>
+<td>348.560748</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-07</td>
+<td>350.654206</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-08</td>
+<td>352.747664</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-09</td>
+<td>354.841121</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-10</td>
+<td>356.934579</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1958-11</td>
+<td>359.028037</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1958-12</td>
+<td>361.121495</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-01</td>
+<td>363.214953</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-02</td>
+<td>365.308411</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-03</td>
+<td>367.401869</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-04</td>
+<td>369.495327</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-05</td>
+<td>371.588785</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-06</td>
+<td>373.682243</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-07</td>
+<td>375.775701</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-08</td>
+<td>377.869159</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-09</td>
+<td>379.962617</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-10</td>
+<td>382.056075</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1959-11</td>
+<td>384.149533</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1959-12</td>
+<td>386.242991</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-01</td>
+<td>388.336449</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-02</td>
+<td>390.429907</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-03</td>
+<td>392.523364</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-04</td>
+<td>394.616822</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-05</td>
+<td>396.710280</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-06</td>
+<td>398.803738</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-07</td>
+<td>400.897196</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-08</td>
+<td>402.990654</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-09</td>
+<td>405.084112</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-10</td>
+<td>407.177570</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960-11</td>
+<td>409.271028</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1960-12</td>
+<td>411.364486</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="時系列データに対する交差検証" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 時系列データに対する交差検証</h1>
+<p>なぜ複数回交差検証が必要なのか？ ある分割においては良い結果が出るが、他の分割では悪い結果が出ることがあるため。そのバラツキを誤差に含めることで、より信頼性の高いモデルの評価が可能となる。</p>
+</section>
+<section id="sktimeによる交差検証" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> sktimeによる交差検証</h1>
+<p>検証データの長さを１、訓練データの長さを１から順番に増やしていく処理をする.</p>
+<div id="cell-19" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>cv <span class="op">=</span> ExpandingWindowSplitter(fh<span class="op">=</span><span class="dv">1</span>, initial_window<span class="op">=</span><span class="dv">1</span>, step_length<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>cv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<style>#sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 {
+    /* Definition of color scheme common for light and dark mode */
+    --sklearn-color-text: black;
+    --sklearn-color-line: gray;
+    /* Definition of color scheme for objects */
+    --sklearn-color-level-0: #fff5e6;
+    --sklearn-color-level-1: #f6e4d2;
+    --sklearn-color-level-2: #ffe0b3;
+    --sklearn-color-level-3: chocolate;
+
+    /* Specific color for light theme */
+    --sklearn-color-text-on-default-background: var(--theme-code-foreground, var(--jp-content-font-color1, black));
+    --sklearn-color-background: var(--theme-background, var(--jp-layout-color0, white));
+    --sklearn-color-border-box: var(--theme-code-foreground, var(--jp-content-font-color1, black));
+    --sklearn-color-icon: #696969;
+
+    @media (prefers-color-scheme: dark) {
+      /* Redefinition of color scheme for dark theme */
+      --sklearn-color-text-on-default-background: var(--theme-code-foreground, var(--jp-content-font-color1, white));
+      --sklearn-color-background: var(--theme-background, var(--jp-layout-color0, #111));
+      --sklearn-color-border-box: var(--theme-code-foreground, var(--jp-content-font-color1, white));
+      --sklearn-color-icon: #878787;
+    }
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 {
+    color: var(--sklearn-color-text);
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 pre {
+    padding: 0;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 input.sk-hidden--visually {
+    border: 0;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-dashed-wrapped {
+    border: 1px dashed var(--sklearn-color-line);
+    margin: 0 0.4em 0.5em 0.4em;
+    box-sizing: border-box;
+    padding-bottom: 0.4em;
+    background-color: var(--sklearn-color-background);
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-container {
+    /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+       but bootstrap.min.css set `[hidden] { display: none !important; }`
+       so we also need the `!important` here to be able to override the
+       default hidden behavior on the sphinx rendered scikit-learn.org.
+       See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+    display: inline-block !important;
+    position: relative;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-text-repr-fallback {
+    display: none;
+  }
+
+  div.sk-parallel-item,
+  div.sk-serial,
+  div.sk-item {
+    /* draw centered vertical line to link estimators */
+    background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+    background-size: 2px 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  /* Parallel-specific style estimator block */
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-parallel-item::after {
+    content: "";
+    width: 100%;
+    border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+    flex-grow: 1;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-parallel {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    background-color: var(--sklearn-color-background);
+    position: relative;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-parallel-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-parallel-item:first-child::after {
+    align-self: flex-end;
+    width: 50%;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-parallel-item:last-child::after {
+    align-self: flex-start;
+    width: 50%;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-parallel-item:only-child::after {
+    width: 0;
+  }
+
+  /* Serial-specific style estimator block */
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-serial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--sklearn-color-background);
+    padding-right: 1em;
+    padding-left: 1em;
+  }
+
+
+  /* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+  clickable and can be expanded/collapsed.
+  - Pipeline and ColumnTransformer use this feature and define the default style
+  - Estimators will overwrite some part of the style using the `sk-estimator` class
+  */
+
+  /* Pipeline and ColumnTransformer style (default) */
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-toggleable {
+    /* Default theme specific background. It is overwritten whether we have a
+    specific estimator or a Pipeline/ColumnTransformer */
+    background-color: var(--sklearn-color-background);
+  }
+
+  /* Toggleable label */
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 label.sk-toggleable__label {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 0.5em;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 label.sk-toggleable__label-arrow:before {
+    /* Arrow on the left of the label */
+    content: "笆ｸ";
+    float: left;
+    margin-right: 0.25em;
+    color: var(--sklearn-color-icon);
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 label.sk-toggleable__label-arrow:hover:before {
+    color: var(--sklearn-color-text);
+  }
+
+  /* Toggleable content - dropdown */
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-toggleable__content {
+    max-height: 0;
+    max-width: 0;
+    overflow: hidden;
+    text-align: left;
+    background-color: var(--sklearn-color-level-0);
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-toggleable__content pre {
+    margin: 0.2em;
+    border-radius: 0.25em;
+    color: var(--sklearn-color-text);
+    background-color: var(--sklearn-color-level-0);
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    /* Expand drop-down */
+    max-height: 200px;
+    max-width: 100%;
+    overflow: auto;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    content: "笆ｾ";
+  }
+
+  /* Pipeline/ColumnTransformer-specific style */
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    color: var(--sklearn-color-text);
+    background-color: var(--sklearn-color-level-2);
+  }
+
+  /* Estimator-specific style */
+
+  /* Colorize estimator box */
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    /* unfitted */
+    background-color: var(--sklearn-color-level-2);
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-label label.sk-toggleable__label,
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-label label {
+    /* The background is the default theme color */
+    color: var(--sklearn-color-text-on-default-background);
+  }
+
+  /* On hover, darken the color of the background */
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-label:hover label.sk-toggleable__label {
+    color: var(--sklearn-color-text);
+    background-color: var(--sklearn-color-level-2);
+  }
+
+  /* Estimator label */
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-label label {
+    font-family: monospace;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 1.2em;
+  }
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-label-container {
+    text-align: center;
+  }
+
+  /* Estimator-specific */
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-estimator {
+    font-family: monospace;
+    border: 1px dotted var(--sklearn-color-border-box);
+    border-radius: 0.25em;
+    box-sizing: border-box;
+    margin-bottom: 0.5em;
+    background-color: var(--sklearn-color-level-0);
+  }
+
+  /* on hover */
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 div.sk-estimator:hover {
+    background-color: var(--sklearn-color-level-2);
+  }
+
+  /* Specification for estimator info */
+
+  .sk-estimator-doc-link,
+  a:link.sk-estimator-doc-link,
+  a:visited.sk-estimator-doc-link {
+    float: right;
+    font-size: smaller;
+    line-height: 1em;
+    font-family: monospace;
+    background-color: var(--sklearn-color-background);
+    border-radius: 1em;
+    height: 1em;
+    width: 1em;
+    text-decoration: none !important;
+    margin-left: 1ex;
+    border: var(--sklearn-color-level-1) 1pt solid;
+    color: var(--sklearn-color-level-1);
+  }
+
+  /* On hover */
+  div.sk-estimator:hover .sk-estimator-doc-link:hover,
+  .sk-estimator-doc-link:hover,
+  div.sk-label-container:hover .sk-estimator-doc-link:hover,
+  .sk-estimator-doc-link:hover {
+    background-color: var(--sklearn-color-level-3);
+    color: var(--sklearn-color-background);
+    text-decoration: none;
+  }
+
+  /* Span, style for the box shown on hovering the info icon */
+  .sk-estimator-doc-link span {
+    display: none;
+    z-index: 9999;
+    position: relative;
+    font-weight: normal;
+    right: .2ex;
+    padding: .5ex;
+    margin: .5ex;
+    width: min-content;
+    min-width: 20ex;
+    max-width: 50ex;
+    color: var(--sklearn-color-text);
+    box-shadow: 2pt 2pt 4pt #999;
+    background: var(--sklearn-color-level-0);
+    border: .5pt solid var(--sklearn-color-level-3);
+  }
+
+  .sk-estimator-doc-link:hover span {
+    display: block;
+  }
+
+  /* "?"-specific style due to the `<a>` HTML tag */
+
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 a.estimator_doc_link {
+    float: right;
+    font-size: 1rem;
+    line-height: 1em;
+    font-family: monospace;
+    background-color: var(--sklearn-color-background);
+    border-radius: 1rem;
+    height: 1rem;
+    width: 1rem;
+    text-decoration: none;
+    color: var(--sklearn-color-level-1);
+    border: var(--sklearn-color-level-1) 1pt solid;
+  }
+
+  /* On hover */
+  #sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30 a.estimator_doc_link:hover {
+    background-color: var(--sklearn-color-level-3);
+    color: var(--sklearn-color-background);
+    text-decoration: none;
+  }
+</style><div id="sk-6cc96973-0d2e-4932-be9b-3045fa2e2d30" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ExpandingWindowSplitter(initial_window=1)</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="UUID('460da122-ebdc-4f93-a1c6-d058f27c4b6c')" type="checkbox" checked=""><label for="UUID('460da122-ebdc-4f93-a1c6-d058f27c4b6c')" class="sk-toggleable__label sk-toggleable__label-arrow">ExpandingWindowSplitter<a class="sk-estimator-doc-link" rel="noreferrer" target="_blank" href="https://www.sktime.net/en/v0.33.0/api_reference/auto_generated/sktime.split.expandingwindow.ExpandingWindowSplitter.html">?<span>Documentation for ExpandingWindowSplitter</span></a></label><div class="sk-toggleable__content"><pre>ExpandingWindowSplitter(initial_window=1)</pre></div></div></div></div></div>
+</div>
+</div>
+<div id="cell-20" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>cv_df <span class="op">=</span> evaluate(</span>
+<span id="cb15-2"><a href="#cb15-2"></a>    forecaster <span class="op">=</span> naive_forecaster, </span>
+<span id="cb15-3"><a href="#cb15-3"></a>    cv <span class="op">=</span> cv, </span>
+<span id="cb15-4"><a href="#cb15-4"></a>    y <span class="op">=</span> train, </span>
+<span id="cb15-5"><a href="#cb15-5"></a>    scoring <span class="op">=</span> MeanAbsoluteError()</span>
+<span id="cb15-6"><a href="#cb15-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-21" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>cv_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">test_MeanAbsoluteError</th>
+<th data-quarto-table-cell-role="th">fit_time</th>
+<th data-quarto-table-cell-role="th">pred_time</th>
+<th data-quarto-table-cell-role="th">len_train_window</th>
+<th data-quarto-table-cell-role="th">cutoff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>6.0</td>
+<td>0.002057</td>
+<td>0.010284</td>
+<td>1</td>
+<td>1949-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>14.0</td>
+<td>0.002053</td>
+<td>0.008969</td>
+<td>2</td>
+<td>1949-02</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3.0</td>
+<td>0.002255</td>
+<td>0.007613</td>
+<td>3</td>
+<td>1949-03</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>8.0</td>
+<td>0.001965</td>
+<td>0.005956</td>
+<td>4</td>
+<td>1949-04</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>14.0</td>
+<td>0.003124</td>
+<td>0.005725</td>
+<td>5</td>
+<td>1949-05</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">102</td>
+<td>2.0</td>
+<td>0.001706</td>
+<td>0.008891</td>
+<td>103</td>
+<td>1957-07</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">103</td>
+<td>63.0</td>
+<td>0.001615</td>
+<td>0.004701</td>
+<td>104</td>
+<td>1957-08</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">104</td>
+<td>57.0</td>
+<td>0.002003</td>
+<td>0.004861</td>
+<td>105</td>
+<td>1957-09</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">105</td>
+<td>42.0</td>
+<td>0.002329</td>
+<td>0.010085</td>
+<td>106</td>
+<td>1957-10</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">106</td>
+<td>31.0</td>
+<td>0.001627</td>
+<td>0.006016</td>
+<td>107</td>
+<td>1957-11</td>
+</tr>
+</tbody>
+</table>
+
+<p>107 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-22" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># MAEの平均値を求める</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>cv_df[<span class="st">"test_MeanAbsoluteError"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>20.317757009345794</code></pre>
+</div>
+</div>
+<div id="cell-23" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># 12時点先予測の評価</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>cv <span class="op">=</span> ExpandingWindowSplitter(</span>
+<span id="cb19-3"><a href="#cb19-3"></a>    fh<span class="op">=</span>np.arange(<span class="dv">1</span>, <span class="dv">13</span>), </span>
+<span id="cb19-4"><a href="#cb19-4"></a>    initial_window<span class="op">=</span><span class="dv">24</span>, <span class="co"># 初回の訓練データの長さ</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>    step_length<span class="op">=</span><span class="dv">12</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>)</span>
+<span id="cb19-7"><a href="#cb19-7"></a>cv_df <span class="op">=</span> evaluate(</span>
+<span id="cb19-8"><a href="#cb19-8"></a>    forecaster <span class="op">=</span> naive_forecaster, </span>
+<span id="cb19-9"><a href="#cb19-9"></a>    cv <span class="op">=</span> cv, </span>
+<span id="cb19-10"><a href="#cb19-10"></a>    y <span class="op">=</span> train, </span>
+<span id="cb19-11"><a href="#cb19-11"></a>    scoring <span class="op">=</span> MeanAbsoluteError(), </span>
+<span id="cb19-12"><a href="#cb19-12"></a>    return_data<span class="op">=</span><span class="va">True</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a>)</span>
+<span id="cb19-14"><a href="#cb19-14"></a></span>
+<span id="cb19-15"><a href="#cb19-15"></a>cv_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">test_MeanAbsoluteError</th>
+<th data-quarto-table-cell-role="th">fit_time</th>
+<th data-quarto-table-cell-role="th">pred_time</th>
+<th data-quarto-table-cell-role="th">len_train_window</th>
+<th data-quarto-table-cell-role="th">cutoff</th>
+<th data-quarto-table-cell-role="th">y_train</th>
+<th data-quarto-table-cell-role="th">y_test</th>
+<th data-quarto-table-cell-role="th">y_pred</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>30.166667</td>
+<td>0.003690</td>
+<td>0.012054</td>
+<td>24</td>
+<td>1950-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1951-01 145 1951-02 150 1...</td>
+<td>value 1951-01 140.0 1951-02 140.0 1...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>31.000000</td>
+<td>0.003526</td>
+<td>0.011608</td>
+<td>36</td>
+<td>1951-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1952-01 171 1952-02 180 1...</td>
+<td>value 1952-01 166.0 1952-02 166.0 1...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>33.333333</td>
+<td>0.002318</td>
+<td>0.010875</td>
+<td>48</td>
+<td>1952-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1953-01 196 1953-02 196 1...</td>
+<td>value 1953-01 194.0 1953-02 194.0 1...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>40.083333</td>
+<td>0.001600</td>
+<td>0.005554</td>
+<td>60</td>
+<td>1953-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1954-01 204 1954-02 188 1...</td>
+<td>value 1954-01 201.0 1954-02 201.0 1...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>55.000000</td>
+<td>0.002331</td>
+<td>0.006077</td>
+<td>72</td>
+<td>1954-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1955-01 242 1955-02 233 1...</td>
+<td>value 1955-01 229.0 1955-02 229.0 1...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>51.583333</td>
+<td>0.002259</td>
+<td>0.005149</td>
+<td>84</td>
+<td>1955-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1956-01 284 1956-02 277 1...</td>
+<td>value 1956-01 278.0 1956-02 278.0 1...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>63.416667</td>
+<td>0.001555</td>
+<td>0.006471</td>
+<td>96</td>
+<td>1956-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1957-01 315 1957-02 301 1...</td>
+<td>value 1957-01 306.0 1957-02 306.0 1...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-24" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>cv_df[<span class="st">"test_MeanAbsoluteError"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>43.511904761904766</code></pre>
+</div>
+</div>
+<div id="cell-25" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a>train.plot(ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Train"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">0</span>, cv_df.shape[<span class="dv">0</span>]):</span>
+<span id="cb22-6"><a href="#cb22-6"></a>    cv_df[<span class="st">'y_pred'</span>].iloc[i].plot(ax<span class="op">=</span>ax)</span>
+<span id="cb22-7"><a href="#cb22-7"></a>    </span>
+<span id="cb22-8"><a href="#cb22-8"></a>plt.legend([<span class="st">'acutal'</span>] <span class="op">+</span> [<span class="st">'CV'</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, cv_df.shape[<span class="dv">0</span>] <span class="op">+</span> <span class="dv">1</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ch33_sktimeの使い方_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="パイプラインの利用" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> パイプラインの利用</h1>
+<section id="事例1-季節調整-トレンド除去-持続予測" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="事例1-季節調整-トレンド除去-持続予測"><span class="header-section-number">7.1</span> 事例1: 季節調整 + トレンド除去 + 持続予測</h2>
+<div id="cell-28" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>pipe_forecaster_1 <span class="op">=</span> TransformedTargetForecaster(</span>
+<span id="cb23-2"><a href="#cb23-2"></a>    [</span>
+<span id="cb23-3"><a href="#cb23-3"></a>        (<span class="st">"deseasonalize"</span>, Deseasonalizer(model<span class="op">=</span><span class="st">"multiplicative"</span>, sp<span class="op">=</span><span class="dv">12</span>)),</span>
+<span id="cb23-4"><a href="#cb23-4"></a>        (<span class="st">"detrend"</span>, Detrender(forecaster<span class="op">=</span>PolynomialTrendForecaster(degree<span class="op">=</span><span class="dv">1</span>), model<span class="op">=</span><span class="st">"multiplicative"</span>)),</span>
+<span id="cb23-5"><a href="#cb23-5"></a>        (<span class="st">"forecast"</span>, NaiveForecaster(strategy<span class="op">=</span><span class="st">"last"</span>)),</span>
+<span id="cb23-6"><a href="#cb23-6"></a>    ]</span>
+<span id="cb23-7"><a href="#cb23-7"></a>)</span>
+<span id="cb23-8"><a href="#cb23-8"></a></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="co"># データの当てはめ</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a>pipe_forecaster_1.fit(train)</span>
+<span id="cb23-11"><a href="#cb23-11"></a></span>
+<span id="cb23-12"><a href="#cb23-12"></a><span class="co"># 予測の実施</span></span>
+<span id="cb23-13"><a href="#cb23-13"></a>pipe_pred_1 <span class="op">=</span> pipe_forecaster_1.predict(fh)</span>
+<span id="cb23-14"><a href="#cb23-14"></a></span>
+<span id="cb23-15"><a href="#cb23-15"></a><span class="co"># 予測精度</span></span>
+<span id="cb23-16"><a href="#cb23-16"></a>mean_absolute_error(test, pipe_pred_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>23.600721546680006</code></pre>
+</div>
+</div>
+<div id="cell-29" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># CV</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>cv <span class="op">=</span> ExpandingWindowSplitter(fh<span class="op">=</span>np.arange(<span class="dv">1</span>, <span class="dv">13</span>), initial_window<span class="op">=</span><span class="dv">24</span>, step_length<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb25-3"><a href="#cb25-3"></a>cv_df <span class="op">=</span> evaluate(forecaster<span class="op">=</span>pipe_forecaster_1, cv<span class="op">=</span>cv, y<span class="op">=</span>train, scoring<span class="op">=</span>MeanAbsoluteError(), return_data<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-4"><a href="#cb25-4"></a>cv_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">test_MeanAbsoluteError</th>
+<th data-quarto-table-cell-role="th">fit_time</th>
+<th data-quarto-table-cell-role="th">pred_time</th>
+<th data-quarto-table-cell-role="th">len_train_window</th>
+<th data-quarto-table-cell-role="th">cutoff</th>
+<th data-quarto-table-cell-role="th">y_train</th>
+<th data-quarto-table-cell-role="th">y_test</th>
+<th data-quarto-table-cell-role="th">y_pred</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>10.852564</td>
+<td>0.022165</td>
+<td>0.012915</td>
+<td>24</td>
+<td>1950-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1951-01 145 1951-02 150 1...</td>
+<td>value 1951-01 135.834056 1951-0...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>7.251605</td>
+<td>0.017533</td>
+<td>0.007962</td>
+<td>36</td>
+<td>1951-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1952-01 171 1952-02 180 1...</td>
+<td>value 1952-01 166.265880 1952-0...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>7.659675</td>
+<td>0.016288</td>
+<td>0.009640</td>
+<td>48</td>
+<td>1952-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1953-01 196 1953-02 196 1...</td>
+<td>value 1953-01 195.685338 1953-0...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>10.326878</td>
+<td>0.016838</td>
+<td>0.009004</td>
+<td>60</td>
+<td>1953-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1954-01 204 1954-02 188 1...</td>
+<td>value 1954-01 202.578761 1954-0...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>20.332239</td>
+<td>0.018527</td>
+<td>0.008935</td>
+<td>72</td>
+<td>1954-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1955-01 242 1955-02 233 1...</td>
+<td>value 1955-01 230.777564 1955-0...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>9.418944</td>
+<td>0.016428</td>
+<td>0.007115</td>
+<td>84</td>
+<td>1955-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1956-01 284 1956-02 277 1...</td>
+<td>value 1956-01 281.797217 1956-0...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>16.832911</td>
+<td>0.015951</td>
+<td>0.010480</td>
+<td>96</td>
+<td>1956-12</td>
+<td>value 1949-01 112 1949-02 118 1...</td>
+<td>value 1957-01 315 1957-02 301 1...</td>
+<td>value 1957-01 310.113894 1957-0...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-30" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>cv_df.loc[:, <span class="st">"test_MeanAbsoluteError"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>11.81068805846526</code></pre>
+</div>
+</div>
+</section>
+<section id="事例2-差分によるトレンド除去-季節ナイーブ予測" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="事例2-差分によるトレンド除去-季節ナイーブ予測"><span class="header-section-number">7.2</span> 事例2: 差分によるトレンド除去 + 季節ナイーブ予測</h2>
+<div id="cell-32" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>pipe_forecaster_2 <span class="op">=</span> TransformedTargetForecaster(</span>
+<span id="cb28-2"><a href="#cb28-2"></a>    [</span>
+<span id="cb28-3"><a href="#cb28-3"></a>        (<span class="st">'transform'</span>, Differencer(lags<span class="op">=</span>[<span class="dv">1</span>])), </span>
+<span id="cb28-4"><a href="#cb28-4"></a>        (<span class="st">'forecast'</span>, NaiveForecaster(strategy<span class="op">=</span><span class="st">"last"</span>, sp<span class="op">=</span><span class="dv">12</span>))</span>
+<span id="cb28-5"><a href="#cb28-5"></a>    ]</span>
+<span id="cb28-6"><a href="#cb28-6"></a>)</span>
+<span id="cb28-7"><a href="#cb28-7"></a></span>
+<span id="cb28-8"><a href="#cb28-8"></a>pipe_forecaster_2.fit(train)</span>
+<span id="cb28-9"><a href="#cb28-9"></a></span>
+<span id="cb28-10"><a href="#cb28-10"></a>pipe_pred_2 <span class="op">=</span> pipe_forecaster_2.predict(fh)</span>
+<span id="cb28-11"><a href="#cb28-11"></a></span>
+<span id="cb28-12"><a href="#cb28-12"></a>mean_absolute_error(test, pipe_pred_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>17.805555555555557</code></pre>
+</div>
+</div>
+<div id="cell-33" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>evaluate(</span>
+<span id="cb30-2"><a href="#cb30-2"></a>    forecaster<span class="op">=</span>pipe_forecaster_2,</span>
+<span id="cb30-3"><a href="#cb30-3"></a>    cv<span class="op">=</span>cv, </span>
+<span id="cb30-4"><a href="#cb30-4"></a>    y<span class="op">=</span>train, </span>
+<span id="cb30-5"><a href="#cb30-5"></a>    scoring<span class="op">=</span>MeanAbsoluteError()</span>
+<span id="cb30-6"><a href="#cb30-6"></a>).iloc[:, <span class="dv">0</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>11.13095238095238</code></pre>
+</div>
+</div>
+<div id="cell-34" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>fg, ax <span class="op">=</span> plot_series(</span>
+<span id="cb32-2"><a href="#cb32-2"></a>    train, </span>
+<span id="cb32-3"><a href="#cb32-3"></a>    test, </span>
+<span id="cb32-4"><a href="#cb32-4"></a>    pipe_pred_1, </span>
+<span id="cb32-5"><a href="#cb32-5"></a>    pipe_pred_2, </span>
+<span id="cb32-6"><a href="#cb32-6"></a>    labels <span class="op">=</span> [<span class="st">"train"</span>, <span class="st">"test"</span>, <span class="st">"pipe_1"</span>, <span class="st">"pipe_2"</span>], </span>
+<span id="cb32-7"><a href="#cb32-7"></a>    markers<span class="op">=</span>np.tile(<span class="st">''</span>, <span class="dv">4</span>)</span>
+<span id="cb32-8"><a href="#cb32-8"></a>)</span>
+<span id="cb32-9"><a href="#cb32-9"></a>fig.set_size_inches(<span class="dv">12</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ch33_sktimeの使い方_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ハイパーパラメータのチューニング" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="ハイパーパラメータのチューニング"><span class="header-section-number">7.3</span> ハイパーパラメータのチューニング</h2>
+<div id="cell-36" class="cell" data-execution_count="31">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="im">from</span> dask <span class="im">import</span> dataframe <span class="im">as</span> dd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-37" class="cell" data-execution_count="32">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># 持続予測</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>naive_forecaster <span class="op">=</span> NaiveForecaster(strategy<span class="op">=</span><span class="st">"last"</span>, sp<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb34-3"><a href="#cb34-3"></a></span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="co"># 持続予測のハイパーパラメータの準備</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>param_grid <span class="op">=</span> {<span class="st">'sp'</span>: np.arange(<span class="dv">1</span>, <span class="dv">13</span>)}</span>
+<span id="cb34-6"><a href="#cb34-6"></a></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="co"># 予測器</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a>best_naive_forecaster <span class="op">=</span> ForecastingGridSearchCV(</span>
+<span id="cb34-9"><a href="#cb34-9"></a>    naive_forecaster, </span>
+<span id="cb34-10"><a href="#cb34-10"></a>    param_grid<span class="op">=</span>param_grid, </span>
+<span id="cb34-11"><a href="#cb34-11"></a>    strategy<span class="op">=</span><span class="st">"refit"</span>, </span>
+<span id="cb34-12"><a href="#cb34-12"></a>    cv<span class="op">=</span>cv,</span>
+<span id="cb34-13"><a href="#cb34-13"></a>    scoring<span class="op">=</span>MeanAbsoluteError()</span>
+<span id="cb34-14"><a href="#cb34-14"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-38" class="cell" data-execution_count="33">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>best_naive_forecaster.fit(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<style>#sk-059cd944-8578-48f6-905a-6e3f01fcf933 {
+    /* Definition of color scheme common for light and dark mode */
+    --sklearn-color-text: black;
+    --sklearn-color-line: gray;
+    /* Definition of color scheme for objects */
+    --sklearn-color-level-0: #fff5e6;
+    --sklearn-color-level-1: #f6e4d2;
+    --sklearn-color-level-2: #ffe0b3;
+    --sklearn-color-level-3: chocolate;
+
+    /* Specific color for light theme */
+    --sklearn-color-text-on-default-background: var(--theme-code-foreground, var(--jp-content-font-color1, black));
+    --sklearn-color-background: var(--theme-background, var(--jp-layout-color0, white));
+    --sklearn-color-border-box: var(--theme-code-foreground, var(--jp-content-font-color1, black));
+    --sklearn-color-icon: #696969;
+
+    @media (prefers-color-scheme: dark) {
+      /* Redefinition of color scheme for dark theme */
+      --sklearn-color-text-on-default-background: var(--theme-code-foreground, var(--jp-content-font-color1, white));
+      --sklearn-color-background: var(--theme-background, var(--jp-layout-color0, #111));
+      --sklearn-color-border-box: var(--theme-code-foreground, var(--jp-content-font-color1, white));
+      --sklearn-color-icon: #878787;
+    }
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 {
+    color: var(--sklearn-color-text);
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 pre {
+    padding: 0;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 input.sk-hidden--visually {
+    border: 0;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-dashed-wrapped {
+    border: 1px dashed var(--sklearn-color-line);
+    margin: 0 0.4em 0.5em 0.4em;
+    box-sizing: border-box;
+    padding-bottom: 0.4em;
+    background-color: var(--sklearn-color-background);
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-container {
+    /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+       but bootstrap.min.css set `[hidden] { display: none !important; }`
+       so we also need the `!important` here to be able to override the
+       default hidden behavior on the sphinx rendered scikit-learn.org.
+       See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+    display: inline-block !important;
+    position: relative;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-text-repr-fallback {
+    display: none;
+  }
+
+  div.sk-parallel-item,
+  div.sk-serial,
+  div.sk-item {
+    /* draw centered vertical line to link estimators */
+    background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+    background-size: 2px 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  /* Parallel-specific style estimator block */
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-parallel-item::after {
+    content: "";
+    width: 100%;
+    border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+    flex-grow: 1;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-parallel {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    background-color: var(--sklearn-color-background);
+    position: relative;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-parallel-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-parallel-item:first-child::after {
+    align-self: flex-end;
+    width: 50%;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-parallel-item:last-child::after {
+    align-self: flex-start;
+    width: 50%;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-parallel-item:only-child::after {
+    width: 0;
+  }
+
+  /* Serial-specific style estimator block */
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-serial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--sklearn-color-background);
+    padding-right: 1em;
+    padding-left: 1em;
+  }
+
+
+  /* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+  clickable and can be expanded/collapsed.
+  - Pipeline and ColumnTransformer use this feature and define the default style
+  - Estimators will overwrite some part of the style using the `sk-estimator` class
+  */
+
+  /* Pipeline and ColumnTransformer style (default) */
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-toggleable {
+    /* Default theme specific background. It is overwritten whether we have a
+    specific estimator or a Pipeline/ColumnTransformer */
+    background-color: var(--sklearn-color-background);
+  }
+
+  /* Toggleable label */
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 label.sk-toggleable__label {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 0.5em;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 label.sk-toggleable__label-arrow:before {
+    /* Arrow on the left of the label */
+    content: "笆ｸ";
+    float: left;
+    margin-right: 0.25em;
+    color: var(--sklearn-color-icon);
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 label.sk-toggleable__label-arrow:hover:before {
+    color: var(--sklearn-color-text);
+  }
+
+  /* Toggleable content - dropdown */
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-toggleable__content {
+    max-height: 0;
+    max-width: 0;
+    overflow: hidden;
+    text-align: left;
+    background-color: var(--sklearn-color-level-0);
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-toggleable__content pre {
+    margin: 0.2em;
+    border-radius: 0.25em;
+    color: var(--sklearn-color-text);
+    background-color: var(--sklearn-color-level-0);
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    /* Expand drop-down */
+    max-height: 200px;
+    max-width: 100%;
+    overflow: auto;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    content: "笆ｾ";
+  }
+
+  /* Pipeline/ColumnTransformer-specific style */
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    color: var(--sklearn-color-text);
+    background-color: var(--sklearn-color-level-2);
+  }
+
+  /* Estimator-specific style */
+
+  /* Colorize estimator box */
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    /* unfitted */
+    background-color: var(--sklearn-color-level-2);
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-label label.sk-toggleable__label,
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-label label {
+    /* The background is the default theme color */
+    color: var(--sklearn-color-text-on-default-background);
+  }
+
+  /* On hover, darken the color of the background */
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-label:hover label.sk-toggleable__label {
+    color: var(--sklearn-color-text);
+    background-color: var(--sklearn-color-level-2);
+  }
+
+  /* Estimator label */
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-label label {
+    font-family: monospace;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 1.2em;
+  }
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-label-container {
+    text-align: center;
+  }
+
+  /* Estimator-specific */
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-estimator {
+    font-family: monospace;
+    border: 1px dotted var(--sklearn-color-border-box);
+    border-radius: 0.25em;
+    box-sizing: border-box;
+    margin-bottom: 0.5em;
+    background-color: var(--sklearn-color-level-0);
+  }
+
+  /* on hover */
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 div.sk-estimator:hover {
+    background-color: var(--sklearn-color-level-2);
+  }
+
+  /* Specification for estimator info */
+
+  .sk-estimator-doc-link,
+  a:link.sk-estimator-doc-link,
+  a:visited.sk-estimator-doc-link {
+    float: right;
+    font-size: smaller;
+    line-height: 1em;
+    font-family: monospace;
+    background-color: var(--sklearn-color-background);
+    border-radius: 1em;
+    height: 1em;
+    width: 1em;
+    text-decoration: none !important;
+    margin-left: 1ex;
+    border: var(--sklearn-color-level-1) 1pt solid;
+    color: var(--sklearn-color-level-1);
+  }
+
+  /* On hover */
+  div.sk-estimator:hover .sk-estimator-doc-link:hover,
+  .sk-estimator-doc-link:hover,
+  div.sk-label-container:hover .sk-estimator-doc-link:hover,
+  .sk-estimator-doc-link:hover {
+    background-color: var(--sklearn-color-level-3);
+    color: var(--sklearn-color-background);
+    text-decoration: none;
+  }
+
+  /* Span, style for the box shown on hovering the info icon */
+  .sk-estimator-doc-link span {
+    display: none;
+    z-index: 9999;
+    position: relative;
+    font-weight: normal;
+    right: .2ex;
+    padding: .5ex;
+    margin: .5ex;
+    width: min-content;
+    min-width: 20ex;
+    max-width: 50ex;
+    color: var(--sklearn-color-text);
+    box-shadow: 2pt 2pt 4pt #999;
+    background: var(--sklearn-color-level-0);
+    border: .5pt solid var(--sklearn-color-level-3);
+  }
+
+  .sk-estimator-doc-link:hover span {
+    display: block;
+  }
+
+  /* "?"-specific style due to the `<a>` HTML tag */
+
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 a.estimator_doc_link {
+    float: right;
+    font-size: 1rem;
+    line-height: 1em;
+    font-family: monospace;
+    background-color: var(--sklearn-color-background);
+    border-radius: 1rem;
+    height: 1rem;
+    width: 1rem;
+    text-decoration: none;
+    color: var(--sklearn-color-level-1);
+    border: var(--sklearn-color-level-1) 1pt solid;
+  }
+
+  /* On hover */
+  #sk-059cd944-8578-48f6-905a-6e3f01fcf933 a.estimator_doc_link:hover {
+    background-color: var(--sklearn-color-level-3);
+    color: var(--sklearn-color-background);
+    text-decoration: none;
+  }
+</style><div id="sk-059cd944-8578-48f6-905a-6e3f01fcf933" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ForecastingGridSearchCV(cv=ExpandingWindowSplitter(fh=array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12]),
+                                                   initial_window=24,
+                                                   step_length=12),
+                        forecaster=NaiveForecaster(),
+                        param_grid={'sp': array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])},
+                        scoring=MeanAbsoluteError())</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="UUID('bacfd3ef-80ff-4959-8657-30881dfa178b')" type="checkbox"><label for="UUID('bacfd3ef-80ff-4959-8657-30881dfa178b')" class="sk-toggleable__label sk-toggleable__label-arrow">ForecastingGridSearchCV<a class="sk-estimator-doc-link" rel="noreferrer" target="_blank" href="https://www.sktime.net/en/v0.33.0/api_reference/auto_generated/sktime.forecasting.model_selection.ForecastingGridSearchCV.html">?<span>Documentation for ForecastingGridSearchCV</span></a></label><div class="sk-toggleable__content"><pre>ForecastingGridSearchCV(cv=ExpandingWindowSplitter(fh=array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12]),
+                                                   initial_window=24,
+                                                   step_length=12),
+                        forecaster=NaiveForecaster(),
+                        param_grid={'sp': array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])},
+                        scoring=MeanAbsoluteError())</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="UUID('9c6a9bac-528e-469f-b40f-93155853292c')" type="checkbox"><label for="UUID('9c6a9bac-528e-469f-b40f-93155853292c')" class="sk-toggleable__label sk-toggleable__label-arrow">forecaster: NaiveForecaster</label><div class="sk-toggleable__content"><pre>NaiveForecaster()</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="UUID('dbbed176-ef7d-4356-b19c-e0d1aa3f7055')" type="checkbox"><label for="UUID('dbbed176-ef7d-4356-b19c-e0d1aa3f7055')" class="sk-toggleable__label sk-toggleable__label-arrow">NaiveForecaster<a class="sk-estimator-doc-link" rel="noreferrer" target="_blank" href="https://www.sktime.net/en/v0.33.0/api_reference/auto_generated/sktime.forecasting.naive.NaiveForecaster.html">?<span>Documentation for NaiveForecaster</span></a></label><div class="sk-toggleable__content"><pre>NaiveForecaster()</pre></div></div></div></div></div></div></div></div></div></div>
+</div>
+</div>
+<div id="cell-39" class="cell" data-execution_count="36">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>best_naive_forecaster.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>{'sp': 12}</code></pre>
+</div>
+</div>
+<div id="cell-40" class="cell" data-execution_count="37">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># 予測</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>best_naive_pred <span class="op">=</span> best_naive_forecaster.predict(fh)</span>
+<span id="cb38-3"><a href="#cb38-3"></a></span>
+<span id="cb38-4"><a href="#cb38-4"></a>mean_absolute_error(test, best_naive_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>60.083333333333336</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="分析手法の半自動選択" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> 分析手法の半自動選択</h1>
+<section id="事例複数の予測モデルからの選択" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="事例複数の予測モデルからの選択"><span class="header-section-number">8.1</span> 事例:複数の予測モデルからの選択</h2>
+<div id="cell-43" class="cell" data-execution_count="41">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>forecast_options <span class="op">=</span> MultiplexForecaster(</span>
+<span id="cb40-2"><a href="#cb40-2"></a>    forecasters <span class="op">=</span> [</span>
+<span id="cb40-3"><a href="#cb40-3"></a>        (<span class="st">"pipe_1"</span>, pipe_forecaster_1),</span>
+<span id="cb40-4"><a href="#cb40-4"></a>        (<span class="st">"pipe_2"</span>, pipe_forecaster_2),</span>
+<span id="cb40-5"><a href="#cb40-5"></a>        (<span class="st">"best_naive"</span>, best_naive_forecaster)</span>
+<span id="cb40-6"><a href="#cb40-6"></a>    ]</span>
+<span id="cb40-7"><a href="#cb40-7"></a>)</span>
+<span id="cb40-8"><a href="#cb40-8"></a></span>
+<span id="cb40-9"><a href="#cb40-9"></a>param_grid <span class="op">=</span> {<span class="st">'selected_forecaster'</span>: [<span class="st">"pipe_1"</span>, <span class="st">"pipe_2"</span>, <span class="st">"best_naive"</span>]}</span>
+<span id="cb40-10"><a href="#cb40-10"></a></span>
+<span id="cb40-11"><a href="#cb40-11"></a>cv_forecaster <span class="op">=</span> ForecastingGridSearchCV(</span>
+<span id="cb40-12"><a href="#cb40-12"></a>    forecast_options, </span>
+<span id="cb40-13"><a href="#cb40-13"></a>    param_grid<span class="op">=</span>param_grid, </span>
+<span id="cb40-14"><a href="#cb40-14"></a>    cv<span class="op">=</span>cv, </span>
+<span id="cb40-15"><a href="#cb40-15"></a>    strategy<span class="op">=</span><span class="st">"refit"</span>, </span>
+<span id="cb40-16"><a href="#cb40-16"></a>    scoring<span class="op">=</span>MeanAbsoluteError()</span>
+<span id="cb40-17"><a href="#cb40-17"></a>)</span>
+<span id="cb40-18"><a href="#cb40-18"></a></span>
+<span id="cb40-19"><a href="#cb40-19"></a>cv_forecaster.fit(train)</span>
+<span id="cb40-20"><a href="#cb40-20"></a></span>
+<span id="cb40-21"><a href="#cb40-21"></a>cv_forecaster.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<pre><code>{'selected_forecaster': 'pipe_2'}</code></pre>
+</div>
+</div>
+</section>
+<section id="対数変換の必要性の選択" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="対数変換の必要性の選択"><span class="header-section-number">8.2</span> 対数変換の必要性の選択</h2>
+<div id="cell-45" class="cell" data-execution_count="44">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>pipe_select <span class="op">=</span> TransformedTargetForecaster(</span>
+<span id="cb42-2"><a href="#cb42-2"></a>    steps <span class="op">=</span> [</span>
+<span id="cb42-3"><a href="#cb42-3"></a>        (<span class="st">'log'</span>, OptionalPassthrough(LogTransformer())),</span>
+<span id="cb42-4"><a href="#cb42-4"></a>        (<span class="st">'forecaster'</span>, MultiplexForecaster(</span>
+<span id="cb42-5"><a href="#cb42-5"></a>            forecasters <span class="op">=</span> [</span>
+<span id="cb42-6"><a href="#cb42-6"></a>                (<span class="st">"pipe_1"</span>, pipe_forecaster_1),</span>
+<span id="cb42-7"><a href="#cb42-7"></a>                (<span class="st">"pipe_2"</span>, pipe_forecaster_2),</span>
+<span id="cb42-8"><a href="#cb42-8"></a>                (<span class="st">"best_naive"</span>, best_naive_forecaster)</span>
+<span id="cb42-9"><a href="#cb42-9"></a>            ]</span>
+<span id="cb42-10"><a href="#cb42-10"></a>        ))</span>
+<span id="cb42-11"><a href="#cb42-11"></a>    ]</span>
+<span id="cb42-12"><a href="#cb42-12"></a>)</span>
+<span id="cb42-13"><a href="#cb42-13"></a></span>
+<span id="cb42-14"><a href="#cb42-14"></a>param_grid <span class="op">=</span> {</span>
+<span id="cb42-15"><a href="#cb42-15"></a>    <span class="st">'log__passthrough'</span>: [<span class="va">True</span>, <span class="va">False</span>],</span>
+<span id="cb42-16"><a href="#cb42-16"></a>    <span class="st">'forecaster__selected_forecaster'</span>: [<span class="st">"pipe_1"</span>, <span class="st">"pipe_2"</span>, <span class="st">"best_naive"</span>]</span>
+<span id="cb42-17"><a href="#cb42-17"></a>}</span>
+<span id="cb42-18"><a href="#cb42-18"></a></span>
+<span id="cb42-19"><a href="#cb42-19"></a>cv_pipe_forecaster <span class="op">=</span> ForecastingGridSearchCV(</span>
+<span id="cb42-20"><a href="#cb42-20"></a>    forecaster<span class="op">=</span>pipe_select,</span>
+<span id="cb42-21"><a href="#cb42-21"></a>    param_grid<span class="op">=</span>param_grid,</span>
+<span id="cb42-22"><a href="#cb42-22"></a>    cv<span class="op">=</span>cv,</span>
+<span id="cb42-23"><a href="#cb42-23"></a>    scoring<span class="op">=</span>MeanAbsoluteError()</span>
+<span id="cb42-24"><a href="#cb42-24"></a>)</span>
+<span id="cb42-25"><a href="#cb42-25"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-46" class="cell" data-execution_count="45">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>cv_pipe_forecaster.fit(train)</span>
+<span id="cb43-2"><a href="#cb43-2"></a></span>
+<span id="cb43-3"><a href="#cb43-3"></a>cv_pipe_forecaster.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<pre><code>{'forecaster__selected_forecaster': 'pipe_1', 'log__passthrough': False}</code></pre>
+</div>
+</div>
+<div id="cell-47" class="cell" data-execution_count="46">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>result_df <span class="op">=</span> cv_pipe_forecaster.cv_results_[[<span class="st">"mean_test_MeanAbsoluteError"</span>, <span class="st">"params"</span>]].copy()</span>
+<span id="cb45-2"><a href="#cb45-2"></a>result_df[<span class="st">"params"</span>] <span class="op">=</span> result_df[<span class="st">"params"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">list</span>(x.values()))</span>
+<span id="cb45-3"><a href="#cb45-3"></a></span>
+<span id="cb45-4"><a href="#cb45-4"></a>result_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean_test_MeanAbsoluteError</th>
+<th data-quarto-table-cell-role="th">params</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>11.810688</td>
+<td>[pipe_1, True]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>9.090768</td>
+<td>[pipe_1, False]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>11.130952</td>
+<td>[pipe_2, True]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>10.881038</td>
+<td>[pipe_2, False]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>37.527778</td>
+<td>[best_naive, True]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>37.527778</td>
+<td>[best_naive, False]</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-48" class="cell" data-execution_count="48">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a>best_pred <span class="op">=</span> cv_pipe_forecaster.predict(fh)</span>
+<span id="cb46-2"><a href="#cb46-2"></a></span>
+<span id="cb46-3"><a href="#cb46-3"></a>mean_absolute_error(test, best_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>36.03614258141156</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch32_季節調整とトレンド除去.html" class="pagination-link" aria-label="季節調整とトレンド除去">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">季節調整とトレンド除去</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../contents/books/11_Pythonではじめる時系列分析入門/ch34_指数平滑化法とその周辺.html" class="pagination-link" aria-label="指数平滑化方とその周辺">
+        <span class="nav-page-text">指数平滑化方とその周辺</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
