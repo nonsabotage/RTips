@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Popups and Shapes – R Tips</title>
+<title>Quarto Guide – R Tips</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../../">
-<link href="../../../../contents/website/leaflet4r/chapters/ch05_lines_and_shapes.html" rel="next">
-<link href="../../../../contents/website/leaflet4r/chapters/ch03_markers.html" rel="prev">
+<link href="../../../../contents/website/quarto/guide/01_dashboard-sample-python.html" rel="next">
+<link href="../../../../contents/website/udemy_database-specialist/am-2-note.html" rel="prev">
 <script src="../../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -102,24 +102,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../../../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-
-<script src="../../../../site_libs/jquery-1.12.4/jquery.min.js"></script>
-
-<link href="../../../../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
-
-<script src="../../../../site_libs/leaflet-1.3.1/leaflet.js"></script>
-
-<link href="../../../../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
-
-<script src="../../../../site_libs/proj4-2.6.2/proj4.min.js"></script>
-
-<script src="../../../../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-
-<link href="../../../../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-
-<script src="../../../../site_libs/leaflet-binding-2.1.2/leaflet.js"></script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
@@ -411,7 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ALL</li><li class="breadcrumb-item"><a href="../../../../contents/website/leaflet4r/index.html">Leaflet for R</a></li><li class="breadcrumb-item"><a href="../../../../contents/website/leaflet4r/chapters/ch04_popups_and_shapes.html">Popups and Shapes</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ALL</li><li class="breadcrumb-item"><a href="../../../../contents/website/quarto/guide/index.html">QuartoDashboard</a></li><li class="breadcrumb-item"><a href="../../../../contents/website/quarto/guide/index.html">はじめに</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -476,13 +458,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Leaflet for R</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../contents/website/leaflet4r/index.html" class="sidebar-item-text sidebar-link">
@@ -509,7 +491,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../contents/website/leaflet4r/chapters/ch04_popups_and_shapes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../../contents/website/leaflet4r/chapters/ch04_popups_and_shapes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Popups and Shapes</span></a>
   </div>
 </li>
@@ -670,16 +652,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">QuartoDashboard</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../contents/website/quarto/guide/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../contents/website/quarto/guide/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">はじめに</span></a>
   </div>
 </li>
@@ -703,21 +685,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#popups" id="toc-popups" class="nav-link active" data-scroll-target="#popups"><span class="header-section-number">1</span> Popups</a></li>
-  <li><a href="#labels" id="toc-labels" class="nav-link" data-scroll-target="#labels"><span class="header-section-number">2</span> Labels</a>
-  <ul class="collapse">
-  <li><a href="#customizing-marker-labels" id="toc-customizing-marker-labels" class="nav-link" data-scroll-target="#customizing-marker-labels"><span class="header-section-number">2.1</span> Customizing Marker Labels</a></li>
-  <li><a href="#labels-without-markers" id="toc-labels-without-markers" class="nav-link" data-scroll-target="#labels-without-markers"><span class="header-section-number">2.2</span> Labels without markers</a></li>
-  </ul></li>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ALL</li><li class="breadcrumb-item"><a href="../../../../contents/website/leaflet4r/index.html">Leaflet for R</a></li><li class="breadcrumb-item"><a href="../../../../contents/website/leaflet4r/chapters/ch04_popups_and_shapes.html">Popups and Shapes</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ALL</li><li class="breadcrumb-item"><a href="../../../../contents/website/quarto/guide/index.html">QuartoDashboard</a></li><li class="breadcrumb-item"><a href="../../../../contents/website/quarto/guide/index.html">はじめに</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Popups and Shapes</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Quarto Guide</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -729,7 +706,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">September 17, 2023</p>
+      <p class="date-modified">December 6, 2024</p>
     </div>
   </div>
     
@@ -740,154 +717,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell" data-hash="ch04_popups_and_shapes_cache/html/unnamed-chunk-1_cda7383f6411ddcc77bfe71fb4fcef70">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(leafem)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(htmlwidgets)</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(rjson)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(stars)</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">library</span>(glue)</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<section id="popups" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Popups</h1>
-<div class="cell" data-hash="ch04_popups_and_shapes_cache/html/unnamed-chunk-2_5f533c4922dd3ba7718d6039b0ad0266">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>content <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="at">sep =</span> <span class="st">"&lt;br/&gt;"</span>,</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="st">"&lt;b&gt;&lt;a href='http://www.samurainoodle.com'&gt;Samurai Noodle&lt;/a&gt;&lt;/b&gt;"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="st">"606 5th Ave. S"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="st">"Seattle, WA 98138"</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">addPopups</span>(<span class="sc">-</span><span class="fl">122.327298</span>, <span class="fl">47.597131</span>, content,</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="at">options =</span> <span class="fu">popupOptions</span>(<span class="at">closeButton =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-10"><a href="#cb2-10"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-12bac585fa90a97bd753" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-12bac585fa90a97bd753">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addPopups","args":[47.597131,-122.327298,"<b><a href='http://www.samurainoodle.com'>Samurai Noodle<\/a><\/b><br/>606 5th Ave. S<br/>Seattle, WA 98138",null,null,{"maxWidth":300,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":false,"className":""}]}],"limits":{"lat":[47.597131,47.597131],"lng":[-122.327298,-122.327298]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<div class="cell" data-hash="ch04_popups_and_shapes_cache/html/unnamed-chunk-3_ecd865a0821285a84b959dda82b67c62">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">textConnection</span>(</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="st">"Name,Lat,Long</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="st">Samurai Noodle,47.597131,-122.327298</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="st">Kukai Ramen,47.6154,-122.327157</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="st">Tsukushinbo,47.59987,-122.326726"</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>))</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="fu">leaflet</span>(df) <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>  <span class="fu">addMarkers</span>(<span class="sc">~</span>Long, <span class="sc">~</span>Lat, <span class="at">popup =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(Name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b9d15e2ebd3ab2962282" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-b9d15e2ebd3ab2962282">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[47.597131,47.6154,47.59987],[-122.327298,-122.327157,-122.326726],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Samurai Noodle","Kukai Ramen","Tsukushinbo"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[47.597131,47.6154],"lng":[-122.327298,-122.326726]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-</section>
-<section id="labels" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Labels</h1>
-<div class="cell" data-hash="ch04_popups_and_shapes_cache/html/unnamed-chunk-4_aa3031c3bfc55d351b2abc7f5112620a">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">textConnection</span>(</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="st">"Name,Lat,Long</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">Samurai Noodle,47.597131,-122.327298</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="st">Kukai Ramen,47.6154,-122.327157</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="st">Tsukushinbo,47.59987,-122.326726"</span>))</span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">leaflet</span>(df) <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">addMarkers</span>(<span class="sc">~</span>Long, <span class="sc">~</span>Lat, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(Name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-81c22137924b1caae800" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-81c22137924b1caae800">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[47.597131,47.6154,47.59987],[-122.327298,-122.327157,-122.326726],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["Samurai Noodle","Kukai Ramen","Tsukushinbo"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[47.597131,47.6154],"lng":[-122.327298,-122.326726]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<section id="customizing-marker-labels" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="customizing-marker-labels"><span class="header-section-number">2.1</span> Customizing Marker Labels</h2>
-<div class="cell" data-hash="ch04_popups_and_shapes_cache/html/unnamed-chunk-5_dec1f9746de0481a4a98bf9077db1767">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Change Text Size and text Only and also a custom CSS</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span> <span class="fu">setView</span>(<span class="sc">-</span><span class="fl">118.456554</span>, <span class="fl">34.09</span>, <span class="dv">13</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb5-4"><a href="#cb5-4"></a>    <span class="at">lng =</span> <span class="sc">-</span><span class="fl">118.456554</span>, <span class="at">lat =</span> <span class="fl">34.105</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="at">label =</span> <span class="st">"Default Label"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>    <span class="at">labelOptions =</span> <span class="fu">labelOptions</span>(<span class="at">noHide =</span> T)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb5-8"><a href="#cb5-8"></a>    <span class="at">lng =</span> <span class="sc">-</span><span class="fl">118.456554</span>, <span class="at">lat =</span> <span class="fl">34.095</span>,</span>
-<span id="cb5-9"><a href="#cb5-9"></a>    <span class="at">label =</span> <span class="st">"Label w/o surrounding box"</span>,</span>
-<span id="cb5-10"><a href="#cb5-10"></a>    <span class="at">labelOptions =</span> <span class="fu">labelOptions</span>(<span class="at">noHide =</span> T, <span class="at">textOnly =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb5-12"><a href="#cb5-12"></a>    <span class="at">lng =</span> <span class="sc">-</span><span class="fl">118.456554</span>, <span class="at">lat =</span> <span class="fl">34.085</span>,</span>
-<span id="cb5-13"><a href="#cb5-13"></a>    <span class="at">label =</span> <span class="st">"label w/ textsize 15px"</span>,</span>
-<span id="cb5-14"><a href="#cb5-14"></a>    <span class="at">labelOptions =</span> <span class="fu">labelOptions</span>(<span class="at">noHide =</span> T, <span class="at">textsize =</span> <span class="st">"15px"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb5-16"><a href="#cb5-16"></a>    <span class="at">lng =</span> <span class="sc">-</span><span class="fl">118.456554</span>, <span class="at">lat =</span> <span class="fl">34.075</span>,</span>
-<span id="cb5-17"><a href="#cb5-17"></a>    <span class="at">label =</span> <span class="st">"Label w/ custom CSS style"</span>,</span>
-<span id="cb5-18"><a href="#cb5-18"></a>    <span class="at">labelOptions =</span> <span class="fu">labelOptions</span>(<span class="at">noHide =</span> T, <span class="at">direction =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb5-19"><a href="#cb5-19"></a>      <span class="at">style =</span> <span class="fu">list</span>(</span>
-<span id="cb5-20"><a href="#cb5-20"></a>        <span class="st">"color"</span> <span class="ot">=</span> <span class="st">"red"</span>,</span>
-<span id="cb5-21"><a href="#cb5-21"></a>        <span class="st">"font-family"</span> <span class="ot">=</span> <span class="st">"serif"</span>,</span>
-<span id="cb5-22"><a href="#cb5-22"></a>        <span class="st">"font-style"</span> <span class="ot">=</span> <span class="st">"italic"</span>,</span>
-<span id="cb5-23"><a href="#cb5-23"></a>        <span class="st">"box-shadow"</span> <span class="ot">=</span> <span class="st">"3px 3px rgba(0,0,0,0.25)"</span>,</span>
-<span id="cb5-24"><a href="#cb5-24"></a>        <span class="st">"font-size"</span> <span class="ot">=</span> <span class="st">"12px"</span>,</span>
-<span id="cb5-25"><a href="#cb5-25"></a>        <span class="st">"border-color"</span> <span class="ot">=</span> <span class="st">"rgba(0,0,0,0.5)"</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a>      )))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f3bb77614e6d8e5f79a3" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-f3bb77614e6d8e5f79a3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[34.105,-118.456554,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,"Default Label",{"interactive":false,"permanent":true,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[34.095,-118.456554,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,"Label w/o surrounding box",{"interactive":false,"permanent":true,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":true,"className":"","sticky":true},null]},{"method":"addMarkers","args":[34.085,-118.456554,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,"label w/ textsize 15px",{"interactive":false,"permanent":true,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"15px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[34.075,-118.456554,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,"Label w/ custom CSS style",{"interactive":false,"permanent":true,"direction":"bottom","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"style":{"color":"red","font-family":"serif","font-style":"italic","box-shadow":"3px 3px rgba(0,0,0,0.25)","font-size":"12px","border-color":"rgba(0,0,0,0.5)"},"className":"","sticky":true},null]}],"setView":[[34.09,-118.456554],13,[]],"limits":{"lat":[34.075,34.105],"lng":[-118.456554,-118.456554]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-</section>
-<section id="labels-without-markers" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="labels-without-markers"><span class="header-section-number">2.2</span> Labels without markers</h2>
-<div class="cell" data-hash="ch04_popups_and_shapes_cache/html/unnamed-chunk-6_70fa39b79ca438b77db84cd08379f5b6">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">addLabelOnlyMarkers</span>(</span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="at">data =</span> breweries91,</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">label =</span> <span class="fu">as.character</span>(breweries91<span class="sc">$</span>brewery),</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    <span class="at">group =</span> <span class="st">"brew"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    <span class="at">labelOptions =</span> leaflet<span class="sc">::</span><span class="fu">labelOptions</span>(</span>
-<span id="cb6-8"><a href="#cb6-8"></a>      <span class="at">noHide =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>      <span class="at">direction =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb6-10"><a href="#cb6-10"></a>      <span class="at">textOnly =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-11"><a href="#cb6-11"></a>      <span class="at">offset =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">10</span>),</span>
-<span id="cb6-12"><a href="#cb6-12"></a>      <span class="at">opacity =</span> <span class="dv">1</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a>    )</span>
-<span id="cb6-14"><a href="#cb6-14"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-faa14fbfdae43c127c25" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-faa14fbfdae43c127c25">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[49.71979,49.884051,49.502098,49.274716,49.861905,49.794334,49.701477,49.067436,49.070292,49.77994,49.060542,49.561804,49.595108,49.602554,49.72581,49.7202,49.644533,49.645651,49.615866,49.50683,48.900742,49.707329,49.884229,49.677827,49.450083,49.710838,49.276265,49.554706,49.882777,49.727998,49.737703,49.755953],[10.889217,11.228988,10.416021,10.928096,11.291932,11.509409,11.163238,10.34418,10.316987,11.186931,10.965571,11.368508,11.009011,11.005049,11.059662,11.056749,11.252699,11.248618,10.630027,11.428338,11.029479,10.806113,11.267583,11.252911,11.308721,11.172792,10.685605,11.22997,11.129541,11.202701,11.223148,11.175664],{"iconUrl":{"data":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=","index":0},"iconWidth":1,"iconHeight":1},null,"brew",{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["Brauerei Rittmayer","Aufsesser Brauerei","Brauhaus Doebler","Brauerei Gundel GmbH","Krug-Braeu","Brauerei-Gasthof Herold","Brauerei Alt Dietzhof","Brauerei Hauf KG","Weib's Brauhaus Dinkelsbuehl","Schwanenbraeu","Fuerst Carl Schlossbrauerei Ellingen","Brauerei Enzensteiner","Kitzmann-Braeu GmbH &amp; Co. Kg","Steinbach Braeu","Brauerei Greif","Brauerei Hebendanz GmbH","Brauerei Friedmann","Lindenbraeu","Brauerei Windsheimer GmbH","Buergerbraeu Hersbruck, Deinlein &amp; Co.","Hochholzer Brauhaus Poeverlein GbR","Brauhaus Hoechstadt","Brauerei und Gasthof Reichold GmbH","Brauerei Hofmann/Nentwig GbR","Leinburger Bier","Brauerei Gasthof Drummer","Hauff Braeu Lichtnerau GmbH &amp; Co. KG","Brauerei Wiethaler","Brauerei Gasthof Ott","Brauerei Penning-Zeissler","Brauerei Meister","Brauerei Nikl"],{"interactive":false,"permanent":true,"direction":"bottom","opacity":1,"offset":[0,-10],"textsize":"10px","textOnly":true,"className":"","sticky":true},null]}],"limits":{"lat":[48.900742,49.884229],"lng":[10.316987,11.509409]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
+<p>Quartoに関する学習ノートです。</p>
 
 
 <!-- -->
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -1364,151 +1200,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../../contents/website/leaflet4r/chapters/ch03_markers.html" class="pagination-link" aria-label="Markers">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Markers</span>
+      <a href="../../../../contents/website/udemy_database-specialist/am-2-note.html" class="pagination-link" aria-label="Udemy 午前2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Udemy 午前2</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../../contents/website/leaflet4r/chapters/ch05_lines_and_shapes.html" class="pagination-link" aria-label="Lines and Shapes">
-        <span class="nav-page-text">Lines and Shapes</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../../contents/website/quarto/guide/01_dashboard-sample-python.html" class="pagination-link" aria-label="Development Indicators by Continent">
+        <span class="nav-page-text">Development Indicators by Continent</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">---</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="an">title:</span><span class="co"> "Popups and Shapes"</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">  cache: true</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="an">filters:</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">   - lightbox</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">---</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a></span>
-<span id="cb7-11"><a href="#cb7-11"></a></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="in">```{r}</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#| warning: false</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#| message: false</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="fu">library</span>(here)</span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="fu">library</span>(leafem)</span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="fu">library</span>(htmlwidgets)</span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="fu">library</span>(rjson)</span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="fu">library</span>(sf)</span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="fu">library</span>(stars)</span>
-<span id="cb7-28"><a href="#cb7-28"></a><span class="fu">library</span>(glue)</span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb7-30"><a href="#cb7-30"></a><span class="in">```</span></span>
-<span id="cb7-31"><a href="#cb7-31"></a></span>
-<span id="cb7-32"><a href="#cb7-32"></a></span>
-<span id="cb7-33"><a href="#cb7-33"></a><span class="fu"># Popups</span></span>
-<span id="cb7-34"><a href="#cb7-34"></a></span>
-<span id="cb7-37"><a href="#cb7-37"></a><span class="in">```{r}</span></span>
-<span id="cb7-38"><a href="#cb7-38"></a>content <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="at">sep =</span> <span class="st">"&lt;br/&gt;"</span>,</span>
-<span id="cb7-39"><a href="#cb7-39"></a>  <span class="st">"&lt;b&gt;&lt;a href='http://www.samurainoodle.com'&gt;Samurai Noodle&lt;/a&gt;&lt;/b&gt;"</span>,</span>
-<span id="cb7-40"><a href="#cb7-40"></a>  <span class="st">"606 5th Ave. S"</span>,</span>
-<span id="cb7-41"><a href="#cb7-41"></a>  <span class="st">"Seattle, WA 98138"</span></span>
-<span id="cb7-42"><a href="#cb7-42"></a>)</span>
-<span id="cb7-43"><a href="#cb7-43"></a></span>
-<span id="cb7-44"><a href="#cb7-44"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-45"><a href="#cb7-45"></a>  <span class="fu">addPopups</span>(<span class="sc">-</span><span class="fl">122.327298</span>, <span class="fl">47.597131</span>, content,</span>
-<span id="cb7-46"><a href="#cb7-46"></a>    <span class="at">options =</span> <span class="fu">popupOptions</span>(<span class="at">closeButton =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-47"><a href="#cb7-47"></a>  )</span>
-<span id="cb7-48"><a href="#cb7-48"></a><span class="in">```</span></span>
-<span id="cb7-49"><a href="#cb7-49"></a></span>
-<span id="cb7-50"><a href="#cb7-50"></a></span>
-<span id="cb7-53"><a href="#cb7-53"></a><span class="in">```{r}</span></span>
-<span id="cb7-54"><a href="#cb7-54"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb7-55"><a href="#cb7-55"></a></span>
-<span id="cb7-56"><a href="#cb7-56"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">textConnection</span>(</span>
-<span id="cb7-57"><a href="#cb7-57"></a><span class="st">"Name,Lat,Long</span></span>
-<span id="cb7-58"><a href="#cb7-58"></a><span class="st">Samurai Noodle,47.597131,-122.327298</span></span>
-<span id="cb7-59"><a href="#cb7-59"></a><span class="st">Kukai Ramen,47.6154,-122.327157</span></span>
-<span id="cb7-60"><a href="#cb7-60"></a><span class="st">Tsukushinbo,47.59987,-122.326726"</span></span>
-<span id="cb7-61"><a href="#cb7-61"></a>))</span>
-<span id="cb7-62"><a href="#cb7-62"></a></span>
-<span id="cb7-63"><a href="#cb7-63"></a><span class="fu">leaflet</span>(df) <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-64"><a href="#cb7-64"></a>  <span class="fu">addMarkers</span>(<span class="sc">~</span>Long, <span class="sc">~</span>Lat, <span class="at">popup =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(Name))</span>
-<span id="cb7-65"><a href="#cb7-65"></a></span>
-<span id="cb7-66"><a href="#cb7-66"></a><span class="in">```</span></span>
-<span id="cb7-67"><a href="#cb7-67"></a></span>
-<span id="cb7-68"><a href="#cb7-68"></a><span class="fu"># Labels</span></span>
-<span id="cb7-69"><a href="#cb7-69"></a></span>
-<span id="cb7-70"><a href="#cb7-70"></a></span>
-<span id="cb7-73"><a href="#cb7-73"></a><span class="in">```{r}</span></span>
-<span id="cb7-74"><a href="#cb7-74"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb7-75"><a href="#cb7-75"></a></span>
-<span id="cb7-76"><a href="#cb7-76"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">textConnection</span>(</span>
-<span id="cb7-77"><a href="#cb7-77"></a><span class="st">"Name,Lat,Long</span></span>
-<span id="cb7-78"><a href="#cb7-78"></a><span class="st">Samurai Noodle,47.597131,-122.327298</span></span>
-<span id="cb7-79"><a href="#cb7-79"></a><span class="st">Kukai Ramen,47.6154,-122.327157</span></span>
-<span id="cb7-80"><a href="#cb7-80"></a><span class="st">Tsukushinbo,47.59987,-122.326726"</span>))</span>
-<span id="cb7-81"><a href="#cb7-81"></a></span>
-<span id="cb7-82"><a href="#cb7-82"></a><span class="fu">leaflet</span>(df) <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-83"><a href="#cb7-83"></a>  <span class="fu">addMarkers</span>(<span class="sc">~</span>Long, <span class="sc">~</span>Lat, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(Name))</span>
-<span id="cb7-84"><a href="#cb7-84"></a><span class="in">```</span></span>
-<span id="cb7-85"><a href="#cb7-85"></a></span>
-<span id="cb7-86"><a href="#cb7-86"></a><span class="fu">## Customizing Marker Labels</span></span>
-<span id="cb7-87"><a href="#cb7-87"></a></span>
-<span id="cb7-88"><a href="#cb7-88"></a></span>
-<span id="cb7-91"><a href="#cb7-91"></a><span class="in">```{r}</span></span>
-<span id="cb7-92"><a href="#cb7-92"></a><span class="co"># Change Text Size and text Only and also a custom CSS</span></span>
-<span id="cb7-93"><a href="#cb7-93"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span> <span class="fu">setView</span>(<span class="sc">-</span><span class="fl">118.456554</span>, <span class="fl">34.09</span>, <span class="dv">13</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-94"><a href="#cb7-94"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb7-95"><a href="#cb7-95"></a>    <span class="at">lng =</span> <span class="sc">-</span><span class="fl">118.456554</span>, <span class="at">lat =</span> <span class="fl">34.105</span>,</span>
-<span id="cb7-96"><a href="#cb7-96"></a>    <span class="at">label =</span> <span class="st">"Default Label"</span>,</span>
-<span id="cb7-97"><a href="#cb7-97"></a>    <span class="at">labelOptions =</span> <span class="fu">labelOptions</span>(<span class="at">noHide =</span> T)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-98"><a href="#cb7-98"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb7-99"><a href="#cb7-99"></a>    <span class="at">lng =</span> <span class="sc">-</span><span class="fl">118.456554</span>, <span class="at">lat =</span> <span class="fl">34.095</span>,</span>
-<span id="cb7-100"><a href="#cb7-100"></a>    <span class="at">label =</span> <span class="st">"Label w/o surrounding box"</span>,</span>
-<span id="cb7-101"><a href="#cb7-101"></a>    <span class="at">labelOptions =</span> <span class="fu">labelOptions</span>(<span class="at">noHide =</span> T, <span class="at">textOnly =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-102"><a href="#cb7-102"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb7-103"><a href="#cb7-103"></a>    <span class="at">lng =</span> <span class="sc">-</span><span class="fl">118.456554</span>, <span class="at">lat =</span> <span class="fl">34.085</span>,</span>
-<span id="cb7-104"><a href="#cb7-104"></a>    <span class="at">label =</span> <span class="st">"label w/ textsize 15px"</span>,</span>
-<span id="cb7-105"><a href="#cb7-105"></a>    <span class="at">labelOptions =</span> <span class="fu">labelOptions</span>(<span class="at">noHide =</span> T, <span class="at">textsize =</span> <span class="st">"15px"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-106"><a href="#cb7-106"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb7-107"><a href="#cb7-107"></a>    <span class="at">lng =</span> <span class="sc">-</span><span class="fl">118.456554</span>, <span class="at">lat =</span> <span class="fl">34.075</span>,</span>
-<span id="cb7-108"><a href="#cb7-108"></a>    <span class="at">label =</span> <span class="st">"Label w/ custom CSS style"</span>,</span>
-<span id="cb7-109"><a href="#cb7-109"></a>    <span class="at">labelOptions =</span> <span class="fu">labelOptions</span>(<span class="at">noHide =</span> T, <span class="at">direction =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb7-110"><a href="#cb7-110"></a>      <span class="at">style =</span> <span class="fu">list</span>(</span>
-<span id="cb7-111"><a href="#cb7-111"></a>        <span class="st">"color"</span> <span class="ot">=</span> <span class="st">"red"</span>,</span>
-<span id="cb7-112"><a href="#cb7-112"></a>        <span class="st">"font-family"</span> <span class="ot">=</span> <span class="st">"serif"</span>,</span>
-<span id="cb7-113"><a href="#cb7-113"></a>        <span class="st">"font-style"</span> <span class="ot">=</span> <span class="st">"italic"</span>,</span>
-<span id="cb7-114"><a href="#cb7-114"></a>        <span class="st">"box-shadow"</span> <span class="ot">=</span> <span class="st">"3px 3px rgba(0,0,0,0.25)"</span>,</span>
-<span id="cb7-115"><a href="#cb7-115"></a>        <span class="st">"font-size"</span> <span class="ot">=</span> <span class="st">"12px"</span>,</span>
-<span id="cb7-116"><a href="#cb7-116"></a>        <span class="st">"border-color"</span> <span class="ot">=</span> <span class="st">"rgba(0,0,0,0.5)"</span></span>
-<span id="cb7-117"><a href="#cb7-117"></a>      )))</span>
-<span id="cb7-118"><a href="#cb7-118"></a><span class="in">```</span></span>
-<span id="cb7-119"><a href="#cb7-119"></a></span>
-<span id="cb7-120"><a href="#cb7-120"></a></span>
-<span id="cb7-121"><a href="#cb7-121"></a></span>
-<span id="cb7-122"><a href="#cb7-122"></a><span class="fu">## Labels without markers</span></span>
-<span id="cb7-123"><a href="#cb7-123"></a></span>
-<span id="cb7-126"><a href="#cb7-126"></a><span class="in">```{r}</span></span>
-<span id="cb7-127"><a href="#cb7-127"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-128"><a href="#cb7-128"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-129"><a href="#cb7-129"></a>  <span class="fu">addLabelOnlyMarkers</span>(</span>
-<span id="cb7-130"><a href="#cb7-130"></a>    <span class="at">data =</span> breweries91,</span>
-<span id="cb7-131"><a href="#cb7-131"></a>    <span class="at">label =</span> <span class="fu">as.character</span>(breweries91<span class="sc">$</span>brewery),</span>
-<span id="cb7-132"><a href="#cb7-132"></a>    <span class="at">group =</span> <span class="st">"brew"</span>,</span>
-<span id="cb7-133"><a href="#cb7-133"></a>    <span class="at">labelOptions =</span> leaflet<span class="sc">::</span><span class="fu">labelOptions</span>(</span>
-<span id="cb7-134"><a href="#cb7-134"></a>      <span class="at">noHide =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb7-135"><a href="#cb7-135"></a>      <span class="at">direction =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb7-136"><a href="#cb7-136"></a>      <span class="at">textOnly =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb7-137"><a href="#cb7-137"></a>      <span class="at">offset =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">10</span>),</span>
-<span id="cb7-138"><a href="#cb7-138"></a>      <span class="at">opacity =</span> <span class="dv">1</span></span>
-<span id="cb7-139"><a href="#cb7-139"></a>    )</span>
-<span id="cb7-140"><a href="#cb7-140"></a>  )</span>
-<span id="cb7-141"><a href="#cb7-141"></a></span>
-<span id="cb7-142"><a href="#cb7-142"></a><span class="in">```</span></span>
-<span id="cb7-143"><a href="#cb7-143"></a></span>
-<span id="cb7-144"><a href="#cb7-144"></a></span>
-<span id="cb7-145"><a href="#cb7-145"></a></span>
-<span id="cb7-146"><a href="#cb7-146"></a></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="an">title:</span><span class="co"> "Quarto Guide"</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">    cache: true</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="an">filters:</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">    - lightbox</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">---</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu"># はじめに</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a>Quartoに関する学習ノートです。</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
