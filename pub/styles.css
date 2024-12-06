@@ -24,7 +24,7 @@ section[class~=level1] > h1 {
 }
 
 #quarto-content {
-  max-width: 1500px;
+  max-width: 1900px;
   width: calc(100vw - 15px);
   margin-left: auto;
   margin-right: auto;
