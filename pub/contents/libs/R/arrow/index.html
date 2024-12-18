@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>arrow – R Tips</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../contents/libs/R/assertr/index.html" rel="next">
+<link href="../../../../contents/libs/R/argparse/index.html" rel="prev">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-8a9e4a621a1f805e754198e2824b0cf1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">ALL</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/udemy_database-specialist/am-2-note.html">
+ <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/website/quarto/guide/index.html">
+ <span class="dropdown-text">QuartoDashboard</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+ <span class="dropdown-text">Numpy Infinity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+ <span class="dropdown-text">LightGBMハンドブック</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
+ <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html">
+ <span class="dropdown-text">爆速Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">
+ <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/argparse/index.html">
+ <span class="dropdown-text">argparse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/arrow/index.html">
+ <span class="dropdown-text">arrow</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/assertr/index.html">
+ <span class="dropdown-text">assertr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/corrr/working.html">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/duckdb/working.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/DBI/working.html">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggspatial/working.html">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/tidyverse/working.html">
+ <span class="dropdown-text">tidyverse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/igraph/index.html">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/R/patchwork/working.html">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/libs/Python/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/notes/ggplot2/working.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/documentaion/index.html">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/mytips/01_.html">
+ <span class="dropdown-text">My Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../contents/test/python/notebook.html">
+ <span class="dropdown-text">Python</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/arrow/index.html">arrow</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/arrow/index.html">Introduction</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">base</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/base/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">argparse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/argparse/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">arrow</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/arrow/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">assertr</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/assertr/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">corrr</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/corrr/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">ComplexHeatmap</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ComplexHeatmap/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">duckdb</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/duckdb/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">DBI</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/DBI/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">ggspatial</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggspatial/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+ <span class="menu-text">GGally</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/GGally/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+ <span class="menu-text">ggtext</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggtext/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+ <span class="menu-text">ggfittext</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggfittext/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+ <span class="menu-text">gganimate</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/gganimate/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+ <span class="menu-text">ggmosaic</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/ggmosaic/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
+ <span class="menu-text">treemapify</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/treemapify/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false">
+ <span class="menu-text">tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/tidyverse/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false">
+ <span class="menu-text">sf</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/sf/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false">
+ <span class="menu-text">igraph</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/igraph/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/igraph/r_interface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R インターフェイス</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false">
+ <span class="menu-text">pathcwork</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/R/patchwork/working.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="true">
+ <span class="menu-text">Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false">
+ <span class="menu-text">pydantic</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/Python/pydantic/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="false">
+ <span class="menu-text">pandera</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../contents/libs/Python/pandera/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに"><span class="header-section-number">1</span> はじめに</a></li>
+  <li><a href="#アーティクル" id="toc-アーティクル" class="nav-link" data-scroll-target="#アーティクル"><span class="header-section-number">2</span> アーティクル</a>
+  <ul class="collapse">
+  <li><a href="#read-a-parquet-file" id="toc-read-a-parquet-file" class="nav-link" data-scroll-target="#read-a-parquet-file"><span class="header-section-number">2.1</span> Read a Parquet file</a></li>
+  <li><a href="#reading-and-writing-data-files" id="toc-reading-and-writing-data-files" class="nav-link" data-scroll-target="#reading-and-writing-data-files"><span class="header-section-number">2.2</span> Reading and writing data files</a></li>
+  <li><a href="#data-analysis-with-dplyr-syntax" id="toc-data-analysis-with-dplyr-syntax" class="nav-link" data-scroll-target="#data-analysis-with-dplyr-syntax"><span class="header-section-number">2.3</span> Data analysis with dplyr syntax</a>
+  <ul class="collapse">
+  <li><a href="#single" id="toc-single" class="nav-link" data-scroll-target="#single"><span class="header-section-number">2.3.1</span> Single</a></li>
+  <li><a href="#two-table" id="toc-two-table" class="nav-link" data-scroll-target="#two-table"><span class="header-section-number">2.3.2</span> Two-Table</a></li>
+  <li><a href="#registering-custom-bindgs" id="toc-registering-custom-bindgs" class="nav-link" data-scroll-target="#registering-custom-bindgs"><span class="header-section-number">2.3.3</span> Registering custom bindgs</a></li>
+  <li><a href="#handling-unsupported-expressions" id="toc-handling-unsupported-expressions" class="nav-link" data-scroll-target="#handling-unsupported-expressions"><span class="header-section-number">2.3.4</span> Handling unsupported expressions</a></li>
+  </ul></li>
+  <li><a href="#working-with-multi-file-data-sets" id="toc-working-with-multi-file-data-sets" class="nav-link" data-scroll-target="#working-with-multi-file-data-sets"><span class="header-section-number">2.4</span> Working with multi-file data sets</a>
+  <ul class="collapse">
+  <li><a href="#opening-datasets" id="toc-opening-datasets" class="nav-link" data-scroll-target="#opening-datasets"><span class="header-section-number">2.4.1</span> Opening datasets</a></li>
+  <li><a href="#querying-datasets" id="toc-querying-datasets" class="nav-link" data-scroll-target="#querying-datasets"><span class="header-section-number">2.4.2</span> Querying Datasets</a></li>
+  <li><a href="#batch-processing" id="toc-batch-processing" class="nav-link" data-scroll-target="#batch-processing"><span class="header-section-number">2.4.3</span> Batch processing</a></li>
+  </ul></li>
+  <li><a href="#connecting-to-a-flight-server" id="toc-connecting-to-a-flight-server" class="nav-link" data-scroll-target="#connecting-to-a-flight-server"><span class="header-section-number">2.5</span> Connecting to a Flight server</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R</li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/arrow/index.html">arrow</a></li><li class="breadcrumb-item"><a href="../../../../contents/libs/R/arrow/index.html">Introduction</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">arrow</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">December 18, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="はじめに" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> はじめに</h1>
+<ul>
+<li>parquetのIOライブラリ</li>
+<li><a href="https://arrow.apache.org/docs/r/reference/acero.html">dplyrの構文サポート</a></li>
+</ul>
+</section>
+<section id="アーティクル" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> アーティクル</h1>
+<section id="read-a-parquet-file" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="read-a-parquet-file"><span class="header-section-number">2.1</span> Read a Parquet file</h2>
+<p><a href="https://arrow.apache.org/docs/r/reference/read_parquet.html">参考文献</a></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>()</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">on.exit</span>(<span class="fu">unlink</span>(tf))</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">write_parquet</span>(mtcars, tf)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>df <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(tf, <span class="at">col_select =</span> <span class="fu">starts_with</span>(<span class="st">"d"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">head</span>(df)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;   disp drat</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; 1  160 3.90</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 2  160 3.90</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 3  108 3.85</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 4  258 3.08</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 5  360 3.15</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 6  225 2.76</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="reading-and-writing-data-files" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="reading-and-writing-data-files"><span class="header-section-number">2.2</span> Reading and writing data files</h2>
+<p><code>as_data_frame=FALSE</code>とすることでArro Tableとして読み込むことが出来る。</p>
+<p><a href="static/img/2024-12-18-19-49-22.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="static/img/2024-12-18-19-49-22.png" class="img-fluid"></a></p>
+</section>
+<section id="data-analysis-with-dplyr-syntax" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="data-analysis-with-dplyr-syntax"><span class="header-section-number">2.3</span> Data analysis with dplyr syntax</h2>
+<section id="single" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="single"><span class="header-section-number">2.3.1</span> Single</h3>
+<p>Arrow data(Table data Dataset) はdplyrの構文と同じように使える。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(dplyr, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#&gt; Warning: package 'dplyr' was built under R version 4.3.3</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(arrow, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>sw <span class="ot">&lt;-</span> <span class="fu">arrow_table</span>(starwars, <span class="at">as_data_frame =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>sw</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; Table</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; 87 rows x 15 columns</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; $name &lt;string&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; $height &lt;int32&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; $mass &lt;double&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; $hair_color &lt;string&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; $skin_color &lt;string&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; $eye_color &lt;string&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; $birth_year &lt;double&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; $sex &lt;string&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; $gender &lt;string&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; $homeworld &lt;string&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; $species &lt;string&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; $films: list&lt;item &lt;string&gt;&gt;</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; $vehicles: list&lt;item &lt;string&gt;&gt;</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; $starships: list&lt;item &lt;string&gt;&gt;</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; $as_data_frame &lt;bool&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>dplyrの構文を使う。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>result <span class="ot">&lt;-</span> sw <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">filter</span>(homeworld <span class="sc">==</span> <span class="st">"Tatooine"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">rename</span>(<span class="at">height_cm =</span> height, <span class="at">mass_kg =</span> mass) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">mutate</span>(<span class="at">height_in =</span> height_cm <span class="sc">/</span> <span class="fl">2.54</span>, <span class="at">mass_lbs =</span> mass_kg <span class="sc">*</span> <span class="fl">2.2046</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(birth_year)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">select</span>(name, height_in, mass_lbs)</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a>result</span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; Table (query)</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; name: string</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; height_in: double (divide(cast(height, {to_type=double, allow_int_overflow=false, allow_time_truncate=false, allow_time_overflow=false, allow_decimal_truncate=false, allow_float_truncate=false, allow_invalid_utf8=false}), cast(2.54, {to_type=double, allow_int_overflow=false, allow_time_truncate=false, allow_time_overflow=false, allow_decimal_truncate=false, allow_float_truncate=false, allow_invalid_utf8=false})))</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; mass_lbs: double (multiply_checked(mass, 2.2046))</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; * Filter: (homeworld == "Tatooine")</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; * Sorted by birth_year [desc]</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; See $.data for the source Arrow object</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>遅延評価がおこなわれている。<code>compute</code>か<code>collect</code>を使うことで実体が評価される。 <code>compute</code>を使うとArrow Tableが返り、<code>collect</code>を使うとデータフレームが返る。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">compute</span>(result)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; Table</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; 10 rows x 3 columns</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; $name &lt;string&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; $height_in &lt;double&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; $mass_lbs &lt;double&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">collect</span>(result)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; # A tibble: 10 × 3</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt;    name               height_in mass_lbs</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;    &lt;chr&gt;                  &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;  1 C-3PO                   65.7    165. </span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;  2 Cliegg Lars             72.0     NA  </span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;  3 Shmi Skywalker          64.2     NA  </span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;  4 Owen Lars               70.1    265. </span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;  5 Beru Whitesun Lars      65.0    165. </span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;  6 Darth Vader             79.5    300. </span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  7 Anakin Skywalker        74.0    185. </span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;  8 Biggs Darklighter       72.0    185. </span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  9 Luke Skywalker          67.7    170. </span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; 10 R5-D4                   38.2     70.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>シングルテーブルの処理をサポートしているので、次のような集約を行うことも可能である。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>sw <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">summarize</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">collect</span>()</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; # A tibble: 38 × 2</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;    species        mean_height</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt;    &lt;chr&gt;                &lt;dbl&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;  1 Human                 178 </span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;  2 Droid                 131.</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;  3 Wookiee               231 </span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;  4 Rodian                173 </span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;  5 Hutt                  175 </span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  6 &lt;NA&gt;                  175 </span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;  7 Yoda's species         66 </span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;  8 Trandoshan            190 </span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  9 Mon Calamari          180 </span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; 10 Ewok                   88 </span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; # ℹ 28 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="two-table" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="two-table"><span class="header-section-number">2.3.2</span> Two-Table</h3>
+<p>等値結合はサポートされている。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>jedi <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"C-3PO"</span>, <span class="st">"Luke Skywalker"</span>, <span class="st">"Obi-Wan Kenobi"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">jedi =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a>sw <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">right_join</span>(jedi) <span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">collect</span>()</span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt; # A tibble: 3 × 4</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt;   name           height  mass jedi </span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; 1 Luke Skywalker    172    77 TRUE </span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; 2 C-3PO             167    75 FALSE</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; 3 Obi-Wan Kenobi    182    77 TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="registering-custom-bindgs" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="registering-custom-bindgs"><span class="header-section-number">2.3.3</span> Registering custom bindgs</h3>
+<p>カスタム関数の作成をサポートしている。<code>context</code>が第一引数にくるのが特徴である。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>to_snake_name <span class="ot">&lt;-</span> <span class="cf">function</span>(context, string) {</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  replace <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">'</span><span class="st">`</span> <span class="ot">=</span> <span class="st">""</span>, <span class="st">`</span><span class="at">"</span><span class="st">`</span> <span class="ot">=</span> <span class="st">""</span>, <span class="st">`</span><span class="at">-</span><span class="st">`</span> <span class="ot">=</span> <span class="st">""</span>, <span class="st">`</span><span class="sc">\\</span><span class="at">.</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"_"</span>, <span class="st">`</span><span class="at"> </span><span class="st">`</span> <span class="ot">=</span> <span class="st">"_"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  string <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>    stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(replace) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>    stringr<span class="sc">::</span><span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>    stringi<span class="sc">::</span><span class="fu">stri_trans_general</span>(<span class="at">id =</span> <span class="st">"Latin-ASCII"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>作成したら登録が必要である。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">register_scalar_function</span>(</span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="at">name =</span> <span class="st">"to_snake_name"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="at">fun =</span> to_snake_name,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="at">in_type =</span> <span class="fu">utf8</span>(),</span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="at">out_type =</span> <span class="fu">utf8</span>(),</span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="at">auto_convert =</span> <span class="cn">TRUE</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>sw <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">mutate</span>(name, <span class="at">snake_name =</span> <span class="fu">to_snake_name</span>(name), <span class="at">.keep =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">collect</span>()</span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt; # A tibble: 87 × 2</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt;    name               snake_name        </span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;             </span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt;  1 Luke Skywalker     luke_skywalker    </span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt;  2 C-3PO              c3po              </span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt;  3 R2-D2              r2d2              </span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt;  4 Darth Vader        darth_vader       </span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt;  5 Leia Organa        leia_organa       </span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt;  6 Owen Lars          owen_lars         </span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt;  7 Beru Whitesun Lars beru_whitesun_lars</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt;  8 R5-D4              r5d4              </span></span>
+<span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt;  9 Biggs Darklighter  biggs_darklighter </span></span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="co">#&gt; 10 Obi-Wan Kenobi     obiwan_kenobi     </span></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co">#&gt; # ℹ 77 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="handling-unsupported-expressions" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="handling-unsupported-expressions"><span class="header-section-number">2.3.4</span> Handling unsupported expressions</h3>
+<p>処理途中で未登録の関数があったら自動で<code>collect</code>が走る。</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>sw <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">transmute</span>(name, height, mass, <span class="at">res =</span> <span class="fu">residuals</span>(<span class="fu">lm</span>(mass <span class="sc">~</span> height)))</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt; Warning: In residuals(lm(mass ~ height)): </span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt; ℹ Expression not supported in Arrow</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt; → Pulling data into R</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt; # A tibble: 59 × 4</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt;    name               height  mass   res</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt;    &lt;chr&gt;               &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt;  1 Luke Skywalker        172    77 -18.8</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt;  2 C-3PO                 167    75 -17.7</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt;  3 R2-D2                  96    32 -16.4</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt;  4 Darth Vader           202   136  21.4</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt;  5 Leia Organa           150    49 -33.1</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt;  6 Owen Lars             178   120  20.4</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt;  7 Beru Whitesun Lars    165    75 -16.5</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt;  8 R5-D4                  97    32 -17.0</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt;  9 Biggs Darklighter     183    84 -18.7</span></span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt; 10 Obi-Wan Kenobi        182    77 -25.1</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a><span class="co">#&gt; # ℹ 49 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="working-with-multi-file-data-sets" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="working-with-multi-file-data-sets"><span class="header-section-number">2.4</span> Working with multi-file data sets</h2>
+<p>Apache Arrowを使うことでメモリ以上のデータをdplyrの構文で扱うことが可能となる。</p>
+<p>巨大なデータとして<a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page">NYC</a>を扱う。</p>
+<p>500MB程度のシングルファイルが160程度あり、全体で70GBある。</p>
+<p>ここでは<code>tiny</code>バージョンを使う</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>bucket <span class="ot">&lt;-</span> <span class="fu">s3_bucket</span>(<span class="st">"voltrondata-labs-datasets/nyc-taxi-tiny"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">copy_files</span>(<span class="at">from =</span> bucket, <span class="at">to =</span> <span class="fu">file.path</span>(cur_dir, <span class="st">"nyc-taxi"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="opening-datasets" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="opening-datasets"><span class="header-section-number">2.4.1</span> Opening datasets</h3>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">open_dataset</span>(<span class="st">"nyc-taxi"</span>, <span class="at">partitioning =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"month"</span>))</span>
+<span id="cb15-2"><a href="#cb15-2"></a>ds</span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; FileSystemDataset with 158 Parquet files</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; 24 columns</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; vendor_name: string</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; pickup_datetime: timestamp[ms]</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; dropoff_datetime: timestamp[ms]</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; passenger_count: int64</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; trip_distance: double</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt; pickup_longitude: double</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt; pickup_latitude: double</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt; rate_code: string</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt; store_and_fwd: string</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt; dropoff_longitude: double</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt; dropoff_latitude: double</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt; payment_type: string</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt; fare_amount: double</span></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt; extra: double</span></span>
+<span id="cb15-19"><a href="#cb15-19"></a><span class="co">#&gt; mta_tax: double</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a><span class="co">#&gt; tip_amount: double</span></span>
+<span id="cb15-21"><a href="#cb15-21"></a><span class="co">#&gt; tolls_amount: double</span></span>
+<span id="cb15-22"><a href="#cb15-22"></a><span class="co">#&gt; total_amount: double</span></span>
+<span id="cb15-23"><a href="#cb15-23"></a><span class="co">#&gt; improvement_surcharge: double</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a><span class="co">#&gt; congestion_surcharge: double</span></span>
+<span id="cb15-25"><a href="#cb15-25"></a><span class="co">#&gt; ...</span></span>
+<span id="cb15-26"><a href="#cb15-26"></a><span class="co">#&gt; 4 more columns</span></span>
+<span id="cb15-27"><a href="#cb15-27"></a><span class="co">#&gt; Use `schema()` to see entire schema</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="querying-datasets" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="querying-datasets"><span class="header-section-number">2.4.2</span> Querying Datasets</h3>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">system.time</span>(ds <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="fu">collect</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="fu">print</span>()</span>
+<span id="cb16-5"><a href="#cb16-5"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="co">#&gt; # A tibble: 1 × 1</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt;         n</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="co">#&gt;     &lt;int&gt;</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co">#&gt; 1 1672513</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="co">#&gt;    user  system elapsed </span></span>
+<span id="cb16-11"><a href="#cb16-11"></a><span class="co">#&gt;    0.03    0.01    0.34</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">system.time</span>(ds <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">filter</span>(total_amount <span class="sc">&gt;</span> <span class="dv">100</span>, year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">select</span>(tip_amount, total_amount, passenger_count) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">mutate</span>(<span class="at">tip_pct =</span> <span class="dv">100</span> <span class="sc">*</span> tip_amount <span class="sc">/</span> total_amount) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">group_by</span>(passenger_count) <span class="sc">%&gt;%</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb17-7"><a href="#cb17-7"></a>    <span class="at">median_tip_pct =</span> <span class="fu">median</span>(tip_pct),</span>
+<span id="cb17-8"><a href="#cb17-8"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb17-9"><a href="#cb17-9"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>  <span class="fu">collect</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a>  <span class="fu">print</span>())</span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co">#&gt; Warning: median() currently returns an approximate median in Arrow</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="co">#&gt; This warning is displayed once per session.</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a><span class="co">#&gt;   passenger_count median_tip_pct     n</span></span>
+<span id="cb17-16"><a href="#cb17-16"></a><span class="co">#&gt;             &lt;int&gt;          &lt;dbl&gt; &lt;int&gt;</span></span>
+<span id="cb17-17"><a href="#cb17-17"></a><span class="co">#&gt; 1               1          16.7    153</span></span>
+<span id="cb17-18"><a href="#cb17-18"></a><span class="co">#&gt; 2               3           5.76     8</span></span>
+<span id="cb17-19"><a href="#cb17-19"></a><span class="co">#&gt; 3               2          16.7     44</span></span>
+<span id="cb17-20"><a href="#cb17-20"></a><span class="co">#&gt; 4               5          15.0      4</span></span>
+<span id="cb17-21"><a href="#cb17-21"></a><span class="co">#&gt; 5               0          14.3      1</span></span>
+<span id="cb17-22"><a href="#cb17-22"></a><span class="co">#&gt; 6               6           0        1</span></span>
+<span id="cb17-23"><a href="#cb17-23"></a><span class="co">#&gt;    user  system elapsed </span></span>
+<span id="cb17-24"><a href="#cb17-24"></a><span class="co">#&gt;    0.00    0.00    0.25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="batch-processing" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="batch-processing"><span class="header-section-number">2.4.3</span> Batch processing</h3>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>sampled_data <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">select</span>(tip_amount, total_amount, passenger_count) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">map_batches</span>(<span class="sc">~</span> <span class="fu">as_record_batch</span>(<span class="fu">sample_frac</span>(<span class="fu">as.data.frame</span>(.), <span class="fl">1e-4</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>  <span class="fu">mutate</span>(<span class="at">tip_pct =</span> tip_amount <span class="sc">/</span> total_amount) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>  <span class="fu">collect</span>()</span>
+<span id="cb18-7"><a href="#cb18-7"></a></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="fu">str</span>(sampled_data)</span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co">#&gt; tibble [12 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co">#&gt;  $ tip_amount     : num [1:12] 1 1.32 1.15 0 1 0 2.75 2 4.8 1.16 ...</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="co">#&gt;  $ total_amount   : num [1:12] 9.3 6.62 6.95 9.8 13.8 ...</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a><span class="co">#&gt;  $ passenger_count: int [1:12] 1 1 2 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb18-13"><a href="#cb18-13"></a><span class="co">#&gt;  $ tip_pct        : num [1:12] 0.1075 0.1994 0.1655 0 0.0725 ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="connecting-to-a-flight-server" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="connecting-to-a-flight-server"><span class="header-section-number">2.5</span> Connecting to a Flight server</h2>
+<p>Flight機能というネットワーク越しのデータハンドリングを使う。よくわからないが基本動かない</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">install.packages</span>(<span class="st">"reticulate"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>arrow<span class="sc">::</span><span class="fu">install_pyarrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>demo_server <span class="ot">&lt;-</span> <span class="fu">load_flight_server</span>(<span class="st">"demo_flight_server"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a>server <span class="ot">&lt;-</span> demo_server<span class="sc">$</span><span class="fu">DemoFlightServer</span>(<span class="at">port =</span> <span class="dv">8089</span>)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>server<span class="sc">$</span><span class="fu">serve</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb21-2"><a href="#cb21-2"></a>client <span class="ot">&lt;-</span> <span class="fu">flight_connect</span>(<span class="at">port =</span> <span class="dv">8089</span>)</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="fu">flight_put</span>(client, iris, <span class="at">path =</span> <span class="st">"test_data/iris"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb22-3"><a href="#cb22-3"></a>client <span class="ot">&lt;-</span> <span class="fu">flight_connect</span>(<span class="at">port =</span> <span class="dv">8089</span>)</span>
+<span id="cb22-4"><a href="#cb22-4"></a>client <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">flight_get</span>(<span class="st">"test_data/iris"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a>  <span class="fu">summarize</span>(<span class="at">max_petal =</span> <span class="fu">max</span>(Petal.Length))</span>
+<span id="cb22-8"><a href="#cb22-8"></a></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="do">## # A tibble: 3 x 2</span></span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="do">##   Species    max_petal</span></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="do">##   &lt;fct&gt;          &lt;dbl&gt;</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="do">## 1 setosa           1.9</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a><span class="do">## 2 versicolor       5.1</span></span>
+<span id="cb22-14"><a href="#cb22-14"></a><span class="do">## 3 virginica        6.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../../contents/libs/R/argparse/index.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../../contents/libs/R/assertr/index.html" class="pagination-link" aria-label="Introduction">
+        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb23" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">---</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="an">title:</span><span class="co"> "arrow"</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co">  cache: true</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="an">filters:</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="co">   - lightbox</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="co">---</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a></span>
+<span id="cb23-13"><a href="#cb23-13"></a><span class="in">```{r}</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a><span class="co">#| echo: false</span></span>
+<span id="cb23-15"><a href="#cb23-15"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb23-16"><a href="#cb23-16"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents/libs/R/arrow"</span>)</span>
+<span id="cb23-17"><a href="#cb23-17"></a><span class="in">```</span></span>
+<span id="cb23-18"><a href="#cb23-18"></a></span>
+<span id="cb23-21"><a href="#cb23-21"></a><span class="in">```{r}</span></span>
+<span id="cb23-22"><a href="#cb23-22"></a><span class="co">#| echo: false</span></span>
+<span id="cb23-23"><a href="#cb23-23"></a><span class="co">#| warning: false</span></span>
+<span id="cb23-24"><a href="#cb23-24"></a><span class="co">#| message: false</span></span>
+<span id="cb23-25"><a href="#cb23-25"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb23-26"><a href="#cb23-26"></a>  arrow[...],</span>
+<span id="cb23-27"><a href="#cb23-27"></a>  showtext[showtext_auto], </span>
+<span id="cb23-28"><a href="#cb23-28"></a>  sysfonts[font_add_google],</span>
+<span id="cb23-29"><a href="#cb23-29"></a>)</span>
+<span id="cb23-30"><a href="#cb23-30"></a></span>
+<span id="cb23-31"><a href="#cb23-31"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb23-32"><a href="#cb23-32"></a><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
+<span id="cb23-33"><a href="#cb23-33"></a><span class="in">```</span></span>
+<span id="cb23-34"><a href="#cb23-34"></a></span>
+<span id="cb23-35"><a href="#cb23-35"></a></span>
+<span id="cb23-36"><a href="#cb23-36"></a><span class="fu"># はじめに</span></span>
+<span id="cb23-37"><a href="#cb23-37"></a></span>
+<span id="cb23-38"><a href="#cb23-38"></a><span class="ss">- </span>parquetのIOライブラリ</span>
+<span id="cb23-39"><a href="#cb23-39"></a><span class="ss">- </span><span class="co">[</span><span class="ot">dplyrの構文サポート</span><span class="co">](https://arrow.apache.org/docs/r/reference/acero.html)</span></span>
+<span id="cb23-40"><a href="#cb23-40"></a></span>
+<span id="cb23-41"><a href="#cb23-41"></a></span>
+<span id="cb23-42"><a href="#cb23-42"></a><span class="fu"># アーティクル</span></span>
+<span id="cb23-43"><a href="#cb23-43"></a></span>
+<span id="cb23-44"><a href="#cb23-44"></a></span>
+<span id="cb23-45"><a href="#cb23-45"></a><span class="fu">## Read a Parquet file</span></span>
+<span id="cb23-46"><a href="#cb23-46"></a></span>
+<span id="cb23-47"><a href="#cb23-47"></a><span class="co">[</span><span class="ot">参考文献</span><span class="co">](https://arrow.apache.org/docs/r/reference/read_parquet.html)</span></span>
+<span id="cb23-48"><a href="#cb23-48"></a></span>
+<span id="cb23-49"><a href="#cb23-49"></a></span>
+<span id="cb23-50"><a href="#cb23-50"></a></span>
+<span id="cb23-53"><a href="#cb23-53"></a><span class="in">```{r}</span></span>
+<span id="cb23-54"><a href="#cb23-54"></a>tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>()</span>
+<span id="cb23-55"><a href="#cb23-55"></a><span class="fu">on.exit</span>(<span class="fu">unlink</span>(tf))</span>
+<span id="cb23-56"><a href="#cb23-56"></a><span class="fu">write_parquet</span>(mtcars, tf)</span>
+<span id="cb23-57"><a href="#cb23-57"></a>df <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(tf, <span class="at">col_select =</span> <span class="fu">starts_with</span>(<span class="st">"d"</span>))</span>
+<span id="cb23-58"><a href="#cb23-58"></a><span class="fu">head</span>(df)</span>
+<span id="cb23-59"><a href="#cb23-59"></a></span>
+<span id="cb23-60"><a href="#cb23-60"></a><span class="in">```</span></span>
+<span id="cb23-61"><a href="#cb23-61"></a></span>
+<span id="cb23-62"><a href="#cb23-62"></a></span>
+<span id="cb23-63"><a href="#cb23-63"></a><span class="fu">## Reading and writing data files</span></span>
+<span id="cb23-64"><a href="#cb23-64"></a></span>
+<span id="cb23-65"><a href="#cb23-65"></a><span class="in">`as_data_frame=FALSE`</span>とすることでArro Tableとして読み込むことが出来る。</span>
+<span id="cb23-66"><a href="#cb23-66"></a></span>
+<span id="cb23-67"><a href="#cb23-67"></a></span>
+<span id="cb23-68"><a href="#cb23-68"></a><span class="al">![](static/img/2024-12-18-19-49-22.png)</span></span>
+<span id="cb23-69"><a href="#cb23-69"></a></span>
+<span id="cb23-70"><a href="#cb23-70"></a></span>
+<span id="cb23-71"><a href="#cb23-71"></a><span class="fu">## Data analysis with dplyr syntax</span></span>
+<span id="cb23-72"><a href="#cb23-72"></a></span>
+<span id="cb23-73"><a href="#cb23-73"></a></span>
+<span id="cb23-74"><a href="#cb23-74"></a><span class="fu">### Single</span></span>
+<span id="cb23-75"><a href="#cb23-75"></a></span>
+<span id="cb23-76"><a href="#cb23-76"></a>Arrow data(Table data Dataset) はdplyrの構文と同じように使える。</span>
+<span id="cb23-77"><a href="#cb23-77"></a></span>
+<span id="cb23-80"><a href="#cb23-80"></a><span class="in">```{r}</span></span>
+<span id="cb23-81"><a href="#cb23-81"></a><span class="fu">library</span>(dplyr, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-82"><a href="#cb23-82"></a><span class="fu">library</span>(arrow, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-83"><a href="#cb23-83"></a>sw <span class="ot">&lt;-</span> <span class="fu">arrow_table</span>(starwars, <span class="at">as_data_frame =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-84"><a href="#cb23-84"></a><span class="in">```</span></span>
+<span id="cb23-85"><a href="#cb23-85"></a></span>
+<span id="cb23-86"><a href="#cb23-86"></a></span>
+<span id="cb23-87"><a href="#cb23-87"></a></span>
+<span id="cb23-90"><a href="#cb23-90"></a><span class="in">```{r}</span></span>
+<span id="cb23-91"><a href="#cb23-91"></a>sw</span>
+<span id="cb23-92"><a href="#cb23-92"></a><span class="in">```</span></span>
+<span id="cb23-93"><a href="#cb23-93"></a></span>
+<span id="cb23-94"><a href="#cb23-94"></a></span>
+<span id="cb23-95"><a href="#cb23-95"></a>dplyrの構文を使う。</span>
+<span id="cb23-96"><a href="#cb23-96"></a></span>
+<span id="cb23-99"><a href="#cb23-99"></a><span class="in">```{r}</span></span>
+<span id="cb23-100"><a href="#cb23-100"></a>result <span class="ot">&lt;-</span> sw <span class="sc">%&gt;%</span></span>
+<span id="cb23-101"><a href="#cb23-101"></a>  <span class="fu">filter</span>(homeworld <span class="sc">==</span> <span class="st">"Tatooine"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-102"><a href="#cb23-102"></a>  <span class="fu">rename</span>(<span class="at">height_cm =</span> height, <span class="at">mass_kg =</span> mass) <span class="sc">%&gt;%</span></span>
+<span id="cb23-103"><a href="#cb23-103"></a>  <span class="fu">mutate</span>(<span class="at">height_in =</span> height_cm <span class="sc">/</span> <span class="fl">2.54</span>, <span class="at">mass_lbs =</span> mass_kg <span class="sc">*</span> <span class="fl">2.2046</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-104"><a href="#cb23-104"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(birth_year)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-105"><a href="#cb23-105"></a>  <span class="fu">select</span>(name, height_in, mass_lbs)</span>
+<span id="cb23-106"><a href="#cb23-106"></a></span>
+<span id="cb23-107"><a href="#cb23-107"></a>result</span>
+<span id="cb23-108"><a href="#cb23-108"></a><span class="in">```</span></span>
+<span id="cb23-109"><a href="#cb23-109"></a></span>
+<span id="cb23-110"><a href="#cb23-110"></a>遅延評価がおこなわれている。<span class="in">`compute`</span>か<span class="in">`collect`</span>を使うことで実体が評価される。</span>
+<span id="cb23-111"><a href="#cb23-111"></a><span class="in">`compute`</span>を使うとArrow Tableが返り、<span class="in">`collect`</span>を使うとデータフレームが返る。</span>
+<span id="cb23-112"><a href="#cb23-112"></a></span>
+<span id="cb23-113"><a href="#cb23-113"></a></span>
+<span id="cb23-114"><a href="#cb23-114"></a></span>
+<span id="cb23-117"><a href="#cb23-117"></a><span class="in">```{r}</span></span>
+<span id="cb23-118"><a href="#cb23-118"></a><span class="fu">compute</span>(result)</span>
+<span id="cb23-119"><a href="#cb23-119"></a><span class="in">```</span></span>
+<span id="cb23-120"><a href="#cb23-120"></a></span>
+<span id="cb23-121"><a href="#cb23-121"></a></span>
+<span id="cb23-122"><a href="#cb23-122"></a></span>
+<span id="cb23-125"><a href="#cb23-125"></a><span class="in">```{r}</span></span>
+<span id="cb23-126"><a href="#cb23-126"></a><span class="fu">collect</span>(result)</span>
+<span id="cb23-127"><a href="#cb23-127"></a><span class="in">```</span></span>
+<span id="cb23-128"><a href="#cb23-128"></a></span>
+<span id="cb23-129"><a href="#cb23-129"></a></span>
+<span id="cb23-130"><a href="#cb23-130"></a></span>
+<span id="cb23-131"><a href="#cb23-131"></a></span>
+<span id="cb23-132"><a href="#cb23-132"></a>シングルテーブルの処理をサポートしているので、次のような集約を行うことも可能である。</span>
+<span id="cb23-133"><a href="#cb23-133"></a></span>
+<span id="cb23-134"><a href="#cb23-134"></a></span>
+<span id="cb23-137"><a href="#cb23-137"></a><span class="in">```{r}</span></span>
+<span id="cb23-138"><a href="#cb23-138"></a>sw <span class="sc">%&gt;%</span></span>
+<span id="cb23-139"><a href="#cb23-139"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb23-140"><a href="#cb23-140"></a>  <span class="fu">summarize</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-141"><a href="#cb23-141"></a>  <span class="fu">collect</span>()</span>
+<span id="cb23-142"><a href="#cb23-142"></a><span class="in">```</span></span>
+<span id="cb23-143"><a href="#cb23-143"></a></span>
+<span id="cb23-144"><a href="#cb23-144"></a></span>
+<span id="cb23-145"><a href="#cb23-145"></a><span class="fu">### Two-Table</span></span>
+<span id="cb23-146"><a href="#cb23-146"></a></span>
+<span id="cb23-147"><a href="#cb23-147"></a></span>
+<span id="cb23-148"><a href="#cb23-148"></a>等値結合はサポートされている。</span>
+<span id="cb23-149"><a href="#cb23-149"></a></span>
+<span id="cb23-152"><a href="#cb23-152"></a><span class="in">```{r}</span></span>
+<span id="cb23-153"><a href="#cb23-153"></a>jedi <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-154"><a href="#cb23-154"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"C-3PO"</span>, <span class="st">"Luke Skywalker"</span>, <span class="st">"Obi-Wan Kenobi"</span>),</span>
+<span id="cb23-155"><a href="#cb23-155"></a>  <span class="at">jedi =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb23-156"><a href="#cb23-156"></a>)</span>
+<span id="cb23-157"><a href="#cb23-157"></a></span>
+<span id="cb23-158"><a href="#cb23-158"></a>sw <span class="sc">%&gt;%</span></span>
+<span id="cb23-159"><a href="#cb23-159"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-160"><a href="#cb23-160"></a>  <span class="fu">right_join</span>(jedi) <span class="sc">%&gt;%</span></span>
+<span id="cb23-161"><a href="#cb23-161"></a>  <span class="fu">collect</span>()</span>
+<span id="cb23-162"><a href="#cb23-162"></a><span class="in">```</span></span>
+<span id="cb23-163"><a href="#cb23-163"></a></span>
+<span id="cb23-164"><a href="#cb23-164"></a></span>
+<span id="cb23-165"><a href="#cb23-165"></a><span class="fu">### Registering custom bindgs</span></span>
+<span id="cb23-166"><a href="#cb23-166"></a></span>
+<span id="cb23-167"><a href="#cb23-167"></a>カスタム関数の作成をサポートしている。<span class="in">`context`</span>が第一引数にくるのが特徴である。</span>
+<span id="cb23-168"><a href="#cb23-168"></a></span>
+<span id="cb23-171"><a href="#cb23-171"></a><span class="in">```{r}</span></span>
+<span id="cb23-172"><a href="#cb23-172"></a>to_snake_name <span class="ot">&lt;-</span> <span class="cf">function</span>(context, string) {</span>
+<span id="cb23-173"><a href="#cb23-173"></a>  replace <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">'</span><span class="st">`</span> <span class="ot">=</span> <span class="st">""</span>, <span class="st">`</span><span class="at">"</span><span class="st">`</span> <span class="ot">=</span> <span class="st">""</span>, <span class="st">`</span><span class="at">-</span><span class="st">`</span> <span class="ot">=</span> <span class="st">""</span>, <span class="st">`</span><span class="sc">\\</span><span class="at">.</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"_"</span>, <span class="st">`</span><span class="at"> </span><span class="st">`</span> <span class="ot">=</span> <span class="st">"_"</span>)</span>
+<span id="cb23-174"><a href="#cb23-174"></a>  string <span class="sc">%&gt;%</span></span>
+<span id="cb23-175"><a href="#cb23-175"></a>    stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(replace) <span class="sc">%&gt;%</span></span>
+<span id="cb23-176"><a href="#cb23-176"></a>    stringr<span class="sc">::</span><span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-177"><a href="#cb23-177"></a>    stringi<span class="sc">::</span><span class="fu">stri_trans_general</span>(<span class="at">id =</span> <span class="st">"Latin-ASCII"</span>)</span>
+<span id="cb23-178"><a href="#cb23-178"></a>}</span>
+<span id="cb23-179"><a href="#cb23-179"></a><span class="in">```</span></span>
+<span id="cb23-180"><a href="#cb23-180"></a></span>
+<span id="cb23-181"><a href="#cb23-181"></a>作成したら登録が必要である。</span>
+<span id="cb23-182"><a href="#cb23-182"></a></span>
+<span id="cb23-183"><a href="#cb23-183"></a></span>
+<span id="cb23-186"><a href="#cb23-186"></a><span class="in">```{r}</span></span>
+<span id="cb23-187"><a href="#cb23-187"></a><span class="fu">register_scalar_function</span>(</span>
+<span id="cb23-188"><a href="#cb23-188"></a>  <span class="at">name =</span> <span class="st">"to_snake_name"</span>,</span>
+<span id="cb23-189"><a href="#cb23-189"></a>  <span class="at">fun =</span> to_snake_name,</span>
+<span id="cb23-190"><a href="#cb23-190"></a>  <span class="at">in_type =</span> <span class="fu">utf8</span>(),</span>
+<span id="cb23-191"><a href="#cb23-191"></a>  <span class="at">out_type =</span> <span class="fu">utf8</span>(),</span>
+<span id="cb23-192"><a href="#cb23-192"></a>  <span class="at">auto_convert =</span> <span class="cn">TRUE</span></span>
+<span id="cb23-193"><a href="#cb23-193"></a>)</span>
+<span id="cb23-194"><a href="#cb23-194"></a><span class="in">```</span></span>
+<span id="cb23-195"><a href="#cb23-195"></a></span>
+<span id="cb23-196"><a href="#cb23-196"></a></span>
+<span id="cb23-197"><a href="#cb23-197"></a></span>
+<span id="cb23-200"><a href="#cb23-200"></a><span class="in">```{r}</span></span>
+<span id="cb23-201"><a href="#cb23-201"></a>sw <span class="sc">%&gt;%</span></span>
+<span id="cb23-202"><a href="#cb23-202"></a>  <span class="fu">mutate</span>(name, <span class="at">snake_name =</span> <span class="fu">to_snake_name</span>(name), <span class="at">.keep =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-203"><a href="#cb23-203"></a>  <span class="fu">collect</span>()</span>
+<span id="cb23-204"><a href="#cb23-204"></a><span class="in">```</span></span>
+<span id="cb23-205"><a href="#cb23-205"></a></span>
+<span id="cb23-206"><a href="#cb23-206"></a></span>
+<span id="cb23-207"><a href="#cb23-207"></a></span>
+<span id="cb23-208"><a href="#cb23-208"></a></span>
+<span id="cb23-209"><a href="#cb23-209"></a><span class="fu">### Handling unsupported expressions</span></span>
+<span id="cb23-210"><a href="#cb23-210"></a></span>
+<span id="cb23-211"><a href="#cb23-211"></a>処理途中で未登録の関数があったら自動で<span class="in">`collect`</span>が走る。</span>
+<span id="cb23-212"><a href="#cb23-212"></a></span>
+<span id="cb23-213"><a href="#cb23-213"></a></span>
+<span id="cb23-216"><a href="#cb23-216"></a><span class="in">```{r}</span></span>
+<span id="cb23-217"><a href="#cb23-217"></a>sw <span class="sc">%&gt;%</span></span>
+<span id="cb23-218"><a href="#cb23-218"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-219"><a href="#cb23-219"></a>  <span class="fu">transmute</span>(name, height, mass, <span class="at">res =</span> <span class="fu">residuals</span>(<span class="fu">lm</span>(mass <span class="sc">~</span> height)))</span>
+<span id="cb23-220"><a href="#cb23-220"></a></span>
+<span id="cb23-221"><a href="#cb23-221"></a><span class="in">```</span></span>
+<span id="cb23-222"><a href="#cb23-222"></a></span>
+<span id="cb23-223"><a href="#cb23-223"></a></span>
+<span id="cb23-224"><a href="#cb23-224"></a><span class="fu">## Working with multi-file data sets</span></span>
+<span id="cb23-225"><a href="#cb23-225"></a></span>
+<span id="cb23-226"><a href="#cb23-226"></a></span>
+<span id="cb23-227"><a href="#cb23-227"></a>Apache Arrowを使うことでメモリ以上のデータをdplyrの構文で扱うことが可能となる。</span>
+<span id="cb23-228"><a href="#cb23-228"></a></span>
+<span id="cb23-229"><a href="#cb23-229"></a>巨大なデータとして<span class="co">[</span><span class="ot">NYC</span><span class="co">](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)</span>を扱う。</span>
+<span id="cb23-230"><a href="#cb23-230"></a></span>
+<span id="cb23-231"><a href="#cb23-231"></a>500MB程度のシングルファイルが160程度あり、全体で70GBある。</span>
+<span id="cb23-232"><a href="#cb23-232"></a></span>
+<span id="cb23-233"><a href="#cb23-233"></a>ここでは<span class="in">`tiny`</span>バージョンを使う</span>
+<span id="cb23-234"><a href="#cb23-234"></a></span>
+<span id="cb23-235"><a href="#cb23-235"></a></span>
+<span id="cb23-238"><a href="#cb23-238"></a><span class="in">```{r}</span></span>
+<span id="cb23-239"><a href="#cb23-239"></a>bucket <span class="ot">&lt;-</span> <span class="fu">s3_bucket</span>(<span class="st">"voltrondata-labs-datasets/nyc-taxi-tiny"</span>)</span>
+<span id="cb23-240"><a href="#cb23-240"></a><span class="in">```</span></span>
+<span id="cb23-241"><a href="#cb23-241"></a></span>
+<span id="cb23-244"><a href="#cb23-244"></a><span class="in">```{r}</span></span>
+<span id="cb23-245"><a href="#cb23-245"></a><span class="co">#| eval: false</span></span>
+<span id="cb23-246"><a href="#cb23-246"></a><span class="fu">copy_files</span>(<span class="at">from =</span> bucket, <span class="at">to =</span> <span class="fu">file.path</span>(cur_dir, <span class="st">"nyc-taxi"</span>))</span>
+<span id="cb23-247"><a href="#cb23-247"></a><span class="in">```</span></span>
+<span id="cb23-248"><a href="#cb23-248"></a></span>
+<span id="cb23-249"><a href="#cb23-249"></a></span>
+<span id="cb23-250"><a href="#cb23-250"></a><span class="fu">### Opening datasets</span></span>
+<span id="cb23-251"><a href="#cb23-251"></a></span>
+<span id="cb23-252"><a href="#cb23-252"></a></span>
+<span id="cb23-255"><a href="#cb23-255"></a><span class="in">```{r}</span></span>
+<span id="cb23-256"><a href="#cb23-256"></a>ds <span class="ot">&lt;-</span> <span class="fu">open_dataset</span>(<span class="st">"nyc-taxi"</span>, <span class="at">partitioning =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"month"</span>))</span>
+<span id="cb23-257"><a href="#cb23-257"></a>ds</span>
+<span id="cb23-258"><a href="#cb23-258"></a><span class="in">```</span></span>
+<span id="cb23-259"><a href="#cb23-259"></a></span>
+<span id="cb23-260"><a href="#cb23-260"></a></span>
+<span id="cb23-261"><a href="#cb23-261"></a></span>
+<span id="cb23-262"><a href="#cb23-262"></a></span>
+<span id="cb23-263"><a href="#cb23-263"></a><span class="fu">### Querying Datasets</span></span>
+<span id="cb23-264"><a href="#cb23-264"></a></span>
+<span id="cb23-267"><a href="#cb23-267"></a><span class="in">```{r}</span></span>
+<span id="cb23-268"><a href="#cb23-268"></a><span class="fu">system.time</span>(ds <span class="sc">%&gt;%</span></span>
+<span id="cb23-269"><a href="#cb23-269"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb23-270"><a href="#cb23-270"></a>    <span class="fu">collect</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb23-271"><a href="#cb23-271"></a>    <span class="fu">print</span>()</span>
+<span id="cb23-272"><a href="#cb23-272"></a>)</span>
+<span id="cb23-273"><a href="#cb23-273"></a><span class="in">```</span></span>
+<span id="cb23-274"><a href="#cb23-274"></a></span>
+<span id="cb23-277"><a href="#cb23-277"></a><span class="in">```{r}</span></span>
+<span id="cb23-278"><a href="#cb23-278"></a><span class="fu">system.time</span>(ds <span class="sc">%&gt;%</span></span>
+<span id="cb23-279"><a href="#cb23-279"></a>  <span class="fu">filter</span>(total_amount <span class="sc">&gt;</span> <span class="dv">100</span>, year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-280"><a href="#cb23-280"></a>  <span class="fu">select</span>(tip_amount, total_amount, passenger_count) <span class="sc">%&gt;%</span></span>
+<span id="cb23-281"><a href="#cb23-281"></a>  <span class="fu">mutate</span>(<span class="at">tip_pct =</span> <span class="dv">100</span> <span class="sc">*</span> tip_amount <span class="sc">/</span> total_amount) <span class="sc">%&gt;%</span></span>
+<span id="cb23-282"><a href="#cb23-282"></a>  <span class="fu">group_by</span>(passenger_count) <span class="sc">%&gt;%</span></span>
+<span id="cb23-283"><a href="#cb23-283"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb23-284"><a href="#cb23-284"></a>    <span class="at">median_tip_pct =</span> <span class="fu">median</span>(tip_pct),</span>
+<span id="cb23-285"><a href="#cb23-285"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb23-286"><a href="#cb23-286"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb23-287"><a href="#cb23-287"></a>  <span class="fu">collect</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-288"><a href="#cb23-288"></a>  <span class="fu">print</span>())</span>
+<span id="cb23-289"><a href="#cb23-289"></a><span class="in">```</span></span>
+<span id="cb23-290"><a href="#cb23-290"></a></span>
+<span id="cb23-291"><a href="#cb23-291"></a></span>
+<span id="cb23-292"><a href="#cb23-292"></a><span class="fu">### Batch processing</span></span>
+<span id="cb23-293"><a href="#cb23-293"></a></span>
+<span id="cb23-296"><a href="#cb23-296"></a><span class="in">```{r}</span></span>
+<span id="cb23-297"><a href="#cb23-297"></a>sampled_data <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb23-298"><a href="#cb23-298"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-299"><a href="#cb23-299"></a>  <span class="fu">select</span>(tip_amount, total_amount, passenger_count) <span class="sc">%&gt;%</span></span>
+<span id="cb23-300"><a href="#cb23-300"></a>  <span class="fu">map_batches</span>(<span class="sc">~</span> <span class="fu">as_record_batch</span>(<span class="fu">sample_frac</span>(<span class="fu">as.data.frame</span>(.), <span class="fl">1e-4</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb23-301"><a href="#cb23-301"></a>  <span class="fu">mutate</span>(<span class="at">tip_pct =</span> tip_amount <span class="sc">/</span> total_amount) <span class="sc">%&gt;%</span></span>
+<span id="cb23-302"><a href="#cb23-302"></a>  <span class="fu">collect</span>()</span>
+<span id="cb23-303"><a href="#cb23-303"></a></span>
+<span id="cb23-304"><a href="#cb23-304"></a><span class="fu">str</span>(sampled_data)</span>
+<span id="cb23-305"><a href="#cb23-305"></a><span class="in">```</span></span>
+<span id="cb23-306"><a href="#cb23-306"></a></span>
+<span id="cb23-307"><a href="#cb23-307"></a><span class="fu">## Connecting to a Flight server</span></span>
+<span id="cb23-308"><a href="#cb23-308"></a></span>
+<span id="cb23-309"><a href="#cb23-309"></a>Flight機能というネットワーク越しのデータハンドリングを使う。よくわからないが基本動かない</span>
+<span id="cb23-310"><a href="#cb23-310"></a></span>
+<span id="cb23-313"><a href="#cb23-313"></a><span class="in">```{r}</span></span>
+<span id="cb23-314"><a href="#cb23-314"></a><span class="co">#| eval: false</span></span>
+<span id="cb23-315"><a href="#cb23-315"></a><span class="fu">install.packages</span>(<span class="st">"reticulate"</span>)</span>
+<span id="cb23-316"><a href="#cb23-316"></a>arrow<span class="sc">::</span><span class="fu">install_pyarrow</span>()</span>
+<span id="cb23-317"><a href="#cb23-317"></a><span class="in">```</span></span>
+<span id="cb23-318"><a href="#cb23-318"></a></span>
+<span id="cb23-321"><a href="#cb23-321"></a><span class="in">```{r}</span></span>
+<span id="cb23-322"><a href="#cb23-322"></a><span class="co">#| eval: false</span></span>
+<span id="cb23-323"><a href="#cb23-323"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb23-324"><a href="#cb23-324"></a>demo_server <span class="ot">&lt;-</span> <span class="fu">load_flight_server</span>(<span class="st">"demo_flight_server"</span>)</span>
+<span id="cb23-325"><a href="#cb23-325"></a>server <span class="ot">&lt;-</span> demo_server<span class="sc">$</span><span class="fu">DemoFlightServer</span>(<span class="at">port =</span> <span class="dv">8089</span>)</span>
+<span id="cb23-326"><a href="#cb23-326"></a>server<span class="sc">$</span><span class="fu">serve</span>()</span>
+<span id="cb23-327"><a href="#cb23-327"></a><span class="in">```</span></span>
+<span id="cb23-328"><a href="#cb23-328"></a></span>
+<span id="cb23-329"><a href="#cb23-329"></a></span>
+<span id="cb23-332"><a href="#cb23-332"></a><span class="in">```{r}</span></span>
+<span id="cb23-333"><a href="#cb23-333"></a><span class="co">#| eval: false</span></span>
+<span id="cb23-334"><a href="#cb23-334"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb23-335"><a href="#cb23-335"></a>client <span class="ot">&lt;-</span> <span class="fu">flight_connect</span>(<span class="at">port =</span> <span class="dv">8089</span>)</span>
+<span id="cb23-336"><a href="#cb23-336"></a><span class="fu">flight_put</span>(client, iris, <span class="at">path =</span> <span class="st">"test_data/iris"</span>)</span>
+<span id="cb23-337"><a href="#cb23-337"></a><span class="in">```</span></span>
+<span id="cb23-338"><a href="#cb23-338"></a></span>
+<span id="cb23-339"><a href="#cb23-339"></a></span>
+<span id="cb23-342"><a href="#cb23-342"></a><span class="in">```{r}</span></span>
+<span id="cb23-343"><a href="#cb23-343"></a><span class="co">#| eval: false</span></span>
+<span id="cb23-344"><a href="#cb23-344"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb23-345"><a href="#cb23-345"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb23-346"><a href="#cb23-346"></a>client <span class="ot">&lt;-</span> <span class="fu">flight_connect</span>(<span class="at">port =</span> <span class="dv">8089</span>)</span>
+<span id="cb23-347"><a href="#cb23-347"></a>client <span class="sc">%&gt;%</span></span>
+<span id="cb23-348"><a href="#cb23-348"></a>  <span class="fu">flight_get</span>(<span class="st">"test_data/iris"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-349"><a href="#cb23-349"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb23-350"><a href="#cb23-350"></a>  <span class="fu">summarize</span>(<span class="at">max_petal =</span> <span class="fu">max</span>(Petal.Length))</span>
+<span id="cb23-351"><a href="#cb23-351"></a></span>
+<span id="cb23-352"><a href="#cb23-352"></a><span class="do">## # A tibble: 3 x 2</span></span>
+<span id="cb23-353"><a href="#cb23-353"></a><span class="do">##   Species    max_petal</span></span>
+<span id="cb23-354"><a href="#cb23-354"></a><span class="do">##   &lt;fct&gt;          &lt;dbl&gt;</span></span>
+<span id="cb23-355"><a href="#cb23-355"></a><span class="do">## 1 setosa           1.9</span></span>
+<span id="cb23-356"><a href="#cb23-356"></a><span class="do">## 2 versicolor       5.1</span></span>
+<span id="cb23-357"><a href="#cb23-357"></a><span class="do">## 3 virginica        6.9</span></span>
+<span id="cb23-358"><a href="#cb23-358"></a><span class="in">```</span></span>
+<span id="cb23-359"><a href="#cb23-359"></a></span>
+<span id="cb23-360"><a href="#cb23-360"></a></span>
+<span id="cb23-361"><a href="#cb23-361"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
