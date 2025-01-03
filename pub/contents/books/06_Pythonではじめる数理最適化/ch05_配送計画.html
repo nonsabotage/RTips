@@ -247,6 +247,10 @@ window.Quarto = {
     <a class="dropdown-item" href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">
  <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/12_いきなりPython/index.html">
+ <span class="dropdown-text">いきなりPython</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -316,7 +320,7 @@ window.Quarto = {
  <span class="dropdown-text">treemapify</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/working.html">
+    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/index.html">
  <span class="dropdown-text">tidyverse</span></a>
   </li>  
         <li>
@@ -330,6 +334,10 @@ window.Quarto = {
         <li>
     <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html">
  <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/plotly/index.html">
+ <span class="dropdown-text">plotly</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
@@ -350,8 +358,12 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li class="dropdown-header">Notes</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/notes/ggplot2/working.html">
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/index.html">
  <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/development/index.html">
+ <span class="dropdown-text">development</span></a>
   </li>  
     </ul>
   </li>
@@ -1092,6 +1104,59 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+ <span class="menu-text">いきなりPython</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/12_いきなりPython/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/12_いきなりPython/ch01_マインドリーダー100.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">マインドリーダー100</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/12_いきなりPython/ch02_推理力ゲーム.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">推理力ゲーム</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/12_いきなりPython/ch03_いつでも声が割り器.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">いつでも声変わり器</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/12_いきなりPython/ch04_ため口矯正アプリ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ため口矯正あぷり</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/12_いきなりPython/ch05_タイムラプスクリエーター.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">タイムラプスクリエーター</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/books/12_いきなりPython/ch06_笑顔キャプチャー.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">笑顔キャプチャー</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
       </ul>
   </li>
     </ul>
@@ -1139,7 +1204,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 2, 2024</p>
+      <p class="date-modified">December 27, 2024</p>
     </div>
   </div>
     
@@ -2024,343 +2089,342 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb8-46"><a href="#cb8-46"></a>reticulate<span class="sc">::</span><span class="fu">py_config</span>()</span>
 <span id="cb8-47"><a href="#cb8-47"></a><span class="in">```</span></span>
 <span id="cb8-48"><a href="#cb8-48"></a></span>
-<span id="cb8-49"><a href="#cb8-49"></a></span>
-<span id="cb8-50"><a href="#cb8-50"></a><span class="fu"># はじめに</span></span>
+<span id="cb8-49"><a href="#cb8-49"></a><span class="fu"># はじめに</span></span>
+<span id="cb8-50"><a href="#cb8-50"></a></span>
 <span id="cb8-51"><a href="#cb8-51"></a></span>
-<span id="cb8-52"><a href="#cb8-52"></a></span>
-<span id="cb8-53"><a href="#cb8-53"></a>1つの車両を用いた多期間の配送計画問題をアツアク。<span class="in">`混合整数計画問題(MIP)`</span>としてモデリングして</span>
-<span id="cb8-54"><a href="#cb8-54"></a>解くことにより配送計画がエラ得ることを示す。</span>
-<span id="cb8-55"><a href="#cb8-55"></a></span>
-<span id="cb8-56"><a href="#cb8-56"></a>技術的には次の３点が解説される</span>
-<span id="cb8-57"><a href="#cb8-57"></a></span>
-<span id="cb8-58"><a href="#cb8-58"></a><span class="ss">1. </span>巡回セールスマン問題の混合整数計画問題へのモデリング</span>
-<span id="cb8-59"><a href="#cb8-59"></a><span class="ss">2. </span>数理モデルの表現力を高める補助変数の使い方</span>
-<span id="cb8-60"><a href="#cb8-60"></a><span class="ss">3. </span>配送パターンの列挙を利用した数理モデルの工夫による求解の効率化</span>
-<span id="cb8-61"><a href="#cb8-61"></a></span>
-<span id="cb8-62"><a href="#cb8-62"></a><span class="fu"># 課題整理</span></span>
-<span id="cb8-63"><a href="#cb8-63"></a></span>
-<span id="cb8-64"><a href="#cb8-64"></a>配送計画では配送車両と地点に関する要件が与えら得る。</span>
-<span id="cb8-65"><a href="#cb8-65"></a></span>
-<span id="cb8-66"><a href="#cb8-66"></a><span class="ss">- </span>配送車両：トラック１台</span>
-<span id="cb8-67"><a href="#cb8-67"></a><span class="ss">- </span>地点：配送拠点である配送センターが一箇所、配送先であるお店を複数もつ</span>
-<span id="cb8-68"><a href="#cb8-68"></a><span class="ss">- </span>配送ルート：配送センターを出発し、いくつかのお店を訪問して、配送センターに戻ってくるまでの配送の順番をあらわしたもので、同じお店には２回以上訪問しない</span>
-<span id="cb8-69"><a href="#cb8-69"></a></span>
-<span id="cb8-70"><a href="#cb8-70"></a>ここでは１ヶ月先までの各お店の発注量がわかるとして、曜日、ドライバーの勤務日数、お店の営業日を考慮したうえで、</span>
-<span id="cb8-71"><a href="#cb8-71"></a>角日の配送センターから地点の配送ルートを決めるものである。</span>
-<span id="cb8-72"><a href="#cb8-72"></a></span>
-<span id="cb8-73"><a href="#cb8-73"></a><span class="ss">- </span>配送計画：２０日分の配送ルート、および各配送日にお店に配送する荷物が決定された表</span>
-<span id="cb8-74"><a href="#cb8-74"></a></span>
-<span id="cb8-75"><a href="#cb8-75"></a>トラックの要件としては１度の最大積載容量がある。</span>
-<span id="cb8-76"><a href="#cb8-76"></a></span>
-<span id="cb8-77"><a href="#cb8-77"></a><span class="ss">- </span>1日に配送できる荷物の重量は4,000kg以下とする</span>
-<span id="cb8-78"><a href="#cb8-78"></a></span>
-<span id="cb8-79"><a href="#cb8-79"></a>ドライバーに関する要件として労働時間がある。</span>
-<span id="cb8-80"><a href="#cb8-80"></a></span>
-<span id="cb8-81"><a href="#cb8-81"></a><span class="ss">- </span>ドライバーの所定労働時間は1日8時間とする</span>
-<span id="cb8-82"><a href="#cb8-82"></a><span class="ss">- </span>ドライバーの所定労働時間を超えて配送業務をおこなう場合、1時間あたり3,000円の残業代が発生する</span>
-<span id="cb8-83"><a href="#cb8-83"></a><span class="ss">- </span>ドライバーの1日の残業時間は3時間以下とする</span>
-<span id="cb8-84"><a href="#cb8-84"></a></span>
-<span id="cb8-85"><a href="#cb8-85"></a>外部配送業者に関する要件として次がある。</span>
-<span id="cb8-86"><a href="#cb8-86"></a></span>
-<span id="cb8-87"><a href="#cb8-87"></a><span class="ss">- </span>1kgあたり46円とする</span>
-<span id="cb8-88"><a href="#cb8-88"></a></span>
-<span id="cb8-89"><a href="#cb8-89"></a>最適化の要件として経営者側の視点にたち、「残業費用」と「外注費用」の和を最少化することを目標とする。</span>
+<span id="cb8-52"><a href="#cb8-52"></a>1つの車両を用いた多期間の配送計画問題をアツアク。<span class="in">`混合整数計画問題(MIP)`</span>としてモデリングして</span>
+<span id="cb8-53"><a href="#cb8-53"></a>解くことにより配送計画がエラ得ることを示す。</span>
+<span id="cb8-54"><a href="#cb8-54"></a></span>
+<span id="cb8-55"><a href="#cb8-55"></a>技術的には次の３点が解説される</span>
+<span id="cb8-56"><a href="#cb8-56"></a></span>
+<span id="cb8-57"><a href="#cb8-57"></a><span class="ss">1. </span>巡回セールスマン問題の混合整数計画問題へのモデリング</span>
+<span id="cb8-58"><a href="#cb8-58"></a><span class="ss">2. </span>数理モデルの表現力を高める補助変数の使い方</span>
+<span id="cb8-59"><a href="#cb8-59"></a><span class="ss">3. </span>配送パターンの列挙を利用した数理モデルの工夫による求解の効率化</span>
+<span id="cb8-60"><a href="#cb8-60"></a></span>
+<span id="cb8-61"><a href="#cb8-61"></a><span class="fu"># 課題整理</span></span>
+<span id="cb8-62"><a href="#cb8-62"></a></span>
+<span id="cb8-63"><a href="#cb8-63"></a>配送計画では配送車両と地点に関する要件が与えら得る。</span>
+<span id="cb8-64"><a href="#cb8-64"></a></span>
+<span id="cb8-65"><a href="#cb8-65"></a><span class="ss">- </span>配送車両：トラック１台</span>
+<span id="cb8-66"><a href="#cb8-66"></a><span class="ss">- </span>地点：配送拠点である配送センターが一箇所、配送先であるお店を複数もつ</span>
+<span id="cb8-67"><a href="#cb8-67"></a><span class="ss">- </span>配送ルート：配送センターを出発し、いくつかのお店を訪問して、配送センターに戻ってくるまでの配送の順番をあらわしたもので、同じお店には２回以上訪問しない</span>
+<span id="cb8-68"><a href="#cb8-68"></a></span>
+<span id="cb8-69"><a href="#cb8-69"></a>ここでは１ヶ月先までの各お店の発注量がわかるとして、曜日、ドライバーの勤務日数、お店の営業日を考慮したうえで、</span>
+<span id="cb8-70"><a href="#cb8-70"></a>角日の配送センターから地点の配送ルートを決めるものである。</span>
+<span id="cb8-71"><a href="#cb8-71"></a></span>
+<span id="cb8-72"><a href="#cb8-72"></a><span class="ss">- </span>配送計画：２０日分の配送ルート、および各配送日にお店に配送する荷物が決定された表</span>
+<span id="cb8-73"><a href="#cb8-73"></a></span>
+<span id="cb8-74"><a href="#cb8-74"></a>トラックの要件としては１度の最大積載容量がある。</span>
+<span id="cb8-75"><a href="#cb8-75"></a></span>
+<span id="cb8-76"><a href="#cb8-76"></a><span class="ss">- </span>1日に配送できる荷物の重量は4,000kg以下とする</span>
+<span id="cb8-77"><a href="#cb8-77"></a></span>
+<span id="cb8-78"><a href="#cb8-78"></a>ドライバーに関する要件として労働時間がある。</span>
+<span id="cb8-79"><a href="#cb8-79"></a></span>
+<span id="cb8-80"><a href="#cb8-80"></a><span class="ss">- </span>ドライバーの所定労働時間は1日8時間とする</span>
+<span id="cb8-81"><a href="#cb8-81"></a><span class="ss">- </span>ドライバーの所定労働時間を超えて配送業務をおこなう場合、1時間あたり3,000円の残業代が発生する</span>
+<span id="cb8-82"><a href="#cb8-82"></a><span class="ss">- </span>ドライバーの1日の残業時間は3時間以下とする</span>
+<span id="cb8-83"><a href="#cb8-83"></a></span>
+<span id="cb8-84"><a href="#cb8-84"></a>外部配送業者に関する要件として次がある。</span>
+<span id="cb8-85"><a href="#cb8-85"></a></span>
+<span id="cb8-86"><a href="#cb8-86"></a><span class="ss">- </span>1kgあたり46円とする</span>
+<span id="cb8-87"><a href="#cb8-87"></a></span>
+<span id="cb8-88"><a href="#cb8-88"></a>最適化の要件として経営者側の視点にたち、「残業費用」と「外注費用」の和を最少化することを目標とする。</span>
+<span id="cb8-89"><a href="#cb8-89"></a></span>
 <span id="cb8-90"><a href="#cb8-90"></a></span>
-<span id="cb8-91"><a href="#cb8-91"></a></span>
-<span id="cb8-92"><a href="#cb8-92"></a><span class="fu"># 素朴な数理モデリング</span></span>
+<span id="cb8-91"><a href="#cb8-91"></a><span class="fu"># 素朴な数理モデリング</span></span>
+<span id="cb8-92"><a href="#cb8-92"></a></span>
 <span id="cb8-93"><a href="#cb8-93"></a></span>
-<span id="cb8-94"><a href="#cb8-94"></a></span>
-<span id="cb8-95"><a href="#cb8-95"></a>数理モデリングは次の５つの要素に分けて構築する。</span>
-<span id="cb8-96"><a href="#cb8-96"></a></span>
-<span id="cb8-97"><a href="#cb8-97"></a><span class="ss">1. </span>集合</span>
-<span id="cb8-98"><a href="#cb8-98"></a><span class="ss">2. </span>定数</span>
-<span id="cb8-99"><a href="#cb8-99"></a><span class="ss">3. </span>変数</span>
-<span id="cb8-100"><a href="#cb8-100"></a><span class="ss">4. </span>制約式</span>
-<span id="cb8-101"><a href="#cb8-101"></a><span class="ss">5. </span>目的関数</span>
-<span id="cb8-102"><a href="#cb8-102"></a></span>
-<span id="cb8-103"><a href="#cb8-103"></a><span class="fu">## 混合整数計画への素朴なモデリング</span></span>
+<span id="cb8-94"><a href="#cb8-94"></a>数理モデリングは次の５つの要素に分けて構築する。</span>
+<span id="cb8-95"><a href="#cb8-95"></a></span>
+<span id="cb8-96"><a href="#cb8-96"></a><span class="ss">1. </span>集合</span>
+<span id="cb8-97"><a href="#cb8-97"></a><span class="ss">2. </span>定数</span>
+<span id="cb8-98"><a href="#cb8-98"></a><span class="ss">3. </span>変数</span>
+<span id="cb8-99"><a href="#cb8-99"></a><span class="ss">4. </span>制約式</span>
+<span id="cb8-100"><a href="#cb8-100"></a><span class="ss">5. </span>目的関数</span>
+<span id="cb8-101"><a href="#cb8-101"></a></span>
+<span id="cb8-102"><a href="#cb8-102"></a><span class="fu">## 混合整数計画への素朴なモデリング</span></span>
+<span id="cb8-103"><a href="#cb8-103"></a></span>
 <span id="cb8-104"><a href="#cb8-104"></a></span>
-<span id="cb8-105"><a href="#cb8-105"></a></span>
-<span id="cb8-106"><a href="#cb8-106"></a><span class="fu">### 集合と定数</span></span>
-<span id="cb8-107"><a href="#cb8-107"></a></span>
-<span id="cb8-108"><a href="#cb8-108"></a>省略します</span>
-<span id="cb8-109"><a href="#cb8-109"></a></span>
-<span id="cb8-110"><a href="#cb8-110"></a><span class="fu">### 決定変数と補助変数</span></span>
-<span id="cb8-111"><a href="#cb8-111"></a></span>
-<span id="cb8-112"><a href="#cb8-112"></a>数理モデルに現れる変数のうち、独立した変数として定義するものを<span class="in">`決定変数`</span>と呼ぶ。</span>
-<span id="cb8-113"><a href="#cb8-113"></a>決定変数に従属して値が決まる変数を<span class="in">`補助変数`</span>と呼ぶ。</span>
-<span id="cb8-114"><a href="#cb8-114"></a></span>
-<span id="cb8-115"><a href="#cb8-115"></a>ある日$d$において地点$k_1$から$k_2$への移動の有無を表す決定変数を次のように定義する。</span>
-<span id="cb8-116"><a href="#cb8-116"></a></span>
-<span id="cb8-117"><a href="#cb8-117"></a>$$</span>
-<span id="cb8-118"><a href="#cb8-118"></a>x_{d,k_1, k_2}\in <span class="sc">\{</span>0, 1<span class="sc">\}</span></span>
-<span id="cb8-119"><a href="#cb8-119"></a>$$</span>
-<span id="cb8-120"><a href="#cb8-120"></a></span>
-<span id="cb8-121"><a href="#cb8-121"></a>次に$d$における$k$に移動する順番を表す補助変数$u_{d,k}$を定義する。$\mathbb{Z}_{\ge 0}$は</span>
-<span id="cb8-122"><a href="#cb8-122"></a>0以上の整数の集合である。</span>
-<span id="cb8-123"><a href="#cb8-123"></a></span>
-<span id="cb8-124"><a href="#cb8-124"></a>$$</span>
-<span id="cb8-125"><a href="#cb8-125"></a>u_{d,k}\in \mathbb{Z}_{\ge 0}</span>
-<span id="cb8-126"><a href="#cb8-126"></a>$$</span>
+<span id="cb8-105"><a href="#cb8-105"></a><span class="fu">### 集合と定数</span></span>
+<span id="cb8-106"><a href="#cb8-106"></a></span>
+<span id="cb8-107"><a href="#cb8-107"></a>省略します</span>
+<span id="cb8-108"><a href="#cb8-108"></a></span>
+<span id="cb8-109"><a href="#cb8-109"></a><span class="fu">### 決定変数と補助変数</span></span>
+<span id="cb8-110"><a href="#cb8-110"></a></span>
+<span id="cb8-111"><a href="#cb8-111"></a>数理モデルに現れる変数のうち、独立した変数として定義するものを<span class="in">`決定変数`</span>と呼ぶ。</span>
+<span id="cb8-112"><a href="#cb8-112"></a>決定変数に従属して値が決まる変数を<span class="in">`補助変数`</span>と呼ぶ。</span>
+<span id="cb8-113"><a href="#cb8-113"></a></span>
+<span id="cb8-114"><a href="#cb8-114"></a>ある日$d$において地点$k_1$から$k_2$への移動の有無を表す決定変数を次のように定義する。</span>
+<span id="cb8-115"><a href="#cb8-115"></a></span>
+<span id="cb8-116"><a href="#cb8-116"></a>$$</span>
+<span id="cb8-117"><a href="#cb8-117"></a>x_{d,k_1, k_2}\in <span class="sc">\{</span>0, 1<span class="sc">\}</span></span>
+<span id="cb8-118"><a href="#cb8-118"></a>$$</span>
+<span id="cb8-119"><a href="#cb8-119"></a></span>
+<span id="cb8-120"><a href="#cb8-120"></a>次に$d$における$k$に移動する順番を表す補助変数$u_{d,k}$を定義する。$\mathbb{Z}_{\ge 0}$は</span>
+<span id="cb8-121"><a href="#cb8-121"></a>0以上の整数の集合である。</span>
+<span id="cb8-122"><a href="#cb8-122"></a></span>
+<span id="cb8-123"><a href="#cb8-123"></a>$$</span>
+<span id="cb8-124"><a href="#cb8-124"></a>u_{d,k}\in \mathbb{Z}_{\ge 0}</span>
+<span id="cb8-125"><a href="#cb8-125"></a>$$</span>
+<span id="cb8-126"><a href="#cb8-126"></a></span>
 <span id="cb8-127"><a href="#cb8-127"></a></span>
 <span id="cb8-128"><a href="#cb8-128"></a></span>
-<span id="cb8-129"><a href="#cb8-129"></a></span>
-<span id="cb8-130"><a href="#cb8-130"></a>次に、配送日において荷物$r\in R$を自社配送するかどうかを表す決定変数を定義する.</span>
-<span id="cb8-131"><a href="#cb8-131"></a></span>
-<span id="cb8-132"><a href="#cb8-132"></a>$$</span>
-<span id="cb8-133"><a href="#cb8-133"></a>y_{d,r}\in <span class="sc">\{</span>0,1<span class="sc">\}</span></span>
-<span id="cb8-134"><a href="#cb8-134"></a>$$</span>
-<span id="cb8-135"><a href="#cb8-135"></a></span>
-<span id="cb8-136"><a href="#cb8-136"></a>最期に配送日の残業時間を表す補助変数を定義する。</span>
-<span id="cb8-137"><a href="#cb8-137"></a></span>
-<span id="cb8-138"><a href="#cb8-138"></a>$$</span>
-<span id="cb8-139"><a href="#cb8-139"></a>h_{d} \in \mathbb{R}_{\ge 0}</span>
-<span id="cb8-140"><a href="#cb8-140"></a>$$</span>
+<span id="cb8-129"><a href="#cb8-129"></a>次に、配送日において荷物$r\in R$を自社配送するかどうかを表す決定変数を定義する.</span>
+<span id="cb8-130"><a href="#cb8-130"></a></span>
+<span id="cb8-131"><a href="#cb8-131"></a>$$</span>
+<span id="cb8-132"><a href="#cb8-132"></a>y_{d,r}\in <span class="sc">\{</span>0,1<span class="sc">\}</span></span>
+<span id="cb8-133"><a href="#cb8-133"></a>$$</span>
+<span id="cb8-134"><a href="#cb8-134"></a></span>
+<span id="cb8-135"><a href="#cb8-135"></a>最期に配送日の残業時間を表す補助変数を定義する。</span>
+<span id="cb8-136"><a href="#cb8-136"></a></span>
+<span id="cb8-137"><a href="#cb8-137"></a>$$</span>
+<span id="cb8-138"><a href="#cb8-138"></a>h_{d} \in \mathbb{R}_{\ge 0}</span>
+<span id="cb8-139"><a href="#cb8-139"></a>$$</span>
+<span id="cb8-140"><a href="#cb8-140"></a></span>
 <span id="cb8-141"><a href="#cb8-141"></a></span>
-<span id="cb8-142"><a href="#cb8-142"></a></span>
-<span id="cb8-143"><a href="#cb8-143"></a>補助変数は一見すると省略できるようにも見えるが現実の問題を解くことができるモデリングをする場合には必須のテクニックであるう。</span>
-<span id="cb8-144"><a href="#cb8-144"></a></span>
-<span id="cb8-145"><a href="#cb8-145"></a>実務では非線形な問題を補助変数により線形問題に帰着させることがよくおこなわれる。</span>
+<span id="cb8-142"><a href="#cb8-142"></a>補助変数は一見すると省略できるようにも見えるが現実の問題を解くことができるモデリングをする場合には必須のテクニックであるう。</span>
+<span id="cb8-143"><a href="#cb8-143"></a></span>
+<span id="cb8-144"><a href="#cb8-144"></a>実務では非線形な問題を補助変数により線形問題に帰着させることがよくおこなわれる。</span>
+<span id="cb8-145"><a href="#cb8-145"></a></span>
 <span id="cb8-146"><a href="#cb8-146"></a></span>
 <span id="cb8-147"><a href="#cb8-147"></a></span>
-<span id="cb8-148"><a href="#cb8-148"></a></span>
-<span id="cb8-149"><a href="#cb8-149"></a><span class="fu">### 制約式と目的関数</span></span>
-<span id="cb8-150"><a href="#cb8-150"></a></span>
-<span id="cb8-151"><a href="#cb8-151"></a>省略</span>
-<span id="cb8-152"><a href="#cb8-152"></a></span>
-<span id="cb8-153"><a href="#cb8-153"></a><span class="fu">### サイクルとなる経路</span></span>
+<span id="cb8-148"><a href="#cb8-148"></a><span class="fu">### 制約式と目的関数</span></span>
+<span id="cb8-149"><a href="#cb8-149"></a></span>
+<span id="cb8-150"><a href="#cb8-150"></a>省略</span>
+<span id="cb8-151"><a href="#cb8-151"></a></span>
+<span id="cb8-152"><a href="#cb8-152"></a><span class="fu">### サイクルとなる経路</span></span>
+<span id="cb8-153"><a href="#cb8-153"></a></span>
 <span id="cb8-154"><a href="#cb8-154"></a></span>
-<span id="cb8-155"><a href="#cb8-155"></a></span>
-<span id="cb8-156"><a href="#cb8-156"></a>２つ制約式を用いて、「経路がサイクルをつくる」ということを表すことができる。</span>
-<span id="cb8-157"><a href="#cb8-157"></a></span>
-<span id="cb8-158"><a href="#cb8-158"></a>1つ目はある地点から他の地点への移動の合計は、ある地点への他の地点からの移動の合計と同じになる。</span>
-<span id="cb8-159"><a href="#cb8-159"></a></span>
-<span id="cb8-160"><a href="#cb8-160"></a>$$</span>
-<span id="cb8-161"><a href="#cb8-161"></a>\sum_{k_2\in K}x_{d,k_2, k_1} = \sum_{k_2 \in K}x_{d, k_1, k_2}</span>
-<span id="cb8-162"><a href="#cb8-162"></a>$$</span>
+<span id="cb8-155"><a href="#cb8-155"></a>２つ制約式を用いて、「経路がサイクルをつくる」ということを表すことができる。</span>
+<span id="cb8-156"><a href="#cb8-156"></a></span>
+<span id="cb8-157"><a href="#cb8-157"></a>1つ目はある地点から他の地点への移動の合計は、ある地点への他の地点からの移動の合計と同じになる。</span>
+<span id="cb8-158"><a href="#cb8-158"></a></span>
+<span id="cb8-159"><a href="#cb8-159"></a>$$</span>
+<span id="cb8-160"><a href="#cb8-160"></a>\sum_{k_2\in K}x_{d,k_2, k_1} = \sum_{k_2 \in K}x_{d, k_1, k_2}</span>
+<span id="cb8-161"><a href="#cb8-161"></a>$$</span>
+<span id="cb8-162"><a href="#cb8-162"></a></span>
 <span id="cb8-163"><a href="#cb8-163"></a></span>
-<span id="cb8-164"><a href="#cb8-164"></a></span>
-<span id="cb8-165"><a href="#cb8-165"></a>もう一つは同じ地点に移動するのは1日に一度までという定義である。</span>
-<span id="cb8-166"><a href="#cb8-166"></a></span>
-<span id="cb8-167"><a href="#cb8-167"></a>$$</span>
-<span id="cb8-168"><a href="#cb8-168"></a>\sum_{k_2 \in K}x_{d, k_2, k_1}\le 1</span>
-<span id="cb8-169"><a href="#cb8-169"></a>$$</span>
+<span id="cb8-164"><a href="#cb8-164"></a>もう一つは同じ地点に移動するのは1日に一度までという定義である。</span>
+<span id="cb8-165"><a href="#cb8-165"></a></span>
+<span id="cb8-166"><a href="#cb8-166"></a>$$</span>
+<span id="cb8-167"><a href="#cb8-167"></a>\sum_{k_2 \in K}x_{d, k_2, k_1}\le 1</span>
+<span id="cb8-168"><a href="#cb8-168"></a>$$</span>
+<span id="cb8-169"><a href="#cb8-169"></a></span>
 <span id="cb8-170"><a href="#cb8-170"></a></span>
 <span id="cb8-171"><a href="#cb8-171"></a></span>
-<span id="cb8-172"><a href="#cb8-172"></a></span>
-<span id="cb8-173"><a href="#cb8-173"></a><span class="fu">### 配送センターと通るサイクル</span></span>
-<span id="cb8-174"><a href="#cb8-174"></a></span>
-<span id="cb8-175"><a href="#cb8-175"></a>サイクルのうち配送センターを通るものだけに絞るには次の３つの制約をいれる。</span>
+<span id="cb8-172"><a href="#cb8-172"></a><span class="fu">### 配送センターと通るサイクル</span></span>
+<span id="cb8-173"><a href="#cb8-173"></a></span>
+<span id="cb8-174"><a href="#cb8-174"></a>サイクルのうち配送センターを通るものだけに絞るには次の３つの制約をいれる。</span>
+<span id="cb8-175"><a href="#cb8-175"></a></span>
 <span id="cb8-176"><a href="#cb8-176"></a></span>
-<span id="cb8-177"><a href="#cb8-177"></a></span>
-<span id="cb8-178"><a href="#cb8-178"></a>まず、ある日に配送センター$p$への移動順番は0である。</span>
-<span id="cb8-179"><a href="#cb8-179"></a></span>
-<span id="cb8-180"><a href="#cb8-180"></a>$$</span>
-<span id="cb8-181"><a href="#cb8-181"></a>\u_{d,p}=0</span>
-<span id="cb8-182"><a href="#cb8-182"></a>$$</span>
-<span id="cb8-183"><a href="#cb8-183"></a></span>
-<span id="cb8-184"><a href="#cb8-184"></a>次に値の上限を制約式として与えることで1番目から順番に番号を付けるようにする。</span>
-<span id="cb8-185"><a href="#cb8-185"></a></span>
-<span id="cb8-186"><a href="#cb8-186"></a>$$</span>
-<span id="cb8-187"><a href="#cb8-187"></a>1\le u_{d,s} \le |K|-1</span>
-<span id="cb8-188"><a href="#cb8-188"></a>$$</span>
-<span id="cb8-189"><a href="#cb8-189"></a></span>
-<span id="cb8-190"><a href="#cb8-190"></a>最期に角配送日においてお店間だけのサイクルを禁止する。$s_1, s_2 \in S$であり、荷物の配送先を表す集合。</span>
-<span id="cb8-191"><a href="#cb8-191"></a>$x_{d,s_1, s_2}=1$のときは$u_{d, s_1}+1 \le u_{d, s_2}$となるうえで、</span>
-<span id="cb8-192"><a href="#cb8-192"></a>$s_1$から$s_2$への移動があるので、つまりは$u_{d, s_1}\le u_{d, s_2}$という制約が生まれる。</span>
-<span id="cb8-193"><a href="#cb8-193"></a>これにより地点間でのサイクルは発生しないことになる。</span>
-<span id="cb8-194"><a href="#cb8-194"></a></span>
-<span id="cb8-195"><a href="#cb8-195"></a>$$</span>
-<span id="cb8-196"><a href="#cb8-196"></a>u_{d, s_1}+1 \le u_{d, s_2}+(|K|-1)(1-x_{d,s_1, s_2})</span>
-<span id="cb8-197"><a href="#cb8-197"></a>$$</span>
+<span id="cb8-177"><a href="#cb8-177"></a>まず、ある日に配送センター$p$への移動順番は0である。</span>
+<span id="cb8-178"><a href="#cb8-178"></a></span>
+<span id="cb8-179"><a href="#cb8-179"></a>$$</span>
+<span id="cb8-180"><a href="#cb8-180"></a>\u_{d,p}=0</span>
+<span id="cb8-181"><a href="#cb8-181"></a>$$</span>
+<span id="cb8-182"><a href="#cb8-182"></a></span>
+<span id="cb8-183"><a href="#cb8-183"></a>次に値の上限を制約式として与えることで1番目から順番に番号を付けるようにする。</span>
+<span id="cb8-184"><a href="#cb8-184"></a></span>
+<span id="cb8-185"><a href="#cb8-185"></a>$$</span>
+<span id="cb8-186"><a href="#cb8-186"></a>1\le u_{d,s} \le |K|-1</span>
+<span id="cb8-187"><a href="#cb8-187"></a>$$</span>
+<span id="cb8-188"><a href="#cb8-188"></a></span>
+<span id="cb8-189"><a href="#cb8-189"></a>最期に角配送日においてお店間だけのサイクルを禁止する。$s_1, s_2 \in S$であり、荷物の配送先を表す集合。</span>
+<span id="cb8-190"><a href="#cb8-190"></a>$x_{d,s_1, s_2}=1$のときは$u_{d, s_1}+1 \le u_{d, s_2}$となるうえで、</span>
+<span id="cb8-191"><a href="#cb8-191"></a>$s_1$から$s_2$への移動があるので、つまりは$u_{d, s_1}\le u_{d, s_2}$という制約が生まれる。</span>
+<span id="cb8-192"><a href="#cb8-192"></a>これにより地点間でのサイクルは発生しないことになる。</span>
+<span id="cb8-193"><a href="#cb8-193"></a></span>
+<span id="cb8-194"><a href="#cb8-194"></a>$$</span>
+<span id="cb8-195"><a href="#cb8-195"></a>u_{d, s_1}+1 \le u_{d, s_2}+(|K|-1)(1-x_{d,s_1, s_2})</span>
+<span id="cb8-196"><a href="#cb8-196"></a>$$</span>
+<span id="cb8-197"><a href="#cb8-197"></a></span>
 <span id="cb8-198"><a href="#cb8-198"></a></span>
-<span id="cb8-199"><a href="#cb8-199"></a></span>
-<span id="cb8-200"><a href="#cb8-200"></a>その他の制約条件は題意から適当に設定することができる。</span>
+<span id="cb8-199"><a href="#cb8-199"></a>その他の制約条件は題意から適当に設定することができる。</span>
+<span id="cb8-200"><a href="#cb8-200"></a></span>
 <span id="cb8-201"><a href="#cb8-201"></a></span>
 <span id="cb8-202"><a href="#cb8-202"></a></span>
-<span id="cb8-203"><a href="#cb8-203"></a></span>
-<span id="cb8-204"><a href="#cb8-204"></a><span class="fu"># 素朴なモデリングの実装と実験</span></span>
-<span id="cb8-205"><a href="#cb8-205"></a></span>
-<span id="cb8-208"><a href="#cb8-208"></a><span class="in">```{python}</span></span>
-<span id="cb8-209"><a href="#cb8-209"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb8-210"><a href="#cb8-210"></a><span class="im">import</span> pulp</span>
-<span id="cb8-211"><a href="#cb8-211"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb8-212"><a href="#cb8-212"></a></span>
-<span id="cb8-213"><a href="#cb8-213"></a>data_dir <span class="op">=</span> Path(<span class="st">"unshare"</span>, <span class="st">"PyOptBook"</span>, <span class="st">"5.routing_ver2"</span>)</span>
-<span id="cb8-214"><a href="#cb8-214"></a></span>
-<span id="cb8-215"><a href="#cb8-215"></a>k_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_locations.csv"</span>)</span>
-<span id="cb8-216"><a href="#cb8-216"></a>r_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_orders.csv"</span>)</span>
-<span id="cb8-217"><a href="#cb8-217"></a>kk_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_distances.csv"</span>)</span>
-<span id="cb8-218"><a href="#cb8-218"></a></span>
-<span id="cb8-219"><a href="#cb8-219"></a><span class="co"># 配送日</span></span>
-<span id="cb8-220"><a href="#cb8-220"></a>D <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(r_df.b.<span class="bu">min</span>(), r_df.e.<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span>))</span>
-<span id="cb8-221"><a href="#cb8-221"></a></span>
-<span id="cb8-222"><a href="#cb8-222"></a><span class="co"># 配送センター</span></span>
-<span id="cb8-223"><a href="#cb8-223"></a>p <span class="op">=</span> k_df[k_df.depo_flag <span class="op">==</span> <span class="dv">1</span>].k.tolist()[<span class="dv">0</span>]</span>
-<span id="cb8-224"><a href="#cb8-224"></a></span>
-<span id="cb8-225"><a href="#cb8-225"></a><span class="co"># お店のリスト</span></span>
-<span id="cb8-226"><a href="#cb8-226"></a>S <span class="op">=</span> k_df[k_df.depo_flag <span class="op">==</span> <span class="dv">0</span>].k.tolist()</span>
-<span id="cb8-227"><a href="#cb8-227"></a></span>
-<span id="cb8-228"><a href="#cb8-228"></a><span class="co"># 地点のリスト</span></span>
-<span id="cb8-229"><a href="#cb8-229"></a>K <span class="op">=</span> [p] <span class="op">+</span> S</span>
-<span id="cb8-230"><a href="#cb8-230"></a></span>
-<span id="cb8-231"><a href="#cb8-231"></a><span class="co"># 荷物のリスト</span></span>
-<span id="cb8-232"><a href="#cb8-232"></a>R <span class="op">=</span> r_df.r.tolist()</span>
-<span id="cb8-233"><a href="#cb8-233"></a></span>
-<span id="cb8-234"><a href="#cb8-234"></a><span class="co"># 各変数を定義するために必要なリスト</span></span>
-<span id="cb8-235"><a href="#cb8-235"></a>DKK <span class="op">=</span>[(d, k1, k2) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K]</span>
-<span id="cb8-236"><a href="#cb8-236"></a>DR <span class="op">=</span> [(d, r) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> r <span class="kw">in</span> R]</span>
-<span id="cb8-237"><a href="#cb8-237"></a>DK <span class="op">=</span> [(d, k) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> k <span class="kw">in</span> K]</span>
+<span id="cb8-203"><a href="#cb8-203"></a><span class="fu"># 素朴なモデリングの実装と実験</span></span>
+<span id="cb8-204"><a href="#cb8-204"></a></span>
+<span id="cb8-207"><a href="#cb8-207"></a><span class="in">```{python}</span></span>
+<span id="cb8-208"><a href="#cb8-208"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-209"><a href="#cb8-209"></a><span class="im">import</span> pulp</span>
+<span id="cb8-210"><a href="#cb8-210"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb8-211"><a href="#cb8-211"></a></span>
+<span id="cb8-212"><a href="#cb8-212"></a>data_dir <span class="op">=</span> Path(<span class="st">"unshare"</span>, <span class="st">"PyOptBook"</span>, <span class="st">"5.routing_ver2"</span>)</span>
+<span id="cb8-213"><a href="#cb8-213"></a></span>
+<span id="cb8-214"><a href="#cb8-214"></a>k_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_locations.csv"</span>)</span>
+<span id="cb8-215"><a href="#cb8-215"></a>r_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_orders.csv"</span>)</span>
+<span id="cb8-216"><a href="#cb8-216"></a>kk_df <span class="op">=</span> pd.read_csv(data_dir <span class="op">/</span> <span class="st">"small_distances.csv"</span>)</span>
+<span id="cb8-217"><a href="#cb8-217"></a></span>
+<span id="cb8-218"><a href="#cb8-218"></a><span class="co"># 配送日</span></span>
+<span id="cb8-219"><a href="#cb8-219"></a>D <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(r_df.b.<span class="bu">min</span>(), r_df.e.<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb8-220"><a href="#cb8-220"></a></span>
+<span id="cb8-221"><a href="#cb8-221"></a><span class="co"># 配送センター</span></span>
+<span id="cb8-222"><a href="#cb8-222"></a>p <span class="op">=</span> k_df[k_df.depo_flag <span class="op">==</span> <span class="dv">1</span>].k.tolist()[<span class="dv">0</span>]</span>
+<span id="cb8-223"><a href="#cb8-223"></a></span>
+<span id="cb8-224"><a href="#cb8-224"></a><span class="co"># お店のリスト</span></span>
+<span id="cb8-225"><a href="#cb8-225"></a>S <span class="op">=</span> k_df[k_df.depo_flag <span class="op">==</span> <span class="dv">0</span>].k.tolist()</span>
+<span id="cb8-226"><a href="#cb8-226"></a></span>
+<span id="cb8-227"><a href="#cb8-227"></a><span class="co"># 地点のリスト</span></span>
+<span id="cb8-228"><a href="#cb8-228"></a>K <span class="op">=</span> [p] <span class="op">+</span> S</span>
+<span id="cb8-229"><a href="#cb8-229"></a></span>
+<span id="cb8-230"><a href="#cb8-230"></a><span class="co"># 荷物のリスト</span></span>
+<span id="cb8-231"><a href="#cb8-231"></a>R <span class="op">=</span> r_df.r.tolist()</span>
+<span id="cb8-232"><a href="#cb8-232"></a></span>
+<span id="cb8-233"><a href="#cb8-233"></a><span class="co"># 各変数を定義するために必要なリスト</span></span>
+<span id="cb8-234"><a href="#cb8-234"></a>DKK <span class="op">=</span>[(d, k1, k2) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K]</span>
+<span id="cb8-235"><a href="#cb8-235"></a>DR <span class="op">=</span> [(d, r) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> r <span class="kw">in</span> R]</span>
+<span id="cb8-236"><a href="#cb8-236"></a>DK <span class="op">=</span> [(d, k) <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">for</span> k <span class="kw">in</span> K]</span>
+<span id="cb8-237"><a href="#cb8-237"></a></span>
 <span id="cb8-238"><a href="#cb8-238"></a></span>
-<span id="cb8-239"><a href="#cb8-239"></a></span>
-<span id="cb8-240"><a href="#cb8-240"></a><span class="in">```</span></span>
+<span id="cb8-239"><a href="#cb8-239"></a><span class="in">```</span></span>
+<span id="cb8-240"><a href="#cb8-240"></a></span>
 <span id="cb8-241"><a href="#cb8-241"></a></span>
-<span id="cb8-242"><a href="#cb8-242"></a></span>
-<span id="cb8-243"><a href="#cb8-243"></a>次に定数などを辞書形式で作成する。</span>
-<span id="cb8-244"><a href="#cb8-244"></a></span>
-<span id="cb8-247"><a href="#cb8-247"></a><span class="in">```{python}</span></span>
-<span id="cb8-248"><a href="#cb8-248"></a><span class="co"># 荷物と紐付ける配送先のお店</span></span>
-<span id="cb8-249"><a href="#cb8-249"></a>R2S <span class="op">=</span> {row.r:row.s <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
-<span id="cb8-250"><a href="#cb8-250"></a></span>
-<span id="cb8-251"><a href="#cb8-251"></a><span class="co"># 荷物に紐付ける重量</span></span>
-<span id="cb8-252"><a href="#cb8-252"></a>R2W <span class="op">=</span> {row.r:row.w <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
-<span id="cb8-253"><a href="#cb8-253"></a></span>
-<span id="cb8-254"><a href="#cb8-254"></a><span class="co"># 荷物を紐付ける指定配送期間の開始日</span></span>
-<span id="cb8-255"><a href="#cb8-255"></a>R2B <span class="op">=</span> {row.r:row.b <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
-<span id="cb8-256"><a href="#cb8-256"></a></span>
-<span id="cb8-257"><a href="#cb8-257"></a><span class="co"># 荷物を紐付ける指定配送期間の終了日</span></span>
-<span id="cb8-258"><a href="#cb8-258"></a>R2E <span class="op">=</span> {row.r:row.e <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
-<span id="cb8-259"><a href="#cb8-259"></a></span>
-<span id="cb8-260"><a href="#cb8-260"></a><span class="co"># 地点間の移動時間</span></span>
-<span id="cb8-261"><a href="#cb8-261"></a>KK2T <span class="op">=</span> {(row.k1, row.k2): row.t <span class="cf">for</span> row <span class="kw">in</span> kk_df.itertuples()}</span>
+<span id="cb8-242"><a href="#cb8-242"></a>次に定数などを辞書形式で作成する。</span>
+<span id="cb8-243"><a href="#cb8-243"></a></span>
+<span id="cb8-246"><a href="#cb8-246"></a><span class="in">```{python}</span></span>
+<span id="cb8-247"><a href="#cb8-247"></a><span class="co"># 荷物と紐付ける配送先のお店</span></span>
+<span id="cb8-248"><a href="#cb8-248"></a>R2S <span class="op">=</span> {row.r:row.s <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb8-249"><a href="#cb8-249"></a></span>
+<span id="cb8-250"><a href="#cb8-250"></a><span class="co"># 荷物に紐付ける重量</span></span>
+<span id="cb8-251"><a href="#cb8-251"></a>R2W <span class="op">=</span> {row.r:row.w <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb8-252"><a href="#cb8-252"></a></span>
+<span id="cb8-253"><a href="#cb8-253"></a><span class="co"># 荷物を紐付ける指定配送期間の開始日</span></span>
+<span id="cb8-254"><a href="#cb8-254"></a>R2B <span class="op">=</span> {row.r:row.b <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb8-255"><a href="#cb8-255"></a></span>
+<span id="cb8-256"><a href="#cb8-256"></a><span class="co"># 荷物を紐付ける指定配送期間の終了日</span></span>
+<span id="cb8-257"><a href="#cb8-257"></a>R2E <span class="op">=</span> {row.r:row.e <span class="cf">for</span> row <span class="kw">in</span> r_df.itertuples()}</span>
+<span id="cb8-258"><a href="#cb8-258"></a></span>
+<span id="cb8-259"><a href="#cb8-259"></a><span class="co"># 地点間の移動時間</span></span>
+<span id="cb8-260"><a href="#cb8-260"></a>KK2T <span class="op">=</span> {(row.k1, row.k2): row.t <span class="cf">for</span> row <span class="kw">in</span> kk_df.itertuples()}</span>
+<span id="cb8-261"><a href="#cb8-261"></a></span>
 <span id="cb8-262"><a href="#cb8-262"></a></span>
-<span id="cb8-263"><a href="#cb8-263"></a></span>
-<span id="cb8-264"><a href="#cb8-264"></a><span class="in">```</span></span>
+<span id="cb8-263"><a href="#cb8-263"></a><span class="in">```</span></span>
+<span id="cb8-264"><a href="#cb8-264"></a></span>
 <span id="cb8-265"><a href="#cb8-265"></a></span>
-<span id="cb8-266"><a href="#cb8-266"></a></span>
-<span id="cb8-267"><a href="#cb8-267"></a>素朴なモデリングの実装は次となる。</span>
-<span id="cb8-268"><a href="#cb8-268"></a></span>
-<span id="cb8-271"><a href="#cb8-271"></a><span class="in">```{python}</span></span>
-<span id="cb8-272"><a href="#cb8-272"></a>prob <span class="op">=</span> pulp.LpProblem(<span class="st">"vrp_small3"</span>, pulp.LpMinimize)</span>
-<span id="cb8-273"><a href="#cb8-273"></a></span>
-<span id="cb8-274"><a href="#cb8-274"></a>x <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"x"</span>, DKK, cat <span class="op">=</span> <span class="st">"Binary"</span>)</span>
-<span id="cb8-275"><a href="#cb8-275"></a>u <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"u"</span>, DK,  cat <span class="op">=</span> <span class="st">"Integer"</span>, lowBound <span class="op">=</span> <span class="dv">0</span>)</span>
-<span id="cb8-276"><a href="#cb8-276"></a>y <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"y"</span>, DR,  cat <span class="op">=</span> <span class="st">"Binary"</span>)</span>
-<span id="cb8-277"><a href="#cb8-277"></a>h <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"h"</span>, D,   cat <span class="op">=</span> <span class="st">"Continuous"</span>, lowBound  <span class="op">=</span> <span class="dv">0</span>)</span>
-<span id="cb8-278"><a href="#cb8-278"></a></span>
-<span id="cb8-279"><a href="#cb8-279"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
-<span id="cb8-280"><a href="#cb8-280"></a>    <span class="cf">for</span> k1 <span class="kw">in</span> K:</span>
-<span id="cb8-281"><a href="#cb8-281"></a>        prob <span class="op">+=</span> pulp.lpSum([x[(d, k1, k2)] <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">==</span> pulp.lpSum([x[(d, k2, k1)] <span class="cf">for</span> k2 <span class="kw">in</span> K])</span>
-<span id="cb8-282"><a href="#cb8-282"></a>        prob <span class="op">+=</span> pulp.lpSum([x[(d, k2, k1)] <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb8-266"><a href="#cb8-266"></a>素朴なモデリングの実装は次となる。</span>
+<span id="cb8-267"><a href="#cb8-267"></a></span>
+<span id="cb8-270"><a href="#cb8-270"></a><span class="in">```{python}</span></span>
+<span id="cb8-271"><a href="#cb8-271"></a>prob <span class="op">=</span> pulp.LpProblem(<span class="st">"vrp_small3"</span>, pulp.LpMinimize)</span>
+<span id="cb8-272"><a href="#cb8-272"></a></span>
+<span id="cb8-273"><a href="#cb8-273"></a>x <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"x"</span>, DKK, cat <span class="op">=</span> <span class="st">"Binary"</span>)</span>
+<span id="cb8-274"><a href="#cb8-274"></a>u <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"u"</span>, DK,  cat <span class="op">=</span> <span class="st">"Integer"</span>, lowBound <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb8-275"><a href="#cb8-275"></a>y <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"y"</span>, DR,  cat <span class="op">=</span> <span class="st">"Binary"</span>)</span>
+<span id="cb8-276"><a href="#cb8-276"></a>h <span class="op">=</span> pulp.LpVariable.dicts(<span class="st">"h"</span>, D,   cat <span class="op">=</span> <span class="st">"Continuous"</span>, lowBound  <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb8-277"><a href="#cb8-277"></a></span>
+<span id="cb8-278"><a href="#cb8-278"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-279"><a href="#cb8-279"></a>    <span class="cf">for</span> k1 <span class="kw">in</span> K:</span>
+<span id="cb8-280"><a href="#cb8-280"></a>        prob <span class="op">+=</span> pulp.lpSum([x[(d, k1, k2)] <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">==</span> pulp.lpSum([x[(d, k2, k1)] <span class="cf">for</span> k2 <span class="kw">in</span> K])</span>
+<span id="cb8-281"><a href="#cb8-281"></a>        prob <span class="op">+=</span> pulp.lpSum([x[(d, k2, k1)] <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb8-282"><a href="#cb8-282"></a></span>
 <span id="cb8-283"><a href="#cb8-283"></a></span>
-<span id="cb8-284"><a href="#cb8-284"></a></span>
-<span id="cb8-285"><a href="#cb8-285"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
-<span id="cb8-286"><a href="#cb8-286"></a>    prob <span class="op">+=</span> u[(d, p)] <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb8-287"><a href="#cb8-287"></a>    <span class="cf">for</span> s <span class="kw">in</span> S:</span>
-<span id="cb8-288"><a href="#cb8-288"></a>        prob <span class="op">+=</span> <span class="dv">1</span> <span class="op">&lt;=</span> u[(d,s)]</span>
-<span id="cb8-289"><a href="#cb8-289"></a>        prob <span class="op">+=</span> u[(d, s)] <span class="op">&lt;=</span> <span class="bu">len</span>(K) <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb8-290"><a href="#cb8-290"></a>    <span class="cf">for</span> s1 <span class="kw">in</span> S:</span>
-<span id="cb8-291"><a href="#cb8-291"></a>        <span class="cf">for</span> s2 <span class="kw">in</span> S:</span>
-<span id="cb8-292"><a href="#cb8-292"></a>            prob <span class="op">+=</span> u[(d, s1)] <span class="op">+</span> <span class="dv">1</span> <span class="op">&lt;=</span> u[(d, s2)] <span class="op">+</span> (<span class="bu">len</span>(K) <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x[(d, s1, s2)])</span>
-<span id="cb8-293"><a href="#cb8-293"></a></span>
-<span id="cb8-294"><a href="#cb8-294"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
-<span id="cb8-295"><a href="#cb8-295"></a>    prob <span class="op">+=</span> pulp.lpSum([y[(d, r)] <span class="cf">for</span> d <span class="kw">in</span> D]) <span class="op">&lt;=</span> <span class="dv">1</span></span>
-<span id="cb8-296"><a href="#cb8-296"></a></span>
-<span id="cb8-297"><a href="#cb8-297"></a><span class="co"># 荷物を自社配送するなら配送刃先のお店に訪問</span></span>
-<span id="cb8-298"><a href="#cb8-298"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
-<span id="cb8-299"><a href="#cb8-299"></a>    <span class="cf">for</span> r <span class="kw">in</span> R:</span>
-<span id="cb8-300"><a href="#cb8-300"></a>        tar_s <span class="op">=</span> R2S[r]</span>
-<span id="cb8-301"><a href="#cb8-301"></a>        prob <span class="op">+=</span> y[(d, r)] <span class="op">&lt;=</span> pulp.lpSum([x[(d, k, tar_s)]<span class="cf">for</span> k <span class="kw">in</span> K])</span>
-<span id="cb8-302"><a href="#cb8-302"></a></span>
-<span id="cb8-303"><a href="#cb8-303"></a><span class="co"># 各配送日について荷物の重量は4,000kg以下</span></span>
-<span id="cb8-304"><a href="#cb8-304"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
-<span id="cb8-305"><a href="#cb8-305"></a>    prob <span class="op">+=</span> pulp.lpSum([y[(d, r)] <span class="op">*</span> R2W[r] <span class="cf">for</span> r <span class="kw">in</span> R]) <span class="op">&lt;=</span> <span class="dv">4000</span></span>
-<span id="cb8-306"><a href="#cb8-306"></a></span>
-<span id="cb8-307"><a href="#cb8-307"></a><span class="co"># 各配送日についてドライバーの残業時間は所定労働時間の8時間を差し引いた労働時間</span></span>
-<span id="cb8-308"><a href="#cb8-308"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
-<span id="cb8-309"><a href="#cb8-309"></a>    prob <span class="op">+=</span> pulp.lpSum([KK2T[(k1, k2)] <span class="op">*</span> x[(d, k1, k2)] <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">-</span> <span class="dv">8</span> <span class="op">&lt;=</span> h[d]</span>
-<span id="cb8-310"><a href="#cb8-310"></a></span>
-<span id="cb8-311"><a href="#cb8-311"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
-<span id="cb8-312"><a href="#cb8-312"></a>    prob <span class="op">+=</span> h[d] <span class="op">&lt;=</span> <span class="dv">3</span></span>
-<span id="cb8-313"><a href="#cb8-313"></a></span>
-<span id="cb8-314"><a href="#cb8-314"></a><span class="co"># 荷物は指定配送期間外の配送を禁止</span></span>
-<span id="cb8-315"><a href="#cb8-315"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
-<span id="cb8-316"><a href="#cb8-316"></a>    <span class="cf">for</span> d <span class="kw">in</span> D:</span>
-<span id="cb8-317"><a href="#cb8-317"></a>        <span class="cf">if</span> d <span class="op">&lt;</span> R2B[r]:</span>
-<span id="cb8-318"><a href="#cb8-318"></a>            prob <span class="op">+=</span> y[(d, r)] <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb8-319"><a href="#cb8-319"></a>        <span class="cf">if</span> R2E[r] <span class="op">&lt;</span> d:</span>
-<span id="cb8-320"><a href="#cb8-320"></a>            prob <span class="op">+=</span> y[(d, r)] <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb8-321"><a href="#cb8-321"></a></span>
-<span id="cb8-322"><a href="#cb8-322"></a><span class="co"># 配送費用を最少化</span></span>
-<span id="cb8-323"><a href="#cb8-323"></a>zangyo <span class="op">=</span> pulp.lpSum([<span class="dv">3000</span> <span class="op">*</span> h[d] <span class="cf">for</span> d <span class="kw">in</span> D])</span>
-<span id="cb8-324"><a href="#cb8-324"></a>gaityu <span class="op">=</span> pulp.lpSum([<span class="dv">46</span> <span class="op">*</span> R2W[r] <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> pulp.lpSum([y[(d, r)] <span class="cf">for</span> d <span class="kw">in</span> D])) <span class="cf">for</span> r <span class="kw">in</span> R])</span>
-<span id="cb8-325"><a href="#cb8-325"></a>prob <span class="op">+=</span> zangyo <span class="op">+</span> gaityu</span>
-<span id="cb8-326"><a href="#cb8-326"></a><span class="in">```</span></span>
+<span id="cb8-284"><a href="#cb8-284"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-285"><a href="#cb8-285"></a>    prob <span class="op">+=</span> u[(d, p)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb8-286"><a href="#cb8-286"></a>    <span class="cf">for</span> s <span class="kw">in</span> S:</span>
+<span id="cb8-287"><a href="#cb8-287"></a>        prob <span class="op">+=</span> <span class="dv">1</span> <span class="op">&lt;=</span> u[(d,s)]</span>
+<span id="cb8-288"><a href="#cb8-288"></a>        prob <span class="op">+=</span> u[(d, s)] <span class="op">&lt;=</span> <span class="bu">len</span>(K) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb8-289"><a href="#cb8-289"></a>    <span class="cf">for</span> s1 <span class="kw">in</span> S:</span>
+<span id="cb8-290"><a href="#cb8-290"></a>        <span class="cf">for</span> s2 <span class="kw">in</span> S:</span>
+<span id="cb8-291"><a href="#cb8-291"></a>            prob <span class="op">+=</span> u[(d, s1)] <span class="op">+</span> <span class="dv">1</span> <span class="op">&lt;=</span> u[(d, s2)] <span class="op">+</span> (<span class="bu">len</span>(K) <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x[(d, s1, s2)])</span>
+<span id="cb8-292"><a href="#cb8-292"></a></span>
+<span id="cb8-293"><a href="#cb8-293"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb8-294"><a href="#cb8-294"></a>    prob <span class="op">+=</span> pulp.lpSum([y[(d, r)] <span class="cf">for</span> d <span class="kw">in</span> D]) <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb8-295"><a href="#cb8-295"></a></span>
+<span id="cb8-296"><a href="#cb8-296"></a><span class="co"># 荷物を自社配送するなら配送刃先のお店に訪問</span></span>
+<span id="cb8-297"><a href="#cb8-297"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-298"><a href="#cb8-298"></a>    <span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb8-299"><a href="#cb8-299"></a>        tar_s <span class="op">=</span> R2S[r]</span>
+<span id="cb8-300"><a href="#cb8-300"></a>        prob <span class="op">+=</span> y[(d, r)] <span class="op">&lt;=</span> pulp.lpSum([x[(d, k, tar_s)]<span class="cf">for</span> k <span class="kw">in</span> K])</span>
+<span id="cb8-301"><a href="#cb8-301"></a></span>
+<span id="cb8-302"><a href="#cb8-302"></a><span class="co"># 各配送日について荷物の重量は4,000kg以下</span></span>
+<span id="cb8-303"><a href="#cb8-303"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-304"><a href="#cb8-304"></a>    prob <span class="op">+=</span> pulp.lpSum([y[(d, r)] <span class="op">*</span> R2W[r] <span class="cf">for</span> r <span class="kw">in</span> R]) <span class="op">&lt;=</span> <span class="dv">4000</span></span>
+<span id="cb8-305"><a href="#cb8-305"></a></span>
+<span id="cb8-306"><a href="#cb8-306"></a><span class="co"># 各配送日についてドライバーの残業時間は所定労働時間の8時間を差し引いた労働時間</span></span>
+<span id="cb8-307"><a href="#cb8-307"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-308"><a href="#cb8-308"></a>    prob <span class="op">+=</span> pulp.lpSum([KK2T[(k1, k2)] <span class="op">*</span> x[(d, k1, k2)] <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K]) <span class="op">-</span> <span class="dv">8</span> <span class="op">&lt;=</span> h[d]</span>
+<span id="cb8-309"><a href="#cb8-309"></a></span>
+<span id="cb8-310"><a href="#cb8-310"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-311"><a href="#cb8-311"></a>    prob <span class="op">+=</span> h[d] <span class="op">&lt;=</span> <span class="dv">3</span></span>
+<span id="cb8-312"><a href="#cb8-312"></a></span>
+<span id="cb8-313"><a href="#cb8-313"></a><span class="co"># 荷物は指定配送期間外の配送を禁止</span></span>
+<span id="cb8-314"><a href="#cb8-314"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb8-315"><a href="#cb8-315"></a>    <span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-316"><a href="#cb8-316"></a>        <span class="cf">if</span> d <span class="op">&lt;</span> R2B[r]:</span>
+<span id="cb8-317"><a href="#cb8-317"></a>            prob <span class="op">+=</span> y[(d, r)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb8-318"><a href="#cb8-318"></a>        <span class="cf">if</span> R2E[r] <span class="op">&lt;</span> d:</span>
+<span id="cb8-319"><a href="#cb8-319"></a>            prob <span class="op">+=</span> y[(d, r)] <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb8-320"><a href="#cb8-320"></a></span>
+<span id="cb8-321"><a href="#cb8-321"></a><span class="co"># 配送費用を最少化</span></span>
+<span id="cb8-322"><a href="#cb8-322"></a>zangyo <span class="op">=</span> pulp.lpSum([<span class="dv">3000</span> <span class="op">*</span> h[d] <span class="cf">for</span> d <span class="kw">in</span> D])</span>
+<span id="cb8-323"><a href="#cb8-323"></a>gaityu <span class="op">=</span> pulp.lpSum([<span class="dv">46</span> <span class="op">*</span> R2W[r] <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> pulp.lpSum([y[(d, r)] <span class="cf">for</span> d <span class="kw">in</span> D])) <span class="cf">for</span> r <span class="kw">in</span> R])</span>
+<span id="cb8-324"><a href="#cb8-324"></a>prob <span class="op">+=</span> zangyo <span class="op">+</span> gaityu</span>
+<span id="cb8-325"><a href="#cb8-325"></a><span class="in">```</span></span>
+<span id="cb8-326"><a href="#cb8-326"></a></span>
 <span id="cb8-327"><a href="#cb8-327"></a></span>
-<span id="cb8-328"><a href="#cb8-328"></a></span>
-<span id="cb8-331"><a href="#cb8-331"></a><span class="in">```{python}</span></span>
-<span id="cb8-332"><a href="#cb8-332"></a>solver <span class="op">=</span> pulp.PULP_CBC_CMD()</span>
-<span id="cb8-333"><a href="#cb8-333"></a>status <span class="op">=</span> prob.solve(solver)</span>
-<span id="cb8-334"><a href="#cb8-334"></a><span class="bu">print</span>(<span class="st">'ステータス:'</span>, pulp.LpStatus[status])</span>
-<span id="cb8-335"><a href="#cb8-335"></a></span>
-<span id="cb8-336"><a href="#cb8-336"></a><span class="co"># 結果の表示</span></span>
-<span id="cb8-337"><a href="#cb8-337"></a><span class="bu">print</span>(<span class="ss">f"残業費用： </span><span class="sc">{</span>zangyo<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-338"><a href="#cb8-338"></a><span class="bu">print</span>(<span class="ss">f"外注費用： </span><span class="sc">{</span>gaityu<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-339"><a href="#cb8-339"></a><span class="bu">print</span>(<span class="ss">f"費用合計： </span><span class="sc">{</span>zangyo<span class="sc">.</span>value() <span class="op">+</span> gaityu<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-340"><a href="#cb8-340"></a><span class="in">```</span></span>
-<span id="cb8-341"><a href="#cb8-341"></a></span>
-<span id="cb8-342"><a href="#cb8-342"></a>配送日ごとの配送ルートを確認するために、次のコードを実行する。</span>
-<span id="cb8-343"><a href="#cb8-343"></a></span>
-<span id="cb8-346"><a href="#cb8-346"></a><span class="in">```{python}</span></span>
-<span id="cb8-347"><a href="#cb8-347"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
-<span id="cb8-348"><a href="#cb8-348"></a>    X <span class="op">=</span> [(k1, k2) <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K <span class="cf">if</span> x[(d, k1, k2)].value() <span class="op">==</span> <span class="dv">1</span>]</span>
-<span id="cb8-349"><a href="#cb8-349"></a>    time <span class="op">=</span> <span class="bu">sum</span>([KK2T[(k1, k2)] <span class="cf">for</span> k1, k2 <span class="kw">in</span> X])</span>
-<span id="cb8-350"><a href="#cb8-350"></a>    <span class="bu">print</span>(<span class="st">"--- 配送日: </span><span class="sc">{}</span><span class="st">日目 ---"</span>.<span class="bu">format</span>(d))</span>
-<span id="cb8-351"><a href="#cb8-351"></a>    <span class="bu">print</span>(<span class="st">"配送重量: </span><span class="sc">{}</span><span class="st">[kg]"</span>.<span class="bu">format</span>(<span class="bu">sum</span>([y[(d, r)].value() <span class="op">*</span> R2W[r] <span class="cf">for</span> r <span class="kw">in</span> R])))</span>
-<span id="cb8-352"><a href="#cb8-352"></a>    <span class="bu">print</span>(<span class="st">"移動時間: </span><span class="sc">{}</span><span class="st">[h]"</span>.<span class="bu">format</span>(time))</span>
-<span id="cb8-353"><a href="#cb8-353"></a>    <span class="bu">print</span>(<span class="st">"残業時間: </span><span class="sc">{}</span><span class="st">[h]"</span>.<span class="bu">format</span>(h[d].value))</span>
-<span id="cb8-354"><a href="#cb8-354"></a>    <span class="bu">print</span>(<span class="st">"x:"</span>, X)</span>
-<span id="cb8-355"><a href="#cb8-355"></a>    tar <span class="op">=</span> p</span>
-<span id="cb8-356"><a href="#cb8-356"></a>    Route <span class="op">=</span> [p]</span>
-<span id="cb8-357"><a href="#cb8-357"></a>    <span class="cf">while</span> <span class="bu">len</span>(X) <span class="op">&gt;=</span> <span class="dv">1</span>:</span>
-<span id="cb8-358"><a href="#cb8-358"></a>        <span class="cf">for</span> k1, k2 <span class="kw">in</span> X:</span>
-<span id="cb8-359"><a href="#cb8-359"></a>            <span class="cf">if</span> k1 <span class="op">==</span> tar:</span>
-<span id="cb8-360"><a href="#cb8-360"></a>                tar <span class="op">=</span> k2</span>
-<span id="cb8-361"><a href="#cb8-361"></a>                Route.append(k2)</span>
-<span id="cb8-362"><a href="#cb8-362"></a>                X.remove((k1, k2))</span>
-<span id="cb8-363"><a href="#cb8-363"></a>    <span class="bu">print</span>(<span class="st">"u:"</span>, [u[(d, k)].value() <span class="cf">for</span> k <span class="kw">in</span> Route])</span>
-<span id="cb8-364"><a href="#cb8-364"></a>    <span class="bu">print</span>(<span class="st">"配送ルート:"</span>, <span class="st">"-&gt;"</span>.join(Route))</span>
+<span id="cb8-330"><a href="#cb8-330"></a><span class="in">```{python}</span></span>
+<span id="cb8-331"><a href="#cb8-331"></a>solver <span class="op">=</span> pulp.PULP_CBC_CMD()</span>
+<span id="cb8-332"><a href="#cb8-332"></a>status <span class="op">=</span> prob.solve(solver)</span>
+<span id="cb8-333"><a href="#cb8-333"></a><span class="bu">print</span>(<span class="st">'ステータス:'</span>, pulp.LpStatus[status])</span>
+<span id="cb8-334"><a href="#cb8-334"></a></span>
+<span id="cb8-335"><a href="#cb8-335"></a><span class="co"># 結果の表示</span></span>
+<span id="cb8-336"><a href="#cb8-336"></a><span class="bu">print</span>(<span class="ss">f"残業費用： </span><span class="sc">{</span>zangyo<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-337"><a href="#cb8-337"></a><span class="bu">print</span>(<span class="ss">f"外注費用： </span><span class="sc">{</span>gaityu<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-338"><a href="#cb8-338"></a><span class="bu">print</span>(<span class="ss">f"費用合計： </span><span class="sc">{</span>zangyo<span class="sc">.</span>value() <span class="op">+</span> gaityu<span class="sc">.</span>value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-339"><a href="#cb8-339"></a><span class="in">```</span></span>
+<span id="cb8-340"><a href="#cb8-340"></a></span>
+<span id="cb8-341"><a href="#cb8-341"></a>配送日ごとの配送ルートを確認するために、次のコードを実行する。</span>
+<span id="cb8-342"><a href="#cb8-342"></a></span>
+<span id="cb8-345"><a href="#cb8-345"></a><span class="in">```{python}</span></span>
+<span id="cb8-346"><a href="#cb8-346"></a><span class="cf">for</span> d <span class="kw">in</span> D:</span>
+<span id="cb8-347"><a href="#cb8-347"></a>    X <span class="op">=</span> [(k1, k2) <span class="cf">for</span> k1 <span class="kw">in</span> K <span class="cf">for</span> k2 <span class="kw">in</span> K <span class="cf">if</span> x[(d, k1, k2)].value() <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb8-348"><a href="#cb8-348"></a>    time <span class="op">=</span> <span class="bu">sum</span>([KK2T[(k1, k2)] <span class="cf">for</span> k1, k2 <span class="kw">in</span> X])</span>
+<span id="cb8-349"><a href="#cb8-349"></a>    <span class="bu">print</span>(<span class="st">"--- 配送日: </span><span class="sc">{}</span><span class="st">日目 ---"</span>.<span class="bu">format</span>(d))</span>
+<span id="cb8-350"><a href="#cb8-350"></a>    <span class="bu">print</span>(<span class="st">"配送重量: </span><span class="sc">{}</span><span class="st">[kg]"</span>.<span class="bu">format</span>(<span class="bu">sum</span>([y[(d, r)].value() <span class="op">*</span> R2W[r] <span class="cf">for</span> r <span class="kw">in</span> R])))</span>
+<span id="cb8-351"><a href="#cb8-351"></a>    <span class="bu">print</span>(<span class="st">"移動時間: </span><span class="sc">{}</span><span class="st">[h]"</span>.<span class="bu">format</span>(time))</span>
+<span id="cb8-352"><a href="#cb8-352"></a>    <span class="bu">print</span>(<span class="st">"残業時間: </span><span class="sc">{}</span><span class="st">[h]"</span>.<span class="bu">format</span>(h[d].value))</span>
+<span id="cb8-353"><a href="#cb8-353"></a>    <span class="bu">print</span>(<span class="st">"x:"</span>, X)</span>
+<span id="cb8-354"><a href="#cb8-354"></a>    tar <span class="op">=</span> p</span>
+<span id="cb8-355"><a href="#cb8-355"></a>    Route <span class="op">=</span> [p]</span>
+<span id="cb8-356"><a href="#cb8-356"></a>    <span class="cf">while</span> <span class="bu">len</span>(X) <span class="op">&gt;=</span> <span class="dv">1</span>:</span>
+<span id="cb8-357"><a href="#cb8-357"></a>        <span class="cf">for</span> k1, k2 <span class="kw">in</span> X:</span>
+<span id="cb8-358"><a href="#cb8-358"></a>            <span class="cf">if</span> k1 <span class="op">==</span> tar:</span>
+<span id="cb8-359"><a href="#cb8-359"></a>                tar <span class="op">=</span> k2</span>
+<span id="cb8-360"><a href="#cb8-360"></a>                Route.append(k2)</span>
+<span id="cb8-361"><a href="#cb8-361"></a>                X.remove((k1, k2))</span>
+<span id="cb8-362"><a href="#cb8-362"></a>    <span class="bu">print</span>(<span class="st">"u:"</span>, [u[(d, k)].value() <span class="cf">for</span> k <span class="kw">in</span> Route])</span>
+<span id="cb8-363"><a href="#cb8-363"></a>    <span class="bu">print</span>(<span class="st">"配送ルート:"</span>, <span class="st">"-&gt;"</span>.join(Route))</span>
+<span id="cb8-364"><a href="#cb8-364"></a></span>
 <span id="cb8-365"><a href="#cb8-365"></a></span>
-<span id="cb8-366"><a href="#cb8-366"></a></span>
-<span id="cb8-367"><a href="#cb8-367"></a><span class="bu">print</span>(<span class="dv">1</span>)</span>
-<span id="cb8-368"><a href="#cb8-368"></a><span class="in">```</span></span>
+<span id="cb8-366"><a href="#cb8-366"></a><span class="bu">print</span>(<span class="dv">1</span>)</span>
+<span id="cb8-367"><a href="#cb8-367"></a><span class="in">```</span></span>
+<span id="cb8-368"><a href="#cb8-368"></a></span>
 <span id="cb8-369"><a href="#cb8-369"></a></span>
-<span id="cb8-370"><a href="#cb8-370"></a></span>
-<span id="cb8-371"><a href="#cb8-371"></a>配送計画を確認する。</span>
+<span id="cb8-370"><a href="#cb8-370"></a>配送計画を確認する。</span>
+<span id="cb8-371"><a href="#cb8-371"></a></span>
 <span id="cb8-372"><a href="#cb8-372"></a></span>
-<span id="cb8-373"><a href="#cb8-373"></a></span>
-<span id="cb8-376"><a href="#cb8-376"></a><span class="in">```{python}</span></span>
-<span id="cb8-377"><a href="#cb8-377"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
-<span id="cb8-378"><a href="#cb8-378"></a>    owned_flag <span class="op">=</span> <span class="bu">sum</span>(y[(d, r)].value() <span class="cf">for</span> d <span class="kw">in</span> D)</span>
-<span id="cb8-379"><a href="#cb8-379"></a>    <span class="cf">if</span> owned_flag:</span>
-<span id="cb8-380"><a href="#cb8-380"></a>        tar_d <span class="op">=</span> [d <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">if</span> y[(d, r)].value() <span class="op">==</span> <span class="dv">1</span>][<span class="dv">0</span>]</span>
-<span id="cb8-381"><a href="#cb8-381"></a>        text <span class="op">=</span> <span class="st">'荷物</span><span class="sc">{}</span><span class="st">(お店</span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">[kg])-配送日:</span><span class="sc">{}</span><span class="st">日目'</span>.<span class="bu">format</span>(r, R2S[r], R2W[r], tar_d)</span>
-<span id="cb8-382"><a href="#cb8-382"></a>    <span class="cf">else</span>: </span>
-<span id="cb8-383"><a href="#cb8-383"></a>        gaityu <span class="op">=</span> <span class="dv">46</span> <span class="op">*</span> R2W[r]</span>
-<span id="cb8-384"><a href="#cb8-384"></a>        text <span class="op">=</span> <span class="st">'荷物</span><span class="sc">{}</span><span class="st">(お店</span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">[kg])-外注費:</span><span class="sc">{}</span><span class="st">[円]'</span>.<span class="bu">format</span>(r, R2S[r], R2W[r], gaityu)</span>
-<span id="cb8-385"><a href="#cb8-385"></a>    <span class="bu">print</span>(text)</span>
+<span id="cb8-375"><a href="#cb8-375"></a><span class="in">```{python}</span></span>
+<span id="cb8-376"><a href="#cb8-376"></a><span class="cf">for</span> r <span class="kw">in</span> R:</span>
+<span id="cb8-377"><a href="#cb8-377"></a>    owned_flag <span class="op">=</span> <span class="bu">sum</span>(y[(d, r)].value() <span class="cf">for</span> d <span class="kw">in</span> D)</span>
+<span id="cb8-378"><a href="#cb8-378"></a>    <span class="cf">if</span> owned_flag:</span>
+<span id="cb8-379"><a href="#cb8-379"></a>        tar_d <span class="op">=</span> [d <span class="cf">for</span> d <span class="kw">in</span> D <span class="cf">if</span> y[(d, r)].value() <span class="op">==</span> <span class="dv">1</span>][<span class="dv">0</span>]</span>
+<span id="cb8-380"><a href="#cb8-380"></a>        text <span class="op">=</span> <span class="st">'荷物</span><span class="sc">{}</span><span class="st">(お店</span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">[kg])-配送日:</span><span class="sc">{}</span><span class="st">日目'</span>.<span class="bu">format</span>(r, R2S[r], R2W[r], tar_d)</span>
+<span id="cb8-381"><a href="#cb8-381"></a>    <span class="cf">else</span>: </span>
+<span id="cb8-382"><a href="#cb8-382"></a>        gaityu <span class="op">=</span> <span class="dv">46</span> <span class="op">*</span> R2W[r]</span>
+<span id="cb8-383"><a href="#cb8-383"></a>        text <span class="op">=</span> <span class="st">'荷物</span><span class="sc">{}</span><span class="st">(お店</span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">[kg])-外注費:</span><span class="sc">{}</span><span class="st">[円]'</span>.<span class="bu">format</span>(r, R2S[r], R2W[r], gaityu)</span>
+<span id="cb8-384"><a href="#cb8-384"></a>    <span class="bu">print</span>(text)</span>
+<span id="cb8-385"><a href="#cb8-385"></a></span>
 <span id="cb8-386"><a href="#cb8-386"></a></span>
-<span id="cb8-387"><a href="#cb8-387"></a></span>
-<span id="cb8-388"><a href="#cb8-388"></a><span class="bu">print</span>(<span class="dv">1</span>)</span>
-<span id="cb8-389"><a href="#cb8-389"></a></span>
-<span id="cb8-390"><a href="#cb8-390"></a><span class="in">```</span></span>
+<span id="cb8-387"><a href="#cb8-387"></a><span class="bu">print</span>(<span class="dv">1</span>)</span>
+<span id="cb8-388"><a href="#cb8-388"></a></span>
+<span id="cb8-389"><a href="#cb8-389"></a><span class="in">```</span></span>
+<span id="cb8-390"><a href="#cb8-390"></a></span>
 <span id="cb8-391"><a href="#cb8-391"></a></span>
 <span id="cb8-392"><a href="#cb8-392"></a></span>
-<span id="cb8-393"><a href="#cb8-393"></a></span>
-<span id="cb8-394"><a href="#cb8-394"></a><span class="fu"># つづく</span></span>
-<span id="cb8-395"><a href="#cb8-395"></a></span>
-<span id="cb8-396"><a href="#cb8-396"></a>このあとに事前に配送パターンを列挙して高速化を図る実装が紹介されているが、</span>
-<span id="cb8-397"><a href="#cb8-397"></a>少し疲れたのでここでは省略する。</span>
+<span id="cb8-393"><a href="#cb8-393"></a><span class="fu"># つづく</span></span>
+<span id="cb8-394"><a href="#cb8-394"></a></span>
+<span id="cb8-395"><a href="#cb8-395"></a>このあとに事前に配送パターンを列挙して高速化を図る実装が紹介されているが、</span>
+<span id="cb8-396"><a href="#cb8-396"></a>少し疲れたのでここでは省略する。</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

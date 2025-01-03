@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Python – R Tips</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/notes/development/index.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-8a9e4a621a1f805e754198e2824b0cf1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">ALL</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html">
+ <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/quarto/guide/index.html">
+ <span class="dropdown-text">QuartoDashboard</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+ <span class="dropdown-text">Numpy Infinity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+ <span class="dropdown-text">LightGBMハンドブック</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
+ <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html">
+ <span class="dropdown-text">爆速Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">
+ <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/12_いきなりPython/index.html">
+ <span class="dropdown-text">いきなりPython</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html">
+ <span class="dropdown-text">argparse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/arrow/index.html">
+ <span class="dropdown-text">arrow</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html">
+ <span class="dropdown-text">assertr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/index.html">
+ <span class="dropdown-text">tidyverse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/plotly/index.html">
+ <span class="dropdown-text">plotly</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/index.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/development/index.html">
+ <span class="dropdown-text">development</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
+ <span class="dropdown-text">My Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/python/notebook.html">
+ <span class="dropdown-text">Python</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Notes</li><li class="breadcrumb-item"><a href="../../../contents/notes/development/index.html">development</a></li><li class="breadcrumb-item"><a href="../../../contents/notes/development/01_Python.html">python</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">ggplot2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/notes/ggplot2/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/notes/ggplot2/01_randamnote.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tips</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">development</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/notes/development/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/notes/development/01_Python.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">python</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#pyenv" id="toc-pyenv" class="nav-link active" data-scroll-target="#pyenv"><span class="header-section-number">1</span> Pyenv</a>
+  <ul class="collapse">
+  <li><a href="#インストール" id="toc-インストール" class="nav-link" data-scroll-target="#インストール"><span class="header-section-number">1.1</span> インストール</a></li>
+  <li><a href="#pythonのインストール" id="toc-pythonのインストール" class="nav-link" data-scroll-target="#pythonのインストール"><span class="header-section-number">1.2</span> pythonのインストール</a></li>
+  <li><a href="#注意点パスの設定" id="toc-注意点パスの設定" class="nav-link" data-scroll-target="#注意点パスの設定"><span class="header-section-number">1.3</span> 注意点：パスの設定</a></li>
+  <li><a href="#アンインストール" id="toc-アンインストール" class="nav-link" data-scroll-target="#アンインストール"><span class="header-section-number">1.4</span> アンインストール</a></li>
+  </ul></li>
+  <li><a href="#poetry" id="toc-poetry" class="nav-link" data-scroll-target="#poetry"><span class="header-section-number">2</span> Poetry</a>
+  <ul class="collapse">
+  <li><a href="#インストール-1" id="toc-インストール-1" class="nav-link" data-scroll-target="#インストール-1"><span class="header-section-number">2.1</span> インストール</a></li>
+  <li><a href="#プジェクト" id="toc-プジェクト" class="nav-link" data-scroll-target="#プジェクト"><span class="header-section-number">2.2</span> プジェクト</a></li>
+  <li><a href="#起動" id="toc-起動" class="nav-link" data-scroll-target="#起動"><span class="header-section-number">2.3</span> 起動</a></li>
+  <li><a href="#その他" id="toc-その他" class="nav-link" data-scroll-target="#その他"><span class="header-section-number">2.4</span> その他</a>
+  <ul class="collapse">
+  <li><a href="#依存関係のインストール" id="toc-依存関係のインストール" class="nav-link" data-scroll-target="#依存関係のインストール"><span class="header-section-number">2.4.1</span> 依存関係のインストール</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Notes</li><li class="breadcrumb-item"><a href="../../../contents/notes/development/index.html">development</a></li><li class="breadcrumb-item"><a href="../../../contents/notes/development/01_Python.html">python</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Python</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">January 3, 2025</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="pyenv" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Pyenv</h1>
+<p><a href="https://github.com/pyenv/pyenv">pyenv</a>はpythonのバージョンを切り換えるためのツールである。</p>
+<p>windows環境をサポートしていないので、<a href="https://github.com/pyenv-win/pyenv-win">pyenv-win</a>を利用すること。WSLもサポートしていないとのことである。</p>
+<section id="インストール" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="インストール"><span class="header-section-number">1.1</span> インストール</h2>
+<p>powershellを管理者権限で実行する必要がある。</p>
+<p>最新版のバージョン７で実行するとインストールが成功した。</p>
+<p>実行が成功すると次のコマンドで<code>pyenv</code>のバージョンを判定する。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>pyenv --version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>うまくインストールが成功しないときには、実行ポリシーの影響が考えられる。</p>
+<p>その際には<a href="https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4">このページ</a>を参照する。</p>
+<p><a href="static/img/2025-01-02-19-11-19.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="static/img/2025-01-02-19-11-19.png" class="img-fluid"></a></p>
+</section>
+<section id="pythonのインストール" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="pythonのインストール"><span class="header-section-number">1.2</span> pythonのインストール</h2>
+<p>次のコマンドでインストール可能なpythonのバージョンを確認する。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>pyenv install -l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>次のコマンドでpythonのバージョンをインストールする。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>pyenv install 3.9.7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>いまつかるpythonのバージョンを確認する。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>pyenv versions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>次のコマンドでグローバルのpythonのバージョンを設定する。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>pyenv global 3.9.7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>次のコマンドでpythonのバージョンを確認する。</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>python --version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>次のコマンドでローカルのpythonのバージョンを設定する。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>pyenv local 3.9.7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>次のコマンドでローカルのpythonのバージョンを確認する。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>python --version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>ローカルを設定すると、そのディレクトリ以下のpythonのバージョンが設定される。</p>
+</section>
+<section id="注意点パスの設定" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="注意点パスの設定"><span class="header-section-number">1.3</span> 注意点：パスの設定</h2>
+<p>pyenv-winを利用すると、pythonのバージョンを切り替えることができる。</p>
+<p>もしpythonがシステム環境変数に含まれている場合には次のパスをそれらのパスよりも優先させる必要がある。</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="#cb9-1"></a>%USERPROFILE%\.pyenv\pyenv-win\bin</span>
+<span id="cb9-2"><a href="#cb9-2"></a>%USERPROFILE%\.pyenv\pyenv-win\shims</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="アンインストール" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="アンインストール"><span class="header-section-number">1.4</span> アンインストール</h2>
+<p>パスを削除する。パスのフォルダを丸ごと削除する、でよいらしい。</p>
+</section>
+</section>
+<section id="poetry" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Poetry</h1>
+<p><a href="https://python-poetry.org/">poetry</a></p>
+<section id="インストール-1" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="インストール-1"><span class="header-section-number">2.1</span> インストール</h2>
+<p>次のコマンドで公式インストーラーからインストールが可能である。</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="#cb10-1"></a>(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>あとは次のフォルダのパスを通すことでよい。</p>
+<p><a href="static/img/2025-01-03-03-27-48.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="static/img/2025-01-03-03-27-48.png" class="img-fluid"></a></p>
+<p>アンインストールは次のコマンドでアル。</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href="#cb11-1"></a>curl -sSL https://install.python-poetry.org | python3 - --uninstall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="プジェクト" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="プジェクト"><span class="header-section-number">2.2</span> プジェクト</h2>
+<p>新規プロジェクトの場合と、既存のプロジェクトの場合がある。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href="#cb12-1"></a>poetry new my_project</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>パッケージ開発でないときには次のコマンドで設定は適当な回答で大丈夫である。</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href="#cb13-1"></a>cd my_project</span>
+<span id="cb13-2"><a href="#cb13-2"></a>poetry init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>poetryは２つのプロジェクトモードがある。１つはパッケージモードで、もうひとつはnon package modeである。</p>
+</section>
+<section id="起動" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="起動"><span class="header-section-number">2.3</span> 起動</h2>
+<p>プロジェクトを立ち上げたら基本的には準備よいので、次のコマンドでプロジェクトを立ち上げる。 そうすると設定したプロジェクトが立ち上がる。このとき指定したpythonのインタプリタがインストールされている必要があるので、 事前にpyenvでインストールしておく必要がある。</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a>poetry shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="その他" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="その他"><span class="header-section-number">2.4</span> その他</h2>
+<section id="依存関係のインストール" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="依存関係のインストール"><span class="header-section-number">2.4.1</span> 依存関係のインストール</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb15-1"><a href="#cb15-1"></a>poetry install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>パッケージのインストールは次のようにおこなう。</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb16-1"><a href="#cb16-1"></a>poetry add numpy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>デフォルトだと仮想環境はアプリケーションのディレクトリに作成されるため、プロジェクト直下に作成するには次のようにする。</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb17-1"><a href="#cb17-1"></a>poetry config virtualenvs.in-project true</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>次のように設定すると任意のディレクトリに仮想環境を作成することができる。</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb18-1"><a href="#cb18-1"></a>poetry config virtualenvs.path &lt;path&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>設定したconfigは次のコマンドで確認できる。</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb19-1"><a href="#cb19-1"></a>poetry config --list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>仮想環境を削除するには次のコマンドを実行する。</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb20-1"><a href="#cb20-1"></a>poetry env list 仮想環境を調べる</span>
+<span id="cb20-2"><a href="#cb20-2"></a>poetry env remove &lt;仮想環境パスまたはPythonバージョン&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>poetryは通常の依存関係と開発用の依存関係を区別している。開発用の依存関係をインストールするには次のコマンドを実行する。</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb21-1"><a href="#cb21-1"></a>poetry add --dev pytest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>開発用の依存関係をインストールするには次のコマンドを実行する。</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb22-1"><a href="#cb22-1"></a>poetry install --with dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>開発用の依存関係を除いてインストールするには次のようにする</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb23-1"><a href="#cb23-1"></a>poetry install --no-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>開発作業では次のコマンドでリンターなどを実行する。</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb24-1"><a href="#cb24-1"></a>poetry run pytest</span>
+<span id="cb24-2"><a href="#cb24-2"></a>poetry run flake8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>プロジェクトの情報を確認するには次のコマンドを実行する。</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb25-1"><a href="#cb25-1"></a>poetry show</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+<!-- -->
+
+</section>
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../contents/notes/development/index.html" class="pagination-link" aria-label="はじめに">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">はじめに</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb26" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">---</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="an">title:</span><span class="co"> "Python"</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="an">execute:</span><span class="co">  </span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co">    cache: true</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="an">filters:</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co">    - lightbox</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co">---</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="in">```{r}</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#| label: activate renv</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#| echo: false</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#| warning: false</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#| message: false</span></span>
+<span id="cb26-18"><a href="#cb26-18"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb26-19"><a href="#cb26-19"></a><span class="in">```</span></span>
+<span id="cb26-20"><a href="#cb26-20"></a></span>
+<span id="cb26-23"><a href="#cb26-23"></a><span class="in">```{r}</span></span>
+<span id="cb26-24"><a href="#cb26-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb26-25"><a href="#cb26-25"></a><span class="co">#| echo: false</span></span>
+<span id="cb26-26"><a href="#cb26-26"></a><span class="co">#| warning: false</span></span>
+<span id="cb26-27"><a href="#cb26-27"></a><span class="co">#| message: false</span></span>
+<span id="cb26-28"><a href="#cb26-28"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents"</span>, <span class="st">"notes"</span>, <span class="st">"development"</span>)</span>
+<span id="cb26-29"><a href="#cb26-29"></a><span class="fu">setwd</span>(cur_dir)</span>
+<span id="cb26-30"><a href="#cb26-30"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
+<span id="cb26-31"><a href="#cb26-31"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans JP"</span>)</span>
+<span id="cb26-32"><a href="#cb26-32"></a><span class="in">```</span></span>
+<span id="cb26-33"><a href="#cb26-33"></a></span>
+<span id="cb26-34"><a href="#cb26-34"></a></span>
+<span id="cb26-37"><a href="#cb26-37"></a><span class="in">```{r}</span></span>
+<span id="cb26-38"><a href="#cb26-38"></a><span class="co">#| label: activat python</span></span>
+<span id="cb26-39"><a href="#cb26-39"></a><span class="co">#| echo: false</span></span>
+<span id="cb26-40"><a href="#cb26-40"></a><span class="co">#| warning: false</span></span>
+<span id="cb26-41"><a href="#cb26-41"></a><span class="co">#| message: false</span></span>
+<span id="cb26-42"><a href="#cb26-42"></a></span>
+<span id="cb26-43"><a href="#cb26-43"></a><span class="co"># reticulate::use_virtualenv("c:/pyenv/py312")</span></span>
+<span id="cb26-44"><a href="#cb26-44"></a>reticulate<span class="sc">::</span><span class="fu">use_virtualenv</span>(<span class="fu">file.path</span>(cur_dir, <span class="st">".venv"</span>))</span>
+<span id="cb26-45"><a href="#cb26-45"></a><span class="co"># reticulate::py_config()</span></span>
+<span id="cb26-46"><a href="#cb26-46"></a><span class="in">```</span></span>
+<span id="cb26-47"><a href="#cb26-47"></a></span>
+<span id="cb26-50"><a href="#cb26-50"></a><span class="in">```{r}</span></span>
+<span id="cb26-51"><a href="#cb26-51"></a><span class="co">#| echo: false</span></span>
+<span id="cb26-52"><a href="#cb26-52"></a><span class="co">#| warning: false</span></span>
+<span id="cb26-53"><a href="#cb26-53"></a><span class="co">#| message: false</span></span>
+<span id="cb26-54"><a href="#cb26-54"></a><span class="co">#| eval: false</span></span>
+<span id="cb26-55"><a href="#cb26-55"></a>pd <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
+<span id="cb26-56"><a href="#cb26-56"></a><span class="in">```</span></span>
+<span id="cb26-57"><a href="#cb26-57"></a></span>
+<span id="cb26-58"><a href="#cb26-58"></a><span class="fu"># Pyenv</span></span>
+<span id="cb26-59"><a href="#cb26-59"></a></span>
+<span id="cb26-60"><a href="#cb26-60"></a><span class="co">[</span><span class="ot">pyenv</span><span class="co">](https://github.com/pyenv/pyenv)</span>はpythonのバージョンを切り換えるためのツールである。</span>
+<span id="cb26-61"><a href="#cb26-61"></a></span>
+<span id="cb26-62"><a href="#cb26-62"></a>windows環境をサポートしていないので、<span class="co">[</span><span class="ot">pyenv-win</span><span class="co">](https://github.com/pyenv-win/pyenv-win)</span>を利用すること。WSLもサポートしていないとのことである。</span>
+<span id="cb26-63"><a href="#cb26-63"></a></span>
+<span id="cb26-64"><a href="#cb26-64"></a></span>
+<span id="cb26-65"><a href="#cb26-65"></a><span class="fu">## インストール</span></span>
+<span id="cb26-66"><a href="#cb26-66"></a></span>
+<span id="cb26-67"><a href="#cb26-67"></a>powershellを管理者権限で実行する必要がある。</span>
+<span id="cb26-68"><a href="#cb26-68"></a></span>
+<span id="cb26-69"><a href="#cb26-69"></a>最新版のバージョン７で実行するとインストールが成功した。</span>
+<span id="cb26-70"><a href="#cb26-70"></a></span>
+<span id="cb26-71"><a href="#cb26-71"></a>実行が成功すると次のコマンドで<span class="in">`pyenv`</span>のバージョンを判定する。</span>
+<span id="cb26-72"><a href="#cb26-72"></a></span>
+<span id="cb26-73"><a href="#cb26-73"></a><span class="in">```shell</span></span>
+<span id="cb26-74"><a href="#cb26-74"></a><span class="ex">pyenv</span> <span class="at">--version</span></span>
+<span id="cb26-75"><a href="#cb26-75"></a><span class="in">```</span></span>
+<span id="cb26-76"><a href="#cb26-76"></a></span>
+<span id="cb26-77"><a href="#cb26-77"></a>うまくインストールが成功しないときには、実行ポリシーの影響が考えられる。</span>
+<span id="cb26-78"><a href="#cb26-78"></a></span>
+<span id="cb26-79"><a href="#cb26-79"></a>その際には<span class="co">[</span><span class="ot">このページ</span><span class="co">](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4)</span>を参照する。</span>
+<span id="cb26-80"><a href="#cb26-80"></a></span>
+<span id="cb26-81"><a href="#cb26-81"></a></span>
+<span id="cb26-82"><a href="#cb26-82"></a><span class="al">![](static/img/2025-01-02-19-11-19.png)</span></span>
+<span id="cb26-83"><a href="#cb26-83"></a></span>
+<span id="cb26-84"><a href="#cb26-84"></a><span class="fu">## pythonのインストール</span></span>
+<span id="cb26-85"><a href="#cb26-85"></a></span>
+<span id="cb26-86"><a href="#cb26-86"></a>次のコマンドでインストール可能なpythonのバージョンを確認する。</span>
+<span id="cb26-87"><a href="#cb26-87"></a></span>
+<span id="cb26-88"><a href="#cb26-88"></a><span class="in">```shell</span></span>
+<span id="cb26-89"><a href="#cb26-89"></a><span class="ex">pyenv</span> install <span class="at">-l</span></span>
+<span id="cb26-90"><a href="#cb26-90"></a><span class="in">```</span></span>
+<span id="cb26-91"><a href="#cb26-91"></a></span>
+<span id="cb26-92"><a href="#cb26-92"></a>次のコマンドでpythonのバージョンをインストールする。</span>
+<span id="cb26-93"><a href="#cb26-93"></a></span>
+<span id="cb26-94"><a href="#cb26-94"></a></span>
+<span id="cb26-95"><a href="#cb26-95"></a><span class="in">```shell</span></span>
+<span id="cb26-96"><a href="#cb26-96"></a><span class="ex">pyenv</span> install 3.9.7</span>
+<span id="cb26-97"><a href="#cb26-97"></a><span class="in">```</span></span>
+<span id="cb26-98"><a href="#cb26-98"></a></span>
+<span id="cb26-99"><a href="#cb26-99"></a>いまつかるpythonのバージョンを確認する。</span>
+<span id="cb26-100"><a href="#cb26-100"></a></span>
+<span id="cb26-101"><a href="#cb26-101"></a><span class="in">```shell</span></span>
+<span id="cb26-102"><a href="#cb26-102"></a><span class="ex">pyenv</span> versions</span>
+<span id="cb26-103"><a href="#cb26-103"></a><span class="in">```</span></span>
+<span id="cb26-104"><a href="#cb26-104"></a></span>
+<span id="cb26-105"><a href="#cb26-105"></a></span>
+<span id="cb26-106"><a href="#cb26-106"></a>次のコマンドでグローバルのpythonのバージョンを設定する。</span>
+<span id="cb26-107"><a href="#cb26-107"></a></span>
+<span id="cb26-108"><a href="#cb26-108"></a><span class="in">```shell</span></span>
+<span id="cb26-109"><a href="#cb26-109"></a><span class="ex">pyenv</span> global 3.9.7</span>
+<span id="cb26-110"><a href="#cb26-110"></a><span class="in">```</span></span>
+<span id="cb26-111"><a href="#cb26-111"></a></span>
+<span id="cb26-112"><a href="#cb26-112"></a>次のコマンドでpythonのバージョンを確認する。</span>
+<span id="cb26-113"><a href="#cb26-113"></a></span>
+<span id="cb26-114"><a href="#cb26-114"></a><span class="in">```shell</span></span>
+<span id="cb26-115"><a href="#cb26-115"></a><span class="ex">python</span> <span class="at">--version</span></span>
+<span id="cb26-116"><a href="#cb26-116"></a><span class="in">```</span></span>
+<span id="cb26-117"><a href="#cb26-117"></a></span>
+<span id="cb26-118"><a href="#cb26-118"></a>次のコマンドでローカルのpythonのバージョンを設定する。</span>
+<span id="cb26-119"><a href="#cb26-119"></a></span>
+<span id="cb26-120"><a href="#cb26-120"></a><span class="in">```shell</span></span>
+<span id="cb26-121"><a href="#cb26-121"></a><span class="ex">pyenv</span> local 3.9.7</span>
+<span id="cb26-122"><a href="#cb26-122"></a><span class="in">```</span></span>
+<span id="cb26-123"><a href="#cb26-123"></a></span>
+<span id="cb26-124"><a href="#cb26-124"></a>次のコマンドでローカルのpythonのバージョンを確認する。</span>
+<span id="cb26-125"><a href="#cb26-125"></a></span>
+<span id="cb26-126"><a href="#cb26-126"></a><span class="in">```shell</span></span>
+<span id="cb26-127"><a href="#cb26-127"></a><span class="ex">python</span> <span class="at">--version</span></span>
+<span id="cb26-128"><a href="#cb26-128"></a><span class="in">```</span></span>
+<span id="cb26-129"><a href="#cb26-129"></a></span>
+<span id="cb26-130"><a href="#cb26-130"></a>ローカルを設定すると、そのディレクトリ以下のpythonのバージョンが設定される。</span>
+<span id="cb26-131"><a href="#cb26-131"></a></span>
+<span id="cb26-132"><a href="#cb26-132"></a><span class="fu">## 注意点：パスの設定</span></span>
+<span id="cb26-133"><a href="#cb26-133"></a></span>
+<span id="cb26-134"><a href="#cb26-134"></a>pyenv-winを利用すると、pythonのバージョンを切り替えることができる。</span>
+<span id="cb26-135"><a href="#cb26-135"></a></span>
+<span id="cb26-136"><a href="#cb26-136"></a>もしpythonがシステム環境変数に含まれている場合には次のパスをそれらのパスよりも優先させる必要がある。</span>
+<span id="cb26-137"><a href="#cb26-137"></a></span>
+<span id="cb26-138"><a href="#cb26-138"></a><span class="in">```shell</span></span>
+<span id="cb26-139"><a href="#cb26-139"></a><span class="ex">%USERPROFILE%\.pyenv\pyenv-win\bin</span></span>
+<span id="cb26-140"><a href="#cb26-140"></a><span class="ex">%USERPROFILE%\.pyenv\pyenv-win\shims</span></span>
+<span id="cb26-141"><a href="#cb26-141"></a><span class="in">```</span></span>
+<span id="cb26-142"><a href="#cb26-142"></a></span>
+<span id="cb26-143"><a href="#cb26-143"></a></span>
+<span id="cb26-144"><a href="#cb26-144"></a><span class="fu">## アンインストール</span></span>
+<span id="cb26-145"><a href="#cb26-145"></a></span>
+<span id="cb26-146"><a href="#cb26-146"></a>パスを削除する。パスのフォルダを丸ごと削除する、でよいらしい。</span>
+<span id="cb26-147"><a href="#cb26-147"></a></span>
+<span id="cb26-148"><a href="#cb26-148"></a></span>
+<span id="cb26-149"><a href="#cb26-149"></a></span>
+<span id="cb26-150"><a href="#cb26-150"></a><span class="fu"># Poetry</span></span>
+<span id="cb26-151"><a href="#cb26-151"></a></span>
+<span id="cb26-152"><a href="#cb26-152"></a><span class="co">[</span><span class="ot">poetry</span><span class="co">](https://python-poetry.org/)</span></span>
+<span id="cb26-153"><a href="#cb26-153"></a></span>
+<span id="cb26-154"><a href="#cb26-154"></a><span class="fu">## インストール</span></span>
+<span id="cb26-155"><a href="#cb26-155"></a></span>
+<span id="cb26-156"><a href="#cb26-156"></a></span>
+<span id="cb26-157"><a href="#cb26-157"></a>次のコマンドで公式インストーラーからインストールが可能である。</span>
+<span id="cb26-158"><a href="#cb26-158"></a></span>
+<span id="cb26-159"><a href="#cb26-159"></a><span class="in">```shell</span></span>
+<span id="cb26-160"><a href="#cb26-160"></a><span class="kw">(</span><span class="ex">Invoke-WebRequest</span> <span class="at">-Uri</span> https://install.python-poetry.org <span class="at">-UseBasicParsing</span><span class="kw">)</span><span class="ex">.Content</span> <span class="kw">|</span> <span class="ex">python</span> <span class="at">-</span></span>
+<span id="cb26-161"><a href="#cb26-161"></a><span class="in">```</span></span>
+<span id="cb26-162"><a href="#cb26-162"></a></span>
+<span id="cb26-163"><a href="#cb26-163"></a>あとは次のフォルダのパスを通すことでよい。</span>
+<span id="cb26-164"><a href="#cb26-164"></a></span>
+<span id="cb26-165"><a href="#cb26-165"></a><span class="al">![](static/img/2025-01-03-03-27-48.png)</span></span>
+<span id="cb26-166"><a href="#cb26-166"></a></span>
+<span id="cb26-167"><a href="#cb26-167"></a></span>
+<span id="cb26-168"><a href="#cb26-168"></a>アンインストールは次のコマンドでアル。</span>
+<span id="cb26-169"><a href="#cb26-169"></a></span>
+<span id="cb26-170"><a href="#cb26-170"></a><span class="in">```shell</span></span>
+<span id="cb26-171"><a href="#cb26-171"></a><span class="ex">curl</span> <span class="at">-sSL</span> https://install.python-poetry.org <span class="kw">|</span> <span class="ex">python3</span> <span class="at">-</span> <span class="at">--uninstall</span></span>
+<span id="cb26-172"><a href="#cb26-172"></a><span class="in">```</span></span>
+<span id="cb26-173"><a href="#cb26-173"></a></span>
+<span id="cb26-174"><a href="#cb26-174"></a><span class="fu">## プジェクト</span></span>
+<span id="cb26-175"><a href="#cb26-175"></a></span>
+<span id="cb26-176"><a href="#cb26-176"></a>新規プロジェクトの場合と、既存のプロジェクトの場合がある。</span>
+<span id="cb26-177"><a href="#cb26-177"></a></span>
+<span id="cb26-178"><a href="#cb26-178"></a></span>
+<span id="cb26-179"><a href="#cb26-179"></a><span class="in">```shell</span></span>
+<span id="cb26-180"><a href="#cb26-180"></a><span class="ex">poetry</span> new my_project</span>
+<span id="cb26-181"><a href="#cb26-181"></a><span class="in">```</span></span>
+<span id="cb26-182"><a href="#cb26-182"></a></span>
+<span id="cb26-183"><a href="#cb26-183"></a>パッケージ開発でないときには次のコマンドで設定は適当な回答で大丈夫である。</span>
+<span id="cb26-184"><a href="#cb26-184"></a></span>
+<span id="cb26-185"><a href="#cb26-185"></a><span class="in">```shell</span></span>
+<span id="cb26-186"><a href="#cb26-186"></a><span class="bu">cd</span> my_project</span>
+<span id="cb26-187"><a href="#cb26-187"></a><span class="ex">poetry</span> init</span>
+<span id="cb26-188"><a href="#cb26-188"></a><span class="in">```</span></span>
+<span id="cb26-189"><a href="#cb26-189"></a></span>
+<span id="cb26-190"><a href="#cb26-190"></a>poetryは２つのプロジェクトモードがある。１つはパッケージモードで、もうひとつはnon package modeである。</span>
+<span id="cb26-191"><a href="#cb26-191"></a></span>
+<span id="cb26-192"><a href="#cb26-192"></a></span>
+<span id="cb26-193"><a href="#cb26-193"></a><span class="fu">## 起動</span></span>
+<span id="cb26-194"><a href="#cb26-194"></a></span>
+<span id="cb26-195"><a href="#cb26-195"></a>プロジェクトを立ち上げたら基本的には準備よいので、次のコマンドでプロジェクトを立ち上げる。</span>
+<span id="cb26-196"><a href="#cb26-196"></a>そうすると設定したプロジェクトが立ち上がる。このとき指定したpythonのインタプリタがインストールされている必要があるので、</span>
+<span id="cb26-197"><a href="#cb26-197"></a>事前にpyenvでインストールしておく必要がある。</span>
+<span id="cb26-198"><a href="#cb26-198"></a></span>
+<span id="cb26-199"><a href="#cb26-199"></a><span class="in">```shell</span></span>
+<span id="cb26-200"><a href="#cb26-200"></a><span class="ex">poetry</span> shell</span>
+<span id="cb26-201"><a href="#cb26-201"></a><span class="in">```</span></span>
+<span id="cb26-202"><a href="#cb26-202"></a></span>
+<span id="cb26-203"><a href="#cb26-203"></a><span class="fu">## その他</span></span>
+<span id="cb26-204"><a href="#cb26-204"></a></span>
+<span id="cb26-205"><a href="#cb26-205"></a><span class="fu">### 依存関係のインストール</span></span>
+<span id="cb26-206"><a href="#cb26-206"></a></span>
+<span id="cb26-207"><a href="#cb26-207"></a><span class="in">```shell</span></span>
+<span id="cb26-208"><a href="#cb26-208"></a><span class="ex">poetry</span> install</span>
+<span id="cb26-209"><a href="#cb26-209"></a><span class="in">```</span></span>
+<span id="cb26-210"><a href="#cb26-210"></a></span>
+<span id="cb26-211"><a href="#cb26-211"></a>パッケージのインストールは次のようにおこなう。</span>
+<span id="cb26-212"><a href="#cb26-212"></a></span>
+<span id="cb26-213"><a href="#cb26-213"></a><span class="in">```shell</span></span>
+<span id="cb26-214"><a href="#cb26-214"></a><span class="ex">poetry</span> add numpy</span>
+<span id="cb26-215"><a href="#cb26-215"></a><span class="in">```</span></span>
+<span id="cb26-216"><a href="#cb26-216"></a></span>
+<span id="cb26-217"><a href="#cb26-217"></a>デフォルトだと仮想環境はアプリケーションのディレクトリに作成されるため、プロジェクト直下に作成するには次のようにする。</span>
+<span id="cb26-218"><a href="#cb26-218"></a></span>
+<span id="cb26-219"><a href="#cb26-219"></a><span class="in">```shell</span></span>
+<span id="cb26-220"><a href="#cb26-220"></a><span class="ex">poetry</span> config virtualenvs.in-project true</span>
+<span id="cb26-221"><a href="#cb26-221"></a><span class="in">```</span></span>
+<span id="cb26-222"><a href="#cb26-222"></a></span>
+<span id="cb26-223"><a href="#cb26-223"></a>次のように設定すると任意のディレクトリに仮想環境を作成することができる。</span>
+<span id="cb26-224"><a href="#cb26-224"></a></span>
+<span id="cb26-225"><a href="#cb26-225"></a><span class="in">```shell</span></span>
+<span id="cb26-226"><a href="#cb26-226"></a><span class="ex">poetry</span> config virtualenvs.path <span class="op">&lt;</span>path<span class="op">&gt;</span></span>
+<span id="cb26-227"><a href="#cb26-227"></a><span class="in">```</span></span>
+<span id="cb26-228"><a href="#cb26-228"></a></span>
+<span id="cb26-229"><a href="#cb26-229"></a>設定したconfigは次のコマンドで確認できる。</span>
+<span id="cb26-230"><a href="#cb26-230"></a></span>
+<span id="cb26-231"><a href="#cb26-231"></a><span class="in">```shell</span></span>
+<span id="cb26-232"><a href="#cb26-232"></a><span class="ex">poetry</span> config <span class="at">--list</span></span>
+<span id="cb26-233"><a href="#cb26-233"></a><span class="in">```</span></span>
+<span id="cb26-234"><a href="#cb26-234"></a></span>
+<span id="cb26-235"><a href="#cb26-235"></a></span>
+<span id="cb26-236"><a href="#cb26-236"></a>仮想環境を削除するには次のコマンドを実行する。</span>
+<span id="cb26-237"><a href="#cb26-237"></a></span>
+<span id="cb26-238"><a href="#cb26-238"></a><span class="in">```shell</span></span>
+<span id="cb26-239"><a href="#cb26-239"></a><span class="ex">poetry</span> env list 仮想環境を調べる</span>
+<span id="cb26-240"><a href="#cb26-240"></a><span class="ex">poetry</span> env remove <span class="op">&lt;</span>仮想環境パスまたはPythonバージョン<span class="op">&gt;</span></span>
+<span id="cb26-241"><a href="#cb26-241"></a><span class="in">```</span></span>
+<span id="cb26-242"><a href="#cb26-242"></a></span>
+<span id="cb26-243"><a href="#cb26-243"></a></span>
+<span id="cb26-244"><a href="#cb26-244"></a>poetryは通常の依存関係と開発用の依存関係を区別している。開発用の依存関係をインストールするには次のコマンドを実行する。</span>
+<span id="cb26-245"><a href="#cb26-245"></a></span>
+<span id="cb26-246"><a href="#cb26-246"></a><span class="in">```shell</span></span>
+<span id="cb26-247"><a href="#cb26-247"></a><span class="ex">poetry</span> add <span class="at">--dev</span> pytest</span>
+<span id="cb26-248"><a href="#cb26-248"></a><span class="in">```</span></span>
+<span id="cb26-249"><a href="#cb26-249"></a></span>
+<span id="cb26-250"><a href="#cb26-250"></a>開発用の依存関係をインストールするには次のコマンドを実行する。</span>
+<span id="cb26-251"><a href="#cb26-251"></a></span>
+<span id="cb26-252"><a href="#cb26-252"></a><span class="in">```shell</span></span>
+<span id="cb26-253"><a href="#cb26-253"></a><span class="ex">poetry</span> install <span class="at">--with</span> dev</span>
+<span id="cb26-254"><a href="#cb26-254"></a><span class="in">```</span></span>
+<span id="cb26-255"><a href="#cb26-255"></a></span>
+<span id="cb26-256"><a href="#cb26-256"></a>開発用の依存関係を除いてインストールするには次のようにする</span>
+<span id="cb26-257"><a href="#cb26-257"></a></span>
+<span id="cb26-258"><a href="#cb26-258"></a><span class="in">```shell</span></span>
+<span id="cb26-259"><a href="#cb26-259"></a><span class="ex">poetry</span> install <span class="at">--no-dev</span></span>
+<span id="cb26-260"><a href="#cb26-260"></a><span class="in">```</span></span>
+<span id="cb26-261"><a href="#cb26-261"></a></span>
+<span id="cb26-262"><a href="#cb26-262"></a>開発作業では次のコマンドでリンターなどを実行する。</span>
+<span id="cb26-263"><a href="#cb26-263"></a></span>
+<span id="cb26-264"><a href="#cb26-264"></a><span class="in">```shell</span></span>
+<span id="cb26-265"><a href="#cb26-265"></a><span class="ex">poetry</span> run pytest</span>
+<span id="cb26-266"><a href="#cb26-266"></a><span class="ex">poetry</span> run flake8</span>
+<span id="cb26-267"><a href="#cb26-267"></a><span class="in">```</span></span>
+<span id="cb26-268"><a href="#cb26-268"></a></span>
+<span id="cb26-269"><a href="#cb26-269"></a></span>
+<span id="cb26-270"><a href="#cb26-270"></a></span>
+<span id="cb26-271"><a href="#cb26-271"></a>プロジェクトの情報を確認するには次のコマンドを実行する。</span>
+<span id="cb26-272"><a href="#cb26-272"></a></span>
+<span id="cb26-273"><a href="#cb26-273"></a><span class="in">```shell</span></span>
+<span id="cb26-274"><a href="#cb26-274"></a><span class="ex">poetry</span> show</span>
+<span id="cb26-275"><a href="#cb26-275"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
