@@ -1171,90 +1171,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> ultralytics <span class="im">import</span> YOLO</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating new Ultralytics Settings v0.0.6 file  
+View Ultralytics Settings with 'yolo settings' or at 'C:\Users\114012\AppData\Roaming\Ultralytics\settings.json'
+Update Settings with 'yolo settings key=value', i.e. 'yolo settings runs_dir=path/to/dir'. For help see https://docs.ultralytics.com/quickstart/#ultralytics-settings.</code></pre>
+</div>
 </div>
 <div id="cell-2" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>model <span class="op">=</span> YOLO(<span class="st">'yolov8s.pt'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>model <span class="op">=</span> YOLO(<span class="st">'yolov8s.pt'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="cell-3" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> cv2</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>cap <span class="op">=</span> cv2.VideoCapture(<span class="dv">0</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="cf">while</span> cap.isOpened():</span>
-<span id="cb3-6"><a href="#cb3-6"></a>    ret, frame <span class="op">=</span> cap.read()</span>
-<span id="cb3-7"><a href="#cb3-7"></a>    <span class="cf">if</span> ret:</span>
-<span id="cb3-8"><a href="#cb3-8"></a>        results <span class="op">=</span> model(frame, verbose<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-9"><a href="#cb3-9"></a>        img_annotated <span class="op">=</span> results[<span class="dv">0</span>].plot() <span class="co"># Annotate the image with bounding boxes</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>        cv2.imshow(<span class="st">'frame'</span>, img_annotated)</span>
-<span id="cb3-11"><a href="#cb3-11"></a></span>
-<span id="cb3-12"><a href="#cb3-12"></a>        <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
-<span id="cb3-13"><a href="#cb3-13"></a>            <span class="cf">break</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a>    </span>
-<span id="cb3-15"><a href="#cb3-15"></a>cap.release()</span>
-<span id="cb3-16"><a href="#cb3-16"></a>cv2.destroyAllWindows()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> cv2</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>cap <span class="op">=</span> cv2.VideoCapture(<span class="dv">0</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="cf">while</span> cap.isOpened():</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    ret, frame <span class="op">=</span> cap.read()</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="cf">if</span> ret:</span>
+<span id="cb4-8"><a href="#cb4-8"></a>        results <span class="op">=</span> model(frame, verbose<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a>        img_annotated <span class="op">=</span> results[<span class="dv">0</span>].plot() <span class="co"># Annotate the image with bounding boxes</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>        cv2.imshow(<span class="st">'frame'</span>, img_annotated)</span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a>        <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
+<span id="cb4-13"><a href="#cb4-13"></a>            <span class="cf">break</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>    </span>
+<span id="cb4-15"><a href="#cb4-15"></a>cap.release()</span>
+<span id="cb4-16"><a href="#cb4-16"></a>cv2.destroyAllWindows()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="人数を表示しよう" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 人数を表示しよう</h1>
 <div id="cell-5" class="cell" data-execution_count="7">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> cv2</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">def</span>  text_overwrite_to_image(img, text, position ):</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    </span>
-<span id="cb4-6"><a href="#cb4-6"></a>    img_width <span class="op">=</span> img.shape[<span class="dv">1</span>]</span>
-<span id="cb4-7"><a href="#cb4-7"></a>    </span>
-<span id="cb4-8"><a href="#cb4-8"></a>    extension_height <span class="op">=</span> <span class="dv">40</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>    black_rectangle <span class="op">=</span> np.zeros((extension_height, img_width, <span class="dv">3</span>), dtype<span class="op">=</span>np.uint8)</span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a>    extended_img <span class="op">=</span> np.vstack((black_rectangle, img))</span>
-<span id="cb4-12"><a href="#cb4-12"></a>    </span>
-<span id="cb4-13"><a href="#cb4-13"></a>    cv2.putText(</span>
-<span id="cb4-14"><a href="#cb4-14"></a>        extended_img, </span>
-<span id="cb4-15"><a href="#cb4-15"></a>        text<span class="op">=</span>text, </span>
-<span id="cb4-16"><a href="#cb4-16"></a>        org<span class="op">=</span>position, </span>
-<span id="cb4-17"><a href="#cb4-17"></a>        fontFace<span class="op">=</span>cv2.FONT_HERSHEY_SIMPLEX,</span>
-<span id="cb4-18"><a href="#cb4-18"></a>        fontScale<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb4-19"><a href="#cb4-19"></a>        color<span class="op">=</span>(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>),</span>
-<span id="cb4-20"><a href="#cb4-20"></a>        thickness<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a>    )    </span>
-<span id="cb4-22"><a href="#cb4-22"></a>    </span>
-<span id="cb4-23"><a href="#cb4-23"></a>    <span class="cf">return</span> extended_img</span>
-<span id="cb4-24"><a href="#cb4-24"></a></span>
-<span id="cb4-25"><a href="#cb4-25"></a></span>
-<span id="cb4-26"><a href="#cb4-26"></a>cap <span class="op">=</span> cv2.VideoCapture(<span class="dv">0</span>)</span>
-<span id="cb4-27"><a href="#cb4-27"></a></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="cf">while</span> cap.isOpened():</span>
-<span id="cb4-29"><a href="#cb4-29"></a>    ret, frame <span class="op">=</span> cap.read()</span>
-<span id="cb4-30"><a href="#cb4-30"></a>    <span class="cf">if</span> ret:</span>
-<span id="cb4-31"><a href="#cb4-31"></a>        results <span class="op">=</span> model(frame, verbose<span class="op">=</span><span class="va">False</span>, classes<span class="op">=</span><span class="dv">0</span>) <span class="co"># for person class</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a>        img_annotated <span class="op">=</span> results[<span class="dv">0</span>].plot() <span class="co"># Annotate the image with bounding boxes</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a>        </span>
-<span id="cb4-34"><a href="#cb4-34"></a>        class_list <span class="op">=</span> results[<span class="dv">0</span>].boxes.cls</span>
-<span id="cb4-35"><a href="#cb4-35"></a>        count_class <span class="op">=</span> <span class="bu">len</span>(class_list)</span>
-<span id="cb4-36"><a href="#cb4-36"></a>        </span>
-<span id="cb4-37"><a href="#cb4-37"></a>        img_annotated <span class="op">=</span> text_overwrite_to_image(img_annotated, <span class="ss">f'Number of people: </span><span class="sc">{</span>count_class<span class="sc">}</span><span class="ss">'</span>, (<span class="dv">10</span>, <span class="dv">25</span>))</span>
-<span id="cb4-38"><a href="#cb4-38"></a>        </span>
-<span id="cb4-39"><a href="#cb4-39"></a>        cv2.imshow(<span class="st">'frame'</span>, img_annotated)</span>
-<span id="cb4-40"><a href="#cb4-40"></a></span>
-<span id="cb4-41"><a href="#cb4-41"></a>        <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
-<span id="cb4-42"><a href="#cb4-42"></a>            <span class="cf">break</span></span>
-<span id="cb4-43"><a href="#cb4-43"></a>    </span>
-<span id="cb4-44"><a href="#cb4-44"></a>cap.release()</span>
-<span id="cb4-45"><a href="#cb4-45"></a>cv2.destroyAllWindows()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section>
-<section id="笑顔を検出する" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 笑顔を検出する</h1>
-<div id="cell-7" class="cell" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> cv2</span>
@@ -1282,57 +1234,110 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-23"><a href="#cb5-23"></a>    <span class="cf">return</span> extended_img</span>
 <span id="cb5-24"><a href="#cb5-24"></a></span>
 <span id="cb5-25"><a href="#cb5-25"></a></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="kw">def</span> detect_faces(frame, person_box, face_cascade, smile_cascade):</span>
-<span id="cb5-27"><a href="#cb5-27"></a>    x1, y1, x2, y2 <span class="op">=</span> [<span class="bu">int</span>(v) <span class="cf">for</span> v <span class="kw">in</span> person_box]</span>
-<span id="cb5-28"><a href="#cb5-28"></a>    roi_gray <span class="op">=</span> cv2.cvtColor(frame[y1:y2, x1:x2], cv2.COLOR_BGR2GRAY)</span>
-<span id="cb5-29"><a href="#cb5-29"></a>    faces <span class="op">=</span> face_cascade.detectMultiScale(roi_gray, <span class="fl">1.1</span>, <span class="dv">4</span>)</span>
-<span id="cb5-30"><a href="#cb5-30"></a>    </span>
-<span id="cb5-31"><a href="#cb5-31"></a>    <span class="cf">for</span> (fx, fy, fw, fh) <span class="kw">in</span> faces:</span>
-<span id="cb5-32"><a href="#cb5-32"></a>        roi_gray_face <span class="op">=</span> roi_gray[fy:fy<span class="op">+</span>fh, fx:fx<span class="op">+</span>fw]</span>
-<span id="cb5-33"><a href="#cb5-33"></a>        face_top_left <span class="op">=</span> (x1<span class="op">+</span>fx, y1<span class="op">+</span>fy)</span>
-<span id="cb5-34"><a href="#cb5-34"></a>        face_bottom_right <span class="op">=</span> (x1<span class="op">+</span>fx<span class="op">+</span>fw, y1<span class="op">+</span>fy<span class="op">+</span>fh)</span>
-<span id="cb5-35"><a href="#cb5-35"></a>        cv2.rectangle(frame, face_top_left, face_bottom_right, (<span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">0</span>), <span class="dv">2</span>)</span>
+<span id="cb5-26"><a href="#cb5-26"></a>cap <span class="op">=</span> cv2.VideoCapture(<span class="dv">0</span>)</span>
+<span id="cb5-27"><a href="#cb5-27"></a></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="cf">while</span> cap.isOpened():</span>
+<span id="cb5-29"><a href="#cb5-29"></a>    ret, frame <span class="op">=</span> cap.read()</span>
+<span id="cb5-30"><a href="#cb5-30"></a>    <span class="cf">if</span> ret:</span>
+<span id="cb5-31"><a href="#cb5-31"></a>        results <span class="op">=</span> model(frame, verbose<span class="op">=</span><span class="va">False</span>, classes<span class="op">=</span><span class="dv">0</span>) <span class="co"># for person class</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a>        img_annotated <span class="op">=</span> results[<span class="dv">0</span>].plot() <span class="co"># Annotate the image with bounding boxes</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a>        </span>
+<span id="cb5-34"><a href="#cb5-34"></a>        class_list <span class="op">=</span> results[<span class="dv">0</span>].boxes.cls</span>
+<span id="cb5-35"><a href="#cb5-35"></a>        count_class <span class="op">=</span> <span class="bu">len</span>(class_list)</span>
 <span id="cb5-36"><a href="#cb5-36"></a>        </span>
-<span id="cb5-37"><a href="#cb5-37"></a>        smiles <span class="op">=</span> smile_cascade.detectMultiScale(roi_gray_face, <span class="fl">1.1</span>, <span class="dv">10</span>)</span>
-<span id="cb5-38"><a href="#cb5-38"></a>        <span class="bu">print</span>(smiles)</span>
-<span id="cb5-39"><a href="#cb5-39"></a>        <span class="cf">for</span> (sx, sy, sw, sh) <span class="kw">in</span> smiles:</span>
-<span id="cb5-40"><a href="#cb5-40"></a>            smile_top_left <span class="op">=</span> (x1 <span class="op">+</span> fx <span class="op">+</span> sx, y1 <span class="op">+</span> fy <span class="op">+</span> sy)</span>
-<span id="cb5-41"><a href="#cb5-41"></a>            smile_bottom_right <span class="op">=</span> (x1 <span class="op">+</span> fx <span class="op">+</span> sx <span class="op">+</span> sw, y1 <span class="op">+</span> fy <span class="op">+</span> sy <span class="op">+</span> sh)</span>
-<span id="cb5-42"><a href="#cb5-42"></a>            cv2.rectangle(frame, smile_top_left, smile_bottom_right, (<span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dv">2</span>)</span>
-<span id="cb5-43"><a href="#cb5-43"></a>        </span>
-<span id="cb5-44"><a href="#cb5-44"></a>    <span class="cf">return</span> frame</span>
-<span id="cb5-45"><a href="#cb5-45"></a></span>
-<span id="cb5-46"><a href="#cb5-46"></a></span>
-<span id="cb5-47"><a href="#cb5-47"></a>face_cascade  <span class="op">=</span> cv2.CascadeClassifier(cv2.data.haarcascades <span class="op">+</span> <span class="st">'haarcascade_frontalface_default.xml'</span>)</span>
-<span id="cb5-48"><a href="#cb5-48"></a>smile_cascade <span class="op">=</span> cv2.CascadeClassifier(cv2.data.haarcascades <span class="op">+</span> <span class="st">'haarcascade_smile.xml'</span>)</span>
-<span id="cb5-49"><a href="#cb5-49"></a>cap <span class="op">=</span> cv2.VideoCapture(<span class="dv">0</span>)</span>
-<span id="cb5-50"><a href="#cb5-50"></a></span>
-<span id="cb5-51"><a href="#cb5-51"></a><span class="cf">try</span>:</span>
-<span id="cb5-52"><a href="#cb5-52"></a>    <span class="cf">while</span> cap.isOpened():</span>
-<span id="cb5-53"><a href="#cb5-53"></a>        ret, frame <span class="op">=</span> cap.read()</span>
-<span id="cb5-54"><a href="#cb5-54"></a>        <span class="cf">if</span> ret:</span>
-<span id="cb5-55"><a href="#cb5-55"></a>            results <span class="op">=</span> model(frame, verbose<span class="op">=</span><span class="va">False</span>, classes<span class="op">=</span><span class="dv">0</span>) <span class="co"># for person class</span></span>
-<span id="cb5-56"><a href="#cb5-56"></a>            img_annotated <span class="op">=</span> results[<span class="dv">0</span>].plot() <span class="co"># Annotate the image with bounding boxes</span></span>
-<span id="cb5-57"><a href="#cb5-57"></a></span>
-<span id="cb5-58"><a href="#cb5-58"></a>            class_list <span class="op">=</span> results[<span class="dv">0</span>].boxes.cls</span>
-<span id="cb5-59"><a href="#cb5-59"></a>            count_class <span class="op">=</span> <span class="bu">len</span>(class_list)</span>
-<span id="cb5-60"><a href="#cb5-60"></a></span>
-<span id="cb5-61"><a href="#cb5-61"></a>            person_boxes <span class="op">=</span> results[<span class="dv">0</span>].boxes.xyxy</span>
-<span id="cb5-62"><a href="#cb5-62"></a></span>
-<span id="cb5-63"><a href="#cb5-63"></a>            <span class="cf">for</span> box <span class="kw">in</span> person_boxes:</span>
-<span id="cb5-64"><a href="#cb5-64"></a>                img_annotated <span class="op">=</span> detect_faces(img_annotated, box, face_cascade, smile_cascade)</span>
-<span id="cb5-65"><a href="#cb5-65"></a></span>
-<span id="cb5-66"><a href="#cb5-66"></a>            img_annotated <span class="op">=</span> text_overwrite_to_image(img_annotated, <span class="ss">f'Number of people: </span><span class="sc">{</span>count_class<span class="sc">}</span><span class="ss">'</span>, (<span class="dv">10</span>, <span class="dv">25</span>))</span>
-<span id="cb5-67"><a href="#cb5-67"></a></span>
-<span id="cb5-68"><a href="#cb5-68"></a>            cv2.imshow(<span class="st">'frame'</span>, img_annotated)</span>
-<span id="cb5-69"><a href="#cb5-69"></a></span>
-<span id="cb5-70"><a href="#cb5-70"></a>            <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
-<span id="cb5-71"><a href="#cb5-71"></a>                <span class="cf">break</span></span>
-<span id="cb5-72"><a href="#cb5-72"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb5-73"><a href="#cb5-73"></a>    <span class="bu">print</span>(e)</span>
-<span id="cb5-74"><a href="#cb5-74"></a><span class="cf">finally</span>:</span>
-<span id="cb5-75"><a href="#cb5-75"></a>    cap.release()</span>
-<span id="cb5-76"><a href="#cb5-76"></a>    cv2.destroyAllWindows()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-37"><a href="#cb5-37"></a>        img_annotated <span class="op">=</span> text_overwrite_to_image(img_annotated, <span class="ss">f'Number of people: </span><span class="sc">{</span>count_class<span class="sc">}</span><span class="ss">'</span>, (<span class="dv">10</span>, <span class="dv">25</span>))</span>
+<span id="cb5-38"><a href="#cb5-38"></a>        </span>
+<span id="cb5-39"><a href="#cb5-39"></a>        cv2.imshow(<span class="st">'frame'</span>, img_annotated)</span>
+<span id="cb5-40"><a href="#cb5-40"></a></span>
+<span id="cb5-41"><a href="#cb5-41"></a>        <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
+<span id="cb5-42"><a href="#cb5-42"></a>            <span class="cf">break</span></span>
+<span id="cb5-43"><a href="#cb5-43"></a>    </span>
+<span id="cb5-44"><a href="#cb5-44"></a>cap.release()</span>
+<span id="cb5-45"><a href="#cb5-45"></a>cv2.destroyAllWindows()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="笑顔を検出する" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 笑顔を検出する</h1>
+<div id="cell-7" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> cv2</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">def</span>  text_overwrite_to_image(img, text, position ):</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6"></a>    img_width <span class="op">=</span> img.shape[<span class="dv">1</span>]</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    </span>
+<span id="cb6-8"><a href="#cb6-8"></a>    extension_height <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>    black_rectangle <span class="op">=</span> np.zeros((extension_height, img_width, <span class="dv">3</span>), dtype<span class="op">=</span>np.uint8)</span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a>    extended_img <span class="op">=</span> np.vstack((black_rectangle, img))</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    </span>
+<span id="cb6-13"><a href="#cb6-13"></a>    cv2.putText(</span>
+<span id="cb6-14"><a href="#cb6-14"></a>        extended_img, </span>
+<span id="cb6-15"><a href="#cb6-15"></a>        text<span class="op">=</span>text, </span>
+<span id="cb6-16"><a href="#cb6-16"></a>        org<span class="op">=</span>position, </span>
+<span id="cb6-17"><a href="#cb6-17"></a>        fontFace<span class="op">=</span>cv2.FONT_HERSHEY_SIMPLEX,</span>
+<span id="cb6-18"><a href="#cb6-18"></a>        fontScale<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb6-19"><a href="#cb6-19"></a>        color<span class="op">=</span>(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>),</span>
+<span id="cb6-20"><a href="#cb6-20"></a>        thickness<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a>    )    </span>
+<span id="cb6-22"><a href="#cb6-22"></a>    </span>
+<span id="cb6-23"><a href="#cb6-23"></a>    <span class="cf">return</span> extended_img</span>
+<span id="cb6-24"><a href="#cb6-24"></a></span>
+<span id="cb6-25"><a href="#cb6-25"></a></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="kw">def</span> detect_faces(frame, person_box, face_cascade, smile_cascade):</span>
+<span id="cb6-27"><a href="#cb6-27"></a>    x1, y1, x2, y2 <span class="op">=</span> [<span class="bu">int</span>(v) <span class="cf">for</span> v <span class="kw">in</span> person_box]</span>
+<span id="cb6-28"><a href="#cb6-28"></a>    roi_gray <span class="op">=</span> cv2.cvtColor(frame[y1:y2, x1:x2], cv2.COLOR_BGR2GRAY)</span>
+<span id="cb6-29"><a href="#cb6-29"></a>    faces <span class="op">=</span> face_cascade.detectMultiScale(roi_gray, <span class="fl">1.1</span>, <span class="dv">4</span>)</span>
+<span id="cb6-30"><a href="#cb6-30"></a>    </span>
+<span id="cb6-31"><a href="#cb6-31"></a>    <span class="cf">for</span> (fx, fy, fw, fh) <span class="kw">in</span> faces:</span>
+<span id="cb6-32"><a href="#cb6-32"></a>        roi_gray_face <span class="op">=</span> roi_gray[fy:fy<span class="op">+</span>fh, fx:fx<span class="op">+</span>fw]</span>
+<span id="cb6-33"><a href="#cb6-33"></a>        face_top_left <span class="op">=</span> (x1<span class="op">+</span>fx, y1<span class="op">+</span>fy)</span>
+<span id="cb6-34"><a href="#cb6-34"></a>        face_bottom_right <span class="op">=</span> (x1<span class="op">+</span>fx<span class="op">+</span>fw, y1<span class="op">+</span>fy<span class="op">+</span>fh)</span>
+<span id="cb6-35"><a href="#cb6-35"></a>        cv2.rectangle(frame, face_top_left, face_bottom_right, (<span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">0</span>), <span class="dv">2</span>)</span>
+<span id="cb6-36"><a href="#cb6-36"></a>        </span>
+<span id="cb6-37"><a href="#cb6-37"></a>        smiles <span class="op">=</span> smile_cascade.detectMultiScale(roi_gray_face, <span class="fl">1.1</span>, <span class="dv">10</span>)</span>
+<span id="cb6-38"><a href="#cb6-38"></a>        <span class="bu">print</span>(smiles)</span>
+<span id="cb6-39"><a href="#cb6-39"></a>        <span class="cf">for</span> (sx, sy, sw, sh) <span class="kw">in</span> smiles:</span>
+<span id="cb6-40"><a href="#cb6-40"></a>            smile_top_left <span class="op">=</span> (x1 <span class="op">+</span> fx <span class="op">+</span> sx, y1 <span class="op">+</span> fy <span class="op">+</span> sy)</span>
+<span id="cb6-41"><a href="#cb6-41"></a>            smile_bottom_right <span class="op">=</span> (x1 <span class="op">+</span> fx <span class="op">+</span> sx <span class="op">+</span> sw, y1 <span class="op">+</span> fy <span class="op">+</span> sy <span class="op">+</span> sh)</span>
+<span id="cb6-42"><a href="#cb6-42"></a>            cv2.rectangle(frame, smile_top_left, smile_bottom_right, (<span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dv">2</span>)</span>
+<span id="cb6-43"><a href="#cb6-43"></a>        </span>
+<span id="cb6-44"><a href="#cb6-44"></a>    <span class="cf">return</span> frame</span>
+<span id="cb6-45"><a href="#cb6-45"></a></span>
+<span id="cb6-46"><a href="#cb6-46"></a></span>
+<span id="cb6-47"><a href="#cb6-47"></a>face_cascade  <span class="op">=</span> cv2.CascadeClassifier(cv2.data.haarcascades <span class="op">+</span> <span class="st">'haarcascade_frontalface_default.xml'</span>)</span>
+<span id="cb6-48"><a href="#cb6-48"></a>smile_cascade <span class="op">=</span> cv2.CascadeClassifier(cv2.data.haarcascades <span class="op">+</span> <span class="st">'haarcascade_smile.xml'</span>)</span>
+<span id="cb6-49"><a href="#cb6-49"></a>cap <span class="op">=</span> cv2.VideoCapture(<span class="dv">0</span>)</span>
+<span id="cb6-50"><a href="#cb6-50"></a></span>
+<span id="cb6-51"><a href="#cb6-51"></a><span class="cf">try</span>:</span>
+<span id="cb6-52"><a href="#cb6-52"></a>    <span class="cf">while</span> cap.isOpened():</span>
+<span id="cb6-53"><a href="#cb6-53"></a>        ret, frame <span class="op">=</span> cap.read()</span>
+<span id="cb6-54"><a href="#cb6-54"></a>        <span class="cf">if</span> ret:</span>
+<span id="cb6-55"><a href="#cb6-55"></a>            results <span class="op">=</span> model(frame, verbose<span class="op">=</span><span class="va">False</span>, classes<span class="op">=</span><span class="dv">0</span>) <span class="co"># for person class</span></span>
+<span id="cb6-56"><a href="#cb6-56"></a>            img_annotated <span class="op">=</span> results[<span class="dv">0</span>].plot() <span class="co"># Annotate the image with bounding boxes</span></span>
+<span id="cb6-57"><a href="#cb6-57"></a></span>
+<span id="cb6-58"><a href="#cb6-58"></a>            class_list <span class="op">=</span> results[<span class="dv">0</span>].boxes.cls</span>
+<span id="cb6-59"><a href="#cb6-59"></a>            count_class <span class="op">=</span> <span class="bu">len</span>(class_list)</span>
+<span id="cb6-60"><a href="#cb6-60"></a></span>
+<span id="cb6-61"><a href="#cb6-61"></a>            person_boxes <span class="op">=</span> results[<span class="dv">0</span>].boxes.xyxy</span>
+<span id="cb6-62"><a href="#cb6-62"></a></span>
+<span id="cb6-63"><a href="#cb6-63"></a>            <span class="cf">for</span> box <span class="kw">in</span> person_boxes:</span>
+<span id="cb6-64"><a href="#cb6-64"></a>                img_annotated <span class="op">=</span> detect_faces(img_annotated, box, face_cascade, smile_cascade)</span>
+<span id="cb6-65"><a href="#cb6-65"></a></span>
+<span id="cb6-66"><a href="#cb6-66"></a>            img_annotated <span class="op">=</span> text_overwrite_to_image(img_annotated, <span class="ss">f'Number of people: </span><span class="sc">{</span>count_class<span class="sc">}</span><span class="ss">'</span>, (<span class="dv">10</span>, <span class="dv">25</span>))</span>
+<span id="cb6-67"><a href="#cb6-67"></a></span>
+<span id="cb6-68"><a href="#cb6-68"></a>            cv2.imshow(<span class="st">'frame'</span>, img_annotated)</span>
+<span id="cb6-69"><a href="#cb6-69"></a></span>
+<span id="cb6-70"><a href="#cb6-70"></a>            <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
+<span id="cb6-71"><a href="#cb6-71"></a>                <span class="cf">break</span></span>
+<span id="cb6-72"><a href="#cb6-72"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb6-73"><a href="#cb6-73"></a>    <span class="bu">print</span>(e)</span>
+<span id="cb6-74"><a href="#cb6-74"></a><span class="cf">finally</span>:</span>
+<span id="cb6-75"><a href="#cb6-75"></a>    cap.release()</span>
+<span id="cb6-76"><a href="#cb6-76"></a>    cv2.destroyAllWindows()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[98 47 44 22]]
