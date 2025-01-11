@@ -105,8 +105,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<link href="../../../../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
-
 <script src="../../../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 
 <script src="../../../../site_libs/plotly-binding-4.10.4/plotly.js"></script>
@@ -901,7 +899,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 24, 2024</p>
+      <p class="date-modified">January 11, 2025</p>
     </div>
   </div>
     
@@ -916,10 +914,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; python:         C:/pyenv/py312/Scripts/python.exe
 #&gt; libpython:      C:/Program Files/Python312/python312.dll
 #&gt; pythonhome:     C:/pyenv/py312
-#&gt; version:        3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]
+#&gt; version:        3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
 #&gt; Architecture:   64bit
 #&gt; numpy:          C:/pyenv/py312/Lib/site-packages/numpy
-#&gt; numpy_version:  1.26.4
+#&gt; numpy_version:  1.26.0
 #&gt; 
 #&gt; NOTE: Python version was forced by use_python() function</code></pre>
 </div>
@@ -945,13 +943,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a>fig <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">add_lines</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>))<span class="sc">%&gt;%</span> </span>
-<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">layout</span>(<span class="at">title=</span><span class="st">"sample figure"</span>, <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'x'</span>), <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'y'</span>), <span class="at">plot_bgcolor =</span> <span class="st">"#c7daec"</span>) </span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">layout</span>(</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="at">title=</span><span class="st">"sample figure"</span>, </span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'x'</span>), </span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'y'</span>), </span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="at">plot_bgcolor =</span> <span class="st">"#c7daec"</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  ) </span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-c331d4fdc786e76109cf" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-c331d4fdc786e76109cf">{"x":{"visdat":{"76ec736947":["function () ","plotlyVisDat"]},"cur_data":"76ec736947","attrs":{"76ec736947":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["a","b","c"],"y":[1,3,2],"type":"scatter","mode":"lines","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"sample figure","xaxis":{"domain":[0,1],"automargin":true,"title":"x","type":"category","categoryorder":"array","categoryarray":["a","b","c"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"y"},"plot_bgcolor":"#c7daec","hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["a","b","c"],"y":[1,3,2],"type":"scatter","mode":"lines","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-a55b311f0827923881fa" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-a55b311f0827923881fa">{"x":{"visdat":{"781058a312bf":["function () ","plotlyVisDat"]},"cur_data":"781058a312bf","attrs":{"781058a312bf":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["a","b","c"],"y":[1,3,2],"type":"scatter","mode":"lines","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"sample figure","xaxis":{"domain":[0,1],"automargin":true,"title":"x","type":"category","categoryorder":"array","categoryarray":["a","b","c"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"y"},"plot_bgcolor":"#c7daec","hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["a","b","c"],"y":[1,3,2],"type":"scatter","mode":"lines","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
@@ -1473,34 +1476,71 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-31"><a href="#cb4-31"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans"</span>)</span>
 <span id="cb4-32"><a href="#cb4-32"></a><span class="in">```</span></span>
 <span id="cb4-33"><a href="#cb4-33"></a></span>
-<span id="cb4-36"><a href="#cb4-36"></a><span class="in">```{r}</span></span>
-<span id="cb4-37"><a href="#cb4-37"></a><span class="co">#| label: activate python</span></span>
-<span id="cb4-38"><a href="#cb4-38"></a><span class="co">#| echo: false</span></span>
-<span id="cb4-39"><a href="#cb4-39"></a><span class="co">#| warning: false</span></span>
-<span id="cb4-40"><a href="#cb4-40"></a><span class="co">#| message: false</span></span>
-<span id="cb4-41"><a href="#cb4-41"></a>reticulate<span class="sc">::</span><span class="fu">use_virtualenv</span>(<span class="st">"c:/pyenv/py312"</span>)</span>
-<span id="cb4-42"><a href="#cb4-42"></a><span class="fu">Sys.setenv</span>(<span class="at">TCL_LIBRARY=</span><span class="st">"C:/Program Files/Python312/tcl/tcl8.6"</span>)</span>
-<span id="cb4-43"><a href="#cb4-43"></a>reticulate<span class="sc">::</span><span class="fu">py_config</span>()</span>
-<span id="cb4-44"><a href="#cb4-44"></a><span class="in">```</span></span>
-<span id="cb4-45"><a href="#cb4-45"></a></span>
-<span id="cb4-48"><a href="#cb4-48"></a><span class="in">```{r}</span></span>
-<span id="cb4-49"><a href="#cb4-49"></a><span class="fu">plot</span>(iris)</span>
-<span id="cb4-50"><a href="#cb4-50"></a><span class="in">```</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a></span>
-<span id="cb4-52"><a href="#cb4-52"></a></span>
-<span id="cb4-53"><a href="#cb4-53"></a><span class="fu"># The Figure Data Structure in R</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a></span>
+<span id="cb4-35"><a href="#cb4-35"></a></span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="in">```{r}</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="co">#| label: activate python</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="co">#| echo: false</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="co">#| warning: false</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="co">#| message: false</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a>reticulate<span class="sc">::</span><span class="fu">use_virtualenv</span>(<span class="st">"c:/pyenv/py312"</span>)</span>
+<span id="cb4-45"><a href="#cb4-45"></a><span class="fu">Sys.setenv</span>(<span class="at">TCL_LIBRARY=</span><span class="st">"C:/Program Files/Python312/tcl/tcl8.6"</span>)</span>
+<span id="cb4-46"><a href="#cb4-46"></a>reticulate<span class="sc">::</span><span class="fu">py_config</span>()</span>
+<span id="cb4-47"><a href="#cb4-47"></a><span class="in">```</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a></span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="in">```{r}</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="fu">plot</span>(iris)</span>
+<span id="cb4-53"><a href="#cb4-53"></a><span class="in">```</span></span>
 <span id="cb4-54"><a href="#cb4-54"></a></span>
-<span id="cb4-57"><a href="#cb4-57"></a><span class="in">```{r}</span></span>
-<span id="cb4-58"><a href="#cb4-58"></a><span class="co">#| output: true</span></span>
-<span id="cb4-59"><a href="#cb4-59"></a><span class="fu">library</span>(plotly) </span>
-<span id="cb4-60"><a href="#cb4-60"></a></span>
-<span id="cb4-61"><a href="#cb4-61"></a>fig <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb4-62"><a href="#cb4-62"></a>  <span class="fu">add_lines</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>))<span class="sc">%&gt;%</span> </span>
-<span id="cb4-63"><a href="#cb4-63"></a>  <span class="fu">layout</span>(<span class="at">title=</span><span class="st">"sample figure"</span>, <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'x'</span>), <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'y'</span>), <span class="at">plot_bgcolor =</span> <span class="st">"#c7daec"</span>) </span>
+<span id="cb4-55"><a href="#cb4-55"></a></span>
+<span id="cb4-56"><a href="#cb4-56"></a><span class="fu"># The Figure Data Structure in R</span></span>
+<span id="cb4-57"><a href="#cb4-57"></a></span>
+<span id="cb4-60"><a href="#cb4-60"></a><span class="in">```{r}</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a><span class="co">#| echo: true</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a><span class="co">#| output: true</span></span>
+<span id="cb4-63"><a href="#cb4-63"></a><span class="fu">library</span>(plotly) </span>
 <span id="cb4-64"><a href="#cb4-64"></a></span>
-<span id="cb4-65"><a href="#cb4-65"></a>fig</span>
-<span id="cb4-66"><a href="#cb4-66"></a><span class="in">```</span></span>
-<span id="cb4-67"><a href="#cb4-67"></a></span>
+<span id="cb4-65"><a href="#cb4-65"></a>fig <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-66"><a href="#cb4-66"></a>  <span class="fu">add_lines</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>))<span class="sc">%&gt;%</span> </span>
+<span id="cb4-67"><a href="#cb4-67"></a>  <span class="fu">layout</span>(</span>
+<span id="cb4-68"><a href="#cb4-68"></a>    <span class="at">title=</span><span class="st">"sample figure"</span>, </span>
+<span id="cb4-69"><a href="#cb4-69"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'x'</span>), </span>
+<span id="cb4-70"><a href="#cb4-70"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'y'</span>), </span>
+<span id="cb4-71"><a href="#cb4-71"></a>    <span class="at">plot_bgcolor =</span> <span class="st">"#c7daec"</span></span>
+<span id="cb4-72"><a href="#cb4-72"></a>  ) </span>
+<span id="cb4-73"><a href="#cb4-73"></a></span>
+<span id="cb4-74"><a href="#cb4-74"></a>fig</span>
+<span id="cb4-75"><a href="#cb4-75"></a><span class="in">```</span></span>
+<span id="cb4-76"><a href="#cb4-76"></a></span>
+<span id="cb4-77"><a href="#cb4-77"></a></span>
+<span id="cb4-78"><a href="#cb4-78"></a></span>
+<span id="cb4-79"><a href="#cb4-79"></a></span>
+<span id="cb4-80"><a href="#cb4-80"></a></span>
+<span id="cb4-81"><a href="#cb4-81"></a></span>
+<span id="cb4-82"><a href="#cb4-82"></a></span>
+<span id="cb4-83"><a href="#cb4-83"></a></span>
+<span id="cb4-84"><a href="#cb4-84"></a></span>
+<span id="cb4-85"><a href="#cb4-85"></a></span>
+<span id="cb4-86"><a href="#cb4-86"></a></span>
+<span id="cb4-87"><a href="#cb4-87"></a></span>
+<span id="cb4-88"><a href="#cb4-88"></a></span>
+<span id="cb4-89"><a href="#cb4-89"></a></span>
+<span id="cb4-90"><a href="#cb4-90"></a></span>
+<span id="cb4-91"><a href="#cb4-91"></a></span>
+<span id="cb4-92"><a href="#cb4-92"></a></span>
+<span id="cb4-93"><a href="#cb4-93"></a></span>
+<span id="cb4-94"><a href="#cb4-94"></a></span>
+<span id="cb4-95"><a href="#cb4-95"></a></span>
+<span id="cb4-96"><a href="#cb4-96"></a></span>
+<span id="cb4-97"><a href="#cb4-97"></a></span>
+<span id="cb4-98"><a href="#cb4-98"></a></span>
+<span id="cb4-99"><a href="#cb4-99"></a></span>
+<span id="cb4-100"><a href="#cb4-100"></a></span>
+<span id="cb4-101"><a href="#cb4-101"></a></span>
+<span id="cb4-102"><a href="#cb4-102"></a></span>
+<span id="cb4-103"><a href="#cb4-103"></a></span>
+<span id="cb4-104"><a href="#cb4-104"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
