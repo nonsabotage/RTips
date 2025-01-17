@@ -1138,21 +1138,36 @@
     "href": "contents/notes/development/03_R.html",
     "title": "R",
     "section": "",
-    "text": "下記を参考にRのバージョン管理を試行する\n\nRのバージョン管理システム\nイマドキRのインストール事情"
+    "text": "下記を参考にRのバージョン管理を試行する\n\nRのバージョン管理システム\nイマドキRのインストール事情",
+    "crumbs": [
+      "Notes",
+      "development",
+      "R"
+    ]
   },
   {
     "objectID": "contents/notes/development/03_R.html#インストール",
     "href": "contents/notes/development/03_R.html#インストール",
     "title": "R",
     "section": "2.1 インストール",
-    "text": "2.1 インストール\nwindows環境ではインストーラーがある。"
+    "text": "2.1 インストール\nwindows環境ではインストーラーがある。",
+    "crumbs": [
+      "Notes",
+      "development",
+      "R"
+    ]
   },
   {
     "objectID": "contents/notes/development/03_R.html#使い方",
     "href": "contents/notes/development/03_R.html#使い方",
     "title": "R",
     "section": "2.2 使い方",
-    "text": "2.2 使い方\n\n\nRの最新バージョンを追加する\nrig add release\n特定のバージョンを追加する\nrig add 4.2\n現在使えるインストール可能なバージョンをリストアップする\nrig available\nデフォルトのバージョンを表示する\nrig default\nデフォルトのバージョンを設定する\nrig set 4.2\nバージョンを切り換える\nrig switch 4.4.2\nRStudioを起動する\nrig rstudio\nRスクリプトを起動する\nrig run \nrig system add-pak                 -- install or update pak for an R version\nrig system clean-registry          -- clean stale R related entries in the registry\nrig system make-links              -- create R-* quick links\nrig system rtools                  -- manage Rtools installations\nrig system setup-user-lib          -- set up automatic user package libraries [alias: create-lib]\nrig system update-rtools40         -- update Rtools40 MSYS2 packages"
+    "text": "2.2 使い方\n\n\nRの最新バージョンを追加する\nrig add release\n特定のバージョンを追加する\nrig add 4.2\n現在使えるインストール可能なバージョンをリストアップする\nrig available\nデフォルトのバージョンを表示する\nrig default\nデフォルトのバージョンを設定する\nrig set 4.2\nバージョンを切り換える\nrig switch 4.4.2\nRStudioを起動する\nrig rstudio\nRスクリプトを起動する\nrig run \nrig system add-pak                 -- install or update pak for an R version\nrig system clean-registry          -- clean stale R related entries in the registry\nrig system make-links              -- create R-* quick links\nrig system rtools                  -- manage Rtools installations\nrig system setup-user-lib          -- set up automatic user package libraries [alias: create-lib]\nrig system update-rtools40         -- update Rtools40 MSYS2 packages",
+    "crumbs": [
+      "Notes",
+      "development",
+      "R"
+    ]
   },
   {
     "objectID": "contents/notes/development/01_Python.html",
@@ -1163,7 +1178,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -1175,7 +1190,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -1187,7 +1202,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -1199,7 +1214,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -1211,7 +1226,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -1223,7 +1238,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -1235,7 +1250,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -1247,7 +1262,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -1259,7 +1274,7 @@
     "crumbs": [
       "Notes",
       "development",
-      "python"
+      "Python"
     ]
   },
   {
@@ -7067,77 +7082,132 @@
     "href": "contents/notes/development/02_mermaid.html",
     "title": "mermaid",
     "section": "",
-    "text": "mermadiのサンプルです"
+    "text": "mermadiのサンプルです",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#td",
     "href": "contents/notes/development/02_mermaid.html#td",
     "title": "mermaid",
     "section": "2.1 TD",
-    "text": "2.1 TD\n\n\n\n\n\ngraph TD;\n    A--&gt;B;\n    A--&gt;C;\n    B--&gt;D;\n    C--&gt;D;\n\n\n\n\n\n\n\n\n\n\n\ngraph TD;\n    %% 入力データと初期値\n    A(\"○から\") --&gt; B[\"資格\"] --&gt; C((\"英語\")) ==&gt; D{\"ダイヤ\"};"
+    "text": "2.1 TD\n\n\n\n\n\ngraph TD;\n    A--&gt;B;\n    A--&gt;C;\n    B--&gt;D;\n    C--&gt;D;\n\n\n\n\n\n\n\n\n\n\n\ngraph TD;\n    %% 入力データと初期値\n    A(\"○から\") --&gt; B[\"資格\"] --&gt; C((\"英語\")) ==&gt; D{\"ダイヤ\"};",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#bt",
     "href": "contents/notes/development/02_mermaid.html#bt",
     "title": "mermaid",
     "section": "2.2 BT",
-    "text": "2.2 BT\n\n\n\n\n\ngraph BT\n  A[どこでも誰とでも働ける]\n  B[他者に貢献する] --&gt; A\n  C[得意なことをギブする] --&gt; B\n  D[得意なことを作る] --&gt; C\n  E[何が好きかを知る] --&gt; D\n  F[説明可能にする] --&gt; D\n\n  G[他者から愛される] --&gt; A\n  H[\"他者との共通点・相違点を見つける\"] --&gt; G\n  I[好き嫌いをオープンにする] --&gt; H\n  E --&gt; I\n  J[引き出しを増やす] --&gt; H\n\n  K[自立する] --&gt; A\n  L[自分の決めたルールを守る] --&gt; K\n  M[依存心をなくす] --&gt; K\n\n  classDef Title font-weight:bold\n  class A Title"
+    "text": "2.2 BT\n\n\n\n\n\ngraph BT\n  A[どこでも誰とでも働ける]\n  B[他者に貢献する] --&gt; A\n  C[得意なことをギブする] --&gt; B\n  D[得意なことを作る] --&gt; C\n  E[何が好きかを知る] --&gt; D\n  F[説明可能にする] --&gt; D\n\n  G[他者から愛される] --&gt; A\n  H[\"他者との共通点・相違点を見つける\"] --&gt; G\n  I[好き嫌いをオープンにする] --&gt; H\n  E --&gt; I\n  J[引き出しを増やす] --&gt; H\n\n  K[自立する] --&gt; A\n  L[自分の決めたルールを守る] --&gt; K\n  M[依存心をなくす] --&gt; K\n\n  classDef Title font-weight:bold\n  class A Title",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#lr",
     "href": "contents/notes/development/02_mermaid.html#lr",
     "title": "mermaid",
     "section": "2.3 LR",
-    "text": "2.3 LR\n\n\n\n\n\ngraph LR\n    A --&gt; B\n    A --&gt; C\n    subgraph same_level\n      direction LR\n      B & C\n    end"
+    "text": "2.3 LR\n\n\n\n\n\ngraph LR\n    A --&gt; B\n    A --&gt; C\n    subgraph same_level\n      direction LR\n      B & C\n    end",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#er",
     "href": "contents/notes/development/02_mermaid.html#er",
     "title": "mermaid",
     "section": "2.4 ER",
-    "text": "2.4 ER\n\n\n\n\n\nerDiagram\n    users ||--o{ tweets : \"\"\n\n    users {\n        bigint id PK \"ID\"\n        varchar name \"名称\"\n        varchar username \"ユーザー名\"\n        varchar description \"説明\"\n        timestamp deleted_at \"削除日時\"\n        timestamp created_at \"作成日時\"\n        timestamp updated_at \"更新日時\"\n    }\n\n    tweets {\n        bigint id PK \"ID\"\n        bigint author_id FK \"オーサーID:users.id\"\n        varchar tweet \"ツイート\"\n        timestamp deleted_at \"削除日時\"\n        timestamp created_at \"作成日時\"\n        timestamp updated_at \"更新日時\"\n    }"
+    "text": "2.4 ER\n\n\n\n\n\nerDiagram\n    users ||--o{ tweets : \"\"\n\n    users {\n        bigint id PK \"ID\"\n        varchar name \"名称\"\n        varchar username \"ユーザー名\"\n        varchar description \"説明\"\n        timestamp deleted_at \"削除日時\"\n        timestamp created_at \"作成日時\"\n        timestamp updated_at \"更新日時\"\n    }\n\n    tweets {\n        bigint id PK \"ID\"\n        bigint author_id FK \"オーサーID:users.id\"\n        varchar tweet \"ツイート\"\n        timestamp deleted_at \"削除日時\"\n        timestamp created_at \"作成日時\"\n        timestamp updated_at \"更新日時\"\n    }",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#サブグラフ",
     "href": "contents/notes/development/02_mermaid.html#サブグラフ",
     "title": "mermaid",
     "section": "2.5 サブグラフ",
-    "text": "2.5 サブグラフ\n\n\n\n\n\ngraph TD;\n    subgraph サブグラフ1\n        A1[ノードA1]\n        A2[ノードA2]\n    end\n    subgraph サブグラフ2\n        B1[ノードB1]\n        B2[ノードB2]\n    end\n    A1 --&gt; B1"
+    "text": "2.5 サブグラフ\n\n\n\n\n\ngraph TD;\n    subgraph サブグラフ1\n        A1[ノードA1]\n        A2[ノードA2]\n    end\n    subgraph サブグラフ2\n        B1[ノードB1]\n        B2[ノードB2]\n    end\n    A1 --&gt; B1",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#シーケンス図",
     "href": "contents/notes/development/02_mermaid.html#シーケンス図",
     "title": "mermaid",
     "section": "2.6 シーケンス図",
-    "text": "2.6 シーケンス図\n\n\n\n\n\nsequenceDiagram\n    participant A as ユーザー\n    participant B as システム\n    A-&gt;&gt;B: リクエスト送信\n    B--&gt;&gt;A: レスポンス返送"
+    "text": "2.6 シーケンス図\n\n\n\n\n\nsequenceDiagram\n    participant A as ユーザー\n    participant B as システム\n    A-&gt;&gt;B: リクエスト送信\n    B--&gt;&gt;A: レスポンス返送",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#ガントチャート",
     "href": "contents/notes/development/02_mermaid.html#ガントチャート",
     "title": "mermaid",
     "section": "2.7 ガントチャート",
-    "text": "2.7 ガントチャート\n\n\n\n\n\ngantt\n    title プロジェクト計画\n    dateFormat  YYYY-MM-DD\n    section 準備\n        タスク1   :done,    des1, 2024-01-01,2024-01-05\n        タスク2   :active,  des2, 2024-01-06, 3d\n    section 実行\n        タスク3   :         des3, 2024-01-09, 5d\n        タスク4   :         des4, after des3, 5d\n    section 検証\n        タスク5   :         des5, after des4, 3d\n        タスク6   :         des6, after des5, 5d\n    section リリース\n        タスク7   :         des7, after des6, 3d"
+    "text": "2.7 ガントチャート\n\n\n\n\n\ngantt\n    title プロジェクト計画\n    dateFormat  YYYY-MM-DD\n    section 準備\n        タスク1   :done,    des1, 2024-01-01,2024-01-05\n        タスク2   :active,  des2, 2024-01-06, 3d\n    section 実行\n        タスク3   :         des3, 2024-01-09, 5d\n        タスク4   :         des4, after des3, 5d\n    section 検証\n        タスク5   :         des5, after des4, 3d\n        タスク6   :         des6, after des5, 5d\n    section リリース\n        タスク7   :         des7, after des6, 3d",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#クラス図",
     "href": "contents/notes/development/02_mermaid.html#クラス図",
     "title": "mermaid",
     "section": "2.8 クラス図",
-    "text": "2.8 クラス図\n\n\n\n\n\nclassDiagram\n    class 人 {\n      +名前\n      +年齢\n      +歩く()\n    }\n    class 学生 {\n      +学籍番号\n      +勉強する()\n    }\n    人 &lt;|-- 学生"
+    "text": "2.8 クラス図\n\n\n\n\n\nclassDiagram\n    class 人 {\n      +名前\n      +年齢\n      +歩く()\n    }\n    class 学生 {\n      +学籍番号\n      +勉強する()\n    }\n    人 &lt;|-- 学生",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#マインドマップ",
     "href": "contents/notes/development/02_mermaid.html#マインドマップ",
     "title": "mermaid",
     "section": "2.9 マインドマップ",
-    "text": "2.9 マインドマップ\n\n参考\nVSCodeのプレビューで表示されない\nレンダリングすると表示される\n\n\n\n\n\n\nmindmap\n  root((mindmap))\n    Origins\n      Long history\n      ::icon(fa fa-book)\n      Popularisation\n        British popular psychology author Tony Buzan\n    Research\n      On effectiveness&lt;br/&gt;and features\n      On Automatic creation\n        Uses\n            Creative techniques\n            Strategic planning\n            Argument mapping\n    Tools\n      Pen and paper\n      Mermaid"
+    "text": "2.9 マインドマップ\n\n参考\nVSCodeのプレビューで表示されない\nレンダリングすると表示される\n\n\n\n\n\n\nmindmap\n  root((mindmap))\n    Origins\n      Long history\n      ::icon(fa fa-book)\n      Popularisation\n        British popular psychology author Tony Buzan\n    Research\n      On effectiveness&lt;br/&gt;and features\n      On Automatic creation\n        Uses\n            Creative techniques\n            Strategic planning\n            Argument mapping\n    Tools\n      Pen and paper\n      Mermaid",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/02_mermaid.html#おまけ",
     "href": "contents/notes/development/02_mermaid.html#おまけ",
     "title": "mermaid",
     "section": "2.10 おまけ",
-    "text": "2.10 おまけ\n\n\n\n\n\nerDiagram\n    TableA {\n        int id PK\n        string name\n    }\n    TableB {\n        int id PK\n        int tableA_id FK\n    }\n    TableA ||--o{ TableB : \"has\"\n\ngraph TD\n    Start[Start Process] --&gt; ERDiagram[ER Diagram]\n    ERDiagram --&gt; NextStep[Next Process]"
+    "text": "2.10 おまけ\n\n\n\n\n\nerDiagram\n    TableA {\n        int id PK\n        string name\n    }\n    TableB {\n        int id PK\n        int tableA_id FK\n    }\n    TableA ||--o{ TableB : \"has\"\n\ngraph TD\n    Start[Start Process] --&gt; ERDiagram[ER Diagram]\n    ERDiagram --&gt; NextStep[Next Process]",
+    "crumbs": [
+      "Notes",
+      "development",
+      "mermaid"
+    ]
   },
   {
     "objectID": "contents/notes/development/index.html",
