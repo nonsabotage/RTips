@@ -171,6 +171,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../../contents/website/quarto/guide/index.html">
  <span class="dropdown-text">QuartoDashboard</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/udemy_dbt/index.html">
+ <span class="dropdown-text">Udemy dbt</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -178,6 +182,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">books</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">note</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/13_教員のため教育データ分析/index.html">
+ <span class="dropdown-text">教員のための教育データ分析</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/14_入門統計学/index.html">
+ <span class="dropdown-text">入門統計学</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/15_プロになるためのWeb技術入門/index.html">
+ <span class="dropdown-text">プロになるためのWeb技術入門</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">R</li>
         <li>
     <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
@@ -234,10 +252,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
         <li class="dropdown-header">R</li>
         <li>
-    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html">
- <span class="dropdown-text">base</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html">
  <span class="dropdown-text">argparse</span></a>
   </li>  
@@ -250,6 +264,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">assertr</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html">
  <span class="dropdown-text">corrr</span></a>
   </li>  
@@ -260,6 +278,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html">
  <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/dbplyr/working.html">
+ <span class="dropdown-text">dbplyr</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html">
@@ -290,6 +312,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">ggmosaic</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggplot2/index.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/legendry/index.html">
+ <span class="dropdown-text">legendry</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html">
  <span class="dropdown-text">treemapify</span></a>
   </li>  
@@ -313,6 +343,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../../contents/libs/R/plotly/index.html">
  <span class="dropdown-text">plotly</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/pointblank/index.html">
+ <span class="dropdown-text">pointblank</span></a>
+  </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">Python</li>
         <li>
@@ -330,6 +364,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../../contents/libs/Python/sqlite3/index.html">
  <span class="dropdown-text">sqlite3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/plotnine/index.html">
+ <span class="dropdown-text">plotnine</span></a>
   </li>  
     </ul>
   </li>
@@ -575,6 +613,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#依存関係のインストール" id="toc-依存関係のインストール" class="nav-link" data-scroll-target="#依存関係のインストール"><span class="header-section-number">2.4.1</span> 依存関係のインストール</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#uv" id="toc-uv" class="nav-link" data-scroll-target="#uv"><span class="header-section-number">3</span> uv</a>
+  <ul class="collapse">
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link" data-scroll-target="#はじめに"><span class="header-section-number">3.1</span> はじめに</a></li>
+  <li><a href="#installing" id="toc-installing" class="nav-link" data-scroll-target="#installing"><span class="header-section-number">3.2</span> Installing</a></li>
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features"><span class="header-section-number">3.3</span> Features</a></li>
+  <li><a href="#プロジェクト" id="toc-プロジェクト" class="nav-link" data-scroll-target="#プロジェクト"><span class="header-section-number">3.4</span> プロジェクト</a>
+  <ul class="collapse">
+  <li><a href="#プロジェクト作成" id="toc-プロジェクト作成" class="nav-link" data-scroll-target="#プロジェクト作成"><span class="header-section-number">3.4.1</span> プロジェクト作成</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -595,7 +643,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 3, 2025</p>
+      <p class="date-modified">July 15, 2025</p>
     </div>
   </div>
     
@@ -703,6 +751,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-2"><a href="#cb24-2"></a>poetry run flake8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>プロジェクトの情報を確認するには次のコマンドを実行する。</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb25-1"><a href="#cb25-1"></a>poetry show</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="uv" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> uv</h1>
+<section id="はじめに" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="はじめに"><span class="header-section-number">3.1</span> はじめに</h2>
+<ul>
+<li><a href="https://docs.astral.sh/uv/getting-started/installation/">公式サイト</a></li>
+</ul>
+</section>
+<section id="installing" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="installing"><span class="header-section-number">3.2</span> Installing</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb26-1"><a href="#cb26-1"></a>powershell <span class="op">-</span>ExecutionPolicy ByPass <span class="op">-</span>c <span class="st">"irm https://astral.sh/uv/install.ps1 | iex"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><a href="static/img/2025-07-15-09-29-46.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="static/img/2025-07-15-09-29-46.png" class="img-fluid"></a></p>
+<p>消したいときにはファイルを直接消してしまって大丈夫です。</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb27-1"><a href="#cb27-1"></a>rm $HOME\.local\bin\uv.exe</span>
+<span id="cb27-2"><a href="#cb27-2"></a>rm $HOME\.local\bin\uvx.exe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="features" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="features"><span class="header-section-number">3.3</span> Features</h2>
+<p><a href="static/img/2025-07-15-09-34-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="static/img/2025-07-15-09-34-10.png" class="img-fluid"></a></p>
+</section>
+<section id="プロジェクト" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="プロジェクト"><span class="header-section-number">3.4</span> プロジェクト</h2>
+<section id="プロジェクト作成" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="プロジェクト作成"><span class="header-section-number">3.4.1</span> プロジェクト作成</h3>
+<ul>
+<li>pyprojectがないときに<code>--no-workspace</code>を使う</li>
+<li>pyprojectがあるときには<code>--no-workspace</code>を使わない</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb28-1"><a href="#cb28-1"></a>uv init dev --no-workspace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 <!-- -->
@@ -1195,273 +1275,316 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb26" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">---</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="an">title:</span><span class="co"> "Python"</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="an">execute:</span><span class="co">  </span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="co">    cache: true</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="an">filters:</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co">    - lightbox</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="co">---</span></span>
-<span id="cb26-10"><a href="#cb26-10"></a></span>
-<span id="cb26-13"><a href="#cb26-13"></a><span class="in">```{r}</span></span>
-<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#| label: activate renv</span></span>
-<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#| echo: false</span></span>
-<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#| warning: false</span></span>
-<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#| message: false</span></span>
-<span id="cb26-18"><a href="#cb26-18"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
-<span id="cb26-19"><a href="#cb26-19"></a><span class="in">```</span></span>
-<span id="cb26-20"><a href="#cb26-20"></a></span>
-<span id="cb26-23"><a href="#cb26-23"></a><span class="in">```{r}</span></span>
-<span id="cb26-24"><a href="#cb26-24"></a><span class="co">#| label: setup</span></span>
-<span id="cb26-25"><a href="#cb26-25"></a><span class="co">#| echo: false</span></span>
-<span id="cb26-26"><a href="#cb26-26"></a><span class="co">#| warning: false</span></span>
-<span id="cb26-27"><a href="#cb26-27"></a><span class="co">#| message: false</span></span>
-<span id="cb26-28"><a href="#cb26-28"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents"</span>, <span class="st">"notes"</span>, <span class="st">"development"</span>)</span>
-<span id="cb26-29"><a href="#cb26-29"></a><span class="fu">setwd</span>(cur_dir)</span>
-<span id="cb26-30"><a href="#cb26-30"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
-<span id="cb26-31"><a href="#cb26-31"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans JP"</span>)</span>
-<span id="cb26-32"><a href="#cb26-32"></a><span class="in">```</span></span>
-<span id="cb26-33"><a href="#cb26-33"></a></span>
-<span id="cb26-34"><a href="#cb26-34"></a></span>
-<span id="cb26-37"><a href="#cb26-37"></a><span class="in">```{r}</span></span>
-<span id="cb26-38"><a href="#cb26-38"></a><span class="co">#| label: activat python</span></span>
-<span id="cb26-39"><a href="#cb26-39"></a><span class="co">#| echo: false</span></span>
-<span id="cb26-40"><a href="#cb26-40"></a><span class="co">#| warning: false</span></span>
-<span id="cb26-41"><a href="#cb26-41"></a><span class="co">#| message: false</span></span>
-<span id="cb26-42"><a href="#cb26-42"></a></span>
-<span id="cb26-43"><a href="#cb26-43"></a><span class="co"># reticulate::use_virtualenv("c:/pyenv/py312")</span></span>
-<span id="cb26-44"><a href="#cb26-44"></a>reticulate<span class="sc">::</span><span class="fu">use_virtualenv</span>(<span class="fu">file.path</span>(cur_dir, <span class="st">".venv"</span>))</span>
-<span id="cb26-45"><a href="#cb26-45"></a><span class="co"># reticulate::py_config()</span></span>
-<span id="cb26-46"><a href="#cb26-46"></a><span class="in">```</span></span>
-<span id="cb26-47"><a href="#cb26-47"></a></span>
-<span id="cb26-50"><a href="#cb26-50"></a><span class="in">```{r}</span></span>
-<span id="cb26-51"><a href="#cb26-51"></a><span class="co">#| echo: false</span></span>
-<span id="cb26-52"><a href="#cb26-52"></a><span class="co">#| warning: false</span></span>
-<span id="cb26-53"><a href="#cb26-53"></a><span class="co">#| message: false</span></span>
-<span id="cb26-54"><a href="#cb26-54"></a><span class="co">#| eval: false</span></span>
-<span id="cb26-55"><a href="#cb26-55"></a>pd <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
-<span id="cb26-56"><a href="#cb26-56"></a><span class="in">```</span></span>
-<span id="cb26-57"><a href="#cb26-57"></a></span>
-<span id="cb26-58"><a href="#cb26-58"></a><span class="fu"># Pyenv</span></span>
-<span id="cb26-59"><a href="#cb26-59"></a></span>
-<span id="cb26-60"><a href="#cb26-60"></a><span class="co">[</span><span class="ot">pyenv</span><span class="co">](https://github.com/pyenv/pyenv)</span>はpythonのバージョンを切り換えるためのツールである。</span>
-<span id="cb26-61"><a href="#cb26-61"></a></span>
-<span id="cb26-62"><a href="#cb26-62"></a>windows環境をサポートしていないので、<span class="co">[</span><span class="ot">pyenv-win</span><span class="co">](https://github.com/pyenv-win/pyenv-win)</span>を利用すること。WSLもサポートしていないとのことである。</span>
-<span id="cb26-63"><a href="#cb26-63"></a></span>
-<span id="cb26-64"><a href="#cb26-64"></a></span>
-<span id="cb26-65"><a href="#cb26-65"></a><span class="fu">## インストール</span></span>
-<span id="cb26-66"><a href="#cb26-66"></a></span>
-<span id="cb26-67"><a href="#cb26-67"></a>powershellを管理者権限で実行する必要がある。</span>
-<span id="cb26-68"><a href="#cb26-68"></a></span>
-<span id="cb26-69"><a href="#cb26-69"></a>最新版のバージョン７で実行するとインストールが成功した。</span>
-<span id="cb26-70"><a href="#cb26-70"></a></span>
-<span id="cb26-71"><a href="#cb26-71"></a>実行が成功すると次のコマンドで<span class="in">`pyenv`</span>のバージョンを判定する。</span>
-<span id="cb26-72"><a href="#cb26-72"></a></span>
-<span id="cb26-73"><a href="#cb26-73"></a><span class="in">```shell</span></span>
-<span id="cb26-74"><a href="#cb26-74"></a><span class="ex">pyenv</span> <span class="at">--version</span></span>
-<span id="cb26-75"><a href="#cb26-75"></a><span class="in">```</span></span>
-<span id="cb26-76"><a href="#cb26-76"></a></span>
-<span id="cb26-77"><a href="#cb26-77"></a>うまくインストールが成功しないときには、実行ポリシーの影響が考えられる。</span>
-<span id="cb26-78"><a href="#cb26-78"></a></span>
-<span id="cb26-79"><a href="#cb26-79"></a>その際には<span class="co">[</span><span class="ot">このページ</span><span class="co">](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4)</span>を参照する。</span>
-<span id="cb26-80"><a href="#cb26-80"></a></span>
-<span id="cb26-81"><a href="#cb26-81"></a></span>
-<span id="cb26-82"><a href="#cb26-82"></a><span class="al">![](static/img/2025-01-02-19-11-19.png)</span></span>
-<span id="cb26-83"><a href="#cb26-83"></a></span>
-<span id="cb26-84"><a href="#cb26-84"></a><span class="fu">## pythonのインストール</span></span>
-<span id="cb26-85"><a href="#cb26-85"></a></span>
-<span id="cb26-86"><a href="#cb26-86"></a>次のコマンドでインストール可能なpythonのバージョンを確認する。</span>
-<span id="cb26-87"><a href="#cb26-87"></a></span>
-<span id="cb26-88"><a href="#cb26-88"></a><span class="in">```shell</span></span>
-<span id="cb26-89"><a href="#cb26-89"></a><span class="ex">pyenv</span> install <span class="at">-l</span></span>
-<span id="cb26-90"><a href="#cb26-90"></a><span class="in">```</span></span>
-<span id="cb26-91"><a href="#cb26-91"></a></span>
-<span id="cb26-92"><a href="#cb26-92"></a>次のコマンドでpythonのバージョンをインストールする。</span>
-<span id="cb26-93"><a href="#cb26-93"></a></span>
-<span id="cb26-94"><a href="#cb26-94"></a></span>
-<span id="cb26-95"><a href="#cb26-95"></a><span class="in">```shell</span></span>
-<span id="cb26-96"><a href="#cb26-96"></a><span class="ex">pyenv</span> install 3.9.7</span>
-<span id="cb26-97"><a href="#cb26-97"></a><span class="in">```</span></span>
-<span id="cb26-98"><a href="#cb26-98"></a></span>
-<span id="cb26-99"><a href="#cb26-99"></a>いまつかるpythonのバージョンを確認する。</span>
-<span id="cb26-100"><a href="#cb26-100"></a></span>
-<span id="cb26-101"><a href="#cb26-101"></a><span class="in">```shell</span></span>
-<span id="cb26-102"><a href="#cb26-102"></a><span class="ex">pyenv</span> versions</span>
-<span id="cb26-103"><a href="#cb26-103"></a><span class="in">```</span></span>
-<span id="cb26-104"><a href="#cb26-104"></a></span>
-<span id="cb26-105"><a href="#cb26-105"></a></span>
-<span id="cb26-106"><a href="#cb26-106"></a>次のコマンドでグローバルのpythonのバージョンを設定する。</span>
-<span id="cb26-107"><a href="#cb26-107"></a></span>
-<span id="cb26-108"><a href="#cb26-108"></a><span class="in">```shell</span></span>
-<span id="cb26-109"><a href="#cb26-109"></a><span class="ex">pyenv</span> global 3.9.7</span>
-<span id="cb26-110"><a href="#cb26-110"></a><span class="in">```</span></span>
-<span id="cb26-111"><a href="#cb26-111"></a></span>
-<span id="cb26-112"><a href="#cb26-112"></a>次のコマンドでpythonのバージョンを確認する。</span>
-<span id="cb26-113"><a href="#cb26-113"></a></span>
-<span id="cb26-114"><a href="#cb26-114"></a><span class="in">```shell</span></span>
-<span id="cb26-115"><a href="#cb26-115"></a><span class="ex">python</span> <span class="at">--version</span></span>
-<span id="cb26-116"><a href="#cb26-116"></a><span class="in">```</span></span>
-<span id="cb26-117"><a href="#cb26-117"></a></span>
-<span id="cb26-118"><a href="#cb26-118"></a>次のコマンドでローカルのpythonのバージョンを設定する。</span>
-<span id="cb26-119"><a href="#cb26-119"></a></span>
-<span id="cb26-120"><a href="#cb26-120"></a><span class="in">```shell</span></span>
-<span id="cb26-121"><a href="#cb26-121"></a><span class="ex">pyenv</span> local 3.9.7</span>
-<span id="cb26-122"><a href="#cb26-122"></a><span class="in">```</span></span>
-<span id="cb26-123"><a href="#cb26-123"></a></span>
-<span id="cb26-124"><a href="#cb26-124"></a>次のコマンドでローカルのpythonのバージョンを確認する。</span>
-<span id="cb26-125"><a href="#cb26-125"></a></span>
-<span id="cb26-126"><a href="#cb26-126"></a><span class="in">```shell</span></span>
-<span id="cb26-127"><a href="#cb26-127"></a><span class="ex">python</span> <span class="at">--version</span></span>
-<span id="cb26-128"><a href="#cb26-128"></a><span class="in">```</span></span>
-<span id="cb26-129"><a href="#cb26-129"></a></span>
-<span id="cb26-130"><a href="#cb26-130"></a>ローカルを設定すると、そのディレクトリ以下のpythonのバージョンが設定される。</span>
-<span id="cb26-131"><a href="#cb26-131"></a></span>
-<span id="cb26-132"><a href="#cb26-132"></a><span class="fu">## 注意点：パスの設定</span></span>
-<span id="cb26-133"><a href="#cb26-133"></a></span>
-<span id="cb26-134"><a href="#cb26-134"></a>pyenv-winを利用すると、pythonのバージョンを切り替えることができる。</span>
-<span id="cb26-135"><a href="#cb26-135"></a></span>
-<span id="cb26-136"><a href="#cb26-136"></a>もしpythonがシステム環境変数に含まれている場合には次のパスをそれらのパスよりも優先させる必要がある。</span>
-<span id="cb26-137"><a href="#cb26-137"></a></span>
-<span id="cb26-138"><a href="#cb26-138"></a><span class="in">```shell</span></span>
-<span id="cb26-139"><a href="#cb26-139"></a><span class="ex">%USERPROFILE%\.pyenv\pyenv-win\bin</span></span>
-<span id="cb26-140"><a href="#cb26-140"></a><span class="ex">%USERPROFILE%\.pyenv\pyenv-win\shims</span></span>
-<span id="cb26-141"><a href="#cb26-141"></a><span class="in">```</span></span>
-<span id="cb26-142"><a href="#cb26-142"></a></span>
-<span id="cb26-143"><a href="#cb26-143"></a></span>
-<span id="cb26-144"><a href="#cb26-144"></a><span class="fu">## アンインストール</span></span>
-<span id="cb26-145"><a href="#cb26-145"></a></span>
-<span id="cb26-146"><a href="#cb26-146"></a>パスを削除する。パスのフォルダを丸ごと削除する、でよいらしい。</span>
-<span id="cb26-147"><a href="#cb26-147"></a></span>
-<span id="cb26-148"><a href="#cb26-148"></a></span>
-<span id="cb26-149"><a href="#cb26-149"></a></span>
-<span id="cb26-150"><a href="#cb26-150"></a><span class="fu"># Poetry</span></span>
-<span id="cb26-151"><a href="#cb26-151"></a></span>
-<span id="cb26-152"><a href="#cb26-152"></a><span class="co">[</span><span class="ot">poetry</span><span class="co">](https://python-poetry.org/)</span></span>
-<span id="cb26-153"><a href="#cb26-153"></a></span>
-<span id="cb26-154"><a href="#cb26-154"></a><span class="fu">## インストール</span></span>
-<span id="cb26-155"><a href="#cb26-155"></a></span>
-<span id="cb26-156"><a href="#cb26-156"></a></span>
-<span id="cb26-157"><a href="#cb26-157"></a>次のコマンドで公式インストーラーからインストールが可能である。</span>
-<span id="cb26-158"><a href="#cb26-158"></a></span>
-<span id="cb26-159"><a href="#cb26-159"></a><span class="in">```shell</span></span>
-<span id="cb26-160"><a href="#cb26-160"></a><span class="kw">(</span><span class="ex">Invoke-WebRequest</span> <span class="at">-Uri</span> https://install.python-poetry.org <span class="at">-UseBasicParsing</span><span class="kw">)</span><span class="ex">.Content</span> <span class="kw">|</span> <span class="ex">python</span> <span class="at">-</span></span>
-<span id="cb26-161"><a href="#cb26-161"></a><span class="in">```</span></span>
-<span id="cb26-162"><a href="#cb26-162"></a></span>
-<span id="cb26-163"><a href="#cb26-163"></a>あとは次のフォルダのパスを通すことでよい。</span>
-<span id="cb26-164"><a href="#cb26-164"></a></span>
-<span id="cb26-165"><a href="#cb26-165"></a><span class="al">![](static/img/2025-01-03-03-27-48.png)</span></span>
-<span id="cb26-166"><a href="#cb26-166"></a></span>
-<span id="cb26-167"><a href="#cb26-167"></a></span>
-<span id="cb26-168"><a href="#cb26-168"></a>アンインストールは次のコマンドでアル。</span>
-<span id="cb26-169"><a href="#cb26-169"></a></span>
-<span id="cb26-170"><a href="#cb26-170"></a><span class="in">```shell</span></span>
-<span id="cb26-171"><a href="#cb26-171"></a><span class="ex">curl</span> <span class="at">-sSL</span> https://install.python-poetry.org <span class="kw">|</span> <span class="ex">python3</span> <span class="at">-</span> <span class="at">--uninstall</span></span>
-<span id="cb26-172"><a href="#cb26-172"></a><span class="in">```</span></span>
-<span id="cb26-173"><a href="#cb26-173"></a></span>
-<span id="cb26-174"><a href="#cb26-174"></a><span class="fu">## プジェクト</span></span>
-<span id="cb26-175"><a href="#cb26-175"></a></span>
-<span id="cb26-176"><a href="#cb26-176"></a>新規プロジェクトの場合と、既存のプロジェクトの場合がある。</span>
-<span id="cb26-177"><a href="#cb26-177"></a></span>
-<span id="cb26-178"><a href="#cb26-178"></a></span>
-<span id="cb26-179"><a href="#cb26-179"></a><span class="in">```shell</span></span>
-<span id="cb26-180"><a href="#cb26-180"></a><span class="ex">poetry</span> new my_project</span>
-<span id="cb26-181"><a href="#cb26-181"></a><span class="in">```</span></span>
-<span id="cb26-182"><a href="#cb26-182"></a></span>
-<span id="cb26-183"><a href="#cb26-183"></a>パッケージ開発でないときには次のコマンドで設定は適当な回答で大丈夫である。</span>
-<span id="cb26-184"><a href="#cb26-184"></a></span>
-<span id="cb26-185"><a href="#cb26-185"></a><span class="in">```shell</span></span>
-<span id="cb26-186"><a href="#cb26-186"></a><span class="bu">cd</span> my_project</span>
-<span id="cb26-187"><a href="#cb26-187"></a><span class="ex">poetry</span> init</span>
-<span id="cb26-188"><a href="#cb26-188"></a><span class="in">```</span></span>
-<span id="cb26-189"><a href="#cb26-189"></a></span>
-<span id="cb26-190"><a href="#cb26-190"></a>poetryは２つのプロジェクトモードがある。１つはパッケージモードで、もうひとつはnon package modeである。</span>
-<span id="cb26-191"><a href="#cb26-191"></a></span>
-<span id="cb26-192"><a href="#cb26-192"></a></span>
-<span id="cb26-193"><a href="#cb26-193"></a><span class="fu">## 起動</span></span>
-<span id="cb26-194"><a href="#cb26-194"></a></span>
-<span id="cb26-195"><a href="#cb26-195"></a>プロジェクトを立ち上げたら基本的には準備よいので、次のコマンドでプロジェクトを立ち上げる。</span>
-<span id="cb26-196"><a href="#cb26-196"></a>そうすると設定したプロジェクトが立ち上がる。このとき指定したpythonのインタプリタがインストールされている必要があるので、</span>
-<span id="cb26-197"><a href="#cb26-197"></a>事前にpyenvでインストールしておく必要がある。</span>
-<span id="cb26-198"><a href="#cb26-198"></a></span>
-<span id="cb26-199"><a href="#cb26-199"></a><span class="in">```shell</span></span>
-<span id="cb26-200"><a href="#cb26-200"></a><span class="ex">poetry</span> shell</span>
-<span id="cb26-201"><a href="#cb26-201"></a><span class="in">```</span></span>
-<span id="cb26-202"><a href="#cb26-202"></a></span>
-<span id="cb26-203"><a href="#cb26-203"></a><span class="fu">## その他</span></span>
-<span id="cb26-204"><a href="#cb26-204"></a></span>
-<span id="cb26-205"><a href="#cb26-205"></a><span class="fu">### 依存関係のインストール</span></span>
-<span id="cb26-206"><a href="#cb26-206"></a></span>
-<span id="cb26-207"><a href="#cb26-207"></a><span class="in">```shell</span></span>
-<span id="cb26-208"><a href="#cb26-208"></a><span class="ex">poetry</span> install</span>
-<span id="cb26-209"><a href="#cb26-209"></a><span class="in">```</span></span>
-<span id="cb26-210"><a href="#cb26-210"></a></span>
-<span id="cb26-211"><a href="#cb26-211"></a>パッケージのインストールは次のようにおこなう。</span>
-<span id="cb26-212"><a href="#cb26-212"></a></span>
-<span id="cb26-213"><a href="#cb26-213"></a><span class="in">```shell</span></span>
-<span id="cb26-214"><a href="#cb26-214"></a><span class="ex">poetry</span> add numpy</span>
-<span id="cb26-215"><a href="#cb26-215"></a><span class="in">```</span></span>
-<span id="cb26-216"><a href="#cb26-216"></a></span>
-<span id="cb26-217"><a href="#cb26-217"></a>デフォルトだと仮想環境はアプリケーションのディレクトリに作成されるため、プロジェクト直下に作成するには次のようにする。</span>
-<span id="cb26-218"><a href="#cb26-218"></a></span>
-<span id="cb26-219"><a href="#cb26-219"></a><span class="in">```shell</span></span>
-<span id="cb26-220"><a href="#cb26-220"></a><span class="ex">poetry</span> config virtualenvs.in-project true</span>
-<span id="cb26-221"><a href="#cb26-221"></a><span class="in">```</span></span>
-<span id="cb26-222"><a href="#cb26-222"></a></span>
-<span id="cb26-223"><a href="#cb26-223"></a>次のように設定すると任意のディレクトリに仮想環境を作成することができる。</span>
-<span id="cb26-224"><a href="#cb26-224"></a></span>
-<span id="cb26-225"><a href="#cb26-225"></a><span class="in">```shell</span></span>
-<span id="cb26-226"><a href="#cb26-226"></a><span class="ex">poetry</span> config virtualenvs.path <span class="op">&lt;</span>path<span class="op">&gt;</span></span>
-<span id="cb26-227"><a href="#cb26-227"></a><span class="in">```</span></span>
-<span id="cb26-228"><a href="#cb26-228"></a></span>
-<span id="cb26-229"><a href="#cb26-229"></a>設定したconfigは次のコマンドで確認できる。</span>
-<span id="cb26-230"><a href="#cb26-230"></a></span>
-<span id="cb26-231"><a href="#cb26-231"></a><span class="in">```shell</span></span>
-<span id="cb26-232"><a href="#cb26-232"></a><span class="ex">poetry</span> config <span class="at">--list</span></span>
-<span id="cb26-233"><a href="#cb26-233"></a><span class="in">```</span></span>
-<span id="cb26-234"><a href="#cb26-234"></a></span>
-<span id="cb26-235"><a href="#cb26-235"></a></span>
-<span id="cb26-236"><a href="#cb26-236"></a>仮想環境を削除するには次のコマンドを実行する。</span>
-<span id="cb26-237"><a href="#cb26-237"></a></span>
-<span id="cb26-238"><a href="#cb26-238"></a><span class="in">```shell</span></span>
-<span id="cb26-239"><a href="#cb26-239"></a><span class="ex">poetry</span> env list 仮想環境を調べる</span>
-<span id="cb26-240"><a href="#cb26-240"></a><span class="ex">poetry</span> env remove <span class="op">&lt;</span>仮想環境パスまたはPythonバージョン<span class="op">&gt;</span></span>
-<span id="cb26-241"><a href="#cb26-241"></a><span class="in">```</span></span>
-<span id="cb26-242"><a href="#cb26-242"></a></span>
-<span id="cb26-243"><a href="#cb26-243"></a></span>
-<span id="cb26-244"><a href="#cb26-244"></a>poetryは通常の依存関係と開発用の依存関係を区別している。開発用の依存関係をインストールするには次のコマンドを実行する。</span>
-<span id="cb26-245"><a href="#cb26-245"></a></span>
-<span id="cb26-246"><a href="#cb26-246"></a><span class="in">```shell</span></span>
-<span id="cb26-247"><a href="#cb26-247"></a><span class="ex">poetry</span> add <span class="at">--dev</span> pytest</span>
-<span id="cb26-248"><a href="#cb26-248"></a><span class="in">```</span></span>
-<span id="cb26-249"><a href="#cb26-249"></a></span>
-<span id="cb26-250"><a href="#cb26-250"></a>開発用の依存関係をインストールするには次のコマンドを実行する。</span>
-<span id="cb26-251"><a href="#cb26-251"></a></span>
-<span id="cb26-252"><a href="#cb26-252"></a><span class="in">```shell</span></span>
-<span id="cb26-253"><a href="#cb26-253"></a><span class="ex">poetry</span> install <span class="at">--with</span> dev</span>
-<span id="cb26-254"><a href="#cb26-254"></a><span class="in">```</span></span>
-<span id="cb26-255"><a href="#cb26-255"></a></span>
-<span id="cb26-256"><a href="#cb26-256"></a>開発用の依存関係を除いてインストールするには次のようにする</span>
-<span id="cb26-257"><a href="#cb26-257"></a></span>
-<span id="cb26-258"><a href="#cb26-258"></a><span class="in">```shell</span></span>
-<span id="cb26-259"><a href="#cb26-259"></a><span class="ex">poetry</span> install <span class="at">--no-dev</span></span>
-<span id="cb26-260"><a href="#cb26-260"></a><span class="in">```</span></span>
-<span id="cb26-261"><a href="#cb26-261"></a></span>
-<span id="cb26-262"><a href="#cb26-262"></a>開発作業では次のコマンドでリンターなどを実行する。</span>
-<span id="cb26-263"><a href="#cb26-263"></a></span>
-<span id="cb26-264"><a href="#cb26-264"></a><span class="in">```shell</span></span>
-<span id="cb26-265"><a href="#cb26-265"></a><span class="ex">poetry</span> run pytest</span>
-<span id="cb26-266"><a href="#cb26-266"></a><span class="ex">poetry</span> run flake8</span>
-<span id="cb26-267"><a href="#cb26-267"></a><span class="in">```</span></span>
-<span id="cb26-268"><a href="#cb26-268"></a></span>
-<span id="cb26-269"><a href="#cb26-269"></a></span>
-<span id="cb26-270"><a href="#cb26-270"></a></span>
-<span id="cb26-271"><a href="#cb26-271"></a>プロジェクトの情報を確認するには次のコマンドを実行する。</span>
-<span id="cb26-272"><a href="#cb26-272"></a></span>
-<span id="cb26-273"><a href="#cb26-273"></a><span class="in">```shell</span></span>
-<span id="cb26-274"><a href="#cb26-274"></a><span class="ex">poetry</span> show</span>
-<span id="cb26-275"><a href="#cb26-275"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb29" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">---</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="an">title:</span><span class="co"> "Python"</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="an">execute:</span><span class="co">  </span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="co">    cache: true</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="an">filters:</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="co">    - lightbox</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="co">---</span></span>
+<span id="cb29-10"><a href="#cb29-10"></a></span>
+<span id="cb29-13"><a href="#cb29-13"></a><span class="in">```{r}</span></span>
+<span id="cb29-14"><a href="#cb29-14"></a><span class="co">#| label: activate renv</span></span>
+<span id="cb29-15"><a href="#cb29-15"></a><span class="co">#| echo: false</span></span>
+<span id="cb29-16"><a href="#cb29-16"></a><span class="co">#| warning: false</span></span>
+<span id="cb29-17"><a href="#cb29-17"></a><span class="co">#| message: false</span></span>
+<span id="cb29-18"><a href="#cb29-18"></a>renv<span class="sc">::</span><span class="fu">activate</span>(here<span class="sc">::</span><span class="fu">here</span>())</span>
+<span id="cb29-19"><a href="#cb29-19"></a><span class="in">```</span></span>
+<span id="cb29-20"><a href="#cb29-20"></a></span>
+<span id="cb29-23"><a href="#cb29-23"></a><span class="in">```{r}</span></span>
+<span id="cb29-24"><a href="#cb29-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb29-25"><a href="#cb29-25"></a><span class="co">#| echo: false</span></span>
+<span id="cb29-26"><a href="#cb29-26"></a><span class="co">#| warning: false</span></span>
+<span id="cb29-27"><a href="#cb29-27"></a><span class="co">#| message: false</span></span>
+<span id="cb29-28"><a href="#cb29-28"></a>cur_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"contents"</span>, <span class="st">"notes"</span>, <span class="st">"development"</span>)</span>
+<span id="cb29-29"><a href="#cb29-29"></a><span class="fu">setwd</span>(cur_dir)</span>
+<span id="cb29-30"><a href="#cb29-30"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
+<span id="cb29-31"><a href="#cb29-31"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Noto Sans JP"</span>)</span>
+<span id="cb29-32"><a href="#cb29-32"></a><span class="in">```</span></span>
+<span id="cb29-33"><a href="#cb29-33"></a></span>
+<span id="cb29-34"><a href="#cb29-34"></a></span>
+<span id="cb29-37"><a href="#cb29-37"></a><span class="in">```{r}</span></span>
+<span id="cb29-38"><a href="#cb29-38"></a><span class="co">#| label: activat python</span></span>
+<span id="cb29-39"><a href="#cb29-39"></a><span class="co">#| echo: false</span></span>
+<span id="cb29-40"><a href="#cb29-40"></a><span class="co">#| warning: false</span></span>
+<span id="cb29-41"><a href="#cb29-41"></a><span class="co">#| message: false</span></span>
+<span id="cb29-42"><a href="#cb29-42"></a></span>
+<span id="cb29-43"><a href="#cb29-43"></a><span class="co"># reticulate::use_virtualenv("c:/pyenv/py312")</span></span>
+<span id="cb29-44"><a href="#cb29-44"></a>reticulate<span class="sc">::</span><span class="fu">use_virtualenv</span>(<span class="fu">file.path</span>(cur_dir, <span class="st">".venv"</span>))</span>
+<span id="cb29-45"><a href="#cb29-45"></a><span class="co"># reticulate::py_config()</span></span>
+<span id="cb29-46"><a href="#cb29-46"></a><span class="in">```</span></span>
+<span id="cb29-47"><a href="#cb29-47"></a></span>
+<span id="cb29-50"><a href="#cb29-50"></a><span class="in">```{r}</span></span>
+<span id="cb29-51"><a href="#cb29-51"></a><span class="co">#| echo: false</span></span>
+<span id="cb29-52"><a href="#cb29-52"></a><span class="co">#| warning: false</span></span>
+<span id="cb29-53"><a href="#cb29-53"></a><span class="co">#| message: false</span></span>
+<span id="cb29-54"><a href="#cb29-54"></a><span class="co">#| eval: false</span></span>
+<span id="cb29-55"><a href="#cb29-55"></a>pd <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
+<span id="cb29-56"><a href="#cb29-56"></a><span class="in">```</span></span>
+<span id="cb29-57"><a href="#cb29-57"></a></span>
+<span id="cb29-58"><a href="#cb29-58"></a><span class="fu"># Pyenv</span></span>
+<span id="cb29-59"><a href="#cb29-59"></a></span>
+<span id="cb29-60"><a href="#cb29-60"></a><span class="co">[</span><span class="ot">pyenv</span><span class="co">](https://github.com/pyenv/pyenv)</span>はpythonのバージョンを切り換えるためのツールである。</span>
+<span id="cb29-61"><a href="#cb29-61"></a></span>
+<span id="cb29-62"><a href="#cb29-62"></a>windows環境をサポートしていないので、<span class="co">[</span><span class="ot">pyenv-win</span><span class="co">](https://github.com/pyenv-win/pyenv-win)</span>を利用すること。WSLもサポートしていないとのことである。</span>
+<span id="cb29-63"><a href="#cb29-63"></a></span>
+<span id="cb29-64"><a href="#cb29-64"></a></span>
+<span id="cb29-65"><a href="#cb29-65"></a><span class="fu">## インストール</span></span>
+<span id="cb29-66"><a href="#cb29-66"></a></span>
+<span id="cb29-67"><a href="#cb29-67"></a>powershellを管理者権限で実行する必要がある。</span>
+<span id="cb29-68"><a href="#cb29-68"></a></span>
+<span id="cb29-69"><a href="#cb29-69"></a>最新版のバージョン７で実行するとインストールが成功した。</span>
+<span id="cb29-70"><a href="#cb29-70"></a></span>
+<span id="cb29-71"><a href="#cb29-71"></a>実行が成功すると次のコマンドで<span class="in">`pyenv`</span>のバージョンを判定する。</span>
+<span id="cb29-72"><a href="#cb29-72"></a></span>
+<span id="cb29-73"><a href="#cb29-73"></a><span class="in">```shell</span></span>
+<span id="cb29-74"><a href="#cb29-74"></a><span class="ex">pyenv</span> <span class="at">--version</span></span>
+<span id="cb29-75"><a href="#cb29-75"></a><span class="in">```</span></span>
+<span id="cb29-76"><a href="#cb29-76"></a></span>
+<span id="cb29-77"><a href="#cb29-77"></a>うまくインストールが成功しないときには、実行ポリシーの影響が考えられる。</span>
+<span id="cb29-78"><a href="#cb29-78"></a></span>
+<span id="cb29-79"><a href="#cb29-79"></a>その際には<span class="co">[</span><span class="ot">このページ</span><span class="co">](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4)</span>を参照する。</span>
+<span id="cb29-80"><a href="#cb29-80"></a></span>
+<span id="cb29-81"><a href="#cb29-81"></a></span>
+<span id="cb29-82"><a href="#cb29-82"></a><span class="al">![](static/img/2025-01-02-19-11-19.png)</span></span>
+<span id="cb29-83"><a href="#cb29-83"></a></span>
+<span id="cb29-84"><a href="#cb29-84"></a><span class="fu">## pythonのインストール</span></span>
+<span id="cb29-85"><a href="#cb29-85"></a></span>
+<span id="cb29-86"><a href="#cb29-86"></a>次のコマンドでインストール可能なpythonのバージョンを確認する。</span>
+<span id="cb29-87"><a href="#cb29-87"></a></span>
+<span id="cb29-88"><a href="#cb29-88"></a><span class="in">```shell</span></span>
+<span id="cb29-89"><a href="#cb29-89"></a><span class="ex">pyenv</span> install <span class="at">-l</span></span>
+<span id="cb29-90"><a href="#cb29-90"></a><span class="in">```</span></span>
+<span id="cb29-91"><a href="#cb29-91"></a></span>
+<span id="cb29-92"><a href="#cb29-92"></a>次のコマンドでpythonのバージョンをインストールする。</span>
+<span id="cb29-93"><a href="#cb29-93"></a></span>
+<span id="cb29-94"><a href="#cb29-94"></a></span>
+<span id="cb29-95"><a href="#cb29-95"></a><span class="in">```shell</span></span>
+<span id="cb29-96"><a href="#cb29-96"></a><span class="ex">pyenv</span> install 3.9.7</span>
+<span id="cb29-97"><a href="#cb29-97"></a><span class="in">```</span></span>
+<span id="cb29-98"><a href="#cb29-98"></a></span>
+<span id="cb29-99"><a href="#cb29-99"></a>いまつかるpythonのバージョンを確認する。</span>
+<span id="cb29-100"><a href="#cb29-100"></a></span>
+<span id="cb29-101"><a href="#cb29-101"></a><span class="in">```shell</span></span>
+<span id="cb29-102"><a href="#cb29-102"></a><span class="ex">pyenv</span> versions</span>
+<span id="cb29-103"><a href="#cb29-103"></a><span class="in">```</span></span>
+<span id="cb29-104"><a href="#cb29-104"></a></span>
+<span id="cb29-105"><a href="#cb29-105"></a></span>
+<span id="cb29-106"><a href="#cb29-106"></a>次のコマンドでグローバルのpythonのバージョンを設定する。</span>
+<span id="cb29-107"><a href="#cb29-107"></a></span>
+<span id="cb29-108"><a href="#cb29-108"></a><span class="in">```shell</span></span>
+<span id="cb29-109"><a href="#cb29-109"></a><span class="ex">pyenv</span> global 3.9.7</span>
+<span id="cb29-110"><a href="#cb29-110"></a><span class="in">```</span></span>
+<span id="cb29-111"><a href="#cb29-111"></a></span>
+<span id="cb29-112"><a href="#cb29-112"></a>次のコマンドでpythonのバージョンを確認する。</span>
+<span id="cb29-113"><a href="#cb29-113"></a></span>
+<span id="cb29-114"><a href="#cb29-114"></a><span class="in">```shell</span></span>
+<span id="cb29-115"><a href="#cb29-115"></a><span class="ex">python</span> <span class="at">--version</span></span>
+<span id="cb29-116"><a href="#cb29-116"></a><span class="in">```</span></span>
+<span id="cb29-117"><a href="#cb29-117"></a></span>
+<span id="cb29-118"><a href="#cb29-118"></a>次のコマンドでローカルのpythonのバージョンを設定する。</span>
+<span id="cb29-119"><a href="#cb29-119"></a></span>
+<span id="cb29-120"><a href="#cb29-120"></a><span class="in">```shell</span></span>
+<span id="cb29-121"><a href="#cb29-121"></a><span class="ex">pyenv</span> local 3.9.7</span>
+<span id="cb29-122"><a href="#cb29-122"></a><span class="in">```</span></span>
+<span id="cb29-123"><a href="#cb29-123"></a></span>
+<span id="cb29-124"><a href="#cb29-124"></a>次のコマンドでローカルのpythonのバージョンを確認する。</span>
+<span id="cb29-125"><a href="#cb29-125"></a></span>
+<span id="cb29-126"><a href="#cb29-126"></a><span class="in">```shell</span></span>
+<span id="cb29-127"><a href="#cb29-127"></a><span class="ex">python</span> <span class="at">--version</span></span>
+<span id="cb29-128"><a href="#cb29-128"></a><span class="in">```</span></span>
+<span id="cb29-129"><a href="#cb29-129"></a></span>
+<span id="cb29-130"><a href="#cb29-130"></a>ローカルを設定すると、そのディレクトリ以下のpythonのバージョンが設定される。</span>
+<span id="cb29-131"><a href="#cb29-131"></a></span>
+<span id="cb29-132"><a href="#cb29-132"></a><span class="fu">## 注意点：パスの設定</span></span>
+<span id="cb29-133"><a href="#cb29-133"></a></span>
+<span id="cb29-134"><a href="#cb29-134"></a>pyenv-winを利用すると、pythonのバージョンを切り替えることができる。</span>
+<span id="cb29-135"><a href="#cb29-135"></a></span>
+<span id="cb29-136"><a href="#cb29-136"></a>もしpythonがシステム環境変数に含まれている場合には次のパスをそれらのパスよりも優先させる必要がある。</span>
+<span id="cb29-137"><a href="#cb29-137"></a></span>
+<span id="cb29-138"><a href="#cb29-138"></a><span class="in">```shell</span></span>
+<span id="cb29-139"><a href="#cb29-139"></a><span class="ex">%USERPROFILE%\.pyenv\pyenv-win\bin</span></span>
+<span id="cb29-140"><a href="#cb29-140"></a><span class="ex">%USERPROFILE%\.pyenv\pyenv-win\shims</span></span>
+<span id="cb29-141"><a href="#cb29-141"></a><span class="in">```</span></span>
+<span id="cb29-142"><a href="#cb29-142"></a></span>
+<span id="cb29-143"><a href="#cb29-143"></a></span>
+<span id="cb29-144"><a href="#cb29-144"></a><span class="fu">## アンインストール</span></span>
+<span id="cb29-145"><a href="#cb29-145"></a></span>
+<span id="cb29-146"><a href="#cb29-146"></a>パスを削除する。パスのフォルダを丸ごと削除する、でよいらしい。</span>
+<span id="cb29-147"><a href="#cb29-147"></a></span>
+<span id="cb29-148"><a href="#cb29-148"></a></span>
+<span id="cb29-149"><a href="#cb29-149"></a></span>
+<span id="cb29-150"><a href="#cb29-150"></a><span class="fu"># Poetry</span></span>
+<span id="cb29-151"><a href="#cb29-151"></a></span>
+<span id="cb29-152"><a href="#cb29-152"></a><span class="co">[</span><span class="ot">poetry</span><span class="co">](https://python-poetry.org/)</span></span>
+<span id="cb29-153"><a href="#cb29-153"></a></span>
+<span id="cb29-154"><a href="#cb29-154"></a><span class="fu">## インストール</span></span>
+<span id="cb29-155"><a href="#cb29-155"></a></span>
+<span id="cb29-156"><a href="#cb29-156"></a></span>
+<span id="cb29-157"><a href="#cb29-157"></a>次のコマンドで公式インストーラーからインストールが可能である。</span>
+<span id="cb29-158"><a href="#cb29-158"></a></span>
+<span id="cb29-159"><a href="#cb29-159"></a><span class="in">```shell</span></span>
+<span id="cb29-160"><a href="#cb29-160"></a><span class="kw">(</span><span class="ex">Invoke-WebRequest</span> <span class="at">-Uri</span> https://install.python-poetry.org <span class="at">-UseBasicParsing</span><span class="kw">)</span><span class="ex">.Content</span> <span class="kw">|</span> <span class="ex">python</span> <span class="at">-</span></span>
+<span id="cb29-161"><a href="#cb29-161"></a><span class="in">```</span></span>
+<span id="cb29-162"><a href="#cb29-162"></a></span>
+<span id="cb29-163"><a href="#cb29-163"></a>あとは次のフォルダのパスを通すことでよい。</span>
+<span id="cb29-164"><a href="#cb29-164"></a></span>
+<span id="cb29-165"><a href="#cb29-165"></a><span class="al">![](static/img/2025-01-03-03-27-48.png)</span></span>
+<span id="cb29-166"><a href="#cb29-166"></a></span>
+<span id="cb29-167"><a href="#cb29-167"></a></span>
+<span id="cb29-168"><a href="#cb29-168"></a>アンインストールは次のコマンドでアル。</span>
+<span id="cb29-169"><a href="#cb29-169"></a></span>
+<span id="cb29-170"><a href="#cb29-170"></a><span class="in">```shell</span></span>
+<span id="cb29-171"><a href="#cb29-171"></a><span class="ex">curl</span> <span class="at">-sSL</span> https://install.python-poetry.org <span class="kw">|</span> <span class="ex">python3</span> <span class="at">-</span> <span class="at">--uninstall</span></span>
+<span id="cb29-172"><a href="#cb29-172"></a><span class="in">```</span></span>
+<span id="cb29-173"><a href="#cb29-173"></a></span>
+<span id="cb29-174"><a href="#cb29-174"></a><span class="fu">## プジェクト</span></span>
+<span id="cb29-175"><a href="#cb29-175"></a></span>
+<span id="cb29-176"><a href="#cb29-176"></a>新規プロジェクトの場合と、既存のプロジェクトの場合がある。</span>
+<span id="cb29-177"><a href="#cb29-177"></a></span>
+<span id="cb29-178"><a href="#cb29-178"></a></span>
+<span id="cb29-179"><a href="#cb29-179"></a><span class="in">```shell</span></span>
+<span id="cb29-180"><a href="#cb29-180"></a><span class="ex">poetry</span> new my_project</span>
+<span id="cb29-181"><a href="#cb29-181"></a><span class="in">```</span></span>
+<span id="cb29-182"><a href="#cb29-182"></a></span>
+<span id="cb29-183"><a href="#cb29-183"></a>パッケージ開発でないときには次のコマンドで設定は適当な回答で大丈夫である。</span>
+<span id="cb29-184"><a href="#cb29-184"></a></span>
+<span id="cb29-185"><a href="#cb29-185"></a><span class="in">```shell</span></span>
+<span id="cb29-186"><a href="#cb29-186"></a><span class="bu">cd</span> my_project</span>
+<span id="cb29-187"><a href="#cb29-187"></a><span class="ex">poetry</span> init</span>
+<span id="cb29-188"><a href="#cb29-188"></a><span class="in">```</span></span>
+<span id="cb29-189"><a href="#cb29-189"></a></span>
+<span id="cb29-190"><a href="#cb29-190"></a>poetryは２つのプロジェクトモードがある。１つはパッケージモードで、もうひとつはnon package modeである。</span>
+<span id="cb29-191"><a href="#cb29-191"></a></span>
+<span id="cb29-192"><a href="#cb29-192"></a></span>
+<span id="cb29-193"><a href="#cb29-193"></a><span class="fu">## 起動</span></span>
+<span id="cb29-194"><a href="#cb29-194"></a></span>
+<span id="cb29-195"><a href="#cb29-195"></a>プロジェクトを立ち上げたら基本的には準備よいので、次のコマンドでプロジェクトを立ち上げる。</span>
+<span id="cb29-196"><a href="#cb29-196"></a>そうすると設定したプロジェクトが立ち上がる。このとき指定したpythonのインタプリタがインストールされている必要があるので、</span>
+<span id="cb29-197"><a href="#cb29-197"></a>事前にpyenvでインストールしておく必要がある。</span>
+<span id="cb29-198"><a href="#cb29-198"></a></span>
+<span id="cb29-199"><a href="#cb29-199"></a><span class="in">```shell</span></span>
+<span id="cb29-200"><a href="#cb29-200"></a><span class="ex">poetry</span> shell</span>
+<span id="cb29-201"><a href="#cb29-201"></a><span class="in">```</span></span>
+<span id="cb29-202"><a href="#cb29-202"></a></span>
+<span id="cb29-203"><a href="#cb29-203"></a><span class="fu">## その他</span></span>
+<span id="cb29-204"><a href="#cb29-204"></a></span>
+<span id="cb29-205"><a href="#cb29-205"></a><span class="fu">### 依存関係のインストール</span></span>
+<span id="cb29-206"><a href="#cb29-206"></a></span>
+<span id="cb29-207"><a href="#cb29-207"></a><span class="in">```shell</span></span>
+<span id="cb29-208"><a href="#cb29-208"></a><span class="ex">poetry</span> install</span>
+<span id="cb29-209"><a href="#cb29-209"></a><span class="in">```</span></span>
+<span id="cb29-210"><a href="#cb29-210"></a></span>
+<span id="cb29-211"><a href="#cb29-211"></a>パッケージのインストールは次のようにおこなう。</span>
+<span id="cb29-212"><a href="#cb29-212"></a></span>
+<span id="cb29-213"><a href="#cb29-213"></a><span class="in">```shell</span></span>
+<span id="cb29-214"><a href="#cb29-214"></a><span class="ex">poetry</span> add numpy</span>
+<span id="cb29-215"><a href="#cb29-215"></a><span class="in">```</span></span>
+<span id="cb29-216"><a href="#cb29-216"></a></span>
+<span id="cb29-217"><a href="#cb29-217"></a>デフォルトだと仮想環境はアプリケーションのディレクトリに作成されるため、プロジェクト直下に作成するには次のようにする。</span>
+<span id="cb29-218"><a href="#cb29-218"></a></span>
+<span id="cb29-219"><a href="#cb29-219"></a><span class="in">```shell</span></span>
+<span id="cb29-220"><a href="#cb29-220"></a><span class="ex">poetry</span> config virtualenvs.in-project true</span>
+<span id="cb29-221"><a href="#cb29-221"></a><span class="in">```</span></span>
+<span id="cb29-222"><a href="#cb29-222"></a></span>
+<span id="cb29-223"><a href="#cb29-223"></a>次のように設定すると任意のディレクトリに仮想環境を作成することができる。</span>
+<span id="cb29-224"><a href="#cb29-224"></a></span>
+<span id="cb29-225"><a href="#cb29-225"></a><span class="in">```shell</span></span>
+<span id="cb29-226"><a href="#cb29-226"></a><span class="ex">poetry</span> config virtualenvs.path <span class="op">&lt;</span>path<span class="op">&gt;</span></span>
+<span id="cb29-227"><a href="#cb29-227"></a><span class="in">```</span></span>
+<span id="cb29-228"><a href="#cb29-228"></a></span>
+<span id="cb29-229"><a href="#cb29-229"></a>設定したconfigは次のコマンドで確認できる。</span>
+<span id="cb29-230"><a href="#cb29-230"></a></span>
+<span id="cb29-231"><a href="#cb29-231"></a><span class="in">```shell</span></span>
+<span id="cb29-232"><a href="#cb29-232"></a><span class="ex">poetry</span> config <span class="at">--list</span></span>
+<span id="cb29-233"><a href="#cb29-233"></a><span class="in">```</span></span>
+<span id="cb29-234"><a href="#cb29-234"></a></span>
+<span id="cb29-235"><a href="#cb29-235"></a></span>
+<span id="cb29-236"><a href="#cb29-236"></a>仮想環境を削除するには次のコマンドを実行する。</span>
+<span id="cb29-237"><a href="#cb29-237"></a></span>
+<span id="cb29-238"><a href="#cb29-238"></a><span class="in">```shell</span></span>
+<span id="cb29-239"><a href="#cb29-239"></a><span class="ex">poetry</span> env list 仮想環境を調べる</span>
+<span id="cb29-240"><a href="#cb29-240"></a><span class="ex">poetry</span> env remove <span class="op">&lt;</span>仮想環境パスまたはPythonバージョン<span class="op">&gt;</span></span>
+<span id="cb29-241"><a href="#cb29-241"></a><span class="in">```</span></span>
+<span id="cb29-242"><a href="#cb29-242"></a></span>
+<span id="cb29-243"><a href="#cb29-243"></a></span>
+<span id="cb29-244"><a href="#cb29-244"></a>poetryは通常の依存関係と開発用の依存関係を区別している。開発用の依存関係をインストールするには次のコマンドを実行する。</span>
+<span id="cb29-245"><a href="#cb29-245"></a></span>
+<span id="cb29-246"><a href="#cb29-246"></a><span class="in">```shell</span></span>
+<span id="cb29-247"><a href="#cb29-247"></a><span class="ex">poetry</span> add <span class="at">--dev</span> pytest</span>
+<span id="cb29-248"><a href="#cb29-248"></a><span class="in">```</span></span>
+<span id="cb29-249"><a href="#cb29-249"></a></span>
+<span id="cb29-250"><a href="#cb29-250"></a>開発用の依存関係をインストールするには次のコマンドを実行する。</span>
+<span id="cb29-251"><a href="#cb29-251"></a></span>
+<span id="cb29-252"><a href="#cb29-252"></a><span class="in">```shell</span></span>
+<span id="cb29-253"><a href="#cb29-253"></a><span class="ex">poetry</span> install <span class="at">--with</span> dev</span>
+<span id="cb29-254"><a href="#cb29-254"></a><span class="in">```</span></span>
+<span id="cb29-255"><a href="#cb29-255"></a></span>
+<span id="cb29-256"><a href="#cb29-256"></a>開発用の依存関係を除いてインストールするには次のようにする</span>
+<span id="cb29-257"><a href="#cb29-257"></a></span>
+<span id="cb29-258"><a href="#cb29-258"></a><span class="in">```shell</span></span>
+<span id="cb29-259"><a href="#cb29-259"></a><span class="ex">poetry</span> install <span class="at">--no-dev</span></span>
+<span id="cb29-260"><a href="#cb29-260"></a><span class="in">```</span></span>
+<span id="cb29-261"><a href="#cb29-261"></a></span>
+<span id="cb29-262"><a href="#cb29-262"></a>開発作業では次のコマンドでリンターなどを実行する。</span>
+<span id="cb29-263"><a href="#cb29-263"></a></span>
+<span id="cb29-264"><a href="#cb29-264"></a><span class="in">```shell</span></span>
+<span id="cb29-265"><a href="#cb29-265"></a><span class="ex">poetry</span> run pytest</span>
+<span id="cb29-266"><a href="#cb29-266"></a><span class="ex">poetry</span> run flake8</span>
+<span id="cb29-267"><a href="#cb29-267"></a><span class="in">```</span></span>
+<span id="cb29-268"><a href="#cb29-268"></a></span>
+<span id="cb29-269"><a href="#cb29-269"></a></span>
+<span id="cb29-270"><a href="#cb29-270"></a></span>
+<span id="cb29-271"><a href="#cb29-271"></a>プロジェクトの情報を確認するには次のコマンドを実行する。</span>
+<span id="cb29-272"><a href="#cb29-272"></a></span>
+<span id="cb29-273"><a href="#cb29-273"></a><span class="in">```shell</span></span>
+<span id="cb29-274"><a href="#cb29-274"></a><span class="ex">poetry</span> show</span>
+<span id="cb29-275"><a href="#cb29-275"></a><span class="in">```</span></span>
+<span id="cb29-276"><a href="#cb29-276"></a></span>
+<span id="cb29-277"><a href="#cb29-277"></a><span class="fu"># uv</span></span>
+<span id="cb29-278"><a href="#cb29-278"></a></span>
+<span id="cb29-279"><a href="#cb29-279"></a><span class="fu">## はじめに</span></span>
+<span id="cb29-280"><a href="#cb29-280"></a></span>
+<span id="cb29-281"><a href="#cb29-281"></a><span class="ss">- </span><span class="co">[</span><span class="ot">公式サイト</span><span class="co">](https://docs.astral.sh/uv/getting-started/installation/)</span></span>
+<span id="cb29-282"><a href="#cb29-282"></a></span>
+<span id="cb29-283"><a href="#cb29-283"></a><span class="fu">## Installing</span></span>
+<span id="cb29-284"><a href="#cb29-284"></a></span>
+<span id="cb29-285"><a href="#cb29-285"></a><span class="in">```powershell</span></span>
+<span id="cb29-286"><a href="#cb29-286"></a><span class="in">powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</span></span>
+<span id="cb29-287"><a href="#cb29-287"></a><span class="in">```</span></span>
+<span id="cb29-288"><a href="#cb29-288"></a></span>
+<span id="cb29-289"><a href="#cb29-289"></a></span>
+<span id="cb29-290"><a href="#cb29-290"></a><span class="al">![](static/img/2025-07-15-09-29-46.png)</span></span>
+<span id="cb29-291"><a href="#cb29-291"></a></span>
+<span id="cb29-292"><a href="#cb29-292"></a>消したいときにはファイルを直接消してしまって大丈夫です。</span>
+<span id="cb29-293"><a href="#cb29-293"></a></span>
+<span id="cb29-294"><a href="#cb29-294"></a><span class="in">```shell</span></span>
+<span id="cb29-295"><a href="#cb29-295"></a><span class="fu">rm</span> <span class="va">$HOME</span><span class="dt">\.</span>local<span class="dt">\b</span>in<span class="dt">\u</span>v.exe</span>
+<span id="cb29-296"><a href="#cb29-296"></a><span class="fu">rm</span> <span class="va">$HOME</span><span class="dt">\.</span>local<span class="dt">\b</span>in<span class="dt">\u</span>vx.exe</span>
+<span id="cb29-297"><a href="#cb29-297"></a><span class="in">```</span></span>
+<span id="cb29-298"><a href="#cb29-298"></a></span>
+<span id="cb29-299"><a href="#cb29-299"></a></span>
+<span id="cb29-300"><a href="#cb29-300"></a></span>
+<span id="cb29-301"><a href="#cb29-301"></a><span class="fu">## Features</span></span>
+<span id="cb29-302"><a href="#cb29-302"></a></span>
+<span id="cb29-303"><a href="#cb29-303"></a><span class="al">![](static/img/2025-07-15-09-34-10.png)</span></span>
+<span id="cb29-304"><a href="#cb29-304"></a></span>
+<span id="cb29-305"><a href="#cb29-305"></a></span>
+<span id="cb29-306"><a href="#cb29-306"></a><span class="fu">## プロジェクト</span></span>
+<span id="cb29-307"><a href="#cb29-307"></a></span>
+<span id="cb29-308"><a href="#cb29-308"></a><span class="fu">### プロジェクト作成</span></span>
+<span id="cb29-309"><a href="#cb29-309"></a></span>
+<span id="cb29-310"><a href="#cb29-310"></a><span class="ss">- </span>pyprojectがないときに<span class="in">`--no-workspace`</span>を使う</span>
+<span id="cb29-311"><a href="#cb29-311"></a><span class="ss">- </span>pyprojectがあるときには<span class="in">`--no-workspace`</span>を使わない</span>
+<span id="cb29-312"><a href="#cb29-312"></a></span>
+<span id="cb29-313"><a href="#cb29-313"></a><span class="in">```shell</span></span>
+<span id="cb29-314"><a href="#cb29-314"></a><span class="ex">uv</span> init dev <span class="at">--no-workspace</span></span>
+<span id="cb29-315"><a href="#cb29-315"></a><span class="in">```</span></span>
+<span id="cb29-316"><a href="#cb29-316"></a></span>
+<span id="cb29-317"><a href="#cb29-317"></a></span>
+<span id="cb29-318"><a href="#cb29-318"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

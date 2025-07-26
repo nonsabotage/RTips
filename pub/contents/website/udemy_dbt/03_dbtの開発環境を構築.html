@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>03 DBTの開発環境を構築しよう – R Tips</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../contents/website/udemy_dbt/index.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-8a9e4a621a1f805e754198e2824b0cf1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">R Tips</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-home" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Home</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-home">    
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">Home</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-web-site" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Web Site</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-web-site">    
+        <li class="dropdown-header">ALL</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/r4ds2e/index.html">
+ <span class="dropdown-text">R for Data Science 2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/leaflet4r/index.html">
+ <span class="dropdown-text">Leaflet for R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/analizeUSCensus/index.html">
+ <span class="dropdown-text">Analyzing US Census Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/graphic_design_with_ggplot2/index.html">
+ <span class="dropdown-text">Graphic Design with ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/udemy_database-specialist/am-2-note.html">
+ <span class="dropdown-text">Udemyデータベーススペシャリスト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/quarto/guide/index.html">
+ <span class="dropdown-text">QuartoDashboard</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/website/udemy_dbt/index.html">
+ <span class="dropdown-text">Udemy dbt</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-books" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">books</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-books">    
+        <li class="dropdown-header">note</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/13_教員のため教育データ分析/index.html">
+ <span class="dropdown-text">教員のための教育データ分析</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/14_入門統計学/index.html">
+ <span class="dropdown-text">入門統計学</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/15_プロになるためのWeb技術入門/index.html">
+ <span class="dropdown-text">プロになるためのWeb技術入門</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/01_Rによる実証分析_2e/index.html">
+ <span class="dropdown-text">Rによる実証分析2e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/02_因果推論ミックステープ/index.html">
+ <span class="dropdown-text">因果推論ミックステープ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/03_数値シミュレーションで身につける統計の仕組み/index.html">
+ <span class="dropdown-text">数値シミュレーションで学ぶ統計の仕組み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/05_統計的因果推論の理論と実際/index.html">
+ <span class="dropdown-text">統計的因果推論の理論と実際</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/06_Pythonではじめる数理最適化/index.html">
+ <span class="dropdown-text">Pythonではじめる数理最適化 2nd</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/07_NumpyInfinity/ch01_Pythonの基礎.html">
+ <span class="dropdown-text">Numpy Infinity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/08_handbook_lightgbm/cl02_データ理解.html">
+ <span class="dropdown-text">LightGBMハンドブック</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/09_Pythonで学ぶ数理最適化/ch01-基礎編.html">
+ <span class="dropdown-text">Pythonで学ぶ数理最適化</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/10_爆速Python/ch02_組込み機能のパフォーマンスを最大限に引き出す.html">
+ <span class="dropdown-text">爆速Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/11_Pythonではじめる時系列分析入門/index.html">
+ <span class="dropdown-text">Pythonではじめる時系列分析</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/books/12_いきなりPython/index.html">
+ <span class="dropdown-text">いきなりPython</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-libs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">libs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-libs">    
+        <li class="dropdown-header">R</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/argparse/index.html">
+ <span class="dropdown-text">argparse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/arrow/index.html">
+ <span class="dropdown-text">arrow</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/assertr/index.html">
+ <span class="dropdown-text">assertr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/base/working.html">
+ <span class="dropdown-text">base</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/corrr/working.html">
+ <span class="dropdown-text">corrr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ComplexHeatmap/working.html">
+ <span class="dropdown-text">ComplexHeatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/duckdb/working.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/dbplyr/working.html">
+ <span class="dropdown-text">dbplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/DBI/working.html">
+ <span class="dropdown-text">DBI</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggspatial/working.html">
+ <span class="dropdown-text">ggspatial</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/GGally/working.html">
+ <span class="dropdown-text">GGally</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggtext/working.html">
+ <span class="dropdown-text">ggtext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggfittext/working.html">
+ <span class="dropdown-text">ggfittext</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/gganimate/working.html">
+ <span class="dropdown-text">gganimate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggmosaic/working.html">
+ <span class="dropdown-text">ggmosaic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/ggplot2/index.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/legendry/index.html">
+ <span class="dropdown-text">legendry</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/treemapify/working.html">
+ <span class="dropdown-text">treemapify</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/tidyverse/index.html">
+ <span class="dropdown-text">tidyverse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/sf/working.html">
+ <span class="dropdown-text">sf</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/igraph/index.html">
+ <span class="dropdown-text">igraph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/patchwork/working.html">
+ <span class="dropdown-text">pathcwork</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/plotly/index.html">
+ <span class="dropdown-text">plotly</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/R/pointblank/index.html">
+ <span class="dropdown-text">pointblank</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Python</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/pydantic/index.html">
+ <span class="dropdown-text">pydantic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/pandera/index.html">
+ <span class="dropdown-text">pandera</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/duckdb/index.html">
+ <span class="dropdown-text">duckdb</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/sqlite3/index.html">
+ <span class="dropdown-text">sqlite3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/libs/Python/plotnine/index.html">
+ <span class="dropdown-text">plotnine</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/ggplot2/index.html">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/development/index.html">
+ <span class="dropdown-text">development</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/notes/development/index.html">
+ <span class="dropdown-text">bash</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-utils" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Utils</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-utils">    
+        <li class="dropdown-header">Utils</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/utils/01_写真GPS/index.html">
+ <span class="dropdown-text">01_写真GPS</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">sql</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li class="dropdown-header">DuckDB</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/documentaion/index.html">
+ <span class="dropdown-text">Documentaion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/sql-bigdata/index.html">
+ <span class="dropdown-text">ビッグデータレシピ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/mytips/01_.html">
+ <span class="dropdown-text">My Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/sql/duckdb/SpatialDataAnalysiswithDuckDB/working.html">
+ <span class="dropdown-text">Spatial DataAnalysis with DuckDB</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-test" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Test</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-test">    
+        <li class="dropdown-header">Test</li>
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/bash/quick_sample.html">
+ <span class="dropdown-text">Bash</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R/renv.html">
+ <span class="dropdown-text">R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/R2/renv.html">
+ <span class="dropdown-text">R2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../contents/test/python/notebook.html">
+ <span class="dropdown-text">Python</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ALL</li><li class="breadcrumb-item"><a href="../../../contents/website/udemy_dbt/index.html">Udemy dbt</a></li><li class="breadcrumb-item"><a href="../../../contents/website/udemy_dbt/03_dbtの開発環境を構築.html">03 DBTの開発環境を構築しよう</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">ALL</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">R for Data Science 2e</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/r4ds2e/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Import</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/r4ds2e/Import/ch23_arrow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23 Arrow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Leaflet for R</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch01_map_object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Map Widget</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch02_basemaps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basemap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch03_markers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch04_popups_and_shapes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Popups and Shapes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch05_lines_and_shapes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lines and Shapes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch06_geojson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with GeoJSON and TopoJSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch07_raster_images.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raster Images</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch08_shiny_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shiny Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch09_Colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch10_Legends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Legends</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch11_show_hide_layers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Show/Hide Layers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch12_choropleths.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choropleths</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/leaflet4r/chapters/ch13_projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projections</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Analyzing US Census Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/ch06_mapping_census_data_with_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mapping Census data with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/analizeUSCensus/ch07_spatial_analysis_with_us_census_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spatial analysis with US Census data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Graphic Design with ggplot2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch01_concepts_of_the_ggplot2_packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Concepts of the ggplot2 Packages pt 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch02_concepts_of_the_ggplot2_part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Concepts of the ggplot2 Packages pt 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch03_data_communication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Communication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch04_working_with_labels_and_annotations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Labels and Annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch06_working_with_colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/graphic_design_with_ggplot2/ch07_working_with_layouts_and_composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Layouts and Composition</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Udemyデータベーススペシャリスト</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/udemy_database-specialist/am-2-note.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Udemy 午前2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">QuartoDashboard</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/quarto/guide/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/quarto/guide/01_dashboard-sample-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Development Indicators by Continent</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Udemy dbt</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/udemy_dbt/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../contents/website/udemy_dbt/03_dbtの開発環境を構築.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">03 DBTの開発環境を構築しよう</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#dbtの概要" id="toc-dbtの概要" class="nav-link active" data-scroll-target="#dbtの概要"><span class="header-section-number">1</span> dbtの概要</a>
+  <ul class="collapse">
+  <li><a href="#dbtの利点" id="toc-dbtの利点" class="nav-link" data-scroll-target="#dbtの利点"><span class="header-section-number">1.1</span> dbtの利点</a></li>
+  <li><a href="#公式サンプルデータセット" id="toc-公式サンプルデータセット" class="nav-link" data-scroll-target="#公式サンプルデータセット"><span class="header-section-number">1.2</span> 公式サンプルデータセット</a></li>
+  <li><a href="#層構成" id="toc-層構成" class="nav-link" data-scroll-target="#層構成"><span class="header-section-number">1.3</span> 3層構成</a></li>
+  </ul></li>
+  <li><a href="#使い方" id="toc-使い方" class="nav-link" data-scroll-target="#使い方"><span class="header-section-number">2</span> 使い方</a>
+  <ul class="collapse">
+  <li><a href="#dbt" id="toc-dbt" class="nav-link" data-scroll-target="#dbt"><span class="header-section-number">2.1</span> dbt</a>
+  <ul class="collapse">
+  <li><a href="#ビルド" id="toc-ビルド" class="nav-link" data-scroll-target="#ビルド"><span class="header-section-number">2.1.1</span> ビルド</a></li>
+  <li><a href="#テスト" id="toc-テスト" class="nav-link" data-scroll-target="#テスト"><span class="header-section-number">2.1.2</span> テスト</a></li>
+  <li><a href="#ドキュメント" id="toc-ドキュメント" class="nav-link" data-scroll-target="#ドキュメント"><span class="header-section-number">2.1.3</span> ドキュメント</a></li>
+  <li><a href="#ソース" id="toc-ソース" class="nav-link" data-scroll-target="#ソース"><span class="header-section-number">2.1.4</span> ソース</a></li>
+  <li><a href="#インクリメンタル" id="toc-インクリメンタル" class="nav-link" data-scroll-target="#インクリメンタル"><span class="header-section-number">2.1.5</span> インクリメンタル</a></li>
+  <li><a href="#マクロとコンパイル" id="toc-マクロとコンパイル" class="nav-link" data-scroll-target="#マクロとコンパイル"><span class="header-section-number">2.1.6</span> マクロとコンパイル</a></li>
+  <li><a href="#dbt-utils" id="toc-dbt-utils" class="nav-link" data-scroll-target="#dbt-utils"><span class="header-section-number">2.1.7</span> dbt-Utils</a></li>
+  <li><a href="#スナップショット" id="toc-スナップショット" class="nav-link" data-scroll-target="#スナップショット"><span class="header-section-number">2.1.8</span> スナップショット</a></li>
+  </ul></li>
+  <li><a href="#poetry" id="toc-poetry" class="nav-link" data-scroll-target="#poetry"><span class="header-section-number">2.2</span> poetry</a></li>
+  </ul></li>
+  <li><a href="#dbt_project.yml" id="toc-dbt_project.yml" class="nav-link" data-scroll-target="#dbt_project.yml"><span class="header-section-number">3</span> dbt_project.yml</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ALL</li><li class="breadcrumb-item"><a href="../../../contents/website/udemy_dbt/index.html">Udemy dbt</a></li><li class="breadcrumb-item"><a href="../../../contents/website/udemy_dbt/03_dbtの開発環境を構築.html">03 DBTの開発環境を構築しよう</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">03 DBTの開発環境を構築しよう</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">July 25, 2025</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="dbtの概要" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> dbtの概要</h1>
+<section id="dbtの利点" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="dbtの利点"><span class="header-section-number">1.1</span> dbtの利点</h2>
+<ol type="1">
+<li>Jinjaテンプレートエンジンを使用してSQLを拡張</li>
+<li>YAMLファイルでモデルのメタデータを管理</li>
+<li>ソフトウェア開発の手法をデータ分析に適用</li>
+</ol>
+<p><a href="static/img/2025-07-15-06-05-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="static/img/2025-07-15-06-05-14.png" class="img-fluid"></a></p>
+</section>
+<section id="公式サンプルデータセット" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="公式サンプルデータセット"><span class="header-section-number">1.2</span> 公式サンプルデータセット</h2>
+<ul>
+<li><a href="https://github.com/dbt-labs/jaffle-shop">jaffle shop</a></li>
+</ul>
+</section>
+<section id="層構成" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="層構成"><span class="header-section-number">1.3</span> 3層構成</h2>
+<ul>
+<li>seeds
+<ul>
+<li>raw</li>
+</ul></li>
+<li>staging
+<ul>
+<li>stg</li>
+</ul></li>
+<li>marts
+<ul>
+<li>fact/dim</li>
+</ul></li>
+</ul>
+<p><a href="static/img/2025-07-15-06-10-31.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="static/img/2025-07-15-06-10-31.png" class="img-fluid"></a></p>
+</section>
+</section>
+<section id="使い方" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 使い方</h1>
+<section id="dbt" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="dbt"><span class="header-section-number">2.1</span> dbt</h2>
+<section id="ビルド" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="ビルド"><span class="header-section-number">2.1.1</span> ビルド</h3>
+<p>jaffle_shopにカレントディレクトリを移動して、dbtを実行します</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">poetry</span> run dbt run <span class="at">--profiles-dir</span> . </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>特定のテーブルだけを更新するとき</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">poetry</span> run dbt run <span class="at">--select</span> my_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="テスト" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="テスト"><span class="header-section-number">2.1.2</span> テスト</h3>
+<p>テストを実行したい。modelsの下に、<code>schema.yaml</code>を作成して、テストを定義します。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># すべてのテストを実行</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="ex">poetry</span> run dbt test <span class="at">--profiles-dir</span> .</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># 特定のモデルのテストのみ実行</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="ex">poetry</span> run dbt test <span class="at">--select</span> stg_customers <span class="at">--profiles-dir</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>カスタムのテストをおこないたいときは、<code>tests</code>ディレクトリにSQLファイルを作成します。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">poetry</span> run dbt test <span class="at">--select</span> assert_order_has_items <span class="at">--profiles-dir</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>dbtのカスタムテストでは「例外」を返す形で定義する。 つまり、期待値は<code>0</code>であるようなクエリを定義して、そのクエリがレコードを返すようだとテストが失敗ということになります。</p>
+</section>
+<section id="ドキュメント" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="ドキュメント"><span class="header-section-number">2.1.3</span> ドキュメント</h3>
+<p>ドキュメントを生成するときには次のコマンドを実行する。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">poetry</span> run dbt docs generate <span class="at">--profiles-dir</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>サーバーの立ち上げ</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="ex">poetry</span> run dbt docs serve <span class="at">--profiles-dir</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="ソース" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="ソース"><span class="header-section-number">2.1.4</span> ソース</h3>
+<p>dbtで追加したわけでないテーブルについては、ソースとして、schema.yamlに定義します。 そのときに, databaseやschemaを指定する必要があり, それに対して, 名前が付くという形になります。</p>
+<p>カラム定義はテスト用なので必須ではない。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># ソースが正しく定義されているか確認</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="ex">poetry</span> run dbt list <span class="at">--resource-type</span> source <span class="at">--profiles-dir</span> .</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># ソースデータの鮮度を確認（freshness設定がある場合）</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="ex">poetry</span> run dbt source freshness <span class="at">--profiles-dir</span> .</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co"># ソース定義に含まれるテストを実行</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="ex">poetry</span> run dbt test <span class="at">--select</span> <span class="st">"source:*"</span> <span class="at">--profiles-dir</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="インクリメンタル" class="level3" data-number="2.1.5">
+<h3 data-number="2.1.5" class="anchored" data-anchor-id="インクリメンタル"><span class="header-section-number">2.1.5</span> インクリメンタル</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># 初回実行（フルリフレッシュ）</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="ex">poetry</span> run dbt run <span class="at">--select</span> fact_orders_incremental <span class="at">--profiles-dir</span> .</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># 2回目以降の実行（増分のみ）</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="ex">poetry</span> run dbt run <span class="at">--select</span> fact_orders_incremental <span class="at">--profiles-dir</span> .</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co"># 強制的にフルリフレッシュ</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="ex">poetry</span> run dbt run <span class="at">--select</span> fact_orders_incremental <span class="at">--full-refresh</span> <span class="at">--profiles-dir</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="マクロとコンパイル" class="level3" data-number="2.1.6">
+<h3 data-number="2.1.6" class="anchored" data-anchor-id="マクロとコンパイル"><span class="header-section-number">2.1.6</span> マクロとコンパイル</h3>
+<p>マクロを定義して、SQLの中で使うことができます。</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="ex">{{</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="ex">config</span><span class="er">(</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>        <span class="va">materialized</span><span class="op">=</span><span class="st">'table'</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="kw">)</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="er">}}</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="cf">select</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>    <span class="ex">store_id,</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>    <span class="ex">{%</span> for product_type in get_product_types<span class="er">(</span><span class="kw">)</span> <span class="ex">%}</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>    <span class="ex">count</span><span class="er">(</span><span class="ex">distinct</span> case when p.type = <span class="st">'{{ product_type }}'</span> then i.sku end<span class="kw">)</span> <span class="fu">as</span> {{ product_type }}_product_count</span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="ex">{%</span> if not loop.last %},{% endif %}</span>
+<span id="cb9-13"><a href="#cb9-13"></a>    <span class="ex">{%</span> endfor %}</span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="ex">from</span> {{ ref<span class="er">(</span><span class="st">'stg_orders'</span><span class="kw">)</span> <span class="er">}}</span> <span class="ex">o</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="fu">join</span> {{ ref<span class="er">(</span><span class="st">'stg_items'</span><span class="kw">)</span> <span class="er">}}</span> <span class="ex">i</span> on o.order_id = i.order_id</span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="fu">join</span> {{ ref<span class="er">(</span><span class="st">'stg_products'</span><span class="kw">)</span> <span class="er">}}</span> <span class="ex">p</span> on i.product_sku = p.product_sku</span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="ex">group</span> by store_id</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>コンパイルをおこなう</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="ex">poetry</span> run dbt compile <span class="at">--select</span> product_count_by_store <span class="at">--profiles-dir</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="dbt-utils" class="level3" data-number="2.1.7">
+<h3 data-number="2.1.7" class="anchored" data-anchor-id="dbt-utils"><span class="header-section-number">2.1.7</span> dbt-Utils</h3>
+<p>dbt-utilsを使うと、dbt側で作成された便利なマクロが使えます。</p>
+<p><code>packages.yml</code>を作成する. 次を実行するとUtilsがインストールされます。</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="ex">dbt</span> deps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="スナップショット" class="level3" data-number="2.1.8">
+<h3 data-number="2.1.8" class="anchored" data-anchor-id="スナップショット"><span class="header-section-number">2.1.8</span> スナップショット</h3>
+<p>スナップショットを作成することで, マスタの変更履歴などを管理することができる</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="ex">{%</span> snapshot customers_snapshot %}</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="ex">{{</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="ex">config</span><span class="er">(</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>      <span class="va">target_schema</span><span class="op">=</span><span class="st">'snapshots'</span>,</span>
+<span id="cb12-6"><a href="#cb12-6"></a>      <span class="va">unique_key</span><span class="op">=</span><span class="st">'id'</span>,</span>
+<span id="cb12-7"><a href="#cb12-7"></a>      <span class="va">strategy</span><span class="op">=</span><span class="st">'check'</span>,</span>
+<span id="cb12-8"><a href="#cb12-8"></a>      <span class="va">check_cols</span><span class="op">=</span><span class="pp">[</span><span class="st">'name'</span><span class="pp">]</span>,</span>
+<span id="cb12-9"><a href="#cb12-9"></a>    <span class="kw">)</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="er">}}</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="cf">select</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>    <span class="ex">*</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="ex">from</span> {{ source<span class="er">(</span><span class="st">'jaffle_shop_raw'</span><span class="ex">,</span> <span class="st">'customers'</span><span class="kw">)</span> <span class="er">}}</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="ex">{%</span> endsnapshot %}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="ex">poetry</span> run dbt snapshot <span class="at">--profiles-dir</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="poetry" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="poetry"><span class="header-section-number">2.2</span> poetry</h2>
+<p>poetryのバージョンがおかしいとき</p>
+<p><a href="static/img/2025-07-25-02-38-38.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="static/img/2025-07-25-02-38-38.png" class="img-fluid"></a></p>
+<p>poetryの依存関係がおかしいとき, pyprojectを変数して, 一旦ロックして, installし直す</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="ex">poetry</span> lock</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="ex">poetry</span> install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="dbt_project.yml" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> dbt_project.yml</h1>
+<p>dbtはプロジェクトの設定と、プロファイルの設定を分けて管理します。</p>
+<p>dbtプロジェクトの設定は、<code>dbt_project.yml</code>に記述します。</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">'jaffle_shop'</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">'1.0.0'</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="fu">config-version</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="fu">profile</span><span class="kw">:</span><span class="at"> </span><span class="st">'jaffle_shop'</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="fu">source-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'models'</span><span class="kw">]</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="fu">analysis-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'analysis'</span><span class="kw">]</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="fu">test-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'tests'</span><span class="kw">]</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="fu">data-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'data'</span><span class="kw">]</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="fu">macro-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'macros'</span><span class="kw">]</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="fu">snapshot-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'snapshots'</span><span class="kw">]</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="fu">target-path</span><span class="kw">:</span><span class="at"> </span><span class="st">'target'</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="fu">clean-targets</span><span class="kw">:</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">'target'</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">'dbt_modules'</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="fu">models</span><span class="kw">:</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="at">    </span><span class="fu">jaffle_shop</span><span class="kw">:</span></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="at">        </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> view</span></span>
+<span id="cb15-19"><a href="#cb15-19"></a><span class="at">        </span><span class="fu">staging</span><span class="kw">:</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> view</span></span>
+<span id="cb15-21"><a href="#cb15-21"></a><span class="at">        </span><span class="fu">marts</span><span class="kw">:</span></span>
+<span id="cb15-22"><a href="#cb15-22"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb15-23"><a href="#cb15-23"></a><span class="at">        </span><span class="fu">seeds</span><span class="kw">:</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb15-25"><a href="#cb15-25"></a><span class="at">        </span><span class="fu">snapshots</span><span class="kw">:</span></span>
+<span id="cb15-26"><a href="#cb15-26"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> incremental</span></span>
+<span id="cb15-27"><a href="#cb15-27"></a><span class="at">        </span><span class="fu">tests</span><span class="kw">:</span></span>
+<span id="cb15-28"><a href="#cb15-28"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb15-29"><a href="#cb15-29"></a><span class="at">        </span><span class="fu">analysis</span><span class="kw">:</span></span>
+<span id="cb15-30"><a href="#cb15-30"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb15-31"><a href="#cb15-31"></a><span class="at">        </span><span class="fu">macros</span><span class="kw">:</span></span>
+<span id="cb15-32"><a href="#cb15-32"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> macro</span></span>
+<span id="cb15-33"><a href="#cb15-33"></a><span class="at">        </span><span class="fu">sources</span><span class="kw">:</span></span>
+<span id="cb15-34"><a href="#cb15-34"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> source</span></span>
+<span id="cb15-35"><a href="#cb15-35"></a><span class="at">        </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb15-36"><a href="#cb15-36"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../contents/website/udemy_dbt/index.html" class="pagination-link" aria-label="はじめに">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">はじめに</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">--- </span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="an">title:</span><span class="co"> "03 DBTの開発環境を構築しよう"</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">    cache: true</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="an">filters:</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">    - lightbox</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="an">lightbox:</span><span class="co"> auto</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co">---</span> </span>
+<span id="cb16-10"><a href="#cb16-10"></a></span>
+<span id="cb16-11"><a href="#cb16-11"></a><span class="fu"># dbtの概要</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a></span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="fu">## dbtの利点</span></span>
+<span id="cb16-14"><a href="#cb16-14"></a></span>
+<span id="cb16-15"><a href="#cb16-15"></a><span class="ss">1. </span>Jinjaテンプレートエンジンを使用してSQLを拡張</span>
+<span id="cb16-16"><a href="#cb16-16"></a><span class="ss">2. </span>YAMLファイルでモデルのメタデータを管理</span>
+<span id="cb16-17"><a href="#cb16-17"></a><span class="ss">3. </span>ソフトウェア開発の手法をデータ分析に適用</span>
+<span id="cb16-18"><a href="#cb16-18"></a></span>
+<span id="cb16-19"><a href="#cb16-19"></a><span class="al">![](static/img/2025-07-15-06-05-14.png)</span></span>
+<span id="cb16-20"><a href="#cb16-20"></a></span>
+<span id="cb16-21"><a href="#cb16-21"></a><span class="fu">## 公式サンプルデータセット</span></span>
+<span id="cb16-22"><a href="#cb16-22"></a></span>
+<span id="cb16-23"><a href="#cb16-23"></a><span class="ss">- </span><span class="co">[</span><span class="ot">jaffle shop</span><span class="co">](https://github.com/dbt-labs/jaffle-shop)</span></span>
+<span id="cb16-24"><a href="#cb16-24"></a></span>
+<span id="cb16-25"><a href="#cb16-25"></a><span class="fu">## 3層構成</span></span>
+<span id="cb16-26"><a href="#cb16-26"></a></span>
+<span id="cb16-27"><a href="#cb16-27"></a><span class="ss">- </span>seeds</span>
+<span id="cb16-28"><a href="#cb16-28"></a><span class="ss">    - </span>raw</span>
+<span id="cb16-29"><a href="#cb16-29"></a><span class="ss">- </span>staging</span>
+<span id="cb16-30"><a href="#cb16-30"></a><span class="ss">    - </span>stg</span>
+<span id="cb16-31"><a href="#cb16-31"></a><span class="ss">- </span>marts</span>
+<span id="cb16-32"><a href="#cb16-32"></a><span class="ss">    - </span>fact/dim</span>
+<span id="cb16-33"><a href="#cb16-33"></a></span>
+<span id="cb16-34"><a href="#cb16-34"></a><span class="al">![](static/img/2025-07-15-06-10-31.png)</span></span>
+<span id="cb16-35"><a href="#cb16-35"></a></span>
+<span id="cb16-36"><a href="#cb16-36"></a><span class="fu"># 使い方</span></span>
+<span id="cb16-37"><a href="#cb16-37"></a></span>
+<span id="cb16-38"><a href="#cb16-38"></a><span class="fu">## dbt</span></span>
+<span id="cb16-39"><a href="#cb16-39"></a></span>
+<span id="cb16-40"><a href="#cb16-40"></a></span>
+<span id="cb16-41"><a href="#cb16-41"></a><span class="fu">### ビルド</span></span>
+<span id="cb16-42"><a href="#cb16-42"></a></span>
+<span id="cb16-43"><a href="#cb16-43"></a>jaffle_shopにカレントディレクトリを移動して、dbtを実行します</span>
+<span id="cb16-44"><a href="#cb16-44"></a></span>
+<span id="cb16-45"><a href="#cb16-45"></a><span class="in">```bash</span></span>
+<span id="cb16-46"><a href="#cb16-46"></a><span class="ex">poetry</span> run dbt run <span class="at">--profiles-dir</span> . </span>
+<span id="cb16-47"><a href="#cb16-47"></a><span class="in">```</span></span>
+<span id="cb16-48"><a href="#cb16-48"></a></span>
+<span id="cb16-49"><a href="#cb16-49"></a>特定のテーブルだけを更新するとき</span>
+<span id="cb16-50"><a href="#cb16-50"></a></span>
+<span id="cb16-51"><a href="#cb16-51"></a><span class="in">```bash</span></span>
+<span id="cb16-52"><a href="#cb16-52"></a><span class="ex">poetry</span> run dbt run <span class="at">--select</span> my_model</span>
+<span id="cb16-53"><a href="#cb16-53"></a><span class="in">```</span></span>
+<span id="cb16-54"><a href="#cb16-54"></a></span>
+<span id="cb16-55"><a href="#cb16-55"></a></span>
+<span id="cb16-56"><a href="#cb16-56"></a><span class="fu">### テスト</span></span>
+<span id="cb16-57"><a href="#cb16-57"></a></span>
+<span id="cb16-58"><a href="#cb16-58"></a>テストを実行したい。modelsの下に、<span class="in">`schema.yaml`</span>を作成して、テストを定義します。</span>
+<span id="cb16-59"><a href="#cb16-59"></a></span>
+<span id="cb16-60"><a href="#cb16-60"></a></span>
+<span id="cb16-61"><a href="#cb16-61"></a><span class="in">```bash</span></span>
+<span id="cb16-62"><a href="#cb16-62"></a><span class="co"># すべてのテストを実行</span></span>
+<span id="cb16-63"><a href="#cb16-63"></a><span class="ex">poetry</span> run dbt test <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-64"><a href="#cb16-64"></a></span>
+<span id="cb16-65"><a href="#cb16-65"></a><span class="co"># 特定のモデルのテストのみ実行</span></span>
+<span id="cb16-66"><a href="#cb16-66"></a><span class="ex">poetry</span> run dbt test <span class="at">--select</span> stg_customers <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-67"><a href="#cb16-67"></a><span class="in">```</span></span>
+<span id="cb16-68"><a href="#cb16-68"></a></span>
+<span id="cb16-69"><a href="#cb16-69"></a>カスタムのテストをおこないたいときは、<span class="in">`tests`</span>ディレクトリにSQLファイルを作成します。</span>
+<span id="cb16-70"><a href="#cb16-70"></a></span>
+<span id="cb16-71"><a href="#cb16-71"></a><span class="in">```bash</span></span>
+<span id="cb16-72"><a href="#cb16-72"></a><span class="ex">poetry</span> run dbt test <span class="at">--select</span> assert_order_has_items <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-73"><a href="#cb16-73"></a><span class="in">```</span></span>
+<span id="cb16-74"><a href="#cb16-74"></a></span>
+<span id="cb16-75"><a href="#cb16-75"></a>dbtのカスタムテストでは「例外」を返す形で定義する。</span>
+<span id="cb16-76"><a href="#cb16-76"></a>つまり、期待値は<span class="in">`0`</span>であるようなクエリを定義して、そのクエリがレコードを返すようだとテストが失敗ということになります。</span>
+<span id="cb16-77"><a href="#cb16-77"></a></span>
+<span id="cb16-78"><a href="#cb16-78"></a><span class="fu">### ドキュメント</span></span>
+<span id="cb16-79"><a href="#cb16-79"></a>ドキュメントを生成するときには次のコマンドを実行する。</span>
+<span id="cb16-80"><a href="#cb16-80"></a></span>
+<span id="cb16-81"><a href="#cb16-81"></a><span class="in">```bash</span></span>
+<span id="cb16-82"><a href="#cb16-82"></a><span class="ex">poetry</span> run dbt docs generate <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-83"><a href="#cb16-83"></a><span class="in">```</span></span>
+<span id="cb16-84"><a href="#cb16-84"></a></span>
+<span id="cb16-85"><a href="#cb16-85"></a>サーバーの立ち上げ</span>
+<span id="cb16-86"><a href="#cb16-86"></a></span>
+<span id="cb16-87"><a href="#cb16-87"></a></span>
+<span id="cb16-88"><a href="#cb16-88"></a><span class="in">```bash</span></span>
+<span id="cb16-89"><a href="#cb16-89"></a><span class="ex">poetry</span> run dbt docs serve <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-90"><a href="#cb16-90"></a><span class="in">```</span></span>
+<span id="cb16-91"><a href="#cb16-91"></a></span>
+<span id="cb16-92"><a href="#cb16-92"></a><span class="fu">### ソース</span></span>
+<span id="cb16-93"><a href="#cb16-93"></a></span>
+<span id="cb16-94"><a href="#cb16-94"></a>dbtで追加したわけでないテーブルについては、ソースとして、schema.yamlに定義します。</span>
+<span id="cb16-95"><a href="#cb16-95"></a>そのときに, databaseやschemaを指定する必要があり, それに対して, 名前が付くという形になります。</span>
+<span id="cb16-96"><a href="#cb16-96"></a></span>
+<span id="cb16-97"><a href="#cb16-97"></a>カラム定義はテスト用なので必須ではない。</span>
+<span id="cb16-98"><a href="#cb16-98"></a></span>
+<span id="cb16-99"><a href="#cb16-99"></a></span>
+<span id="cb16-100"><a href="#cb16-100"></a><span class="in">```bash</span></span>
+<span id="cb16-101"><a href="#cb16-101"></a><span class="co"># ソースが正しく定義されているか確認</span></span>
+<span id="cb16-102"><a href="#cb16-102"></a><span class="ex">poetry</span> run dbt list <span class="at">--resource-type</span> source <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-103"><a href="#cb16-103"></a></span>
+<span id="cb16-104"><a href="#cb16-104"></a><span class="co"># ソースデータの鮮度を確認（freshness設定がある場合）</span></span>
+<span id="cb16-105"><a href="#cb16-105"></a><span class="ex">poetry</span> run dbt source freshness <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-106"><a href="#cb16-106"></a></span>
+<span id="cb16-107"><a href="#cb16-107"></a><span class="co"># ソース定義に含まれるテストを実行</span></span>
+<span id="cb16-108"><a href="#cb16-108"></a><span class="ex">poetry</span> run dbt test <span class="at">--select</span> <span class="st">"source:*"</span> <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-109"><a href="#cb16-109"></a><span class="in">```</span></span>
+<span id="cb16-110"><a href="#cb16-110"></a></span>
+<span id="cb16-111"><a href="#cb16-111"></a></span>
+<span id="cb16-112"><a href="#cb16-112"></a><span class="fu">### インクリメンタル</span></span>
+<span id="cb16-113"><a href="#cb16-113"></a></span>
+<span id="cb16-114"><a href="#cb16-114"></a><span class="in">```bash</span></span>
+<span id="cb16-115"><a href="#cb16-115"></a><span class="co"># 初回実行（フルリフレッシュ）</span></span>
+<span id="cb16-116"><a href="#cb16-116"></a><span class="ex">poetry</span> run dbt run <span class="at">--select</span> fact_orders_incremental <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-117"><a href="#cb16-117"></a></span>
+<span id="cb16-118"><a href="#cb16-118"></a><span class="co"># 2回目以降の実行（増分のみ）</span></span>
+<span id="cb16-119"><a href="#cb16-119"></a><span class="ex">poetry</span> run dbt run <span class="at">--select</span> fact_orders_incremental <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-120"><a href="#cb16-120"></a></span>
+<span id="cb16-121"><a href="#cb16-121"></a><span class="co"># 強制的にフルリフレッシュ</span></span>
+<span id="cb16-122"><a href="#cb16-122"></a><span class="ex">poetry</span> run dbt run <span class="at">--select</span> fact_orders_incremental <span class="at">--full-refresh</span> <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-123"><a href="#cb16-123"></a><span class="in">```</span></span>
+<span id="cb16-124"><a href="#cb16-124"></a></span>
+<span id="cb16-125"><a href="#cb16-125"></a><span class="fu">### マクロとコンパイル</span></span>
+<span id="cb16-126"><a href="#cb16-126"></a></span>
+<span id="cb16-127"><a href="#cb16-127"></a>マクロを定義して、SQLの中で使うことができます。 </span>
+<span id="cb16-128"><a href="#cb16-128"></a></span>
+<span id="cb16-129"><a href="#cb16-129"></a><span class="in">```bash</span></span>
+<span id="cb16-130"><a href="#cb16-130"></a></span>
+<span id="cb16-131"><a href="#cb16-131"></a><span class="ex">{{</span></span>
+<span id="cb16-132"><a href="#cb16-132"></a>    <span class="ex">config</span><span class="er">(</span></span>
+<span id="cb16-133"><a href="#cb16-133"></a>        <span class="va">materialized</span><span class="op">=</span><span class="st">'table'</span></span>
+<span id="cb16-134"><a href="#cb16-134"></a>    <span class="kw">)</span></span>
+<span id="cb16-135"><a href="#cb16-135"></a><span class="er">}}</span></span>
+<span id="cb16-136"><a href="#cb16-136"></a></span>
+<span id="cb16-137"><a href="#cb16-137"></a><span class="cf">select</span></span>
+<span id="cb16-138"><a href="#cb16-138"></a>    <span class="ex">store_id,</span></span>
+<span id="cb16-139"><a href="#cb16-139"></a>    <span class="ex">{%</span> for product_type in get_product_types<span class="er">(</span><span class="kw">)</span> <span class="ex">%}</span></span>
+<span id="cb16-140"><a href="#cb16-140"></a>    <span class="ex">count</span><span class="er">(</span><span class="ex">distinct</span> case when p.type = <span class="st">'{{ product_type }}'</span> then i.sku end<span class="kw">)</span> <span class="fu">as</span> {{ product_type }}_product_count</span>
+<span id="cb16-141"><a href="#cb16-141"></a>    <span class="ex">{%</span> if not loop.last %},{% endif %}</span>
+<span id="cb16-142"><a href="#cb16-142"></a>    <span class="ex">{%</span> endfor %}</span>
+<span id="cb16-143"><a href="#cb16-143"></a><span class="ex">from</span> {{ ref<span class="er">(</span><span class="st">'stg_orders'</span><span class="kw">)</span> <span class="er">}}</span> <span class="ex">o</span></span>
+<span id="cb16-144"><a href="#cb16-144"></a><span class="fu">join</span> {{ ref<span class="er">(</span><span class="st">'stg_items'</span><span class="kw">)</span> <span class="er">}}</span> <span class="ex">i</span> on o.order_id = i.order_id</span>
+<span id="cb16-145"><a href="#cb16-145"></a><span class="fu">join</span> {{ ref<span class="er">(</span><span class="st">'stg_products'</span><span class="kw">)</span> <span class="er">}}</span> <span class="ex">p</span> on i.product_sku = p.product_sku</span>
+<span id="cb16-146"><a href="#cb16-146"></a><span class="ex">group</span> by store_id</span>
+<span id="cb16-147"><a href="#cb16-147"></a></span>
+<span id="cb16-148"><a href="#cb16-148"></a><span class="in">```</span></span>
+<span id="cb16-149"><a href="#cb16-149"></a></span>
+<span id="cb16-150"><a href="#cb16-150"></a>コンパイルをおこなう</span>
+<span id="cb16-151"><a href="#cb16-151"></a></span>
+<span id="cb16-152"><a href="#cb16-152"></a><span class="in">```bash</span></span>
+<span id="cb16-153"><a href="#cb16-153"></a><span class="ex">poetry</span> run dbt compile <span class="at">--select</span> product_count_by_store <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-154"><a href="#cb16-154"></a><span class="in">```</span></span>
+<span id="cb16-155"><a href="#cb16-155"></a></span>
+<span id="cb16-156"><a href="#cb16-156"></a></span>
+<span id="cb16-157"><a href="#cb16-157"></a><span class="fu">### dbt-Utils</span></span>
+<span id="cb16-158"><a href="#cb16-158"></a></span>
+<span id="cb16-159"><a href="#cb16-159"></a>dbt-utilsを使うと、dbt側で作成された便利なマクロが使えます。</span>
+<span id="cb16-160"><a href="#cb16-160"></a></span>
+<span id="cb16-161"><a href="#cb16-161"></a><span class="in">`packages.yml`</span>を作成する. 次を実行するとUtilsがインストールされます。</span>
+<span id="cb16-162"><a href="#cb16-162"></a></span>
+<span id="cb16-163"><a href="#cb16-163"></a><span class="in">```bash</span></span>
+<span id="cb16-164"><a href="#cb16-164"></a><span class="ex">dbt</span> deps</span>
+<span id="cb16-165"><a href="#cb16-165"></a><span class="in">```</span></span>
+<span id="cb16-166"><a href="#cb16-166"></a></span>
+<span id="cb16-167"><a href="#cb16-167"></a><span class="fu">### スナップショット</span></span>
+<span id="cb16-168"><a href="#cb16-168"></a></span>
+<span id="cb16-169"><a href="#cb16-169"></a>スナップショットを作成することで, マスタの変更履歴などを管理することができる</span>
+<span id="cb16-170"><a href="#cb16-170"></a></span>
+<span id="cb16-171"><a href="#cb16-171"></a></span>
+<span id="cb16-172"><a href="#cb16-172"></a><span class="in">```bash</span></span>
+<span id="cb16-173"><a href="#cb16-173"></a><span class="ex">{%</span> snapshot customers_snapshot %}</span>
+<span id="cb16-174"><a href="#cb16-174"></a></span>
+<span id="cb16-175"><a href="#cb16-175"></a><span class="ex">{{</span></span>
+<span id="cb16-176"><a href="#cb16-176"></a>    <span class="ex">config</span><span class="er">(</span></span>
+<span id="cb16-177"><a href="#cb16-177"></a>      <span class="va">target_schema</span><span class="op">=</span><span class="st">'snapshots'</span>,</span>
+<span id="cb16-178"><a href="#cb16-178"></a>      <span class="va">unique_key</span><span class="op">=</span><span class="st">'id'</span>,</span>
+<span id="cb16-179"><a href="#cb16-179"></a>      <span class="va">strategy</span><span class="op">=</span><span class="st">'check'</span>,</span>
+<span id="cb16-180"><a href="#cb16-180"></a>      <span class="va">check_cols</span><span class="op">=</span><span class="pp">[</span><span class="st">'name'</span><span class="pp">]</span>,</span>
+<span id="cb16-181"><a href="#cb16-181"></a>    <span class="kw">)</span></span>
+<span id="cb16-182"><a href="#cb16-182"></a><span class="er">}}</span></span>
+<span id="cb16-183"><a href="#cb16-183"></a></span>
+<span id="cb16-184"><a href="#cb16-184"></a><span class="cf">select</span></span>
+<span id="cb16-185"><a href="#cb16-185"></a>    <span class="ex">*</span></span>
+<span id="cb16-186"><a href="#cb16-186"></a><span class="ex">from</span> {{ source<span class="er">(</span><span class="st">'jaffle_shop_raw'</span><span class="ex">,</span> <span class="st">'customers'</span><span class="kw">)</span> <span class="er">}}</span></span>
+<span id="cb16-187"><a href="#cb16-187"></a></span>
+<span id="cb16-188"><a href="#cb16-188"></a><span class="ex">{%</span> endsnapshot %}</span>
+<span id="cb16-189"><a href="#cb16-189"></a></span>
+<span id="cb16-190"><a href="#cb16-190"></a><span class="in">```</span></span>
+<span id="cb16-191"><a href="#cb16-191"></a></span>
+<span id="cb16-192"><a href="#cb16-192"></a><span class="in">```bash</span></span>
+<span id="cb16-193"><a href="#cb16-193"></a><span class="ex">poetry</span> run dbt snapshot <span class="at">--profiles-dir</span> .</span>
+<span id="cb16-194"><a href="#cb16-194"></a><span class="in">```</span></span>
+<span id="cb16-195"><a href="#cb16-195"></a></span>
+<span id="cb16-196"><a href="#cb16-196"></a></span>
+<span id="cb16-197"><a href="#cb16-197"></a></span>
+<span id="cb16-198"><a href="#cb16-198"></a></span>
+<span id="cb16-199"><a href="#cb16-199"></a><span class="fu">## poetry</span></span>
+<span id="cb16-200"><a href="#cb16-200"></a></span>
+<span id="cb16-201"><a href="#cb16-201"></a>poetryのバージョンがおかしいとき</span>
+<span id="cb16-202"><a href="#cb16-202"></a></span>
+<span id="cb16-203"><a href="#cb16-203"></a><span class="al">![](static/img/2025-07-25-02-38-38.png)</span></span>
+<span id="cb16-204"><a href="#cb16-204"></a></span>
+<span id="cb16-205"><a href="#cb16-205"></a>poetryの依存関係がおかしいとき, pyprojectを変数して, 一旦ロックして, installし直す</span>
+<span id="cb16-206"><a href="#cb16-206"></a></span>
+<span id="cb16-207"><a href="#cb16-207"></a><span class="in">```bash</span></span>
+<span id="cb16-208"><a href="#cb16-208"></a><span class="ex">poetry</span> lock</span>
+<span id="cb16-209"><a href="#cb16-209"></a><span class="ex">poetry</span> install</span>
+<span id="cb16-210"><a href="#cb16-210"></a><span class="in">```</span></span>
+<span id="cb16-211"><a href="#cb16-211"></a></span>
+<span id="cb16-212"><a href="#cb16-212"></a><span class="fu"># dbt_project.yml</span></span>
+<span id="cb16-213"><a href="#cb16-213"></a></span>
+<span id="cb16-214"><a href="#cb16-214"></a>dbtはプロジェクトの設定と、プロファイルの設定を分けて管理します。</span>
+<span id="cb16-215"><a href="#cb16-215"></a></span>
+<span id="cb16-216"><a href="#cb16-216"></a>dbtプロジェクトの設定は、<span class="in">`dbt_project.yml`</span>に記述します。</span>
+<span id="cb16-217"><a href="#cb16-217"></a></span>
+<span id="cb16-218"><a href="#cb16-218"></a><span class="in">```yaml</span></span>
+<span id="cb16-219"><a href="#cb16-219"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">'jaffle_shop'</span></span>
+<span id="cb16-220"><a href="#cb16-220"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">'1.0.0'</span></span>
+<span id="cb16-221"><a href="#cb16-221"></a><span class="fu">config-version</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb16-222"><a href="#cb16-222"></a><span class="fu">profile</span><span class="kw">:</span><span class="at"> </span><span class="st">'jaffle_shop'</span></span>
+<span id="cb16-223"><a href="#cb16-223"></a><span class="fu">source-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'models'</span><span class="kw">]</span></span>
+<span id="cb16-224"><a href="#cb16-224"></a><span class="fu">analysis-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'analysis'</span><span class="kw">]</span></span>
+<span id="cb16-225"><a href="#cb16-225"></a><span class="fu">test-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'tests'</span><span class="kw">]</span></span>
+<span id="cb16-226"><a href="#cb16-226"></a><span class="fu">data-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'data'</span><span class="kw">]</span></span>
+<span id="cb16-227"><a href="#cb16-227"></a><span class="fu">macro-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'macros'</span><span class="kw">]</span></span>
+<span id="cb16-228"><a href="#cb16-228"></a><span class="fu">snapshot-paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'snapshots'</span><span class="kw">]</span></span>
+<span id="cb16-229"><a href="#cb16-229"></a><span class="fu">target-path</span><span class="kw">:</span><span class="at"> </span><span class="st">'target'</span></span>
+<span id="cb16-230"><a href="#cb16-230"></a><span class="fu">clean-targets</span><span class="kw">:</span></span>
+<span id="cb16-231"><a href="#cb16-231"></a></span>
+<span id="cb16-232"><a href="#cb16-232"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">'target'</span></span>
+<span id="cb16-233"><a href="#cb16-233"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">'dbt_modules'</span></span>
+<span id="cb16-234"><a href="#cb16-234"></a><span class="fu">models</span><span class="kw">:</span></span>
+<span id="cb16-235"><a href="#cb16-235"></a><span class="at">    </span><span class="fu">jaffle_shop</span><span class="kw">:</span></span>
+<span id="cb16-236"><a href="#cb16-236"></a><span class="at">        </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> view</span></span>
+<span id="cb16-237"><a href="#cb16-237"></a><span class="at">        </span><span class="fu">staging</span><span class="kw">:</span></span>
+<span id="cb16-238"><a href="#cb16-238"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> view</span></span>
+<span id="cb16-239"><a href="#cb16-239"></a><span class="at">        </span><span class="fu">marts</span><span class="kw">:</span></span>
+<span id="cb16-240"><a href="#cb16-240"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb16-241"><a href="#cb16-241"></a><span class="at">        </span><span class="fu">seeds</span><span class="kw">:</span></span>
+<span id="cb16-242"><a href="#cb16-242"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb16-243"><a href="#cb16-243"></a><span class="at">        </span><span class="fu">snapshots</span><span class="kw">:</span></span>
+<span id="cb16-244"><a href="#cb16-244"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> incremental</span></span>
+<span id="cb16-245"><a href="#cb16-245"></a><span class="at">        </span><span class="fu">tests</span><span class="kw">:</span></span>
+<span id="cb16-246"><a href="#cb16-246"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb16-247"><a href="#cb16-247"></a><span class="at">        </span><span class="fu">analysis</span><span class="kw">:</span></span>
+<span id="cb16-248"><a href="#cb16-248"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb16-249"><a href="#cb16-249"></a><span class="at">        </span><span class="fu">macros</span><span class="kw">:</span></span>
+<span id="cb16-250"><a href="#cb16-250"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> macro</span></span>
+<span id="cb16-251"><a href="#cb16-251"></a><span class="at">        </span><span class="fu">sources</span><span class="kw">:</span></span>
+<span id="cb16-252"><a href="#cb16-252"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> source</span></span>
+<span id="cb16-253"><a href="#cb16-253"></a><span class="at">        </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb16-254"><a href="#cb16-254"></a><span class="at">            </span><span class="fu">+materialized</span><span class="kw">:</span><span class="at"> table</span></span>
+<span id="cb16-255"><a href="#cb16-255"></a><span class="in">```</span></span>
+<span id="cb16-256"><a href="#cb16-256"></a></span>
+<span id="cb16-257"><a href="#cb16-257"></a></span>
+<span id="cb16-258"><a href="#cb16-258"></a></span>
+<span id="cb16-259"><a href="#cb16-259"></a></span>
+<span id="cb16-260"><a href="#cb16-260"></a></span>
+<span id="cb16-261"><a href="#cb16-261"></a></span>
+<span id="cb16-262"><a href="#cb16-262"></a></span>
+<span id="cb16-263"><a href="#cb16-263"></a></span>
+<span id="cb16-264"><a href="#cb16-264"></a></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
