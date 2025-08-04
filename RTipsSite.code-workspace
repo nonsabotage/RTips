@@ -5,6 +5,15 @@
 		}
 	],
 	"settings": {
-		"dbt.enableNewLineagePanel": true
+		"dbt.enableNewLineagePanel": true,
+		"sqltools.connections": [
+			{
+				"name": "DuckDB",
+				"accessMode": "Read Only",
+				"previewLimit": 50,
+				"driver": "DuckDB"
+			}
+		],
+		"sqltools.useNodeRuntime": true
 	}
 }
