@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.33">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -66,15 +67,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../../../">
 <link href="../../../../contents/sql/duckdb/mytips/02_.html" rel="next">
 <link href="../../../../contents/sql/duckdb/sql-bigdata/chap07_.html" rel="prev">
-<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-8a9e4a621a1f805e754198e2824b0cf1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-029eb6d98d0d67994351ddf54abe5c11.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../../../styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -167,10 +169,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../../../contents/website/quarto/guide/index.html">
  <span class="dropdown-text">QuartoDashboard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../../contents/website/udemy_dbt/index.html">
- <span class="dropdown-text">Udemy dbt</span></a>
   </li>  
     </ul>
   </li>
@@ -1710,290 +1708,293 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
         }
-        return container.innerHTML
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -2001,185 +2002,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
       <a href="../../../../contents/sql/duckdb/sql-bigdata/chap07_.html" class="pagination-link" aria-label="データ活用の精度を高めるための分析術">
@@ -2275,133 +2252,133 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-95"><a href="#cb22-95"></a></span>
 <span id="cb22-96"><a href="#cb22-96"></a></span>
 <span id="cb22-97"><a href="#cb22-97"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-98"><a href="#cb22-98"></a><span class="in">#| eval: false</span></span>
-<span id="cb22-99"><a href="#cb22-99"></a><span class="in">CREATE OR REPLACE TABLE pref AS SELECT * FROM './data/N03-20240101_GML/N03-20240101.shp';</span></span>
-<span id="cb22-100"><a href="#cb22-100"></a><span class="in">CREATE OR REPLACE TABLE ag AS (</span></span>
-<span id="cb22-101"><a href="#cb22-101"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_01.shp'</span></span>
-<span id="cb22-102"><a href="#cb22-102"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-103"><a href="#cb22-103"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_02.shp'</span></span>
-<span id="cb22-104"><a href="#cb22-104"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-105"><a href="#cb22-105"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_03.shp'</span></span>
-<span id="cb22-106"><a href="#cb22-106"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-107"><a href="#cb22-107"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_04.shp'</span></span>
-<span id="cb22-108"><a href="#cb22-108"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-109"><a href="#cb22-109"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_05.shp'  </span></span>
-<span id="cb22-110"><a href="#cb22-110"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-111"><a href="#cb22-111"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_06.shp'  </span></span>
-<span id="cb22-112"><a href="#cb22-112"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-113"><a href="#cb22-113"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_07.shp'  </span></span>
-<span id="cb22-114"><a href="#cb22-114"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-115"><a href="#cb22-115"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_08.shp'  </span></span>
-<span id="cb22-116"><a href="#cb22-116"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-117"><a href="#cb22-117"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_09.shp'  </span></span>
-<span id="cb22-118"><a href="#cb22-118"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-119"><a href="#cb22-119"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_10.shp'  </span></span>
-<span id="cb22-120"><a href="#cb22-120"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-121"><a href="#cb22-121"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_11.shp'  </span></span>
-<span id="cb22-122"><a href="#cb22-122"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-123"><a href="#cb22-123"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_12.shp'  </span></span>
-<span id="cb22-124"><a href="#cb22-124"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-125"><a href="#cb22-125"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_13.shp'  </span></span>
-<span id="cb22-126"><a href="#cb22-126"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-127"><a href="#cb22-127"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_14.shp'  </span></span>
-<span id="cb22-128"><a href="#cb22-128"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-129"><a href="#cb22-129"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_15.shp'</span></span>
-<span id="cb22-130"><a href="#cb22-130"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-131"><a href="#cb22-131"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_16.shp'</span></span>
-<span id="cb22-132"><a href="#cb22-132"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-133"><a href="#cb22-133"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_17.shp'</span></span>
-<span id="cb22-134"><a href="#cb22-134"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-135"><a href="#cb22-135"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_18.shp'</span></span>
-<span id="cb22-136"><a href="#cb22-136"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-137"><a href="#cb22-137"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_19.shp'</span></span>
-<span id="cb22-138"><a href="#cb22-138"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-139"><a href="#cb22-139"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_20.shp'</span></span>
-<span id="cb22-140"><a href="#cb22-140"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-141"><a href="#cb22-141"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_21.shp'</span></span>
-<span id="cb22-142"><a href="#cb22-142"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-143"><a href="#cb22-143"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_22.shp'</span></span>
-<span id="cb22-144"><a href="#cb22-144"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-145"><a href="#cb22-145"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_23.shp'</span></span>
-<span id="cb22-146"><a href="#cb22-146"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-147"><a href="#cb22-147"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_24.shp'</span></span>
-<span id="cb22-148"><a href="#cb22-148"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-149"><a href="#cb22-149"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_25.shp'</span></span>
-<span id="cb22-150"><a href="#cb22-150"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-151"><a href="#cb22-151"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_26.shp'</span></span>
-<span id="cb22-152"><a href="#cb22-152"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-153"><a href="#cb22-153"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_27.shp'</span></span>
-<span id="cb22-154"><a href="#cb22-154"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-155"><a href="#cb22-155"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_28.shp'</span></span>
-<span id="cb22-156"><a href="#cb22-156"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-157"><a href="#cb22-157"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_29.shp'</span></span>
-<span id="cb22-158"><a href="#cb22-158"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-159"><a href="#cb22-159"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_30.shp'</span></span>
-<span id="cb22-160"><a href="#cb22-160"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-161"><a href="#cb22-161"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_31.shp'</span></span>
-<span id="cb22-162"><a href="#cb22-162"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-163"><a href="#cb22-163"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_32.shp'</span></span>
-<span id="cb22-164"><a href="#cb22-164"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-165"><a href="#cb22-165"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_33.shp'</span></span>
-<span id="cb22-166"><a href="#cb22-166"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-167"><a href="#cb22-167"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_34.shp'</span></span>
-<span id="cb22-168"><a href="#cb22-168"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-169"><a href="#cb22-169"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_35.shp'</span></span>
-<span id="cb22-170"><a href="#cb22-170"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-171"><a href="#cb22-171"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_36.shp'</span></span>
-<span id="cb22-172"><a href="#cb22-172"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-173"><a href="#cb22-173"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_37.shp'</span></span>
-<span id="cb22-174"><a href="#cb22-174"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-175"><a href="#cb22-175"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_38.shp'</span></span>
-<span id="cb22-176"><a href="#cb22-176"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-177"><a href="#cb22-177"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_39.shp'</span></span>
-<span id="cb22-178"><a href="#cb22-178"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-179"><a href="#cb22-179"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_40.shp'</span></span>
-<span id="cb22-180"><a href="#cb22-180"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-181"><a href="#cb22-181"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_41.shp'</span></span>
-<span id="cb22-182"><a href="#cb22-182"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-183"><a href="#cb22-183"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_42.shp'</span></span>
-<span id="cb22-184"><a href="#cb22-184"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-185"><a href="#cb22-185"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_43.shp'</span></span>
-<span id="cb22-186"><a href="#cb22-186"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-187"><a href="#cb22-187"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_44.shp'</span></span>
-<span id="cb22-188"><a href="#cb22-188"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-189"><a href="#cb22-189"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_45.shp'</span></span>
-<span id="cb22-190"><a href="#cb22-190"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-191"><a href="#cb22-191"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_46.shp'</span></span>
-<span id="cb22-192"><a href="#cb22-192"></a><span class="in">    UNION ALL</span></span>
-<span id="cb22-193"><a href="#cb22-193"></a><span class="in">  SELECT * FROM './data/ag/1km_mesh_2018_47.shp'</span></span>
-<span id="cb22-194"><a href="#cb22-194"></a><span class="in">);</span></span>
+<span id="cb22-98"><a href="#cb22-98"></a><span class="co">#| eval: false</span></span>
+<span id="cb22-99"><a href="#cb22-99"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> pref <span class="kw">AS</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/N03-20240101_GML/N03-20240101.shp'</span>;</span>
+<span id="cb22-100"><a href="#cb22-100"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> ag <span class="kw">AS</span> (</span>
+<span id="cb22-101"><a href="#cb22-101"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_01.shp'</span></span>
+<span id="cb22-102"><a href="#cb22-102"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-103"><a href="#cb22-103"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_02.shp'</span></span>
+<span id="cb22-104"><a href="#cb22-104"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-105"><a href="#cb22-105"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_03.shp'</span></span>
+<span id="cb22-106"><a href="#cb22-106"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-107"><a href="#cb22-107"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_04.shp'</span></span>
+<span id="cb22-108"><a href="#cb22-108"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-109"><a href="#cb22-109"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_05.shp'</span>  </span>
+<span id="cb22-110"><a href="#cb22-110"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-111"><a href="#cb22-111"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_06.shp'</span>  </span>
+<span id="cb22-112"><a href="#cb22-112"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-113"><a href="#cb22-113"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_07.shp'</span>  </span>
+<span id="cb22-114"><a href="#cb22-114"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-115"><a href="#cb22-115"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_08.shp'</span>  </span>
+<span id="cb22-116"><a href="#cb22-116"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-117"><a href="#cb22-117"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_09.shp'</span>  </span>
+<span id="cb22-118"><a href="#cb22-118"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-119"><a href="#cb22-119"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_10.shp'</span>  </span>
+<span id="cb22-120"><a href="#cb22-120"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-121"><a href="#cb22-121"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_11.shp'</span>  </span>
+<span id="cb22-122"><a href="#cb22-122"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-123"><a href="#cb22-123"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_12.shp'</span>  </span>
+<span id="cb22-124"><a href="#cb22-124"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-125"><a href="#cb22-125"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_13.shp'</span>  </span>
+<span id="cb22-126"><a href="#cb22-126"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-127"><a href="#cb22-127"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_14.shp'</span>  </span>
+<span id="cb22-128"><a href="#cb22-128"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-129"><a href="#cb22-129"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_15.shp'</span></span>
+<span id="cb22-130"><a href="#cb22-130"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-131"><a href="#cb22-131"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_16.shp'</span></span>
+<span id="cb22-132"><a href="#cb22-132"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-133"><a href="#cb22-133"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_17.shp'</span></span>
+<span id="cb22-134"><a href="#cb22-134"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-135"><a href="#cb22-135"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_18.shp'</span></span>
+<span id="cb22-136"><a href="#cb22-136"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-137"><a href="#cb22-137"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_19.shp'</span></span>
+<span id="cb22-138"><a href="#cb22-138"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-139"><a href="#cb22-139"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_20.shp'</span></span>
+<span id="cb22-140"><a href="#cb22-140"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-141"><a href="#cb22-141"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_21.shp'</span></span>
+<span id="cb22-142"><a href="#cb22-142"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-143"><a href="#cb22-143"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_22.shp'</span></span>
+<span id="cb22-144"><a href="#cb22-144"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-145"><a href="#cb22-145"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_23.shp'</span></span>
+<span id="cb22-146"><a href="#cb22-146"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-147"><a href="#cb22-147"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_24.shp'</span></span>
+<span id="cb22-148"><a href="#cb22-148"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-149"><a href="#cb22-149"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_25.shp'</span></span>
+<span id="cb22-150"><a href="#cb22-150"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-151"><a href="#cb22-151"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_26.shp'</span></span>
+<span id="cb22-152"><a href="#cb22-152"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-153"><a href="#cb22-153"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_27.shp'</span></span>
+<span id="cb22-154"><a href="#cb22-154"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-155"><a href="#cb22-155"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_28.shp'</span></span>
+<span id="cb22-156"><a href="#cb22-156"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-157"><a href="#cb22-157"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_29.shp'</span></span>
+<span id="cb22-158"><a href="#cb22-158"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-159"><a href="#cb22-159"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_30.shp'</span></span>
+<span id="cb22-160"><a href="#cb22-160"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-161"><a href="#cb22-161"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_31.shp'</span></span>
+<span id="cb22-162"><a href="#cb22-162"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-163"><a href="#cb22-163"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_32.shp'</span></span>
+<span id="cb22-164"><a href="#cb22-164"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-165"><a href="#cb22-165"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_33.shp'</span></span>
+<span id="cb22-166"><a href="#cb22-166"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-167"><a href="#cb22-167"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_34.shp'</span></span>
+<span id="cb22-168"><a href="#cb22-168"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-169"><a href="#cb22-169"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_35.shp'</span></span>
+<span id="cb22-170"><a href="#cb22-170"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-171"><a href="#cb22-171"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_36.shp'</span></span>
+<span id="cb22-172"><a href="#cb22-172"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-173"><a href="#cb22-173"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_37.shp'</span></span>
+<span id="cb22-174"><a href="#cb22-174"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-175"><a href="#cb22-175"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_38.shp'</span></span>
+<span id="cb22-176"><a href="#cb22-176"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-177"><a href="#cb22-177"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_39.shp'</span></span>
+<span id="cb22-178"><a href="#cb22-178"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-179"><a href="#cb22-179"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_40.shp'</span></span>
+<span id="cb22-180"><a href="#cb22-180"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-181"><a href="#cb22-181"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_41.shp'</span></span>
+<span id="cb22-182"><a href="#cb22-182"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-183"><a href="#cb22-183"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_42.shp'</span></span>
+<span id="cb22-184"><a href="#cb22-184"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-185"><a href="#cb22-185"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_43.shp'</span></span>
+<span id="cb22-186"><a href="#cb22-186"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-187"><a href="#cb22-187"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_44.shp'</span></span>
+<span id="cb22-188"><a href="#cb22-188"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-189"><a href="#cb22-189"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_45.shp'</span></span>
+<span id="cb22-190"><a href="#cb22-190"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-191"><a href="#cb22-191"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_46.shp'</span></span>
+<span id="cb22-192"><a href="#cb22-192"></a>    <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb22-193"><a href="#cb22-193"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="st">'./data/ag/1km_mesh_2018_47.shp'</span></span>
+<span id="cb22-194"><a href="#cb22-194"></a>);</span>
 <span id="cb22-195"><a href="#cb22-195"></a><span class="in">```</span></span>
 <span id="cb22-196"><a href="#cb22-196"></a></span>
 <span id="cb22-197"><a href="#cb22-197"></a></span>
 <span id="cb22-198"><a href="#cb22-198"></a></span>
 <span id="cb22-199"><a href="#cb22-199"></a></span>
 <span id="cb22-200"><a href="#cb22-200"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-201"><a href="#cb22-201"></a><span class="in">describe pref;</span></span>
+<span id="cb22-201"><a href="#cb22-201"></a><span class="kw">describe</span> pref;</span>
 <span id="cb22-202"><a href="#cb22-202"></a><span class="in">```</span></span>
 <span id="cb22-203"><a href="#cb22-203"></a></span>
 <span id="cb22-204"><a href="#cb22-204"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-205"><a href="#cb22-205"></a><span class="in">describe ag;</span></span>
+<span id="cb22-205"><a href="#cb22-205"></a><span class="kw">describe</span> ag;</span>
 <span id="cb22-206"><a href="#cb22-206"></a><span class="in">```</span></span>
 <span id="cb22-207"><a href="#cb22-207"></a></span>
 <span id="cb22-208"><a href="#cb22-208"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-209"><a href="#cb22-209"></a><span class="in">select count(*), ST_GeometryType(geom) as type  from pref group by ST_GeometryType(geom) ;</span></span>
+<span id="cb22-209"><a href="#cb22-209"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>), ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span>  <span class="kw">from</span> pref <span class="kw">group</span> <span class="kw">by</span> ST_GeometryType(geom) ;</span>
 <span id="cb22-210"><a href="#cb22-210"></a><span class="in">```</span></span>
 <span id="cb22-211"><a href="#cb22-211"></a></span>
 <span id="cb22-212"><a href="#cb22-212"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-213"><a href="#cb22-213"></a><span class="in">select </span></span>
-<span id="cb22-214"><a href="#cb22-214"></a><span class="in">  count(*) as cnt</span></span>
-<span id="cb22-215"><a href="#cb22-215"></a><span class="in">  , sum(cast(ST_IsRing(geom) as integer)) as has_ring </span></span>
-<span id="cb22-216"><a href="#cb22-216"></a><span class="in">  , ST_GeometryType(geom) as type</span></span>
-<span id="cb22-217"><a href="#cb22-217"></a><span class="in">from </span></span>
-<span id="cb22-218"><a href="#cb22-218"></a><span class="in">  ag </span></span>
-<span id="cb22-219"><a href="#cb22-219"></a><span class="in">group by </span></span>
-<span id="cb22-220"><a href="#cb22-220"></a><span class="in">  ST_GeometryType(geom) ;</span></span>
+<span id="cb22-213"><a href="#cb22-213"></a><span class="kw">select</span> </span>
+<span id="cb22-214"><a href="#cb22-214"></a>  <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
+<span id="cb22-215"><a href="#cb22-215"></a>  , <span class="fu">sum</span>(<span class="fu">cast</span>(ST_IsRing(geom) <span class="kw">as</span> <span class="dt">integer</span>)) <span class="kw">as</span> has_ring </span>
+<span id="cb22-216"><a href="#cb22-216"></a>  , ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span></span>
+<span id="cb22-217"><a href="#cb22-217"></a><span class="kw">from</span> </span>
+<span id="cb22-218"><a href="#cb22-218"></a>  ag </span>
+<span id="cb22-219"><a href="#cb22-219"></a><span class="kw">group</span> <span class="kw">by</span> </span>
+<span id="cb22-220"><a href="#cb22-220"></a>  ST_GeometryType(geom) ;</span>
 <span id="cb22-221"><a href="#cb22-221"></a><span class="in">```</span></span>
 <span id="cb22-222"><a href="#cb22-222"></a></span>
 <span id="cb22-223"><a href="#cb22-223"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-224"><a href="#cb22-224"></a><span class="in">select count(*), ST_GeometryType(geom) as type  from ag group by ST_GeometryType(geom) ;</span></span>
+<span id="cb22-224"><a href="#cb22-224"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>), ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span>  <span class="kw">from</span> ag <span class="kw">group</span> <span class="kw">by</span> ST_GeometryType(geom) ;</span>
 <span id="cb22-225"><a href="#cb22-225"></a><span class="in">```</span></span>
 <span id="cb22-226"><a href="#cb22-226"></a></span>
 <span id="cb22-227"><a href="#cb22-227"></a></span>
@@ -2416,18 +2393,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-238"><a href="#cb22-238"></a><span class="in">```</span></span>
 <span id="cb22-239"><a href="#cb22-239"></a></span>
 <span id="cb22-240"><a href="#cb22-240"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-241"><a href="#cb22-241"></a><span class="in">create or replace table ag_pref_intersection as</span></span>
-<span id="cb22-242"><a href="#cb22-242"></a><span class="in">select</span></span>
-<span id="cb22-243"><a href="#cb22-243"></a><span class="in">  COLUMNS(pref.* EXCLUDE(geom)), </span></span>
-<span id="cb22-244"><a href="#cb22-244"></a><span class="in">  ag.MESH_ID, </span></span>
-<span id="cb22-245"><a href="#cb22-245"></a><span class="in">  ag.SHICODE, </span></span>
-<span id="cb22-246"><a href="#cb22-246"></a><span class="in">  ag.PTN_2015,</span></span>
-<span id="cb22-247"><a href="#cb22-247"></a><span class="in">  st_intersection(pref.geom, ag.geom) as geom</span></span>
-<span id="cb22-248"><a href="#cb22-248"></a><span class="in">from </span></span>
-<span id="cb22-249"><a href="#cb22-249"></a><span class="in">  pref</span></span>
-<span id="cb22-250"><a href="#cb22-250"></a><span class="in">  inner join ag</span></span>
-<span id="cb22-251"><a href="#cb22-251"></a><span class="in">  on st_intersects(pref.geom, ag.geom)</span></span>
-<span id="cb22-252"><a href="#cb22-252"></a><span class="in">;</span></span>
+<span id="cb22-241"><a href="#cb22-241"></a><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">table</span> ag_pref_intersection <span class="kw">as</span></span>
+<span id="cb22-242"><a href="#cb22-242"></a><span class="kw">select</span></span>
+<span id="cb22-243"><a href="#cb22-243"></a>  <span class="kw">COLUMNS</span>(pref<span class="ch">.</span><span class="op">*</span> EXCLUDE(geom)), </span>
+<span id="cb22-244"><a href="#cb22-244"></a>  ag<span class="ch">.</span>MESH_ID, </span>
+<span id="cb22-245"><a href="#cb22-245"></a>  ag<span class="ch">.</span>SHICODE, </span>
+<span id="cb22-246"><a href="#cb22-246"></a>  ag<span class="ch">.</span>PTN_2015,</span>
+<span id="cb22-247"><a href="#cb22-247"></a>  st_intersection(pref<span class="ch">.</span>geom, ag<span class="ch">.</span>geom) <span class="kw">as</span> geom</span>
+<span id="cb22-248"><a href="#cb22-248"></a><span class="kw">from</span> </span>
+<span id="cb22-249"><a href="#cb22-249"></a>  pref</span>
+<span id="cb22-250"><a href="#cb22-250"></a>  <span class="kw">inner</span> <span class="kw">join</span> ag</span>
+<span id="cb22-251"><a href="#cb22-251"></a>  <span class="kw">on</span> st_intersects(pref<span class="ch">.</span>geom, ag<span class="ch">.</span>geom)</span>
+<span id="cb22-252"><a href="#cb22-252"></a>;</span>
 <span id="cb22-253"><a href="#cb22-253"></a><span class="in">```</span></span>
 <span id="cb22-254"><a href="#cb22-254"></a></span>
 <span id="cb22-257"><a href="#cb22-257"></a><span class="in">```{r}</span></span>
@@ -2437,63 +2414,63 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-261"><a href="#cb22-261"></a>データ方を確認すると少し形状タイプがおかしいかも。</span>
 <span id="cb22-262"><a href="#cb22-262"></a></span>
 <span id="cb22-263"><a href="#cb22-263"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-264"><a href="#cb22-264"></a><span class="in">select count(*) as cnt</span></span>
-<span id="cb22-265"><a href="#cb22-265"></a><span class="in">from ag_pref_intersection ;</span></span>
+<span id="cb22-264"><a href="#cb22-264"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
+<span id="cb22-265"><a href="#cb22-265"></a><span class="kw">from</span> ag_pref_intersection ;</span>
 <span id="cb22-266"><a href="#cb22-266"></a><span class="in">```</span></span>
 <span id="cb22-267"><a href="#cb22-267"></a></span>
 <span id="cb22-268"><a href="#cb22-268"></a></span>
 <span id="cb22-269"><a href="#cb22-269"></a>次の結果をみるとどうやら混じっている。コレクションについて、QGISで具体的に確認したところ、行政境界とメッシュ境界がタッチしているところや一致しているところで発生する事象である。マルチポリゴンもそうであるが基本的にはsimplifyしてポリゴンだけ残せば大丈夫だと思う。</span>
 <span id="cb22-270"><a href="#cb22-270"></a></span>
 <span id="cb22-271"><a href="#cb22-271"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-272"><a href="#cb22-272"></a><span class="in">select </span></span>
-<span id="cb22-273"><a href="#cb22-273"></a><span class="in">  COUNT(*) as cnt</span></span>
-<span id="cb22-274"><a href="#cb22-274"></a><span class="in">  , COUNT_IF(ST_IsRing(geom)) as has_ring </span></span>
-<span id="cb22-275"><a href="#cb22-275"></a><span class="in">  , ST_GeometryType(geom) as type</span></span>
-<span id="cb22-276"><a href="#cb22-276"></a><span class="in">from </span></span>
-<span id="cb22-277"><a href="#cb22-277"></a><span class="in">  ag_pref_intersection </span></span>
-<span id="cb22-278"><a href="#cb22-278"></a><span class="in">group by </span></span>
-<span id="cb22-279"><a href="#cb22-279"></a><span class="in">  ST_GeometryType(geom) ;</span></span>
+<span id="cb22-272"><a href="#cb22-272"></a><span class="kw">select</span> </span>
+<span id="cb22-273"><a href="#cb22-273"></a>  <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">as</span> cnt</span>
+<span id="cb22-274"><a href="#cb22-274"></a>  , COUNT_IF(ST_IsRing(geom)) <span class="kw">as</span> has_ring </span>
+<span id="cb22-275"><a href="#cb22-275"></a>  , ST_GeometryType(geom) <span class="kw">as</span> <span class="kw">type</span></span>
+<span id="cb22-276"><a href="#cb22-276"></a><span class="kw">from</span> </span>
+<span id="cb22-277"><a href="#cb22-277"></a>  ag_pref_intersection </span>
+<span id="cb22-278"><a href="#cb22-278"></a><span class="kw">group</span> <span class="kw">by</span> </span>
+<span id="cb22-279"><a href="#cb22-279"></a>  ST_GeometryType(geom) ;</span>
 <span id="cb22-280"><a href="#cb22-280"></a><span class="in">```</span></span>
 <span id="cb22-281"><a href="#cb22-281"></a></span>
 <span id="cb22-282"><a href="#cb22-282"></a></span>
 <span id="cb22-283"><a href="#cb22-283"></a>どうやらWITH句でランダムを使うと変わってしまうらしい。またマルチポリゴンをポリゴンにキャストする方法は実装されてないようである。</span>
 <span id="cb22-284"><a href="#cb22-284"></a></span>
 <span id="cb22-285"><a href="#cb22-285"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-286"><a href="#cb22-286"></a><span class="in">with </span></span>
-<span id="cb22-287"><a href="#cb22-287"></a><span class="in">ta as (</span></span>
-<span id="cb22-288"><a href="#cb22-288"></a><span class="in">  select </span></span>
-<span id="cb22-289"><a href="#cb22-289"></a><span class="in">    gen_random_uuid() as id</span></span>
-<span id="cb22-290"><a href="#cb22-290"></a><span class="in">    , ST_NGeometries(geom) as ng</span></span>
-<span id="cb22-291"><a href="#cb22-291"></a><span class="in">    , ROW_NUMBER() OVER() as row</span></span>
-<span id="cb22-292"><a href="#cb22-292"></a><span class="in">    , geom</span></span>
-<span id="cb22-293"><a href="#cb22-293"></a><span class="in">  from </span></span>
-<span id="cb22-294"><a href="#cb22-294"></a><span class="in">    ag_pref_intersection</span></span>
-<span id="cb22-295"><a href="#cb22-295"></a><span class="in">  where</span></span>
-<span id="cb22-296"><a href="#cb22-296"></a><span class="in">    ST_GeometryType(geom) = 'MULTIPOLYGON'</span></span>
-<span id="cb22-297"><a href="#cb22-297"></a><span class="in">  limit 2</span></span>
-<span id="cb22-298"><a href="#cb22-298"></a><span class="in">) </span></span>
-<span id="cb22-299"><a href="#cb22-299"></a><span class="in">, tb as (</span></span>
-<span id="cb22-300"><a href="#cb22-300"></a><span class="in">  select </span></span>
-<span id="cb22-301"><a href="#cb22-301"></a><span class="in">    id, ng, row</span></span>
-<span id="cb22-302"><a href="#cb22-302"></a><span class="in">  from </span></span>
-<span id="cb22-303"><a href="#cb22-303"></a><span class="in">    ta</span></span>
-<span id="cb22-304"><a href="#cb22-304"></a><span class="in">  limit 2</span></span>
-<span id="cb22-305"><a href="#cb22-305"></a><span class="in">)</span></span>
-<span id="cb22-306"><a href="#cb22-306"></a><span class="in">, ta_tb as (</span></span>
-<span id="cb22-307"><a href="#cb22-307"></a><span class="in">  select </span></span>
-<span id="cb22-308"><a href="#cb22-308"></a><span class="in">    *, </span></span>
-<span id="cb22-309"><a href="#cb22-309"></a><span class="in">    unnest(generate_series(1, ta.ng)) as idx</span></span>
-<span id="cb22-310"><a href="#cb22-310"></a><span class="in">  from</span></span>
-<span id="cb22-311"><a href="#cb22-311"></a><span class="in">   ta</span></span>
-<span id="cb22-312"><a href="#cb22-312"></a><span class="in">   inner join tb</span></span>
-<span id="cb22-313"><a href="#cb22-313"></a><span class="in">   on ta.row = tb.row</span></span>
-<span id="cb22-314"><a href="#cb22-314"></a><span class="in">)</span></span>
+<span id="cb22-286"><a href="#cb22-286"></a><span class="kw">with</span> </span>
+<span id="cb22-287"><a href="#cb22-287"></a>ta <span class="kw">as</span> (</span>
+<span id="cb22-288"><a href="#cb22-288"></a>  <span class="kw">select</span> </span>
+<span id="cb22-289"><a href="#cb22-289"></a>    gen_random_uuid() <span class="kw">as</span> id</span>
+<span id="cb22-290"><a href="#cb22-290"></a>    , ST_NGeometries(geom) <span class="kw">as</span> ng</span>
+<span id="cb22-291"><a href="#cb22-291"></a>    , ROW_NUMBER() OVER() <span class="kw">as</span> row</span>
+<span id="cb22-292"><a href="#cb22-292"></a>    , geom</span>
+<span id="cb22-293"><a href="#cb22-293"></a>  <span class="kw">from</span> </span>
+<span id="cb22-294"><a href="#cb22-294"></a>    ag_pref_intersection</span>
+<span id="cb22-295"><a href="#cb22-295"></a>  <span class="kw">where</span></span>
+<span id="cb22-296"><a href="#cb22-296"></a>    ST_GeometryType(geom) <span class="op">=</span> <span class="st">'MULTIPOLYGON'</span></span>
+<span id="cb22-297"><a href="#cb22-297"></a>  <span class="kw">limit</span> <span class="dv">2</span></span>
+<span id="cb22-298"><a href="#cb22-298"></a>) </span>
+<span id="cb22-299"><a href="#cb22-299"></a>, tb <span class="kw">as</span> (</span>
+<span id="cb22-300"><a href="#cb22-300"></a>  <span class="kw">select</span> </span>
+<span id="cb22-301"><a href="#cb22-301"></a>    id, ng, row</span>
+<span id="cb22-302"><a href="#cb22-302"></a>  <span class="kw">from</span> </span>
+<span id="cb22-303"><a href="#cb22-303"></a>    ta</span>
+<span id="cb22-304"><a href="#cb22-304"></a>  <span class="kw">limit</span> <span class="dv">2</span></span>
+<span id="cb22-305"><a href="#cb22-305"></a>)</span>
+<span id="cb22-306"><a href="#cb22-306"></a>, ta_tb <span class="kw">as</span> (</span>
+<span id="cb22-307"><a href="#cb22-307"></a>  <span class="kw">select</span> </span>
+<span id="cb22-308"><a href="#cb22-308"></a>    <span class="op">*</span>, </span>
+<span id="cb22-309"><a href="#cb22-309"></a>    unnest(generate_series(<span class="dv">1</span>, ta<span class="ch">.</span>ng)) <span class="kw">as</span> idx</span>
+<span id="cb22-310"><a href="#cb22-310"></a>  <span class="kw">from</span></span>
+<span id="cb22-311"><a href="#cb22-311"></a>   ta</span>
+<span id="cb22-312"><a href="#cb22-312"></a>   <span class="kw">inner</span> <span class="kw">join</span> tb</span>
+<span id="cb22-313"><a href="#cb22-313"></a>   <span class="kw">on</span> ta<span class="ch">.</span>row <span class="op">=</span> tb<span class="ch">.</span>row</span>
+<span id="cb22-314"><a href="#cb22-314"></a>)</span>
 <span id="cb22-315"><a href="#cb22-315"></a></span>
-<span id="cb22-316"><a href="#cb22-316"></a><span class="in">select </span></span>
-<span id="cb22-317"><a href="#cb22-317"></a><span class="in">    *</span></span>
-<span id="cb22-318"><a href="#cb22-318"></a><span class="in">from</span></span>
-<span id="cb22-319"><a href="#cb22-319"></a><span class="in">  ta_tb</span></span>
-<span id="cb22-320"><a href="#cb22-320"></a><span class="in">;</span></span>
+<span id="cb22-316"><a href="#cb22-316"></a><span class="kw">select</span> </span>
+<span id="cb22-317"><a href="#cb22-317"></a>    <span class="op">*</span></span>
+<span id="cb22-318"><a href="#cb22-318"></a><span class="kw">from</span></span>
+<span id="cb22-319"><a href="#cb22-319"></a>  ta_tb</span>
+<span id="cb22-320"><a href="#cb22-320"></a>;</span>
 <span id="cb22-321"><a href="#cb22-321"></a></span>
 <span id="cb22-322"><a href="#cb22-322"></a></span>
 <span id="cb22-323"><a href="#cb22-323"></a><span class="in">```</span></span>
@@ -2503,13 +2480,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-327"><a href="#cb22-327"></a></span>
 <span id="cb22-328"><a href="#cb22-328"></a></span>
 <span id="cb22-329"><a href="#cb22-329"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-330"><a href="#cb22-330"></a><span class="in">select </span></span>
-<span id="cb22-331"><a href="#cb22-331"></a><span class="in">  i, </span></span>
-<span id="cb22-332"><a href="#cb22-332"></a><span class="in">  unnest(generate_series(1, i))</span></span>
-<span id="cb22-333"><a href="#cb22-333"></a><span class="in">from </span></span>
-<span id="cb22-334"><a href="#cb22-334"></a><span class="in">  generate_series(1, 10) tbl(i)</span></span>
+<span id="cb22-330"><a href="#cb22-330"></a><span class="kw">select</span> </span>
+<span id="cb22-331"><a href="#cb22-331"></a>  i, </span>
+<span id="cb22-332"><a href="#cb22-332"></a>  unnest(generate_series(<span class="dv">1</span>, i))</span>
+<span id="cb22-333"><a href="#cb22-333"></a><span class="kw">from</span> </span>
+<span id="cb22-334"><a href="#cb22-334"></a>  generate_series(<span class="dv">1</span>, <span class="dv">10</span>) tbl(i)</span>
 <span id="cb22-335"><a href="#cb22-335"></a></span>
-<span id="cb22-336"><a href="#cb22-336"></a><span class="in">;</span></span>
+<span id="cb22-336"><a href="#cb22-336"></a>;</span>
 <span id="cb22-337"><a href="#cb22-337"></a></span>
 <span id="cb22-338"><a href="#cb22-338"></a><span class="in">```</span></span>
 <span id="cb22-339"><a href="#cb22-339"></a></span>
@@ -2522,14 +2499,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-346"><a href="#cb22-346"></a>計算結果をGeoJSONに書き出す。時間がかかるので未実行です。</span>
 <span id="cb22-347"><a href="#cb22-347"></a></span>
 <span id="cb22-348"><a href="#cb22-348"></a><span class="in">```{sql connection=con}</span></span>
-<span id="cb22-349"><a href="#cb22-349"></a><span class="in">#| eval: false</span></span>
-<span id="cb22-350"><a href="#cb22-350"></a><span class="in">COPY (</span></span>
-<span id="cb22-351"><a href="#cb22-351"></a><span class="in">  select *</span></span>
-<span id="cb22-352"><a href="#cb22-352"></a><span class="in">  from ag_pref_intersection</span></span>
-<span id="cb22-353"><a href="#cb22-353"></a><span class="in">)</span></span>
-<span id="cb22-354"><a href="#cb22-354"></a><span class="in">TO './data/intersection_ag_n03.geojson'</span></span>
-<span id="cb22-355"><a href="#cb22-355"></a><span class="in">WITH (FORMAT GDAL, DRIVER 'GeoJSON', SRS '4612')</span></span>
-<span id="cb22-356"><a href="#cb22-356"></a><span class="in">;</span></span>
+<span id="cb22-349"><a href="#cb22-349"></a><span class="co">#| eval: false</span></span>
+<span id="cb22-350"><a href="#cb22-350"></a>COPY (</span>
+<span id="cb22-351"><a href="#cb22-351"></a>  <span class="kw">select</span> <span class="op">*</span></span>
+<span id="cb22-352"><a href="#cb22-352"></a>  <span class="kw">from</span> ag_pref_intersection</span>
+<span id="cb22-353"><a href="#cb22-353"></a>)</span>
+<span id="cb22-354"><a href="#cb22-354"></a><span class="kw">TO</span> <span class="st">'./data/intersection_ag_n03.geojson'</span></span>
+<span id="cb22-355"><a href="#cb22-355"></a><span class="kw">WITH</span> (<span class="fu">FORMAT</span> GDAL, DRIVER <span class="st">'GeoJSON'</span>, SRS <span class="st">'4612'</span>)</span>
+<span id="cb22-356"><a href="#cb22-356"></a>;</span>
 <span id="cb22-357"><a href="#cb22-357"></a><span class="in">```</span></span>
 <span id="cb22-358"><a href="#cb22-358"></a></span>
 <span id="cb22-359"><a href="#cb22-359"></a></span>
